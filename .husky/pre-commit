@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+# Skip the hook in CI to keep the workflow fast and deterministic.
+if [ "$CI" = "true" ]; then
+  exit 0
+fi
+
+npx --no-install lint-staged

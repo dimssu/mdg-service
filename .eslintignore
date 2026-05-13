@@ -1,0 +1,15 @@
+node_modules
+dist
+build
+coverage
+*.min.*
+backend/coverage
+backend/dist
+frontend/dist
+shared/dist
+backend/jest.config.cjs
+backend/scripts
+frontend/tailwind.config.ts
+frontend/postcss.config.js
+frontend/vite.config.ts
+scripts

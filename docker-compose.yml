@@ -1,0 +1,36 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: dk-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: dealer-kavach
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: dk-backend
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+    env_file:
+      - backend/.env
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/dealer_kavach
+
+volumes:
+  mongo-data:
+    name: dk-mongo-data
