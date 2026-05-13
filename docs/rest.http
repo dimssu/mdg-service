@@ -1,0 +1,155 @@
+### Dealer Kavach - VS Code REST Client collection
+### Install: REST Client (humao.rest-client) extension.
+### Run requests top-to-bottom; @token / @dealerId / @dsId / @runId are
+### populated automatically from prior responses.
+
+@host = http://localhost:4000
+@base = {{host}}/api/v1
+@adminEmail = admin@dealerkavach.local
+@adminPassword = Admin@12345
+
+### Health
+GET {{host}}/health
+
+### 1. Login (captures token)
+# @name login
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{adminEmail}}",
+  "password": "{{adminPassword}}"
+}
+
+@token = {{login.response.body.data.token}}
+
+### 2. Who am I
+GET {{base}}/auth/me
+Authorization: Bearer {{token}}
+
+### 3. List plugin catalog
+GET {{base}}/services
+Authorization: Bearer {{token}}
+
+### 4. List dealers
+GET {{base}}/dealers?page=1&pageSize=20&sort=createdAt:desc
+Authorization: Bearer {{token}}
+
+### 5. Create a new dealer (stage 1)
+# @name createDealer
+POST {{base}}/dealers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "REST Demo Petrol",
+  "ownerContact": {
+    "name": "Demo Owner",
+    "phone": "+91-9000000000",
+    "email": "demo.owner@example.com"
+  },
+  "pumpLocation": {
+    "address": "12 MG Road, Bengaluru",
+    "city": "Bengaluru",
+    "state": "KA",
+    "pincode": "560001",
+    "lat": 12.97,
+    "lng": 77.59
+  },
+  "gst": "29AAACR5055K1Z7",
+  "pan": "AAACR5055K"
+}
+
+@dealerId = {{createDealer.response.body.data.id}}
+
+### 6. Complete stage 2 (auto-promotes to ACTIVE)
+PATCH {{base}}/dealers/{{dealerId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "bankDetails": {
+    "accountHolder": "REST Demo Petrol",
+    "accountNumber": "123456789012",
+    "ifsc": "HDFC0000123",
+    "bankName": "HDFC Bank",
+    "branch": "MG Road"
+  },
+  "complianceDocs": [
+    { "label": "GST Certificate", "url": "https://example.com/gst.pdf" },
+    { "label": "PAN Card", "url": "https://example.com/pan.pdf" }
+  ],
+  "slaTier": "SILVER"
+}
+
+### 7. Audit log for the new dealer
+GET {{base}}/dealers/{{dealerId}}/audit
+Authorization: Bearer {{token}}
+
+### 8. Attach the daily-stock-check plugin
+# @name attachService
+POST {{base}}/dealers/{{dealerId}}/services
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "serviceId": "daily-stock-check",
+  "config": {
+    "warehouseId": "WH-BLR-DEMO",
+    "threshold": 75
+  }
+}
+
+@dsId = {{attachService.response.body.data.id}}
+
+### 9. List attached services for the dealer
+GET {{base}}/dealers/{{dealerId}}/services
+Authorization: Bearer {{token}}
+
+### 10. Run the attached service now
+# @name runNow
+POST {{base}}/dealer-services/{{dsId}}/run-now
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{}
+
+@runId = {{runNow.response.body.data.runId}}
+
+### 11. Look up the run we just created
+GET {{base}}/runs/{{runId}}
+Authorization: Bearer {{token}}
+
+### 12. List recent runs (filtered to this dealer)
+GET {{base}}/runs?dealerId={{dealerId}}&page=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### 13. Pause the attached service
+PATCH {{base}}/dealer-services/{{dsId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "PAUSED"
+}
+
+### 14. Re-activate it
+PATCH {{base}}/dealer-services/{{dsId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "ACTIVE"
+}
+
+### 15. Dashboard overview snapshot
+GET {{base}}/overview
+Authorization: Bearer {{token}}
+
+### 16. Detach the service
+DELETE {{base}}/dealer-services/{{dsId}}
+Authorization: Bearer {{token}}
+
+### 17. Delete the demo dealer (cascades dealer-services)
+DELETE {{base}}/dealers/{{dealerId}}
+Authorization: Bearer {{token}}
