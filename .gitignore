@@ -39,9 +39,17 @@ Thumbs.db
 .parcel-cache/
 .turbo/
 .runtime/
+var/
 
 # Local-only tooling
 .claude/
+
+# Per-service repos (cloned alongside this meta workspace as
+# independent repositories — see scripts/clone-services.sh)
+mdg-backend/
+mdg-admin/
+mdg-client/
+mdg-app/
 
 # Misc
 *.tgz

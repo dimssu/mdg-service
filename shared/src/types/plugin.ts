@@ -5,9 +5,32 @@ import type { Cadence } from './enums';
  * Plugins receive a scoped logger and the validated config; they should
  * never reach into framework globals.
  */
+export type RunStepStatus = 'start' | 'ok' | 'error';
+
+export interface RunStepRecord {
+  name: string;
+  status: RunStepStatus;
+  startedAt?: Date;
+  finishedAt?: Date;
+  durationMs?: number;
+  message?: string;
+  meta?: Record<string, unknown>;
+  error?: { message: string; stack?: string };
+}
+
+export interface RunArtifactRecord {
+  reportCode?: string;
+  filename: string;
+  storageKey: string;
+  size?: number;
+  contentType?: string;
+  createdAt?: Date;
+}
+
 export interface ServiceRunContext {
   dealerId: string;
   dealerServiceId: string;
+  runId: string;
   config: Record<string, unknown>;
   now: Date;
   logger: {
@@ -15,6 +38,17 @@ export interface ServiceRunContext {
     warn: (...a: unknown[]) => void;
     error: (...a: unknown[]) => void;
   };
+  /**
+   * Persist a per-step record on the ServiceRun. Called from inside long-running
+   * plugins so admins can see live progress in the run-detail UI.
+   * Implementations should be cheap (single Mongo $push) and tolerant of errors.
+   */
+  recordStep: (step: RunStepRecord) => Promise<void>;
+  /**
+   * Persist an artifact reference on the ServiceRun. The actual upload to the
+   * storage backend is the plugin's responsibility; this just records the key.
+   */
+  recordArtifact: (artifact: RunArtifactRecord) => Promise<void>;
 }
 
 export interface ServiceRunResult {

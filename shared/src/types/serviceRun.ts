@@ -1,5 +1,25 @@
 import type { ServiceRunStatus } from './enums';
 
+export interface ServiceRunStep {
+  name: string;
+  status: 'start' | 'ok' | 'error';
+  startedAt?: string;
+  finishedAt?: string;
+  durationMs?: number;
+  message?: string;
+  meta?: Record<string, unknown>;
+  error?: { message: string; stack?: string };
+}
+
+export interface ServiceRunArtifact {
+  id: string;
+  reportCode?: string;
+  filename: string;
+  size?: number;
+  contentType?: string;
+  createdAt: string;
+}
+
 export interface ServiceRun {
   id: string;
   dealerId: string;
@@ -14,6 +34,8 @@ export interface ServiceRun {
     message: string;
     stack?: string;
   };
+  steps?: ServiceRunStep[];
+  artifacts?: ServiceRunArtifact[];
   createdAt: string;
   updatedAt: string;
 }

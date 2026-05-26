@@ -8,16 +8,17 @@
   },
   "workspaces": [
     "shared",
-    "backend",
-    "frontend"
+    "mdg-backend",
+    "mdg-admin",
+    "mdg-client"
   ],
   "scripts": {
-    "dev": "concurrently -k -n backend,frontend -c blue,magenta \"npm --workspace backend run dev\" \"npm --workspace frontend run dev\"",
-    "build": "npm --workspace shared run build && npm --workspace backend run build && npm --workspace frontend run build",
-    "seed": "npm --workspace backend run seed",
+    "dev": "concurrently -k -n backend,admin,client -c blue,magenta,cyan \"npm --workspace mdg-backend run dev\" \"npm --workspace mdg-admin run dev\" \"npm --workspace mdg-client run dev\"",
+    "build": "npm --workspace shared run build && npm --workspace mdg-backend run build && npm --workspace mdg-admin run build && npm --workspace mdg-client run build",
+    "seed": "npm --workspace mdg-backend run seed",
     "test": "npm --workspaces --if-present run test",
-    "lint": "eslint \"backend/src/**/*.{ts,tsx}\" \"frontend/src/**/*.{ts,tsx}\" \"shared/src/**/*.ts\" --max-warnings=0",
-    "lint:fix": "eslint \"backend/src/**/*.{ts,tsx}\" \"frontend/src/**/*.{ts,tsx}\" \"shared/src/**/*.ts\" --fix",
+    "lint": "eslint \"mdg-backend/src/**/*.{ts,tsx}\" \"mdg-admin/src/**/*.{ts,tsx}\" \"mdg-client/src/**/*.{ts,tsx}\" \"shared/src/**/*.ts\" --max-warnings=0",
+    "lint:fix": "eslint \"mdg-backend/src/**/*.{ts,tsx}\" \"mdg-admin/src/**/*.{ts,tsx}\" \"mdg-client/src/**/*.{ts,tsx}\" \"shared/src/**/*.ts\" --fix",
     "typecheck": "npm --workspaces --if-present run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
