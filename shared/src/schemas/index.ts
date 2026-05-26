@@ -4,3 +4,4 @@ export * from './dealer';
 export * from './dealerService';
 export * from './serviceRun';
 export * from './onboarding';
+export * from './chat';

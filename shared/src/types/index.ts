@@ -6,3 +6,6 @@ export * from './dealerService';
 export * from './serviceRun';
 export * from './auditLog';
 export * from './plugin';
+export * from './user';
+export * from './conversation';
+export * from './socket';
