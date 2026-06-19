@@ -4,7 +4,11 @@ export const attachmentSchema = z.object({
   storageKey: z.string().min(1).max(512),
   filename: z.string().min(1).max(255),
   contentType: z.string().min(1).max(127),
-  size: z.number().int().nonnegative().max(25 * 1024 * 1024),
+  size: z
+    .number()
+    .int()
+    .nonnegative()
+    .max(25 * 1024 * 1024),
   kind: z.enum(['image', 'file']),
 });
 export type AttachmentInput = z.infer<typeof attachmentSchema>;
@@ -22,7 +26,11 @@ export type SendMessageInput = z.infer<typeof sendMessageSchema>;
 export const presignUploadSchema = z.object({
   filename: z.string().min(1).max(255),
   contentType: z.string().min(1).max(127),
-  size: z.number().int().positive().max(25 * 1024 * 1024),
+  size: z
+    .number()
+    .int()
+    .positive()
+    .max(25 * 1024 * 1024),
   scope: z.enum(['chat', 'avatar']).default('chat'),
   conversationId: z.string().optional(),
 });
@@ -32,6 +40,28 @@ export const assignConversationSchema = z.object({
   adminId: z.string().optional(),
 });
 export type AssignConversationInput = z.infer<typeof assignConversationSchema>;
+
+export const recordTypeSchema = z.enum(['dsr', 'invoice', 'compliance', 'statement', 'other']);
+
+export const createRecordSchema = z.object({
+  dealerId: z.string().min(1),
+  type: recordTypeSchema,
+  title: z.string().trim().min(1).max(120),
+  periodLabel: z.string().trim().max(60).optional(),
+  note: z.string().trim().max(1000).optional(),
+  attachment: attachmentSchema,
+  /** When true, also post a record card into the dealer's conversation. */
+  announceInChat: z.boolean().optional().default(true),
+});
+export type CreateRecordInput = z.infer<typeof createRecordSchema>;
+
+export const updateTicketSchema = z.object({
+  priority: z.enum(['low', 'normal', 'high', 'urgent']).optional(),
+  category: z
+    .enum(['general', 'sales', 'compliance', 'billing', 'technical', 'onboarding'])
+    .optional(),
+});
+export type UpdateTicketInput = z.infer<typeof updateTicketSchema>;
 
 export const createDealerUserSchema = z.object({
   dealerId: z.string().min(1),
