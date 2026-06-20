@@ -20,11 +20,16 @@ runs it, **preconditions**, **numbered steps**, the **expected result**, and a
 
 ## Personas under test
 
-| Persona | Role           | Where they work       | Login surface    |
-| ------- | -------------- | --------------------- | ---------------- |
-| Arjun   | `admin`        | mdg-admin (web)       | mdg-admin login  |
-| Ramesh  | `dealer-owner` | mdg-client / Expo app | mdg-client login |
-| Sunita  | `dealer-staff` | mdg-client / Expo app | mdg-client login |
+| Persona | Role                                | Where they work       | Login surface    |
+| ------- | ----------------------------------- | --------------------- | ---------------- |
+| Arjun   | `admin`                             | mdg-admin (web)       | mdg-admin login  |
+| Ramesh  | `dealer-owner`                      | mdg-client / Expo app | mdg-client login |
+| Sunita  | `dealer-staff` (`title: "Manager"`) | mdg-client / Expo app | mdg-client login |
+
+Ramesh and Sunita belong to the **same dealer organisation** (petrol pump) but
+each has their **own private conversation** with support. Records and service
+history are shared across the org. Each member signs in with an email + password
+login issued by staff during onboarding (there is no WhatsApp group).
 
 ## Environments / fixtures
 
@@ -33,41 +38,49 @@ runs it, **preconditions**, **numbered steps**, the **expected result**, and a
 - **Admin web:** mdg-admin (Vercel).
 - **Dealer web:** mdg-client (Vercel), mobile-first.
 - **Expo app:** mdg-app — WebView wrapping mdg-client + native push bridge.
-- **Test dealer:** one provisioned dealer with a `dealer-owner` (Ramesh) and a
-  `dealer-staff` (Sunita) user. No self-signup — dealers are provisioned by staff.
+- **Test dealer:** one provisioned dealer organisation with a `dealer-owner`
+  (Ramesh) and a manager `dealer-staff` `title: "Manager"` (Sunita) — each with
+  their own app login (email + password) and their own private conversation. No
+  self-signup — dealers are provisioned by staff, who issue each member's login
+  in the app-first onboarding flow (final step: `issue-app-login`).
 - **Login response contract:** `POST /api/v1/auth/login` returns
   `{ ok: true, data: { token, user, admin? } }`.
 
 ## Glossary mapping (product language vs. data fields)
 
-| Dealer sees          | Admin sees                 | Data field                         |
-| -------------------- | -------------------------- | ---------------------------------- |
-| just a chat          | OPEN / ASSIGNED / RESOLVED | `Conversation.status`              |
-| (nothing)            | Low/Normal/High/Urgent     | `Conversation.priority`            |
-| (nothing)            | general/sales/compliance/… | `Conversation.category`            |
-| "Daily Sales Report" | `dsr`                      | `DealerRecord.type`                |
-| unread badge         | unread dot in queue        | `unreadByDealer` / `unreadByAdmin` |
+| Dealer sees          | Admin sees                            | Data field                         |
+| -------------------- | ------------------------------------- | ---------------------------------- |
+| my own chat          | one thread per member, grouped by org | `Conversation.userId` (unique)     |
+| just a chat          | OPEN / ASSIGNED / RESOLVED            | `Conversation.status`              |
+| (nothing)            | Low/Normal/High/Urgent                | `Conversation.priority`            |
+| (nothing)            | general/sales/compliance/…            | `Conversation.category`            |
+| "Daily Sales Report" | `dsr`                                 | `DealerRecord.type`                |
+| (nothing)            | services-provided history             | `ServiceLog` (org-shared)          |
+| (a notification)     | push on reply/record/resolve          | `Device.expoPushToken`             |
+| unread badge         | unread dot in queue                   | `unreadByDealer` / `unreadByAdmin` |
 
 ---
 
 ## Scenario index
 
-| #   | Scenario                                             | Persona        | PRD story |
-| --- | ---------------------------------------------------- | -------------- | --------- |
-| 1   | Dealer first login & onboarding                      | dealer-owner   | §8.1      |
-| 2   | Auth & roles — permitted and forbidden paths         | all            | §10, §7   |
-| 3   | Send a query with a photo                            | dealer-staff   | §8.2      |
-| 4   | Admin pick up → priority/category → reply → resolve  | admin          | §8.5      |
-| 5   | Reopen a resolved conversation                       | dealer + admin | §8.5 AC5  |
-| 6   | Admin uploads a DSR (record)                         | admin          | §8.6      |
-| 7   | Dealer sees in-chat record card + opens it           | dealer-owner   | §8.3      |
-| 8   | Dealer finds the record in the Reports/Records shelf | dealer-owner   | §8.4      |
-| 9   | Realtime delivery — no duplicate messages            | admin + dealer | §6        |
-| 10  | Typing & read receipts                               | admin + dealer | §6        |
-| 11  | Priority/category never leak to dealers              | dealer-owner   | §7, §8.5  |
-| 12  | Expo app — file picker, push token, offline, back    | dealer         | §10       |
-| 13  | Mobile responsiveness (no horizontal scroll)         | dealer         | §8.1 AC5  |
-| A   | **First-time intimidated dealer** (confusion audit)  | dealer-owner   | §9        |
+| #   | Scenario                                             | Persona         | PRD story    |
+| --- | ---------------------------------------------------- | --------------- | ------------ |
+| 1   | Dealer first login & onboarding                      | dealer-owner    | §8.1         |
+| 2   | Auth & roles — permitted and forbidden paths         | all             | §10, §7      |
+| 3   | Send a query with a photo                            | dealer-staff    | §8.2         |
+| 4   | Admin pick up → priority/category → reply → resolve  | admin           | §8.5         |
+| 5   | Reopen a resolved conversation                       | dealer + admin  | §8.5 AC5     |
+| 6   | Admin uploads a DSR (record)                         | admin           | §8.6         |
+| 7   | Dealer sees in-chat record card + opens it           | dealer-owner    | §8.3         |
+| 8   | Dealer finds the record in the Reports/Records shelf | dealer-owner    | §8.4         |
+| 9   | Realtime delivery — no duplicate messages            | admin + dealer  | §6           |
+| 10  | Typing & read receipts                               | admin + dealer  | §6           |
+| 11  | Priority/category never leak to dealers              | dealer-owner    | §7, §8.5     |
+| 12  | Expo app — file picker, push delivery, offline, back | dealer          | §10          |
+| 13  | Mobile responsiveness (no horizontal scroll)         | dealer          | §8.1 AC5     |
+| 14  | Per-member private chats (org grouping + isolation)  | admin + dealers | §7           |
+| 15  | Service log on resolve + services-provided history   | admin           | §8.5 AC5/AC7 |
+| A   | **First-time intimidated dealer** (confusion audit)  | dealer-owner    | §9           |
 
 ---
 
@@ -77,7 +90,8 @@ Maps to PRD §8.1. Validates a calm, chat-first landing with no setup wizard.
 
 **Preconditions**
 
-- Ramesh has been provisioned (email/phone + password) by staff.
+- Ramesh has been provisioned with an **app login (email + password)** by staff
+  during onboarding (the `issue-app-login` step) — no WhatsApp group is involved.
 - Ramesh has never logged in before.
 
 **Steps**
@@ -96,10 +110,11 @@ Maps to PRD §8.1. Validates a calm, chat-first landing with no setup wizard.
 
 **Expected result**
 
-Ramesh lands directly on the chat screen. Empty state greets him and offers
-chips; tapping a chip seeds the composer. No admin/triage vocabulary anywhere.
+Ramesh lands directly on **his own** chat screen. Empty state greets him and
+offers chips; tapping a chip seeds the composer. No admin/triage vocabulary
+anywhere.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -122,9 +137,15 @@ Maps to PRD §10 and Architecture §7 (route-level RBAC, dealer scoping).
 4. As Ramesh, call `GET /api/v1/records?dealerId=<Dealer B id>`. Confirm the
    response is scoped to Ramesh's own dealer only (Dealer B's records are NOT
    returned — server forces `dealerId` to the caller's own).
+   4b. As Ramesh, attempt to open **Sunita's** conversation (same org, different
+   member). Confirm it is refused — a member is scoped to their own `userId`
+   thread; same-org members cannot read each other's private chats. (Records and
+   service history, by contrast, are correctly shared at the org level.)
 5. As Ramesh, attempt `PATCH /api/v1/conversations/:id/ticket` (set priority).
    Confirm it is forbidden (admin-only write).
 6. As Ramesh, attempt `POST /api/v1/records` (upload a record). Confirm forbidden.
+   6b. As Ramesh, attempt `POST /api/v1/service-logs` and `POST /conversations/:id/resolve`.
+   Confirm both are forbidden (admin-only).
 7. Submit a login with wrong password. Confirm a gentle "Invalid credentials"
    (401), not a stack trace.
 8. Submit a login with a malformed body. Confirm 400 (validation), not 500.
@@ -136,7 +157,7 @@ Admin can reach admin surfaces and writes; dealers cannot. Dealer reads are
 forced to their own `dealerId`; cross-dealer access and admin writes are
 refused. Bad input fails gracefully.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -166,7 +187,7 @@ Maps to PRD §8.2 (`sendMessageSchema`, presign + image attachment).
 Image uploads via presign and sends with the text. Empty sends are blocked
 gently; oversize is explained. Admin sees it live and unread.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -189,18 +210,25 @@ Maps to PRD §8.5 (`assignConversationSchema`, `updateTicketSchema`).
    Confirm it persists (reload the conversation; still High).
 4. Set **Category = Technical**. Confirm it persists.
 5. Type a reply in the composer and send. Confirm the dealer-facing unread is
-   cleared and the dealer receives it in real time (verify on a dealer session).
-6. Click **Resolve**. Confirm status badge becomes **Resolved** and the dealer
-   composer behavior for resolved is correct (see Scenario 5).
+   cleared and the member receives it in real time (verify on a dealer session),
+   and a push notification fires to that member (if a device is registered).
+6. Click **Resolve**. Confirm a **service-log dialog** appears and resolution is
+   **blocked until a service is logged**: choose a service from the catalog
+   (`GET /services`) — or **Other** + a free-text service name — and enter required
+   **notes**. Confirm submitting with no service or empty notes is rejected.
+   6b. Submit a valid service log. Confirm status becomes **Resolved**, the member
+   gets a "resolved" push, and the logged service now appears in the dealer's
+   **services-provided** history on the dealer detail page (org-shared).
 7. Confirm the conversation now appears under the **Resolved** filter.
 
 **Expected result**
 
 Arjun owns, triages (priority + category persist), replies (clears dealer
-unread, delivered live), and resolves the conversation through OPEN → ASSIGNED →
-RESOLVED.
+unread, delivered live, pushes), and resolves the conversation through OPEN →
+ASSIGNED → RESOLVED **only after logging the service provided**, which lands in
+the dealer's services-provided history.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -231,7 +259,7 @@ A resolved conversation can be reopened (by admin, and/or by a new dealer
 message), preserving full history. Record the exact reopen trigger observed —
 this resolves PRD §11's open question for the build.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -266,7 +294,7 @@ Record is created via presign + `POST /records`, appears in the admin Reports
 list, is attributed to Arjun, and (with announce on) is posted into the dealer's
 chat. Failures are recoverable.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -297,7 +325,7 @@ Maps to PRD §8.3 (`record:new` / `message:new`, system card, signed URL, push).
 The record card arrives live in chat with plain labels, opens via signed URL,
 and (in Expo) triggers a push that deep-links to the chat.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -325,7 +353,7 @@ Maps to PRD §8.4 (Records shelf grouped by type, signed-URL open).
 The shelf is one tap from chat, groups records by plain-language type, shows the
 DSR with period, opens via signed URL, and exposes no triage vocabulary.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -357,7 +385,7 @@ the explicit anti-duplicate regression check.
 Every message renders exactly once on every connected client, in order, with no
 duplicates on optimistic send, fan-out, or reconnect.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -382,7 +410,7 @@ Maps to Architecture §6 (`typing`, `read`) and PRD "Should have".
 Typing indicators appear and clear correctly; reading a message clears unread on
 the appropriate side.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -409,13 +437,13 @@ Maps to PRD §7 rule and §8.5 AC6 (admin-only fields stripped server-side).
 
 Triage fields are absent from every dealer-facing surface (UI, REST, socket).
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
-## 12. Expo app — file picker, push token, offline, back — dealer
+## 12. Expo app — file picker, push delivery, offline, back — dealer
 
-Maps to PRD §10 and mdg-app README (WebView shell + native bridge).
+Maps to PRD §10 and mdg-app README (WebView shell + native push bridge).
 
 **Preconditions**
 
@@ -430,11 +458,14 @@ Maps to PRD §10 and mdg-app README (WebView shell + native bridge).
    gallery) and the chosen image uploads through the WebView.
 3. **Push token:** after login, confirm the shell registers an Expo push token
    and relays it to the web layer (`expo-push-token` event /
-   `window.__EXPO_PUSH_TOKEN__`), which POSTs it to associate the device.
-   (Requires a real `eas.projectId`.)
-4. **Push deep link:** trigger a record/message notification (Scenario 7). Tap
-   it. Confirm the app deep-links to the relevant chat (not a blank or home
-   screen).
+   `window.__EXPO_PUSH_TOKEN__`), which calls `POST /api/v1/devices` to register
+   the `Device`. On logout, confirm `DELETE /api/v1/devices` unregisters it.
+   (Requires a real `eas.projectId` and `PUSH_ENABLED=true` on the backend.)
+4. **Push deep link:** trigger a notification by having an admin reply, upload a
+   record, or resolve the member's request (Scenarios 4/6/7). Confirm a push is
+   **actually delivered** to the device (admin reply / resolved → that member;
+   new record → all org members). Tap it and confirm the app deep-links to the
+   relevant chat or record (not a blank or home screen).
 5. **Offline:** enable airplane mode. Confirm the offline screen appears (not a
    blank WebView). Restore connectivity; confirm it recovers (pull-to-refresh
    works).
@@ -447,10 +478,10 @@ Maps to PRD §10 and mdg-app README (WebView shell + native bridge).
 **Expected result**
 
 The WebView shell provides persistent session, native file picker, push token
-capture + deep-link, an offline screen, graceful load-failure handling, and
-correct Android back behavior.
+register/unregister with **real push delivery** + deep-link, an offline screen,
+graceful load-failure handling, and correct Android back behavior.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -477,7 +508,77 @@ Maps to PRD §8.1 AC5 and §9 (thumb-first, big targets).
 Every dealer screen is usable on a small phone with large tap targets and no
 horizontal scrolling.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+
+---
+
+## 14. Per-member private chats (org grouping + isolation) — admin + dealers
+
+Maps to Architecture §3/§6 and PRD §7 (per-member conversations, org-shared records).
+
+**Preconditions**
+
+- Ramesh (`dealer-owner`) and Sunita (manager `dealer-staff`) belong to the same
+  dealer organisation, each with their own login. Arjun is in mdg-admin.
+
+**Steps**
+
+1. As Sunita, send a message. As Ramesh, send a different message. Confirm each
+   sees **only their own** thread — Ramesh does not see Sunita's message in his
+   chat and vice versa.
+2. In the admin inbox, confirm **two conversations** appear for this organisation —
+   one per member — **grouped under the same dealer/pump**, each separately
+   triageable.
+3. As Arjun, reply to Sunita's thread. Confirm only **Sunita** receives the
+   message/push, not Ramesh.
+4. As Arjun, upload a record for the dealer (Scenario 6) with announce on.
+   Confirm the record appears in **both** Ramesh's and Sunita's Reports shelf
+   (records are org-shared) and that `record:new` reaches both members.
+5. Confirm a service log created at resolution (Scenario 15) is visible in the
+   dealer's services-provided history regardless of which member's thread it came
+   from (org-shared history).
+
+**Expected result**
+
+Each member has a private conversation; same-org members cannot see each other's
+chats; the admin inbox groups per-member threads by organisation; records and
+service history are shared across all members of the dealer.
+
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+
+---
+
+## 15. Service log on resolve + services-provided history — `admin` (Arjun)
+
+Maps to PRD §8.5 AC5/AC7 and Architecture §3/§5 (`ServiceLog`, resolve requires a log).
+
+**Preconditions**
+
+- An ASSIGNED conversation for the dealer (from Scenario 4). The service catalog
+  (`GET /services`) returns at least one service.
+
+**Steps**
+
+1. Click **Resolve**. Confirm the service-log dialog opens and resolution is
+   blocked until a service log is provided.
+2. Try to submit with **no service selected** — confirm it is rejected.
+3. Try to submit with a service but **empty notes** — confirm it is rejected
+   (notes are required).
+4. Select a catalog service, add notes, submit. Confirm the conversation becomes
+   **Resolved** and a `ServiceLog` is created (`POST /conversations/:id/resolve`).
+5. Resolve another request (or use `POST /service-logs`) choosing **Other** +
+   a free-text service name + notes. Confirm it is accepted.
+6. Open the dealer detail page. Confirm the **services-provided history** lists
+   both logs (catalog + "Other"), newest first, attributed to Arjun, and shared
+   at the organisation level (visible regardless of which member's thread).
+
+**Expected result**
+
+A conversation cannot be resolved without a valid service log; both catalog and
+"Other" services are supported with required notes; logs build a per-dealer,
+org-shared services-provided history attributed to the admin who logged them.
+
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -489,8 +590,8 @@ horizontal scrolling.
 > guidance and only records where the user hesitates, taps the wrong thing,
 > reads aloud, or asks for help.
 
-**Persona:** Ramesh — 52, uses only WhatsApp and phone calls, intimidated by
-apps with menus, logins, and English jargon.
+**Persona:** Ramesh — 52, uses only everyday chat apps and phone calls,
+intimidated by apps with menus, logins, and English jargon.
 
 **Preconditions**
 
@@ -529,7 +630,7 @@ then find your Daily Sales Report."
    → ☐ smooth ☐ hesitated ☐ needed help
 7. **Jargon scan.** During the whole run, did the dealer encounter any word that
    confused them (ticket, priority, category, queue, DSR-as-acronym, asset)?
-   List each word that caused a pause: ******************\_\_******************
+   List each word that caused a pause: ********\*\*********\_\_********\*\*********
 
 **Metrics to capture (PRD §5 / §9):**
 
@@ -538,7 +639,7 @@ then find your Daily Sales Report."
 - **DSR opened?** ☐ yes ☐ no
 - **Total confusion points** (count of "hesitated" + "needed help" above): \_\_\_\_
 - **"Could you do that without help?" (ask afterward):** ☐ yes ☐ no
-- **Verbatim quote of the biggest frustration:** ************\_\_\_\_************
+- **Verbatim quote of the biggest frustration:** ****\*\*\*\*****\_\_\_\_****\*\*\*\*****
 
 **Expected result (acceptance bar)**
 
@@ -547,7 +648,7 @@ DSR — **unaided**, in **≤ 2 minutes to first message**, with **zero** exposu
 to admin/triage jargon. Two or more "needed help" confusion points is a FAIL for
 the approachability thesis even if every feature technically works.
 
-**PASS ☐ FAIL ☐** Notes: **********************\_\_**********************
+**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
 
 ---
 
@@ -588,7 +689,9 @@ non-zero on any failure. **Do not start a UAT session if smoke.sh fails.**
 | 11       |        |        |      |
 | 12       |        |        |      |
 | 13       |        |        |      |
+| 14       |        |        |      |
+| 15       |        |        |      |
 | A        |        |        |      |
 
 **Release recommendation:** ☐ Go ☐ Go with caveats ☐ No-go
-Caveats / blockers: ************************\_\_\_\_************************
+Caveats / blockers: **********\*\*\*\***********\_\_\_\_**********\*\*\*\***********

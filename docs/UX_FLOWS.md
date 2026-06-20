@@ -2,7 +2,10 @@
 
 Annotated, engineer-actionable flows for the dealer app (`mdg-client`) and the
 admin portal (`mdg-admin`). Each flow lists the screens/components involved and
-the **anti-intimidation choices** that keep it feeling "just like WhatsApp."
+the **anti-intimidation choices** that keep it feeling "just like a familiar
+messaging app." All dealer communication is in-app — there is no WhatsApp
+channel; each member has their own private chat with support, while the pump's
+records are shared across the team.
 
 Conventions: `→` next step · `[Component]` code reference · `(copy)` exact microcopy.
 
@@ -28,10 +31,16 @@ LoginPage                          ChatPage (default route)
 
 Steps:
 
+0. Before first login, the member already has an **app login (email + password)**
+   issued by staff during onboarding (the app-first 7-step flow ends in
+   `issue-app-login`). There is no WhatsApp group; the dealer `code` (e.g. `E01`)
+   identifies the organisation. Managers reuse `dealer-staff` with
+   `title: "Manager"` and each get their own login.
 1. Land on `/login`. Single card, one primary `Button` (Sign in). No signup —
    `(Need access? Contact your MDG account manager.)`.
 2. On success `login()` stores token+user, `navigate('/chat')`. There is **no
-   separate onboarding wizard**: the home screen _is_ the chat.
+   separate onboarding wizard**: the home screen _is_ the member's **own private
+   chat** (each member has their own thread; records/reports are shared across the pump).
 3. Empty chat shows `[EmptyState]` `(How can we help?)` / `(Send a message and a
 real person from our support team will reply.)` plus three quick-action chips
    (`Report an issue`, `Request a service`, `Talk to support`).
@@ -74,7 +83,8 @@ Steps:
 4. Upload happens per-file in `ChatPage`; a failed upload shows a plain toast
    `(Couldn't upload <name>: <reason>)` and the rest still send.
 5. Sent image renders in the bubble; tap opens a full-screen lightbox (tap to dismiss).
-6. Delivery feedback: `Check` (sent) → `CheckCheck` in teal (read) — familiar from WhatsApp.
+6. Delivery feedback: `Check` (sent) → `CheckCheck` in teal (read) — the familiar
+   sent/read pattern from everyday messaging apps.
 
 Anti-intimidation choices: camera/gallery via native picker (no custom uploader);
 big 40px round tap targets; staged previews so they see what they're sending; the
@@ -209,10 +219,21 @@ Steps:
    (urgent=danger, high=warning, low=info; normal shows none).
 4. **Reply:** type in the `[Composer]` (admin variant, `onSend({ body, attachments })`).
    Realtime via `useInboxSocket` (list) + `useConversationSocket` (thread); typing
-   indicator + read receipts mirror the dealer side.
-5. **Resolve:** ASSIGNED shows **Resolve** (`CheckCircle2`) → `resolveConv` → status
-   RESOLVED (`success` badge); composer disables. **Reopen** (`RotateCcw`) brings it back.
-6. Throughout, **Upload report** stays available in the header (flow 5).
+   indicator + read receipts mirror the dealer side. A reply also pushes a
+   notification to that member's registered device(s).
+5. **Resolve:** ASSIGNED shows **Resolve** (`CheckCircle2`) → opens a **service-log
+   dialog** (resolution requires logging the service): pick a service from the
+   catalog (`GET /services`) or **Other** + a free-text service name, plus required
+   **notes**. `resolveConv` posts the service log and sets status RESOLVED
+   (`success` badge); composer disables; the member gets a "resolved" push. The
+   logged service appears in the dealer's **services-provided** history on the
+   dealer detail page. **Reopen** (`RotateCcw`) brings it back.
+6. Throughout, **Upload report** stays available in the header (flow 5). A new
+   report pushes to **all** members of the organisation.
+
+Note: the inbox lists one conversation **per member**, grouped by organisation —
+resolving one member's thread does not touch another member's chat, but records
+and service history are shared across the pump.
 
 Anti-intimidation note (admin side = efficiency, not calm): the action set is
 **state-driven** — only the legal next action shows per status (Pick up / Resolve /

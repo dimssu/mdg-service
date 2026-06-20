@@ -68,7 +68,22 @@ export const createDealerUserSchema = z.object({
   email: z.string().email().toLowerCase(),
   name: z.string().min(1).max(120),
   role: z.enum(['dealer-owner', 'dealer-staff']),
+  /** Display label for the member, e.g. "Owner" or "Manager". */
+  title: z.string().trim().min(1).max(60).optional(),
   password: z.string().min(8).max(200),
   phone: z.string().max(40).optional(),
 });
 export type CreateDealerUserInput = z.infer<typeof createDealerUserSchema>;
+
+export const updateDealerUserSchema = z
+  .object({
+    name: z.string().trim().min(1).max(120).optional(),
+    title: z.string().trim().min(1).max(60).optional(),
+    phone: z.string().max(40).optional(),
+    status: z.enum(['ACTIVE', 'SUSPENDED']).optional(),
+    password: z.string().min(8).max(200).optional(),
+  })
+  .refine((v) => Object.keys(v).length > 0, {
+    message: 'At least one field must be provided',
+  });
+export type UpdateDealerUserInput = z.infer<typeof updateDealerUserSchema>;

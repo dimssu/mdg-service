@@ -3,7 +3,7 @@
 This documents the **client** design system as it ships today (`mdg-client`), the
 **admin** system where it differs (`mdg-admin`), and the canonical bar to hold.
 North star: a fuel dealer who distrusts technology should feel the app is "just
-like WhatsApp" — calm, familiar, never intimidating.
+like the messaging apps they already use" — calm, familiar, never intimidating.
 
 Source of truth in code:
 
@@ -113,7 +113,7 @@ Headings get `letter-spacing: -0.01em`.
 | Pill / chip label     | `text-[10px] font-medium uppercase tracking-wide` | record-type chip                      |
 
 `15px` for primary reading text is intentional and load-bearing for the
-WhatsApp feel — do not collapse it to the `14px` `text-sm` default.
+familiar-messaging-app feel — do not collapse it to the `14px` `text-sm` default.
 
 ---
 
