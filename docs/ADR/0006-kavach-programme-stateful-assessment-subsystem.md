@@ -145,6 +145,31 @@ KAVACH_ITEM_PAUSE / KAVACH_SOS_FLAG`.
   field-agent check, not a dealer-facing accusation. This matters if the score is ever shared upward
   to the oil company (open question, spec §10).
 
+## Update — 2026-06-30 (per-dealer reminder time + post-review hardening)
+
+Following an adversarial gap review, the sweep and several behaviours were reworked:
+
+- **Per-dealer, admin-editable digest hour.** `KavachProgramme.reminderHour` (0–23 IST, optional) is
+  admin-editable from the dealer's Kavach panel; absent → `env.KAVACH_DEFAULT_REMINDER_HOUR` (8). The
+  sweep now runs **hourly** (`env.KAVACH_SWEEP_CRON`, default `0 * * * *`, `env.KAVACH_TZ`): it refreshes
+  state, advances rungs, and evaluates escalation **every hour** (idempotently), but delivers each
+  dealer's single daily digest only when `istHour(now) === reminderHour` (still once/day via
+  `lastDigestAt`). Supersedes the original fixed `02:30` daily cron.
+- **`requiresProof` is enforced only for dealer self-service mark-done**, not for admin/`ADMIN_RESOLVE`
+  (the admin's ServiceLog is the attestation) — previously this blocked admins from resolving or
+  marking such items.
+- **Resolving an escalation conversation now resets ALL Kavach items attached to it** (a dealer has one
+  per-member thread, so multiple escalations share it), preventing orphaned, permanently-zeroed items.
+- **Daily items can now escalate** (the ladder-exhaustion gate is skipped for daily; they escalate on
+  `expiresAt + grace`).
+- **Escalation is CAS-guarded inside `escalateItem`** (both the sweep and manual paths), removing a
+  double-escalation race.
+- **Dealer-facing item lists always hide paused items**; mark-done rejects paused items.
+- **Dealers receive real `points` / `score.totalPoints`** (byBucket + validPoints stay admin-only) so the
+  Pump-health ring's optimistic tick and the Today-list ordering work.
+- New audit action `KAVACH_PROGRAMME_UPDATE`. An HTTP end-to-end integration test now covers
+  initiate → me → mark-done → sweep (escalate CRITICAL, not LIGHT) → resolve → score recovery.
+
 ### Naming awareness (not a blocker)
 
 "Kavach" (कवच, _armour/shield_) is the pre-decided product brand. It also names **Indian Railways'

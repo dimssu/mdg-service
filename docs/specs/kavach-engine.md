@@ -188,16 +188,18 @@ resolveSystemUser():
 
 The existing scheduler is `mdg-backend/src/scheduler/index.ts`: `startScheduler()` registers `cron.schedule('* * * * *', tick)` (the per-minute generic `DealerService` plugin loop). Kavach is stateful and per-item — it must **NOT** go through that `nextRunAt`-claim `tick()` loop or the plugin `run(ctx)` contract.
 
-Instead, register a **separate** IST-anchored cron task in `startScheduler()`, alongside (not through) the existing one:
+Instead, register a **separate** IST-anchored cron task in `startScheduler()`, alongside (not through) the existing one. The sweep runs **hourly** so each dealer's digest can be delivered at their own configured hour:
 
 ```
-cron.schedule('30 2 * * *', () => { evaluateKavachProgrammes(io).catch(log) }, { timezone: 'Asia/Kolkata' })
-// 02:30 IST = "early morning sweep"; the digest hour itself is a per-programme config (default 08:00 IST).
+cron.schedule(env.KAVACH_SWEEP_CRON, () => { evaluateKavachProgrammes(io).catch(log) }, { timezone: env.KAVACH_TZ })
+// default KAVACH_SWEEP_CRON = '0 * * * *' (top of every hour), KAVACH_TZ = 'Asia/Kolkata'.
 ```
 
 New file `mdg-backend/src/scheduler/kavach.ts` exporting `evaluateKavachProgrammes(io)`. Because the sweep emits socket events (§5) it needs the `AppIoServer`; `app.locals.io` is wired after `startScheduler()` in `index.ts`, so either (a) pass a lazy getter `() => app.locals.io`, or (b) move the Kavach cron registration to just after `app.locals.io = io` in `bootstrap()`. The design uses **(a) a lazy io accessor** so the sweep degrades gracefully (push + chat persistence still happen even if `io` is momentarily absent — emit is best-effort, same as the resolve handler's `if (io) ...` guard).
 
-The sweep is **day-grained** and **must be safe to run twice the same day** (§3.4). A 02:30 daily cadence is the unit; the schedule interval is irrelevant to correctness because all sends are gated on persisted item state, not on tick timing.
+**Per-dealer digest hour.** Each programme carries an optional `reminderHour` (0–23 IST); absent → `env.KAVACH_DEFAULT_REMINDER_HOUR` (8). On each hourly tick the sweep refreshes item state, advances reminder rungs, and evaluates escalation for ALL active programmes (these are idempotent — CAS / `isSameIstDay` / grace-anchored — so hourly evaluation only makes them timelier). It then delivers the consolidated **daily digest only when `istHour(now) === reminderHour`**, still capped to once per IST day by the `lastDigestAt` gate. So escalation is responsive (hourly) while the dealer's single nudge lands at their chosen local hour.
+
+The sweep is **day-grained** for state and digest idempotency and **must be safe to run twice the same hour/day** (§3.4): all sends are gated on persisted item state + `lastDigestAt`/CAS, not on tick timing.
 
 ### 3.2 Guards (dealer + programme + settling-in)
 
@@ -508,7 +510,7 @@ All under `mdg-backend/`, imitating `models/` → `services/` → `routes/v1/` (
 
 **Scheduler:**
 
-- `mdg-backend/src/scheduler/kavach.ts` — `evaluateKavachProgrammes(io)`; registered from `startScheduler()` in `mdg-backend/src/scheduler/index.ts` as a **separate** `cron.schedule('30 2 * * *', ..., { timezone: 'Asia/Kolkata' })` (alongside, not through, the per-minute plugin `tick()`).
+- `mdg-backend/src/scheduler/kavach.ts` — `evaluateKavachProgrammes(io)`; registered from `startScheduler()` in `mdg-backend/src/scheduler/index.ts` as a **separate** hourly `cron.schedule(env.KAVACH_SWEEP_CRON /* '0 * * * *' */, ..., { timezone: env.KAVACH_TZ })` (alongside, not through, the per-minute plugin `tick()`).
 
 **Seed / bootstrap:**
 
@@ -533,7 +535,7 @@ All under `mdg-backend/`, imitating `models/` → `services/` → `routes/v1/` (
 
 ## 9. Edge cases & failure modes
 
-1. **Timezone (IST):** all `expiresAt` / warnWindow / digest-hour / escalation-grace math uses `Asia/Kolkata`; the sweep cron is registered with `{ timezone: 'Asia/Kolkata' }`. Store UTC `Date`s, day-align to IST midnight (`startOfDayIST`). The digest hour is a per-programme config (default 08:00 IST), deferred owner question (spec §10.2).
+1. **Timezone (IST):** all `expiresAt` / warnWindow / digest-hour / escalation-grace math uses `env.KAVACH_TZ` (default `Asia/Kolkata`); the hourly sweep cron is registered with `{ timezone: env.KAVACH_TZ }`. Store UTC `Date`s, day-align to IST midnight (`startOfDayIST`), and select the delivery hour via `istHour(now) === reminderHour`. The digest hour is a per-programme config (`reminderHour`, admin-editable) defaulting to `env.KAVACH_DEFAULT_REMINDER_HOUR` (8) — implemented, see spec §10.2.
 
 2. **Paused item / paused programme / suspended dealer:** `item.paused === true` → excluded from score, reminders, escalation (audit `KAVACH_ITEM_PAUSE`). The sweep iterates only `KavachProgramme.status === 'ACTIVE'` **and** `Dealer.status === 'ACTIVE'` (skips `SUSPENDED` / `ONBOARDING`, per `DEALER_STATUSES`). A suspended dealer's items keep their clocks running for accuracy but get **no** nudges/escalations; on reactivation the sweep resumes from current `expiresAt` (the dealer just sees current reality, not a backlog of stale reminders).
 
