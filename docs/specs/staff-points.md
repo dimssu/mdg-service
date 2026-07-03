@@ -113,18 +113,22 @@ mirroring `seedKavachTemplate()`.
 
 ### Distribution → point maths (server-side, authoritative)
 
-For an award of a task to `N` selected workers with quantity `q`:
+One award action covers **one or more works** (`items[]`) done by the **same set of workers**. For
+each work with base `base` and quantity `q`, awarded to `N` selected workers:
 
 - **SPLIT** → each worker gets `round(base / N, 2)` (divided among the doers).
 - **EACH / FLAT** → each worker gets `base`.
 - **PER_UNIT** → each worker gets `round(base × q, 2)` (`q` defaults to 1).
 
-The client sends only `employeeIds`, `workItemCode`, `quantity?`, `workDate?`, `note?`. The server
-looks up the catalog item and computes `points`; **client-sent points are never trusted**.
+The client sends `employeeIds`, `items[]` (`{ workItemCode, quantity? }`), `workDate?`, `note?`. The
+server looks up each catalog item and computes `points` per item; **client-sent points are never
+trusted**. (The legacy single-work shape `{ workItemCode, quantity? }` is still accepted and
+normalised into `items` so a cached older client keeps working through a rollout.)
 
 ### Award ledger
 
-`StaffPointAward`: one row per worker per award, with the work label **denormalised** at award time,
+`StaffPointAward`: one row per **(worker × work)** in the action, with the work label **denormalised**
+at award time,
 `basePoints` + `quantity?`/`splitAmong?` + computed `points`, `workDate` (YYYY-MM-DD, the day the
 work was done — defaults today IST, **not** `createdAt`), `note?`, shared `batchId`, and
 `awardedByUserId`/`awardedByName`. Indexes: `{ dealerId, workDate }`, `{ dealerId, employeeId, workDate }`.
@@ -141,17 +145,17 @@ rows `{ employeeId, employeeName, status, totalPoints, awardCount }` plus `targe
 Nested under the dealer (same pattern as `dealerNestedUsersRouter`), hard-scoped to
 `req.user.dealerId`:
 
-| Method   | Path                                      | Body / Query                    | Response                                                |
-| -------- | ----------------------------------------- | ------------------------------- | ------------------------------------------------------- |
-| `GET`    | `/staff-work-items`                       | —                               | `StaffWorkItem[]` (the seeded catalog; read-only)       |
-| `GET`    | `/dealers/:dealerId/employees`            | `?from&to&includeInactive`      | `EmployeeWithPoints[]` (roster + windowed points)       |
-| `POST`   | `/dealers/:dealerId/employees`            | `createEmployeeSchema`          | `Employee` (201)                                        |
-| `PATCH`  | `/dealers/:dealerId/employees/:id`        | `updateEmployeeSchema`          | `Employee` (edit / deactivate)                          |
-| `POST`   | `/dealers/:dealerId/staff-points`         | `awardStaffPointsSchema`        | `AwardStaffPointsResult` (201; one row per worker)      |
-| `GET`    | `/dealers/:dealerId/staff-points`         | `staffPointsQuerySchema`        | `StaffPointAward[]`                                     |
-| `GET`    | `/dealers/:dealerId/staff-points/summary` | `staffPointsSummaryQuerySchema` | `StaffPointsSummary`                                    |
-| `DELETE` | `/dealers/:dealerId/staff-points/:id`     | —                               | `204` (Undo; hard-delete a row, or the whole `batchId`) |
-| `PATCH`  | `/me`                                     | `updateMyPreferencesSchema`     | `User` (self-set `lang`; ADR 0008)                      |
+| Method   | Path                                      | Body / Query                    | Response                                                  |
+| -------- | ----------------------------------------- | ------------------------------- | --------------------------------------------------------- |
+| `GET`    | `/staff-work-items`                       | —                               | `StaffWorkItem[]` (the seeded catalog; read-only)         |
+| `GET`    | `/dealers/:dealerId/employees`            | `?from&to&includeInactive`      | `EmployeeWithPoints[]` (roster + windowed points)         |
+| `POST`   | `/dealers/:dealerId/employees`            | `createEmployeeSchema`          | `Employee` (201)                                          |
+| `PATCH`  | `/dealers/:dealerId/employees/:id`        | `updateEmployeeSchema`          | `Employee` (edit / deactivate)                            |
+| `POST`   | `/dealers/:dealerId/staff-points`         | `awardStaffPointsSchema`        | `AwardStaffPointsResult` (201; one row per worker × work) |
+| `GET`    | `/dealers/:dealerId/staff-points`         | `staffPointsQuerySchema`        | `StaffPointAward[]`                                       |
+| `GET`    | `/dealers/:dealerId/staff-points/summary` | `staffPointsSummaryQuerySchema` | `StaffPointsSummary`                                      |
+| `DELETE` | `/dealers/:dealerId/staff-points/:id`     | —                               | `204` (Undo; hard-delete a row, or the whole `batchId`)   |
+| `PATCH`  | `/me`                                     | `updateMyPreferencesSchema`     | `User` (self-set `lang`; ADR 0008)                        |
 
 All mutations audited (`STAFF_EMPLOYEE_ADD/UPDATE`, `STAFF_POINTS_AWARD/UNDO`). No admin route.
 

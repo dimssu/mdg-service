@@ -61,14 +61,17 @@ whole point of the feature — wrong.
    - `PER_UNIT` — base × `quantity`, with a `unit` (vehicle / ₹1000 / guest / customer /
      transaction / item / tank / photo) driving the quantity stepper's label.
      **Locked:** the server recomputes `points` from the catalog on every award; the request
-     carries only `employeeIds`, `workItemCode`, optional `quantity`, `workDate`, `note`.
-     Per-employee points are rounded to 2 dp. Fractional points are legal (the sheet has 0.5).
+     carries `employeeIds`, `items[]` (`{ workItemCode, quantity? }` — one or more works the
+     same workers did), `workDate`, `note`. Per-employee points are rounded to 2 dp per work.
+     Fractional points are legal (the sheet has 0.5). (The legacy single-`workItemCode` shape is
+     still accepted and normalised into `items` for a cached older client during rollout.)
 
-4. **An append-mostly `StaffPointAward` ledger.** One row per employee per award, with the
-   work label **denormalised** at award time (so later catalog edits never rewrite history),
-   the computed `points`, the `workDate` (calendar day the work was done, defaulting to
-   today IST — _not_ `createdAt`), and a shared `batchId` when one action awards several
-   workers at once. Corrections are a **hard delete of the row** (an "Undo" toast, per the
+4. **An append-mostly `StaffPointAward` ledger.** One row per **(employee × work)** in an award
+   action, with the work label **denormalised** at award time (so later catalog edits never
+   rewrite history), the computed `points`, the `workDate` (calendar day the work was done,
+   defaulting to today IST — _not_ `createdAt`), and a shared `batchId` grouping every row an
+   action writes — across all its works and workers — so one **Undo** reverses the whole action.
+   Corrections are a **hard delete of the row** (an "Undo" toast, per the
    adoption audit's "no confirm dialogs / offer Undo" rule), audited as `STAFF_POINTS_UNDO`.
 
 5. **Owner AND manager can do everything; MDG admin has no surface.** All routes are gated
