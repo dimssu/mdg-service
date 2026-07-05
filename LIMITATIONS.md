@@ -24,6 +24,11 @@ as a follow-up; none block the happy path.
 
 - **`DELETE /dealers/:id` is a hard delete with DealerService cascade.** Brief mentioned an optional `SUSPENDED` soft-delete path; the API contract was followed instead (hard delete, retain ServiceRun history). If product wants soft delete, add a `SUSPENDED` status branch in `dealerService.ts` and switch the route.
 
+## Admin management
+
+- **Flat admin tier — no super-admin.** `POST/PATCH /admins` are gated only on `requireRole('admin')`, so every admin can create other admins, suspend/reactivate peers, and reset any admin's password. There is no elevated "owner" tier and the seeded default admin is not specially protected. This is an acceptable MVP model for a small, mutually-trusted support team; introduce an `owner` role (or an `isOwner` flag) that alone can manage admins if the team grows or trust boundaries are needed. Self-suspension and suspending the last active admin are already blocked, and every create/update writes an audit entry.
+- **Admin suspension revokes on next request, not instantly across sockets.** `requireAuth` now re-checks admin status on every REST request, so a suspended admin is blocked immediately from all actions. Their existing Socket.IO connection (realtime inbox updates only — no mutations) is not torn down until it reconnects; add an admin `sessionId`/disconnect sweep if instant socket revocation is required.
+
 ## Plugin SDK
 
 - **Plugins live in-repo only.** No mechanism for uploading or hot-reloading plugins from outside `backend/src/services/`. ADR 0002 calls this an explicit MVP constraint.
