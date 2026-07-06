@@ -40,6 +40,34 @@ as a follow-up; none block the happy path.
 - **Reassign has no admin picker.** "Reassign" re-assigns to self (documented UX gap); assignment changes are now write-audited (`CONVERSATION_ASSIGNED` / `CONVERSATION_REASSIGNED`), but a picker + takeover notification is still pending.
 - **Legacy `userId`-less "reunite" branch retained.** `GET /conversations/mine` still adopts a pre-per-member thread for an owner on first load. Dead-ish now that the schema requires `userId`; delete after confirming production has no such rows.
 
+## Audit logging
+
+See ADR 0009 and `docs/specs/audit-logging.md`. The trail records who did what, when, and
+from where, with a global admin **Activity** page. Deliberate deferrals:
+
+- **No retention / rotation policy.** Audit rows (which now include `ip` and `userAgent` —
+  personal data) are kept indefinitely. If a data-protection regime applies, add a TTL index
+  or an archival sweep on `AuditLog.at` and document the lawful basis + retention window.
+- **Not tamper-proof.** Rows live in the same Mongo as the data they describe; any process
+  with a DB connection can modify or delete them. This is an operational record, not a legal
+  one. Append-only / WORM storage (or streaming to an external SIEM) is the path if the trail
+  must be evidential.
+- **Best-effort, not guaranteed.** `writeAudit` swallows-and-logs on failure so recording an
+  action never breaks the action. A DB hiccup can therefore drop a row. A guaranteed trail
+  would need a transactional outbox / queue.
+- **Service-layer actions carry less context.** Audits written inside service functions
+  (Kavach programme, `executeRun`) capture `actorId` + `action` but not IP/UA/method/path,
+  because they run without an HTTP request. Route-handler actions are fully enriched via
+  `auditFromReq`. Thread a request-context object through those services if full parity is
+  needed.
+- **`req.ip` depends on `TRUST_PROXY`.** It defaults to `loopback`; behind a load balancer
+  set `TRUST_PROXY` to the proxy hop-count (e.g. `1`) or the real client IP will be the LB's.
+- **Sensitive-read logging is selective.** Only `RECORD_VIEWED` and `ARTIFACT_DOWNLOAD` log
+  data access; ordinary list/detail reads are not logged (by design, to keep the trail
+  signal-rich). Push-token register/unregister churn is intentionally not audited.
+- **No audit for the audit reads.** Viewing the Activity page / `GET /audit` is itself not
+  audited; add a meta-audit if "who looked at the logs" must be tracked.
+
 ## Plugin SDK
 
 - **Plugins live in-repo only.** No mechanism for uploading or hot-reloading plugins from outside `backend/src/services/`. ADR 0002 calls this an explicit MVP constraint.
