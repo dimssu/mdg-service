@@ -53,18 +53,20 @@ are retained deliberately as forensic context.
 
 ## Reading the trail
 
-| Endpoint                 | Who   | Purpose                                                                                                                            |
-| ------------------------ | ----- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `GET /audit`             | admin | Paginated feed. Filters: `actorId`, `entity`, `entityId`, `action`, `from`, `to`. Newest first, actor names resolved in one batch. |
-| `GET /audit/actors`      | admin | Distinct actors + activity counts (powers the actor filter).                                                                       |
-| `GET /dealers/:id/audit` | admin | Pre-existing per-dealer view (unchanged).                                                                                          |
+| Endpoint                 | Who         | Purpose                                                                                                                            |
+| ------------------------ | ----------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /audit`             | super-admin | Paginated feed. Filters: `actorId`, `entity`, `entityId`, `action`, `from`, `to`. Newest first, actor names resolved in one batch. |
+| `GET /audit/actors`      | super-admin | Distinct actors + activity counts (powers the actor filter).                                                                       |
+| `GET /dealers/:id/audit` | admin       | Pre-existing per-dealer view (unchanged).                                                                                          |
 
-Both new endpoints are gated by `requireAuth` + `requireRole('admin')`.
+Both new endpoints are gated by `requireAuth` + `requireSuperAdmin` — only the
+**super-admin** tier can read the activity trail (regular admins get 403).
 
 ### Admin UI
 
-The **Activity** page (`/activity`, `mdg-admin/src/pages/ActivityPage.tsx`) mirrors the
-standard list-page pattern: a filter bar (actor / entity / action / from / to, persisted in
+The **Activity** page (`/activity`, `mdg-admin/src/pages/ActivityPage.tsx`) is shown only to
+super-admins (nav link hidden + `RequireSuperAdmin` route guard for everyone else). It mirrors
+the standard list-page pattern: a filter bar (actor / entity / action / from / to, persisted in
 the URL) over a table (Time, Actor + role, Action, Entity, Target, IP). Clicking a row opens
 a detail dialog with the actor, full request context (method/path, IP, user-agent), and the
 `before`/`after` JSON.
