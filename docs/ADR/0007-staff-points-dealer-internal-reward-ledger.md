@@ -80,6 +80,13 @@ whole point of the feature — wrong.
    is deliberately **no admin route and no mdg-admin UI** in MVP — this is the pump's
    internal tool. (A read-only admin mirror is a clean Phase-2 add if MDG ever wants it.)
 
+   > **Superseded (2026-07-08).** Decision 5's "admin has no write surface" is no longer
+   > current. Admins now have **full write control** over any dealer's staff & points (see
+   > §Phase-2 additions below). Dealer members remain hard-scoped to their own dealer; the
+   > change only lifts the admin read-only restriction. The dealer handlers were factored
+   > into shared services (`services/staff/{employees,award,draft,workList}.ts`) so the
+   > dealer and admin routers call one implementation.
+
 6. **Reachable from Profile, not a 5th bottom tab.** The dealer bottom bar is capped at 4
    (STYLE_GUIDE_V2 / ADOPTION_AUDIT; Kavach already demoted Services into Profile). Staff
    Points is an owner/manager management tool, not a daily dealer-compliance surface, so it
@@ -122,7 +129,45 @@ whole point of the feature — wrong.
   disabling tasks, per-pump point tweaks), a read-only mdg-admin mirror, monthly
   export/PDF of the assessment sheet, and letting a worker be linked to a login member.
 
-### Naming awareness (not a blocker)
+## Phase-2 additions (2026-07-08)
+
+The Phase-2 seams called out below were built out. Contracts live in the same
+`shared/src/{types,schemas}/staff.ts` files; ledger history stays stable because
+labels are still snapshotted at award/finalize time.
+
+1. **HSD/MS amount input.** For a `rupee-1000` PER_UNIT work the client may send a raw
+   `amountRupees`; the server computes `quantity = amountRupees / 1000` (fractional
+   allowed), ignores any client `quantity`, and denormalises `amountRupees` onto the
+   award row for hardcopy reconciliation. Points remain server-computed.
+
+2. **Draft → finalize with a hardcopy photo.** A dealer keeps ONE server-synced draft
+   (`StaffPointDraft`, unique on `dealerId`): `GET/PUT/DELETE /staff-points/draft` (PUT is
+   an autosave — merges same-`(employee, work)` entries, recomputes points, and is
+   deliberately **not** audited). `POST /staff-points/draft/finalize` requires a
+   `staff`-scope hardcopy `hardCopyImageKey`, writes one `StaffPointAward` per entry under a
+   new `batchId`, creates a `StaffPointBatch` header (totals + photo), deletes the draft,
+   and audits once as `STAFF_POINTS_FINALIZE`. Finalized batches are listed/fetched via
+   `GET /staff-points/batches[/:batchId]` with a signed `hardCopyImageUrl`. A SPLIT work in
+   a draft divides its base among the distinct workers who have that work in the draft.
+   A new `staff` presign scope (`staff/<dealerId>/<uuid>`) mirrors the `chat` scope.
+
+3. **Per-dealer work list + super-admin global catalog.** `DealerWorkList` (unique
+   `dealerId`) overlays the global catalog: `hiddenCodes` remove defaults; `customItems`
+   add dealer-authored works (codes generated `custom-<slug>-<short>`). The **effective**
+   list a client renders/awards from is `(global active catalog − hiddenCodes) ++ (active
+customItems)`, read at `GET /dealers/:dealerId/work-items`. All award/draft/finalize
+   resolution goes through this effective list. Super-admins edit the GLOBAL default
+   catalog at `/super-admin/staff-work-items` (`GET/POST/PATCH/:code/DELETE/:code`, the last
+   a soft `active=false`), each change audited.
+
+4. **Admin full control (supersedes §5).** `adminDealerStaffRouter` (`/dealers/:dealerId/
+staff`, `requireRole('admin')`) gained write routes: `POST/PATCH /employees`,
+   `POST /awards` + `DELETE /awards/:id` (`?scope=batch`), the work-list `GET/PUT
+/work-list`, and read access to the dealer's draft (`GET /drafts`) and batches. A
+   batch-scope undo also removes the finalize header so a finalized submission fully
+   reverses.
+
+## Naming awareness (not a blocker)
 
 The feature ships under the **descriptive** name "Staff / स्टाफ" (route `/staff`), not a
 coined brand. This is deliberate: the product already carries one brand ("Kavach") that
