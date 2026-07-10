@@ -8,6 +8,16 @@ export const MAX_VOICE_DURATION_MS = 10 * 60 * 1000;
 /** Max chars of the original body snapshotted into a reply quote. */
 export const REPLY_SNIPPET_MAX = 140;
 
+/**
+ * Build the reply-quote snippet from the original body. Slices by code point
+ * (not UTF-16 unit) so a cut at the limit can never split an emoji's surrogate
+ * pair into a corrupted "�" tail. Used by the server snapshot and by both web
+ * clients' optimistic mirrors — keep them byte-identical.
+ */
+export function replySnippet(body: string): string {
+  return Array.from(body).slice(0, REPLY_SNIPPET_MAX).join('');
+}
+
 export const attachmentSchema = z.object({
   storageKey: z.string().min(1).max(512),
   filename: z.string().min(1).max(255),
