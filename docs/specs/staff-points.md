@@ -107,9 +107,28 @@ the ledger row(s).
 
 `StaffWorkItem`: `code` (slug), `srNo` (1–66), `titleEn/titleHi` (raw sheet, admin-only),
 `labelEn/labelHi` (clean, dealer-facing), `points` (base; per-unit value for PER_UNIT; may be
-fractional), `distribution`, `unit?` + `unitLabel*?` (PER_UNIT), `domain`, `requiresApproval`,
-`notesEn/notesHi?`. Seeded at boot via `seedStaffWorkCatalog()` on unique `{ version, code }`,
+fractional), `distribution`, `pricingMode`, `timeMin?`/`skill?`/`effort?`/`responsibility?` (the
+factors), `unit?` + `unitLabel*?` (PER_UNIT), `domain`, `requiresApproval`, `notesEn/notesHi?`.
+Seeded at boot via `seedStaffWorkCatalog()` on unique `{ version, code }` (currently version 2),
 mirroring `seedKavachTemplate()`.
+
+**Points are DERIVED, not hand-set (v2).** A `labour` work's `points` is computed from four factors
+by `deriveBasePoints()` (in `@dk/shared`):
+
+```
+base = round( timeMin × Skill × Effort × Responsibility ÷ K )
+Skill = 1 + 1.2·(skill/100)   Effort = 1 + 0.5·(effort/100)   Responsibility = 1 + 0.8·(responsibility/100)
+```
+
+`skill/effort/responsibility` are entered on a 0–100 scale; `timeMin` is real minutes (whole-job for
+FLAT/SPLIT/EACH, per-unit for PER_UNIT). `K = 5.3735` is a **frozen** calibration constant (≈5.37 min
+of ordinary work = 1 point) chosen once to preserve the catalog total (daily target ~100); it must
+never be recomputed from the live catalog. The 5 `incentive` works (`INCENTIVE_WORK_CODES` — per-₹1000
+fuel sales, customer add/acquisition, Servo-mobil per item) keep a typed policy `points` and bypass the
+formula. `points` is **always recomputed server-side** at every write (seed, super-admin create/PATCH,
+dealer work-list PUT) via `resolveBasePoints()`; a client-supplied `points` for a labour work is
+ignored. The four factors are required when creating a labour work and editable on existing ones, in
+both the super-admin global catalog and the per-dealer overlay.
 
 ### Distribution → point maths (server-side, authoritative)
 

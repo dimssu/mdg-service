@@ -167,6 +167,37 @@ staff`, `requireRole('admin')`) gained write routes: `POST/PATCH /employees`,
    batch-scope undo also removes the finalize header so a finalized submission fully
    reverses.
 
+## Phase-3 additions — factor-derived points (2026-07-11)
+
+The catalog's `points` values were originally hand-copied from the assessment sheet with no
+rationale. They are now **derived** from a job-evaluation model so a work's reward reflects the
+time it takes and the skill, effort, and responsibility it demands — skilled/hard/high-stakes
+work is rewarded fairly, and every number is auditable and reproducible.
+
+1. **The formula.** A `labour` work carries `timeMin` + `skill`/`effort`/`responsibility` (the
+   last three 0–100). `deriveBasePoints()` (in `@dk/shared`, catalog version bumped 1→2) computes
+   `base = round( timeMin × S × E × R ÷ K )` with `S = 1 + 1.2·skill/100`, `E = 1 + 0.5·effort/100`,
+   `R = 1 + 0.8·responsibility/100`. `K = 5.3735` is a **frozen** constant (≈5.37 min/point), chosen
+   once so the catalog total is preserved (daily target ~100). It must never be recomputed from the
+   live catalog — that would let one edit re-price every other work. Result is floored at 0.5 so an
+   active work is always awardable.
+
+2. **Labour vs incentive.** 5 works (`INCENTIVE_WORK_CODES`: per-₹1000 HSD/MS sales, add-customer,
+   Servo-mobil per item, add-new-customer) are `pricingMode:'incentive'` — priced by business policy
+   with a typed `points`, outside the formula. `pricingMode` is orthogonal to `distribution` (all 5
+   happen to be PER_UNIT; labour works can be PER_UNIT too, where `timeMin` is per-unit time).
+
+3. **Points are always server-derived (supersedes §Decision 3's client-points wording).** Every write
+   site — the seeder, super-admin `POST`/`PATCH /staff-work-items`, and the dealer work-list `PUT` —
+   recomputes `points` via `resolveBasePoints()` (derive for labour, typed for incentive). A
+   client-supplied `points` for a labour work is ignored; editing any factor re-derives. The
+   award/draft/finalize engine is unchanged — it still reads the stored `points` as `basePoints`.
+
+4. **Authoring UI.** Both the super-admin global-catalog form and the per-dealer custom-work form take
+   the four factor inputs; for a labour work the points field is a read-only live-derived preview, for
+   an incentive work it stays typed. Factors are required when adding a labour work, editable on
+   existing ones. Full model in `docs/specs/staff-points.md §4` and `docs/staff-points-scoring-model.pdf`.
+
 ## Naming awareness (not a blocker)
 
 The feature ships under the **descriptive** name "Staff / स्टाफ" (route `/staff`), not a
