@@ -48,6 +48,7 @@ var/
 # independent repositories — see scripts/clone-services.sh)
 mdg-backend/
 mdg-admin/
+mdg-admin-app/
 mdg-client/
 mdg-app/
 
