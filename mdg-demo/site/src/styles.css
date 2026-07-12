@@ -347,7 +347,15 @@ h1.title {
 
 .qbtns {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+}
+
+/* Automatic is the default and the one almost nobody should need to change, so it
+   gets its own row. Three across is also simply too tight for "Data saver" to fit
+   on one line on a 320px phone. */
+.q[data-q='auto'] {
+  flex: 1 0 100%;
 }
 
 .q {
@@ -426,6 +434,58 @@ h1.title {
   font-variant-numeric: tabular-nums;
   font-weight: 700;
   font-size: 14px;
+}
+
+/* Share. A full-width primary action, not a tucked-away icon — passing a video on
+   to a warrior is a first-class thing to do here, and it is how the guide spreads. */
+.share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--brand);
+  color: var(--text-inverse, #fff);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.share svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.share:active {
+  opacity: 0.85;
+}
+
+/* The player speaks here — an automatic quality change, or a copied link. */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  z-index: 20;
+  width: calc(100% - 32px);
+  max-width: 420px;
+  transform: translateX(-50%);
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #1c1917;
+  color: #fafaf9;
+  font-size: 14px;
+  line-height: 1.45;
+  box-shadow: 0 10px 30px rgb(15 23 42 / 30%);
 }
 
 .dl {
@@ -537,6 +597,17 @@ footer {
 
   .q[aria-pressed='true'] small {
     color: rgb(12 10 9 / 70%);
+  }
+
+  /* --brand inverts in dark mode, so anything sitting ON it has to invert too,
+     or the share button is white text on a white pill. */
+  .share {
+    color: #0c0a09;
+  }
+
+  .toast {
+    background: #f5f5f4;
+    color: #0c0a09;
   }
 
   .note,

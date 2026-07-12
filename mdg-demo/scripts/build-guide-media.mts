@@ -30,24 +30,63 @@ const DATA = path.join(ROOT, 'site', 'data');
 const TAIL_SECONDS = 0.5;
 
 interface Rendition {
-  name: 'low' | 'high';
+  name: 'tiny' | 'low' | 'high';
   width: number;
   height: number;
   crf: number;
   maxrate: string;
   audioKbps: number;
+  /** H.264 profile. Baseline decodes on literally anything still in the field. */
+  profile: string;
 }
 
+/**
+ * The ladder the player adapts across, cheapest first.
+ *
+ * `tiny` exists so automatic switching has somewhere to fall on a genuinely bad
+ * connection: at ~62 kbps it streams over 2G, and while the phone UI inside the
+ * frame goes soft, the burned-in caption — the actual information channel, with
+ * the narration carrying the rest — stays readable. It is an emergency floor the
+ * player drops to on its own, never something a viewer is asked to choose.
+ */
 const RENDITIONS: Rendition[] = [
-  { name: 'low', width: 360, height: 640, crf: 30, maxrate: '260k', audioKbps: 32 },
-  { name: 'high', width: 720, height: 1280, crf: 26, maxrate: '900k', audioKbps: 64 },
+  {
+    name: 'tiny',
+    width: 240,
+    height: 426,
+    crf: 32,
+    maxrate: '130k',
+    audioKbps: 24,
+    profile: 'baseline',
+  },
+  {
+    name: 'low',
+    width: 360,
+    height: 640,
+    crf: 30,
+    maxrate: '260k',
+    audioKbps: 32,
+    profile: 'main',
+  },
+  {
+    name: 'high',
+    width: 720,
+    height: 1280,
+    crf: 26,
+    maxrate: '900k',
+    audioKbps: 64,
+    profile: 'main',
+  },
 ];
 
 async function probeDuration(file: string): Promise<number> {
   const { stdout } = await run('ffprobe', [
-    '-v', 'error',
-    '-show_entries', 'format=duration',
-    '-of', 'default=noprint_wrappers=1:nokey=1',
+    '-v',
+    'error',
+    '-show_entries',
+    'format=duration',
+    '-of',
+    'default=noprint_wrappers=1:nokey=1',
     file,
   ]);
   const n = Number.parseFloat(stdout.trim());
@@ -67,9 +106,7 @@ async function sceneOffsets(t: Tutorial): Promise<{ id: string; start: number }[
     offsets.push({ id: scene.id, start: Math.round(cursor * 10) / 10 });
     let seconds = scene.estSeconds;
     try {
-      const dur = await probeDuration(
-        path.join(ROOT, 'public', 'audio', t.id, `${scene.id}.mp3`),
-      );
+      const dur = await probeDuration(path.join(ROOT, 'public', 'audio', t.id, `${scene.id}.mp3`));
       if (dur > 0) seconds = dur;
     } catch {
       // No voiceover for this scene — fall back to the estimate, exactly as the
@@ -84,28 +121,45 @@ async function sceneOffsets(t: Tutorial): Promise<{ id: string; start: number }[
 async function encode(src: string, dest: string, r: Rendition): Promise<void> {
   const bufsize = `${Number.parseInt(r.maxrate, 10) * 2}k`;
   await run('ffmpeg', [
-    '-y', '-v', 'error',
-    '-i', src,
-    '-vf', `scale=${r.width}:${r.height}:flags=lanczos`,
+    '-y',
+    '-v',
+    'error',
+    '-i',
+    src,
+    '-vf',
+    `scale=${r.width}:${r.height}:flags=lanczos`,
     // Main profile + yuv420p: hardware-decodable on essentially every Android
     // phone still in the field. VP9/AV1 would be smaller but fall back to
     // software decode on cheap chipsets, which is exactly the device we care about.
-    '-c:v', 'libx264',
-    '-profile:v', 'main',
-    '-level', '3.1',
-    '-preset', 'veryslow',
-    '-crf', String(r.crf),
-    '-maxrate', r.maxrate,
-    '-bufsize', bufsize,
-    '-g', '60',
-    '-pix_fmt', 'yuv420p',
-    '-c:a', 'aac',
-    '-ac', '1',
-    '-b:a', `${r.audioKbps}k`,
+    '-c:v',
+    'libx264',
+    '-profile:v',
+    'main',
+    '-level',
+    '3.1',
+    '-preset',
+    'veryslow',
+    '-crf',
+    String(r.crf),
+    '-maxrate',
+    r.maxrate,
+    '-bufsize',
+    bufsize,
+    '-g',
+    '60',
+    '-pix_fmt',
+    'yuv420p',
+    '-c:a',
+    'aac',
+    '-ac',
+    '1',
+    '-b:a',
+    `${r.audioKbps}k`,
     // Puts the moov atom first so playback can start on the first bytes instead
     // of waiting for the whole file — the difference between "plays" and "spins"
     // on a slow connection.
-    '-movflags', '+faststart',
+    '-movflags',
+    '+faststart',
     dest,
   ]);
 }
@@ -113,18 +167,59 @@ async function encode(src: string, dest: string, r: Rendition): Promise<void> {
 /** A frame from partway in, so the thumbnail shows the app rather than a title card. */
 async function stills(src: string, dir: string, at: number): Promise<void> {
   const ss = String(Math.max(0, at));
-  await run('ffmpeg', ['-y', '-v', 'error', '-ss', ss, '-i', src,
-    '-frames:v', '1', '-vf', 'scale=240:-2', '-c:v', 'libwebp', '-quality', '72',
-    path.join(dir, 'thumb.webp')]);
-  await run('ffmpeg', ['-y', '-v', 'error', '-ss', ss, '-i', src,
-    '-frames:v', '1', '-vf', 'scale=540:-2', '-c:v', 'libwebp', '-quality', '76',
-    path.join(dir, 'poster.webp')]);
+  await run('ffmpeg', [
+    '-y',
+    '-v',
+    'error',
+    '-ss',
+    ss,
+    '-i',
+    src,
+    '-frames:v',
+    '1',
+    '-vf',
+    'scale=240:-2',
+    '-c:v',
+    'libwebp',
+    '-quality',
+    '72',
+    path.join(dir, 'thumb.webp'),
+  ]);
+  await run('ffmpeg', [
+    '-y',
+    '-v',
+    'error',
+    '-ss',
+    ss,
+    '-i',
+    src,
+    '-frames:v',
+    '1',
+    '-vf',
+    'scale=540:-2',
+    '-c:v',
+    'libwebp',
+    '-quality',
+    '76',
+    path.join(dir, 'poster.webp'),
+  ]);
   // Link previews (these get forwarded on WhatsApp) want a landscape JPEG.
-  await run('ffmpeg', ['-y', '-v', 'error', '-ss', ss, '-i', src,
-    '-frames:v', '1',
-    '-vf', 'scale=1200:630:force_original_aspect_ratio=decrease,pad=1200:630:(ow-iw)/2:(oh-ih)/2:color=0xfafaf9',
-    '-q:v', '6',
-    path.join(dir, 'og.jpg')]);
+  await run('ffmpeg', [
+    '-y',
+    '-v',
+    'error',
+    '-ss',
+    ss,
+    '-i',
+    src,
+    '-frames:v',
+    '1',
+    '-vf',
+    'scale=1200:630:force_original_aspect_ratio=decrease,pad=1200:630:(ow-iw)/2:(oh-ih)/2:color=0xfafaf9',
+    '-q:v',
+    '6',
+    path.join(dir, 'og.jpg'),
+  ]);
 }
 
 /**
@@ -173,7 +268,9 @@ async function main() {
       const { size: bytes } = await stat(dest);
       sizes[r.name] = bytes;
       src_[r.name] = await fingerprint(dir, `${r.name}.mp4`, t.id);
-      console.log(`  ${r.name.padEnd(5)} ${r.width}x${r.height}  ${(bytes / 1048576).toFixed(2)} MB`);
+      console.log(
+        `  ${r.name.padEnd(5)} ${r.width}x${r.height}  ${(bytes / 1048576).toFixed(2)} MB`,
+      );
     }
 
     // Poster frame: a little way into the middle scene. Anchoring to a scene
@@ -194,11 +291,7 @@ async function main() {
     });
   }
 
-  await writeFile(
-    path.join(DATA, 'videos.json'),
-    `${JSON.stringify(manifest, null, 2)}\n`,
-    'utf8',
-  );
+  await writeFile(path.join(DATA, 'videos.json'), `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
 
   const total = manifest.reduce((a, v) => a + v.sizes.low, 0);
   console.log(`\nWrote site/data/videos.json`);

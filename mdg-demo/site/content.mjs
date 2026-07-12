@@ -49,6 +49,14 @@ export const UI = {
     searchNoneDesc: 'कोई और शब्द आज़माइए — जैसे पॉइंट, फोटो, योद्धा।',
     searchShowAll: 'सारे वीडियो दिखाएँ',
     searchJump: 'इसी जगह से देखिए',
+    qualityAuto: 'अपने आप',
+    qualityAutoHint: 'इंटरनेट के हिसाब से',
+    autoDropped: 'इंटरनेट धीमा है — क्वालिटी अपने आप कम कर दी ताकि वीडियो रुके नहीं।',
+    autoRaised: 'इंटरनेट अच्छा है — क्वालिटी अपने आप बढ़ा दी।',
+    share: 'यह वीडियो भेजें',
+    shareText: 'Dealer Kavach — यह वीडियो देखिए:',
+    shareCopied: 'लिंक कॉपी हो गया — अब चिपका दीजिए।',
+    shareFailed: 'लिंक कॉपी नहीं हो पाया।',
   },
   en: {
     brand: 'Dealer Kavach',
@@ -86,6 +94,15 @@ export const UI = {
     searchNoneDesc: 'Try another word — points, photo, warrior.',
     searchShowAll: 'Show all videos',
     searchJump: 'Jump to this moment',
+    qualityAuto: 'Automatic',
+    qualityAutoHint: 'Follows your connection',
+    autoDropped:
+      'Your connection slowed — quality lowered automatically so the video keeps playing.',
+    autoRaised: 'Your connection improved — quality raised automatically.',
+    share: 'Share this video',
+    shareText: 'Dealer Kavach — watch this video:',
+    shareCopied: 'Link copied — paste it anywhere.',
+    shareFailed: "Couldn't copy the link.",
   },
 };
 

@@ -3,10 +3,12 @@
     "id": "login",
     "duration": 62,
     "sizes": {
+      "tiny": 449325,
       "low": 717510,
       "high": 1799314
     },
     "src": {
+      "tiny": "/media/login/tiny.83759682.mp4",
       "low": "/media/login/low.fb0113d7.mp4",
       "high": "/media/login/high.861bd36b.mp4"
     },
@@ -48,11 +50,13 @@
     "id": "add-warrior",
     "duration": 64,
     "sizes": {
-      "low": 714189,
+      "tiny": 448301,
+      "low": 714310,
       "high": 1791208
     },
     "src": {
-      "low": "/media/add-warrior/low.3aaf84ba.mp4",
+      "tiny": "/media/add-warrior/tiny.8b61e2d3.mp4",
+      "low": "/media/add-warrior/low.b9d1ae95.mp4",
       "high": "/media/add-warrior/high.8d157a4a.mp4"
     },
     "poster": "/media/add-warrior/poster.6652a2a1.webp",
@@ -97,12 +101,14 @@
     "id": "give-points",
     "duration": 157,
     "sizes": {
-      "low": 2036307,
-      "high": 5312771
+      "tiny": 1215870,
+      "low": 2035807,
+      "high": 5312783
     },
     "src": {
-      "low": "/media/give-points/low.90fa0f2f.mp4",
-      "high": "/media/give-points/high.d161b724.mp4"
+      "tiny": "/media/give-points/tiny.5e5148ac.mp4",
+      "low": "/media/give-points/low.252dee28.mp4",
+      "high": "/media/give-points/high.6b9b5b56.mp4"
     },
     "poster": "/media/give-points/poster.92279c44.webp",
     "thumb": "/media/give-points/thumb.8001536f.webp",
@@ -166,12 +172,14 @@
     "id": "split-points",
     "duration": 118,
     "sizes": {
-      "low": 1555629,
-      "high": 4094962
+      "tiny": 932465,
+      "low": 1555624,
+      "high": 4094913
     },
     "src": {
-      "low": "/media/split-points/low.1f5b3411.mp4",
-      "high": "/media/split-points/high.56afaa4f.mp4"
+      "tiny": "/media/split-points/tiny.7e63d950.mp4",
+      "low": "/media/split-points/low.698bf1a8.mp4",
+      "high": "/media/split-points/high.e7308cea.mp4"
     },
     "poster": "/media/split-points/poster.2a5f3ba2.webp",
     "thumb": "/media/split-points/thumb.4fe5284b.webp",
@@ -223,12 +231,14 @@
     "id": "submit-points",
     "duration": 97,
     "sizes": {
-      "low": 1259063,
-      "high": 3326344
+      "tiny": 753177,
+      "low": 1259035,
+      "high": 3326512
     },
     "src": {
-      "low": "/media/submit-points/low.1297ccd5.mp4",
-      "high": "/media/submit-points/high.bab7b43a.mp4"
+      "tiny": "/media/submit-points/tiny.42653bae.mp4",
+      "low": "/media/submit-points/low.94a9e939.mp4",
+      "high": "/media/submit-points/high.abeba4e1.mp4"
     },
     "poster": "/media/submit-points/poster.2d4ab92c.webp",
     "thumb": "/media/submit-points/thumb.7995fd5a.webp",
@@ -284,12 +294,14 @@
     "id": "points-system",
     "duration": 190,
     "sizes": {
-      "low": 2138218,
-      "high": 5345277
+      "tiny": 1342894,
+      "low": 2138253,
+      "high": 5344924
     },
     "src": {
-      "low": "/media/points-system/low.431c77f9.mp4",
-      "high": "/media/points-system/high.497dc2f1.mp4"
+      "tiny": "/media/points-system/tiny.c5835ac9.mp4",
+      "low": "/media/points-system/low.366a0437.mp4",
+      "high": "/media/points-system/high.ab77d83b.mp4"
     },
     "poster": "/media/points-system/poster.de274106.webp",
     "thumb": "/media/points-system/thumb.8d06a346.webp",

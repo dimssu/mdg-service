@@ -230,8 +230,18 @@ function watch(v, i, videos, byId) {
     )
     .join('\n');
 
-  const qBtn = (q) => `<button class="q" type="button" data-q="${q}">
-  ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l][q === 'low' ? 'qualityLow' : 'qualityHigh'])}<small>${esc(UI[l][q === 'low' ? 'qualityLowHint' : 'qualityHighHint'])}</small></span>`).join('')}
+  // Auto is first and is the default: the viewer should not have to know what a
+  // kilobit is to watch a video. The two manual rungs stay for anyone who wants
+  // to pin a choice.
+  const Q = {
+    auto: ['qualityAuto', 'qualityAutoHint'],
+    low: ['qualityLow', 'qualityLowHint'],
+    high: ['qualityHigh', 'qualityHighHint'],
+  };
+  const qBtn = (
+    q,
+  ) => `<button class="q" type="button" data-q="${q}"${q === 'auto' ? ' aria-pressed="true"' : ''}>
+  ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l][Q[q][0]])}<small>${esc(UI[l][Q[q][1]])}</small></span>`).join('')}
 </button>`;
 
   const body = `${header()}
@@ -241,6 +251,7 @@ function watch(v, i, videos, byId) {
   <div class="player">
     <video id="v" controls playsinline preload="none"
       poster="${m.poster}"
+      data-tiny="${m.src.tiny}"
       data-low="${m.src.low}"
       data-high="${m.src.high}">
       <source src="${m.src.low}" type="video/mp4">
@@ -253,12 +264,22 @@ function watch(v, i, videos, byId) {
   ${bi('p', (l) => v[l].description, 'desc')}
 
   <div class="panel">
+    <button class="share" id="share" type="button"
+      data-url="${ORIGIN}/${v.id}"
+      ${LANGS.map((l) => `data-text-${l}="${esc(v[l].title)}"`).join(' ')}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/></svg>
+      ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].share)}</span>`).join('')}
+    </button>
+  </div>
+
+  <div class="panel">
     <h3>${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].quality)}</span>`).join('')}</h3>
     <div class="qbtns">
+      ${qBtn('auto')}
       ${qBtn('low')}
       ${qBtn('high')}
     </div>
-    <p class="note" id="note" hidden>${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].dataNote)}</span>`).join('')}</p>
+    <p class="note" id="note" hidden></p>
   </div>
 
   <div class="panel">
@@ -280,9 +301,27 @@ ${chapters}
     ${prev ? `<a class="pv" href="/${prev.id}"><span aria-hidden="true">&lsaquo;</span><span>${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].prev)}</span>`).join('')}</span></a>` : '<span></span>'}
     ${next ? `<a class="nx" href="/${next.id}"><span>${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].next)}</span>`).join('')}</span><span aria-hidden="true">&rsaquo;</span></a>` : '<span></span>'}
   </nav>
-</main>`;
+</main>
+<div class="toast" id="toast" hidden></div>`;
 
-  return { body, title: `${v.hi.title} · ${v.en.title}` };
+  // Strings the player raises at runtime — an automatic quality change, or the
+  // result of a share. They can't be pre-rendered bilingually like static copy.
+  const strings = Object.fromEntries(
+    LANGS.map((l) => [
+      l,
+      {
+        dropped: UI[l].autoDropped,
+        raised: UI[l].autoRaised,
+        slow: UI[l].dataNote,
+        copied: UI[l].shareCopied,
+        failed: UI[l].shareFailed,
+        shareText: UI[l].shareText,
+      },
+    ]),
+  );
+  const extra = `<script id="str" type="application/json">${JSON.stringify(strings).replace(/</g, '\\u003c')}</script>`;
+
+  return { body, title: `${v.hi.title} · ${v.en.title}`, extra };
 }
 
 const ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
@@ -354,6 +393,7 @@ async function main() {
         body: w.body,
         css,
         js: shellJs + playerJs,
+        extra: w.extra,
       }),
     );
   }
