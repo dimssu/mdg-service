@@ -1,0 +1,34 @@
+{
+  "name": "mdg-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Hindi, voice-guided tutorial videos for the MDG client app (Remotion + ElevenLabs).",
+  "scripts": {
+    "dev": "remotion studio",
+    "studio": "remotion studio",
+    "voice": "tsx scripts/generate-voice.mts",
+    "render": "tsx scripts/render-all.mts",
+    "typecheck": "tsc --noEmit",
+    "upgrade": "remotion upgrade",
+    "guide:media": "tsx scripts/build-guide-media.mts"
+  },
+  "dependencies": {
+    "@remotion/bundler": "^4.0.200",
+    "@remotion/cli": "^4.0.200",
+    "@remotion/google-fonts": "^4.0.200",
+    "@remotion/media-utils": "^4.0.200",
+    "@remotion/renderer": "^4.0.200",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "^4.0.200"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "dotenv": "^16.4.5",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  }
+}

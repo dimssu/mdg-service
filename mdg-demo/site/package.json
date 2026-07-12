@@ -1,0 +1,11 @@
+{
+  "name": "mdg-guide",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Dealer Kavach video guide — the tutorial videos from mdg-demo, published for dealers at guide.mdgservices.in.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs && node scripts/serve.mjs"
+  }
+}

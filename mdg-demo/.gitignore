@@ -1,0 +1,11 @@
+node_modules/
+out/
+.env
+.env.local
+# Local backup of superseded voiceover, kept when narration text changes
+.audio-archive/
+
+# Generated voiceover (regenerate with `npm run voice`)
+public/audio/**/*.mp3
+public/audio/**/*.json
+.DS_Store

@@ -1,0 +1,352 @@
+[
+  {
+    "id": "login",
+    "duration": 62,
+    "sizes": {
+      "low": 717510,
+      "high": 1799314
+    },
+    "src": {
+      "low": "/media/login/low.fb0113d7.mp4",
+      "high": "/media/login/high.861bd36b.mp4"
+    },
+    "poster": "/media/login/poster.a9264091.webp",
+    "thumb": "/media/login/thumb.80fd6ad2.webp",
+    "og": "/media/login/og.6aa6e6c4.jpg",
+    "chapters": [
+      {
+        "id": "intro",
+        "start": 0
+      },
+      {
+        "id": "open",
+        "start": 10.3
+      },
+      {
+        "id": "email",
+        "start": 17.2
+      },
+      {
+        "id": "password",
+        "start": 26.3
+      },
+      {
+        "id": "signin",
+        "start": 34.6
+      },
+      {
+        "id": "landed",
+        "start": 39.1
+      },
+      {
+        "id": "recap",
+        "start": 48.9
+      }
+    ]
+  },
+  {
+    "id": "add-warrior",
+    "duration": 64,
+    "sizes": {
+      "low": 714189,
+      "high": 1791208
+    },
+    "src": {
+      "low": "/media/add-warrior/low.3aaf84ba.mp4",
+      "high": "/media/add-warrior/high.8d157a4a.mp4"
+    },
+    "poster": "/media/add-warrior/poster.6652a2a1.webp",
+    "thumb": "/media/add-warrior/thumb.7aa37e2b.webp",
+    "og": "/media/add-warrior/og.e6e26efb.jpg",
+    "chapters": [
+      {
+        "id": "intro",
+        "start": 0
+      },
+      {
+        "id": "open",
+        "start": 10.4
+      },
+      {
+        "id": "tap-add",
+        "start": 20
+      },
+      {
+        "id": "name",
+        "start": 23.4
+      },
+      {
+        "id": "optional",
+        "start": 32.2
+      },
+      {
+        "id": "save",
+        "start": 43.7
+      },
+      {
+        "id": "added",
+        "start": 47.4
+      },
+      {
+        "id": "recap",
+        "start": 55.1
+      }
+    ]
+  },
+  {
+    "id": "give-points",
+    "duration": 157,
+    "sizes": {
+      "low": 2036307,
+      "high": 5312771
+    },
+    "src": {
+      "low": "/media/give-points/low.90fa0f2f.mp4",
+      "high": "/media/give-points/high.d161b724.mp4"
+    },
+    "poster": "/media/give-points/poster.92279c44.webp",
+    "thumb": "/media/give-points/thumb.8001536f.webp",
+    "og": "/media/give-points/og.8fcf83c6.jpg",
+    "chapters": [
+      {
+        "id": "intro",
+        "start": 0
+      },
+      {
+        "id": "give",
+        "start": 18.8
+      },
+      {
+        "id": "pick-worker",
+        "start": 27.4
+      },
+      {
+        "id": "search",
+        "start": 38.8
+      },
+      {
+        "id": "pick-work",
+        "start": 52.9
+      },
+      {
+        "id": "confirm",
+        "start": 67.7
+      },
+      {
+        "id": "other-pick",
+        "start": 79.4
+      },
+      {
+        "id": "other-note",
+        "start": 90.5
+      },
+      {
+        "id": "other-filled",
+        "start": 102.4
+      },
+      {
+        "id": "add",
+        "start": 110.8
+      },
+      {
+        "id": "pending",
+        "start": 119.6
+      },
+      {
+        "id": "more",
+        "start": 132.1
+      },
+      {
+        "id": "recap",
+        "start": 142.6
+      }
+    ]
+  },
+  {
+    "id": "split-points",
+    "duration": 118,
+    "sizes": {
+      "low": 1555629,
+      "high": 4094962
+    },
+    "src": {
+      "low": "/media/split-points/low.1f5b3411.mp4",
+      "high": "/media/split-points/high.56afaa4f.mp4"
+    },
+    "poster": "/media/split-points/poster.2a5f3ba2.webp",
+    "thumb": "/media/split-points/thumb.4fe5284b.webp",
+    "og": "/media/split-points/og.d7d38bc9.jpg",
+    "chapters": [
+      {
+        "id": "intro",
+        "start": 0
+      },
+      {
+        "id": "give",
+        "start": 11.3
+      },
+      {
+        "id": "pick-first",
+        "start": 15.2
+      },
+      {
+        "id": "pick-work",
+        "start": 26
+      },
+      {
+        "id": "add-coworkers",
+        "start": 39.9
+      },
+      {
+        "id": "split-two",
+        "start": 59.5
+      },
+      {
+        "id": "split-three",
+        "start": 71.7
+      },
+      {
+        "id": "confirm",
+        "start": 85.9
+      },
+      {
+        "id": "done",
+        "start": 91.4
+      },
+      {
+        "id": "recap",
+        "start": 103.5
+      }
+    ]
+  },
+  {
+    "id": "submit-points",
+    "duration": 97,
+    "sizes": {
+      "low": 1259063,
+      "high": 3326344
+    },
+    "src": {
+      "low": "/media/submit-points/low.1297ccd5.mp4",
+      "high": "/media/submit-points/high.bab7b43a.mp4"
+    },
+    "poster": "/media/submit-points/poster.2d4ab92c.webp",
+    "thumb": "/media/submit-points/thumb.7995fd5a.webp",
+    "og": "/media/submit-points/og.bdc27586.jpg",
+    "chapters": [
+      {
+        "id": "intro",
+        "start": 0
+      },
+      {
+        "id": "review",
+        "start": 13.8
+      },
+      {
+        "id": "fix",
+        "start": 24.8
+      },
+      {
+        "id": "tap-submit",
+        "start": 36.3
+      },
+      {
+        "id": "photo-ask",
+        "start": 42
+      },
+      {
+        "id": "why-photo",
+        "start": 51.5
+      },
+      {
+        "id": "take-photo",
+        "start": 64.8
+      },
+      {
+        "id": "photo-done",
+        "start": 69
+      },
+      {
+        "id": "submit",
+        "start": 74.9
+      },
+      {
+        "id": "done",
+        "start": 77.8
+      },
+      {
+        "id": "recap",
+        "start": 85.8
+      }
+    ]
+  },
+  {
+    "id": "points-system",
+    "duration": 190,
+    "sizes": {
+      "low": 2138218,
+      "high": 5345277
+    },
+    "src": {
+      "low": "/media/points-system/low.431c77f9.mp4",
+      "high": "/media/points-system/high.497dc2f1.mp4"
+    },
+    "poster": "/media/points-system/poster.de274106.webp",
+    "thumb": "/media/points-system/thumb.8d06a346.webp",
+    "og": "/media/points-system/og.e1fd5072.jpg",
+    "chapters": [
+      {
+        "id": "intro",
+        "start": 0
+      },
+      {
+        "id": "why",
+        "start": 13.1
+      },
+      {
+        "id": "idea",
+        "start": 28.8
+      },
+      {
+        "id": "formula",
+        "start": 43
+      },
+      {
+        "id": "time",
+        "start": 54.9
+      },
+      {
+        "id": "skill",
+        "start": 66.7
+      },
+      {
+        "id": "effort",
+        "start": 81.9
+      },
+      {
+        "id": "resp",
+        "start": 94.4
+      },
+      {
+        "id": "example",
+        "start": 109.3
+      },
+      {
+        "id": "configure",
+        "start": 128.2
+      },
+      {
+        "id": "effect",
+        "start": 148.4
+      },
+      {
+        "id": "newwork",
+        "start": 162.7
+      },
+      {
+        "id": "recap",
+        "start": 174
+      }
+    ]
+  }
+]

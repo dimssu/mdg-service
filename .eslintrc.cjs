@@ -122,5 +122,15 @@ module.exports = {
         browser: true,
       },
     },
+    {
+      // mdg-demo: Remotion compositions render in a browser, and the guide site
+      // under site/ is hand-written browser JS with no bundler — both need the
+      // DOM globals. The build scripts alongside them are Node.
+      files: ['mdg-demo/**/*.{ts,tsx,js,mjs,mts}'],
+      env: {
+        node: true,
+        browser: true,
+      },
+    },
   ],
 };
