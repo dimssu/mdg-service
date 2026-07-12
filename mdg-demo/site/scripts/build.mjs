@@ -230,20 +230,6 @@ function watch(v, i, videos, byId) {
     )
     .join('\n');
 
-  // Auto is first and is the default: the viewer should not have to know what a
-  // kilobit is to watch a video. The two manual rungs stay for anyone who wants
-  // to pin a choice.
-  const Q = {
-    auto: ['qualityAuto', 'qualityAutoHint'],
-    low: ['qualityLow', 'qualityLowHint'],
-    high: ['qualityHigh', 'qualityHighHint'],
-  };
-  const qBtn = (
-    q,
-  ) => `<button class="q" type="button" data-q="${q}"${q === 'auto' ? ' aria-pressed="true"' : ''}>
-  ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l][Q[q][0]])}<small>${esc(UI[l][Q[q][1]])}</small></span>`).join('')}
-</button>`;
-
   const body = `${header()}
 <main>
   <a class="back" href="/">&lsaquo; ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].back)}</span>`).join('')}</a>
@@ -263,23 +249,19 @@ function watch(v, i, videos, byId) {
   ${bi('p', (l) => v[l].subtitle, 'sub')}
   ${bi('p', (l) => v[l].description, 'desc')}
 
-  <div class="panel">
-    <button class="share" id="share" type="button"
-      data-url="${ORIGIN}/${v.id}"
-      ${LANGS.map((l) => `data-text-${l}="${esc(v[l].title)}"`).join(' ')}>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/></svg>
-      ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].share)}</span>`).join('')}
-    </button>
-  </div>
-
-  <div class="panel">
-    <h3>${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].quality)}</span>`).join('')}</h3>
-    <div class="qbtns">
-      ${qBtn('auto')}
-      ${qBtn('low')}
-      ${qBtn('high')}
+  <div class="panel share-panel" data-url="${ORIGIN}/${v.id}"
+    ${LANGS.map((l) => `data-text-${l}="${esc(v[l].title)}"`).join(' ')}>
+    <div class="share-row">
+      <button class="share" id="share" type="button" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/></svg>
+        ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].share)}</span>`).join('')}
+      </button>
+      <button class="copy" id="copy" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+        ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].copyLink)}</span>`).join('')}
+      </button>
     </div>
-    <p class="note" id="note" hidden></p>
+    <p class="url" id="url">${ORIGIN}/${v.id}</p>
   </div>
 
   <div class="panel">

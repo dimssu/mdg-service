@@ -1,6 +1,9 @@
 /*
  * The video player: sharing, seekable chapters, and quality that follows the
- * connection instead of being guessed once and left alone.
+ * connection — always automatically. There is no quality control, by design: the
+ * viewer is a fuel-pump dealer, and a picker only asks them to guess at their own
+ * bandwidth. The buffer already knows the answer, and keeps knowing it as the
+ * signal moves.
  *
  * Hand-written ES5-flavoured JS: no bundler, no dependencies, because the target
  * is a cheap Android phone that may still be on an old WebView.
@@ -57,39 +60,49 @@
     }, 4500);
   }
 
-  /* ---------------- share ---------------- */
+  /* ---------------- share + copy ---------------- */
 
-  var shareBtn = doc.getElementById('share');
-  if (shareBtn) {
-    shareBtn.addEventListener('click', function () {
-      var url = shareBtn.getAttribute('data-url');
-      var title = shareBtn.getAttribute('data-text-' + lang()) || '';
+  var sharePanel = doc.querySelector('.share-panel');
+  if (sharePanel) {
+    var url = sharePanel.getAttribute('data-url');
+    var shareBtn = doc.getElementById('share');
+    var copyBtn = doc.getElementById('copy');
 
-      // The native sheet is the point: on an Android phone it opens straight into
-      // WhatsApp, which is how these videos will actually travel between dealers.
-      if (navigator.share) {
+    var title = function () {
+      return sharePanel.getAttribute('data-text-' + lang()) || '';
+    };
+
+    // The native sheet is the point where it exists: on an Android phone it opens
+    // straight into WhatsApp, which is how these videos actually travel between
+    // dealers. It is hidden rather than shown-and-broken where there is no sheet.
+    if (navigator.share) {
+      shareBtn.hidden = false;
+      shareBtn.addEventListener('click', function () {
         navigator
-          .share({ title: title, text: str('shareText') + ' ' + title, url: url })
+          .share({ title: title(), text: str('shareText') + ' ' + title(), url: url })
           .catch(function () {
             /* the viewer dismissed the sheet — not an error, say nothing */
           });
-        return;
-      }
+      });
+    }
 
-      // Desktop, or an old WebView with no share sheet: put it on the clipboard.
-      var copied = function () {
+    // Copy is always offered alongside it. Not everyone wants a share sheet — some
+    // want the link itself, to paste into a message they are already writing.
+    copyBtn.addEventListener('click', function () {
+      var ok = function () {
         toast(str('copied'));
       };
-      var failed = function () {
-        // Still show the link — they can select it by hand rather than be stuck.
+      var no = function () {
+        // Show the link anyway, so they can select it by hand rather than be stuck.
         toast(str('failed') + ' ' + url);
       };
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(copied, failed);
+        navigator.clipboard.writeText(url).then(ok, no);
         return;
       }
 
+      // Old WebViews have no clipboard API at all.
       try {
         var ta = doc.createElement('textarea');
         ta.value = url;
@@ -98,20 +111,22 @@
         ta.style.opacity = '0';
         doc.body.appendChild(ta);
         ta.select();
-        var ok = doc.execCommand('copy');
+        var done = doc.execCommand('copy');
         doc.body.removeChild(ta);
-        if (ok) copied();
-        else failed();
+        if (done) ok();
+        else no();
       } catch (_e) {
-        failed();
+        no();
       }
     });
   }
 
   /* ---------------- the ladder ---------------- */
 
-  // Cheapest first. `tiny` (240p) is never offered as a choice — it is where
-  // automatic switching lands when the connection genuinely cannot carry more.
+  // Cheapest first. None of these is ever offered as a choice: quality is always
+  // automatic. Asking a fuel-pump dealer to choose between "Data saver" and "Clear"
+  // is asking them to guess at their own bandwidth — a question the player can
+  // answer from the buffer, correctly, and keep answering as the signal moves.
   var LEVELS = ['tiny', 'low', 'high'];
 
   var sources = {
@@ -120,20 +135,18 @@
     high: video.getAttribute('data-high'),
   };
 
-  var note = doc.getElementById('note');
   var dl = doc.getElementById('dl');
-  var buttons = doc.querySelectorAll('.q');
 
-  /** What the VIEWER chose: 'auto' | 'low' | 'high'. */
-  var mode = 'auto';
   /** Which rung is actually playing, as an index into LEVELS. */
   var level = 1;
 
+  // There is no manual override any more, and no stored preference. A viewer who
+  // once tapped "Clear" would otherwise stay pinned to 720p forever, on any
+  // connection, with no control left to un-pin it — so the old key is cleared out.
   try {
-    var saved = localStorage.getItem('dk_quality');
-    if (saved === 'auto' || saved === 'low' || saved === 'high') mode = saved;
+    localStorage.removeItem('dk_quality');
   } catch (_e) {
-    /* private mode — default to auto */
+    /* private mode — nothing to clear */
   }
 
   function conn() {
@@ -158,15 +171,9 @@
     return 2;
   }
 
-  function paint() {
-    for (var i = 0; i < buttons.length; i++) {
-      var b = buttons[i];
-      b.setAttribute('aria-pressed', String(b.getAttribute('data-q') === mode));
-    }
-    // Watching offline should cost the least data that is still worth watching, so
-    // the download is always the 360p file, whatever happens to be streaming.
-    if (dl) dl.setAttribute('href', sources.low);
-  }
+  // Watching offline should cost the least data that is still worth watching, so
+  // the download is always the 360p file, whatever happens to be streaming.
+  if (dl) dl.setAttribute('href', sources.low);
 
   /**
    * Swap the playing rung, keeping the viewer's place.
@@ -241,7 +248,7 @@
   }
 
   function tick() {
-    if (mode !== 'auto' || video.paused || video.ended) return;
+    if (video.paused || video.ended) return;
 
     var ahead = bufferedAhead();
 
@@ -273,7 +280,7 @@
 
   // A stall is the loudest possible signal that the rung is wrong.
   video.addEventListener('waiting', function () {
-    if (mode !== 'auto' || video.ended) return;
+    if (video.ended) return;
     stalls++;
     // One stall can be a hiccup. Two means the connection cannot carry this rung.
     if (stalls >= 2 && level > 0) {
@@ -300,32 +307,8 @@
   var c0 = conn();
   if (c0 && c0.addEventListener) {
     c0.addEventListener('change', function () {
-      if (mode !== 'auto') return;
       var want = startLevel();
       if (want < level) setLevel(want, 'dropped');
-    });
-  }
-
-  /* ---------------- the viewer's choice ---------------- */
-
-  function choose(next) {
-    mode = next;
-    try {
-      localStorage.setItem('dk_quality', next);
-    } catch (_e) {
-      /* ignore */
-    }
-    if (note) note.hidden = true;
-
-    if (next === 'auto') setLevel(startLevel(), null);
-    else setLevel(next === 'low' ? 1 : 2, null);
-
-    paint();
-  }
-
-  for (var i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', function () {
-      choose(this.getAttribute('data-q'));
     });
   }
 
@@ -333,16 +316,14 @@
   // something playable. Setting .src here overrides it (per spec the src attribute
   // wins over <source> children), and preload="none" means nothing is fetched until
   // they press play — so choosing a rung up front costs no bytes.
-  level = mode === 'auto' ? startLevel() : mode === 'low' ? 1 : 2;
+  level = startLevel();
   video.src = sources[LEVELS[level]];
-  paint();
+  if (dl) dl.setAttribute('href', sources.low);
 
-  // Say so when we opened at the floor because the connection looked bad. Otherwise
-  // a soft picture reads as a broken video rather than a deliberate kindness.
-  if (mode === 'auto' && level === 0 && note) {
-    note.textContent = str('slow');
-    note.hidden = false;
-  }
+  // Say so when we open at the floor because the connection already looks bad.
+  // Otherwise a soft picture reads as a broken video rather than a deliberate
+  // kindness — and this is the only moment the viewer would have no other clue.
+  if (level === 0) toast(str('slow'));
 
   /* ---------------- chapters ---------------- */
 

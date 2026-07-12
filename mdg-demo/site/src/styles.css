@@ -345,62 +345,6 @@ h1.title {
   letter-spacing: 0.06em;
 }
 
-.qbtns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-/* Automatic is the default and the one almost nobody should need to change, so it
-   gets its own row. Three across is also simply too tight for "Data saver" to fit
-   on one line on a 320px phone. */
-.q[data-q='auto'] {
-  flex: 1 0 100%;
-}
-
-.q {
-  flex: 1;
-  padding: 10px 8px;
-  min-height: 52px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface);
-  color: var(--muted);
-  font: inherit;
-  font-size: 15px;
-  font-weight: 650;
-  cursor: pointer;
-  text-align: center;
-  line-height: 1.25;
-}
-
-.q small {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--subtle);
-}
-
-.q[aria-pressed='true'] {
-  border-color: var(--brand);
-  background: var(--brand);
-  color: #fff;
-}
-
-.q[aria-pressed='true'] small {
-  color: rgb(255 255 255 / 72%);
-}
-
-.note {
-  margin: 10px 0 0;
-  padding: 8px 10px;
-  border-radius: 8px;
-  background: var(--accent-soft);
-  color: #115e59;
-  font-size: 13px;
-  font-weight: 600;
-}
-
 /* Chapters are real links (#t=…) so they survive a script failure. */
 .chapters {
   margin: 0;
@@ -436,14 +380,22 @@ h1.title {
   font-size: 14px;
 }
 
-/* Share. A full-width primary action, not a tucked-away icon — passing a video on
-   to a warrior is a first-class thing to do here, and it is how the guide spreads. */
-.share {
+/* Share + copy, side by side. Passing a video on is a first-class action here — it
+   is how the guide actually spreads — so it gets real buttons, not a tucked-away
+   icon. Share opens the native sheet (WhatsApp, on a phone); copy is for everyone
+   who just wants the link, and for desktop, where no sheet exists. */
+.share-row {
+  display: flex;
+  gap: 8px;
+}
+
+.share,
+.copy {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 9px;
-  width: 100%;
+  flex: 1;
   min-height: 52px;
   padding: 12px;
   border: 0;
@@ -456,7 +408,23 @@ h1.title {
   cursor: pointer;
 }
 
-.share svg {
+/* Copy is the quieter sibling — offered, not pushed. */
+.copy {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-strong, var(--border));
+}
+
+.url {
+  margin: 10px 0 0;
+  color: var(--subtle);
+  font-size: 12px;
+  text-align: center;
+  word-break: break-all;
+}
+
+.share svg,
+.copy svg {
   width: 18px;
   height: 18px;
   fill: none;
@@ -468,6 +436,10 @@ h1.title {
 
 .share:active {
   opacity: 0.85;
+}
+
+.copy:active {
+  background: var(--surface-2);
 }
 
 /* The player speaks here — an automatic quality change, or a copied link. */
@@ -563,7 +535,6 @@ footer {
 
 @media (prefers-reduced-motion: no-preference) {
   .card,
-  .q,
   .lang {
     transition:
       background-color 0.12s ease,
@@ -591,14 +562,6 @@ footer {
     color: #0c0a09;
   }
 
-  .q[aria-pressed='true'] {
-    color: #0c0a09;
-  }
-
-  .q[aria-pressed='true'] small {
-    color: rgb(12 10 9 / 70%);
-  }
-
   /* --brand inverts in dark mode, so anything sitting ON it has to invert too,
      or the share button is white text on a white pill. */
   .share {
@@ -610,7 +573,6 @@ footer {
     color: #0c0a09;
   }
 
-  .note,
   .pill.accent {
     color: var(--accent);
   }
