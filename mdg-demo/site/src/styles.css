@@ -16,6 +16,16 @@
   box-sizing: border-box;
 }
 
+/*
+ * The `hidden` attribute must actually hide things. The UA rule for it is
+ * `[hidden]{display:none}` at the lowest specificity, so any class or id rule that
+ * sets a display — `.pill{display:inline-flex}`, `#qx{display:grid}` — silently
+ * beats it, and the element stays on screen. Restated here so it wins.
+ */
+[hidden] {
+  display: none !important;
+}
+
 :root {
   --bg: #fafaf9;
   --surface: #ffffff;
@@ -151,7 +161,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 14px;
+  margin-bottom: 14px;
 }
 
 .pill {

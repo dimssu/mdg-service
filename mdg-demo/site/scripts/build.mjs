@@ -32,9 +32,7 @@ const mb = (bytes) => `${(bytes / 1048576).toFixed(1)} MB`;
 /** Both languages, one after the other — CSS reveals whichever is active. */
 const bi = (tag, pick, cls = '') => {
   const c = cls ? ` class="${cls}"` : '';
-  return LANGS.map(
-    (l) => `<${tag} lang="${l}"${c}>${esc(pick(l))}</${tag}>`,
-  ).join('');
+  return LANGS.map((l) => `<${tag} lang="${l}"${c}>${esc(pick(l))}</${tag}>`).join('');
 };
 
 /**
@@ -43,16 +41,17 @@ const bi = (tag, pick, cls = '') => {
  * safe on old Android WebViews.
  */
 const LANG_BOOT =
-  `(function(){try{var m=/[?&]lang=(hi|en)/.exec(location.search);` +
+  `(function(){var d=document.documentElement;d.className='';try{` +
+  `var m=/[?&]lang=(hi|en)/.exec(location.search);` +
   `var l=m?m[1]:localStorage.getItem('dk_lang');` +
   `if(l!=='hi'&&l!=='en')l='${DEFAULT_LANG}';` +
-  `var d=document.documentElement;d.setAttribute('data-lang',l);d.setAttribute('lang',l);` +
+  `d.setAttribute('data-lang',l);d.setAttribute('lang',l);` +
   `}catch(e){}})();`;
 
-function page({ slug, title, description, ogImage, body, css, js }) {
+function page({ slug, title, description, ogImage, body, css, js, extra = '' }) {
   const canonical = slug ? `${ORIGIN}/${slug}` : ORIGIN;
   return `<!doctype html>
-<html lang="${DEFAULT_LANG}" data-lang="${DEFAULT_LANG}">
+<html lang="${DEFAULT_LANG}" data-lang="${DEFAULT_LANG}" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -78,6 +77,7 @@ ${body}
   <div>${esc(UI[DEFAULT_LANG].footer)}</div>
 </footer>
 </div>
+${extra}
 <script>${js}</script>
 </body>
 </html>
@@ -94,13 +94,45 @@ const header = () => `<header class="top">
   </button>
 </header>`;
 
+/**
+ * The searchable text, emitted as JSON alongside the cards.
+ *
+ * BOTH languages go in every entry regardless of which one is on screen, so a
+ * dealer reading Hindi who types "photo" still finds "हार्डकॉपी फोटो" — people
+ * search in whatever language reaches their fingers first, which on an Android
+ * keyboard is often not the one they are reading.
+ *
+ * Chapters are indexed too: with only six videos, the useful question is rarely
+ * "which video?" but "where in it?", and a chapter hit can deep-link to the second.
+ *
+ * `keywords` exists because substring matching cannot bridge a vocabulary gap: the
+ * login video is titled "Logging in to the app", so someone typing the obvious word
+ * — "login" — found nothing at all. Aliases (including romanised Hindi, which is how
+ * people type on an English keyboard) are the honest fix.
+ */
+function searchIndex(videos, byId) {
+  return videos.map((v, i) => ({
+    i,
+    u: `/${v.id}`,
+    t: LANGS.map((l) => v[l].title),
+    s: LANGS.map((l) => v[l].subtitle),
+    d: LANGS.map((l) => v[l].description),
+    k: (v.keywords ?? []).join(' '),
+    c: byId[v.id].chapters
+      .filter((c) => v.hi.chapters[c.id] && v.en.chapters[c.id])
+      .map((c) => [c.start, v.hi.chapters[c.id], v.en.chapters[c.id]]),
+  }));
+}
+
 function dashboard(videos, byId) {
   const totalLow = videos.reduce((a, v) => a + byId[v.id].sizes.low, 0);
 
   const cards = videos
     .map((v, i) => {
       const m = byId[v.id];
-      return `<li>
+      // The chapter deep-link is a sibling of the card, not a child: a link inside
+      // a link is invalid, and the whole card is already one.
+      return `<li class="item" data-i="${i}">
   <a class="card" href="/${v.id}">
     <span class="thumb">
       <img src="${m.thumb}" alt="" width="240" height="426" loading="lazy" decoding="async">
@@ -113,6 +145,7 @@ function dashboard(videos, byId) {
     </span>
     <span class="chev" aria-hidden="true">&rsaquo;</span>
   </a>
+  <div class="hits" hidden></div>
 </li>`;
     })
     .join('\n');
@@ -122,18 +155,62 @@ function dashboard(videos, byId) {
   <div class="hero">
     ${bi('h1', (l) => `${UI[l].brand} ${UI[l].siteTitle}`)}
     ${bi('p', (l) => UI[l].tagline)}
-    <div class="meta-row">
-      <span class="pill">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].videoCount(videos.length))}</span>`).join('')}</span>
-      <span class="pill accent">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].hindiAudio)}</span>`).join('')}</span>
-      <span class="pill">${mb(totalLow)}</span>
+  </div>
+
+  <div class="search js-only">
+    <label class="sr" for="q">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].searchLabel)}</span>`).join('')}</label>
+    <div class="search-box">
+      <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="q" type="search" autocomplete="off" autocorrect="off" spellcheck="false"
+        enterkeyhint="search" ${LANGS.map((l) => `data-ph-${l}="${esc(UI[l].searchPlaceholder)}"`).join(' ')}>
+      <button id="qx" type="button" hidden>
+        <span class="sr">${esc(UI.hi.searchClear)}</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
   </div>
-  <ul class="list">
+
+  <div class="meta-row" id="meta">
+    <span class="pill" id="count">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].videoCount(videos.length))}</span>`).join('')}</span>
+    <span class="pill accent">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].hindiAudio)}</span>`).join('')}</span>
+    <span class="pill" id="size">${mb(totalLow)}</span>
+  </div>
+
+  <ul class="list" id="list">
 ${cards}
   </ul>
+
+  <div class="empty" id="empty" hidden>
+    ${bi('h2', (l) => UI[l].searchNoneTitle)}
+    ${bi('p', (l) => UI[l].searchNoneDesc)}
+    <button class="showall" id="showall" type="button">
+      ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].searchShowAll)}</span>`).join('')}
+    </button>
+  </div>
 </main>`;
 
-  return { body, title: `${UI.hi.brand} ${UI.hi.siteTitle} · Learn` };
+  // The handful of strings the search has to build at runtime (counts vary, so
+  // they can't be pre-rendered like the rest of the bilingual copy).
+  const strings = Object.fromEntries(
+    LANGS.map((l) => [
+      l,
+      {
+        all: UI[l].videoCount(videos.length),
+        one: UI[l].searchCount(1),
+        many: UI[l].searchCount(2).replace('2', '{n}'),
+        best: UI[l].searchBest,
+        jump: UI[l].searchJump,
+        ph: UI[l].searchPlaceholder,
+      },
+    ]),
+  );
+
+  const json = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
+  const extra =
+    `<script id="idx" type="application/json">${json(searchIndex(videos, byId))}</script>` +
+    `<script id="str" type="application/json">${json(strings)}</script>`;
+
+  return { body, title: `${UI.hi.brand} ${UI.hi.siteTitle} · Learn`, extra };
 }
 
 function watch(v, i, videos, byId) {
@@ -215,19 +292,27 @@ const ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
 `;
 
 async function main() {
-  const [rawCss, js, manifest] = await Promise.all([
+  // Each page gets only the script it actually runs. The search is ~9 kB of JS a
+  // watch page would never execute, and on 2G that is not a rounding error.
+  const [rawCss, rawSearchCss, shellJs, searchJs, playerJs, manifest] = await Promise.all([
     readFile(path.join(ROOT, 'src/styles.css'), 'utf8'),
-    readFile(path.join(ROOT, 'src/app.js'), 'utf8'),
+    readFile(path.join(ROOT, 'src/search.css'), 'utf8'),
+    readFile(path.join(ROOT, 'src/shell.js'), 'utf8'),
+    readFile(path.join(ROOT, 'src/search.js'), 'utf8'),
+    readFile(path.join(ROOT, 'src/player.js'), 'utf8'),
     readFile(path.join(ROOT, 'data/videos.json'), 'utf8').then(JSON.parse),
   ]);
 
   // Comments and indentation are the only safe things to strip without a real
   // parser, and compression flattens the rest anyway.
-  const css = rawCss
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .replace(/\s*\n\s*/g, '\n')
-    .replace(/\n{2,}/g, '\n')
-    .trim();
+  const squeeze = (t) =>
+    t
+      .replace(/\/\*[\s\S]*?\*\//g, '')
+      .replace(/\s*\n\s*/g, '\n')
+      .replace(/\n{2,}/g, '\n')
+      .trim();
+  const css = squeeze(rawCss);
+  const searchCss = squeeze(rawSearchCss);
 
   const byId = Object.fromEntries(manifest.map((m) => [m.id, m]));
   const missing = VIDEOS.filter((v) => !byId[v.id]);
@@ -250,8 +335,9 @@ async function main() {
       description: UI[DEFAULT_LANG].metaDescription,
       ogImage: byId[VIDEOS[0].id].og,
       body: dash.body,
-      css,
-      js,
+      css: css + '\n' + searchCss,
+      js: shellJs + searchJs,
+      extra: dash.extra,
     }),
   );
 
@@ -267,7 +353,7 @@ async function main() {
         ogImage: byId[v.id].og,
         body: w.body,
         css,
-        js,
+        js: shellJs + playerJs,
       }),
     );
   }
@@ -289,7 +375,9 @@ ${['', ...VIDEOS.map((v) => v.id)]
   );
 
   console.log(`Built ${VIDEOS.length + 1} pages → dist/`);
-  console.log(`  inlined css ${(css.length / 1024).toFixed(1)} kB, js ${(js.length / 1024).toFixed(1)} kB`);
+  const kb = (s) => (s.length / 1024).toFixed(1);
+  console.log(`  css: dashboard ${kb(css + searchCss)} kB, watch ${kb(css)} kB`);
+  console.log(`  js: dashboard ${kb(shellJs + searchJs)} kB, watch ${kb(shellJs + playerJs)} kB`);
 }
 
 await main();

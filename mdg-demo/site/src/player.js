@@ -1,38 +1,15 @@
 /*
- * Everything the guide site runs on the client. It is deliberately tiny, written
- * in ES5-flavoured JS with no bundler and no dependencies, because the target is
- * a cheap Android phone that may still be on an old WebView.
+ * The video player: quality switching that keeps the viewer's place, and
+ * seekable chapters.
  *
- * It does three things: switch language, switch video quality without losing the
- * viewer's place, and jump to a chapter. If it never loads, the page still shows
- * Hindi copy and a playable data-saver video — nothing here is load-bearing.
+ * Hand-written ES5-flavoured JS: no bundler, no dependencies, because the target
+ * is a cheap Android phone that may still be on an old WebView. Inlined into the
+ * page at build time — and only into the pages that actually use it.
  */
 (function () {
   'use strict';
 
   var doc = document;
-  var root = doc.documentElement;
-
-  /* ---------------- language ---------------- */
-
-  function setLang(lang) {
-    root.setAttribute('data-lang', lang);
-    root.setAttribute('lang', lang);
-    try {
-      localStorage.setItem('dk_lang', lang);
-    } catch (_e) {
-      /* private mode — the toggle still works for this page view */
-    }
-  }
-
-  var langBtn = doc.getElementById('lang');
-  if (langBtn) {
-    langBtn.addEventListener('click', function () {
-      setLang(root.getAttribute('data-lang') === 'hi' ? 'en' : 'hi');
-    });
-  }
-
-  /* ---------------- player ---------------- */
 
   var video = doc.getElementById('v');
   if (!video) return;

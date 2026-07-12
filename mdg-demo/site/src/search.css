@@ -1,0 +1,200 @@
+/*
+ * Dashboard search. Split out of styles.css so a watch page — which has no
+ * search box — does not pay for it. Inlined only into the dashboard.
+ */
+
+/*
+ * Search is the one thing here that genuinely needs JS, so it stays hidden until
+ * JS proves it is alive. Without it the full list is still right there, in order —
+ * a search box that silently does nothing would be worse than no search box.
+ */
+.no-js .js-only {
+  display: none;
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.search {
+  margin: 18px 0 14px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 52px;
+  padding: 0 6px 0 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+}
+
+.search-box:focus-within {
+  border-color: var(--accent);
+}
+
+.search-icon {
+  flex: none;
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: var(--subtle);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+#q {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  /* Must be >= 16px, or iOS Safari zooms the whole page when it gets focus. */
+  font-size: 16px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#q::placeholder {
+  color: var(--subtle);
+}
+
+#q::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+#qx {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--surface-2);
+  cursor: pointer;
+}
+
+#qx svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+#qx:active {
+  background: var(--border);
+}
+
+mark {
+  padding: 0 1px;
+  border-radius: 3px;
+  background: #fde68a;
+  color: #1c1917;
+}
+
+/* The top result, but only when there is something for it to beat. */
+/*
+ * The top result gets said out loud, not just implied by a border colour — the
+ * reader is a dealer scanning quickly, and "best match" is the whole promise of
+ * ranking. The label text comes from JS so it follows the language toggle.
+ */
+.item.best::before {
+  content: attr(data-best);
+  display: inline-block;
+  margin: 0 0 6px 2px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.item.best > .card {
+  border-color: var(--accent);
+}
+
+/* A chapter hit — the exact moment those words are spoken. Sits just under its
+   card as its own tap target, so it can be a link without nesting one. */
+.hits {
+  padding: 6px 10px 0;
+}
+
+.hit {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.hit:active {
+  background: var(--border);
+}
+
+.hit-t {
+  flex: none;
+  color: var(--accent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+}
+
+.empty {
+  padding: 32px 16px 40px;
+  text-align: center;
+}
+
+.empty h2 {
+  margin: 0 0 6px;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+
+.empty p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.showall {
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.showall:active {
+  background: var(--surface-2);
+}
