@@ -7,6 +7,8 @@ import { makeCalculateMetadata, type TutorialProps } from './lib/calc';
 import { TUTORIAL_BY_ID } from './narration';
 import { VIDEO } from './theme';
 import { AddWarriorVideo } from './videos/AddWarriorVideo';
+import { CreditMonitorPhotoVideo } from './videos/CreditMonitorPhotoVideo';
+import { CreditMonitorVideo } from './videos/CreditMonitorVideo';
 import { GivePointsVideo } from './videos/GivePointsVideo';
 import { LoginVideo } from './videos/LoginVideo';
 import { PointsSystemVideo } from './videos/PointsSystemVideo';
@@ -88,6 +90,29 @@ export function RemotionRoot() {
         height={VIDEO.height}
         defaultProps={defaults('points-system')}
         calculateMetadata={makeCalculateMetadata(TUTORIAL_BY_ID['points-system'])}
+      />
+      {/* CREDIT & DOD MONITORING — two variants sharing one narration/voiceover:
+          the clean recreation (CreditMonitor) and the marked-up-photo version
+          (CreditMonitorPhoto). */}
+      <Composition
+        id={TUTORIAL_BY_ID['credit-monitor'].compositionId}
+        component={CreditMonitorVideo}
+        durationInFrames={1}
+        fps={VIDEO.fps}
+        width={VIDEO.width}
+        height={VIDEO.height}
+        defaultProps={defaults('credit-monitor')}
+        calculateMetadata={makeCalculateMetadata(TUTORIAL_BY_ID['credit-monitor'])}
+      />
+      <Composition
+        id="CreditMonitorPhoto"
+        component={CreditMonitorPhotoVideo}
+        durationInFrames={1}
+        fps={VIDEO.fps}
+        width={VIDEO.width}
+        height={VIDEO.height}
+        defaultProps={defaults('credit-monitor')}
+        calculateMetadata={makeCalculateMetadata(TUTORIAL_BY_ID['credit-monitor'])}
       />
     </>
   );

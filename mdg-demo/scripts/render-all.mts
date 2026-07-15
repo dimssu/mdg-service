@@ -10,12 +10,25 @@ import { TUTORIALS } from '../src/narration';
  * generated voiceover (run `npm run voice` first for real narration; otherwise
  * the estimated timings are used). First run downloads a headless browser.
  */
+/**
+ * Extra compositions that aren't 1:1 with a Tutorial — e.g. the marked-up-photo
+ * variant of the credit-monitor explainer, which reuses the same narration.
+ */
+const EXTRA: { compositionId: string; id: string }[] = [
+  { compositionId: 'CreditMonitorPhoto', id: 'credit-monitor-photo' },
+];
+
 async function main() {
   const entryPoint = path.resolve(process.cwd(), 'src/index.ts');
   console.log('Bundling…');
   const serveUrl = await bundle({ entryPoint });
 
-  for (const t of TUTORIALS) {
+  const jobs = [
+    ...TUTORIALS.map((t) => ({ compositionId: t.compositionId, id: t.id })),
+    ...EXTRA,
+  ];
+
+  for (const t of jobs) {
     const outputLocation = path.resolve(process.cwd(), 'out', `${t.id}.mp4`);
     console.log(`\nRendering ${t.compositionId} → out/${t.id}.mp4`);
     const composition = await selectComposition({

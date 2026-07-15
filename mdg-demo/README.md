@@ -11,12 +11,20 @@ phone or inside WhatsApp.
 
 ## What's included
 
-| Video          | Composition   | Teaches                                                  |
-| -------------- | ------------- | -------------------------------------------------------- |
-| `login`        | `Login`       | Opening the app and signing in with email + password     |
-| `add-warrior`  | `AddWarrior`  | Adding a new योद्धा (staff member)                       |
-| `give-points`  | `GivePoints`  | Giving points to one योद्धा for a task                   |
-| `split-points` | `SplitPoints` | Splitting one task's points equally among several people |
+| Video                  | Composition          | Teaches                                                     |
+| ---------------------- | -------------------- | ----------------------------------------------------------- |
+| `login`                | `Login`              | Opening the app and signing in with email + password        |
+| `add-warrior`          | `AddWarrior`         | Adding a new योद्धा (staff member)                          |
+| `give-points`          | `GivePoints`         | Giving points to one योद्धा for a task                      |
+| `split-points`         | `SplitPoints`        | Splitting one task's points equally among several people    |
+| `submit-points`        | `SubmitPoints`       | Final-submitting the day's points with a hardcopy photo     |
+| `points-system`        | `PointsSystem`       | How each work's points are derived (concept explainer)      |
+| `credit-monitor`       | `CreditMonitor`      | Reading the daily CREDIT & DOD MONITORING card (recreation) |
+| `credit-monitor-photo` | `CreditMonitorPhoto` | Same, marked up over the dealer's own card screenshots      |
+
+`credit-monitor` and `credit-monitor-photo` share one narration/voiceover — the
+first redraws the card cleanly, the second highlights rows on your real photos
+(drop them in `public/credit-card/`, see that folder's README).
 
 The narration for every video lives in **`src/narration.ts`** — this is the single
 source of truth: the same Hindi text is both the on-screen caption **and** the

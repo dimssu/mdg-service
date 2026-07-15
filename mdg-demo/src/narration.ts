@@ -461,6 +461,98 @@ const submitPoints: Tutorial = {
   ],
 };
 
+/**
+ * CreditMonitor — a concept explainer (not an app walkthrough) that reads the
+ * daily "CREDIT & DOD MONITORING" card MDG sends each dealer, line by line, in
+ * simple Hindi. Each scene's `step` selects a card state + which row to ring:
+ *   card-full → whole card, no ring (intro/overview)
+ *   <field>   → the due-state card with that row highlighted
+ *   advance   → the credit/advance-state card (negative DUE AMOUNT, no due date)
+ *   act/recap → practical takeaways
+ * The same narration drives BOTH the clean recreation (CreditMonitor) and the
+ * marked-up-photo version (CreditMonitorPhoto), so the voice is generated once.
+ */
+const creditMonitor: Tutorial = {
+  id: 'credit-monitor',
+  compositionId: 'CreditMonitor',
+  title: 'क्रेडिट और DOD मॉनिटरिंग',
+  subtitle: 'अपना रोज़ का उधार-हिसाब कार्ड पढ़ना सीखिए',
+  scenes: [
+    {
+      id: 'intro',
+      step: 'card-full',
+      text: 'नमस्ते! हर रोज़ MDG की तरफ़ से आपको यह "क्रेडिट और DOD मॉनिटरिंग" कार्ड मिलता है। इस वीडियो में हम इसे एक-एक लाइन करके, आसान भाषा में समझेंगे।',
+      estSeconds: 9,
+    },
+    {
+      id: 'overview',
+      step: 'card-full',
+      text: 'यह कार्ड एक ही नज़र में बता देता है कि इंडियन ऑयल के साथ आपके उधार का हिसाब कैसा है — कितना बकाया है, कितनी सीमा है, और कितना अभी बाकी है। ऊपर से नीचे, बारी-बारी देखते हैं।',
+      estSeconds: 11,
+    },
+    {
+      id: 'due-amount',
+      step: 'due-amount',
+      text: 'सबसे ऊपर है DUE AMOUNT — यानी बकाया राशि। यह वह पैसा है जो आपको इंडियन ऑयल के खाते में जमा करना है।',
+      estSeconds: 8,
+    },
+    {
+      id: 'due-date',
+      step: 'due-date',
+      text: 'उसके नीचे DUE DATE — यानी आख़िरी तारीख़। इसी तारीख़ तक बकाया राशि जमा करनी होती है। देर हुई तो सप्लाई रुक सकती है।',
+      estSeconds: 9.5,
+    },
+    {
+      id: 'current-limit',
+      step: 'current-limit',
+      text: 'फिर आता है CURRENT LIMIT — आपकी कुल उधार सीमा। यानी आज के लिए तय की गई राशि, जितने तक आप माल उठा सकते हैं।',
+      estSeconds: 9,
+    },
+    {
+      id: 'availed-limit',
+      step: 'availed-limit',
+      text: 'AVAILED LIMIT — अभी तक की गई खपत। यानी इस सीमा में से आप अब तक कितना इस्तेमाल कर चुके हैं।',
+      estSeconds: 8,
+    },
+    {
+      id: 'available-limit',
+      step: 'available-limit',
+      text: 'AVAILABLE LIMIT — बची हुई राशि। यानी अभी आप और कितने का माल उठा सकते हैं। हिसाब आसान है — कुल सीमा में से की गई खपत घटा दीजिए।',
+      estSeconds: 10,
+    },
+    {
+      id: 'form-of-limit',
+      step: 'form-of-limit',
+      text: 'FORM OF LIMIT बताता है कि आपकी उधार सीमा किस तरह की है — जैसे DOD या CASH & CARRY। यह आपके और इंडियन ऑयल के बीच तय हुई शर्त होती है।',
+      estSeconds: 9.5,
+    },
+    {
+      id: 'prepared-at',
+      step: 'prepared-at',
+      text: 'सबसे नीचे Data Prepared At — यानी यह हिसाब किस समय बनाया गया। हमेशा ताज़ा समय देखकर ही भरोसा कीजिए।',
+      estSeconds: 8,
+    },
+    {
+      id: 'advance',
+      step: 'advance',
+      text: 'अब एक और स्थिति देखिए। कभी-कभी DUE AMOUNT के आगे माइनस का निशान होता है, और DUE DATE ख़ाली रहती है। इसका मतलब — कोई बकाया नहीं। आपने पहले ही ज़्यादा पैसा जमा कर रखा है, यानी आप एडवांस में हैं।',
+      estSeconds: 12,
+    },
+    {
+      id: 'act',
+      step: 'act',
+      text: 'तो हर रोज़ यही देखिए — अगर बकाया है तो तारीख़ से पहले जमा कर दीजिए, और AVAILABLE LIMIT देखकर तय कीजिए कि अभी और कितने का माल उठाया जा सकता है।',
+      estSeconds: 10.5,
+    },
+    {
+      id: 'recap',
+      step: 'recap',
+      text: 'बस इतना ही! ऊपर बकाया और तारीख़, बीच में सीमा और खपत, नीचे बची हुई राशि। रोज़ एक नज़र डालिए और अपना हिसाब हमेशा साफ़ रखिए। धन्यवाद!',
+      estSeconds: 10,
+    },
+  ],
+};
+
 export const TUTORIALS: Tutorial[] = [
   login,
   addWarrior,
@@ -468,6 +560,7 @@ export const TUTORIALS: Tutorial[] = [
   splitPoints,
   submitPoints,
   pointsSystem,
+  creditMonitor,
 ];
 
 export const TUTORIAL_BY_ID: Record<string, Tutorial> = Object.fromEntries(
