@@ -22,8 +22,8 @@ import { colors, FONT_FAMILY, VIDEO } from '../theme';
  * marking the row being narrated.
  *
  * ── Add your two photos ──────────────────────────────────────────────────────
- *   public/credit-card/due.jpg       ← the "amount due" sample (5E01)
- *   public/credit-card/advance.jpg   ← the credit/advance sample (1E01)
+ *   public/credit-card/due.jpg       ← the "amount due" sample (DOD limit)
+ *   public/credit-card/advance.jpg   ← the credit/advance sample (CREDIT limit)
  * (.png works too — change the ext in PHOTO below.) Until they're added, this
  * composition gracefully falls back to the clean recreation so it still renders.
  *
@@ -48,28 +48,28 @@ const PHOTO: Record<CardState, string> = {
  */
 const ROW_BANDS: Record<CardState, Record<string, [number, number]>> = {
   due: {
-    'due-amount': [0.1875, 0.3304],
-    'due-date': [0.3304, 0.4196],
-    'current-limit': [0.4196, 0.5089],
-    'availed-limit': [0.5089, 0.5982],
-    'available-limit': [0.5982, 0.7277],
-    'form-of-limit': [0.7277, 0.817],
-    'prepared-at': [0.817, 0.9286],
+    'due-amount': [0.1829, 0.354],
+    'due-date': [0.354, 0.4425],
+    'current-limit': [0.4425, 0.528],
+    'availed-limit': [0.528, 0.6136],
+    'available-limit': [0.6136, 0.7404],
+    'form-of-limit': [0.7404, 0.826],
+    'prepared-at': [0.826, 0.9351],
   },
   advance: {
-    'due-amount': [0.1991, 0.2986],
-    'due-date': [0.2986, 0.3981],
-    'current-limit': [0.3981, 0.4976],
-    'availed-limit': [0.4976, 0.5972],
-    'available-limit': [0.5972, 0.6967],
-    'form-of-limit': [0.6967, 0.7962],
-    'prepared-at': [0.7962, 0.9194],
+    'due-amount': [0.2181, 0.3209],
+    'due-date': [0.3209, 0.4174],
+    'current-limit': [0.4174, 0.514],
+    'availed-limit': [0.514, 0.6106],
+    'available-limit': [0.6106, 0.7072],
+    'form-of-limit': [0.7072, 0.8037],
+    'prepared-at': [0.8037, 0.947],
   },
 };
 /** Table content horizontal span (fraction of image width), per photo. */
 const H_SPAN: Record<CardState, { left: number; right: number }> = {
-  due: { left: 0.028, right: 0.964 },
-  advance: { left: 0.046, right: 0.955 },
+  due: { left: 0.022, right: 0.96 },
+  advance: { left: 0.035, right: 0.96 },
 };
 
 function rowRect(state: CardState, key: string) {

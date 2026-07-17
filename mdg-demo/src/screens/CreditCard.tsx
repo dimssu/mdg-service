@@ -65,6 +65,9 @@ function BrandBand({ top }: { top?: boolean }) {
   );
 }
 
+/** Fixed side slots keep the centred title from colliding with the logo/code. */
+const HEADER_SLOT = 156;
+
 function Header({ code }: { code: string }) {
   return (
     <div
@@ -73,39 +76,40 @@ function Header({ code }: { code: string }) {
         background: `linear-gradient(180deg, ${c.maroon}, #991b1b)`,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
-        padding: '0 28px',
+        padding: '0 20px',
+        gap: 10,
       }}
     >
-      <div
-        style={{
-          position: 'absolute',
-          left: 24,
-          width: 74,
-          height: 74,
-          borderRadius: 16,
-          background: '#ffffff',
-          color: c.maroon,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: 22,
-          fontWeight: 800,
-          letterSpacing: '-0.02em',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.25)',
-        }}
-      >
-        MDG
-      </div>
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ width: HEADER_SLOT, display: 'flex', justifyContent: 'flex-start' }}>
         <div
           style={{
-            fontSize: 46,
+            width: 74,
+            height: 74,
+            borderRadius: 16,
+            background: '#ffffff',
+            color: c.maroon,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 22,
+            fontWeight: 800,
+            letterSpacing: '-0.02em',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.25)',
+          }}
+        >
+          MDG
+        </div>
+      </div>
+
+      <div style={{ flex: 1, textAlign: 'center', minWidth: 0 }}>
+        <div
+          style={{
+            fontSize: 40,
             fontWeight: 800,
             color: '#ffffff',
             letterSpacing: '0.01em',
             lineHeight: 1.05,
+            whiteSpace: 'nowrap',
           }}
         >
           CREDIT &amp; DOD MONITORING
@@ -114,19 +118,21 @@ function Header({ code }: { code: string }) {
           रोज़ का उधार-हिसाब
         </div>
       </div>
-      <div
-        style={{
-          position: 'absolute',
-          right: 24,
-          background: c.gold,
-          color: c.maroon,
-          borderRadius: 10,
-          padding: '8px 16px',
-          fontSize: 28,
-          fontWeight: 800,
-        }}
-      >
-        {code}
+
+      <div style={{ width: HEADER_SLOT, display: 'flex', justifyContent: 'flex-end' }}>
+        <div
+          style={{
+            background: c.gold,
+            color: c.maroon,
+            borderRadius: 10,
+            padding: '8px 16px',
+            fontSize: 26,
+            fontWeight: 800,
+            letterSpacing: '0.02em',
+          }}
+        >
+          {code}
+        </div>
       </div>
     </div>
   );

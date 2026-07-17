@@ -3,10 +3,13 @@
 The `CreditMonitorPhoto` composition draws highlight boxes over the dealer's
 actual "CREDIT & DOD MONITORING" screenshots. Drop the two samples here:
 
-| File          | Which sample                                     |
-| ------------- | ------------------------------------------------ |
-| `due.jpg`     | the **amount-due** card (header code `5E01`)     |
-| `advance.jpg` | the **credit/advance** card (header code `1E01`) |
+| File          | Which sample                                           |
+| ------------- | ------------------------------------------------------ |
+| `due.jpg`     | the **amount-due** card (FORM OF LIMIT = `DOD`)        |
+| `advance.jpg` | the **credit/advance** card (FORM OF LIMIT = `CREDIT`) |
+
+Both samples have the dealer code redacted to `XXXXX`. FORM OF LIMIT holds exactly
+one of DOD / CREDIT / CASH & CARRY — never a combination.
 
 - `.png` also works — change the extension in `PHOTO` inside
   `src/videos/CreditMonitorPhotoVideo.tsx`.

@@ -523,8 +523,8 @@ const creditMonitor: Tutorial = {
     {
       id: 'form-of-limit',
       step: 'form-of-limit',
-      text: 'FORM OF LIMIT बताता है कि आपकी उधार सीमा किस तरह की है — जैसे DOD या CASH & CARRY। यह आपके और इंडियन ऑयल के बीच तय हुई शर्त होती है।',
-      estSeconds: 9.5,
+      text: 'FORM OF LIMIT बताता है कि आपकी सीमा किस तरह की है। यह तीन में से कोई एक होती है — DOD, क्रेडिट, या कैश एंड कैरी। एक समय में इनमें से सिर्फ़ एक ही रहती है।',
+      estSeconds: 11,
     },
     {
       id: 'prepared-at',
