@@ -86,17 +86,17 @@ Content-Type: application/json
 GET {{base}}/dealers/{{dealerId}}/audit
 Authorization: Bearer {{token}}
 
-### 8. Attach the daily-stock-check plugin
+### 8. Attach the custom-request plugin
 # @name attachService
 POST {{base}}/dealers/{{dealerId}}/services
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "serviceId": "daily-stock-check",
+  "serviceId": "custom-request",
   "config": {
-    "warehouseId": "WH-BLR-DEMO",
-    "threshold": 75
+    "requestType": "manual-audit",
+    "payload": { "ticketId": "T-1001" }
   }
 }
 

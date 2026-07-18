@@ -88,10 +88,10 @@ Expected: 200, `data.status='ACTIVE'` (auto-promotion).
 ```
 curl -s -X POST http://localhost:4000/api/v1/dealers/$DEALER_ID/services \
   -H "authorization: Bearer $TOKEN" -H 'content-type: application/json' \
-  -d '{"serviceId":"daily-stock-check","config":{"warehouseId":"WH-SMOKE","threshold":50}}'
+  -d '{"serviceId":"custom-request","config":{"requestType":"manual-audit","payload":{"ticketId":"T-SMOKE"}}}'
 ```
 
-Expected: 201 with `cadence='DAILY'`, `schedule='0 0 * * *'`, `nextRunAt` set. Capture `data.id` as `DS_ID`.
+Expected: 201 with `cadence='ON_DEMAND'`, `schedule='@on-demand'`, `nextRunAt` null. Capture `data.id` as `DS_ID`.
 
 ## 8. Run now (≤1 min)
 
