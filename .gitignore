@@ -51,6 +51,8 @@ mdg-admin/
 mdg-admin-app/
 mdg-client/
 mdg-app/
+mdg-landing/
+mdg-demo/
 
 # Misc
 *.tgz
