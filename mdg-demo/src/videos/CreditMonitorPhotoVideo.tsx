@@ -17,20 +17,21 @@ import { CreditCard } from '../screens/CreditCard';
 import { colors, FONT_FAMILY, VIDEO } from '../theme';
 
 /**
- * CreditMonitorPhoto (Variant B) — the SAME narration + voiceover as Variant A,
- * but drawn over the dealer's actual uploaded screenshots with a highlight box
- * marking the row being narrated.
+ * ⚠️ RETIRED — not rendered by `npm run render`, not published.
  *
- * ── Add your two photos ──────────────────────────────────────────────────────
- *   public/credit-card/due.jpg       ← the "amount due" sample (DOD limit)
- *   public/credit-card/advance.jpg   ← the credit/advance sample (CREDIT limit)
- * (.png works too — change the ext in PHOTO below.) Until they're added, this
- * composition gracefully falls back to the clean recreation so it still renders.
+ * This is variant B of the credit-monitor explainer: the same narration, with the
+ * highlight drawn as an absolutely-positioned box over a PHOTO of a real card
+ * (`public/credit-card/{due,advance}.jpg`), using hand-measured fractional bands.
  *
- * ── Calibrating the highlight boxes ─────────────────────────────────────────
- * The boxes are positioned as fractions of the image, measured from the table's
- * grid lines in the real photos. If the card template changes, re-measure and
- * update ROW_BANDS[state] / H_SPAN below.
+ * Those bands — and the photo itself — describe the OLD seven-row card. The card
+ * the backend renders was restructured (a DUE AMOUNT / DUE DATE hero with a
+ * days-left verdict, three limit tiles with a utilisation bar, all three FORM OF
+ * LIMIT options with the dealer's lit up), and the shared narration was rewritten
+ * to match. Rendering this today produces a video whose picture contradicts its
+ * own voiceover, so it was dropped from `scripts/render-all.mts`.
+ *
+ * To bring it back: re-shoot the two JPEGs from the new card, re-measure
+ * `ROW_BANDS`/`H_SPAN` against them, and restore the `EXTRA` entry.
  */
 
 const TUT = TUTORIAL_BY_ID['credit-monitor'];

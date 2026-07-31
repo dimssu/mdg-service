@@ -381,23 +381,23 @@
   },
   {
     "id": "credit-monitor",
-    "duration": 168,
+    "duration": 185,
     "orientation": "portrait",
     "width": 1080,
     "height": 1920,
     "sizes": {
-      "tiny": 1664951,
-      "low": 2877178,
-      "high": 7718812
+      "tiny": 1919210,
+      "low": 3375909,
+      "high": 9118743
     },
     "src": {
-      "tiny": "/media/credit-monitor/tiny.2126c2e6.mp4",
-      "low": "/media/credit-monitor/low.b271f4c5.mp4",
-      "high": "/media/credit-monitor/high.3e5617ce.mp4"
+      "tiny": "/media/credit-monitor/tiny.c3ac5793.mp4",
+      "low": "/media/credit-monitor/low.c2b13482.mp4",
+      "high": "/media/credit-monitor/high.3904b532.mp4"
     },
-    "poster": "/media/credit-monitor/poster.23422dd8.webp",
-    "thumb": "/media/credit-monitor/thumb.b342630d.webp",
-    "og": "/media/credit-monitor/og.574da2f5.jpg",
+    "poster": "/media/credit-monitor/poster.92fe5171.webp",
+    "thumb": "/media/credit-monitor/thumb.7e0ad5df.webp",
+    "og": "/media/credit-monitor/og.5ef6c94c.jpg",
     "chapters": [
       {
         "id": "intro",
@@ -417,35 +417,35 @@
       },
       {
         "id": "current-limit",
-        "start": 54.4
+        "start": 61
       },
       {
         "id": "availed-limit",
-        "start": 66.2
+        "start": 72.7
       },
       {
         "id": "available-limit",
-        "start": 76.4
+        "start": 82.9
       },
       {
         "id": "form-of-limit",
-        "start": 90.8
+        "start": 97.4
       },
       {
         "id": "prepared-at",
-        "start": 109
+        "start": 117.2
       },
       {
         "id": "advance",
-        "start": 120.6
+        "start": 128.9
       },
       {
         "id": "act",
-        "start": 140.2
+        "start": 150.7
       },
       {
         "id": "recap",
-        "start": 153.2
+        "start": 163.7
       }
     ]
   },

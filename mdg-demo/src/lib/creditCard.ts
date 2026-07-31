@@ -5,7 +5,7 @@
  *   - `advance` — the dealer has deposited more than consumed (negative DUE
  *                 AMOUNT, no due date) i.e. they are in credit / एडवांस
  *
- * Numbers mirror the real sample cards (dealer code redacted to XXXXX) so what
+ * Numbers mirror the real sample cards (dealer code is a fictional 9Z99) so what
  * dealers watch matches the card in their hand. Each row's `key` matches a scene
  * `step` in narration.ts so the video can ring exactly the row it is narrating.
  *
@@ -38,21 +38,52 @@ export function inr(n: number): string {
   return `${neg ? '-' : ''}${grouped}.${dec}`;
 }
 
+/**
+ * The raw numbers behind `rows`. The card layout COMPUTES from these — the
+ * utilisation bar and the days-to-deadline verdict — so they must not be
+ * re-parsed out of the formatted strings.
+ */
+export interface CardFigures {
+  /** +ve = owed to Indian Oil; -ve = the dealer is in advance. */
+  dueAmount: number;
+  /** dd-mm-yyyy, or null in the advance state. */
+  dueDate: string | null;
+  currentLimit: number;
+  availedLimit: number;
+  availableLimit: number;
+  formOfLimit: FormOfLimit;
+  /** dd-mm-yyyy the figures describe — what the countdown is measured from. */
+  preparedOn: string;
+}
+
 export interface CardData {
   /** Episode-style code shown on the real card header (e.g. "5E01"). */
   code: string;
   /** Timestamp shown in the "Data Prepared At" row. */
   preparedAt: string;
   rows: CardRow[];
+  figures: CardFigures;
 }
 
 /** The three possible values of FORM OF LIMIT — exactly one applies at a time. */
+export type FormOfLimit = 'DOD' | 'CREDIT' | 'CASH & CARRY';
+export const FORMS_OF_LIMIT: readonly FormOfLimit[] = ['DOD', 'CREDIT', 'CASH & CARRY'];
+
 const FORM_OF_LIMIT_HINT = 'DOD, क्रेडिट या कैश एंड कैरी — इनमें से एक';
 
 /** State 1 — a healthy "amount due" card (DOD limit, ₹8.03L due). */
 export const DUE_CARD: CardData = {
-  code: 'XXXXX',
+  code: '9Z99',
   preparedAt: '3:16:16 PM',
+  figures: {
+    dueAmount: 803960.6,
+    dueDate: '16-07-2026',
+    currentLimit: 6000000,
+    availedLimit: 3546192.6,
+    availableLimit: 2453807.4,
+    formOfLimit: 'DOD',
+    preparedOn: '13-07-2026',
+  },
   rows: [
     {
       key: 'due-amount',
@@ -101,8 +132,17 @@ export const DUE_CARD: CardData = {
 
 /** State 2 — the credit / advance card (CREDIT limit, negative DUE AMOUNT). */
 export const ADVANCE_CARD: CardData = {
-  code: 'XXXXX',
+  code: '9Z99',
   preparedAt: '3:16:16 PM',
+  figures: {
+    dueAmount: -74818.86,
+    dueDate: null,
+    currentLimit: 0,
+    availedLimit: -74818.86,
+    availableLimit: 74818.86,
+    formOfLimit: 'CREDIT',
+    preparedOn: '13-07-2026',
+  },
   rows: [
     {
       key: 'due-amount',
