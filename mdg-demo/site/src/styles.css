@@ -189,6 +189,36 @@ body {
   list-style: none;
 }
 
+/*
+ * A section heading, sitting in the same <ul> as the cards it introduces. It is a
+ * list item so search can put the list back in order by re-appending children —
+ * and `display: block` because a bare list-item would draw a bullet next to it.
+ */
+.sec {
+  display: block;
+  margin: 10px 2px 0;
+}
+
+.list > .sec:first-child {
+  margin-top: 0;
+}
+
+.sec h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sec p {
+  margin: 2px 0 0;
+  color: var(--subtle);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .card {
   display: flex;
   gap: 14px;
@@ -220,6 +250,13 @@ body {
   border: 1px solid var(--border);
 }
 
+/* Admin tutorials are recordings of a desktop screen, so their thumbnail is the
+   other way round. Wider, to keep roughly the row height a portrait one has. */
+.thumb.wide {
+  width: 112px;
+  aspect-ratio: 16 / 9;
+}
+
 .thumb img {
   width: 100%;
   height: 100%;
@@ -238,6 +275,18 @@ body {
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+}
+
+/* Where a dealer video says "भाग 3", an internal one says who it is for. Kept small
+   and quiet: it is a label, not a warning, and it also has to make sense on its own
+   in search results, where the section heading above it is gone. */
+.eyebrow.tag {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 11px;
 }
 
 .card h2 {
@@ -282,6 +331,14 @@ body {
   text-decoration: none;
 }
 
+/*
+ * The box is the shape of the video, not the other way round: build.mjs writes the
+ * real frame aspect from the manifest onto this element inline, so the ratio below
+ * is only the fallback for a row that predates the field. A phone recording stays
+ * narrow; a desktop recording is allowed to be as wide as the column, because
+ * squeezing 1920x1080 into a 380px-wide portrait slot would leave the admin portal
+ * unreadable — which is the entire content of those videos.
+ */
 .player {
   position: relative;
   width: 100%;
@@ -292,6 +349,10 @@ body {
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
+}
+
+.player.wide {
+  max-width: 100%;
 }
 
 .player video {

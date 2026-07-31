@@ -31,8 +31,9 @@ decision below follows from that:
 ## Layout
 
 ```
-content.mjs          all bilingual copy — titles, descriptions, chapter labels
-data/videos.json     generated: durations, byte sizes, hashed URLs, chapter offsets
+content.mjs          all bilingual copy — titles, descriptions, chapter labels, audience
+data/videos.json     generated: durations, frame size + orientation, byte sizes,
+                     hashed URLs, chapter offsets
 public/media/        generated: low.mp4, high.mp4, poster.webp, thumb.webp, og.jpg
 src/styles.css       inlined into every page
 src/app.js           inlined into every page — language, quality, chapters
@@ -60,10 +61,39 @@ npm run guide:media
 `guide:media` re-encodes the ladder, cuts the posters, and measures each scene's
 voiceover to place the chapter timestamps exactly on the video's scene cuts.
 
+## Two audiences
+
+The guide is a dealer's guide, but the same pipeline now publishes internal
+walkthroughs for the MDG ops team. Every entry in `content.mjs` carries an
+`audience`:
+
+- `'dealer'` — the numbered course, **भाग 1…6**. This is the site's main promise and
+  its numbering is load-bearing: nothing may be inserted into the middle of it.
+- `'admin'` — a separate labelled section ("एडमिन के लिए / For the MDG team") below
+  it, outside the numbering, each card tagged **टीम / Team**. Search covers both, so
+  an admin can find one without knowing where it lives; prev/next paging stays
+  inside a section, so nobody pages out of their own material.
+
+Admin videos are also **landscape** (1920x1080 — they record a desktop portal, not a
+phone). That is handled end to end: `build-guide-media.mts` ffprobes each master and
+encodes a matching ladder (portrait 240x426 / 360x640 / 720x1280, landscape
+426x240 / 640x360 / 1280x720) at the same crf/bitrate/audio rungs, writing
+`orientation`, `width` and `height` into `data/videos.json`; the site sizes the card
+thumbnail and the player from those. Nothing is ever squashed — the scale filter
+preserves the aspect and letterboxes rather than stretching if a master turns up in
+an unexpected shape.
+
 ## Adding a video
 
-1. Add the tutorial to `../src/narration.ts` and render it.
+1. Add the tutorial to `../src/narration.ts` and render it. Portrait or landscape both
+   work; nothing needs to be told which, it is measured.
 2. Run `npm run guide:media` in `mdg-demo`.
-3. Add a bilingual entry to `content.mjs` (the `chapters` keys must match the scene
-   ids in `narration.ts` — any that don't match are dropped).
+3. Add a bilingual entry to `content.mjs` with an `audience` (`'dealer'` or `'admin'`
+   — omitted means dealer). The `chapters` keys must match the scene ids in
+   `narration.ts`; any that don't match are dropped silently.
 4. `npm run build && vercel --prod`.
+
+An entry whose media has not been generated yet is skipped with a warning rather
+than failing the build, so a video can be written before it is rendered. Run
+`GUIDE_STRICT=1 npm run build` to turn that back into a hard error — worth doing
+before a deploy.

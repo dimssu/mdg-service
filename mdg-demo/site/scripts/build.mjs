@@ -9,11 +9,50 @@ import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { DEFAULT_LANG, LANGS, UI, VIDEOS } from '../content.mjs';
+import { AUDIENCES, DEFAULT_LANG, LANGS, UI, VIDEOS } from '../content.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
 const ORIGIN = 'https://guide.mdgservices.in';
+
+/**
+ * How each audience is introduced, and whether its videos carry a step number.
+ *
+ * Only the dealer path is numbered. "भाग 1…6" is a promise that the videos are a
+ * course to be taken in order; the admin walkthroughs are reference material for a
+ * different reader entirely, so they get a labelled section of their own and a
+ * "टीम / Team" tag rather than a place in someone else's sequence.
+ */
+const SECTIONS = {
+  dealer: { label: 'sectionDealer', note: 'sectionDealerNote', numbered: true },
+  admin: { label: 'sectionAdmin', note: 'sectionAdminNote', numbered: false },
+};
+
+const audienceOf = (v) => (SECTIONS[v.audience] ? v.audience : 'dealer');
+
+/**
+ * Portrait unless the manifest says otherwise — the field arrived with the first
+ * landscape (admin) video, so a row written before it is a phone-shaped dealer clip.
+ */
+const shapeOf = (m) => ({
+  orientation: m.orientation ?? 'portrait',
+  width: m.width ?? 1080,
+  height: m.height ?? 1920,
+});
+
+/**
+ * The intrinsic size of the generated thumbnail: build-guide-media cuts it at a
+ * fixed 240px wide (`scale=240:-2`) and lets the height follow the master's aspect.
+ * These go on the <img> so the row holds its shape before the file arrives.
+ */
+const THUMB_WIDTH = 240;
+const thumbBox = (m) => {
+  const s = shapeOf(m);
+  return {
+    width: THUMB_WIDTH,
+    height: Math.round((THUMB_WIDTH * s.height) / s.width / 2) * 2,
+  };
+};
 
 const esc = (s) =>
   String(s)
@@ -124,21 +163,31 @@ function searchIndex(videos, byId) {
   }));
 }
 
-function dashboard(videos, byId) {
-  const totalLow = videos.reduce((a, v) => a + byId[v.id].sizes.low, 0);
+/**
+ * One card. `i` is its position in the whole flat list — search addresses cards by
+ * it — while `n` is its position inside its own section, which is what gets shown.
+ */
+function card(v, i, n, section, byId) {
+  const m = byId[v.id];
+  const shape = shapeOf(m);
+  const wide = shape.orientation === 'landscape';
+  const box = thumbBox(m);
 
-  const cards = videos
-    .map((v, i) => {
-      const m = byId[v.id];
-      // The chapter deep-link is a sibling of the card, not a child: a link inside
-      // a link is invalid, and the whole card is already one.
-      return `<li class="item" data-i="${i}">
+  // Numbered for dealers, tagged for the team. Either way it is the same slot, so
+  // the cards stay one visual family down the page.
+  const eyebrow = section.numbered
+    ? `<span class="eyebrow">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].step)} ${n + 1}</span>`).join('')}</span>`
+    : `<span class="eyebrow tag">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].teamTag)}</span>`).join('')}</span>`;
+
+  // The chapter deep-link is a sibling of the card, not a child: a link inside
+  // a link is invalid, and the whole card is already one.
+  return `<li class="item" data-i="${i}">
   <a class="card" href="/${v.id}">
-    <span class="thumb">
-      <img src="${m.thumb}" alt="" width="240" height="426" loading="lazy" decoding="async">
+    <span class="thumb${wide ? ' wide' : ''}">
+      <img src="${m.thumb}" alt="" width="${box.width}" height="${box.height}" loading="lazy" decoding="async">
     </span>
     <span class="card-body">
-      <span class="eyebrow">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].step)} ${i + 1}</span>`).join('')}</span>
+      ${eyebrow}
       ${bi('h2', (l) => v[l].title)}
       ${bi('p', (l) => v[l].subtitle)}
       <span class="card-foot">${clock(m.duration)} &middot; ${mb(m.sizes.low)}</span>
@@ -147,6 +196,22 @@ function dashboard(videos, byId) {
   </a>
   <div class="hits" hidden></div>
 </li>`;
+}
+
+function dashboard(groups, videos, byId) {
+  const totalLow = videos.reduce((a, v) => a + byId[v.id].sizes.low, 0);
+
+  // One <ul>, with the section headings as list items inside it. Search reorders
+  // cards by re-appending them, and it can only do that within a single parent —
+  // two separate lists would mean results that can never rank against each other.
+  let i = 0;
+  const cards = groups
+    .map(({ section, items }) => {
+      const head = `<li class="sec">
+  ${bi('h2', (l) => UI[l][section.label])}
+  ${bi('p', (l) => UI[l][section.note])}
+</li>`;
+      return [head, ...items.map((v, n) => card(v, i++, n, section, byId))].join('\n');
     })
     .join('\n');
 
@@ -213,10 +278,17 @@ ${cards}
   return { body, title: `${UI.hi.brand} ${UI.hi.siteTitle} · Learn`, extra };
 }
 
-function watch(v, i, videos, byId) {
+/**
+ * `siblings` is the video's own section, not the whole library: paging out of the
+ * dealer course and into an internal walkthrough would be a wrong turn, and paging
+ * back the other way would drop an admin into part 1 of a dealer's guide.
+ */
+function watch(v, siblings, byId) {
   const m = byId[v.id];
-  const prev = videos[i - 1];
-  const next = videos[i + 1];
+  const shape = shapeOf(m);
+  const i = siblings.indexOf(v);
+  const prev = siblings[i - 1];
+  const next = siblings[i + 1];
 
   const chapters = m.chapters
     .filter((c) => v.hi.chapters[c.id] && v.en.chapters[c.id])
@@ -234,7 +306,7 @@ function watch(v, i, videos, byId) {
 <main>
   <a class="back" href="/">&lsaquo; ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].back)}</span>`).join('')}</a>
 
-  <div class="player">
+  <div class="player${shape.orientation === 'landscape' ? ' wide' : ''}" style="aspect-ratio:${shape.width}/${shape.height}">
     <video id="v" controls playsinline preload="none"
       poster="${m.poster}"
       data-tiny="${m.src.tiny}"
@@ -336,25 +408,46 @@ async function main() {
   const searchCss = squeeze(rawSearchCss);
 
   const byId = Object.fromEntries(manifest.map((m) => [m.id, m]));
+
+  /*
+   * A content entry with no manifest row has copy but no video. That is normally a
+   * mistake, but it is also the honest state of a tutorial that has been written and
+   * not yet rendered — so it is a warning, not a wall, and the rest of the site still
+   * ships. GUIDE_STRICT=1 turns it back into a hard failure for a release build.
+   */
   const missing = VIDEOS.filter((v) => !byId[v.id]);
   if (missing.length) {
-    throw new Error(
-      `No media for: ${missing.map((v) => v.id).join(', ')}. Run \`npm run guide:media\` in mdg-demo first.`,
-    );
+    const message =
+      `No media for: ${missing.map((v) => v.id).join(', ')}. ` +
+      'Render the masters into mdg-demo/out/, then run `npm run guide:media` in mdg-demo: ' +
+      'it probes each master, encodes a portrait or landscape ladder to match its shape, ' +
+      'and rewrites site/data/videos.json.';
+    if (process.env.GUIDE_STRICT) throw new Error(message);
+    console.warn(`! ${message}\n! Skipping those pages for now (GUIDE_STRICT=1 to fail instead).`);
   }
+
+  const published = VIDEOS.filter((v) => byId[v.id]);
+  if (!published.length) throw new Error('No video has any media — nothing to build.');
+
+  // Flat order = section order, and it is the order search addresses cards in.
+  const groups = AUDIENCES.map((a) => ({
+    section: SECTIONS[a],
+    items: published.filter((v) => audienceOf(v) === a),
+  })).filter((g) => g.items.length);
+  const ordered = groups.flatMap((g) => g.items);
 
   await rm(DIST, { recursive: true, force: true });
   await mkdir(DIST, { recursive: true });
   await cp(path.join(ROOT, 'public'), DIST, { recursive: true });
 
-  const dash = dashboard(VIDEOS, byId);
+  const dash = dashboard(groups, ordered, byId);
   await writeFile(
     path.join(DIST, 'index.html'),
     page({
       slug: '',
       title: dash.title,
       description: UI[DEFAULT_LANG].metaDescription,
-      ogImage: byId[VIDEOS[0].id].og,
+      ogImage: byId[ordered[0].id].og,
       body: dash.body,
       css: css + '\n' + searchCss,
       js: shellJs + searchJs,
@@ -362,22 +455,23 @@ async function main() {
     }),
   );
 
-  for (let i = 0; i < VIDEOS.length; i++) {
-    const v = VIDEOS[i];
-    const w = watch(v, i, VIDEOS, byId);
-    await writeFile(
-      path.join(DIST, `${v.id}.html`),
-      page({
-        slug: v.id,
-        title: w.title,
-        description: v[DEFAULT_LANG].description,
-        ogImage: byId[v.id].og,
-        body: w.body,
-        css,
-        js: shellJs + playerJs,
-        extra: w.extra,
-      }),
-    );
+  for (const g of groups) {
+    for (const v of g.items) {
+      const w = watch(v, g.items, byId);
+      await writeFile(
+        path.join(DIST, `${v.id}.html`),
+        page({
+          slug: v.id,
+          title: w.title,
+          description: v[DEFAULT_LANG].description,
+          ogImage: byId[v.id].og,
+          body: w.body,
+          css,
+          js: shellJs + playerJs,
+          extra: w.extra,
+        }),
+      );
+    }
   }
 
   await writeFile(path.join(DIST, 'icon.svg'), ICON);
@@ -389,14 +483,18 @@ async function main() {
     path.join(DIST, 'sitemap.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${['', ...VIDEOS.map((v) => v.id)]
+${['', ...ordered.map((v) => v.id)]
   .map((s) => `  <url><loc>${ORIGIN}${s ? `/${s}` : '/'}</loc></url>`)
   .join('\n')}
 </urlset>
 `,
   );
 
-  console.log(`Built ${VIDEOS.length + 1} pages → dist/`);
+  console.log(
+    `Built ${ordered.length + 1} pages → dist/  (` +
+      groups.map((g) => `${UI.en[g.section.label]}: ${g.items.length}`).join(', ') +
+      ')',
+  );
   const kb = (s) => (s.length / 1024).toFixed(1);
   console.log(`  css: dashboard ${kb(css + searchCss)} kB, watch ${kb(css)} kB`);
   console.log(`  js: dashboard ${kb(shellJs + searchJs)} kB, watch ${kb(shellJs + playerJs)} kB`);

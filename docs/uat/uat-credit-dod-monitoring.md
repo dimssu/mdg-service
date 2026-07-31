@@ -65,12 +65,14 @@ Open:
 
 ## Where each surface lives (navigation map)
 
-| Task                                              | Where in the admin                                                                                                                       |
-| ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| Set / update / clear SDMS creds                   | **Dealers → open a dealer → Info tab → "IndianOil SDMS (Credit & DOD)" card** (`DealerInfoTab.tsx:165` renders `SdmsCredentialsSection`) |
-| Attach the service, set cadence, **Run now**      | **Services tab** (`DealerServicesTab.tsx`; Run now button `:182-195`)                                                                    |
-| Review a run, see the card, **Share with dealer** | **Run history tab → click a run row** (`DealerDetailPage.tsx:29,104` → `RunsListInline` → `RunDetail` dialog)                            |
-| The per-dealer "sheet" (snapshot history)         | **No dedicated UI.** Backend only: `GET /credit-dod/dealers/:dealerId/snapshots` (`creditDod.ts:53`). See Section D + gap **G8**.        |
+| Task                                         | Where in the admin                                                                                                                          |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Set / update / clear SDMS creds              | **Dealers → open a dealer → Info tab → "IndianOil SDMS (Credit & DOD)" card** (`DealerInfoTab.tsx:165` renders `SdmsCredentialsSection`)    |
+| Attach the service, set cadence              | **Services tab** (`DealerServicesTab.tsx`)                                                                                                  |
+| **Generate a report** (today or a past date) | **Credit & DOD tab → Generate card** (`DealerCreditDodTab.tsx`). Capped at 3 per dealer per hour; super-admins exempt.                      |
+| Review the card, **Share with dealer**       | **Credit & DOD tab → Report history → expand a row** (`CreditDodReportCard`). Also reachable from Run history, which renders the same card. |
+| The per-dealer "sheet" (snapshot history)    | **Credit & DOD tab → Report history**, directly above the maintained PAD ledger. API: `GET /credit-dod/dealers/:dealerId/snapshots`.        |
+| Learn the feature                            | **"How this works"** button on the Credit & DOD tab → two Hindi admin videos on guide.mdgservices.in.                                       |
 
 ---
 
@@ -133,7 +135,7 @@ On any of these, the runner also saves a **diagnostics bundle** — `fail_<phase
   uses a single `SDMS_LOGIN_URL` regardless of the dealer type you pick
   (`credentials.ts:65`, `runner.ts:146`). Picking **LPG / 1906** is stored but not
   yet honoured — see gap **G7**.
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-A2 — Update and Clear credentials
 
@@ -146,7 +148,7 @@ On any of these, the runner also saves a **diagnostics bundle** — `fail_<phase
      service will stop running until new credentials are set."_ (`:86-88`). Confirm.
 - **Expected:** Update → **"SDMS credentials saved"**. Clear → **"SDMS credentials
   cleared"**, the form returns to the empty state.
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-A3 — Attach the service with a cadence
 
@@ -160,7 +162,7 @@ On any of these, the runner also saves a **diagnostics bundle** — `fail_<phase
 - **Expected:** Toast **"Service attached"**; a row **`credit-dod-monitoring`**
   appears with its cadence badge, ACTIVE status, and empty Last/Next run
   (`DealerServicesTab.tsx:146-179`).
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-A4 — "Stale" badge when a daily service hasn't run today
 
@@ -169,7 +171,7 @@ On any of these, the runner also saves a **diagnostics bundle** — `fail_<phase
 - **Expected:** A yellow **"stale"** badge with tooltip _"Hasn't run today — click Run
   now to refresh"_ is shown, because a DAILY service with no `lastRunAt` today is
   stale (`DealerServicesTab.tsx:58-64,151-165`). After a successful run it disappears.
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ---
 
@@ -193,7 +195,7 @@ creditMonitoring → padStatement → computeDod → renderCard`, each turning g
   (`RunStepTimeline.tsx`). The dialog header shows `Run ########`. When done the
   status chip flips to **SUCCESS** and the **Output** section renders the card
   (next step).
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-B2 — Review the card: values, image, reconcile indicator
 
@@ -213,7 +215,7 @@ creditMonitoring → padStatement → computeDod → renderCard`, each turning g
     outstanding matches SDMS's own Current Total Receivable, or **red "Does not
     reconcile (SDMS receivable ₹…)"** with an alert icon when it disagrees.
   - The rendered card image's numbers **match** the value grid.
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-B3 — Confirm and Share with dealer
 
@@ -226,7 +228,7 @@ creditMonitoring → padStatement → computeDod → renderCard`, each turning g
   the dialog closes; the button becomes a **disabled "Shared"** with a check
   (`:109-112`). An audit entry `CREDIT_DOD_SHARE` is written (`share.ts:158-164`) —
   visible in the dealer's **Info tab → Audit log** accordion.
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-B4 — Dealer receives the card in chat + a push
 
@@ -245,7 +247,7 @@ creditMonitoring → padStatement → computeDod → renderCard`, each turning g
   - The conversation shows as **unread** for the dealer; a push titled **"Credit & DOD
     update"** with body _"Due ₹… by DATE"_ or _"No dues"_ deep-links to the chat
     (`share.ts:152-156`).
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-B5 — Re-share is idempotent ("Shared")
 
@@ -259,7 +261,7 @@ creditMonitoring → padStatement → computeDod → renderCard`, each turning g
   `alreadyShared: true` with the _same_ `conversationId` / `messageId` and does **not**
   create a duplicate chat message or a second push (`share.ts:76-82`). Ramesh sees
   **exactly one** card in his chat — **no duplicate-message bug**.
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ---
 
@@ -296,7 +298,7 @@ solved in N attempts` **plus a stack trace** (`executeRun.ts:158-171`,
     **Download** link that opens in a new tab — **no inline thumbnail, no "screenshot
     at failure" label** (`RunsListInline.tsx:197-231`). → gap **G3**.
   - **Note:** a wrong password and a genuinely-hard captcha are indistinguishable here.
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-C2 — Captcha never solved
 
@@ -309,7 +311,7 @@ solved in N attempts` **plus a stack trace** (`executeRun.ts:158-171`,
   same code + same copy. → gaps **G2, G4**.
 - **Steps:** Open the failed run; confirm you cannot tell _why_ login failed without
   opening `fail_login.png` and/or reading server logs.
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-C3 — Dealer has no active app member (share blocked)
 
@@ -326,7 +328,7 @@ solved in N attempts` **plus a stack trace** (`executeRun.ts:158-171`,
   appears (`CreditDodReportCard.tsx:47-50`). **There is no pre-check** — the Share
   button is fully enabled and only fails _after_ you confirm — and **no guidance** on
   the fix (issue/activate an app login on the **Team** tab). → gap **G6**.
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-C4 — Reconcile mismatch (card shows "does not reconcile")
 
@@ -341,7 +343,7 @@ solved in N attempts` **plus a stack trace** (`executeRun.ts:158-171`,
   and there is **no instruction** that a non-reconciling card may have a wrong DUE
   AMOUNT and should be manually reviewed / the look-back widened before sharing
   (README "Limitations"). → gap **G9**.
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-C5 — OCR sidecar not installed on the server
 
@@ -357,7 +359,7 @@ solved in N attempts` **plus a stack trace** (`executeRun.ts:158-171`,
 164,169`) nor surfaced anywhere in the UI. A non-technical operator has **no way to
   tell "the server is missing the OCR sidecar (call engineering)" from "unlucky
   captcha (just retry)."** → gaps **G4 (P1)**.
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ---
 
@@ -366,17 +368,75 @@ solved in N attempts` **plus a stack trace** (`executeRun.ts:158-171`,
 ### CD-D1 — Snapshot history for a dealer
 
 - **Persona:** Arjun · **Precondition:** at least one successful run exists.
-- **Steps (there is no UI — verify via API / `docs/rest.http`):**
-  1. `GET /api/v1/credit-dod/dealers/:dealerId/snapshots` (auth required).
-- **Expected:** a JSON array of snapshots, **newest first**, each with `capturedAt`,
-  `code`, `window`, `currentLimit`, `availedLimit`, `availableLimit`, `dueAmount`,
-  `dueDate`, `state`, `reconciles`, `openLots`, and a `shared` object (or `null`)
-  (`creditDod.ts:53-65,21-46`). Each run also persists one `CreditDodSnapshot`
-  (`index.ts:141-170`).
-- **What the operator has today:** **no browsable "sheet" in the admin.** The only way
-  to review history is to scroll the **Run history** tab and open each SUCCESS run one
-  at a time. → gap **G8**.
-- **PASS ☐ FAIL ☐** — notes: **********************\_\_**********************
+- **Steps:** open **Dealer → Credit & DOD**. Report history sits directly under the
+  Generate card, above the maintained PAD ledger.
+- **Expected:** rows newest-first with Captured at, Due amount, Due date, State,
+  Reconciles and Shared. The newest row is **already expanded**. The same list is
+  available at `GET /api/v1/credit-dod/dealers/:dealerId/snapshots`, which now also
+  returns `openingCarriedForward`, `transactionCount`, `droppedRows`, `runId` and an
+  `artifacts` object of short-lived **signed URLs** (`cardUrl`, `cardDownloadUrl`,
+  `padStatementUrl`; the raw portal captures only for a super-admin).
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-D2 — Review and share straight from Report history
+
+- **Persona:** Arjun · **Precondition:** an unshared successful report exists.
+- **Steps:**
+  1. Expand a row in **Report history** (do NOT go to Run history).
+  2. Read the card image, the figures, the green **Reconciles** line, and open
+     **"Why this amount?"**.
+  3. Press **Share with dealer** → confirm.
+- **Expected:** everything needed to approve a report is in that one row — no trip
+  through Run history. After sharing, the row's Shared cell flips without a reload,
+  and the button becomes a disabled **Shared** with a timestamp.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-D3 — Generation quota (3 per dealer per hour)
+
+- **Persona:** Arjun (plain admin) and Priya (super-admin).
+- **Steps:**
+  1. As a plain admin, note the footer text: "N of 3 generations left this hour".
+  2. Press **Generate now** three times (waiting for each to finish).
+  3. Press it a fourth time.
+  4. Repeat as a super-admin.
+- **Expected:** the fourth attempt is refused with **429 `RATE_LIMITED`** and a toast
+  naming Report history and roughly when the next slot frees up; the button is
+  disabled once the counter hits zero. **No ServiceRun row is created** for a refused
+  attempt. The daily **scheduled** run is never throttled and never consumes quota.
+  A super-admin sees no counter and is never refused. Knobs: `CREDIT_DOD_RUN_LIMIT`,
+  `CREDIT_DOD_RUN_LIMIT_WINDOW_MS`.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-D4 — Downloads actually download, and the PAD statement is readable
+
+- **Persona:** Arjun · **Precondition:** a successful run exists.
+- **Steps:** in an expanded report, press **Download** on **PAD statement**, then on
+  **Card image**. Also open a run in Run history and use its Downloads list.
+- **Expected:** each one **saves a file** — it must not open in the current tab. The
+  signed URL carries `Content-Disposition: attachment` (the HTML `download` attribute
+  is ignored for a cross-origin href, which is what used to make these navigate).
+  Opening the saved `pad_statement.html` shows a **styled, printable statement** —
+  header, period, opening/closing balances, totals, one numbered row per transaction,
+  and a "How to read this" key — not the portal's raw table fragment.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-D5 — Concurrent-run guard
+
+- **Persona:** Arjun · **Steps:** press **Generate now**, then immediately press it
+  again (or from a second browser).
+- **Expected:** the second attempt is refused with **409** and a message saying a
+  report is already being generated for this dealer. A run older than
+  `SDMS_RUN_TIMEOUT_MS` is treated as dead and does not block.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-D6 — "How this works" videos
+
+- **Persona:** Arjun (new to the team).
+- **Steps:** press **How this works** next to the Generate card (and on the empty
+  Report-history state).
+- **Expected:** a dialog offering two Hindi videos — _what the service does_ and
+  _using it in the admin portal_ — each opening the MDG guide in a new tab.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ---
 
@@ -468,20 +528,21 @@ still attempt a Retail login and likely fail confusingly.
 
 ### P2 — polish / observability debt
 
-**G8 · There is no "sheet" UI.** The per-dealer snapshot history endpoint exists
-(`creditDod.ts:53`) but no admin hook/component consumes it — history is only
-reachable by opening SUCCESS runs one at a time. Add a compact snapshot-history table
-(date · due · limits · reconciled · shared?) on the dealer, backed by a
-`useCreditDodSnapshots(dealerId)` hook.
+**G8 · There is no "sheet" UI.** ✅ **CLOSED.** Report history now sits on the dealer's
+Credit & DOD tab (`DealerCreditDodTab.tsx`, backed by `useCreditDodSnapshots`), above
+the maintained PAD ledger, and expanding a row shows the whole report — card, figures,
+reconcile line, open lots, source files and **Share with dealer** — so history is no
+longer reachable only by opening SUCCESS runs one at a time. See CD-D1/CD-D2.
 
-**G9 · A non-reconciling card is shareable with no warning.** The red "Does not
-reconcile" indicator (`CreditDodReportCard.tsx:164-190`) does not gate or annotate
-the Share flow, even though the README flags that DUE AMOUNT may be wrong when the
-ledger doesn't reconcile. Add a caution to the Share confirm dialog when
-`!output.reconciles` ("This card did not reconcile against SDMS — review before
-sharing").
+**G9 · A non-reconciling card is shareable with no warning.** ✅ **CLOSED.** The Share
+confirm dialog now shows a caution when `reconciles === false`, and a second one when
+the snapshot is back-dated. The report body additionally warns on
+`openingCarriedForward` (the due date is an estimate) and on `droppedRows > 0`
+(parser drift).
 
-**G10 · Share success copy doesn't reflect idempotency.** The toast always says "Card
+**G10 · Share success copy doesn't reflect idempotency.** ✅ **CLOSED.** The toast now
+reads "This report had already been shared with the dealer." when the backend returns
+`alreadyShared: true`. _(Original finding:)_ The toast always said "Card
 shared with dealer" even when the backend returned `alreadyShared: true`
 (`CreditDodReportCard.tsx:45`, `share.ts:76-82`). Also `alreadyShared` is derived only
 from the snapshot query, so a share performed by _another_ admin won't flip the button

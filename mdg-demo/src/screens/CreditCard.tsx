@@ -8,6 +8,18 @@ import { FONT_FAMILY } from '../theme';
  * dealer receives — the same three-column layout (English label · value · Hindi
  * meaning) inside the MDG "Dealer's कवच" brand frame. `activeKey` rings one row
  * and dims the rest so the video can point at exactly the field being narrated.
+ *
+ * ⚠️ DRIFT: the card the backend actually renders
+ * (`mdg-backend/src/automation/sdms/report/renderCard.ts`) was restructured — a
+ * hero for DUE AMOUNT + DUE DATE with a days-left verdict, three limit tiles
+ * with a utilisation bar, and all three FORM OF LIMIT options shown with the
+ * dealer's one lit up. This recreation is still the OLD seven-row table, so the
+ * `credit-monitor` explainer video narrates a layout dealers no longer receive.
+ *
+ * The DATA is unchanged (same seven fields, same keys, same Hindi meanings), so
+ * the narration text is still true — only the geometry is stale. Porting the new
+ * layout here means re-measuring `RowRing` against a non-row design and
+ * re-rendering `credit-monitor.mp4`; do both together or not at all.
  */
 
 export const CARD = {

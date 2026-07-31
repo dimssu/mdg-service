@@ -9,6 +9,12 @@
  * `chapters` is keyed by the scene id in narration.ts. `scripts/media.mjs`
  * measures each scene's voiceover to turn these into seekable timestamps, so a
  * key that doesn't match a scene id is dropped on the floor — keep them in sync.
+ *
+ * `audience` splits the dashboard in two. The guide is a dealer's guide: the
+ * numbered "भाग 1…6" path through the app is theirs, and an internal walkthrough
+ * dropped into the middle of it would read as a step they had somehow skipped. So
+ * admin videos live in their own labelled section, outside the numbering — findable
+ * by search, and never mistaken for homework.
  */
 
 /** Shell + player strings. Every user-visible string on the site lives here. */
@@ -25,6 +31,11 @@ export const UI = {
     videoCount: (n) => `${n} वीडियो`,
     minutesShort: 'मिनट',
     step: 'भाग',
+    sectionDealer: 'डीलर के लिए',
+    sectionDealerNote: 'ऐप चलाना सीखिए — क्रम से देखिए।',
+    sectionAdmin: 'एडमिन के लिए',
+    sectionAdminNote: 'ये वीडियो MDG टीम के लिए हैं — डीलर को इनकी ज़रूरत नहीं।',
+    teamTag: 'टीम',
     chapters: 'वीडियो में क्या-क्या है',
     download: 'फ़ोन में सेव करें',
     downloadHint: 'एक बार सेव कर लीजिए — फिर बिना इंटरनेट के भी देख सकते हैं।',
@@ -64,6 +75,11 @@ export const UI = {
     videoCount: (n) => `${n} videos`,
     minutesShort: 'min',
     step: 'Part',
+    sectionDealer: 'For dealers',
+    sectionDealerNote: 'Learn the app, one step at a time.',
+    sectionAdmin: 'For the MDG team',
+    sectionAdminNote: 'Internal walkthroughs — dealers do not need these.',
+    teamTag: 'Team',
     chapters: "What's in this video",
     download: 'Save to phone',
     downloadHint: 'Save it once and watch later without any internet.',
@@ -97,6 +113,7 @@ export const UI = {
 export const VIDEOS = [
   {
     id: 'login',
+    audience: 'dealer',
     keywords: [
       'login',
       'log in',
@@ -142,6 +159,7 @@ export const VIDEOS = [
   },
   {
     id: 'add-warrior',
+    audience: 'dealer',
     keywords: [
       'warrior',
       'staff',
@@ -191,6 +209,7 @@ export const VIDEOS = [
   },
   {
     id: 'give-points',
+    audience: 'dealer',
     keywords: [
       'points',
       'give',
@@ -254,6 +273,7 @@ export const VIDEOS = [
   },
   {
     id: 'split-points',
+    audience: 'dealer',
     keywords: [
       'split',
       'share',
@@ -306,6 +326,7 @@ export const VIDEOS = [
   },
   {
     id: 'submit-points',
+    audience: 'dealer',
     keywords: [
       'submit',
       'final',
@@ -365,6 +386,7 @@ export const VIDEOS = [
   },
   {
     id: 'points-system',
+    audience: 'dealer',
     keywords: [
       'how points',
       'calculate',
@@ -425,7 +447,216 @@ export const VIDEOS = [
       },
     },
   },
+  // HELD BACK — not published. `credit-monitor` is written, voiced and rendered,
+  // but the card it walks a dealer through is the OLD seven-row layout: the
+  // backend's renderCard.ts was restructured (hero + limit tiles + utilisation
+  // bar + form-of-limit chips), so this video would teach dealers to read a card
+  // they no longer receive. Restore this entry once
+  // `mdg-demo/src/screens/CreditCard.tsx` is ported to the new layout and the
+  // video is re-rendered. Its media stays in the manifest; build.mjs simply
+  // never publishes a manifest row that has no content entry.
+//   {
+//     id: 'credit-monitor',
+//     audience: 'dealer',
+//     keywords: [
+//       'credit',
+//       'dod',
+//       'due',
+//       'due amount',
+//       'due date',
+//       'limit',
+//       'available',
+//       'availed',
+//       'outstanding',
+//       'card',
+//       'report',
+//       'udhar',
+//       'baki',
+//       'क्रेडिट',
+//       'बकाया',
+//       'उधार',
+//       'तारीख़',
+//       'सीमा',
+//       'लिमिट',
+//       'कार्ड',
+//       'एडवांस',
+//     ],
+//     hi: {
+//       title: 'क्रेडिट और DOD मॉनिटरिंग',
+//       subtitle: 'अपना रोज़ का उधार-हिसाब कार्ड पढ़ना सीखिए',
+//       description:
+//         'हर रोज़ MDG की तरफ़ से आपको एक "क्रेडिट और DOD मॉनिटरिंग" कार्ड मिलता है। इस वीडियो में वही कार्ड एक-एक लाइन करके समझाया गया है — कितना बकाया है, कब तक जमा करना है, आपकी सीमा कितनी है, कितनी इस्तेमाल हो चुकी है और कितनी बची है। यह भी बताया गया है कि DUE AMOUNT के आगे माइनस का निशान हो तो उसका क्या मतलब है।',
+//       chapters: {
+//         intro: 'यह कार्ड क्या है',
+//         overview: 'एक नज़र में पूरा हिसाब',
+//         'due-amount': 'DUE AMOUNT — बकाया राशि',
+//         'due-date': 'DUE DATE — आख़िरी तारीख़',
+//         'current-limit': 'CURRENT LIMIT — कुल सीमा',
+//         'availed-limit': 'AVAILED LIMIT — की गई खपत',
+//         'available-limit': 'AVAILABLE LIMIT — बची हुई राशि',
+//         'form-of-limit': 'FORM OF LIMIT — किस तरह की सीमा',
+//         'prepared-at': 'Data Prepared At — कब का हिसाब है',
+//         advance: 'माइनस का मतलब — आप एडवांस में हैं',
+//         act: 'रोज़ क्या देखना है',
+//         recap: 'दोहराइए',
+//       },
+//     },
+//     en: {
+//       title: 'Reading the Credit & DOD card',
+//       subtitle: 'Your daily credit position, line by line',
+//       description:
+//         'MDG sends every dealer a daily "Credit & DOD Monitoring" card. This video reads it line by line: how much is owed, by when, what your limit is, how much of it you have already used and how much is left. It also explains the case that confuses everyone — a minus sign in front of DUE AMOUNT, which means you are in advance and owe nothing.',
+//       chapters: {
+//         intro: 'What this card is',
+//         overview: 'The whole position at a glance',
+//         'due-amount': 'DUE AMOUNT — what you owe',
+//         'due-date': 'DUE DATE — pay by this day',
+//         'current-limit': 'CURRENT LIMIT — your total limit',
+//         'availed-limit': 'AVAILED LIMIT — what you have used',
+//         'available-limit': 'AVAILABLE LIMIT — what is left',
+//         'form-of-limit': 'FORM OF LIMIT — which kind of limit',
+//         'prepared-at': 'Data Prepared At — how fresh it is',
+//         advance: 'A minus sign means you are in advance',
+//         act: 'What to check every day',
+//         recap: 'Recap',
+//       },
+//     },
+//   },
+  {
+    id: 'admin-credit-dod',
+    audience: 'admin',
+    keywords: [
+      'admin',
+      'team',
+      'credit',
+      'dod',
+      'fifo',
+      'sdms',
+      'ledger',
+      'pad statement',
+      'due date',
+      'due amount',
+      'reconcile',
+      'holiday',
+      'captcha',
+      'how it works',
+      'एडमिन',
+      'टीम',
+      'बकाया',
+      'खाता',
+      'मिलान',
+      'छुट्टी',
+    ],
+    hi: {
+      title: 'Credit & DOD — यह सर्विस क्या करती है',
+      subtitle: 'MDG टीम के लिए — रिपोर्ट का नंबर कहाँ से आता है',
+      description:
+        'यह वीडियो MDG की एडमिन टीम के लिए है। इसमें समझाया गया है कि Credit और DOD Monitoring सर्विस असल में करती क्या है — SDMS में लॉगिन से लेकर, PAD Statement के खाते को FIFO से जोड़कर सबसे पुरानी बकाया ख़रीद निकालने तक, और उसी से DUE AMOUNT और DUE DATE बनने तक। साथ में यह भी कि मिलान (reconcile) क्यों देखा जाता है और रिपोर्ट डीलर को अपने आप क्यों नहीं जाती।',
+      chapters: {
+        intro: 'यह वीडियो किसके लिए है',
+        problem: 'डीलर के दो सवाल',
+        login: 'SDMS में असली लॉगिन',
+        'two-pages': 'पोर्टल के दो पन्ने',
+        ledger: 'PAD Statement — ख़रीद और भुगतान',
+        fifo: 'FIFO — पहले आया, पहले गया',
+        'due-amount': 'DUE AMOUNT कैसे बनता है',
+        'due-date': 'DUE DATE — तीन काम के दिन',
+        reconcile: 'SDMS से मिलान',
+        card: 'डीलर वाला कार्ड',
+        approval: 'एडमिन की मंज़ूरी के बिना नहीं जाती',
+        recap: 'दोहराइए',
+      },
+    },
+    en: {
+      title: 'Credit & DOD — what the service actually does',
+      subtitle: 'For the MDG team: where the number on the report comes from',
+      description:
+        'An internal explainer for the MDG ops team, narrated in Hindi over the real (English) portal screens. It follows one report end to end: a genuine SDMS login with the captcha solved by OCR, the two pages we scrape, the purchase-and-payment ledger, the FIFO pass that finds the oldest unpaid lot, the three-working-day rule behind the due date, the reconciliation against SDMS, and why nothing reaches a dealer until an admin presses Share.',
+      chapters: {
+        intro: 'Who this is for',
+        problem: "The dealer's two questions",
+        login: 'A real SDMS login',
+        'two-pages': 'The two portal pages',
+        ledger: 'PAD Statement — debits and credits',
+        fifo: 'FIFO — oldest lot first',
+        'due-amount': 'How DUE AMOUNT is built',
+        'due-date': 'DUE DATE — three working days',
+        reconcile: 'Reconciling against SDMS',
+        card: 'The card the dealer gets',
+        approval: 'Nothing sends without an admin',
+        recap: 'Recap',
+      },
+    },
+  },
+  {
+    id: 'admin-credit-dod-portal',
+    audience: 'admin',
+    keywords: [
+      'admin',
+      'team',
+      'portal',
+      'generate',
+      'report',
+      'quota',
+      'rate limit',
+      'history',
+      'share with dealer',
+      'run history',
+      'source files',
+      'failed',
+      'एडमिन',
+      'टीम',
+      'रिपोर्ट',
+      'बनाना',
+      'भेजना',
+      'इतिहास',
+      'फ़ेल',
+    ],
+    hi: {
+      title: 'एडमिन पोर्टल में Credit & DOD चलाना',
+      subtitle: 'रिपोर्ट बनाना, जाँचना और डीलर को भेजना',
+      description:
+        'वही काम, अब पोर्टल पर करके। डीलर का "Credit & DOD" टैब खोलिए, Generate now दबाइए, क़रीब एक मिनट रुकिए, और Report history में तैयार रिपोर्ट खोलिए। भेजने से पहले तीन चीज़ें देखनी हैं — हरा Reconciles, कोई पीली चेतावनी, और "Why this amount?" का हिसाब। एक घंटे में तीन बार की रोक क्यों है और रन फ़ेल होने पर कहाँ देखना है, यह भी इसी में है।',
+      chapters: {
+        intro: 'अब पोर्टल पर',
+        'open-tab': 'Credit & DOD टैब खोलिए',
+        generate: 'Generate now दबाइए',
+        quota: 'एक घंटे में सिर्फ़ तीन बार',
+        wait: 'एक मिनट लगता है',
+        history: 'Report history',
+        review: 'भेजने से पहले तीन जाँच',
+        sources: 'Source files — PAD statement',
+        share: "'Share with dealer' दबाइए",
+        shared: 'एक रिपोर्ट सिर्फ़ एक बार जाती है',
+        failed: 'रन फ़ेल हो जाए तो',
+        recap: 'दोहराइए',
+      },
+    },
+    en: {
+      title: 'Running Credit & DOD in the admin portal',
+      subtitle: 'Generate a report, check it, send it to the dealer',
+      description:
+        "The hands-on twin of the explainer, driven screen by screen through the admin portal. Open the dealer's Credit & DOD tab, press Generate now, wait about a minute, then open the finished report in Report history. Three checks before it goes out — a green Reconciles, no amber warning, and the working shown under \"Why this amount?\" — plus why there are only three generations an hour, and where to look when a run fails.",
+      chapters: {
+        intro: 'On the portal now',
+        'open-tab': 'Open the Credit & DOD tab',
+        generate: 'Press Generate now',
+        quota: 'Three generations an hour',
+        wait: 'It takes about a minute',
+        history: 'Report history',
+        review: 'Three checks before sending',
+        sources: 'Source files — the PAD statement',
+        share: 'Press Share with dealer',
+        shared: 'A report only sends once',
+        failed: 'When a run fails',
+        recap: 'Recap',
+      },
+    },
+  },
 ];
+
+/** Videos are grouped into these, in this order. Anything without an `audience` is a dealer video. */
+export const AUDIENCES = ['dealer', 'admin'];
 
 export const LANGS = ['hi', 'en'];
 export const DEFAULT_LANG = 'hi';

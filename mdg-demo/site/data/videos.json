@@ -2,6 +2,9 @@
   {
     "id": "login",
     "duration": 62,
+    "orientation": "portrait",
+    "width": 1080,
+    "height": 1920,
     "sizes": {
       "tiny": 449325,
       "low": 717510,
@@ -49,6 +52,9 @@
   {
     "id": "add-warrior",
     "duration": 64,
+    "orientation": "portrait",
+    "width": 1080,
+    "height": 1920,
     "sizes": {
       "tiny": 448301,
       "low": 714310,
@@ -100,6 +106,9 @@
   {
     "id": "give-points",
     "duration": 157,
+    "orientation": "portrait",
+    "width": 1080,
+    "height": 1920,
     "sizes": {
       "tiny": 1215870,
       "low": 2035807,
@@ -171,6 +180,9 @@
   {
     "id": "split-points",
     "duration": 118,
+    "orientation": "portrait",
+    "width": 1080,
+    "height": 1920,
     "sizes": {
       "tiny": 932465,
       "low": 1555624,
@@ -230,6 +242,9 @@
   {
     "id": "submit-points",
     "duration": 97,
+    "orientation": "portrait",
+    "width": 1080,
+    "height": 1920,
     "sizes": {
       "tiny": 753177,
       "low": 1259035,
@@ -293,6 +308,9 @@
   {
     "id": "points-system",
     "duration": 190,
+    "orientation": "portrait",
+    "width": 1080,
+    "height": 1920,
     "sizes": {
       "tiny": 1342894,
       "low": 2138253,
@@ -358,6 +376,216 @@
       {
         "id": "recap",
         "start": 174
+      }
+    ]
+  },
+  {
+    "id": "credit-monitor",
+    "duration": 168,
+    "orientation": "portrait",
+    "width": 1080,
+    "height": 1920,
+    "sizes": {
+      "tiny": 1664951,
+      "low": 2877178,
+      "high": 7718812
+    },
+    "src": {
+      "tiny": "/media/credit-monitor/tiny.2126c2e6.mp4",
+      "low": "/media/credit-monitor/low.b271f4c5.mp4",
+      "high": "/media/credit-monitor/high.3e5617ce.mp4"
+    },
+    "poster": "/media/credit-monitor/poster.23422dd8.webp",
+    "thumb": "/media/credit-monitor/thumb.b342630d.webp",
+    "og": "/media/credit-monitor/og.574da2f5.jpg",
+    "chapters": [
+      {
+        "id": "intro",
+        "start": 0
+      },
+      {
+        "id": "overview",
+        "start": 14.8
+      },
+      {
+        "id": "due-amount",
+        "start": 30.7
+      },
+      {
+        "id": "due-date",
+        "start": 42.7
+      },
+      {
+        "id": "current-limit",
+        "start": 54.4
+      },
+      {
+        "id": "availed-limit",
+        "start": 66.2
+      },
+      {
+        "id": "available-limit",
+        "start": 76.4
+      },
+      {
+        "id": "form-of-limit",
+        "start": 90.8
+      },
+      {
+        "id": "prepared-at",
+        "start": 109
+      },
+      {
+        "id": "advance",
+        "start": 120.6
+      },
+      {
+        "id": "act",
+        "start": 140.2
+      },
+      {
+        "id": "recap",
+        "start": 153.2
+      }
+    ]
+  },
+  {
+    "id": "admin-credit-dod",
+    "duration": 198,
+    "orientation": "landscape",
+    "width": 1920,
+    "height": 1080,
+    "sizes": {
+      "tiny": 1476358,
+      "low": 2438965,
+      "high": 6177351
+    },
+    "src": {
+      "tiny": "/media/admin-credit-dod/tiny.4db76d53.mp4",
+      "low": "/media/admin-credit-dod/low.ba284452.mp4",
+      "high": "/media/admin-credit-dod/high.eec19bea.mp4"
+    },
+    "poster": "/media/admin-credit-dod/poster.fd30031e.webp",
+    "thumb": "/media/admin-credit-dod/thumb.49e1ae39.webp",
+    "og": "/media/admin-credit-dod/og.870d78f5.jpg",
+    "chapters": [
+      {
+        "id": "intro",
+        "start": 0
+      },
+      {
+        "id": "problem",
+        "start": 14.8
+      },
+      {
+        "id": "login",
+        "start": 30.6
+      },
+      {
+        "id": "two-pages",
+        "start": 46
+      },
+      {
+        "id": "ledger",
+        "start": 64.8
+      },
+      {
+        "id": "fifo",
+        "start": 80.8
+      },
+      {
+        "id": "due-amount",
+        "start": 98.9
+      },
+      {
+        "id": "due-date",
+        "start": 112.9
+      },
+      {
+        "id": "reconcile",
+        "start": 130.7
+      },
+      {
+        "id": "card",
+        "start": 149.4
+      },
+      {
+        "id": "approval",
+        "start": 162.6
+      },
+      {
+        "id": "recap",
+        "start": 176.7
+      }
+    ]
+  },
+  {
+    "id": "admin-credit-dod-portal",
+    "duration": 181,
+    "orientation": "landscape",
+    "width": 1920,
+    "height": 1080,
+    "sizes": {
+      "tiny": 1419677,
+      "low": 2436678,
+      "high": 6661634
+    },
+    "src": {
+      "tiny": "/media/admin-credit-dod-portal/tiny.4cf61afa.mp4",
+      "low": "/media/admin-credit-dod-portal/low.eeada3c3.mp4",
+      "high": "/media/admin-credit-dod-portal/high.a18dd60d.mp4"
+    },
+    "poster": "/media/admin-credit-dod-portal/poster.57bae885.webp",
+    "thumb": "/media/admin-credit-dod-portal/thumb.598e2796.webp",
+    "og": "/media/admin-credit-dod-portal/og.5c49d2d1.jpg",
+    "chapters": [
+      {
+        "id": "intro",
+        "start": 0
+      },
+      {
+        "id": "open-tab",
+        "start": 8.6
+      },
+      {
+        "id": "generate",
+        "start": 21.2
+      },
+      {
+        "id": "quota",
+        "start": 37.8
+      },
+      {
+        "id": "wait",
+        "start": 56.8
+      },
+      {
+        "id": "history",
+        "start": 73.9
+      },
+      {
+        "id": "review",
+        "start": 88.9
+      },
+      {
+        "id": "sources",
+        "start": 111.8
+      },
+      {
+        "id": "share",
+        "start": 125.2
+      },
+      {
+        "id": "shared",
+        "start": 138.2
+      },
+      {
+        "id": "failed",
+        "start": 152.6
+      },
+      {
+        "id": "recap",
+        "start": 168.9
       }
     ]
   }

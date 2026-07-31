@@ -3,10 +3,13 @@ import { loadFont as loadDevanagari } from '@remotion/google-fonts/NotoSansDevan
 import * as React from 'react';
 import { Composition } from 'remotion';
 
+import { VIDEO_LANDSCAPE } from './components/landscapeChrome';
 import { makeCalculateMetadata, type TutorialProps } from './lib/calc';
 import { TUTORIAL_BY_ID } from './narration';
 import { VIDEO } from './theme';
 import { AddWarriorVideo } from './videos/AddWarriorVideo';
+import { AdminCreditDodPortalVideo } from './videos/AdminCreditDodPortalVideo';
+import { AdminCreditDodVideo } from './videos/AdminCreditDodVideo';
 import { CreditMonitorPhotoVideo } from './videos/CreditMonitorPhotoVideo';
 import { CreditMonitorVideo } from './videos/CreditMonitorVideo';
 import { GivePointsVideo } from './videos/GivePointsVideo';
@@ -113,6 +116,35 @@ export function RemotionRoot() {
         height={VIDEO.height}
         defaultProps={defaults('credit-monitor')}
         calculateMetadata={makeCalculateMetadata(TUTORIAL_BY_ID['credit-monitor'])}
+      />
+
+      {/* ── ADMIN tutorials ──────────────────────────────────────────────
+          LANDSCAPE 1920×1080, unlike every dealer video above. The audience is
+          the MDG ops team working in a desktop browser, and the subject is the
+          admin portal — a portrait frame would crop it to unreadable. Narration
+          is still Hindi; the on-screen UI stays English because that is what the
+          portal actually says. */}
+      <Composition
+        id={TUTORIAL_BY_ID['admin-credit-dod'].compositionId}
+        component={AdminCreditDodVideo}
+        durationInFrames={1}
+        fps={VIDEO_LANDSCAPE.fps}
+        width={VIDEO_LANDSCAPE.width}
+        height={VIDEO_LANDSCAPE.height}
+        defaultProps={defaults('admin-credit-dod')}
+        calculateMetadata={makeCalculateMetadata(TUTORIAL_BY_ID['admin-credit-dod'])}
+      />
+      <Composition
+        id={TUTORIAL_BY_ID['admin-credit-dod-portal'].compositionId}
+        component={AdminCreditDodPortalVideo}
+        durationInFrames={1}
+        fps={VIDEO_LANDSCAPE.fps}
+        width={VIDEO_LANDSCAPE.width}
+        height={VIDEO_LANDSCAPE.height}
+        defaultProps={defaults('admin-credit-dod-portal')}
+        calculateMetadata={makeCalculateMetadata(
+          TUTORIAL_BY_ID['admin-credit-dod-portal'],
+        )}
       />
     </>
   );

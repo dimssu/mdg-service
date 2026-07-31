@@ -553,6 +553,183 @@ const creditMonitor: Tutorial = {
   ],
 };
 
+/**
+ * AdminCreditDod — the first ADMIN-facing tutorial in the library. Audience is
+ * the MDG ops team, not a dealer, so the on-screen material is the real (English)
+ * admin portal and the SDMS portal; only the narration is Hindi. Landscape
+ * 1920×1080, because the admin portal is a desktop screen.
+ *
+ * This one answers "what is this service and where does the number come from?" —
+ * the question an admin gets asked back the moment a dealer disputes a figure.
+ * Each scene's `step` selects a diagram stage in AdminCreditDodVideo.
+ */
+const adminCreditDod: Tutorial = {
+  id: 'admin-credit-dod',
+  compositionId: 'AdminCreditDod',
+  title: 'Credit & DOD Monitoring — यह सर्विस क्या करती है',
+  subtitle: 'MDG एडमिन टीम के लिए — रिपोर्ट का नंबर कहाँ से आता है',
+  scenes: [
+    {
+      id: 'intro',
+      step: 'intro',
+      text: 'नमस्ते! यह वीडियो MDG की एडमिन टीम के लिए है। इसमें हम समझेंगे कि Credit और DOD Monitoring सर्विस असल में करती क्या है, और रिपोर्ट में दिखने वाला नंबर कहाँ से आता है।',
+      estSeconds: 12,
+    },
+    {
+      id: 'problem',
+      step: 'problem',
+      text: 'डीलर का रोज़ का सवाल सिर्फ़ दो हैं — कितना पैसा जमा करना है, और कब तक। इंडियन ऑयल का पोर्टल यह सीधे नहीं बताता। हमें यह ख़ुद निकालना पड़ता है।',
+      estSeconds: 11,
+    },
+    {
+      id: 'login',
+      step: 'login',
+      text: 'हर रिपोर्ट एक असली लॉगिन है। सिस्टम डीलर के SDMS खाते में लॉगिन करता है — कैप्चा हमारा OCR ख़ुद पढ़ता है। इसीलिए एक रिपोर्ट बनने में क़रीब एक मिनट लगता है।',
+      estSeconds: 12,
+    },
+    {
+      id: 'two-pages',
+      step: 'two-pages',
+      text: 'पोर्टल से हम दो पन्ने उठाते हैं। पहला — Credit Monitoring, जहाँ से Current Credit Limit और Current Total Receivable मिलते हैं। दूसरा — PAD Statement, यानी पूरा लेन-देन का खाता।',
+      estSeconds: 13,
+    },
+    {
+      id: 'ledger',
+      step: 'ledger',
+      text: 'PAD Statement में हर लाइन या तो ख़रीद है या भुगतान। ख़रीद यानी debit — बकाया बढ़ता है। भुगतान यानी credit — बकाया घटता है। यही कच्चा माल है।',
+      estSeconds: 12,
+    },
+    {
+      id: 'fifo',
+      step: 'fifo',
+      text: 'अब असली काम। हम हर ख़रीद को उसकी तारीख़ के साथ एक अलग "लॉट" मानते हैं। जब भुगतान आता है, वह सबसे पुराने लॉट से चुकता होता है — पहले आया, पहले गया। इसे FIFO कहते हैं।',
+      estSeconds: 14,
+    },
+    {
+      id: 'due-amount',
+      step: 'due-amount',
+      text: 'जो सबसे पुराना लॉट अब भी बचा है, उसी की राशि DUE AMOUNT बनती है। यानी अभी जमा करने वाला पैसा पूरा बकाया नहीं, सिर्फ़ सबसे पुरानी ख़रीद का हिस्सा है।',
+      estSeconds: 13,
+    },
+    {
+      id: 'due-date',
+      step: 'due-date',
+      text: 'DUE DATE उसी लॉट की तारीख़ में तीन दिन जोड़कर बनती है। पर अगर वह दिन रविवार, महीने का दूसरा या चौथा शनिवार, या कोई बैंक छुट्टी हो, तो तारीख़ आगे के काम वाले दिन खिसक जाती है।',
+      estSeconds: 15,
+    },
+    {
+      id: 'reconcile',
+      step: 'reconcile',
+      text: 'हर बार सिस्टम अपनी गिनती को SDMS के अपने Current Total Receivable से मिलाता है। मिल गया तो हरा "Reconciles" दिखता है। न मिले तो लाल — और ऐसी रिपोर्ट डीलर को भेजने से पहले टीम को दिखाइए।',
+      estSeconds: 15,
+    },
+    {
+      id: 'card',
+      step: 'card',
+      text: 'यही सब मिलकर वह कार्ड बनाते हैं जो डीलर को मिलता है — ऊपर बकाया और तारीख़, बीच में सीमा और खपत, नीचे किस तरह की सीमा है।',
+      estSeconds: 11,
+    },
+    {
+      id: 'approval',
+      step: 'approval',
+      text: 'सबसे ज़रूरी बात — रिपोर्ट अपने आप डीलर को नहीं जाती। बनती है, रुकती है, और तभी जाती है जब कोई एडमिन देखकर "Share with dealer" दबाता है।',
+      estSeconds: 12,
+    },
+    {
+      id: 'recap',
+      step: 'recap',
+      text: 'संक्षेप में — पोर्टल से खाता उठाओ, FIFO से सबसे पुरानी बकाया ख़रीद निकालो, तीन काम के दिन जोड़कर तारीख़ बनाओ, SDMS से मिलान करो, और एडमिन की मंज़ूरी के बाद ही भेजो। अगले वीडियो में हम यही काम पोर्टल पर करके देखेंगे।',
+      estSeconds: 16,
+    },
+  ],
+};
+
+/**
+ * AdminCreditDodPortal — the hands-on twin: the same feature, driven through the
+ * admin portal screen by screen. `step` selects which mocked admin screen (and
+ * which highlight on it) AdminCreditDodPortalVideo draws.
+ */
+const adminCreditDodPortal: Tutorial = {
+  id: 'admin-credit-dod-portal',
+  compositionId: 'AdminCreditDodPortal',
+  title: 'एडमिन पोर्टल में Credit & DOD चलाना',
+  subtitle: 'रिपोर्ट बनाना, जाँचना और डीलर को भेजना',
+  scenes: [
+    {
+      id: 'intro',
+      step: 'intro',
+      text: 'अब हम यही काम एडमिन पोर्टल पर करके देखेंगे — रिपोर्ट बनाना, उसे जाँचना, और डीलर तक भेजना।',
+      estSeconds: 9,
+    },
+    {
+      id: 'open-tab',
+      step: 'open-tab',
+      text: 'बाएँ मेन्यू से Dealers खोलिए, अपना डीलर चुनिए, और ऊपर की पट्टी में "Credit & DOD" टैब पर जाइए। पूरा काम इसी एक टैब पर होता है।',
+      estSeconds: 12,
+    },
+    {
+      id: 'generate',
+      step: 'generate',
+      text: 'सबसे ऊपर है Generate। "Today" चुनकर "Generate now" दबाइए — यह आज तक का ताज़ा हिसाब बनाएगा। "Past date" वाला टैब किसी पुरानी तारीख़ की रिपोर्ट दोबारा बना देता है।',
+      estSeconds: 14,
+    },
+    {
+      id: 'quota',
+      step: 'quota',
+      text: 'ध्यान रहे — एक डीलर के लिए एक घंटे में सिर्फ़ तीन बार रिपोर्ट बनाई जा सकती है। कार्ड के नीचे लिखा रहता है कि कितनी बची हैं। बार-बार लॉगिन करने से डीलर का पोर्टल खाता लॉक हो सकता है, इसलिए यह रोक ज़रूरी है।',
+      estSeconds: 16,
+    },
+    {
+      id: 'wait',
+      step: 'wait',
+      text: 'दबाने के बाद क़रीब एक मिनट लगता है। इस बीच सिस्टम लॉगिन करता है, कैप्चा हल करता है, दोनों पन्ने पढ़ता है और कार्ड बनाता है। तैयार होते ही नीचे Report history में सबसे ऊपर आ जाता है।',
+      estSeconds: 15,
+    },
+    {
+      id: 'history',
+      step: 'history',
+      text: 'Report history इस डीलर की सारी पुरानी रिपोर्ट रखती है। सबसे नई अपने आप खुली रहती है। किसी भी लाइन पर दबाइए और वह रिपोर्ट पूरी खुल जाएगी — कहीं और जाने की ज़रूरत नहीं।',
+      estSeconds: 14,
+    },
+    {
+      id: 'review',
+      step: 'review',
+      text: 'भेजने से पहले तीन चीज़ें देखिए। एक — हरा "Reconciles"। दो — कोई पीली चेतावनी तो नहीं, जैसे "due date is an estimate"। तीन — "Why this amount?" खोलकर देख लीजिए कि नंबर किन ख़रीदों से बना है।',
+      estSeconds: 17,
+    },
+    {
+      id: 'sources',
+      step: 'sources',
+      text: 'नीचे Source files में PAD statement मिलता है — पूरा खाता, पढ़ने लायक़ बना हुआ। डीलर बहस करे तो यही फ़ाइल खोलकर लाइन-दर-लाइन दिखाई जा सकती है।',
+      estSeconds: 13,
+    },
+    {
+      id: 'share',
+      step: 'share',
+      text: 'सब ठीक लगे तो "Share with dealer" दबाइए। एक पुष्टि आएगी — हाँ करते ही कार्ड डीलर की चैट में चला जाता है और उसे नोटिफ़िकेशन भी मिल जाता है।',
+      estSeconds: 13,
+    },
+    {
+      id: 'shared',
+      step: 'shared',
+      text: 'भेजने के बाद वही लाइन "Shared" दिखाने लगती है, समय के साथ। दोबारा दबाने पर डीलर को दूसरा संदेश नहीं जाएगा — एक रिपोर्ट सिर्फ़ एक बार जाती है।',
+      estSeconds: 13,
+    },
+    {
+      id: 'failed',
+      step: 'failed',
+      text: 'अगर रन फ़ेल हो जाए तो घबराइए मत। उसी डीलर के "Run history" टैब में जाइए — वहाँ साफ़ भाषा में लिखा रहता है कि क्या ग़लत हुआ और अब क्या करना है, जैसे पासवर्ड बदल गया हो।',
+      estSeconds: 15,
+    },
+    {
+      id: 'recap',
+      step: 'recap',
+      text: 'तो पूरा तरीक़ा यही है — टैब खोलिए, Generate now दबाइए, एक मिनट रुकिए, Report history में जाँचिए, और फिर Share with dealer। धन्यवाद!',
+      estSeconds: 13,
+    },
+  ],
+};
+
 export const TUTORIALS: Tutorial[] = [
   login,
   addWarrior,
@@ -561,6 +738,8 @@ export const TUTORIALS: Tutorial[] = [
   submitPoints,
   pointsSystem,
   creditMonitor,
+  adminCreditDod,
+  adminCreditDodPortal,
 ];
 
 export const TUTORIAL_BY_ID: Record<string, Tutorial> = Object.fromEntries(

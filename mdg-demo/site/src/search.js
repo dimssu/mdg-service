@@ -26,6 +26,14 @@
 
     var list = doc.getElementById('list');
     var items = [].slice.call(list.querySelectorAll('.item'));
+    // The section headings ("डीलर के लिए", "एडमिन के लिए") are list items too. A
+    // result set is ranked across the whole library, so those labels stop being true
+    // the moment a query is typed — they go away while searching and come back on
+    // reset. `order` is the page's original sequence, headings included: ranking
+    // rearranges the list by re-appending cards, so restoring it needs every child,
+    // not just the cards.
+    var sections = [].slice.call(list.querySelectorAll('.sec'));
+    var order = [].slice.call(list.children);
     var empty = doc.getElementById('empty');
     var countEl = doc.getElementById('count');
     var sizeEl = doc.getElementById('size');
@@ -197,12 +205,14 @@
 
     function reset() {
       for (var i = 0; i < items.length; i++) {
-        items[i].hidden = false;
         items[i].classList.remove('best');
         items[i].querySelector('.hits').hidden = true;
         var m = markable(items[i]);
         for (var j = 0; j < m.length; j++) highlight(m[j], null);
-        list.appendChild(items[i]); // put the taught order back
+      }
+      for (var o = 0; o < order.length; o++) {
+        order[o].hidden = false;
+        list.appendChild(order[o]); // put the taught order — and its headings — back
       }
       empty.hidden = true;
       if (sizeEl) sizeEl.hidden = false;
@@ -222,6 +232,8 @@
       clearBtn.hidden = false;
       var results = found.results;
       var words = found.words;
+
+      for (var s = 0; s < sections.length; s++) sections[s].hidden = true;
 
       for (var i = 0; i < items.length; i++) {
         items[i].hidden = true;
