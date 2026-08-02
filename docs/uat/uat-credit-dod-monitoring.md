@@ -339,10 +339,10 @@ solved in N attempts` **plus a stack trace** (`executeRun.ts:158-171`,
 - **Expected:** The run still **SUCCEEDS** — reconcile is a _warning_, not a failure
   (`runner.ts:302-307`). The card shows a **red "Does not reconcile (SDMS receivable
   ₹…)"** (`CreditDodReportCard.tsx:164-190`).
-- **What the operator needs but doesn't get:** the card is **still fully shareable**
-  and there is **no instruction** that a non-reconciling card may have a wrong DUE
-  AMOUNT and should be manually reviewed / the look-back widened before sharing
-  (README "Limitations"). → gap **G9**.
+- **Also expected (CLOSED, was gap G9):** the **Share** action is now **refused** for a
+  plain admin on a non-reconciling card — the API returns 400 with a plain-language
+  reason and nothing reaches the dealer. A **super-admin** may still override, and
+  still sees the warning. Verify both roles.
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-C5 — OCR sidecar not installed on the server
@@ -436,6 +436,77 @@ solved in N attempts` **plus a stack trace** (`executeRun.ts:158-171`,
   Report-history state).
 - **Expected:** a dialog offering two Hindi videos — _what the service does_ and
   _using it in the admin portal_ — each opening the MDG guide in a new tab.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+---
+
+## Section E — Transactions the portal publishes late
+
+IndianOil does not show a payment on the day it is made. It typically appears one or
+two days later, still carrying its original value date. Everything in this section is
+about that lag. It is the single most likely way a dealer receives a wrong figure, so
+run it against a **real dealer who has paid in the last three days**.
+
+### CD-E1 — A payment made today is not in today's report
+
+- **Persona:** Meena (dealer) · **Setup:** pick a dealer who deposited money today and
+  confirm with them that the portal does not show it yet.
+- **Steps:** generate a report, read the card, then share it and open the dealer's chat.
+- **Expected:** the card and the chat message both state the date the figures describe
+  ("As per portal on dd-mm-yyyy") and both carry the line that a payment made in the
+  last day or two may not appear yet. The dealer must not read the message as a demand
+  to pay again.
+- **Why it cannot be fixed any other way:** the portal itself does not know about the
+  payment, so no cross-check can detect it — both sides of every comparison are equally
+  ignorant. Disclosure is the control here.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-E2 — The payment posts a day or two later and the figures correct themselves
+
+- **Persona:** Arjun · **Setup:** the dealer from CD-E1, once the portal shows the
+  payment (check the PAD statement artifact, or ask them).
+- **Steps:** generate a fresh report. Compare DUE AMOUNT / DUE DATE against the earlier
+  one.
+- **Expected:** the late payment is in the maintained PAD ledger even though its value
+  date is older than the previous report; DUE AMOUNT drops by the payment; DUE DATE
+  moves to the next unpaid purchase. The report shows a notice naming the value date of
+  the transaction that arrived late.
+- **Regression watch:** if DUE AMOUNT has NOT changed, the fetch window is not reaching
+  back far enough — raise `padReconfirmDays` on the dealer service.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-E3 — An already-shared report is flagged as superseded
+
+- **Persona:** Arjun · **Setup:** CD-E2, but the earlier report was **shared** with the
+  dealer before the payment posted.
+- **Steps:** open the new report.
+- **Expected:** a prominent notice saying a report was already sent to the dealer at
+  <date/time> and its figures are now out of date. Report history marks that entry too.
+- **Expected operator action:** share the new report. A chat message cannot be edited or
+  withdrawn, so the correction has to be a newer message — confirm the dealer receives it.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-E4 — Repairing a ledger that has drifted further back than the re-read window
+
+- **Persona:** super-admin · **How to trigger:** a dealer whose report says it does not
+  reconcile on two consecutive runs.
+- **Steps:** `POST /dealer-services/:dealerServiceId/run-now` with body
+  `{"configOverride":{"resync":true}}`.
+- **Expected:** the run re-reads the full look-back rather than the recent tail, widening
+  until it reaches a balance reset, and the resulting report reconciles. The run's `ledger`
+  step reports `restatedRows` / `backdatedRows` for what it corrected.
+- **Note:** an ordinary run already re-reads a wider window by itself when it fails to
+  reconcile (`verifyWidenings` in the run step says how many times). `resync` is for drift
+  older than that reaches.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-E5 — The maintained ledger matches the portal's own statement
+
+- **Persona:** Arjun · **Steps:** open **Maintained PAD ledger** for the dealer and the
+  `pad_statement.html` artifact from the same run side by side.
+- **Expected:** same transactions, same amounts, same running balances. A row the portal
+  has since corrected or withdrawn appears **once**, in its current form — not twice, and
+  not in its old form.
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ---
@@ -535,10 +606,27 @@ reconcile line, open lots, source files and **Share with dealer** — so history
 longer reachable only by opening SUCCESS runs one at a time. See CD-D1/CD-D2.
 
 **G9 · A non-reconciling card is shareable with no warning.** ✅ **CLOSED.** The Share
-confirm dialog now shows a caution when `reconciles === false`, and a second one when
+confirm dialog shows a caution when `reconciles === false`, and a second one when
 the snapshot is back-dated. The report body additionally warns on
 `openingCarriedForward` (the due date is an estimate) and on `droppedRows > 0`
-(parser drift).
+(parser drift). The warning is now **enforced**, not advisory: the share API refuses a
+non-reconciling or partly-unreadable card for a plain admin (super-admins may override),
+because the DUE AMOUNT on such a card disagrees with IndianOil's own receivable and a
+dealer acting on it deposits the wrong money.
+
+**G11 · A transaction the portal published late could never be picked up.** ✅ **CLOSED.**
+The fetch window used to start at the last stored transaction date, so a payment dated
+the 1st that posted on the 3rd fell outside every future window — permanently, since the
+window's left edge only moved forward. Runs now re-read the last `padReconfirmDays`
+(default 10) and treat that window as authoritative, so late rows, amendments and
+withdrawals all land; a window that fails to reconcile re-reads further back mid-capture,
+before anything is written. See Section E.
+
+**G12 · An already-shared report was never marked as superseded.** ✅ **CLOSED.** When a
+late transaction lands on a day whose report had already gone to the dealer, the new
+report says so (`supersededSharedAt`), and Report history marks the affected entry. The
+sent chat message still cannot be edited — the correction is a newer share, which is what
+CD-E3 checks.
 
 **G10 · Share success copy doesn't reflect idempotency.** ✅ **CLOSED.** The toast now
 reads "This report had already been shared with the dealer." when the backend returns
