@@ -1,6 +1,6 @@
 # UAT — Credit & DOD Monitoring (SDMS capture → review → share)
 
-**Status:** v1 · **Owner:** UAT · **Last updated:** 2026-07-18
+**Status:** v1 · **Owner:** UAT · **Last updated:** 2026-08-06
 **Surface:** `mdg-admin` (ops portal, web) + `mdg-client` / `mdg-app` (dealer chat) ·
 **Service:** `credit-dod-monitoring` (backend plugin)
 
@@ -11,6 +11,13 @@ Monitoring page + PAD statement, computes the **DOD due amount / due date** by F
 ledger aging, stores a per-dealer **snapshot**, renders the bilingual **"CREDIT &
 DOD MONITORING"** card, and the admin reviews it and presses **Share with dealer**
 to post it into the dealer's chat. **Nothing is sent to the dealer automatically.**
+
+Two later sections cover the ways this can hand a dealer a wrong or harmful
+figure: **[Section E](#section-e--transactions-the-portal-publishes-late)** for
+transactions IndianOil publishes days after they happen, and
+**[Section F](#section-f--missed-deposit-deadlines-overdue)** for a dealer who
+misses the deposit deadline — including how to produce a missed deadline on
+demand instead of waiting for one.
 
 It mirrors the structure of the other docs in `docs/uat/*`: every scenario names the
 **persona**, **preconditions**, **numbered plain-language steps**, an **expected
@@ -511,6 +518,372 @@ run it against a **real dealer who has paid in the last three days**.
 
 ---
 
+## Section F — Missed deposit deadlines (overdue)
+
+A dealer who does not deposit by the DOD deadline used to look exactly like one
+whose deadline is still ahead: the same `due` badge in Report history, and a chat
+message that said _"deposit by 04-07-2026"_ on the 10th of July. This section is
+about the verdict that now sits beside the figures.
+
+Three sentences carry the whole section:
+
+1. **Overdue is not a new state.** Every overdue report is still `state: 'due'`
+   with an extra `overdue` block, so nothing that used to work changes shape.
+2. **The overdue amount is deliberately NOT the due amount.** DUE AMOUNT is the
+   oldest unpaid date's lot — the right answer to "what does the next deadline
+   cost". Once several deadlines have gone by it is the wrong number: a dealer
+   who pays it has done exactly what the card asked and is still in default. The
+   overdue figure sums **every** past-deadline lot, and it is the one the dealer
+   is shown. **CD-F4 is the journey that proves this, and it is the one to run
+   if you only run one.**
+3. **Nothing is sent automatically.** A missed deadline is still just a prepared
+   report; it reaches the dealer when an admin presses **Share** (CD-F9).
+
+### Producing an overdue position on purpose (read this first)
+
+You cannot ask a dealer to default on cue, and waiting for one is not a test
+plan. Two facts make this section runnable today:
+
+- A **back-dated** report (Credit & DOD tab → **Past date**) rebuilds the ledger
+  as of any date you choose and judges the deadlines against **that** date. Any
+  day on which the dealer _was_ late produces a genuine overdue card now.
+- A back-dated run re-reads the portal **as it stands today** and files every
+  transaction under its own **value date**. So a reconstruction has hindsight
+  about when a payment was _published_, but not about when it was _made_: a lot
+  the dealer genuinely had not paid by the 6th still shows unpaid in a
+  reconstruction of the 6th.
+
+> **The one consequence to hold on to.** A reconstruction cannot reproduce
+> "the dealer paid on time but IndianOil hadn't posted it yet" — in a
+> reconstruction that payment is already there, on its value date, and the lot is
+> closed. So the amber grace-band journey (CD-F2) is run against a lot that was
+> genuinely unpaid on the day you pick. That is still a valid test of the
+> **wording**; it is not a test of the grace band's generosity, which only a live
+> run on the morning after a real deadline can show.
+
+**Pick your dates once** — about five minutes and one report:
+
+1. Dealer → **Credit & DOD** → scroll to **Maintained PAD ledger**. Find a
+   stretch where the running balance stayed positive for a week or more (the
+   dealer did not clear). Note the date of the first **credit** (payment) row
+   that ends that stretch — call it **Q**.
+2. Scroll back to the top, choose **Past date**, set the as-of date to **the day
+   before Q**, press **Generate**. It takes about a minute.
+3. Open the new row in **Report history** and open **"Why this amount?"**. It
+   lists every unpaid purchase as `Availed dd-mm-yyyy · due dd-mm-yyyy`. The
+   **due** dates are the deposit deadlines the engine judges against. Write down
+   the first two: **D1** and **D2**.
+4. **Check the stretch is long enough:** `D2 + 3 days` must still be earlier than
+   **Q**. If it is not, the dealer cleared too soon for this exercise — go back to
+   the ledger and pick a longer positive-balance stretch. (This one check is what
+   keeps every date below on the unpaid side of the payment.)
+
+Every scenario below is now just an as-of date:
+
+| Journey | Generate as of     | What it proves                     |
+| ------- | ------------------ | ---------------------------------- |
+| CD-F1   | `D1`               | on the deadline day, still on time |
+| CD-F2   | `D1 + 1 day`       | one day past → softened wording    |
+| CD-F3   | `D1 + 2`, `D1 + 3` | day 3 is where the wording hardens |
+| CD-F4   | `D2 + 3`           | two or more deadlines lapsed       |
+| CD-F5   | `Q`, or later      | a late payment clears the breach   |
+
+**Quota.** Manual generations are capped at **3 per dealer per hour** (CD-D3) and
+this section is six or more runs. Either run them as a **super-admin** (exempt),
+spread them over two hours, or — much faster — ask whoever has server access to
+produce them all at once, off the quota:
+
+```bash
+# On the backend server, from /home/ubuntu/mdg-backend.
+# The <dealerServiceId> is the id of this dealer's credit-dod-monitoring row on
+# the Services tab; the person running this can read it off the API response.
+npx tsx scripts/run-credit-dod-backfill.ts <dealerServiceId> \
+  04-07-2026 05-07-2026 06-07-2026 07-07-2026 13-07-2026 16-07-2026
+```
+
+Each date is a separate stateless run (one failing does not abort the rest), and
+every one lands in the same **Report history** list. The rest of the section is
+then a review exercise in the browser, with no waiting.
+
+> **Use a UAT dealer.** Several of these journeys press **Share**, which posts a
+> "deposit immediately" message and a push notification to a real dealer about a
+> position that may be weeks old. Run them on a dealer whose owner login is a
+> tester's own account, or skip the share steps and mark them so.
+
+### CD-F1 — The deadline day itself is not a miss
+
+- **Persona:** Arjun · **Precondition:** you have **D1** from the recipe above.
+- **Steps:**
+  1. **Past date** → as-of date = **D1** → **Generate**. Wait for _"Report ready"_.
+  2. Look at the new row in **Report history** (State column, or the badges on
+     the mobile card).
+  3. Open the row and read from the top: the notices, then the figures list, then
+     the card image.
+  4. _(Optional, UAT dealer only)_ press **Share with dealer** and read the chat
+     message.
+- **Expected:**
+  - **No** overdue badge — the State cell shows the ordinary amber **`due`**.
+  - **No** red or amber "deadline" notice above the card, and **no "Overdue
+    amount" row** in the figures list; the first row is **Due amount**.
+  - The card hero is the normal one: eyebrow **DUE AMOUNT**, right-hand panel
+    headed **DUE DATE** showing **D1**, verdict _"आज ही जमा करना है / Due today"_.
+  - Shared message reads _"देय राशि / Due: ₹… — जमा करने की आख़िरी तारीख़ / by
+    D1"_ with no OVERDUE line; push title **"Credit & DOD update"**.
+- **FAIL if** anything anywhere calls the dealer late on the day the deposit is
+  actually due. The dealer has until close of business; this is the boundary that
+  would otherwise accuse every compliant dealer once per cycle.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-F2 — One day past: "payment may not be posted yet" (amber)
+
+- **Persona:** Arjun, then Ramesh · **Precondition:** CD-F1 done; **D1** known.
+- **Steps:**
+  1. **Past date** → as-of = **D1 + 1 day** → **Generate**.
+  2. In **Report history**, read the badge in the State column.
+  3. Open the row. Read the notice above the card image, then the top two rows of
+     the figures list, then the card image itself.
+  4. _(UAT dealer)_ **Share with dealer** → confirm. Open the dealer's chat as
+     Ramesh and read the message; check the push notification on the app build.
+- **Expected:**
+  - **Badge:** amber, reading **`Past deadline · 1 day`** (hovering it explains
+    that a deposit made on time may not be published yet).
+  - **Notice (amber, above the card):** _"The deadline of D1 has passed with ₹…
+    still showing unpaid — 1 day ago. IndianOil takes a day or two to publish a
+    deposit, so this may already have been paid. Check with the dealer before
+    treating it as a default."_
+  - **Figures:** a new **Overdue amount** row in red, sitting **above** Due
+    amount. With only one lapsed deadline the two figures are equal — that is
+    correct, not a bug.
+  - **Card image:** the right-hand panel is headed **DEADLINE WAS** with D1 under
+    it, on a pale-orange background, reading _"Deadline passed 1 day ago —
+    payment may not be posted yet"_.
+  - **Chat message** contains, on its own line:
+    _"⚠️ जमा करने की तारीख़ निकल चुकी है / Deadline passed: ₹… — तारीख़ थी / was D1"_
+    followed by _"…पोर्टल पर दिखने में 1-2 दिन लगते हैं / If you have already
+    deposited, the portal can take a day or two to show it."_
+  - **Push:** title **"Credit & DOD — deadline passed"**, body _"₹… — deadline
+    was D1. If you have paid, the portal may not show it yet."_
+- **FAIL if** the chat message or the push contains the word **OVERDUE** or tells
+  the dealer to _deposit immediately_ while inside the two-day band.
+- **The card must soften too.** Its hero block is **amber**, not red, and its
+  eyebrow reads **PAST DEADLINE** — not "OVERDUE AMOUNT". **FAIL if** the hero is
+  red-tinted or says OVERDUE anywhere inside the two-day band.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-F3 — Three days past: a firm breach, and where the wording flips
+
+- **Persona:** Arjun, then Ramesh · **Precondition:** **D1** known.
+- **Steps:**
+  1. Generate as of **D1 + 2**. Read the badge and the notice.
+  2. Generate as of **D1 + 3**. Read the badge, the notice and the card.
+  3. _(UAT dealer)_ share the **D1 + 3** report and read the chat message + push.
+- **Expected:**
+  - **D1 + 2** is still the softened treatment: amber badge **`Past deadline · 2
+days`**, the same "may already have been paid" notice with _2 days_. (If **D2**
+    happens to fall on D1 + 1, a second deadline has lapsed by now and the amount
+    will be larger and the notice will name two deadlines — that is correct. The
+    day count, which is what drives the wording, is still measured from **D1**.)
+  - **D1 + 3** hardens, everywhere at once:
+    - **Badge:** red **`Overdue 3 days`**.
+    - **Notice (red):** _"Deadline missed. ₹… has been past its deposit deadline
+      since D1 — 3 days."_
+    - **Card:** the date panel turns red, reading _"3 दिन पहले तारीख़ निकल चुकी है
+      — तुरंत जमा करें"_ / _"Overdue by 3 days — deposit now"_.
+    - **Chat:** _"🔴 बकाया — तारीख़ निकल चुकी / OVERDUE: ₹… — आख़िरी तारीख़ थी /
+      deadline was D1 (3 दिन पहले / 3 days ago)"_ followed by _"कृपया तुरंत जमा
+      करें / Please deposit immediately."_
+    - **Push:** _"Overdue ₹… — deadline was D1 (as per portal). Please deposit
+      now."_
+- **FAIL if** the flip happens on day 2 (too harsh — the portal's own lag would
+  be blamed on the dealer) or has still not happened on day 4 (too soft — a real
+  default reads as a routine reminder).
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-F4 — Several missed deadlines: the dealer must not be told to pay the smaller number
+
+> **The most valuable journey in this document.** Everything else here is
+> wording. This one is money: if it fails, a defaulting dealer deposits the
+> figure we gave them, believes they are square, and is still in default.
+
+- **Persona:** Arjun, then Ramesh · **Precondition:** **D1** and **D2** from the
+  recipe. You need an as-of date by which **two or more** deadlines have lapsed —
+  `D2 + 3` is the safe choice.
+- **Steps:**
+  1. Generate as of **D2 + 3**.
+  2. Open the row. Read the red notice at the very top, word for word.
+  3. Read the first two rows of the figures list: **Overdue amount** and **Due
+     amount**. Write both down — call them **A** (overdue) and **B** (due).
+  4. Open **"Why this amount?"** and, on paper, add up every lot whose **due**
+     date is _before_ your as-of date. Compare that total to **A**.
+  5. Look at the card image: the big number in the hero, the line under it, and
+     the right-hand panel.
+  6. _(UAT dealer)_ **Share with dealer**. Read the chat message and the push
+     notification as Ramesh.
+- **Expected:**
+  - **A is larger than B.** If they are equal, only one deadline has lapsed —
+    move the as-of date later and start again.
+  - **A equals your hand total from step 4**, to the paisa.
+  - **Notice:** _"Deadline missed. ₹A has been past its deposit deadline since D1
+    — N days, across L separate deadlines. The due amount below (₹B) covers only
+    the oldest of them, so paying that alone would not clear the default."_
+  - **Card hero:** eyebrow **OVERDUE AMOUNT**, and the large figure is **A, not
+    B**. Under it, in red: _"L जमा तारीख़ें निकल चुकी हैं · L missed deadlines,
+    oldest D1"_. The right-hand panel reads **DEADLINE WAS D1**.
+  - **Chat message** carries **₹A** on the OVERDUE line, plus _"इसमें L तारीख़ें
+    शामिल हैं / This covers L missed deadlines."_ — and **the smaller figure B
+    appears nowhere in the message**.
+  - **Push** body carries **₹A**.
+- **FAIL if** any dealer-facing surface — card hero, chat line, push — presents
+  **B** as the amount to deposit. Stop and report it rather than continuing.
+- **The Report history list must carry ₹A too**, without expanding the row: the
+  amount column shows **₹A** in red and the date column reads _"was D1"_. On a
+  phone the same row reads _"₹A · was due D1"_. **FAIL if** the list shows **B**
+  beside a red overdue badge, or phrases a deadline that has gone as _"by D1"_ —
+  that is the figure an admin would read out over the phone.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-F5 — A payment lands late and clears the breach
+
+- **Persona:** Arjun · **Precondition:** **Q** (the payment date) from the recipe,
+  and the CD-F4 report still open in another tab for comparison.
+- **Steps:**
+  1. Generate as of **Q**, and again as of **Q + 2**.
+  2. Compare each against the CD-F4 report: badge, notices, figures list, card.
+- **Expected:** the overdue treatment **disappears** — no badge, no notice, no
+  **Overdue amount** row — as soon as the as-of date reaches the payment's value
+  date, provided that payment covered the lapsed lots. The report reverts to an
+  ordinary `due` with a deadline in the future, or to `clear` / `advance`. The
+  only thing you changed is the as-of date.
+- **If the dealer only part-paid**, the overdue treatment may survive; in that
+  case the **Overdue amount** must have fallen by at least the payment. An overdue
+  figure that has not moved at all after a payment is a fail.
+- **Live variant (run this too if you can):** for a dealer who really is past a
+  deadline **today**, wait for the deposit to appear in the **Maintained PAD
+  ledger** (one to two days — see Section E) and generate today's report. The
+  overdue treatment must be gone. A card already shared cannot be edited or
+  withdrawn, so the correction is a **newer share** — cross-check CD-E3, which
+  should also be flagging that earlier report as superseded.
+- **Regression watch:** if the overdue treatment survives after the payment is
+  visibly in the Maintained PAD ledger with a value date at or before the lapsed
+  deadline, the FIFO is not consuming the lot. Stop and report — that would mean
+  chasing a dealer who has paid.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-F6 — A back-dated report is judged against that date, not today
+
+- **Persona:** Arjun · **Precondition:** none beyond **D1**.
+- **Steps:**
+  1. In one sitting, generate two reports: as of **D1 + 1** and as of **D1 + 10**.
+  2. Read the day count on each badge and notice.
+  3. Open each card image and read the footer line.
+  4. _(UAT dealer)_ share one of them and read the first and last lines of the
+     chat message.
+- **Expected:**
+  - The two reports say **1 day** and **10 days**, not the number of days between
+    D1 and today. Both were generated in the same minute; only the requested date
+    differs.
+  - Each row in Report history carries a blue **`As of dd-mm-yyyy`** badge.
+  - The card footer reads **DATA PREPARED AT** _clock time_ · **the as-of date** —
+    not today's date.
+  - The chat message opens with _"🗓 स्थिति / Position as of dd-mm-yyyy"_ and ends
+    with _"यह पुरानी तारीख़ की स्थिति है, आज की नहीं / This is the position on
+    that past date, not today."_ — and **not** the "a payment in the last day or
+    two may not appear" line, which only belongs on a report about today.
+- **The push must say which day it describes.** Its body contains
+  _"(position on dd-mm-yyyy)"_. **FAIL if** it reads as today's position — a
+  notification is seen on a lock screen, stripped of the chat message's framing.
+  Still use a UAT dealer: a real one should not receive practice reports.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-F7 — An older report in Report history still shows the verdict
+
+- **Persona:** Arjun · **Precondition:** the dealer has at least one report
+  **captured before this release shipped**. Check the Captured-at column in
+  Report history against the deploy date.
+- **Steps:**
+  1. Scroll to a pre-release row. Open it and read its **Window** (from → to) in
+     the muted metadata block, and its **"Why this amount?"** list.
+  2. If any lot's **due** date is _earlier_ than the window's **to** date, that
+     report described a dealer who was already past a deadline.
+  3. Read the badge on the collapsed row and the notice at the top of the
+     expanded one.
+- **Expected:** the old report carries the **same badge and the same notice** as a
+  freshly generated one, worked out from the open lots it already stored and the
+  last day its own window covered. Crucially, it is judged against **the day that
+  report described, not today** — a report that was on time when it was captured
+  must stay on time forever, however long ago it was.
+- **Cannot be produced on demand — say so if it does not apply.** There is no way
+  to create a "pre-release" report from the admin: every new run stores the
+  verdict itself. If this dealer has no history from before the release, mark the
+  journey **N/A** and note it. The substitute, if it needs proving, is for an
+  engineer to clear the stored `overdue` field on one snapshot in a **staging**
+  database and re-open the row — the value shown must be identical to the one
+  that was cleared.
+- **PASS ☐ FAIL ☐ · N/A ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-F8 — A breach built on carried-forward debt says "at least N days"
+
+- **Persona:** Arjun · **Precondition:** a report that shows **both** the warning
+  _"Due date is an estimate — the look-back didn't reach a balance reset…"_ **and**
+  an overdue verdict.
+- **Steps:** open such a report and read the red notice.
+- **Expected:** the notice reads _"… has been past its deposit deadline since
+  <date> — **at least** N days"_. The words "at least" are the whole point: the
+  oldest unpaid purchase is older than the ledger we could read, so its deadline
+  is the latest it could possibly have been. The dealer is late by **at least**
+  that many days, never fewer.
+- **Not reproducible on demand — be honest about it.** A back-dated run keeps
+  widening its window until the balance resets (up to roughly 400 days), so this
+  only survives for a dealer who has been continuously in debit for longer than
+  that. You cannot force it from the admin. Practically:
+  - if any existing report already shows both signals, run the journey on it;
+  - otherwise mark **NOT REPRODUCIBLE** and record that. The arithmetic is
+    covered by an automated test; what no human can currently confirm in-product
+    is the wording in situ.
+- **The hedge must reach the dealer, not just the admin.** The card's date panel
+  reads _"Overdue by at least N days"_ and the chat line _"कम से कम N दिन पहले /
+  at least N days ago"_. **FAIL if** any dealer-facing surface states the day
+  count as an exact number — the non-overdue card already hedges this same
+  uncertainty with _"by approx."_, and the harsher message must not hedge less.
+- **PASS ☐ FAIL ☐ · NOT REPRODUCIBLE ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-F9 — A missed deadline still sends nothing on its own
+
+- **Persona:** Arjun, then Ramesh · **Precondition:** any of CD-F2 – CD-F4.
+- **Steps:**
+  1. Immediately after a report finishes and **before touching Share**, open the
+     dealer's chat as Ramesh (a second browser or the app).
+  2. Return to Report history and look at the **Shared** column and the _"N not
+     shared yet"_ count in the header.
+  3. Now press **Share with dealer** → **Share**. Re-check the chat.
+- **Expected:** nothing reaches the dealer at step 1 — no message, no push, no
+  unread badge — however severe the breach. The row shows **Not shared** and the
+  header count has gone up by one. Only after step 3 does the message and its
+  push appear, exactly once (re-share stays idempotent, CD-B5).
+- **Also confirm the existing guards still bite:** a report that **does not
+  reconcile**, or one with unreadable ledger rows, is still refused for a plain
+  admin with the same plain-language reason (CD-C4). Being overdue does not
+  unlock a card whose figures we already know are wrong.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-F10 — No false alarms for dealers who are up to date
+
+- **Persona:** Arjun · **Precondition:** two or three dealers who are current,
+  plus one in advance if you have one.
+- **Steps:** generate **today's** report for each (the **Today** tab, not Past
+  date). Scan Report history, then open each one.
+- **Expected:** for every one of them — no overdue badge, no notice, **no
+  "Overdue amount" row**, and the card hero unchanged from before this release
+  (**DUE AMOUNT**, **NOTHING DUE**, or **ADVANCE WITH INDIAN OIL**). Shared
+  messages read _"देय राशि / Due: ₹… — by …"_ or _"कोई बकाया नहीं / No dues."_
+- **Why this is a journey and not an afterthought:** one false "OVERDUE — deposit
+  immediately" sent to a dealer who has paid costs more trust than every true one
+  this feature catches. If a single compliant dealer is flagged, the release
+  should not go out.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+---
+
 ## Findings & gaps
 
 Ranked by how badly they block a **non-technical operator** from diagnosing and
@@ -637,14 +1010,110 @@ from the snapshot query, so a share performed by _another_ admin won't flip the 
 to "Shared" until that query refetches. Minor, but worth distinct "Already shared"
 messaging and an invalidate-on-focus.
 
-**G11 · No retry from the failure view.** After a failure the operator must close the
+**G13 · No retry from the failure view.** After a failure the operator must close the
 dialog, switch to the **Services** tab, and press **Run now**. A "Run again" button in
 the failed `RunDetail` would close the loop.
+_(Renumbered from a second "G11" — an earlier draft reused two numbers.)_
 
-**G12 · Creds form has no "test login" / validity feedback.** You cannot tell if a
+**G14 · Creds form has no "test login" / validity feedback.** You cannot tell if a
 username/password pair is valid until a full run fails hours later. A lightweight
 "Test credentials" action (login-only, no capture) would catch typos at entry time and
 remove the biggest source of `LOGIN_CAPTCHA_EXHAUSTED` false alarms.
+_(Renumbered from a second "G12".)_
+
+### Missed deadlines (Section F)
+
+The engine and the copy are in good shape — the amount is right, the grace band
+is right, and the approval model is untouched. What follows is where the four
+surfaces (card, chat, push, admin) stop agreeing with each other.
+
+**G15 (P1) · The card treated the two-day grace band as a full breach.**
+**RESOLVED.** `overdueVerdict` softened the words, but the hero was driven by
+`overdue != null`, so the red background and an **OVERDUE AMOUNT** eyebrow
+appeared on day 1 while the chat, the push and the admin badge all hedged — on
+the one artefact a dealer actually forwards. The hero now follows
+`withinPortalLag`: an amber `.hero.lagging` with a **PAST DEADLINE** eyebrow
+inside the band, the red `.hero.late` treatment only past it. Covered by CD-F2.
+
+**G16 (P1) · A back-dated overdue report sent a present-tense push.**
+**RESOLVED.** The chat body carried _"This is the position on that past date"_
+but the push did not, and a push is read on a lock screen with none of that
+framing. The push body now appends _"(position on dd-mm-yyyy)"_ whenever
+`snap.backdated`. Covered by CD-F6.
+
+**G17 (P2) · The "at least N days" caveat never reached the dealer.**
+**RESOLVED.** `estimatedFrom` was computed and stored but dropped by
+`assemble.ts` and by `share.ts`'s local type, so only the admin's notice hedged.
+The asymmetry was the tell: the _non_-overdue path already discloses the same
+uncertainty as _"अनुमानित / by approx."_, and the hedge vanished exactly when the
+message got harsher. It is now carried into `CreditCardInput.overdue` and into
+the chat body, which read _"at least N days"_ / _"कम से कम N दिन"_. Covered by
+CD-F8.
+
+**G18 (P2) · Once a deadline lapses, the next one stops being shown.**
+**ACCEPTED, not fixed.** A dealer one day past ₹1,00,000 who also has ₹80,000
+falling due tomorrow hears only about the ₹1,00,000. Real, but not a regression:
+`dueDate` has always been the _oldest_ open lot's deadline, so the upcoming one
+was never shown either. Fixing it means putting a second amount in front of
+someone being asked to pay a first, and someone paying the wrong one is worse
+than the omission. The admin sees the full ladder under "Why this amount?".
+Recorded in the service README under "What this deliberately does NOT do".
+
+**G19 (P2) · Report history's list still showed the smaller number.**
+**RESOLVED.** The desktop table showed **Due amount** beside a red overdue badge
+and the mobile stack rendered `₹1,00,000.00 · by 04-07-2026` — a deadline that
+had gone, phrased as an instruction — with the explanation hidden inside the
+expanded row. Both now show the overdue total in red, dated _"was D1"_ /
+_"was due D1"_. Covered by CD-F4.
+
+**G20 (P2, dev tooling) · The dev CLI's `--as-of` card could contradict itself.**
+**RESOLVED.** The CLI passed the as-of date to `computeDod` but not to
+`assembleCreditCardInput`, so `preparedOn` stayed today and a reconstruction of a
+compliant past date rendered a red "Overdue by N days" panel under an ordinary
+**DUE AMOUNT** hero. It now passes `asOf`, matching the plugin. CLI-only, but the
+CLI is this document's own rehearsal route.
+
+**G21 (P1) · DUE AMOUNT named less than was owed by the date it named.**
+**RESOLVED.** `computeDod` grouped open lots by availment DATE, on the
+assumption that one date means one deadline. That holds one way only: a Thursday
+purchase rolls +3 to Sunday and on to Monday, and a Friday purchase lands on
+that same Monday. So the card said "Due ₹1,00,000 by 06-07", the dealer
+deposited exactly that on the 6th, and was reported OVERDUE ₹60,000 three days
+later — the precise failure this whole section exists to prevent, caused by the
+figure it was measuring against. DUE AMOUNT now sums every lot sharing the
+NEAREST DEADLINE. **This changes a paisa-validated figure**: neither of the two
+validated dealer cards had a shared-deadline collision, so both still match, but
+it has not been confirmed against a real card that does. Worth doing — noting
+that the old behaviour walks a compliant dealer into default and the new one
+cannot.
+
+**G22 (P2) · `overdue.lots` counted lots and was published as deadlines.**
+**RESOLVED.** Every string built from it — chat, card, both admin surfaces —
+said "missed deadlines", but the value counted past-deadline _lots_. Two
+invoices lifted on one day, any Thursday+Friday pair, and any confirmed holiday
+all collapse several lots onto one deadline. The worst case was the card
+contradicting itself: for two same-day invoices `overdue.amount === dueAmount`,
+yet the note claiming "the due amount covers only the oldest" still fired. The
+field is now `deadlines` and counts distinct deadlines, and the note that
+explains the gap fires on the MONEY (`overdue.amount > dueAmount`) rather than
+on any count — the two come apart in both directions.
+
+**G23 (P2) · The grace band excused a breach of unknown age.**
+**RESOLVED.** `withinPortalLag` was `days <= 2`, and `days` is only a LOWER
+bound when `estimatedFrom` is true. Together they said "at least 1 day late,
+possibly months" and concluded "this may just be the portal lagging an on-time
+deposit" — reachable with ₹5,01,000 of carry-forward debt on a short window.
+Stating a breach on a lower bound is sound; excusing one needs an upper bound we
+do not have, so the band is now withheld whenever the count is an estimate.
+
+**Verified correct while writing these** (worth keeping, because each is a way
+this could have gone wrong and did not): the deadline day itself is a strict `<`
+so nobody is accused a day early; the grace band is judged from the **earliest**
+missed deadline, not the newest; `overdue.amount ≥ dueAmount` always, so replacing
+the hero figure can never understate; the verdict re-derived for an older report
+goes through the **same** summariser as a live run, so the two cannot drift; and a
+fresh report with nothing overdue re-derives to nothing overdue, so the
+compatibility path cannot invent a breach (CD-F10).
 
 ---
 
@@ -659,8 +1128,18 @@ remove the biggest source of `LOGIN_CAPTCHA_EXHAUSTED` false alarms.
 | Failure: share blocked (no app member)                                                         | CD-C3                  |
 | Reconcile mismatch ("does not reconcile")                                                      | CD-C4                  |
 | Failure: OCR sidecar not installed                                                             | CD-C5                  |
-| The sheet (snapshot history)                                                                   | CD-D1                  |
-| Operator observability audit                                                                   | Findings & gaps G1–G12 |
+| The sheet (snapshot history), quota, downloads, concurrency, help videos                       | CD-D1 – CD-D6          |
+| Transactions the portal publishes late (and a report already sent that they invalidate)        | CD-E1 – CD-E5          |
+| Missed deadline: deadline day itself is not a miss                                             | CD-F1, CD-F10          |
+| Missed deadline: 1–2 days past → softened "may not be posted yet" on card, chat, push, badge   | CD-F2, CD-F3           |
+| Missed deadline: 3+ days past → firm breach wording, and where the two flip                    | CD-F3                  |
+| **Several missed deadlines → the summed amount is what the dealer is told to pay**             | **CD-F4**              |
+| A late payment clears an overdue position                                                      | CD-F5                  |
+| Back-dated (`asOf`) run judged against that date, not today                                    | CD-F6                  |
+| An older stored report still shows the overdue verdict                                         | CD-F7                  |
+| Opening carry-forward → "at least N days"                                                      | CD-F8 (see caveat)     |
+| Nothing auto-sends on a breach; existing share guards still apply                              | CD-F9                  |
+| Operator observability audit                                                                   | Findings & gaps G1–G20 |
 
 </content>
 </invoke>
