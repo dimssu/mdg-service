@@ -12,6 +12,58 @@ as a follow-up; none block the happy path.
 ## Scheduler
 
 - **Single-instance scheduler.** `backend/src/scheduler/index.ts` uses node-cron and claims jobs with a Mongo `findOneAndUpdate`. ADR 0003 already calls this out: BullMQ + Redis is the path when running >1 backend replica.
+- **`startScheduler()` runs unconditionally in every process, with no leader election.** A second backend instance is therefore a second scheduler: duplicate cadence runs, and two simultaneous logins into the same dealer portal accounts. `ecosystem.config.cjs` pins `instances: 1` for this reason — do not raise it, and do not start a second pm2 app by hand.
+
+## Portal scraping (SDMS / IRAS)
+
+These services drive a real, credentialed browser session against IndianOil's
+portals on a dealer's own account. That makes their failure modes unusual, and
+worth stating plainly.
+
+- **The upstream portal is the dominant source of failure.** Over a recent 51-run
+  sample the Credit & DOD service was 74% successful. The single largest cause
+  (8 of 13 failures) was the SDMS → `ioconline` eledger SSO handoff answering
+  with the eledger app's own error page — an HTTP 404 whose body is the 84-byte
+  string `/ioconline/com/error1.jsp`. The eledger app is load-balanced across at
+  least four pods behind an F5 whose `/ioconline` persistence cookie is separate
+  from the `/sdmspro` one, and only the FIRST `/ioconline` request of a session
+  is exposed. It is transient: the runner now retries the handoff in-session with
+  a freshly scraped link, and a transient failure re-arms a deferred retry
+  20-40 minutes out instead of losing the day.
+- **There is no way to end a portal session early.** sdmspro authenticates with a
+  bearer token in `localStorage`, not a server-side session, and its sign-out is
+  an in-app Angular action with no URL — `/sdmspro/auth/logout` returns the same
+  743-byte SPA shell as any nonsense path. The one real server-side session
+  belongs to the separate `ioconline` app and has no exposed sign-out, so it
+  expires on its own. Do not add a "log out" navigation; it releases nothing.
+- **The portal's front end intermittently resets TCP connections** (observed
+  directly: `ERR_CONNECTION_RESET` from Chromium while `curl` succeeded seconds
+  later). It is HTTP/1.1 and TLS 1.2 only, and advertises no ALPN.
+- **Concurrency must be keyed on the portal USERNAME, not the dealer.** Several
+  dealer records legitimately share one IndianOil login, and two live sessions on
+  one login fight each other. `automation/sdms/accountGate.ts` serialises by
+  username and enforces a quiet gap plus a circuit breaker. That state is
+  **in-process** — authoritative only while the backend is a single pm2 app. The
+  backfill/capture CLIs are separate processes and bypass it entirely.
+- **Every login attempt is a real credential submission** against a dealer's
+  account. `SDMS_CAPTCHA_MAX_ATTEMPTS` is a lockout budget as much as a retry
+  budget, and the account breaker exists to stop a bad password being walked into
+  a lockout unattended.
+- **Diagnostic artifacts are unredacted and never expire.** A failure writes a
+  full-page screenshot plus the complete DOM, which for the Credit Monitoring and
+  PAD phases is the dealer's credit position. They are super-admin-only, but
+  there is no retention policy and no scrubbing.
+- **`SDMS_CAPTCHA_ENGINE` is a dead knob.** It is declared and validated in
+  `config/env.ts` but read nowhere; the OCR sidecar is always used. It looks like
+  a kill switch and is not one.
+- **Nothing alerts a human when a run fails.** Failures land in a pm2 log and the
+  admin run history. The 13 failures above went unnoticed until a user reported
+  one.
+- **Deploy provisions neither Playwright's Chromium nor the OCR venv.**
+  `deploy.sh` is `git pull` → `npm ci` → `build` → `pm2 restart`; the browser and
+  `ocr/.venv` must be installed on the box by hand (`npx playwright install
+chromium`, `bash ocr/setup.sh`). `BROWSER_LAUNCH_FAILED` and
+  `OCR_SIDECAR_UNAVAILABLE` are what you see when they are missing.
 
 ## Frontend
 
