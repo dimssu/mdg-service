@@ -82,6 +82,29 @@ worth stating plainly.
 - **`SDMS_CAPTCHA_ENGINE` is a dead knob.** It is declared and validated in
   `config/env.ts` but read nowhere; the OCR sidecar is always used. It looks like
   a kill switch and is not one.
+- **The "credit locked" verdict has never been seen against a locked dealer.**
+  A Credit Monitoring page whose Next Review Date has passed means the dealer's
+  credit line is shut and every purchase is cash and carry until their sales
+  officer reopens it — and the card, the chat message, the push and the admin
+  report now all say so. Every page captured so far carries a review date years
+  out (`31-Mar-2027`), so three things are asserted rather than observed: that a
+  lapsed account still publishes the old date rather than blanking the cell; that
+  it keeps its `dd-MMM-yyyy` form there (that and `dd-mm-yyyy` both parse,
+  anything else fails silent and is logged); and that the portal reflects a
+  completed review the same day. If it turns out to lag one — the way it lags a
+  deposit by a day or two — this needs its own grace band like
+  `overdue.withinPortalLag`, or a dealer whose review was renewed this morning is
+  told they are shut. Unlike an overdue flag, a false lock cannot correct itself
+  on the next run: it sends the dealer to their sales officer over nothing. The
+  CONSEQUENCE itself (locked → cash and carry → sales officer) is operator domain
+  knowledge; the portal publishes only the date.
+- **A back-dated report says nothing about the credit review, by design.** The
+  Credit Monitoring page reports only the position today and the portal keeps no
+  history of that date, so an "as of" reconstruction cannot know whether the
+  limit was live then — the same reason it is not cross-checked against that
+  page's Current Total Receivable. Reports captured before this shipped are blank
+  for a related reason: nothing was stored to re-derive a verdict from, and blank
+  is more honest than an invented all-clear.
 - **Nothing alerts a human when a run fails.** Failures land in a pm2 log and the
   admin run history. The 13 failures above went unnoticed until a user reported
   one.

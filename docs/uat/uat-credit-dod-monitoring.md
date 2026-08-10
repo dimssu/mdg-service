@@ -886,6 +886,134 @@ days`**, the same "may already have been paid" notice with _2 days_. (If **D2**
 
 ---
 
+## Section G — A locked credit line (review date lapsed)
+
+The Credit Monitoring page carries a **Next Review Date** — the expiry on the
+credit limit itself. Once it passes without IndianOil completing the review, the
+account is locked: the dealer cannot lift product on credit, every purchase is
+paid for upfront (**cash and carry**), and only their **sales officer** can get
+it reopened.
+
+Three sentences carry this section:
+
+1. **A lock is not a new FORM OF LIMIT.** The card still lights the portal's own
+   category (`DOD`, `CREDIT` or `CASH & CARRY`) — a lapsed review suspends that
+   limit, it does not restate what kind of limit was granted. The lock is a
+   separate band with its own wording.
+2. **A lock is not a deposit problem.** Money owed is still owed on its own date,
+   so the hero, the DUE AMOUNT and the deadline are untouched. What changes is
+   what the dealer may buy tomorrow — and no deposit fixes it.
+3. **Silence is not an all-clear.** No verdict is reached on a back-dated report,
+   or when the portal published a date we could not read. In both cases nothing
+   is claimed either way (CD-G4, CD-G5).
+
+### Producing a locked account on purpose (read this first)
+
+You cannot make IndianOil lapse a dealer's review on cue, and no dealer we have
+captured is locked — every real page so far shows a review date years out. So
+**CD-G1 and CD-G2 are not runnable against the live portal today**; they are
+written for the first dealer who is genuinely locked, and until then the
+behaviour is covered by automated tests
+(`src/automation/sdms/creditReview.test.ts`,
+`test/integration/creditDod.plugin.test.ts`). What you CAN and SHOULD run today
+is **CD-G3** — the no-false-alarms journey — because that is the one that would
+hurt if it were wrong.
+
+### CD-G1 — A locked account says so on every surface
+
+- **Persona:** Arjun, then Ramesh · **Precondition:** a dealer whose portal Next
+  Review Date has passed. **Not producible on demand — skip and say so if you
+  have no such dealer.**
+- **Steps:**
+  1. **Today** → **Generate**. Wait for _"Report ready"_.
+  2. Read the new row in **Report history** (State column, or the badges on the
+     mobile card), then open it and read top to bottom.
+  3. _(UAT dealer only)_ press **Share with dealer**, then read the chat message
+     and the push on the dealer's phone.
+- **Expected:**
+  - Report history shows a red **"Credit locked"** badge **beside** the state
+    badge, not instead of it — the dealer's `due`/`clear`/overdue position is
+    still shown.
+  - Above the card, a red notice naming the review date, how long ago it passed,
+    that the dealer must pay upfront, and that their **sales officer** reopens
+    it. The figures list shows **Next review date** in red and **Form of limit**
+    with a red **(locked)** beside the portal's own value.
+  - On the card image: a red **CREDIT LOCKED — REVIEW DATE PASSED** band directly
+    under the hero; the utilisation bar **replaced** by a red line saying the
+    remaining amount cannot be used; a red caption under the FORM OF LIMIT chips.
+    The lit chip is still the dealer's own category.
+  - Chat message contains **🔒 उधार बंद / CREDIT LOCKED**, the date, _"कैश एंड
+    कैरी / cash & carry"_ and _"सेल्स ऑफिसर / sales officer"_. The limits line
+    ends **`DOD — अभी बंद / locked`**, never a bare `DOD`.
+  - Push title **"Credit & DOD — credit locked"** (unless the dealer is also
+    overdue — see CD-G2).
+- **FAIL if** the card shows a green utilisation bar, or any surface states the
+  lock while another is silent about it.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-G2 — Locked AND overdue: the deposit still leads
+
+- **Persona:** Ramesh · **Precondition:** the CD-G1 dealer, also past a deposit
+  deadline. **Not producible on demand.**
+- **Expected:** the hero stays the **OVERDUE AMOUNT** hero and the push still
+  announces the deposit — a deadline is time-critical and a lock is not made
+  worse by a day. The lock band sits **below** that hero, and the chat message
+  carries **both**, money first.
+- **FAIL if** the lock suppresses the overdue amount anywhere, or the push
+  announces the lock while the message it opens leads with a deposit.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-G3 — No false locks (run this one)
+
+- **Persona:** Arjun · **Precondition:** the dealers you already use for UAT.
+- **Steps:** generate **today's** report for each and scan Report history, then
+  open two or three.
+- **Expected:** for every one of them — **no** "Credit locked" badge, **no** red
+  notice, **no** CREDIT LOCKED band on the card, the utilisation bar exactly as
+  before this release, and the shared message's limits line ending in a bare
+  `DOD` / `CREDIT` / `CASH & CARRY`. **Next review date** may appear in the
+  figures list in ordinary text — that is correct, it is the portal's date.
+- **Why this is a journey and not an afterthought:** telling a dealer their
+  account is shut when it is not sends them to their sales officer over nothing
+  and makes them doubt every card after it. Unlike an overdue flag, it cannot
+  correct itself on the next run. If one healthy dealer is flagged, the release
+  should not go out.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-G4 — A back-dated report reaches no verdict at all
+
+- **Persona:** Arjun · **Precondition:** any dealer.
+- **Steps:** **Past date** → pick any date a week or two back → **Generate**.
+  Open the report.
+- **Expected:** **no** "Credit locked" badge and **no** review notice, whatever
+  the dealer's real review date is — and **no** "everything is fine" claim
+  either. The **Next review date** row shows the portal's date followed by
+  **"(not judged — back-dated)"**.
+- **Why:** the portal only ever publishes the review date as it stands **today**
+  and keeps no history of it, so a past-dated report has nothing to judge. The
+  same reason a back-dated card is not cross-checked against that page's Current
+  Total Receivable (CD-F6 is the sibling journey).
+- **FAIL if** a back-dated report claims a lock, claims the limit was live, or
+  labels that date **"(unreadable)"** — that wording means the portal changed its
+  format and is the one signal that should send you to engineering. Nothing
+  failed to parse here; the question simply cannot be asked of a past date.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-G5 — Reports from before this release stay blank, not green
+
+- **Persona:** Arjun · **Precondition:** a dealer with reports in **Report
+  history** captured before this release.
+- **Steps:** open two or three older reports.
+- **Expected:** no **Next review date** row, no badge, no notice — and nothing
+  claiming the review was fine. Every other figure renders exactly as it did
+  before.
+- **Why:** unlike the overdue verdict, this one cannot be re-derived for an old
+  report — nothing was stored to recompute from. Blank is the honest answer.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+
+---
+
 ## Findings & gaps
 
 Ranked by how badly they block a **non-technical operator** from diagnosing and
@@ -1141,6 +1269,9 @@ compatibility path cannot invent a breach (CD-F10).
 | An older stored report still shows the overdue verdict                                         | CD-F7                  |
 | Opening carry-forward → "at least N days"                                                      | CD-F8 (see caveat)     |
 | Nothing auto-sends on a breach; existing share guards still apply                              | CD-F9                  |
+| **A lapsed credit review locks the account (cash and carry, sales officer)**                    | **CD-G1 – CD-G2** (not producible on demand) |
+| **No false locks for dealers whose review is still ahead**                                      | **CD-G3**              |
+| A back-dated report, and a report from before the release, reach no lock verdict               | CD-G4, CD-G5           |
 | Operator observability audit                                                                   | Findings & gaps G1–G20 |
 
 </content>
