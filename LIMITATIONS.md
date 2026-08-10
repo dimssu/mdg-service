@@ -49,6 +49,32 @@ worth stating plainly.
   account. `SDMS_CAPTCHA_MAX_ATTEMPTS` is a lockout budget as much as a retry
   budget, and the account breaker exists to stop a bad password being walked into
   a lockout unattended.
+- **SDMS replaced its image captcha with an arithmetic question**, labelled
+  "Security Verification \*" and answered in a box placeholdered "Enter answer to
+  math question". The runner reads the question from the DOM and solves it
+  (`automation/sdms/mathChallenge.ts`), so the common path now needs no OCR at
+  all; the sidecar is only the fallback for a question served as a picture. Three
+  things follow, and none of them are fixed:
+  - **We have never seen the new page's markup.** Every selector for it is a
+    ladder of guesses with the old, verified ones kept at the bottom. If none of
+    the rungs match, the run fails as `LOGIN_CHALLENGE_NOT_FOUND` — which means
+    "the login form changed", not "the captcha was hard", and needs a code change
+    rather than a retry.
+  - **The image fallback cannot read most operators.** The OCR sidecar's `alnum`
+    charset keeps letters and digits and discards the rest, so `+ - * × ÷` are
+    gone by the time we see the text; only `x` and the worded operators
+    ("divided by") survive. We refuse to guess a missing operator, so a symbolic
+    question rendered as an image fails rather than submitting a number.
+  - **A re-issued question that is arithmetically identical is invisible to us.**
+    The "has the portal swapped the challenge?" check compares the question text,
+    where it used to compare image bytes.
+- **The login session is paced, not disguised.** It types at a human speed, moves
+  the pointer before clicking, waits ~2.5-5s between attempts
+  (`SDMS_ATTEMPT_PAUSE_*_MS`), and presents a desktop Chrome user agent derived
+  from the Chromium actually running rather than announcing `HeadlessChrome`.
+  That is the whole of it: no fingerprint spoofing, no proxy rotation, nothing
+  that misrepresents who is logging in. If IndianOil decides to block automated
+  logins outright, this does not — and is not meant to — get around that.
 - **Diagnostic artifacts are unredacted and never expire.** A failure writes a
   full-page screenshot plus the complete DOM, which for the Credit Monitoring and
   PAD phases is the dealer's credit position. They are super-admin-only, but

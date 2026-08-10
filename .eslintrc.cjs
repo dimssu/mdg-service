@@ -28,10 +28,19 @@ module.exports = {
     'import/resolver': {
       typescript: {
         alwaysTryTypes: true,
+        // The same historical rename as the two overrides below: `backend/` and
+        // `frontend/` have not existed since the repos were split, so from the
+        // repo root the resolver had no tsconfig for any workspace and could not
+        // follow their `@/…` and `@dk/shared` path aliases. Unresolved aliases
+        // are grouped as though they were plain packages, which is why the root
+        // `npm run lint` reported hundreds of `import/order` warnings on files
+        // the per-workspace `npm run lint` — run from a directory where the
+        // resolver does find a tsconfig — considers correctly ordered.
         project: [
           'shared/tsconfig.json',
-          'backend/tsconfig.json',
-          'frontend/tsconfig.json',
+          'mdg-backend/tsconfig.json',
+          'mdg-admin/tsconfig.json',
+          'mdg-client/tsconfig.json',
         ],
       },
       node: true,
@@ -73,7 +82,12 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['frontend/**/*.{ts,tsx}'],
+      // `frontend/` is the historical directory name; the admin app has lived in
+      // `mdg-admin/` since the repos were split, so the old glob silently matched
+      // nothing and the React rules below — `react-hooks/exhaustive-deps` above
+      // all — never ran on it. `mdg-client/**` is deliberately NOT listed yet: it
+      // has its own backlog of warnings, and turning them on is its own pass.
+      files: ['frontend/**/*.{ts,tsx}', 'mdg-admin/**/*.{ts,tsx}'],
       env: {
         browser: true,
         node: false,
@@ -92,7 +106,10 @@ module.exports = {
       },
     },
     {
-      files: ['backend/**/*.ts'],
+      // Same historical rename as the frontend override above: the API has lived
+      // in `mdg-backend/` since the split, so `backend/**` matched nothing and
+      // these files were being linted as if they might run in a browser.
+      files: ['backend/**/*.ts', 'mdg-backend/**/*.ts'],
       env: {
         node: true,
         browser: false,
