@@ -55,11 +55,12 @@ worth stating plainly.
   (`automation/sdms/mathChallenge.ts`), so the common path now needs no OCR at
   all; the sidecar is only the fallback for a question served as a picture. Three
   things follow, and none of them are fixed:
-  - **We have never seen the new page's markup.** Every selector for it is a
-    ladder of guesses with the old, verified ones kept at the bottom. If none of
-    the rungs match, the run fails as `LOGIN_CHALLENGE_NOT_FOUND` — which means
-    "the login form changed", not "the captcha was hard", and needs a code change
-    rather than a retry.
+  - ~~**We have never seen the new page's markup.**~~ We have now: the archived
+    failure dumps from 2026-08-11 and a live read the next day. Every selector
+    for it is still a ladder, with the old, verified rungs kept at the bottom for
+    a portal mid-rollout. If none of the rungs match, the run fails as
+    `LOGIN_CHALLENGE_NOT_FOUND` — which means "the login form changed", not "the
+    captcha was hard", and needs a code change rather than a retry.
   - **The image fallback cannot read most operators.** The OCR sidecar's `alnum`
     charset keeps letters and digits and discards the rest, so `+ - * × ÷` are
     gone by the time we see the text; only `x` and the worded operators
@@ -68,6 +69,32 @@ worth stating plainly.
   - **A re-issued question that is arithmetically identical is invisible to us.**
     The "has the portal swapped the challenge?" check compares the question text,
     where it used to compare image bytes.
+- **SDMS rebuilt the whole login page as "e-Mitra" on 2026-08-11**, between a run
+  that succeeded at 04:17 UTC and one that failed at 12:45 UTC, and every
+  scheduled and manual run failed for the ~33 hours after that. It is worth being
+  precise about what broke, because the page still loaded perfectly:
+  `placeholder="Enter username"` became `"Enter 6-digit RO SAP Code"`, the runner
+  waited 20s for the old one, and reported `LOGIN_PAGE_UNREACHABLE` — "the portal
+  is down" — for a field that was on the page the whole time. The dealer-type
+  radios (`Retail` / `LPG` / `1906 helpline`) were deleted outright, the title
+  became `e-Mitra`, and the Sign in button lost its `btn-ioc` class. What did NOT
+  change, in either generation, is the Angular `formcontrolname` on every field,
+  which is why the selectors now lead with it.
+  - **A cosmetic portal change presents as an outage, and the failure code lies
+    about which.** `LOGIN_PAGE_UNREACHABLE` is reported for both "the portal did
+    not answer" and "the portal answered with a page we no longer recognise", and
+    only the archived HTML tells them apart. Check the diagnostics bundle before
+    believing the code.
+  - **The login-page fingerprint has to be maintained alongside the selectors.**
+    `portalResponse.ts` recognises a mid-run session bounce by matching login-page
+    strings, and the redesign deleted all three it was matching on — so for those
+    33 hours a bounce back to the login page would have been classified `ok` and
+    handed to the parser. That failure is silent, unlike the one that was
+    actually reported, and on the PAD statement it produces a wrong report rather
+    than a failed run. **Any future login-page change must update both.**
+  - **The suite was green throughout.** `__testing__/mockPortal.ts` served — and
+    only served — the old shape, so nothing in CI could have caught this. It now
+    serves both generations and defaults to the current one.
 - **The login session is paced, not disguised.** It types at a human speed, moves
   the pointer before clicking, waits ~2.5-5s between attempts
   (`SDMS_ATTEMPT_PAUSE_*_MS`), and presents a desktop Chrome user agent derived
