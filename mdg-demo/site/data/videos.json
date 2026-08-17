@@ -588,5 +588,83 @@
         "start": 168.9
       }
     ]
+  },
+  {
+    "id": "admin-dsr-receipts",
+    "duration": 257,
+    "orientation": "landscape",
+    "width": 1920,
+    "height": 1080,
+    "sizes": {
+      "tiny": 2049530,
+      "low": 3521174,
+      "high": 9469310
+    },
+    "src": {
+      "tiny": "/media/admin-dsr-receipts/tiny.d87b6713.mp4",
+      "low": "/media/admin-dsr-receipts/low.72c82bb2.mp4",
+      "high": "/media/admin-dsr-receipts/high.a6146f7a.mp4"
+    },
+    "poster": "/media/admin-dsr-receipts/poster.25fa9b60.webp",
+    "thumb": "/media/admin-dsr-receipts/thumb.f114969e.webp",
+    "og": "/media/admin-dsr-receipts/og.c94fa590.jpg",
+    "chapters": [
+      {
+        "id": "intro",
+        "start": 0
+      },
+      {
+        "id": "why",
+        "start": 20.4
+      },
+      {
+        "id": "impact",
+        "start": 42.3
+      },
+      {
+        "id": "nav",
+        "start": 65.6
+      },
+      {
+        "id": "open",
+        "start": 81.5
+      },
+      {
+        "id": "dialog",
+        "start": 86.6
+      },
+      {
+        "id": "enter",
+        "start": 106.2
+      },
+      {
+        "id": "save",
+        "start": 127.8
+      },
+      {
+        "id": "stale",
+        "start": 143.2
+      },
+      {
+        "id": "regenerate",
+        "start": 158.2
+      },
+      {
+        "id": "after",
+        "start": 180.3
+      },
+      {
+        "id": "rules",
+        "start": 198.8
+      },
+      {
+        "id": "safety",
+        "start": 223
+      },
+      {
+        "id": "recap",
+        "start": 243.3
+      }
+    ]
   }
 ]
