@@ -48,18 +48,18 @@ mdg-service/
 
 ## 3. Stack summary
 
-| Layer       | Choice                                                                          |
-|-------------|---------------------------------------------------------------------------------|
-| Runtime     | Node 20 (`.nvmrc`)                                                              |
-| API         | Express + Zod-validated request bodies + Pino structured logs                   |
-| Data        | MongoDB 7 via Mongoose                                                          |
-| Auth        | JWT (HS256), seeded admin, `requireRoles(...)` middleware seam                  |
-| Scheduling  | `node-cron` in-process, tick every minute                                       |
-| Plugin disc | `glob` over `backend/src/services/*/index.ts` at boot                           |
-| Frontend    | React 18 + Vite + TS + Tailwind + TanStack Query + Zustand + React Router v6   |
-| Forms       | React Hook Form + Zod for fixed forms, `@rjsf/core` + Ajv for plugin configs    |
-| Icons       | Lucide                                                                          |
-| Mono        | npm workspaces (`shared`, `backend`, `frontend`)                                |
+| Layer       | Choice                                                                       |
+| ----------- | ---------------------------------------------------------------------------- |
+| Runtime     | Node 20 (`.nvmrc`)                                                           |
+| API         | Express + Zod-validated request bodies + Pino structured logs                |
+| Data        | MongoDB 7 via Mongoose                                                       |
+| Auth        | JWT (HS256), seeded admin, `requireRoles(...)` middleware seam               |
+| Scheduling  | `node-cron` in-process, tick every minute                                    |
+| Plugin disc | `glob` over `backend/src/services/*/index.ts` at boot                        |
+| Frontend    | React 18 + Vite + TS + Tailwind + TanStack Query + Zustand + React Router v6 |
+| Forms       | React Hook Form + Zod for fixed forms, `@rjsf/core` + Ajv for plugin configs |
+| Icons       | Lucide                                                                       |
+| Mono        | npm workspaces (`shared`, `backend`, `frontend`)                             |
 
 ## 4. Layering rules
 
@@ -208,13 +208,13 @@ Adding a plugin is one folder. See `docs/ADDING_A_SERVICE.md`.
 
 Mongo collections and their indexes:
 
-| Collection      | Indexes                                                                      |
-|-----------------|------------------------------------------------------------------------------|
-| admins          | `{ email: 1 }` unique                                                        |
-| dealers         | `{ status: 1 }`, `{ name: 'text' }`, `{ gst: 1 }` unique, `{ pan: 1 }`        |
-| dealerServices  | `{ dealerId: 1, serviceId: 1 }` unique, `{ status: 1 }`, `{ nextRunAt: 1 }`  |
-| serviceRuns     | `{ dealerId: 1 }`, `{ serviceId: 1 }`, `{ status: 1 }`, `{ startedAt: -1 }`  |
-| auditLogs       | `{ entity: 1, entityId: 1 }`, `{ at: -1 }`                                   |
+| Collection     | Indexes                                                                     |
+| -------------- | --------------------------------------------------------------------------- |
+| admins         | `{ email: 1 }` unique                                                       |
+| dealers        | `{ status: 1 }`, `{ code: 1 }` unique, `{ gst: 1 }` unique, `{ pan: 1 }`    |
+| dealerServices | `{ dealerId: 1, serviceId: 1 }` unique, `{ status: 1 }`, `{ nextRunAt: 1 }` |
+| serviceRuns    | `{ dealerId: 1 }`, `{ serviceId: 1 }`, `{ status: 1 }`, `{ startedAt: -1 }` |
+| auditLogs      | `{ entity: 1, entityId: 1 }`, `{ at: -1 }`                                  |
 
 ## 10. Auth + RBAC seam
 
