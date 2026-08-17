@@ -243,6 +243,35 @@ export const Share = ({
   </svg>
 );
 
+/** The Receipts action — a tanker, i.e. the thing that decants into the tank. */
+export const Truck = ({
+  size = 15,
+  strokeWidth = 1.75,
+  color = 'currentColor',
+  style,
+}: AdminIconProps) => (
+  <svg {...base(size, strokeWidth, color, style)}>
+    <path d="M10 17h4V5H2v12h3" />
+    <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1" />
+    <circle cx="7.5" cy="17.5" r="2.5" />
+    <circle cx="17.5" cy="17.5" r="2.5" />
+  </svg>
+);
+
+/** "This was built from inputs that have since changed" — the stale notice. */
+export const History = ({
+  size = 16,
+  strokeWidth = 1.75,
+  color = 'currentColor',
+  style,
+}: AdminIconProps) => (
+  <svg {...base(size, strokeWidth, color, style)}>
+    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+    <path d="M3 3v5h5" />
+    <path d="M12 7v5l4 2" />
+  </svg>
+);
+
 export const RefreshCw = ({
   size = 15,
   strokeWidth = 1.75,

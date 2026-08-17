@@ -7,9 +7,37 @@ export { AdminShell, type AdminNavKey, type AdminShellProps } from './AdminShell
 export {
   DealerHeader,
   DEALER_TABS,
+  DEALER_TABS_TODAY,
   type DealerHeaderProps,
   type DealerTab,
 } from './DealerHeader';
+export {
+  CORRECTED_DATE,
+  CORRECTED_LITRES,
+  DsrLedger,
+  dsrRows,
+  type DsrColumn,
+  type DsrLedgerProps,
+  type DsrRow,
+} from './DsrLedger';
+export {
+  DSR_PRODUCTS,
+  DsrReceiptsDialog,
+  type DsrReceiptsDialogProps,
+  type ProductRow,
+} from './DsrReceiptsDialog';
+export {
+  DsrReportCard,
+  DsrSaveToast,
+  DsrStaleBanner,
+  DsrTab,
+  DsrToolbar,
+  DsrVaultRail,
+  type DsrReportCardProps,
+  type DsrStaleBannerProps,
+  type DsrTabProps,
+  type DsrToolbarProps,
+} from './DsrTab';
 export { GenerateCard, type GenerateCardProps, type GenerateMode } from './GenerateCard';
 export * from './icons';
 export {
@@ -23,7 +51,7 @@ export {
   type ReportHistoryProps,
   type ReportHistoryRow,
 } from './ReportHistory';
-export { Ring, type RingProps } from './Ring';
+export { Ring, RingOverlay, type RingProps } from './Ring';
 export { RunFailure, type RunFailureProps } from './RunFailure';
 export { ShareDialog, type ShareDialogProps } from './ShareDialog';
 export { admin, cardBrand, SAMPLE } from './tokens';

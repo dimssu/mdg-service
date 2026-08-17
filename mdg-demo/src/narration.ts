@@ -730,6 +730,107 @@ const adminCreditDodPortal: Tutorial = {
   ],
 };
 
+/**
+ * AdminDsrReceipts — the DSR's one hand-editable input.
+ *
+ * Half concept, half walkthrough on purpose: an admin cannot use the correction
+ * safely without first knowing WHY the portal's receipt is untrustworthy and
+ * WHAT a change to it invalidates. Scenes 1–3 and 11–13 are diagrams; the middle
+ * is the portal itself.
+ */
+const adminDsrReceipts: Tutorial = {
+  id: 'admin-dsr-receipts',
+  compositionId: 'AdminDsrReceipts',
+  title: 'DSR में Receipt हाथ से भरना',
+  subtitle: 'MDG एडमिन टीम के लिए — रसीद सुधारना और रिपोर्ट दोबारा बनवाना',
+  scenes: [
+    {
+      id: 'intro',
+      step: 'intro',
+      text: 'नमस्ते! यह वीडियो MDG की एडमिन टीम के लिए है। DSR की इस शीट में हर आँकड़ा किसी मशीन से आता है — डिप टैंक से, रीडिंग पंप से। सिर्फ़ एक खाना ऐसा है जिसे कोई मशीन नहीं नापती — RECEIPT, यानी उस दिन टैंक में कितना माल उतरा।',
+      estSeconds: 15,
+    },
+    {
+      id: 'why',
+      step: 'why',
+      text: 'टैंकर से माल उतरा या नहीं, यह पोर्टल को तभी पता चलता है जब पंप पर कोई इंसान उसकी एंट्री करे। एंट्री रह गई, या देर से हुई, तो रिपोर्ट में उस दिन का receipt शून्य दिखेगा — जबकि असल में तीन हज़ार नौ सौ तैंतीस लीटर उतरा था।',
+      estSeconds: 15,
+    },
+    {
+      id: 'impact',
+      step: 'impact',
+      text: 'एक ग़लत receipt सिर्फ़ उसी दिन को ख़राब नहीं करता। उस दिन का Total stock ग़लत होता है, और उसके बाद की हर रिपोर्ट का variation भी — क्योंकि variation पिछली जाँच से अब तक के सारे receipt जोड़कर बनता है। पर sales और cumulative पर कोई असर नहीं पड़ता — वे सिर्फ़ मीटर रीडिंग से बनते हैं।',
+      estSeconds: 18,
+    },
+    {
+      id: 'nav',
+      step: 'nav',
+      text: "इसे ठीक करना अब आसान है। डीलर खोलिए और ऊपर 'Data Vault' टैब पर जाइए। वहाँ की पट्टी में 'Daily Sales Report' चुनिए — इस डीलर की सारी DSR रिपोर्ट यहीं रहती हैं।",
+      estSeconds: 13,
+    },
+    {
+      id: 'open',
+      step: 'open',
+      text: "सबसे ऊपर तारीख़ वाली लाइन में 'Receipts' बटन है। उसे दबाइए।",
+      estSeconds: 6,
+    },
+    {
+      id: 'dialog',
+      step: 'dialog',
+      text: 'एक छोटी खिड़की खुलेगी। सबसे ऊपर तारीख़ चुनिए — वही दिन जिस दिन टैंकर आया था। नीचे डीलर के हर प्रोडक्ट की एक लाइन है, और हर लाइन के दाईं ओर लिखा रहता है कि IRAS उस दिन का क्या बताता है।',
+      estSeconds: 14,
+    },
+    {
+      id: 'enter',
+      step: 'enter',
+      text: 'MOTOR SPIRIT वाले खाने में असली संख्या भरिए — तीन हज़ार नौ सौ तैंतीस। चाहें तो इनवॉइस नंबर और कारण भी लिख दीजिए; ये सिर्फ़ रिकॉर्ड के लिए हैं, हिसाब में नहीं जाते। जो खाना ख़ाली छोड़ेंगे, उसमें IRAS का ही आँकड़ा चलता रहेगा।',
+      estSeconds: 17,
+    },
+    {
+      id: 'save',
+      step: 'save',
+      text: "अब 'Save receipts' दबाइए। ध्यान दीजिए — यहाँ सिर्फ़ आँकड़ा सेव होता है, रिपोर्ट अपने आप दोबारा नहीं बनती। सिस्टम बता देता है कि इस बदलाव से कितनी रिपोर्ट पुरानी पड़ गई हैं।",
+      estSeconds: 14,
+    },
+    {
+      id: 'stale',
+      step: 'stale',
+      text: "अब उन रिपोर्ट पर एक पीली पट्टी दिखने लगेगी — 'This report is out of date'। उसमें लिखा रहता है कि किस दिन का कौन सा receipt बदला, और उससे कितनी और रिपोर्ट पर असर पड़ा।",
+      estSeconds: 13,
+    },
+    {
+      id: 'regenerate',
+      step: 'regenerate',
+      text: "उसी पट्टी में 'Regenerate' दबाइए। सिस्टम सबसे पुरानी बिगड़ी तारीख़ से शुरू करके आगे की रिपोर्ट भी अपने आप ठीक कर देता है। यह काम अपने आप कभी नहीं होता — फ़ैसला हमेशा आपका, क्योंकि इसमें पोर्टल से डेटा लेना भी पड़ सकता है।",
+      estSeconds: 16,
+    },
+    {
+      id: 'after',
+      step: 'after',
+      text: "रिपोर्ट बनते ही उस दिन का receipt तीन हज़ार नौ सौ तैंतीस दिखने लगेगा, Total stock भी उतना ही बढ़ जाएगा, और variation ठीक हो जाएगा। संख्या के ऊपर छोटा सा 'M' दिखता है — इसका मतलब यह आँकड़ा हाथ से भरा गया है।",
+      estSeconds: 15,
+    },
+    {
+      id: 'rules',
+      step: 'rules',
+      text: 'तीन बातें याद रखिए। पहली — हाथ से भरा आँकड़ा IRAS वाले की जगह लेता है, उसमें जुड़ता नहीं। दूसरी — शून्य भी एक असली जवाब है; अगर पोर्टल में ग़लती से एंट्री हो गई हो तो शून्य भरिए। तीसरी — खाना ख़ाली कर देंगे तो वापस IRAS का आँकड़ा चलने लगेगा।',
+      estSeconds: 18,
+    },
+    {
+      id: 'safety',
+      step: 'safety',
+      text: 'एक और भरोसे की बात। पुराने बंद हो चुके दिन में सिर्फ़ receipt और total stock बदलते हैं — उस दिन की sales और cumulative जैसी थीं वैसी ही रहती हैं। और हर बदलाव Activity log में दर्ज होता है: किसने, कब, कितना बदला।',
+      estSeconds: 15,
+    },
+    {
+      id: 'recap',
+      step: 'recap',
+      text: "संक्षेप में — Receipts खोलिए, तारीख़ चुनिए, असली लीटर भरिए, Save receipts दबाइए, और फिर पीली पट्टी से Regenerate कीजिए। बस इतना ही। धन्यवाद!",
+      estSeconds: 13,
+    },
+  ],
+};
+
 export const TUTORIALS: Tutorial[] = [
   login,
   addWarrior,
@@ -740,6 +841,7 @@ export const TUTORIALS: Tutorial[] = [
   creditMonitor,
   adminCreditDod,
   adminCreditDodPortal,
+  adminDsrReceipts,
 ];
 
 export const TUTORIAL_BY_ID: Record<string, Tutorial> = Object.fromEntries(

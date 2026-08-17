@@ -10,6 +10,7 @@ import { VIDEO } from './theme';
 import { AddWarriorVideo } from './videos/AddWarriorVideo';
 import { AdminCreditDodPortalVideo } from './videos/AdminCreditDodPortalVideo';
 import { AdminCreditDodVideo } from './videos/AdminCreditDodVideo';
+import { AdminDsrReceiptsVideo } from './videos/AdminDsrReceiptsVideo';
 import { CreditMonitorPhotoVideo } from './videos/CreditMonitorPhotoVideo';
 import { CreditMonitorVideo } from './videos/CreditMonitorVideo';
 import { GivePointsVideo } from './videos/GivePointsVideo';
@@ -145,6 +146,16 @@ export function RemotionRoot() {
         calculateMetadata={makeCalculateMetadata(
           TUTORIAL_BY_ID['admin-credit-dod-portal'],
         )}
+      />
+      <Composition
+        id={TUTORIAL_BY_ID['admin-dsr-receipts'].compositionId}
+        component={AdminDsrReceiptsVideo}
+        durationInFrames={1}
+        fps={VIDEO_LANDSCAPE.fps}
+        width={VIDEO_LANDSCAPE.width}
+        height={VIDEO_LANDSCAPE.height}
+        defaultProps={defaults('admin-dsr-receipts')}
+        calculateMetadata={makeCalculateMetadata(TUTORIAL_BY_ID['admin-dsr-receipts'])}
       />
     </>
   );

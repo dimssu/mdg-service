@@ -26,10 +26,32 @@ export const DEALER_TABS = [
   'Run history',
 ] as const;
 
+/**
+ * The strip as `DealerDetailPage.tsx` offers it TODAY.
+ *
+ * Credit & DOD and the Daily Sales Report no longer have tabs of their own —
+ * they became datasets inside the Data Vault rail — and the low-traffic entries
+ * (Team, Services provided, Run history, Custom requests) moved behind "More".
+ * {@link DEALER_TABS} is kept as the older strip the already-shipped Credit &
+ * DOD walkthrough was narrated against; a video that re-narrates should pass
+ * this one.
+ */
+export const DEALER_TABS_TODAY = [
+  'Info',
+  'Services',
+  'Kavach',
+  'Warriors & points',
+  'Work list',
+  'Data Vault',
+  'More',
+] as const;
+
 export type DealerTab = (typeof DEALER_TABS)[number];
 
 export interface DealerHeaderProps {
-  activeTab: DealerTab;
+  activeTab: string;
+  /** The strip to draw. Defaults to the older one, for the shipped videos. */
+  tabs?: readonly string[];
   /** Dealer name / code — defaulted to the tutorial's sample dealer. */
   name?: string;
   code?: string;
@@ -37,6 +59,7 @@ export interface DealerHeaderProps {
 
 export function DealerHeader({
   activeTab,
+  tabs = DEALER_TABS,
   name = SAMPLE.dealerName,
   code = SAMPLE.dealerCode,
 }: DealerHeaderProps) {
@@ -66,7 +89,7 @@ export function DealerHeader({
           borderBottom: `1px solid ${admin.border}`,
         }}
       >
-        {DEALER_TABS.map((tab) => {
+        {tabs.map((tab) => {
           const active = tab === activeTab;
           return (
             <div
