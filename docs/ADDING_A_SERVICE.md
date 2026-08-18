@@ -10,16 +10,27 @@ A plugin is a folder named after its slug. It exports a default object satisfyin
 
 ```ts
 interface ServicePlugin {
-  id: string;                                   // matches the folder name
+  id: string; // matches the folder name
   name: string;
   description: string;
   cadence: 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'YEARLY' | 'ON_DEMAND';
-  defaultConfigSchema: object;                  // JSON Schema draft-07
+  defaultCustomCron?: string; // optional; see "Schedules the enum cannot name"
+  defaultConfigSchema: object; // JSON Schema draft-07
+  dependsOn?: string[]; // service ids that must be attached first
   run(ctx: ServiceRunContext): Promise<ServiceRunResult>;
 }
 ```
 
 The backend auto-discovers plugins by globbing `backend/src/services/*/index.ts` at boot.
+
+### Schedules the enum cannot name
+
+`Cadence` covers daily/weekly/monthly/yearly. If your service needs something the enum has no word for — twelve times a day, only in market hours, only on the outlet's own timetable — do **not** add a member to the enum. Two optional hooks cover it, and they are meant to be used together:
+
+- **`ServicePlugin.defaultCustomCron`** — a cron expression (read in **IST**) applied at attach time when the admin does not supply one. It is validated at registry load, so an unrunnable expression fails the boot rather than silently producing attachments that never run. This is your **floor**: it stays correct even when the plugin crashes.
+- **`ServiceRunResult.nextRunAt`** — returned by `run()` to steer the _next_ cycle only. Honoured on **scheduled runs that completed**; ignored for a manual "Run now" (which is not a cadence event) and for failures (which fall through to the normal transient-retry logic). The runner bounds it: a past moment is nudged to `now + 1 min`, an absurdly distant one is discarded in favour of the cron.
+
+Use `nextRunAt` when the right time is only knowable after doing the work — `water-ingress-testing` reads the outlet's slot grid off the portal and aims at the middle of the next window it lists. Always pair it with a `defaultCustomCron` floor; never rely on it alone.
 
 ## Step 1 - Create the folder
 
@@ -88,7 +99,11 @@ const plugin: ServicePlugin = {
 
   async run(ctx) {
     const started = Date.now();
-    const { reportEmail, includeIncidents, lookbackDays = 7 } = ctx.config as {
+    const {
+      reportEmail,
+      includeIncidents,
+      lookbackDays = 7,
+    } = ctx.config as {
       reportEmail: string;
       includeIncidents: boolean;
       lookbackDays?: number;
@@ -119,7 +134,7 @@ export default plugin;
 
 Rules for the `run` function:
 
-- Pure-ish. Inputs: `ctx`. Outputs: `{ output, durationMs }`.
+- Pure-ish. Inputs: `ctx`. Outputs: `{ output, durationMs }` (plus an optional `nextRunAt`).
 - Throw to fail the run. The runner catches, records `status='FAILED'`, and stores `error.message + error.stack`.
 - Keep `output` JSON-serialisable - it is persisted on the `ServiceRun` record.
 - Respect the timeout (default 60s; configurable via env). Long work should be chunked.
