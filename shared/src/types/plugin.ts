@@ -1,4 +1,5 @@
 import type { Cadence } from './enums';
+import type { ServiceRunTrigger } from './serviceRun';
 
 /**
  * The runtime context handed to a plugin's `run` function.
@@ -58,6 +59,17 @@ export interface ServiceRunContext {
   runId: string;
   config: Record<string, unknown>;
   now: Date;
+  /**
+   * Why this run is happening. A plugin that behaves differently depending on
+   * who asked reads this rather than inferring it from config.
+   *
+   * The case it exists for is `attach`: a plugin whose schedule comes from
+   * upstream needs one run to go and look, and that run must not have the side
+   * effects a real one does — `water-ingress-testing` reads the outlet's slot
+   * grid and deliberately ticks nothing, because adding a service to a dealer
+   * is not a statement that an observation was made.
+   */
+  trigger: ServiceRunTrigger;
   logger: {
     info: (...a: unknown[]) => void;
     warn: (...a: unknown[]) => void;
@@ -135,6 +147,27 @@ export interface ServicePlugin {
    * once-a-day cadence it was never meant to have.
    */
   defaultCustomCron?: string;
+  /**
+   * Fire one run the moment this service is attached to a dealer, purely so the
+   * plugin can discover its real schedule and return a `nextRunAt`.
+   *
+   * `defaultCustomCron` is a guess made without looking. It is a good guess —
+   * good enough to be the permanent floor — but it is still a constant in this
+   * repository describing a timetable that lives on somebody else's server. A
+   * dealer whose outlet does not trade round the clock, or whose windows are not
+   * the standard two hours, would spend up to one whole cron interval on the
+   * wrong rhythm before the first real run could correct it.
+   *
+   * So the attach goes and looks. The run is dispatched in the background (the
+   * attach request returns immediately; a captcha-gated login takes minutes) and
+   * arrives as a normal ServiceRun with `trigger: 'attach'`, so it is visible,
+   * auditable and diagnosable like any other. If it fails, nothing is lost — the
+   * cron floor is already in place and the first scheduled run corrects the
+   * schedule itself.
+   *
+   * A plugin that sets this MUST make `trigger === 'attach'` side-effect-free.
+   */
+  discoverScheduleOnAttach?: boolean;
   /** JSON Schema (draft-07) used to validate config and drive RJSF. */
   defaultConfigSchema: Record<string, unknown>;
   /**
@@ -155,6 +188,8 @@ export interface ServicePluginCatalogEntry {
   cadence: Cadence;
   /** Cron applied when the admin attaches without one; see {@link ServicePlugin.defaultCustomCron}. */
   defaultCustomCron?: string;
+  /** Whether attaching fires a discovery run; see {@link ServicePlugin.discoverScheduleOnAttach}. */
+  discoverScheduleOnAttach?: boolean;
   defaultConfigSchema: Record<string, unknown>;
   /** Prerequisite service ids that must be attached first; see {@link ServicePlugin.dependsOn}. */
   dependsOn?: string[];

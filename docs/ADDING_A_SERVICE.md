@@ -15,6 +15,7 @@ interface ServicePlugin {
   description: string;
   cadence: 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'YEARLY' | 'ON_DEMAND';
   defaultCustomCron?: string; // optional; see "Schedules the enum cannot name"
+  discoverScheduleOnAttach?: boolean; // optional; run once on attach to go and look
   defaultConfigSchema: object; // JSON Schema draft-07
   dependsOn?: string[]; // service ids that must be attached first
   run(ctx: ServiceRunContext): Promise<ServiceRunResult>;
@@ -29,6 +30,10 @@ The backend auto-discovers plugins by globbing `backend/src/services/*/index.ts`
 
 - **`ServicePlugin.defaultCustomCron`** — a cron expression (read in **IST**) applied at attach time when the admin does not supply one. It is validated at registry load, so an unrunnable expression fails the boot rather than silently producing attachments that never run. This is your **floor**: it stays correct even when the plugin crashes.
 - **`ServiceRunResult.nextRunAt`** — returned by `run()` to steer the _next_ cycle only. Honoured on **scheduled runs that completed**; ignored for a manual "Run now" (which is not a cadence event) and for failures (which fall through to the normal transient-retry logic). The runner bounds it: a past moment is nudged to `now + 1 min`, an absurdly distant one is discarded in favour of the cron.
+
+- **`ServicePlugin.discoverScheduleOnAttach`** — fires one run the moment the service is attached, purely so the plugin can go and look before the first cron interval elapses. It arrives as a normal `ServiceRun` with `trigger: 'attach'` (visible, auditable, diagnosable) and is dispatched after the HTTP response, so the admin never waits on it. A plugin that sets this **must** make `ctx.trigger === 'attach'` side-effect-free — the run is there to read, not to act.
+
+`ServiceRunContext.trigger` tells the plugin which of these it is in.
 
 Use `nextRunAt` when the right time is only knowable after doing the work — `water-ingress-testing` reads the outlet's slot grid off the portal and aims at the middle of the next window it lists. Always pair it with a `defaultCustomCron` floor; never rely on it alone.
 
