@@ -666,5 +666,157 @@
         "start": 243.3
       }
     ]
+  },
+  {
+    "id": "admin-manual-shift-data",
+    "duration": 240,
+    "orientation": "landscape",
+    "width": 1920,
+    "height": 1080,
+    "sizes": {
+      "tiny": 1778928,
+      "low": 2968990,
+      "high": 7781418
+    },
+    "src": {
+      "tiny": "/media/admin-manual-shift-data/tiny.92b1d606.mp4",
+      "low": "/media/admin-manual-shift-data/low.092aeed3.mp4",
+      "high": "/media/admin-manual-shift-data/high.fa52322d.mp4"
+    },
+    "poster": "/media/admin-manual-shift-data/poster.da43dc45.webp",
+    "thumb": "/media/admin-manual-shift-data/thumb.796313b3.webp",
+    "og": "/media/admin-manual-shift-data/og.e0311408.jpg",
+    "chapters": [
+      {
+        "id": "intro",
+        "start": 0
+      },
+      {
+        "id": "normal",
+        "start": 19.3
+      },
+      {
+        "id": "gap",
+        "start": 34.7
+      },
+      {
+        "id": "nav",
+        "start": 52.4
+      },
+      {
+        "id": "empty",
+        "start": 65.3
+      },
+      {
+        "id": "opened",
+        "start": 81.7
+      },
+      {
+        "id": "tot",
+        "start": 101.1
+      },
+      {
+        "id": "stk",
+        "start": 121.3
+      },
+      {
+        "id": "rec",
+        "start": 142.9
+      },
+      {
+        "id": "review",
+        "start": 160.4
+      },
+      {
+        "id": "generate",
+        "start": 174.7
+      },
+      {
+        "id": "report",
+        "start": 183.5
+      },
+      {
+        "id": "rules",
+        "start": 201.7
+      },
+      {
+        "id": "recap",
+        "start": 222.7
+      }
+    ]
+  },
+  {
+    "id": "stock-variation-sheet",
+    "duration": 261,
+    "orientation": "portrait",
+    "width": 1080,
+    "height": 1920,
+    "sizes": {
+      "tiny": 2528330,
+      "low": 4532992,
+      "high": 13120872
+    },
+    "src": {
+      "tiny": "/media/stock-variation-sheet/tiny.022357aa.mp4",
+      "low": "/media/stock-variation-sheet/low.203df456.mp4",
+      "high": "/media/stock-variation-sheet/high.9c6815ad.mp4"
+    },
+    "poster": "/media/stock-variation-sheet/poster.fd5a1d0d.webp",
+    "thumb": "/media/stock-variation-sheet/thumb.6d91c6e4.webp",
+    "og": "/media/stock-variation-sheet/og.132bcab2.jpg",
+    "chapters": [
+      {
+        "id": "intro",
+        "start": 0
+      },
+      {
+        "id": "blocks",
+        "start": 18.3
+      },
+      {
+        "id": "date",
+        "start": 39.3
+      },
+      {
+        "id": "variation",
+        "start": 57.6
+      },
+      {
+        "id": "permissible",
+        "start": 76.6
+      },
+      {
+        "id": "band-rule",
+        "start": 97.3
+      },
+      {
+        "id": "not-within",
+        "start": 120.6
+      },
+      {
+        "id": "advice",
+        "start": 140.5
+      },
+      {
+        "id": "stake",
+        "start": 158.1
+      },
+      {
+        "id": "totals",
+        "start": 179.8
+      },
+      {
+        "id": "ms",
+        "start": 204
+      },
+      {
+        "id": "ms-ok",
+        "start": 219.4
+      },
+      {
+        "id": "recap",
+        "start": 238.8
+      }
+    ]
   }
 ]

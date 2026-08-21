@@ -831,6 +831,209 @@ const adminDsrReceipts: Tutorial = {
   ],
 };
 
+/**
+ * StockVariationSheet — the OLD, hand-typed stock-variation sheet.
+ *
+ * Not a walkthrough of anything the dealer taps: it teaches a document they
+ * already receive on WhatsApp. Early-onboarded dealers still get this format,
+ * and it says the same thing as the generated DSR card — variation, permissible
+ * band, how far outside the band — so a dealer who learns to read this sheet can
+ * read the new card too.
+ *
+ * Every figure quoted here is transcribed from the reference photo and lives in
+ * `src/lib/stockSheet.ts`; the narration says the numbers out loud in words, so
+ * the two have to keep agreeing.
+ */
+const stockVariationSheet: Tutorial = {
+  id: 'stock-variation-sheet',
+  compositionId: 'StockVariationSheet',
+  title: 'स्टॉक वेरिएशन शीट पढ़ना',
+  subtitle: 'WhatsApp पर आने वाली स्टॉक की शीट को समझना',
+  scenes: [
+    {
+      id: 'intro',
+      step: 'intro',
+      text: 'नमस्ते! यह शीट आपको WhatsApp पर मिलती है — स्टॉक वेरिएशन शीट। यह सिर्फ़ एक सवाल का जवाब देती है: आपकी टंकी में जितना तेल होना चाहिए था, और जितना असल में निकला, उन दोनों में कितना फ़र्क़ है।',
+      estSeconds: 15,
+    },
+    {
+      id: 'blocks',
+      step: 'blocks',
+      text: 'शीट दो हिस्सों में बँटी है। ऊपर का नीला हिस्सा HSD यानी डीज़ल का, और नीचे का नारंगी हिस्सा MS यानी पेट्रोल का। दोनों में एक जैसी लाइनें हैं — ऊपर वाला समझ गए तो नीचे वाला अपने आप समझ आ जाएगा।',
+      estSeconds: 16,
+    },
+    {
+      id: 'date',
+      step: 'date',
+      text: 'पहली लाइन बताती है कि यह हिसाब कब का है — गुरुवार, बीस अगस्त, सुबह साढ़े सात बजे। उस वक़्त की डिप के हिसाब से। उसके बाद जो तेल बिका या उतरा, वह इस शीट में नहीं है।',
+      estSeconds: 14,
+    },
+    {
+      id: 'variation',
+      step: 'variation',
+      text: 'अब असली बात। HSD वेरिएशन में लिखा है दो हज़ार चार सौ चालीस। मतलब — किताब के हिसाब से टंकी में जितना डीज़ल होना चाहिए था, उससे इतने लीटर ज़्यादा निकला। आगे माइनस नहीं लगा है, इसलिए यह ज़्यादा है, कम नहीं।',
+      estSeconds: 15,
+    },
+    {
+      id: 'permissible',
+      step: 'permissible',
+      text: 'थोड़ा-बहुत फ़र्क़ हर पंप पर आता है — नापने में, तापमान में। इसीलिए एक छूट मिलती है। परमिसिबल वेरिएशन यानी मान्य छूट — यहाँ तीन सौ सत्रह लीटर। इतने तक के फ़र्क़ पर कोई सवाल नहीं होता।',
+      estSeconds: 15,
+    },
+    {
+      id: 'band-rule',
+      step: 'bandRule',
+      text: 'यह छूट बनती कैसे है? टंकी के स्टॉक का चार प्रतिशत। और तेल कम निकला हो तो उड़ने-हैंडलिंग के नुक़सान की छूट भी जुड़ती है — डीज़ल में चौथाई प्रतिशत, पेट्रोल में पौन प्रतिशत। पर तेल ज़्यादा निकलने पर यह छूट नहीं मिलती — ज़्यादा तेल उड़कर तो आया नहीं होगा।',
+      estSeconds: 18,
+    },
+    {
+      id: 'not-within',
+      step: 'notWithin',
+      text: 'तीसरी लाइन है वेरिएशन नॉट विदिन लिमिट — यानी सीमा से बाहर कितना है। दो हज़ार चार सौ चालीस में से तीन सौ सत्रह घटाइए, बचे इक्कीस सौ तेईस लीटर। बस यही एक संख्या है जिस पर आपको काम करना है।',
+      estSeconds: 16,
+    },
+    {
+      id: 'advice',
+      step: 'advice',
+      text: 'नीले खाने में लिखा रहता है कि अब करना क्या है। दो ही रास्ते हैं — या तो D.S.R. बुक में टेस्टिंग दिखाकर अपना स्टॉक ठीक कर लीजिए, या टैंकर से माल उतारने से पहले इतना तेल किसी और ड्रम में निकाल लीजिए।',
+      estSeconds: 16,
+    },
+    {
+      id: 'stake',
+      step: 'stake',
+      text: 'यह काम टालिए मत। दिशा-निर्देश पाँच दशमलव एक दशमलव ग्यारह के मुताबिक़ — तेल सीमा से ज़्यादा निकले तो सैंपल जाँच को भेजा जाता है और बिक्री-सप्लाई तुरंत रोकी जा सकती है। कम निकले तो आपसे लिखित जवाब माँगा जाता है।',
+      estSeconds: 16,
+    },
+    {
+      id: 'totals',
+      step: 'totals',
+      text: 'सबसे नीचे दो लाइनें हैं — कुल आवक और कुल टेस्टिंग, उनतीस अप्रैल से बीस अगस्त तक। उनतीस अप्रैल मामूली तारीख़ नहीं — उस दिन आपके पंप की आख़िरी जाँच हुई थी। तब से एक लाख अठहत्तर हज़ार लीटर डीज़ल उतरा, और ग्यारह सौ बीस लीटर टेस्टिंग में गया।',
+      estSeconds: 18,
+    },
+    {
+      id: 'ms',
+      step: 'ms',
+      text: 'अब नीचे पेट्रोल वाला हिस्सा देखिए। वेरिएशन है माइनस तीन सौ उन्यासी — यहाँ माइनस लगा है, यानी तेल कम निकला, ज़्यादा नहीं। और छूट है चार सौ तेईस लीटर।',
+      estSeconds: 13,
+    },
+    {
+      id: 'ms-ok',
+      step: 'msOk',
+      text: 'तीन सौ उन्यासी, चार सौ तेईस से कम है — यानी फ़र्क़ छूट के अंदर ही है। इसीलिए सीमा से बाहर वाली लाइन में शून्य लिखा है। शून्य मतलब — पेट्रोल में कुछ नहीं करना, स्टॉक सही है।',
+      estSeconds: 15,
+    },
+    {
+      id: 'recap',
+      step: 'recap',
+      text: 'तो हर बार बस तीन लाइनें देखिए — फ़र्क़ कितना है, छूट कितनी है, और सीमा से बाहर कितना बचा। आख़िरी लाइन में शून्य है तो सब ठीक। शून्य नहीं है तो उतने लीटर का हिसाब उसी दिन बैठा लीजिए। कुछ समझ न आए तो MDG टीम से चैट पर पूछ लीजिए। धन्यवाद!',
+      estSeconds: 18,
+    },
+  ],
+};
+
+/**
+ * Some outlets have no IRAS automation at all — 16E was onboarded without a
+ * portal account and keeps its DSR in a macro workbook. This is how their day
+ * gets into the Vault by hand, and out again as the same report every other
+ * dealer receives.
+ *
+ * Written as a walkthrough with two rules at the end rather than an explainer:
+ * unlike a receipt correction, nothing here is dangerous — the risk is only that
+ * a nozzle or a tank gets forgotten, which the video says twice.
+ */
+const adminManualShiftData: Tutorial = {
+  id: 'admin-manual-shift-data',
+  compositionId: 'AdminManualShiftData',
+  title: 'बिना पोर्टल वाले डीलर की DSR',
+  subtitle: 'MDG एडमिन टीम के लिए — शिफ़्ट का डेटा हाथ से भरकर रिपोर्ट बनाना',
+  scenes: [
+    {
+      id: 'intro',
+      step: 'intro',
+      text: 'नमस्ते! यह वीडियो MDG की एडमिन टीम के लिए है। कुछ डीलरों का IRAS पोर्टल हमारे पास नहीं होता — जैसे सोलह-E। उनका डेटा अपने आप नहीं आता, फिर भी उन्हें रोज़ वही DSR रिपोर्ट चाहिए जो बाक़ी सब को मिलती है।',
+      estSeconds: 15,
+    },
+    {
+      id: 'normal',
+      step: 'normal',
+      text: 'बाक़ी डीलरों में होता यह है — हर सुबह हमारा सिस्टम पोर्टल में जाता है, उस शिफ़्ट के पंप की रीडिंग, टैंक की डिप और टैंकर की एंट्री उठा लाता है, और उसी से रिपोर्ट बन जाती है।',
+      estSeconds: 14,
+    },
+    {
+      id: 'gap',
+      step: 'gap',
+      text: 'जिस डीलर का पोर्टल ही नहीं है, वहाँ यह पहला क़दम कभी होता ही नहीं। दिन ख़ाली रह जाता है, और ख़ाली दिन पर रिपोर्ट नहीं बनती। तो अब वही दिन हम ख़ुद खोलेंगे और उनके अपने रजिस्टर से आँकड़े भर देंगे।',
+      estSeconds: 15,
+    },
+    {
+      id: 'nav',
+      step: 'nav',
+      text: "डीलर खोलिए और ऊपर 'Data Vault' टैब पर जाइए। बाईं पट्टी में 'IRAS Shift Data' चुनिए, फिर जिस दिन का डेटा भरना है वह तारीख़ खोलिए।",
+      estSeconds: 13,
+    },
+    {
+      id: 'empty',
+      step: 'empty',
+      text: "दिन ख़ाली मिलेगा। ध्यान दीजिए — यहाँ 'Collect this day' वाला बटन नहीं है, क्योंकि इस डीलर का पोर्टल है ही नहीं। सिर्फ़ एक ही बटन है — 'Start this day by hand'। उसे दबाइए।",
+      estSeconds: 15,
+    },
+    {
+      id: 'opened',
+      step: 'opened',
+      text: 'दिन खुल गया। अब आपके सामने वही तीन तालिकाएँ हैं जो बाक़ी डीलरों में पोर्टल से भरी आती हैं — पंप की रीडिंग, टैंक का स्टॉक, और टैंकर। तीनों अभी ख़ाली हैं। इन्हें डीलर की अपनी शीट देखकर भरना है।',
+      estSeconds: 16,
+    },
+    {
+      id: 'tot',
+      step: 'tot',
+      text: "पहले पंप की रीडिंग। 'Add nozzle reading' दबाइए — हर नोज़ल के लिए एक लाइन। नोज़ल नंबर, उस सुबह की मीटर रीडिंग, टैंक नंबर और प्रोडक्ट अपने आप भर जाते हैं। एक भी नोज़ल छूटा तो उसकी बिक्री रिपोर्ट में नहीं आएगी।",
+      estSeconds: 17,
+    },
+    {
+      id: 'stk',
+      step: 'stk',
+      text: "अब टैंक का स्टॉक। 'Add tank stock row' दबाइए — हर टैंक के लिए एक लाइन। डिप, पानी की डिप और लीटर भरिए। हर बार अगला टैंक अपने आप चुना आता है, ताकि ग़लती से एक ही टैंक दो बार न भर जाए।",
+      estSeconds: 17,
+    },
+    {
+      id: 'rec',
+      step: 'rec',
+      text: "अगर उस दिन टैंकर आया था तो 'Add delivery' दबाइए। टैंक नंबर और लीटर भरिए। इनवॉइस वाला आँकड़ा ही काफ़ी है — डिप वाला नंबर ज़रूरी नहीं। टैंकर नहीं आया तो यह तालिका ख़ाली छोड़ दीजिए।",
+      estSeconds: 15,
+    },
+    {
+      id: 'review',
+      step: 'review',
+      text: "सब भर जाए तो नीचे 'Review' दबाइए। एक खिड़की खुलेगी जिसमें आपकी सारी लाइनें एक साथ दिखेंगी। नीचे कारण लिखिए — जैसे 'डीलर की अपनी शीट से भरा' — और 'Apply' दबा दीजिए।",
+      estSeconds: 15,
+    },
+    {
+      id: 'generate',
+      step: 'generate',
+      text: "अब बाईं पट्टी में 'Daily Sales Report' पर जाइए और उसी तारीख़ के लिए 'Generate' दबाइए। रिपोर्ट बनने में कुछ ही पल लगते हैं।",
+      estSeconds: 12,
+    },
+    {
+      id: 'report',
+      step: 'report',
+      text: 'और रिपोर्ट तैयार। यह बिल्कुल वैसी ही है जैसी बाक़ी डीलरों की — हर टैंक की अपनी डिप, अपना स्टॉक, नीचे बिक्री और ऊपर stock variation। डीलर को यह वैसे ही भेजी जा सकती है।',
+      estSeconds: 14,
+    },
+    {
+      id: 'rules',
+      step: 'rules',
+      text: 'दो बातें याद रखिए। पहली — जो आँकड़ा आप भरते हैं वह बिल्कुल वैसा ही गिना जाता है, गोल नहीं किया जाता। दूसरी — हर नोज़ल और हर टैंक की लाइन बनाइए; एक भी छूटा तो उस दिन का हिसाब कम बैठेगा।',
+      estSeconds: 16,
+    },
+    {
+      id: 'recap',
+      step: 'recap',
+      text: "दोहराइए — दिन खोलिए, पंप भरिए, टैंक भरिए, टैंकर भरिए, Apply कीजिए, Generate कीजिए। हर दिन के लिए यही छह क़दम। कुछ अटके तो टीम से पूछ लीजिए। धन्यवाद!",
+      estSeconds: 15,
+    },
+  ],
+};
+
 export const TUTORIALS: Tutorial[] = [
   login,
   addWarrior,
@@ -842,6 +1045,8 @@ export const TUTORIALS: Tutorial[] = [
   adminCreditDod,
   adminCreditDodPortal,
   adminDsrReceipts,
+  adminManualShiftData,
+  stockVariationSheet,
 ];
 
 export const TUTORIAL_BY_ID: Record<string, Tutorial> = Object.fromEntries(

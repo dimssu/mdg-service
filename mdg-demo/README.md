@@ -21,10 +21,26 @@ phone or inside WhatsApp.
 | `points-system`        | `PointsSystem`       | How each work's points are derived (concept explainer)      |
 | `credit-monitor`       | `CreditMonitor`      | Reading the daily CREDIT & DOD MONITORING card (recreation) |
 | `credit-monitor-photo` | `CreditMonitorPhoto` | Same, marked up over the dealer's own card screenshots      |
+| `stock-variation-sheet` | `StockVariationSheet` | Reading the old hand-typed STOCK VARIATION sheet (concept explainer) |
+| `admin-manual-shift-data` | `AdminManualShiftData` | Typing a shift in by hand for an outlet with no portal, then generating its DSR |
 
 `credit-monitor` and `credit-monitor-photo` share one narration/voiceover — the
 first redraws the card cleanly, the second highlights rows on your real photos
 (drop them in `public/credit-card/`, see that folder's README).
+
+`admin-manual-shift-data` is for the MDG team, not dealers. It exists for outlets
+onboarded without an IndianOil account — 16E is the case — where nothing arrives
+on its own and the day has to be typed into the Data Vault before a report can be
+generated. Its mocked screens live in `src/screens/admin/ManualDay.tsx` and use
+16E's real layout (diesel in tank 3 on nozzles 2/4/5, petrol in tank 1 on 1/3/6),
+so the figures on screen are the ones an admin would actually be copying.
+
+`stock-variation-sheet` teaches a document rather than a screen: it rings each row
+on a photo of the real sheet (`public/stock-variation/sheet.jpg`, dealer code
+masked) and re-typesets that row large enough to read on a phone. The row
+positions and the figures printed on the sheet both live in
+`src/lib/stockSheet.ts` — replacing the photo means re-measuring both, see that
+folder's README.
 
 The narration for every video lives in **`src/narration.ts`** — this is the single
 source of truth: the same Hindi text is both the on-screen caption **and** the

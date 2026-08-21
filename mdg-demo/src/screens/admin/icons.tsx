@@ -229,6 +229,18 @@ export const FileText = ({
   </svg>
 );
 
+export const Pencil = ({
+  size = 14,
+  strokeWidth = 1.75,
+  color = 'currentColor',
+  style,
+}: AdminIconProps) => (
+  <svg {...base(size, strokeWidth, color, style)}>
+    <path d="M12 20h9" />
+    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+  </svg>
+);
+
 export const Share = ({
   size = 14,
   strokeWidth = 1.75,

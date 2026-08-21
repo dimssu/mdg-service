@@ -11,12 +11,14 @@ import { AddWarriorVideo } from './videos/AddWarriorVideo';
 import { AdminCreditDodPortalVideo } from './videos/AdminCreditDodPortalVideo';
 import { AdminCreditDodVideo } from './videos/AdminCreditDodVideo';
 import { AdminDsrReceiptsVideo } from './videos/AdminDsrReceiptsVideo';
+import { AdminManualShiftDataVideo } from './videos/AdminManualShiftDataVideo';
 import { CreditMonitorPhotoVideo } from './videos/CreditMonitorPhotoVideo';
 import { CreditMonitorVideo } from './videos/CreditMonitorVideo';
 import { GivePointsVideo } from './videos/GivePointsVideo';
 import { LoginVideo } from './videos/LoginVideo';
 import { PointsSystemVideo } from './videos/PointsSystemVideo';
 import { SplitPointsVideo } from './videos/SplitPointsVideo';
+import { StockVariationSheetVideo } from './videos/StockVariationSheetVideo';
 import { SubmitPointsVideo } from './videos/SubmitPointsVideo';
 
 // Load Latin + Devanagari so Hindi renders correctly in headless Chromium.
@@ -156,6 +158,26 @@ export function RemotionRoot() {
         height={VIDEO_LANDSCAPE.height}
         defaultProps={defaults('admin-dsr-receipts')}
         calculateMetadata={makeCalculateMetadata(TUTORIAL_BY_ID['admin-dsr-receipts'])}
+      />
+      <Composition
+        id={TUTORIAL_BY_ID['admin-manual-shift-data'].compositionId}
+        component={AdminManualShiftDataVideo}
+        durationInFrames={1}
+        fps={VIDEO_LANDSCAPE.fps}
+        width={VIDEO_LANDSCAPE.width}
+        height={VIDEO_LANDSCAPE.height}
+        defaultProps={defaults('admin-manual-shift-data')}
+        calculateMetadata={makeCalculateMetadata(TUTORIAL_BY_ID['admin-manual-shift-data'])}
+      />
+      <Composition
+        id={TUTORIAL_BY_ID['stock-variation-sheet'].compositionId}
+        component={StockVariationSheetVideo}
+        durationInFrames={1}
+        fps={VIDEO.fps}
+        width={VIDEO.width}
+        height={VIDEO.height}
+        defaultProps={defaults('stock-variation-sheet')}
+        calculateMetadata={makeCalculateMetadata(TUTORIAL_BY_ID['stock-variation-sheet'])}
       />
     </>
   );
