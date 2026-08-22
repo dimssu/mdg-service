@@ -52,8 +52,11 @@ export interface DealerHeaderProps {
   activeTab: string;
   /** The strip to draw. Defaults to the older one, for the shipped videos. */
   tabs?: readonly string[];
-  /** Dealer name / code — defaulted to the tutorial's sample dealer. */
-  name?: string;
+  /**
+   * Dealer name. Pass `null` for the real product behaviour: a dealer is
+   * identified by its CODE alone, and the name was removed from the platform.
+   */
+  name?: string | null;
   code?: string;
 }
 
@@ -63,16 +66,22 @@ export function DealerHeader({
   name = SAMPLE.dealerName,
   code = SAMPLE.dealerCode,
 }: DealerHeaderProps) {
+  // A dealer IS its code. The trading name was removed from the platform, so the
+  // real screen has none to show — pass `name={null}` and the header identifies
+  // the outlet the way the product now does. The older tutorials still pass the
+  // sample name, and it was a test account, so they are left alone.
+  const heading = name ?? code;
   return (
     <div style={{ fontFamily: FONT_FAMILY, color: admin.text }}>
       <div style={{ fontSize: 12.5, color: admin.textSubtle, marginBottom: 4 }}>
-        Dealers <span style={{ margin: '0 6px' }}>/</span> {name}
+        Dealers <span style={{ margin: '0 6px' }}>/</span> {heading}
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <div style={{ minWidth: 0 }}>
-          <div style={{ fontSize: 21, fontWeight: 700, letterSpacing: '-0.01em' }}>{name}</div>
+          <div style={{ fontSize: 21, fontWeight: 700, letterSpacing: '-0.01em' }}>{heading}</div>
           <div style={{ fontSize: 13, color: admin.textMuted, marginTop: 2 }}>
-            {code} · {SAMPLE.dealerPhone} · Bhopal Road, Sehore
+            {name ? `${code} · ` : ''}
+            {SAMPLE.dealerPhone} · Bhopal Road, Sehore
           </div>
         </div>
         <div style={{ marginLeft: 'auto' }}>

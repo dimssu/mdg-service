@@ -258,13 +258,9 @@ function Portal({
       scale={FRAME_SCALE}
     >
       <AdminShell nav="Dealers" scrollY={scrollY}>
-        {/* The dealer this tutorial exists for, not the series' sample outlet. */}
-        <DealerHeader
-          activeTab="Data Vault"
-          tabs={DEALER_TABS_TODAY}
-          name="Shree Balaji Fuels"
-          code="16E01"
-        />
+        {/* No trading name: a dealer is its code, which is what the real screen
+            shows. Every video from here on identifies an outlet this way. */}
+        <DealerHeader activeTab="Data Vault" tabs={DEALER_TABS_TODAY} name={null} code="16E" />
         <div style={{ display: 'grid', gap: 12 }}>
           <VaultRail active={vault} ringOn={ringOn} local={local} />
           {children}

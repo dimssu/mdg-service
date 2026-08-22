@@ -674,18 +674,18 @@
     "width": 1920,
     "height": 1080,
     "sizes": {
-      "tiny": 1778928,
-      "low": 2968990,
-      "high": 7781418
+      "tiny": 1774169,
+      "low": 2957342,
+      "high": 7741406
     },
     "src": {
-      "tiny": "/media/admin-manual-shift-data/tiny.92b1d606.mp4",
-      "low": "/media/admin-manual-shift-data/low.092aeed3.mp4",
-      "high": "/media/admin-manual-shift-data/high.fa52322d.mp4"
+      "tiny": "/media/admin-manual-shift-data/tiny.8ef29c94.mp4",
+      "low": "/media/admin-manual-shift-data/low.8436e51e.mp4",
+      "high": "/media/admin-manual-shift-data/high.14819de0.mp4"
     },
-    "poster": "/media/admin-manual-shift-data/poster.da43dc45.webp",
-    "thumb": "/media/admin-manual-shift-data/thumb.796313b3.webp",
-    "og": "/media/admin-manual-shift-data/og.e0311408.jpg",
+    "poster": "/media/admin-manual-shift-data/poster.624ccf87.webp",
+    "thumb": "/media/admin-manual-shift-data/thumb.f019c857.webp",
+    "og": "/media/admin-manual-shift-data/og.4402bfa2.jpg",
     "chapters": [
       {
         "id": "intro",
