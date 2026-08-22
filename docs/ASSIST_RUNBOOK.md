@@ -62,9 +62,11 @@ npm run publish           # uploads to s3://<bucket>/assist/kb/<KB_VERSION>/
 ```
 
 `npm run eval` is the step that tells you whether the assistant will be any good.
-It asks ~52 real questions in Hindi and English and reports which guideline
-clause came back for each. If recall is poor, re-chunk smaller
-(`npm run chunk -- --target=350`) and re-run from `embed`.
+It asks 46 real questions in Hindi and English and reports which guideline clause
+came back for each. **The build published on 2026-08-22 scores 97.8% (45 of 46):
+Hindi 17/18, English 28/28.** If a rebuild scores materially below that,
+something has gone backwards — re-chunk smaller (`npm run chunk -- --target=350`)
+and re-run from `embed` rather than shipping it.
 
 Roughly 100 chunks, ~32,000 tokens. Embedding the whole corpus costs a few
 rupees, once.
@@ -106,6 +108,23 @@ ssh -i "~/Downloads/mdg aws.pem" ubuntu@35.154.6.55 \
 `npm ci` breaks whenever a dependency changes — this feature added none, so it
 should be clean. If it complains about the lock file, run `npm install
 --no-audit --no-fund` once on the box and deploy again.
+
+## Step 3b — Ask Google to raise the quota. Do this before launch.
+
+**This is the real capacity limit, and it is not the one you would guess.**
+A new Google Cloud project runs on default per-minute Vertex quotas. Measured on
+this project on 2026-08-22: sixteen questions asked back to back produced fifteen
+429s. The retries recover almost all of them and the visitor is told "a lot of
+people are asking at once" rather than "something went wrong", so nothing breaks
+— but sustained traffic will feel slow until the quota is raised.
+
+Console → IAM & Admin → Quotas → filter on `aiplatform.googleapis.com` →
+"online prediction requests per base model", region `asia-south1`. Request an
+increase for `gemini-2.5-flash` and `text-multilingual-embedding-002`. It is
+free and usually granted within a day or two.
+
+Until then `VERTEX_MAX_CONCURRENCY=4` keeps the assistant from forming the
+bursts that cause a cluster of them. Raise it after the increase lands.
 
 ## Step 4 — Prove it works before anyone sees it
 
