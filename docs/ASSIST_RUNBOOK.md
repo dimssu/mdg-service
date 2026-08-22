@@ -62,9 +62,11 @@ npm run publish           # uploads to s3://<bucket>/assist/kb/<KB_VERSION>/
 ```
 
 `npm run eval` is the step that tells you whether the assistant will be any good.
-It asks 46 real questions in Hindi and English and reports which guideline clause
-came back for each. **The build published on 2026-08-22 scores 97.8% (45 of 46):
-Hindi 17/18, English 28/28.** If a rebuild scores materially below that,
+It asks 74 real questions in Hindi and English, including romanised Hinglish
+(`stock variation kitna tak chalta hai`) because that is what people actually
+type, and reports which guideline clause
+came back for each. **The build published on 2026-08-22 scores 91.9% (68 of 74):
+Hindi 40/46, English 28/28.** If a rebuild scores materially below that,
 something has gone backwards — re-chunk smaller (`npm run chunk -- --target=350`)
 and re-run from `embed` rather than shipping it.
 
