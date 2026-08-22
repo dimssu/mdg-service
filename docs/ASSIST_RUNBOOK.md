@@ -65,12 +65,12 @@ npm run publish           # uploads to s3://<bucket>/assist/kb/<KB_VERSION>/
 It asks 74 real questions in Hindi and English, including romanised Hinglish
 (`stock variation kitna tak chalta hai`) because that is what people actually
 type, and reports which guideline clause
-came back for each. **The build published on 2026-08-22 scores 91.9% (68 of 74):
-Hindi 40/46, English 28/28.** If a rebuild scores materially below that,
+came back for each. **The build published on 2026-08-22 (`2026-08-22-v2`, 103 chunks) scores 93.2%
+(69 of 74): Hindi 41/46, English 28/28.** If a rebuild scores materially below that,
 something has gone backwards — re-chunk smaller (`npm run chunk -- --target=350`)
 and re-run from `embed` rather than shipping it.
 
-Roughly 100 chunks, ~32,000 tokens. Embedding the whole corpus costs a few
+Roughly 103 chunks, ~49,000 tokens. Embedding the whole corpus costs a few
 rupees, once.
 
 ## Step 3 — Server configuration
