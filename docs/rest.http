@@ -8,6 +8,15 @@
 @adminEmail = admin@dealerkavach.local
 @adminPassword = Admin@12345
 
+### The TT Density block (18-34) needs three things this file cannot invent: a
+### dealer that already has the service attached, that dealer's own app login, and
+### a photo saved next to this file as `register-page.jpg`. Fill these in first.
+### @ttDate must be today or one of the six days before it, IST.
+@ttDealerId = 000000000000000000000000
+@ttDate = 2026-08-24
+@dealerEmail = owner@example.com
+@dealerPassword = ChangeMe@12345
+
 ### Health
 GET {{host}}/health
 
@@ -153,3 +162,144 @@ Authorization: Bearer {{token}}
 ### 17. Delete the demo dealer (cascades dealer-services)
 DELETE {{base}}/dealers/{{dealerId}}
 Authorization: Bearer {{token}}
+
+### 18. TT Density - the dealer's pane payload (headline densities + 14 days)
+GET {{base}}/tt-density/dealers/{{ttDealerId}}/summary
+Authorization: Bearer {{token}}
+
+### 19. TT Density - invoices in a window (captures the newest invoice)
+# @name ttInvoices
+GET {{base}}/tt-density/dealers/{{ttDealerId}}/invoices?from=2026-08-01&to=2026-08-31&page=1&pageSize=50
+Authorization: Bearer {{token}}
+
+@ttInvoiceId = {{ttInvoices.response.body.data.items.0.id}}
+
+### 20. One invoice in full (every product line and its Density@15)
+GET {{base}}/tt-density/dealers/{{ttDealerId}}/invoices/{{ttInvoiceId}}
+Authorization: Bearer {{token}}
+
+### 21. Signed URLs for that invoice's PDF
+### `viewUrl` is inline (the drawer's iframe), `downloadUrl` is an attachment.
+### 404 here means the PDF has not been fetched yet - that is a UI state, not a bug.
+GET {{base}}/tt-density/dealers/{{ttDealerId}}/invoices/{{ttInvoiceId}}/pdf-url
+Authorization: Bearer {{token}}
+
+### 22. Register days for one month (what the admin calendar asks for)
+### Swap `from`/`to` for `?limit=30` to get "the last 30 days" instead.
+### Days with no photo come back too - the gaps are the point.
+GET {{base}}/tt-density/dealers/{{ttDealerId}}/days?from=2026-08-01&to=2026-08-31
+Authorization: Bearer {{token}}
+
+### 23. Signed URLs for one day's register photo
+GET {{base}}/tt-density/dealers/{{ttDealerId}}/days/{{ttDate}}/photo-url
+Authorization: Bearer {{token}}
+
+### 24. Presign a register photo for that dealer (admin uploading on their behalf)
+# @name ttPresign
+POST {{base}}/uploads/sign
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filename": "register-page.jpg",
+  "contentType": "image/jpeg",
+  "size": 240000,
+  "scope": "tt-density",
+  "dealerId": "{{ttDealerId}}"
+}
+
+@ttUploadUrl = {{ttPresign.response.body.data.uploadUrl}}
+@ttStorageKey = {{ttPresign.response.body.data.storageKey}}
+
+### 25. Put the bytes where the presign says (no Authorization - the URL is the credential)
+PUT {{ttUploadUrl}}
+Content-Type: image/jpeg
+
+< ./register-page.jpg
+
+### 26. Mark the day, on the dealer's behalf
+### The response records `uploadedBy.kind = "admin"` and the admin's name, which is
+### what the calendar prints. Older than 60 days counting today is refused.
+POST {{base}}/tt-density/dealers/{{ttDealerId}}/days/{{ttDate}}/photo
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "storageKey": "{{ttStorageKey}}",
+  "filename": "register-page.jpg",
+  "contentType": "image/jpeg",
+  "size": 240000,
+  "note": "Sent on WhatsApp, added by MDG"
+}
+
+### 27. Fetch this dealer's invoices now (202, then the run happens in the background)
+### `lookbackDays` is a one-run override - it does not change the schedule.
+POST {{base}}/tt-density/dealers/{{ttDealerId}}/collect
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "lookbackDays": 7
+}
+
+### 28. Sign in as the dealer (their own app login, not an admin's)
+# @name dealerLogin
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{dealerEmail}}",
+  "password": "{{dealerPassword}}"
+}
+
+@dealerToken = {{dealerLogin.response.body.data.token}}
+
+### 29. What the dealer's own screen sees
+### No invoice, no PDF, no rupee figure. `earliestMarkableDate` is today - 6 and is
+### what the app feeds to `<input type="date" min>`. A dealer without the service
+### gets 200 with `attached: false`, never a 404.
+GET {{base}}/tt-density/me
+Authorization: Bearer {{dealerToken}}
+
+### 30. The dealer marks today (presign with their OWN token, then mark)
+# @name dealerPresign
+POST {{base}}/uploads/sign
+Authorization: Bearer {{dealerToken}}
+Content-Type: application/json
+
+{
+  "filename": "register-page.jpg",
+  "contentType": "image/jpeg",
+  "size": 240000,
+  "scope": "tt-density",
+  "dealerId": "{{ttDealerId}}"
+}
+
+@dealerUploadUrl = {{dealerPresign.response.body.data.uploadUrl}}
+@dealerStorageKey = {{dealerPresign.response.body.data.storageKey}}
+
+### 31. Put the bytes
+PUT {{dealerUploadUrl}}
+Content-Type: image/jpeg
+
+< ./register-page.jpg
+
+### 32. Mark the day as the dealer
+POST {{base}}/tt-density/me/days/{{ttDate}}/photo
+Authorization: Bearer {{dealerToken}}
+Content-Type: application/json
+
+{
+  "storageKey": "{{dealerStorageKey}}",
+  "filename": "register-page.jpg",
+  "contentType": "image/jpeg",
+  "size": 240000
+}
+
+### 33. The dealer reading back their own photo
+GET {{base}}/tt-density/me/days/{{ttDate}}/photo-url
+Authorization: Bearer {{dealerToken}}
+
+### 34. The fence, as a request: a dealer token must not reach an admin route (expect 403)
+GET {{base}}/tt-density/dealers/{{ttDealerId}}/summary
+Authorization: Bearer {{dealerToken}}
