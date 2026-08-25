@@ -1,5 +1,16 @@
 # Kavach Engine — Backend Design
 
+> **SUPERSEDED IN PART BY ADR 0011 (2026-08-26).** Dealer Kavach is now
+> **admin- and automation-verified**: a task is certified by an MDG admin or by an
+> automation signal, never by the dealer. The per-item reminder ladder and the
+> escalation-into-a-ticket path described below have been DELETED, task
+> definitions resolve at read time from an editable global catalog plus a
+> per-dealer overlay (they are no longer snapshotted), and nothing reaches a
+> dealer until an admin switches that dealer on. Read
+> `docs/ADR/0011-kavach-admin-and-automation-verified-compliance.md` first; treat
+> the sections below on cadence, scoring buckets and the task catalogue as still
+> current, and anything about the dealer marking work done as history.
+
 **Status:** Design only (no implementation). Every primitive below is grounded in a real path in `mdg-backend/` or `shared/`.
 **Companion ADR:** `docs/ADR/0006-kavach-programme-stateful-assessment-subsystem.md` — documents the deliberate break from the stateless plugin contract (ADR 0002).
 **Contract of record:** `shared/src/types/kavach.ts` + `shared/src/schemas/kavach.ts`. This design conforms to those field names **exactly**; where this doc and the contract ever disagree, the contract wins.
