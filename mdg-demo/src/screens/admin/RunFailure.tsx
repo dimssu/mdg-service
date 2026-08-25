@@ -24,7 +24,7 @@ export interface RunFailureProps {
 
 export function RunFailure({
   title = 'Wrong username or password',
-  hint = "Update the dealer's SDMS credentials on the Info tab, then run again.",
+  hint = "Update the dealer's SDMS credentials in the Password vault tab, then run again.",
   at = '30 Jul 2026, 10:12 AM',
 }: RunFailureProps) {
   return (

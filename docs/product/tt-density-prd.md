@@ -459,7 +459,7 @@ holding a phone or a laptop.
 
   | Code                                                        | What happened                                            | Owner                                         | The hint says                                                                                                                       |
   | ----------------------------------------------------------- | -------------------------------------------------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-  | `LOGIN_REJECTED`                                            | The portal refused the username or password              | **MDG ops**                                   | The dealer's SDMS username or password is wrong. Re-enter it on the dealer's Credentials tab. Nothing will be retried until you do. |
+  | `LOGIN_REJECTED`                                            | The portal refused the username or password              | **MDG ops**                                   | The dealer's SDMS username or password is wrong. Re-enter it in the dealer's Password vault tab. Nothing will be retried until you do. |
   | `SDMS_CREDENTIALS_MISSING`                                  | No SDMS credentials on this dealer                       | **MDG ops**                                   | This dealer has no SDMS credentials saved.                                                                                          |
   | `LOGIN_CAPTCHA_EXHAUSTED`, `LOGIN_CHALLENGE_*`              | The portal's login question could not be answered        | **Nobody**                                    | Transient. The next run normally succeeds.                                                                                          |
   | `LOGIN_PAGE_UNREACHABLE`                                    | IndianOil's site was down or timed out                   | **Nobody**                                    | Transient. Retries.                                                                                                                 |
@@ -624,7 +624,7 @@ Consequences that must be built:
 **Decided:** the run fails fast with `LOGIN_REJECTED`, and the failure is **not transient** — it
 must not be retried in a loop, because repeated bad logins against a real dealer account is
 exactly how an account gets locked. Owner: **MDG ops**, hint: _"Ask the dealer for their current
-SDMS password and update it on the dealer's Info tab."_
+SDMS password and update it in the dealer's Password vault tab."_
 
 - After **two** consecutive `LOGIN_REJECTED` runs the service surfaces in the admin attention
   list. (Two, not three: unlike a flaky portal, a wrong password never fixes itself.)

@@ -2021,7 +2021,7 @@ Operator hints, verbatim (they are what a non-technical admin reads):
 
 | Code                                               | Hint                                                                                                                                          |
 | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `LOGIN_REJECTED`                                   | _Admin — the dealer's SDMS username or password is wrong. Re-enter it on the dealer's Credentials tab. Nothing will be retried until you do._ |
+| `LOGIN_REJECTED`                                   | _Admin — the dealer's SDMS username or password is wrong. Re-enter it in the dealer's Password vault tab. Nothing will be retried until you do._ |
 | `SDMS_CREDENTIALS_MISSING`                         | _Admin — this dealer has no SDMS credentials saved._                                                                                          |
 | `OCR_SIDECAR_UNAVAILABLE`                          | _Ops — run `bash ocr/setup.sh` on the server._                                                                                                |
 | `BROWSER_LAUNCH_FAILED`                            | _Ops — the browser could not start on the server._                                                                                            |

@@ -74,7 +74,7 @@ Open:
 
 | Task                                         | Where in the admin                                                                                                                          |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Set / update / clear SDMS creds              | **Dealers → open a dealer → Info tab → "IndianOil SDMS (Credit & DOD)" card** (`DealerInfoTab.tsx:165` renders `SdmsCredentialsSection`)    |
+| Set / update / clear SDMS creds              | **Dealers → open a dealer → ⋯ menu → Password vault → "IndianOil SDMS (Credit & DOD)" card** (`DealerPasswordVaultTab.tsx` renders `SdmsCredentialsSection`)    |
 | Attach the service, set cadence              | **Services tab** (`DealerServicesTab.tsx`)                                                                                                  |
 | **Generate a report** (today or a past date) | **Credit & DOD tab → Generate card** (`DealerCreditDodTab.tsx`). Capped at 3 per dealer per hour; super-admins exempt.                      |
 | Review the card, **Share with dealer**       | **Credit & DOD tab → Report history → expand a row** (`CreditDodReportCard`). Also reachable from Run history, which renders the same card. |
