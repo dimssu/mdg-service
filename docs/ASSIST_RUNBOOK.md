@@ -85,7 +85,7 @@ VERTEX_PROJECT_ID=<PROJECT_ID>
 VERTEX_LOCATION=asia-south1
 VERTEX_SA_KEY_FILE=/home/ubuntu/mdg-assist-key.json
 ELEVENLABS_API_KEY=<the key from mdg-demo/.env>
-ELEVENLABS_VOICE_ID=<the voice id from mdg-demo/.env>
+ELEVENLABS_VOICE_ID=mfMM3ijQgz8QtMeKifko   # the assistant's own voice - NOT the demo-video voice
 ASSIST_KB_VERSION=<whatever publish printed>
 ASSIST_DAILY_BUDGET_PAISE=200000     # ₹2,000/day
 ```
