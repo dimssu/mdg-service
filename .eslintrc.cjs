@@ -85,9 +85,18 @@ module.exports = {
       // `frontend/` is the historical directory name; the admin app has lived in
       // `mdg-admin/` since the repos were split, so the old glob silently matched
       // nothing and the React rules below — `react-hooks/exhaustive-deps` above
-      // all — never ran on it. `mdg-client/**` is deliberately NOT listed yet: it
-      // has its own backlog of warnings, and turning them on is its own pass.
-      files: ['frontend/**/*.{ts,tsx}', 'mdg-admin/**/*.{ts,tsx}'],
+      // all — never ran on it.
+      //
+      // `mdg-client/**` was left off for the same reason it should have been the
+      // FIRST one added: a backlog of dependency-array warnings. That trade cost
+      // a production outage. `rules-of-hooks` is not a tidiness rule — it is the
+      // only thing standing between a hook written inside a `&&`/`||`/`?:` and a
+      // white screen, and the dealer app shipped exactly that: the ask bar read
+      // `Boolean(useMatch('/asks')) || Boolean(useMatch('/documents'))`, skipped
+      // the second call whenever the first matched, and threw "rendered fewer
+      // hooks than expected" on every walk into the ask list. This rule reports
+      // it at the exact column. The dependency backlog is handled just below.
+      files: ['frontend/**/*.{ts,tsx}', 'mdg-admin/**/*.{ts,tsx}', 'mdg-client/**/*.{ts,tsx}'],
       env: {
         browser: true,
         node: false,
@@ -103,6 +112,21 @@ module.exports = {
       rules: {
         'react/react-in-jsx-scope': 'off',
         'react/prop-types': 'off',
+      },
+    },
+    {
+      // The dealer app's dependency-array backlog, quarantined so it cannot hold
+      // `rules-of-hooks` hostage a second time. Six sites as of today: the voice
+      // composer's start watchdog (the functions are re-made every render, so
+      // naming them would re-subscribe the window listeners on every keystroke —
+      // it needs a `useCallback` pass, not a dep), and five `?? []` fallbacks in
+      // the staff screens that want wrapping in their own memo. Both are real
+      // work on shipped screens and neither can white-screen the app, which is
+      // what separates them from the rule above. Delete this block when they are
+      // done; do not add files to it.
+      files: ['mdg-client/**/*.{ts,tsx}'],
+      rules: {
+        'react-hooks/exhaustive-deps': 'off',
       },
     },
     {
