@@ -57,3 +57,20 @@ mdg-demo/
 # Misc
 *.tgz
 .pids
+
+# Secrets that live in the working tree so tooling can reach them.
+#
+# The AWS key for the backend box sits in .secrets/ because macOS refuses this
+# machine's automation read access to ~/Downloads, and every deploy needs it.
+# A private key one `git add -A` away from a remote is how credentials leak, so
+# the ignore rule goes in BEFORE the key does. Never remove it.
+.secrets/
+*.pem
+*.p12
+
+# Working reports and one-off pages written at the repo root — a performance
+# write-up, a plan, a runbook. They are notes to ourselves, they go stale the
+# week they are written, and several describe how the portal automation works
+# in detail. `one-login-many-services.html` reached a commit before this rule
+# existed; it is untracked here in the same change.
+/*.html
