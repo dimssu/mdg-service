@@ -191,13 +191,20 @@ async function encode(src: string, dest: string, r: Rendition, frame: Frame): Pr
     '-vf',
     `scale=${width}:${height}:force_original_aspect_ratio=decrease:flags=lanczos,` +
       `pad=${width}:${height}:(ow-iw)/2:(oh-ih)/2:color=black`,
-    // Main profile + yuv420p: hardware-decodable on essentially every Android
-    // phone still in the field. VP9/AV1 would be smaller but fall back to
+    // The rung's own profile + yuv420p: hardware-decodable on essentially every
+    // Android phone still in the field. VP9/AV1 would be smaller but fall back to
     // software decode on cheap chipsets, which is exactly the device we care about.
+    //
+    // `r.profile` and not a hardcoded 'main'. The `tiny` rung exists precisely so
+    // the oldest handset in the field has somewhere to fall, and it declares
+    // `baseline` for that reason — but the value was declared and never read, so
+    // the emergency rung was being encoded exactly like the others and helped
+    // nobody. Baseline forbids CABAC and B-frames, so `tiny` gets slightly larger
+    // for the same crf; that is the trade the rung was created to make.
     '-c:v',
     'libx264',
     '-profile:v',
-    'main',
+    r.profile,
     '-level',
     '3.1',
     '-preset',
