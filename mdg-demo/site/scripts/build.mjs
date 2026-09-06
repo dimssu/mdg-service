@@ -120,7 +120,7 @@ const LANG_BOOT =
   `d.setAttribute('data-lang',l);d.setAttribute('lang',l);` +
   `}catch(e){}})();`;
 
-function page({ slug, title, description, ogImage, body, css, js, extra = '' }) {
+function page({ slug, title, description, ogImage, body, css, js, extra = '', noindex = false }) {
   const canonical = slug ? `${ORIGIN}/${slug}` : ORIGIN;
   return `<!doctype html>
 <html lang="${DEFAULT_LANG}" data-lang="${DEFAULT_LANG}" class="no-js">
@@ -128,7 +128,7 @@ function page({ slug, title, description, ogImage, body, css, js, extra = '' }) 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(description)}">
+<meta name="description" content="${esc(description)}">${noindex ? '\n<meta name="robots" content="noindex,nofollow">' : ''}
 <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="${canonical}">
@@ -477,6 +477,36 @@ async function main() {
   const published = VIDEOS.filter((v) => byId[v.id]);
   if (!published.length) throw new Error('No video has any media — nothing to build.');
 
+  /*
+   * ── WHY THE ADMIN WALKTHROUGHS ARE UNLISTED ──────────────────────────────
+   *
+   * They were listed. This is a public site with no login, `robots.txt` said
+   * `Allow: /`, and the sitemap named every admin walkthrough by URL — so four
+   * narrated tours of the internal ops portal were not merely reachable, they
+   * were being actively offered to Google. The dashboard linked them too, which
+   * gave a crawler a path and a dealer a wrong turn.
+   *
+   * That is the exact thing this company's standing rule forbids publishing:
+   * nothing public may show the internal tools or describe how the work is
+   * actually done. A guide video is a worse leak than a screenshot, because it
+   * is a narrated walkthrough with the reasoning attached.
+   *
+   * So an admin video is now UNLISTED, in the sense an unlisted video usually
+   * means: its page is still built and still answers on its own URL, because the
+   * admin portal's "How this works" buttons link straight to it and an ops
+   * person needs it to work. But it is absent from the dashboard, absent from
+   * the search index, absent from the sitemap, disallowed in robots.txt and
+   * marked noindex.
+   *
+   * BE HONEST ABOUT WHAT THIS IS. Unlisted is discoverability control, not
+   * access control. Anyone who knows or guesses the slug still gets the video.
+   * The real fix is to serve these behind the authenticated admin portal, or on
+   * a deployment-protected host, and that is a decision about infrastructure
+   * rather than a line in a build script. This closes the crawler, which is the
+   * part that is irreversible once it has happened.
+   */
+  const isUnlisted = (v) => audienceOf(v) === 'admin';
+
   // Flat order = section order, and it is the order search addresses cards in.
   const groups = AUDIENCES.map((a) => ({
     section: SECTIONS[a],
@@ -484,18 +514,24 @@ async function main() {
   })).filter((g) => g.items.length);
   const ordered = groups.flatMap((g) => g.items);
 
+  /* What the public dashboard and its search index are allowed to know about. */
+  const listedGroups = groups
+    .map((g) => ({ ...g, items: g.items.filter((v) => !isUnlisted(v)) }))
+    .filter((g) => g.items.length);
+  const listed = listedGroups.flatMap((g) => g.items);
+
   await rm(DIST, { recursive: true, force: true });
   await mkdir(DIST, { recursive: true });
   await cp(path.join(ROOT, 'public'), DIST, { recursive: true });
 
-  const dash = dashboard(groups, ordered, byId);
+  const dash = dashboard(listedGroups, listed, byId);
   await writeFile(
     path.join(DIST, 'index.html'),
     page({
       slug: '',
       title: dash.title,
       description: UI[DEFAULT_LANG].metaDescription,
-      ogImage: byId[ordered[0].id].og,
+      ogImage: byId[listed[0].id].og,
       body: dash.body,
       css: css + '\n' + searchCss,
       js: shellJs + searchJs,
@@ -517,21 +553,27 @@ async function main() {
           css,
           js: shellJs + playerJs,
           extra: w.extra,
+          noindex: isUnlisted(v),
         }),
       );
     }
   }
 
   await writeFile(path.join(DIST, 'icon.svg'), ICON);
+  // Disallow each unlisted slug by name rather than by a prefix pattern: the ids
+  // are the contract with the admin portal's links, and a future admin video
+  // that does not happen to start with "admin-" must not quietly become
+  // crawlable because the pattern missed it.
+  const disallow = ordered.filter(isUnlisted).map((v) => `Disallow: /${v.id}\n`).join('');
   await writeFile(
     path.join(DIST, 'robots.txt'),
-    `User-agent: *\nAllow: /\nSitemap: ${ORIGIN}/sitemap.xml\n`,
+    `User-agent: *\nAllow: /\n${disallow}Sitemap: ${ORIGIN}/sitemap.xml\n`,
   );
   await writeFile(
     path.join(DIST, 'sitemap.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${['', ...ordered.map((v) => v.id)]
+${['', ...listed.map((v) => v.id)]
   .map((s) => `  <url><loc>${ORIGIN}${s ? `/${s}` : '/'}</loc></url>`)
   .join('\n')}
 </urlset>
