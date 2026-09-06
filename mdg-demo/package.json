@@ -13,7 +13,9 @@
     "upgrade": "remotion upgrade",
     "guide:media": "tsx scripts/build-guide-media.mts",
     "stills": "tsx scripts/stills.mts",
-    "broll": "tsx scripts/broll.mts"
+    "broll": "tsx scripts/broll.mts",
+    "media:push": "tsx scripts/media.mts",
+    "media:pull": "tsx scripts/media.mts --pull"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.200",
