@@ -1,7 +1,8 @@
 import 'dotenv/config';
 import { createSign } from 'node:crypto';
+import { createHash } from 'node:crypto';
 import { constants , readFileSync } from 'node:fs';
-import { access, mkdir, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { BROLL, brollPath } from '../src/marketing/broll';
@@ -13,9 +14,27 @@ import { BROLL, brollPath } from '../src/marketing/broll';
  *   npm run broll -- --force      # re-render everything
  *   npm run broll -- --only gate-arrival,pump-night
  *
- * Prompts live in `src/marketing/broll.ts`; this file only moves bytes. Existing
- * files are skipped, so adding a scene costs one image rather than fourteen —
- * the same contract as `npm run voice`.
+ * Prompts live in `src/marketing/broll.ts`; this file only moves bytes. Adding a
+ * scene costs one image rather than fourteen — the same contract as
+ * `npm run voice`, including how that contract decides what is stale.
+ *
+ * ── THE CACHE IS KEYED ON THE PROMPT ───────────────────────────────────────
+ *
+ * It used to skip whenever the PNG existed, which meant rewriting a shot's
+ * prompt changed nothing at all: the old photograph stayed and the new
+ * description was never sent. Silent, and the failure looks exactly like
+ * success.
+ *
+ * It matters more here than it does for the voiceover, because these images are
+ * NOT REPRODUCIBLE. Re-running a prompt returns a different photograph of a
+ * different forecourt, not the same one again — so "just regenerate it" is not
+ * a repair, and a shot that silently stopped matching its prompt cannot be
+ * quietly fixed later. `prompts.json` beside the images records the sha256 of
+ * the full text sent for each one, house style included, and a shot regenerates
+ * only when that text has actually moved.
+ *
+ * As with the voice: an existing image with no recorded hash is adopted and its
+ * hash written, so this costs nothing today and protects the next edit.
  *
  * ── AUTH ──────────────────────────────────────────────────────────────────
  * Vertex does not take an API key, and the AI-Studio-style key that looks like
@@ -153,6 +172,29 @@ async function generate(token: string, project: string, prompt: string): Promise
   return Buffer.from(part.inlineData.data, 'base64');
 }
 
+/** The hash of the exact text sent to the model, house style included. */
+function hashPrompt(text: string): string {
+  return createHash('sha256').update(text, 'utf8').digest('hex').slice(0, 32);
+}
+
+/** `public/broll/prompts.json` — shot id -> hash of the prompt that drew it. */
+type PromptManifest = Record<string, string>;
+
+async function readPrompts(dir: string): Promise<PromptManifest> {
+  try {
+    const parsed: unknown = JSON.parse(await readFile(path.join(dir, 'prompts.json'), 'utf8'));
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+    return parsed as PromptManifest;
+  } catch {
+    return {};
+  }
+}
+
+async function writePrompts(dir: string, m: PromptManifest): Promise<void> {
+  const sorted = Object.fromEntries(Object.entries(m).sort(([a], [b]) => (a < b ? -1 : 1)));
+  await writeFile(path.join(dir, 'prompts.json'), JSON.stringify(sorted, null, 2) + '\n');
+}
+
 async function main() {
   const key = loadKey();
   const token = await accessToken(key);
@@ -161,18 +203,38 @@ async function main() {
 
   console.log(`Model: ${MODEL}  ·  ${LOCATION}  ·  project ${key.project_id}\n`);
 
+  const prompts = await readPrompts(dir);
+  let promptsDirty = false;
+
   let made = 0;
   let skipped = 0;
+  let restated = 0;
+  let adopted = 0;
   let failed = 0;
 
   for (const s of BROLL) {
     if (ONLY && !ONLY.has(s.id)) continue;
     const abs = path.join(PUBLIC, brollPath(s.id));
+    const want = hashPrompt(s.prompt);
+    const have = prompts[s.id];
+
     if (!FORCE && (await exists(abs))) {
-      skipped++;
-      console.log(`  · skip  ${s.id}`);
-      continue;
+      if (have === want) {
+        skipped++;
+        console.log(`  · skip  ${s.id}`);
+        continue;
+      }
+      if (have === undefined) {
+        prompts[s.id] = want;
+        promptsDirty = true;
+        adopted++;
+        console.log(`  · adopt ${s.id}  (existing image, prompt recorded)`);
+        continue;
+      }
+      restated++;
+      console.log(`  ↻ ${s.id}  (prompt changed — redrawing)`);
     }
+
     process.stdout.write(`  ▸ ${s.id} … `);
     let saved = false;
     /* Four attempts with a growing wait. The quota window is per MINUTE, so the
@@ -183,6 +245,8 @@ async function main() {
       try {
         const buf = await generate(token, key.project_id, s.prompt);
         await writeFile(abs, buf);
+        prompts[s.id] = want;
+        promptsDirty = true;
         saved = true;
         made++;
         console.log(`ok (${Math.round(buf.length / 1024)} KB)`);
@@ -201,9 +265,24 @@ async function main() {
       }
     }
     await new Promise((r) => setTimeout(r, 1200));
+    // After each shot that actually cost something: an interrupted run must not
+    // redraw what it already paid for, and a redrawn photograph is a DIFFERENT
+    // photograph, so losing the record is not a wasted call, it is a changed film.
+    if (promptsDirty) {
+      await writePrompts(dir, prompts);
+      promptsDirty = false;
+    }
   }
 
-  console.log(`\nDone. ${made} generated, ${skipped} skipped, ${failed} failed.`);
+  // And once at the end, because the adopt and skip branches `continue` straight
+  // past the write above — which is exactly how the first version of this
+  // silently recorded nothing at all on a run where every image already existed.
+  if (promptsDirty) await writePrompts(dir, prompts);
+
+  console.log(
+    `\nDone. ${made} generated (${restated} because the prompt changed), ` +
+      `${skipped} unchanged, ${adopted} existing images adopted, ${failed} failed.`,
+  );
   if (failed > 0) process.exit(1);
 }
 
