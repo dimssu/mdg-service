@@ -5,6 +5,9 @@ import { loadFont as loadTiro } from '@remotion/google-fonts/TiroDevanagariHindi
 import * as React from 'react';
 import { Composition } from 'remotion';
 
+import { DECLARED } from './beats/catalog';
+import { BANDS } from './beats/layout';
+import { BeatVideo, makeBeatMetadata } from './beats/runtime';
 import { VIDEO_LANDSCAPE } from './components/landscapeChrome';
 import { makeCalculateMetadata, type TutorialProps } from './lib/calc';
 import { TUTORIAL_BY_ID } from './narration';
@@ -41,9 +44,48 @@ const defaults = (tutorialId: string): TutorialProps => ({
   hasAudio: [],
 });
 
+/**
+ * Every composition a declared video produces — one per language.
+ *
+ * The fourteen hand-written `<Composition>` blocks below stay exactly as they
+ * are. This adds a `.map()` beneath them, so the twelve shipped videos are
+ * untouched and a new declared video costs no entry here at all.
+ */
+function declaredCompositions() {
+  return DECLARED.flatMap((video) =>
+    (video.family === 'social' ? (['hi', 'en'] as const) : (['hi'] as const)).map((lang) => {
+      const bands = BANDS[video.family];
+      const compositionId =
+        video.family === 'social'
+          ? `${video.compositionId}${lang === 'hi' ? 'Hi' : 'En'}`
+          : video.compositionId;
+      return (
+        <Composition
+          key={compositionId}
+          id={compositionId}
+          component={BeatVideo}
+          durationInFrames={1}
+          fps={bands.fps}
+          width={bands.width}
+          height={bands.height}
+          defaultProps={{
+            videoId: video.id,
+            lang,
+            sceneFrames: [] as number[],
+            hasAudio: [] as boolean[],
+          }}
+          calculateMetadata={makeBeatMetadata(video, lang)}
+        />
+      );
+    }),
+  );
+}
+
 export function RemotionRoot() {
   return (
     <>
+      {declaredCompositions()}
+
       {/* ── MARKETING FILM ───────────────────────────────────────────────
           Portrait, like the dealer tutorials, because it is forwarded on
           WhatsApp and watched on a phone. Two cuts over identical visuals;

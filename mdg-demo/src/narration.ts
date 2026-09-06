@@ -13,6 +13,10 @@
  */
 
 // eslint-disable-next-line import/first -- see the note on TUTORIALS below.
+import { DECLARED } from './beats/catalog';
+// eslint-disable-next-line import/first
+import { tutorialsFor } from './beats/project';
+// eslint-disable-next-line import/first
 import { filmTutorial } from './marketing/film';
 // eslint-disable-next-line import/first
 import { film } from './marketing/script';
@@ -1064,9 +1068,21 @@ const adminManualShiftData: Tutorial = {
 const marketingHi = filmTutorial(film, 'hi');
 const marketingEn = filmTutorial(film, 'en');
 
+/**
+ * Videos described as DATA rather than as components (`src/beats/`).
+ *
+ * They join here, through exactly the same projection the marketing film uses:
+ * a richer authoring shape above, a plain `Tutorial` below, so `npm run voice`,
+ * `calculateMetadata`, `npm run render`, `npm run stills` and the guide site's
+ * chapter labels all work on them without knowing they exist. A bilingual one
+ * contributes two Tutorials, one per language, with distinct ids and durations.
+ */
+const declared = DECLARED.flatMap(tutorialsFor);
+
 export const TUTORIALS: Tutorial[] = [
   marketingHi,
   marketingEn,
+  ...declared,
   login,
   addWarrior,
   givePoints,

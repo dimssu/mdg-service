@@ -58,7 +58,22 @@ const abs = (u) => (/^https?:\/\//.test(u) ? u : ORIGIN + u);
  */
 const SECTIONS = {
   dealer: { label: 'sectionDealer', note: 'sectionDealerNote', numbered: true },
-  admin: { label: 'sectionAdmin', note: 'sectionAdminNote', numbered: false },
+  // Not numbered: these teach the trade, not the app, so there is no order to
+  // take them in and a "भाग 3" would promise a sequence that does not exist.
+  // `tag` is what goes in the numbering's place — and it must not be the team
+  // tag, which would label a video meant for anybody as internal.
+  public: {
+    label: 'sectionPublic',
+    note: 'sectionPublicNote',
+    numbered: false,
+    tag: 'publicTag',
+  },
+  admin: {
+    label: 'sectionAdmin',
+    note: 'sectionAdminNote',
+    numbered: false,
+    tag: 'teamTag',
+  },
 };
 
 const audienceOf = (v) => (SECTIONS[v.audience] ? v.audience : 'dealer');
@@ -210,7 +225,7 @@ function card(v, i, n, section, byId) {
   // the cards stay one visual family down the page.
   const eyebrow = section.numbered
     ? `<span class="eyebrow">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].step)} ${n + 1}</span>`).join('')}</span>`
-    : `<span class="eyebrow tag">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].teamTag)}</span>`).join('')}</span>`;
+    : `<span class="eyebrow tag">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l][section.tag ?? 'teamTag'])}</span>`).join('')}</span>`;
 
   // The chapter deep-link is a sibling of the card, not a child: a link inside
   // a link is invalid, and the whole card is already one.

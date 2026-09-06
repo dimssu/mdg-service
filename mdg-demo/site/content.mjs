@@ -35,7 +35,11 @@ export const UI = {
     sectionDealerNote: 'ऐप चलाना सीखिए — क्रम से देखिए।',
     sectionAdmin: 'एडमिन के लिए',
     sectionAdminNote: 'ये वीडियो MDG टीम के लिए हैं — डीलर को इनकी ज़रूरत नहीं।',
+    sectionPublic: 'पंप की जानकारी',
+    sectionPublicNote:
+      'पंप चलाने की बातें — ऐप से अलग। किसी को भी भेज सकते हैं।',
     teamTag: 'टीम',
+    publicTag: 'जानकारी',
     chapters: 'वीडियो में क्या-क्या है',
     download: 'फ़ोन में सेव करें',
     downloadHint: 'एक बार सेव कर लीजिए — फिर बिना इंटरनेट के भी देख सकते हैं।',
@@ -79,7 +83,11 @@ export const UI = {
     sectionDealerNote: 'Learn the app, one step at a time.',
     sectionAdmin: 'For the MDG team',
     sectionAdminNote: 'Internal walkthroughs — dealers do not need these.',
+    sectionPublic: 'Running a pump',
+    sectionPublicNote:
+      'How the trade works, nothing to do with the app. Share these with anyone.',
     teamTag: 'Team',
+    publicTag: 'Explainer',
     chapters: "What's in this video",
     download: 'Save to phone',
     downloadHint: 'Save it once and watch later without any internet.',
@@ -922,10 +930,84 @@ export const VIDEOS = [
       },
     },
   },
+  {
+    id: 'gen-dod-clock-hi',
+    audience: 'public',
+    keywords: [
+      'dod',
+      'credit',
+      'deposit',
+      'three days',
+      'due date',
+      'bank holiday',
+      'saturday',
+      'sunday',
+      'pad',
+      'balance',
+      'udhaar',
+      'jama',
+      'teen din',
+      'chhutti',
+      'उधार',
+      'जमा',
+      'तीन दिन',
+      'छुट्टी',
+      'बकाया',
+      'तारीख़',
+      'बैंक',
+    ],
+    hi: {
+      title: 'तीन दिन की गिनती',
+      subtitle: 'उधार लिया तेल — कब तक जमा करना है',
+      description:
+        'जिस दिन आपका खाता शून्य से नीचे जाता है, उसके बाद लिया गया तेल उधार हो जाता है — और उसे तीन दिन में जमा करना होता है। अगर तीसरा दिन रविवार या महीने का दूसरा-चौथा शनिवार पड़ जाए, तो तारीख़ आगे खिसक जाती है। यह वीडियो वही गिनती आसान शब्दों में समझाता है। ऐप की जानकारी नहीं — पंप चलाने की बात। किसी को भी भेज सकते हैं।',
+      chapters: {
+        hook: 'गिनती कब शुरू होती है',
+        balance: 'खाते में पैसा है, या नहीं',
+        three: 'तीन दिन',
+        holiday: 'कौन से दिन छुट्टी हैं',
+        worked: 'एक उदाहरण',
+        trap: 'याद कोई नहीं दिलाता',
+        mdg: 'MDG क्या करता है',
+        recap: 'दोहराइए',
+      },
+    },
+    en: {
+      title: 'The three-day clock',
+      subtitle: 'Fuel taken on credit, and the day it must be paid back',
+      description:
+        'The day your running balance goes below zero, fuel taken after that becomes credit — and credit has to be repaid within three days. If the third day falls on a Sunday, or the second or fourth Saturday of the month, the deadline rolls forward to the next working day. This explains that count in plain words. Nothing about the app; it is about running a pump, and it is meant to be forwarded. Hindi narration.',
+      chapters: {
+        hook: 'When the clock starts',
+        balance: 'Money in the account, or not',
+        three: 'Three days',
+        holiday: 'Which days count as holidays',
+        worked: 'A worked example',
+        trap: 'Nobody reminds you',
+        mdg: 'What MDG does',
+        recap: 'Recap',
+      },
+    },
+  },
 ];
 
-/** Videos are grouped into these, in this order. Anything without an `audience` is a dealer video. */
-export const AUDIENCES = ['dealer', 'admin'];
+/**
+ * Videos are grouped into these, in this order. Anything without an `audience`
+ * is a dealer video.
+ *
+ * `public` is the third audience and it is NOT a third kind of tutorial. Those
+ * videos teach the trade rather than the app — the three-day deposit clock, what
+ * a stock variation is made of, why a dip taken straight after a decant lies —
+ * and they are made to be forwarded to somebody who has never heard of us. They
+ * name MDG and say what we do, which is deliberate, but they never show a screen
+ * of ours and never explain how any of it is produced.
+ *
+ * They get their own section for a structural reason as well as an editorial
+ * one: the dealer course is numbered भाग 1…N and the README calls that numbering
+ * load-bearing, so a topic that is not a step in learning the app cannot be
+ * inserted into the middle of it.
+ */
+export const AUDIENCES = ['dealer', 'public', 'admin'];
 
 export const LANGS = ['hi', 'en'];
 export const DEFAULT_LANG = 'hi';
