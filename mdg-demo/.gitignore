@@ -9,3 +9,13 @@ out/
 public/audio/**/*.mp3
 public/audio/**/*.json
 .DS_Store
+
+# Static output of the guide site, and Vercel's local project link.
+site/dist/
+site/.vercel/
+
+# Generated B-roll photographs for the marketing film (~21 MB of PNG).
+# Regenerate with `npm run broll`, or restore the exact set from S3 — image
+# generation is not deterministic, so a regenerated shot is a DIFFERENT
+# photograph, not the same one again. Backed up under the guide media prefix.
+public/broll/

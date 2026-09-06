@@ -1,5 +1,7 @@
 import { loadFont as loadInter } from '@remotion/google-fonts/Inter';
 import { loadFont as loadDevanagari } from '@remotion/google-fonts/NotoSansDevanagari';
+import { loadFont as loadGrotesk } from '@remotion/google-fonts/SpaceGrotesk';
+import { loadFont as loadTiro } from '@remotion/google-fonts/TiroDevanagariHindi';
 import * as React from 'react';
 import { Composition } from 'remotion';
 
@@ -16,6 +18,7 @@ import { CreditMonitorPhotoVideo } from './videos/CreditMonitorPhotoVideo';
 import { CreditMonitorVideo } from './videos/CreditMonitorVideo';
 import { GivePointsVideo } from './videos/GivePointsVideo';
 import { LoginVideo } from './videos/LoginVideo';
+import { MarketingEnVideo, MarketingHiVideo } from './videos/MarketingVideo';
 import { PointsSystemVideo } from './videos/PointsSystemVideo';
 import { SplitPointsVideo } from './videos/SplitPointsVideo';
 import { StockVariationSheetVideo } from './videos/StockVariationSheetVideo';
@@ -27,6 +30,10 @@ loadDevanagari('normal', {
   weights: ['400', '500', '600', '700'],
   subsets: ['devanagari', 'latin'],
 });
+// The marketing film's brand faces: Space Grotesk for display type and figures,
+// Tiro Devanagari Hindi for the कवच mark alone. Both mirror mdg-landing.
+loadGrotesk('normal', { weights: ['400', '500', '600', '700'], subsets: ['latin'] });
+loadTiro('normal', { weights: ['400'], subsets: ['devanagari', 'latin'] });
 
 const defaults = (tutorialId: string): TutorialProps => ({
   tutorialId,
@@ -37,6 +44,32 @@ const defaults = (tutorialId: string): TutorialProps => ({
 export function RemotionRoot() {
   return (
     <>
+      {/* ── MARKETING FILM ───────────────────────────────────────────────
+          Portrait, like the dealer tutorials, because it is forwarded on
+          WhatsApp and watched on a phone. Two cuts over identical visuals;
+          each sizes itself to its own voiceover, so the Hindi and English
+          runtimes differ by a few seconds and that is expected. */}
+      <Composition
+        id={TUTORIAL_BY_ID['marketing-hi'].compositionId}
+        component={MarketingHiVideo}
+        durationInFrames={1}
+        fps={VIDEO.fps}
+        width={VIDEO.width}
+        height={VIDEO.height}
+        defaultProps={defaults('marketing-hi')}
+        calculateMetadata={makeCalculateMetadata(TUTORIAL_BY_ID['marketing-hi'])}
+      />
+      <Composition
+        id={TUTORIAL_BY_ID['marketing-en'].compositionId}
+        component={MarketingEnVideo}
+        durationInFrames={1}
+        fps={VIDEO.fps}
+        width={VIDEO.width}
+        height={VIDEO.height}
+        defaultProps={defaults('marketing-en')}
+        calculateMetadata={makeCalculateMetadata(TUTORIAL_BY_ID['marketing-en'])}
+      />
+
       <Composition
         id={TUTORIAL_BY_ID.login.compositionId}
         component={LoginVideo}
@@ -145,9 +178,7 @@ export function RemotionRoot() {
         width={VIDEO_LANDSCAPE.width}
         height={VIDEO_LANDSCAPE.height}
         defaultProps={defaults('admin-credit-dod-portal')}
-        calculateMetadata={makeCalculateMetadata(
-          TUTORIAL_BY_ID['admin-credit-dod-portal'],
-        )}
+        calculateMetadata={makeCalculateMetadata(TUTORIAL_BY_ID['admin-credit-dod-portal'])}
       />
       <Composition
         id={TUTORIAL_BY_ID['admin-dsr-receipts'].compositionId}

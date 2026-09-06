@@ -44,8 +44,21 @@ async function exists(p: string): Promise<boolean> {
   }
 }
 
-async function synthesize(text: string): Promise<Buffer> {
-  const url = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE}?output_format=${OUTPUT_FORMAT}`;
+/**
+ * The voice that reads one tutorial. Everything uses the default Hindi voice
+ * unless the tutorial names an environment variable holding another one — which
+ * only the English cut of the marketing film does. An override that is named but
+ * unset falls back rather than failing, so the English cut still records (in the
+ * multilingual Hindi voice) on a machine that has not set a second voice.
+ */
+function voiceFor(tutorial: { voiceEnv?: string }): string {
+  if (!tutorial.voiceEnv) return VOICE;
+  const override = process.env[tutorial.voiceEnv]?.trim();
+  return override ? override : VOICE;
+}
+
+async function synthesize(text: string, voice: string): Promise<Buffer> {
+  const url = `https://api.elevenlabs.io/v1/text-to-speech/${voice}?output_format=${OUTPUT_FORMAT}`;
   const res = await fetch(url, {
     method: 'POST',
     headers: {
@@ -78,7 +91,9 @@ async function main() {
   let failed = 0;
 
   for (const tutorial of TUTORIALS) {
-    console.log(`\n── ${tutorial.id} (${tutorial.scenes.length} scenes) ──`);
+    const voice = voiceFor(tutorial);
+    const voiceNote = voice === VOICE ? '' : `  · voice ${voice}`;
+    console.log(`\n── ${tutorial.id} (${tutorial.scenes.length} scenes)${voiceNote} ──`);
     await mkdir(path.join(PUBLIC, 'audio', tutorial.id), { recursive: true });
 
     for (const scene of tutorial.scenes) {
@@ -91,7 +106,7 @@ async function main() {
       }
       process.stdout.write(`  ♪ ${scene.id} … `);
       try {
-        const buf = await synthesize(scene.text);
+        const buf = await synthesize(scene.text, voice);
         await writeFile(abs, buf);
         made++;
         console.log(`ok (${Math.round(buf.length / 1024)} KB)`);

@@ -12,6 +12,11 @@
  * audience, and quotes the app's real button labels verbatim.
  */
 
+// eslint-disable-next-line import/first -- see the note on TUTORIALS below.
+import { filmTutorial } from './marketing/film';
+// eslint-disable-next-line import/first
+import { film } from './marketing/script';
+
 export interface Scene {
   /** Unique within a tutorial. Also the audio file name. */
   id: string;
@@ -33,6 +38,14 @@ export interface Tutorial {
   /** One-line Hindi subtitle. */
   subtitle: string;
   scenes: Scene[];
+  /**
+   * Name of an environment variable holding the ElevenLabs voice to read this
+   * tutorial, when it should not use the default Hindi voice. Only the English
+   * cut of the marketing film sets it; every tutorial leaves it undefined and
+   * gets `ELEVENLABS_VOICE_ID`. Falls back to the default when the named
+   * variable is empty, so an unset override is harmless rather than fatal.
+   */
+  voiceEnv?: string;
 }
 
 const login: Tutorial = {
@@ -825,7 +838,7 @@ const adminDsrReceipts: Tutorial = {
     {
       id: 'recap',
       step: 'recap',
-      text: "संक्षेप में — Receipts खोलिए, तारीख़ चुनिए, असली लीटर भरिए, Save receipts दबाइए, और फिर पीली पट्टी से Regenerate कीजिए। बस इतना ही। धन्यवाद!",
+      text: 'संक्षेप में — Receipts खोलिए, तारीख़ चुनिए, असली लीटर भरिए, Save receipts दबाइए, और फिर पीली पट्टी से Regenerate कीजिए। बस इतना ही। धन्यवाद!',
       estSeconds: 13,
     },
   ],
@@ -1028,13 +1041,32 @@ const adminManualShiftData: Tutorial = {
     {
       id: 'recap',
       step: 'recap',
-      text: "दोहराइए — दिन खोलिए, पंप भरिए, टैंक भरिए, टैंकर भरिए, Apply कीजिए, Generate कीजिए। हर दिन के लिए यही छह क़दम। कुछ अटके तो टीम से पूछ लीजिए। धन्यवाद!",
+      text: 'दोहराइए — दिन खोलिए, पंप भरिए, टैंक भरिए, टैंकर भरिए, Apply कीजिए, Generate कीजिए। हर दिन के लिए यही छह क़दम। कुछ अटके तो टीम से पूछ लीजिए। धन्यवाद!',
       estSeconds: 15,
     },
   ],
 };
 
+/**
+ * The two cuts of the marketing film, projected out of the bilingual script in
+ * `src/marketing/script.ts`.
+ *
+ * They are Tutorials only so that everything already built here works on them
+ * unchanged — `npm run voice` records both, `calculateMetadata` sizes both to
+ * their own voiceover, and `npm run render` exports both. They are NOT tutorials
+ * in any other sense: the audience is a dealer who has never heard of us, not
+ * one who is learning a screen.
+ *
+ * The import is at the foot of the file rather than the head because
+ * `marketing/film.ts` imports the `Tutorial` type from here; keeping the value
+ * import down here makes the one-way runtime direction obvious to a reader.
+ */
+const marketingHi = filmTutorial(film, 'hi');
+const marketingEn = filmTutorial(film, 'en');
+
 export const TUTORIALS: Tutorial[] = [
+  marketingHi,
+  marketingEn,
   login,
   addWarrior,
   givePoints,

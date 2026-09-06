@@ -52,7 +52,25 @@ mdg-admin-app/
 mdg-client/
 mdg-app/
 mdg-landing/
-mdg-demo/
+
+# NOT mdg-demo. Every directory above is a genuinely independent repository with
+# its own .git, cloned alongside this workspace. mdg-demo is not — it has no
+# .git and 153 of its files are tracked right here. Listing it as ignored was
+# therefore half-true in the worst possible way: git keeps honouring the files
+# already tracked, and silently swallows every NEW one. That is how the entire
+# marketing film (src/marketing/*, 8 files), the stock-variation video's own
+# component, and two build scripts came to exist on one laptop and nowhere else.
+# mdg-demo/.gitignore already excludes the things that genuinely should not be
+# committed — node_modules, out/, the generated voiceovers, .env — so the blanket
+# rule bought nothing and cost source code.
+
+# graphify knowledge graph (generated).
+# graph.json is ~7 MB and graph.html ~5 MB, and the post-commit hook rewrites
+# them on every commit, so committing them would bloat history fast. Rebuild
+# locally instead: graphify extract . --no-gitignore
+# (If this ever becomes a team workspace, graphify's docs recommend committing
+# graphify-out/ so everyone starts with a map — drop this block then.)
+graphify-out/
 
 # Misc
 *.tgz
