@@ -23,7 +23,7 @@
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://mdg-chat.s3.ap-south-1.amazonaws.com; media-src 'self' https://mdg-chat.s3.ap-south-1.amazonaws.com; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
         }
       ]
     }

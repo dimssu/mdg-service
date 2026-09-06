@@ -16,6 +16,39 @@ const DIST = path.join(ROOT, 'dist');
 const ORIGIN = 'https://guide.mdgservices.in';
 
 /**
+ * Where the video files are served from.
+ *
+ * Unset, every media URL stays exactly as `data/videos.json` writes it — a
+ * site-relative `/media/...` served by Vercel out of `public/`, which is how
+ * this has always worked and still works with no configuration.
+ *
+ * Set, the same paths are re-pointed at that base — in practice the public
+ * prefix on S3 (`npm run media:push` in mdg-demo prints the exact value). The
+ * media then leaves the git repository, which is the whole point: 125 MB for
+ * twelve videos becomes about half a gigabyte at seventy, in a repo whose
+ * entire history is 170 MB, and git keeps it forever even after a later delete.
+ *
+ * Only the base changes. The file names still carry a hash of their own bytes
+ * and are still served immutable for a year, so nothing about caching or
+ * invalidation is different — a re-render writes a new name wherever it lives.
+ */
+const MEDIA_BASE = (process.env.GUIDE_MEDIA_BASE ?? '').replace(/\/$/, '');
+
+/**
+ * Re-point one manifest URL at MEDIA_BASE, if there is one.
+ *
+ * The manifest stores `/media/<id>/<file>` and this swaps the `/media` prefix
+ * for the configured base. Deliberately a prefix swap and not a join: the id
+ * and file name are the manifest's business, and a base that already ends in
+ * `/media` (which is what media:push prints) then produces the right URL
+ * without either side having to know what the other appended.
+ */
+const media = (u) => (MEDIA_BASE && u.startsWith('/media/') ? MEDIA_BASE + u.slice(6) : u);
+
+/** A URL fit for og:image and other absolute contexts, wherever it now lives. */
+const abs = (u) => (/^https?:\/\//.test(u) ? u : ORIGIN + u);
+
+/**
  * How each audience is introduced, and whether its videos carry a step number.
  *
  * Only the dealer path is numbered. "भाग 1…6" is a promise that the videos are a
@@ -103,7 +136,7 @@ function page({ slug, title, description, ogImage, body, css, js, extra = '' }) 
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${canonical}">
-<meta property="og:image" content="${ORIGIN}${ogImage}">
+<meta property="og:image" content="${abs(ogImage)}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <script>${LANG_BOOT}</script>
@@ -407,7 +440,22 @@ async function main() {
   const css = squeeze(rawCss);
   const searchCss = squeeze(rawSearchCss);
 
-  const byId = Object.fromEntries(manifest.map((m) => [m.id, m]));
+  /*
+   * Re-point every media URL once, here, rather than at each of the eight places
+   * one is written into the HTML. Everything downstream — the card thumbnail, the
+   * player's three quality rungs, the poster, the OG card, the download link —
+   * keeps reading `m.src.low` and friends exactly as before and neither knows nor
+   * cares whether the bytes come from Vercel or from S3.
+   */
+  const rehost = (m) => ({
+    ...m,
+    src: Object.fromEntries(Object.entries(m.src).map(([rung, u]) => [rung, media(u)])),
+    poster: media(m.poster),
+    thumb: media(m.thumb),
+    og: media(m.og),
+  });
+
+  const byId = Object.fromEntries(manifest.map((m) => [m.id, rehost(m)]));
 
   /*
    * A content entry with no manifest row has copy but no video. That is normally a
