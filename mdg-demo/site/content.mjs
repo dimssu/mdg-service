@@ -66,6 +66,13 @@ export const UI = {
     shareText: 'Dealer Kavach — यह वीडियो देखिए:',
     shareCopied: 'लिंक कॉपी हो गया — अब चिपका दीजिए।',
     shareFailed: 'लिंक कॉपी नहीं हो पाया।',
+    resumeAt: 'आप यहाँ तक देख चुके हैं —',
+    resumeGo: 'वहीं से देखिए',
+    resumeRestart: 'शुरू से',
+    about: 'इस वीडियो के बारे में',
+    memoryNote: 'आपने क्या देखा, यह इसी फ़ोन में सेव रहता है।',
+    notFoundTitle: 'यह पन्ना नहीं मिला',
+    notFoundDesc: 'हो सकता है लिंक पुराना हो। नीचे से सारे वीडियो देख लीजिए।',
   },
   en: {
     brand: 'Dealer Kavach',
@@ -115,6 +122,13 @@ export const UI = {
     shareText: 'Dealer Kavach — watch this video:',
     shareCopied: 'Link copied — paste it anywhere.',
     shareFailed: "Couldn't copy the link.",
+    resumeAt: 'You got as far as',
+    resumeGo: 'Carry on',
+    resumeRestart: 'Start again',
+    about: 'About this video',
+    memoryNote: 'What you have watched is remembered on this phone only.',
+    notFoundTitle: "That page isn't here",
+    notFoundDesc: 'The link may be an old one. All the videos are below.',
   },
 };
 

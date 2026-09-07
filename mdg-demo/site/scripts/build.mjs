@@ -57,18 +57,20 @@ const abs = (u) => (/^https?:\/\//.test(u) ? u : ORIGIN + u);
  * "टीम / Team" tag rather than a place in someone else's sequence.
  */
 const SECTIONS = {
-  dealer: { label: 'sectionDealer', note: 'sectionDealerNote', numbered: true },
+  dealer: { key: 'dealer', label: 'sectionDealer', note: 'sectionDealerNote', numbered: true },
   // Not numbered: these teach the trade, not the app, so there is no order to
   // take them in and a "भाग 3" would promise a sequence that does not exist.
   // `tag` is what goes in the numbering's place — and it must not be the team
   // tag, which would label a video meant for anybody as internal.
   public: {
+    key: 'public',
     label: 'sectionPublic',
     note: 'sectionPublicNote',
     numbered: false,
     tag: 'publicTag',
   },
   admin: {
+    key: 'admin',
     label: 'sectionAdmin',
     note: 'sectionAdminNote',
     numbered: false,
@@ -135,7 +137,18 @@ const LANG_BOOT =
   `d.setAttribute('data-lang',l);d.setAttribute('lang',l);` +
   `}catch(e){}})();`;
 
-function page({ slug, title, description, ogImage, body, css, js, extra = '', noindex = false }) {
+function page({
+  slug,
+  title,
+  description,
+  ogImage,
+  body,
+  css,
+  js,
+  extra = '',
+  noindex = false,
+  bodyAttr = '',
+}) {
   const canonical = slug ? `${ORIGIN}/${slug}` : ORIGIN;
   return `<!doctype html>
 <html lang="${DEFAULT_LANG}" data-lang="${DEFAULT_LANG}" class="no-js">
@@ -157,7 +170,7 @@ function page({ slug, title, description, ogImage, body, css, js, extra = '', no
 <script>${LANG_BOOT}</script>
 <style>${css}</style>
 </head>
-<body>
+<body${bodyAttr ? ` ${bodyAttr}` : ''}>
 <div class="wrap">
 ${body}
 <footer>
@@ -229,7 +242,7 @@ function card(v, i, n, section, byId) {
 
   // The chapter deep-link is a sibling of the card, not a child: a link inside
   // a link is invalid, and the whole card is already one.
-  return `<li class="item" data-i="${i}">
+  return `<li class="item" data-i="${i}" data-id="${v.id}" data-sec="${audienceOf(v)}">
   <a class="card" href="/${v.id}">
     <span class="thumb${wide ? ' wide' : ''}">
       <img src="${m.thumb}" alt="" width="${box.width}" height="${box.height}" loading="lazy" decoding="async">
@@ -255,7 +268,7 @@ function dashboard(groups, videos, byId) {
   let i = 0;
   const cards = groups
     .map(({ section, items }) => {
-      const head = `<li class="sec">
+      const head = `<li class="sec" data-sec="${section.key}">
   ${bi('h2', (l) => UI[l][section.label])}
   ${bi('p', (l) => UI[l][section.note])}
 </li>`;
@@ -288,6 +301,8 @@ function dashboard(groups, videos, byId) {
     <span class="pill accent">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].hindiAudio)}</span>`).join('')}</span>
     <span class="pill" id="size">${mb(totalLow)}</span>
   </div>
+
+  <div class="resume-card js-only" id="resume-card" hidden></div>
 
   <ul class="list" id="list">
 ${cards}
@@ -365,9 +380,42 @@ function watch(v, siblings, byId) {
   </div>
   ${bi('p', (l) => UI[l].playHint, 'hint')}
 
+  <!-- Offered, never taken automatically. Being dropped into the middle of a
+       video you meant to restart is disorienting, and this audience is already
+       unsure it is doing things right. Hidden until the player finds a
+       position worth returning to. -->
+  <div class="resume js-only" id="resume" hidden>
+    <span class="resume-l">
+      ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].resumeAt)}</span>`).join('')}
+      <b id="resume-at"></b>
+    </span>
+    <span class="resume-b">
+      <button type="button" id="resume-go">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].resumeGo)}</span>`).join('')}</button>
+      <button type="button" id="resume-restart">${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].resumeRestart)}</span>`).join('')}</button>
+    </span>
+  </div>
+
   ${bi('h1', (l) => v[l].title, 'title')}
   ${bi('p', (l) => v[l].subtitle, 'sub')}
-  ${bi('p', (l) => v[l].description, 'desc')}
+
+  <!-- Chapters come BEFORE the prose now. Three stacked paragraphs and a share
+       panel used to sit between the player and the only control that answers
+       "where is the bit I need?" — which is the question somebody arriving from
+       a search or a WhatsApp link actually has. -->
+  <div class="panel">
+    <h3>${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].chapters)}</span>`).join('')}</h3>
+    <ul class="chapters">
+${chapters}
+    </ul>
+  </div>
+
+  <!-- The description is still in the HTML for search engines and for anyone who
+       wants it; it is simply no longer the third thing between a viewer and the
+       video. -->
+  <details class="about">
+    <summary>${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].about)}</span>`).join('')}</summary>
+    ${bi('p', (l) => v[l].description, 'desc')}
+  </details>
 
   <div class="panel share-panel" data-url="${ORIGIN}/${v.id}"
     ${LANGS.map((l) => `data-text-${l}="${esc(v[l].title)}"`).join(' ')}>
@@ -380,22 +428,11 @@ function watch(v, siblings, byId) {
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
         ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].copyLink)}</span>`).join('')}
       </button>
+      <a class="dl" id="dl" href="${m.src.low}" download="${v.id}.mp4">
+        <span aria-hidden="true">&darr;</span>
+        ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].download)}</span>`).join('')}
+      </a>
     </div>
-    <p class="url" id="url">${ORIGIN}/${v.id}</p>
-  </div>
-
-  <div class="panel">
-    <h3>${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].chapters)}</span>`).join('')}</h3>
-    <ul class="chapters">
-${chapters}
-    </ul>
-  </div>
-
-  <div class="panel">
-    <a class="dl" id="dl" href="${m.src.low}" download="${v.id}.mp4">
-      <span aria-hidden="true">&darr;</span>
-      ${LANGS.map((l) => `<span lang="${l}">${esc(UI[l].download)}</span>`).join('')}
-    </a>
     ${bi('p', (l) => UI[l].downloadHint, 'dl-hint')}
   </div>
 
@@ -435,14 +472,17 @@ const ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
 async function main() {
   // Each page gets only the script it actually runs. The search is ~9 kB of JS a
   // watch page would never execute, and on 2G that is not a rounding error.
-  const [rawCss, rawSearchCss, shellJs, searchJs, playerJs, manifest] = await Promise.all([
+  const [rawCss, rawSearchCss, shellJs, searchJs, playerJs, progressJs, dashJs, manifest] =
+    await Promise.all([
     readFile(path.join(ROOT, 'src/styles.css'), 'utf8'),
     readFile(path.join(ROOT, 'src/search.css'), 'utf8'),
     readFile(path.join(ROOT, 'src/shell.js'), 'utf8'),
     readFile(path.join(ROOT, 'src/search.js'), 'utf8'),
     readFile(path.join(ROOT, 'src/player.js'), 'utf8'),
+    readFile(path.join(ROOT, 'src/progress.js'), 'utf8'),
+    readFile(path.join(ROOT, 'src/dash.js'), 'utf8'),
     readFile(path.join(ROOT, 'data/videos.json'), 'utf8').then(JSON.parse),
-  ]);
+    ]);
 
   // Comments and indentation are the only safe things to strip without a real
   // parser, and compression flattens the rest anyway.
@@ -560,7 +600,7 @@ async function main() {
       ogImage: byId[listed[0].id].og,
       body: dash.body,
       css: css + '\n' + searchCss,
-      js: shellJs + searchJs,
+      js: shellJs + progressJs + searchJs + dashJs,
       extra: dash.extra,
     }),
   );
@@ -577,13 +617,42 @@ async function main() {
           ogImage: byId[v.id].og,
           body: w.body,
           css,
-          js: shellJs + playerJs,
+          js: shellJs + progressJs + playerJs,
           extra: w.extra,
           noindex: isUnlisted(v),
+          // The player writes progress against this id.
+          bodyAttr: `data-video="${v.id}"`,
         }),
       );
     }
   }
+
+  /*
+   * A 404, because video ids are URLs and URLs travel over WhatsApp.
+   *
+   * Renaming or retiring a video breaks links that are already in circulation,
+   * and until now those landed on whatever Vercel serves by default. The page is
+   * bilingual like every other, and it carries the full library rather than an
+   * apology — somebody who mistyped a link is one tap from what they wanted.
+   */
+  const nf = dashboard(listedGroups, listed, byId);
+  await writeFile(
+    path.join(DIST, '404.html'),
+    page({
+      slug: '',
+      title: `${UI.hi.notFoundTitle} · ${UI.hi.brand}`,
+      description: UI[DEFAULT_LANG].notFoundDesc,
+      ogImage: byId[listed[0].id].og,
+      noindex: true,
+      body: nf.body.replace(
+        '<main>',
+        `<main>\n  <div class="nf">${bi('h1', (l) => UI[l].notFoundTitle)}${bi('p', (l) => UI[l].notFoundDesc)}</div>`,
+      ),
+      css: css + '\n' + searchCss,
+      js: shellJs + progressJs + searchJs + dashJs,
+      extra: nf.extra,
+    }),
+  );
 
   await writeFile(path.join(DIST, 'icon.svg'), ICON);
   // Disallow each unlisted slug by name rather than by a prefix pattern: the ids
@@ -613,7 +682,10 @@ ${['', ...crawlable.map((v) => v.id)]
   );
   const kb = (s) => (s.length / 1024).toFixed(1);
   console.log(`  css: dashboard ${kb(css + searchCss)} kB, watch ${kb(css)} kB`);
-  console.log(`  js: dashboard ${kb(shellJs + searchJs)} kB, watch ${kb(shellJs + playerJs)} kB`);
+  console.log(
+    `  js: dashboard ${kb(shellJs + progressJs + searchJs + dashJs)} kB, ` +
+      `watch ${kb(shellJs + progressJs + playerJs)} kB`,
+  );
 }
 
 await main();

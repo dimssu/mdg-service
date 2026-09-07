@@ -37,6 +37,9 @@
   --brand: #18181b;
   --accent: #0f766e;
   --accent-soft: #ccfbf1;
+  /* "You have watched this." Its own token rather than the accent, because the
+     accent is a brand colour and this one has to mean done. */
+  --ok: #15803d;
   --radius: 14px;
   --shadow: 0 1px 2px rgb(15 23 42 / 6%), 0 4px 12px rgb(15 23 42 / 4%);
 }
@@ -615,6 +618,8 @@ footer {
     --brand: #fafaf9;
     --accent: #5eead4;
     --accent-soft: #134e4a;
+    /* The light green is unreadable on near-black; this is its dark-mode step. */
+    --ok: #4ade80;
     --shadow: none;
   }
 
@@ -629,6 +634,11 @@ footer {
     color: #0c0a09;
   }
 
+  .resume-a,
+  .resume-b button:first-child {
+    color: #0c0a09;
+  }
+
   .toast {
     background: #f5f5f4;
     color: #0c0a09;
@@ -637,4 +647,178 @@ footer {
   .pill.accent {
     color: var(--accent);
   }
+}
+
+/* ── what this phone remembers ─────────────────────────────────────────────
+   Everything below is drawn AFTER first paint from localStorage, so a phone
+   with no memory of the site — a first visit, a private window, a WebView with
+   site data off — shows the page exactly as it was before any of this existed,
+   with no gap where a feature should have been. */
+
+/* The "carry on" card, above the list. It is the only thing on the dashboard
+   that is about THIS reader rather than about the library, so it gets the one
+   filled surface on the page and nothing else competes with it. */
+.resume-card {
+  margin: 0 0 18px;
+}
+.resume-a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 12px;
+  align-items: center;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: var(--brand);
+  color: var(--bg);
+  text-decoration: none;
+}
+.resume-k {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+.resume-t {
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.3;
+}
+.resume-m {
+  font-size: 13px;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+.resume-a:active {
+  opacity: 0.9;
+}
+
+/* A finished video. Deliberately quiet: a tick, and the thumbnail steps back a
+   little. Anything louder would make a library of watched videos look like a
+   page of dismissed notifications. */
+.item.done .thumb {
+  opacity: 0.62;
+}
+.seen {
+  color: var(--ok);
+  font-weight: 600;
+}
+.seen::before {
+  content: '·';
+  margin: 0 6px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* "3/7" beside a section heading. */
+.sec-count {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  vertical-align: 2px;
+}
+
+/* The resume offer on a watch page. Sits directly under the player, because it
+   is about the thing immediately above it and nothing else. */
+.resume {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 10px 0 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+.resume-l {
+  font-size: 14px;
+  color: var(--muted);
+}
+.resume-l b {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  margin-left: 4px;
+}
+.resume-b {
+  display: flex;
+  gap: 8px;
+}
+.resume-b button {
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.resume-b button:first-child {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--bg);
+}
+
+/* The description, no longer the third thing between a reader and the video. */
+.about {
+  margin: 4px 0 16px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 4px 0;
+}
+.about > summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--muted);
+  list-style: none;
+}
+.about > summary::-webkit-details-marker {
+  display: none;
+}
+.about > summary::after {
+  content: '+';
+  margin-left: auto;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.about[open] > summary::after {
+  content: '−';
+}
+.about .desc {
+  margin: 0 0 12px;
+}
+
+/* The download link now sits in the share row rather than owning a panel. */
+.share-row .dl {
+  margin: 0;
+}
+
+/* 404. */
+.nf {
+  padding: 40px 0 24px;
+  text-align: center;
+}
+.nf h1 {
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+.nf p {
+  color: var(--muted);
+  margin: 0 0 20px;
 }

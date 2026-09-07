@@ -362,4 +362,61 @@
   // Deep link straight to a moment: /give-points#t=42
   var m = /(?:^|#)t=(\d+(?:\.\d+)?)/.exec(location.hash);
   if (m) seek(parseFloat(m[1]));
+
+  /* ---------------- progress, and the offer to carry on ----------------
+   *
+   * Written on a throttle rather than on every timeupdate (which fires four
+   * times a second), plus on pause and on visibilitychange. That last one is the
+   * case that actually matters here: a phone call arrives, the page is hidden,
+   * and on a cheap Android the tab may never get another event before it is
+   * evicted. Without it the most common way a dealer stops watching is the one
+   * way the site would fail to remember.
+   */
+  var P = window.dkProgress;
+  var vid = doc.body.getAttribute('data-video');
+  if (P && vid) {
+    var lastWrite = 0;
+    var save = function () {
+      if (!video.duration || !isFinite(video.duration)) return;
+      P.put(vid, video.currentTime, video.duration);
+    };
+    video.addEventListener('timeupdate', function () {
+      var now = Date.now();
+      if (now - lastWrite < 5000) return;
+      lastWrite = now;
+      save();
+    });
+    video.addEventListener('pause', save);
+    video.addEventListener('ended', save);
+    doc.addEventListener('visibilitychange', function () {
+      if (doc.visibilityState === 'hidden') save();
+    });
+
+    /* The resume offer. Never an automatic seek: being dropped into the middle
+     * of a video you meant to restart is disorienting, and the whole audience
+     * for this site is people who are not sure they are doing it right. Offered,
+     * dismissible, and only when there is a real amount left. */
+    var at = P.resumeAt(vid);
+    var bar = doc.getElementById('resume');
+    if (at > 0 && bar && !m) {
+      var mins = Math.floor(at / 60);
+      var secs = Math.round(at % 60);
+      var stamp = mins + ':' + (secs < 10 ? '0' : '') + secs;
+      var where = doc.getElementById('resume-at');
+      if (where) where.textContent = stamp;
+      bar.hidden = false;
+      var go = doc.getElementById('resume-go');
+      var from0 = doc.getElementById('resume-restart');
+      if (go)
+        go.addEventListener('click', function () {
+          bar.hidden = true;
+          seek(at);
+        });
+      if (from0)
+        from0.addEventListener('click', function () {
+          bar.hidden = true;
+          seek(0);
+        });
+    }
+  }
 })();

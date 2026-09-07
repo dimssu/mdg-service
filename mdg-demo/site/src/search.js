@@ -289,11 +289,33 @@
       });
     }
 
+    /*
+     * A trailing debounce, and the reason is measured rather than theoretical.
+     *
+     * `render` re-appends and re-highlights EVERY card on every call. Bound
+     * straight to `input`, a seven-letter Devanagari word — which on an Android
+     * keyboard is more keystrokes than letters — ran that whole pass a dozen
+     * times to show one result, on exactly the phones least able to afford it.
+     *
+     * 120ms is below the threshold where a person perceives the list as lagging
+     * behind their thumb, and above the interval between two fast keystrokes.
+     * Trailing rather than leading, because the useful render is the one after
+     * the last letter, not the one after the first.
+     */
+    var pending = null;
     input.addEventListener('input', function () {
-      render(input.value);
+      if (pending) clearTimeout(pending);
+      pending = setTimeout(function () {
+        pending = null;
+        render(input.value);
+      }, 120);
     });
 
     input.addEventListener('keydown', function (e) {
+      if (pending) {
+        clearTimeout(pending);
+        pending = null;
+      }
       if (e.key === 'Escape') {
         input.value = '';
         reset();
@@ -310,12 +332,20 @@
     });
 
     clearBtn.addEventListener('click', function () {
+      if (pending) {
+        clearTimeout(pending);
+        pending = null;
+      }
       input.value = '';
       reset();
       input.focus();
     });
 
     doc.getElementById('showall').addEventListener('click', function () {
+      if (pending) {
+        clearTimeout(pending);
+        pending = null;
+      }
       input.value = '';
       reset();
       input.focus();
