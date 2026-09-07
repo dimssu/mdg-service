@@ -1,9 +1,32 @@
-import { brand, FILM_BG_DARK, FONT_DISPLAY, FONT_SANS } from '../marketing/brand';
+import { brand, FONT_DISPLAY, FONT_SANS, PHOTOGRAPHS } from '../marketing/brand';
 import { admin as adminTokens } from '../screens/admin/tokens';
 import { colors, FONT_FAMILY } from '../theme';
 
 import type { Family } from './layout';
 import type { Tone } from './types';
+
+/**
+ * PHOTOGRAPHS ARE OFF.
+ *
+ * The social videos were first built the way the marketing film is built: a
+ * generated photograph behind every beat, under a four-stop scrim, with a slow
+ * camera push over it. The founder's instruction after seeing the first one was
+ * "remove the background images from the videos, keep it plain like it was
+ * before" — before meaning the rest of the library, which is flat light paper
+ * with the content on it and nothing behind.
+ *
+ * They were right, and the reason is worth writing down: the tutorials and the
+ * social videos are now one library on one page, and a viewer scrolling it
+ * should see one series rather than two products. A photograph also fights the
+ * thing it sits behind — a white card on a moving picture is legible, but it is
+ * never as legible as the same card on paper, and this audience is reading on a
+ * cheap phone in daylight.
+ *
+ * Flipping `PHOTOGRAPHS` back to true restores them everywhere, and the prompts,
+ * the images and the camera-move code are all still here — nothing was deleted.
+ * Every social video would need re-rendering, which is about a minute each.
+ */
+export { PHOTOGRAPHS } from '../marketing/brand';
 
 /**
  * What each family looks like — and why they are three deliberate products
@@ -44,6 +67,18 @@ export interface FamilyTokens {
   captionInk: string;
   /** Meaning colours. See the note on `Tone` in types.ts: colour follows meaning. */
   tone: Record<Tone, { fg: string; bg: string }>;
+  /**
+   * The family's accent, in two weights.
+   *
+   * `accent` is for FILLS — a progress bar, a rule, a numbered chip — where the
+   * colour is the shape and contrast against the paper does not have to carry
+   * meaning. `accentInk` is for TYPE, and on the social family the two differ:
+   * the brand's gold (#F5A524) on near-white paper is about 1.9:1, which is not
+   * a contrast ratio, it is a suggestion. Its darker step reads properly and is
+   * the same colour family.
+   */
+  accent: string;
+  accentInk: string;
   /** The corner mark's opacity in the top strip. */
   markOpacity: number;
   /** Whether a photograph sits behind every beat. */
@@ -62,6 +97,8 @@ const dealer: FamilyTokens = {
   display: FONT_FAMILY,
   body: FONT_FAMILY,
   captionInk: colors.text,
+  accent: colors.brand,
+  accentInk: colors.brand,
   tone: {
     neutral: { fg: colors.textMuted, bg: colors.surface2 },
     good: { fg: colors.success, bg: colors.successSoft },
@@ -84,6 +121,8 @@ const admin: FamilyTokens = {
   display: FONT_FAMILY,
   body: FONT_FAMILY,
   captionInk: colors.text,
+  accent: adminTokens.brand,
+  accentInk: adminTokens.brand,
   // The portal already ships every one of these as a semantic pair, so the
   // admin videos borrow the real thing rather than approximating it — a chip in
   // a walkthrough is the same green as the chip on the screen it is explaining.
@@ -99,16 +138,26 @@ const admin: FamilyTokens = {
   bilingual: false,
 };
 
+/**
+ * Social: portrait, plain, light — the same paper the rest of the library is on.
+ *
+ * It keeps two things of its own so it is not simply the dealer family with
+ * different words: the display face (Space Grotesk, the brand's) for headlines
+ * and figures, and gold as its accent. That is enough to read as its own thing
+ * beside a phone tutorial without becoming a second visual language.
+ */
 const social: FamilyTokens = {
-  bg: FILM_BG_DARK,
-  ink: '#FFFFFF',
-  inkSoft: 'rgba(255,255,255,.78)',
-  inkFaint: 'rgba(255,255,255,.55)',
+  bg: `radial-gradient(120% 80% at 50% 0%, #ffffff 0%, ${brand.paper} 42%, ${brand.paperSunk} 100%)`,
+  ink: brand.ink,
+  inkSoft: brand.inkSoft,
+  inkFaint: brand.inkMuted,
   surface: '#FFFFFF',
-  hairline: 'rgba(255,255,255,.16)',
+  hairline: brand.hairline,
   display: FONT_DISPLAY,
   body: FONT_SANS,
-  captionInk: '#FFFFFF',
+  captionInk: brand.ink,
+  accent: brand.gold400,
+  accentInk: brand.gold600,
   tone: {
     neutral: { fg: brand.inkMuted, bg: brand.paperWarm },
     good: { fg: brand.ok, bg: brand.okTint },
@@ -116,8 +165,8 @@ const social: FamilyTokens = {
     warn: { fg: brand.gold600, bg: brand.gold50 },
     brand: { fg: brand.navy700, bg: brand.navy50 },
   },
-  markOpacity: 0.7,
-  broll: true,
+  markOpacity: 0.6,
+  broll: PHOTOGRAPHS,
   bilingual: true,
 };
 

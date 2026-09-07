@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import type { Lang } from '../marketing/film';
 
-import { FAMILY, toneOf } from './families';
+import { FAMILY, PHOTOGRAPHS, toneOf } from './families';
 import { BANDS } from './layout';
 import { countProgress, densityScale, enterDirection, rise, stagger } from './motion';
 import {
@@ -71,14 +71,17 @@ function Sheet({
   style?: React.CSSProperties;
 }) {
   const f = FAMILY[a.family];
-  const onPhoto = a.family === 'social';
+  // A card floating on a photograph needs a heavy shadow to separate itself from
+  // it. A card on paper does not — there it reads as a bruise, and a hairline
+  // does the same job for nothing.
+  const onPhoto = PHOTOGRAPHS && f.broll;
   return (
     <div
       style={{
         borderRadius: onPhoto ? 28 : 22,
         padding: pad,
-        background: onPhoto ? '#FFFFFF' : f.surface,
-        color: onPhoto ? '#15163A' : f.ink,
+        background: f.surface,
+        color: f.ink,
         border: onPhoto ? 'none' : `1px solid ${f.hairline}`,
         boxShadow: onPhoto
           ? '0 2px 4px rgba(16,17,51,.06), 0 24px 48px -20px rgba(16,17,51,.28)'
@@ -120,7 +123,7 @@ export function TitleBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: 
               fontWeight: 700,
               letterSpacing: '.14em',
               textTransform: 'uppercase',
-              color: a.family === 'social' ? '#F5A524' : f.inkFaint,
+              color: a.family === 'social' ? f.accentInk : f.inkFaint,
             }}
           >
             {pick(b.eyebrow, a.lang)}
@@ -154,7 +157,7 @@ export function TitleBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: 
             height: 6,
             width: 120,
             borderRadius: 999,
-            background: a.family === 'social' ? '#F5A524' : toneOf(a.family, 'brand').fg,
+            background: f.accent,
           }}
         />
       </Rise>
@@ -175,7 +178,7 @@ export function ChapterBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind
             fontSize: 140,
             fontWeight: 700,
             lineHeight: 1,
-            color: a.family === 'social' ? '#F5A524' : toneOf(a.family, 'brand').fg,
+            color: a.family === 'social' ? f.accentInk : toneOf(a.family, 'brand').fg,
           }}
         >
           {b.n}
@@ -333,7 +336,7 @@ export function ClaimBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: 
           </div>
         </Rise>
         <Rise a={a} delay={6}>
-          <div style={{ fontFamily: f.body, fontSize: 38, fontWeight: 600, color: '#15163A' }}>
+          <div style={{ fontFamily: f.body, fontSize: 38, fontWeight: 600, color: f.ink }}>
             {pick(b.label, a.lang)}
           </div>
         </Rise>
@@ -361,7 +364,7 @@ export function ClaimBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: 
         ) : null}
         {b.note ? (
           <Rise a={a} delay={14}>
-            <div style={{ fontFamily: f.body, fontSize: 28, color: '#6B6D93' }}>
+            <div style={{ fontFamily: f.body, fontSize: 28, color: f.inkFaint }}>
               {pick(b.note, a.lang)}
             </div>
           </Rise>
@@ -414,7 +417,7 @@ function SideCard({ a, s, delay }: { a: Args; s: Side; delay: number }) {
               fontFamily: f.body,
               fontSize: 28,
               lineHeight: 1.4,
-              color: '#3D3F66',
+              color: f.inkSoft,
               paddingTop: i ? 10 : 0,
             }}
           >
@@ -422,7 +425,7 @@ function SideCard({ a, s, delay }: { a: Args; s: Side; delay: number }) {
           </div>
         ))}
         {s.note ? (
-          <div style={{ fontFamily: f.body, fontSize: 24, color: '#6B6D93', marginTop: 14 }}>
+          <div style={{ fontFamily: f.body, fontSize: 24, color: f.inkFaint, marginTop: 14 }}>
             {pick(s.note, a.lang)}
           </div>
         ) : null}
@@ -544,7 +547,7 @@ export function ListBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: '
                         fontSize: 30 * scale,
                         fontWeight: 600,
                         lineHeight: 1.3,
-                        color: '#15163A',
+                        color: f.ink,
                       }}
                     >
                       {pick(it.text, a.lang)}
@@ -554,7 +557,7 @@ export function ListBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: '
                         style={{
                           fontFamily: f.body,
                           fontSize: 24,
-                          color: '#6B6D93',
+                          color: f.inkFaint,
                           marginTop: 4,
                         }}
                       >
@@ -614,7 +617,7 @@ export function FlowBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: '
                       fontFamily: f.body,
                       fontSize: 30,
                       fontWeight: 700,
-                      color: '#15163A',
+                      color: f.ink,
                     }}
                   >
                     {pick(s.title, a.lang)}
@@ -626,7 +629,7 @@ export function FlowBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: '
                       fontFamily: f.body,
                       fontSize: 26,
                       lineHeight: 1.35,
-                      color: '#3D3F66',
+                      color: f.inkSoft,
                       marginTop: 6,
                     }}
                   >
@@ -691,8 +694,8 @@ export function PhotoBlockView({ a, b }: { a: Args; b: PhotoBlock }) {
               fontWeight: 700,
               lineHeight: 1.15,
               letterSpacing: '-0.02em',
-              color: '#FFFFFF',
-              textShadow: '0 2px 24px rgba(16,17,51,.55)',
+              color: PHOTOGRAPHS ? '#FFFFFF' : f.ink,
+              textShadow: PHOTOGRAPHS ? '0 2px 24px rgba(16,17,51,.55)' : undefined,
             }}
           >
             {pick(b.headline, a.lang)}
@@ -711,9 +714,9 @@ export function PhotoBlockView({ a, b }: { a: Args; b: PhotoBlock }) {
                   fontFamily: f.body,
                   fontSize: 27,
                   fontWeight: 600,
-                  background: 'rgba(255,255,255,.10)',
-                  border: '1px solid rgba(255,255,255,.22)',
-                  color: '#FFFFFF',
+                  background: PHOTOGRAPHS ? 'rgba(255,255,255,.10)' : f.surface,
+                  border: `1px solid ${PHOTOGRAPHS ? 'rgba(255,255,255,.22)' : f.hairline}`,
+                  color: PHOTOGRAPHS ? '#FFFFFF' : f.ink,
                 }}
               >
                 {pick(c, a.lang)}
@@ -749,7 +752,7 @@ export function WrongBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: 
               fontSize: 56,
               fontWeight: 700,
               lineHeight: 1.15,
-              color: a.family === 'social' ? '#FFFFFF' : t.fg,
+              color: t.fg,
             }}
           >
             {pick(b.headline, a.lang)}
@@ -759,7 +762,7 @@ export function WrongBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: 
       <Rise a={a} delay={6}>
         <Sheet a={a} pad={30} style={{ borderTop: `6px solid ${t.fg}` }}>
           {b.body ? (
-            <div style={{ fontFamily: f.body, fontSize: 30, lineHeight: 1.4, color: '#15163A' }}>
+            <div style={{ fontFamily: f.body, fontSize: 30, lineHeight: 1.4, color: f.ink }}>
               {pick(b.body, a.lang)}
             </div>
           ) : null}
@@ -774,9 +777,9 @@ export function WrongBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: 
                     fontFamily: f.body,
                     fontSize: 25,
                     fontWeight: 600,
-                    color: s.missing ? t.fg : '#3D3F66',
+                    color: s.missing ? t.fg : f.inkSoft,
                     background: s.missing ? t.bg : 'transparent',
-                    border: s.missing ? `2px dashed ${t.fg}` : '2px solid #E4E6F1',
+                    border: s.missing ? `2px dashed ${t.fg}` : `2px solid ${f.hairline}`,
                   }}
                 >
                   {pick(s.label, a.lang)}
@@ -789,7 +792,7 @@ export function WrongBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: 
               <div style={{ fontFamily: f.display, fontSize: 62, fontWeight: 700, color: t.fg }}>
                 {pick(b.cost.figure, a.lang)}
               </div>
-              <div style={{ fontFamily: f.body, fontSize: 26, color: '#6B6D93' }}>
+              <div style={{ fontFamily: f.body, fontSize: 26, color: f.inkFaint }}>
                 {pick(b.cost.label, a.lang)}
               </div>
             </div>
@@ -812,6 +815,7 @@ export function WrongBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: 
 export function RecapBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: 'recap' }> }) {
   const f = FAMILY[a.family];
   const t = toneOf(a.family, 'brand');
+  const accent = a.family === 'social' ? f.accent : t.fg;
   return (
     <Stack gap={16}>
       {b.steps.map((s, i) => (
@@ -823,7 +827,11 @@ export function RecapBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: 
                 height: 46,
                 flex: 'none',
                 borderRadius: 999,
-                background: a.family === 'social' ? '#F5A524' : t.fg,
+                // Gold is a light ground and needs dark type on it; the other
+                // families' brand colour is dark and needs light type. Reading
+                // it off the accent rather than off the family name means a
+                // palette change cannot leave this unreadable.
+                background: accent,
                 color: a.family === 'social' ? '#101133' : '#FFFFFF',
                 display: 'flex',
                 alignItems: 'center',
@@ -856,7 +864,7 @@ export function RecapBlock({ a, b }: { a: Args; b: Extract<CommonBlock, { kind: 
               fontFamily: f.display,
               fontSize: 38,
               fontWeight: 700,
-              color: a.family === 'social' ? '#F5A524' : f.ink,
+              color: a.family === 'social' ? f.accentInk : f.ink,
               marginTop: 10,
             }}
           >

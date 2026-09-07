@@ -12,6 +12,7 @@ import {
   FONT_DISPLAY,
   FONT_SANS,
   LAYOUT,
+  PHOTOGRAPHS,
   STAGE_H,
 } from './brand';
 import { BROLL_BY_ID, brollPath } from './broll';
@@ -385,7 +386,7 @@ export function FilmFrame({
 
   return (
     <AbsoluteFill style={{ fontFamily: FONT_SANS, background: FILM_BG_DARK }}>
-      {broll ? (
+      {PHOTOGRAPHS && broll ? (
         <BRollLayer
           id={broll}
           local={captionLocal}

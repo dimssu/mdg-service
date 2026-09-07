@@ -8,6 +8,24 @@
  * in motion, so it takes the brochure's navy and gold.
  */
 
+/**
+ * Whether a generated photograph sits behind every beat.
+ *
+ * OFF, on the founder's instruction after seeing the first social video:
+ * "remove the background images from the videos, keep it plain like it was
+ * before". The library is one page now, and a viewer scrolling it should see one
+ * series rather than two products — and a white card on paper is simply more
+ * legible than the same card on a moving picture, which matters on a cheap phone
+ * in daylight.
+ *
+ * Nothing was deleted to do this. The prompts in `broll.ts`, the fourteen images
+ * and `BRollLayer`'s camera moves and scrim are all still here, and the film
+ * already had a fallback for a scene with no photograph — a soft gold bloom —
+ * so turning them off returns it to the look it had before August. Flip this to
+ * true and re-render to bring them back; it is about a minute a video.
+ */
+export const PHOTOGRAPHS = false;
+
 export const brand = {
   /* ── Brand indigo / navy (primary). Brand mark = navy700 ── */
   navy50: '#F1F2FB',

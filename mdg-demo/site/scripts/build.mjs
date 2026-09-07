@@ -506,12 +506,17 @@ async function main() {
    * actually done. A guide video is a worse leak than a screenshot, because it
    * is a narrated walkthrough with the reasoning attached.
    *
-   * So an admin video is now UNLISTED, in the sense an unlisted video usually
-   * means: its page is still built and still answers on its own URL, because the
-   * admin portal's "How this works" buttons link straight to it and an ops
-   * person needs it to work. But it is absent from the dashboard, absent from
-   * the search index, absent from the sitemap, disallowed in robots.txt and
-   * marked noindex.
+   * So an admin video is UNLISTED IN THE SEARCH-ENGINE SENSE: absent from the
+   * sitemap, disallowed in robots.txt, and marked noindex — while its page is
+   * still built and it is still ON THE DASHBOARD, in its own clearly labelled
+   * team section.
+   *
+   * It was originally hidden from the dashboard too, and that went too far: the
+   * ops team it is FOR then had no way to browse their own videos, which the
+   * founder noticed straight away ("Why cant I see all the videos there"). The
+   * exposure being closed here is the crawler, not the colleague — a person who
+   * opens the site is not the threat, and the section heading already tells a
+   * dealer these are not for them.
    *
    * BE HONEST ABOUT WHAT THIS IS. Unlisted is discoverability control, not
    * access control. Anyone who knows or guesses the slug still gets the video.
@@ -529,11 +534,17 @@ async function main() {
   })).filter((g) => g.items.length);
   const ordered = groups.flatMap((g) => g.items);
 
-  /* What the public dashboard and its search index are allowed to know about. */
-  const listedGroups = groups
-    .map((g) => ({ ...g, items: g.items.filter((v) => !isUnlisted(v)) }))
-    .filter((g) => g.items.length);
-  const listed = listedGroups.flatMap((g) => g.items);
+  /*
+   * The dashboard and its search index show EVERYTHING. What `isUnlisted`
+   * governs is only what a crawler is told about: the sitemap, robots.txt and
+   * the per-page noindex, below.
+   */
+  const listedGroups = groups;
+  const listed = ordered;
+
+  /* What a CRAWLER is allowed to know about. The dashboard shows everything;
+     this is the only list the sitemap is built from. */
+  const crawlable = ordered.filter((v) => !isUnlisted(v));
 
   await rm(DIST, { recursive: true, force: true });
   await mkdir(DIST, { recursive: true });
@@ -588,7 +599,7 @@ async function main() {
     path.join(DIST, 'sitemap.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${['', ...listed.map((v) => v.id)]
+${['', ...crawlable.map((v) => v.id)]
   .map((s) => `  <url><loc>${ORIGIN}${s ? `/${s}` : '/'}</loc></url>`)
   .join('\n')}
 </urlset>

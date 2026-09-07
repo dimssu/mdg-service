@@ -1,23 +1,187 @@
 [
   {
+    "id": "marketing-hi",
+    "duration": 101,
+    "orientation": "portrait",
+    "width": 1080,
+    "height": 1920,
+    "sizes": {
+      "tiny": 984480,
+      "low": 1440438,
+      "high": 4126689
+    },
+    "src": {
+      "tiny": "/media/marketing-hi/tiny.2f71640c.mp4",
+      "low": "/media/marketing-hi/low.97bf7d20.mp4",
+      "high": "/media/marketing-hi/high.1ae9ac6d.mp4"
+    },
+    "poster": "/media/marketing-hi/poster.46b19c2e.webp",
+    "thumb": "/media/marketing-hi/thumb.a3be8523.webp",
+    "og": "/media/marketing-hi/og.750cff39.jpg",
+    "chapters": [
+      {
+        "id": "gate-not-ready",
+        "start": 0
+      },
+      {
+        "id": "one-wrong-figure",
+        "start": 4.4
+      },
+      {
+        "id": "photo-on-whatsapp",
+        "start": 10.7
+      },
+      {
+        "id": "anyone-can-copy",
+        "start": 17.8
+      },
+      {
+        "id": "this-is-kavach",
+        "start": 25.3
+      },
+      {
+        "id": "forty-five-items",
+        "start": 32.7
+      },
+      {
+        "id": "records-ready",
+        "start": 40.6
+      },
+      {
+        "id": "stock-and-density",
+        "start": 47.8
+      },
+      {
+        "id": "twenty-two-dates",
+        "start": 54.5
+      },
+      {
+        "id": "sunday-night",
+        "start": 61.1
+      },
+      {
+        "id": "dod-by-morning",
+        "start": 69.3
+      },
+      {
+        "id": "credit-and-dod",
+        "start": 75.5
+      },
+      {
+        "id": "one-phone-call",
+        "start": 81.9
+      },
+      {
+        "id": "not-a-minute",
+        "start": 90.2
+      },
+      {
+        "id": "nine-to-nine",
+        "start": 94.6
+      }
+    ]
+  },
+  {
+    "id": "marketing-en",
+    "duration": 95,
+    "orientation": "portrait",
+    "width": 1080,
+    "height": 1920,
+    "sizes": {
+      "tiny": 994307,
+      "low": 1459166,
+      "high": 4268258
+    },
+    "src": {
+      "tiny": "/media/marketing-en/tiny.ac721fa3.mp4",
+      "low": "/media/marketing-en/low.e39264c1.mp4",
+      "high": "/media/marketing-en/high.9e719ff3.mp4"
+    },
+    "poster": "/media/marketing-en/poster.078fef39.webp",
+    "thumb": "/media/marketing-en/thumb.2884eb29.webp",
+    "og": "/media/marketing-en/og.95528426.jpg",
+    "chapters": [
+      {
+        "id": "gate-not-ready",
+        "start": 0
+      },
+      {
+        "id": "one-wrong-figure",
+        "start": 3.7
+      },
+      {
+        "id": "photo-on-whatsapp",
+        "start": 7.6
+      },
+      {
+        "id": "anyone-can-copy",
+        "start": 13.5
+      },
+      {
+        "id": "this-is-kavach",
+        "start": 20.3
+      },
+      {
+        "id": "forty-five-items",
+        "start": 27.6
+      },
+      {
+        "id": "records-ready",
+        "start": 34.2
+      },
+      {
+        "id": "stock-and-density",
+        "start": 40.9
+      },
+      {
+        "id": "twenty-two-dates",
+        "start": 48.1
+      },
+      {
+        "id": "sunday-night",
+        "start": 54.1
+      },
+      {
+        "id": "dod-by-morning",
+        "start": 60.3
+      },
+      {
+        "id": "credit-and-dod",
+        "start": 67.7
+      },
+      {
+        "id": "one-phone-call",
+        "start": 75.1
+      },
+      {
+        "id": "not-a-minute",
+        "start": 82.5
+      },
+      {
+        "id": "nine-to-nine",
+        "start": 88.6
+      }
+    ]
+  },
+  {
     "id": "gen-dod-clock-hi",
     "duration": 44,
     "orientation": "portrait",
     "width": 1080,
     "height": 1920,
     "sizes": {
-      "tiny": 490832,
-      "low": 716542,
-      "high": 2483163
+      "tiny": 299678,
+      "low": 434841,
+      "high": 1034611
     },
     "src": {
-      "tiny": "/media/gen-dod-clock-hi/tiny.6398a472.mp4",
-      "low": "/media/gen-dod-clock-hi/low.059f1609.mp4",
-      "high": "/media/gen-dod-clock-hi/high.5e19056e.mp4"
+      "tiny": "/media/gen-dod-clock-hi/tiny.96db13aa.mp4",
+      "low": "/media/gen-dod-clock-hi/low.40926020.mp4",
+      "high": "/media/gen-dod-clock-hi/high.603846b4.mp4"
     },
-    "poster": "/media/gen-dod-clock-hi/poster.08e08194.webp",
-    "thumb": "/media/gen-dod-clock-hi/thumb.b905f1d7.webp",
-    "og": "/media/gen-dod-clock-hi/og.fa7525df.jpg",
+    "poster": "/media/gen-dod-clock-hi/poster.1069d2ca.webp",
+    "thumb": "/media/gen-dod-clock-hi/thumb.c569db40.webp",
+    "og": "/media/gen-dod-clock-hi/og.88cb3572.jpg",
     "chapters": [
       {
         "id": "hook",
@@ -60,18 +224,18 @@
     "width": 1080,
     "height": 1920,
     "sizes": {
-      "tiny": 448729,
-      "low": 622485,
-      "high": 2179603
+      "tiny": 268061,
+      "low": 388829,
+      "high": 969784
     },
     "src": {
-      "tiny": "/media/gen-dod-clock-en/tiny.fdd12a3e.mp4",
-      "low": "/media/gen-dod-clock-en/low.62121654.mp4",
-      "high": "/media/gen-dod-clock-en/high.20040c9c.mp4"
+      "tiny": "/media/gen-dod-clock-en/tiny.ede6cc80.mp4",
+      "low": "/media/gen-dod-clock-en/low.86db8ca8.mp4",
+      "high": "/media/gen-dod-clock-en/high.89ccbe3d.mp4"
     },
-    "poster": "/media/gen-dod-clock-en/poster.1d58a65e.webp",
-    "thumb": "/media/gen-dod-clock-en/thumb.bc1c6e86.webp",
-    "og": "/media/gen-dod-clock-en/og.4c3f5295.jpg",
+    "poster": "/media/gen-dod-clock-en/poster.88c62bf1.webp",
+    "thumb": "/media/gen-dod-clock-en/thumb.d72f2d6f.webp",
+    "og": "/media/gen-dod-clock-en/og.51d4e15e.jpg",
     "chapters": [
       {
         "id": "hook",

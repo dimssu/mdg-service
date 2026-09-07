@@ -65,7 +65,7 @@ function Strip({
 }) {
   const b = BANDS[family];
   const f = FAMILY[family];
-  const accent = family === 'social' ? '#F5A524' : f.ink;
+  const accent = f.accent;
   return (
     <div
       style={{
@@ -88,7 +88,7 @@ function Strip({
               flex: 1,
               height: 5,
               borderRadius: 999,
-              background: family === 'social' ? 'rgba(255,255,255,.18)' : f.hairline,
+              background: f.hairline,
               overflow: 'hidden',
             }}
           >
@@ -162,7 +162,9 @@ function Caption({
           lineHeight: 1.35,
           fontWeight: 600,
           color: f.captionInk,
-          textShadow: family === 'social' ? '0 2px 18px rgba(16,17,51,.5)' : undefined,
+          // A shadow only earns its place over a photograph. On paper it is
+          // just a smudge under the text.
+          textShadow: f.broll ? '0 2px 18px rgba(16,17,51,.5)' : undefined,
         }}
       >
         {text}
