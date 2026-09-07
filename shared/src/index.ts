@@ -23,6 +23,7 @@ export * from './iras/dayPlan';
 export * from './iras/slip';
 export * from './iras/decant';
 export * from './iras/dayState';
+export * from './iras/tankCalibration';
 export * from './dealer/code';
 // What an audit row points at and which screen opens it. Shared because the
 // server has to know which entities are dealer-keyed before it can batch a
