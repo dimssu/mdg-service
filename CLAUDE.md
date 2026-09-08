@@ -11,19 +11,36 @@ Rules:
 
 ## Deploying the backend
 
-**Never compile on the production box.** `npm run build` asks Node for 1,536 MB
-of heap and the box is a 908 MB instance, so a build there only ever succeeds by
-swapping: it takes around half an hour and dies whenever anything else needs
-memory. On 5 Sep 2026 it was OOM-killed mid-deploy, and the failure was worse
-than a failure — the kill took the parent, `tsc` survived as an orphan holding
-464 MB, and every retry then failed for a reason that looked unrelated. If a
-build on the box has already failed, check for a stray `tsc` before retrying:
-`ps -eo pid,rss,args | grep [t]sc`.
+**The box can compile again, but only just.** It was a 908 MB instance and a
+build there only ever succeeded by swapping — half an hour, and dead the moment
+anything else wanted memory. On 5 Sep 2026 it was OOM-killed mid-deploy, and the
+failure was worse than a failure: the kill took the parent, `tsc` survived as an
+orphan holding 464 MB, and every retry then failed for a reason that looked
+unrelated. For a while the rule here was simply _never compile on the box_.
 
-So: **build off-box and ship the output.** Compile locally (or in CI), then send
-the compiled `dist/` to the box and restart pm2. The box should receive finished
-JavaScript and never run a compiler. `npm ci` there is fine — it is the TypeScript
-compile that does not fit.
+It is a **t3.small** now — 2 vCPU, 1,905 MB — and `bash deploy.sh` completes on
+it. Verified 8 Sep 2026: pull, `npm ci`, compile both packages, restart, about
+two and a half minutes.
+
+**It is not comfortable, and the margin is the swapfile.** `npm run build` asks
+Node for 1,536 MB of heap; during the compile the box drops to around 140 MB
+free and leans on swap, recovering afterwards. So:
+
+- **Check swap before every on-box build** (`swapon --show`). Without it the
+  build does not slow down, it dies.
+- **Check for a stray `tsc` before retrying a failed one**:
+  `ps -eo pid,rss,args | grep [t]sc`. That orphan is still the failure mode
+  that wastes an afternoon, because the symptom it produces points elsewhere.
+- **Run it detached**, as `deploy.sh`'s own header says. A dropped SSH
+  connection SIGHUPs an attached build, and if that lands between the `mv` and
+  the end of the compile the box is left with no `dist/` at all — nothing looks
+  wrong until the next restart finds nothing to start.
+
+**Building off-box and shipping `dist/` is still the safer option** and is what
+to reach for when the box is under load, when a service run is in flight, or when
+the change matters enough that a swapping compiler is a risk not worth taking.
+Compile locally, `rsync` the output into `dist.new/`, swap it in, restart. `npm ci`
+on the box was never the problem — it is the TypeScript compile that is tight.
 
 **Keep swap present and healthy.** The box runs a 2 GB swapfile and needs it even
 without a build; confirm it with `swapon --show` before and after any change to

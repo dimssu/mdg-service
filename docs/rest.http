@@ -17,6 +17,16 @@
 @dealerEmail = owner@example.com
 @dealerPassword = ChangeMe@12345
 
+### The slip block (35-40) is the whole of Phase 2: an admin can run it every
+### morning for a week and see what the paper reads, with no screen and no box
+### ever touched. It needs a HAND-TYPED outlet - a dealer whose IRAS Shift Data
+### service is not ACTIVE, whose day has already been opened (request 41), and
+### whose DSR layout lists the nozzles - plus a photo saved next to this file as
+### `shift-slip.jpg`. SLIP_READ_ENABLED must be true on the server.
+@slipDealerId = 000000000000000000000000
+@slipDate = 2026-09-02
+@slipShiftTime = 06:30
+
 ### Health
 GET {{host}}/health
 
@@ -303,3 +313,207 @@ Authorization: Bearer {{dealerToken}}
 ### 34. The fence, as a request: a dealer token must not reach an admin route (expect 403)
 GET {{base}}/tt-density/dealers/{{ttDealerId}}/summary
 Authorization: Bearer {{dealerToken}}
+
+### 35. Open the day by hand, if it is not open yet (201 the first time, 200 after)
+POST {{base}}/iras-data/dealers/{{slipDealerId}}/days/{{slipDate}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "shiftTime": "{{slipShiftTime}}"
+}
+
+### 36. Presign the slip photo. ADMIN ONLY - a dealer token gets 403 here, and
+### the key comes back under `slip/<dealerId>/`, never under `avatars/`.
+# @name slipPresign
+POST {{base}}/uploads/sign
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "filename": "shift-slip.jpg",
+  "contentType": "image/jpeg",
+  "size": 240000,
+  "scope": "slip",
+  "dealerId": "{{slipDealerId}}"
+}
+
+@slipUploadUrl = {{slipPresign.response.body.data.uploadUrl}}
+@slipStorageKey = {{slipPresign.response.body.data.storageKey}}
+
+### 37. Put the bytes (no Authorization - the URL is the credential)
+PUT {{slipUploadUrl}}
+Content-Type: image/jpeg
+
+< ./shift-slip.jpg
+
+### 38. Read the slip. Writes NOTHING to the day - it answers with what the paper
+### says, and `reading.readings[].batchable` is true only where both readers
+### produced the same digits AND the rupees printed on the same block prove them.
+### `quota` says how many of the day's ten reads are left.
+# @name slipRead
+POST {{base}}/iras-data/dealers/{{slipDealerId}}/days/{{slipDate}}/read-slip
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "storageKey": "{{slipStorageKey}}",
+  "filename": "shift-slip.jpg",
+  "contentType": "image/jpeg",
+  "size": 240000
+}
+
+@slipReadId = {{slipRead.response.body.data.slipReadId}}
+
+### 39. The photograph again, signed inline for 15 minutes
+GET {{base}}/iras-data/dealers/{{slipDealerId}}/slip-reads/{{slipReadId}}/photo-url
+Authorization: Bearer {{token}}
+
+### 40. The fence, as a request: a key under another dealer's prefix (expect 400,
+### "That photo does not belong to this dealer.")
+POST {{base}}/iras-data/dealers/{{slipDealerId}}/days/{{slipDate}}/read-slip
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "storageKey": "slip/000000000000000000000001/not-yours.jpg",
+  "filename": "shift-slip.jpg",
+  "contentType": "image/jpeg",
+  "size": 240000
+}
+
+### ─────────────────────── Document validity (41-50) ───────────────────────
+### Papers that run out, and the ladder that chases them. The block needs a
+### dealer and that dealer's own app login (reuse @dealerEmail / @dealerPassword
+### from the TT block above), plus a file saved beside this one as `fire-noc.jpg`.
+@docDealerId = 000000000000000000000000
+
+### 41. The live catalog. `tracksValidity` is what decides whether the accept
+### dialog asks for a date at all; a row that has never been edited comes back
+### with the shipped ladder resolved rather than an empty one.
+GET {{base}}/document-kinds?activeOnly=true
+Authorization: Bearer {{token}}
+
+### 42. Ask a dealer for a paper that runs out. `silent: true` suppresses the
+### push, and exists for the admin who ALREADY has the paper and is about to file
+### it — without it the dealer's phone asks for a certificate that was on file
+### before the buzz finished.
+# @name docAsk
+POST {{base}}/asks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "dealerId": "{{docDealerId}}",
+  "kindCode": "fire-noc",
+  "periodKind": "NONE",
+  "periodKey": "",
+  "reminderOffsetDays": [30, 7, 1]
+}
+
+@docAskId = {{docAsk.response.body.data.id}}
+
+### 43. Presign, as the dealer. An ask's object is filed under
+### `ask/<dealerId>/<askId>/`, so the row has to exist before there is anywhere
+### to put the file.
+# @name docSign
+POST {{base}}/uploads/sign
+Authorization: Bearer {{dealerToken}}
+Content-Type: application/json
+
+{
+  "filename": "fire-noc.jpg",
+  "contentType": "image/jpeg",
+  "size": 240000,
+  "scope": "ask",
+  "dealerId": "{{docDealerId}}",
+  "askId": "{{docAskId}}"
+}
+
+@docUploadUrl = {{docSign.response.body.data.uploadUrl}}
+@docKey = {{docSign.response.body.data.storageKey}}
+
+### 44. Put the bytes (no Authorization - the URL is the credential)
+PUT {{docUploadUrl}}
+Content-Type: image/jpeg
+
+< ./fire-noc.jpg
+
+### 45. Send it, as the dealer. `validUntil` here is a COURTESY, not a record:
+### whoever accepts confirms or corrects it, and their value is the one that
+### governs (ADR 0011 — admin or automation certifies, never the dealer).
+POST {{base}}/asks/me/{{docAskId}}/submit
+Authorization: Bearer {{dealerToken}}
+Content-Type: application/json
+
+{
+  "attachment": {
+    "storageKey": "{{docKey}}",
+    "filename": "fire-noc.jpg",
+    "contentType": "image/jpeg",
+    "size": 240000,
+    "kind": "image"
+  },
+  "validUntil": "2027-03-31",
+  "clientRef": "restclient-doc-0001"
+}
+
+### 46. Accept it WITHOUT a date (expect 400, "This paper runs out. Enter the date
+### printed on it before accepting."). The schema cannot enforce this — it cannot
+### see the catalog — so the route does.
+POST {{base}}/asks/{{docAskId}}/accept
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{}
+
+### 47. Accept it properly. Where the kind names a `profileFieldKey`, this also
+### writes the date onto that field on the outlet Info tab, so the two screens
+### cannot come to hold rival dates for one licence.
+POST {{base}}/asks/{{docAskId}}/accept
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "validUntil": "2027-03-31"
+}
+
+### 48. Fix a mistyped date, or quieten this one certificate. `reminderOffsetDays: []`
+### means NEVER REMIND about this paper — a real setting, distinct from omitting
+### the field, which leaves the kind's ladder in force. `validUntil: null` clears
+### the date and the mirrored one. Steps already settled stay settled: a date
+### pushed six months out does not re-fire a warning the dealer already had.
+PATCH {{base}}/asks/{{docAskId}}/validity
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "validUntil": "2027-06-30"
+}
+
+### 49. The dealer's filing cabinet. ACCEPTED papers only, sorted most-urgent
+### first, `dealerVisible`-gated in the QUERY. `validityState` and `validityLabel`
+### are decided on the SERVER against the server's IST day — a phone whose clock
+### is a day fast must never badge a valid licence red.
+GET {{base}}/asks/me/on-file
+Authorization: Bearer {{dealerToken}}
+
+### 50. The estate register: what is running out, across every dealer. Naming
+### either filter switches the sort to `validUntil` ascending — without it every
+### paper that carries an expiry is `periodKind: NONE`, sorts last on the empty
+### period key, and a full page comes back holding no licences at all.
+### `expiringWithinDays` has NO lower bound: a certificate that lapsed last month
+### is more urgent than one lapsing next week.
+GET {{base}}/asks?expiringWithinDays=30
+Authorization: Bearer {{token}}
+
+### 51. Edit the ladder for a whole KIND (super-admin). This is the cadence
+### editor's route. An empty array here silences the kind for every dealer.
+PATCH {{base}}/super-admin/document-kinds/fire-noc
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "reminderOffsetDays": [45, 15, 3, 1]
+}
+
