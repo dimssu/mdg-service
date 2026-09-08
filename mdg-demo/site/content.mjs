@@ -132,7 +132,22 @@ export const UI = {
   },
 };
 
+/**
+ * Videos described as data in `src/beats/` bring their own copy.
+ *
+ * `npm run guide:entries` in mdg-demo projects a title, subtitle, description,
+ * keyword list and chapter labels out of each one and writes them here. Every
+ * string in it was written by whoever wrote the video, inside the video, so the
+ * site's copy and the video's own words cannot disagree — and nobody types four
+ * hundred strings twice.
+ *
+ * The hand-written entries below remain hand-written: those videos are React
+ * components with no beat data to project from.
+ */
+import DECLARED_ENTRIES from './data/declared-videos.json' with { type: 'json' };
+
 export const VIDEOS = [
+  ...DECLARED_ENTRIES,
   {
     id: 'login',
     audience: 'dealer',
@@ -941,105 +956,6 @@ export const VIDEOS = [
         ms: 'The petrol half',
         'ms-ok': 'This one is inside the limit',
         recap: 'The same three lines, every time',
-      },
-    },
-  },
-  {
-    id: 'gen-dod-clock-hi',
-    audience: 'public',
-    keywords: [
-      'dod',
-      'credit',
-      'deposit',
-      'three days',
-      'due date',
-      'bank holiday',
-      'saturday',
-      'sunday',
-      'pad',
-      'balance',
-      'udhaar',
-      'jama',
-      'teen din',
-      'chhutti',
-      'उधार',
-      'जमा',
-      'तीन दिन',
-      'छुट्टी',
-      'बकाया',
-      'तारीख़',
-      'बैंक',
-    ],
-    hi: {
-      title: 'तीन दिन की गिनती',
-      subtitle: 'उधार लिया तेल — कब तक जमा करना है',
-      description:
-        'जिस दिन आपका खाता शून्य से नीचे जाता है, उसके बाद लिया गया तेल उधार हो जाता है — और उसे तीन दिन में जमा करना होता है। अगर तीसरा दिन रविवार या महीने का दूसरा-चौथा शनिवार पड़ जाए, तो तारीख़ आगे खिसक जाती है। यह वीडियो वही गिनती आसान शब्दों में समझाता है। ऐप की जानकारी नहीं — पंप चलाने की बात। किसी को भी भेज सकते हैं।',
-      chapters: {
-        hook: 'गिनती कब शुरू होती है',
-        balance: 'खाते में पैसा है, या नहीं',
-        three: 'तीन दिन',
-        holiday: 'कौन से दिन छुट्टी हैं',
-        worked: 'एक उदाहरण',
-        trap: 'याद कोई नहीं दिलाता',
-        mdg: 'MDG क्या करता है',
-        recap: 'दोहराइए',
-      },
-    },
-    en: {
-      title: 'The three-day clock',
-      subtitle: 'Fuel taken on credit, and the day it must be paid back',
-      description:
-        'The day your running balance goes below zero, fuel taken after that becomes credit — and credit has to be repaid within three days. If the third day falls on a Sunday, or the second or fourth Saturday of the month, the deadline rolls forward to the next working day. This explains that count in plain words. Nothing about the app; it is about running a pump, and it is meant to be forwarded. Hindi narration.',
-      chapters: {
-        hook: 'When the clock starts',
-        balance: 'Money in the account, or not',
-        three: 'Three days',
-        holiday: 'Which days count as holidays',
-        worked: 'A worked example',
-        trap: 'Nobody reminds you',
-        mdg: 'What MDG does',
-        recap: 'Recap',
-      },
-    },
-  },
-  {
-    id: 'gen-dod-clock-en',
-    audience: 'public',
-    keywords: [
-      'dod', 'credit', 'deposit', 'three days', 'due date', 'bank holiday',
-      'saturday', 'sunday', 'english', 'अंग्रेज़ी', 'उधार', 'तीन दिन',
-    ],
-    hi: {
-      title: 'तीन दिन की गिनती — अंग्रेज़ी में',
-      subtitle: 'वही वीडियो, अंग्रेज़ी आवाज़ में',
-      description:
-        'ऊपर वाले वीडियो का अंग्रेज़ी संस्करण — वही बात, वही चित्र, आवाज़ अंग्रेज़ी में। किसी ऐसे व्यक्ति को भेजने के लिए जो हिंदी में सहज नहीं है।',
-      chapters: {
-        hook: 'गिनती कब शुरू होती है',
-        balance: 'खाते में पैसा है, या नहीं',
-        three: 'तीन दिन',
-        holiday: 'कौन से दिन छुट्टी हैं',
-        worked: 'एक उदाहरण',
-        trap: 'याद कोई नहीं दिलाता',
-        mdg: 'MDG क्या करता है',
-        recap: 'दोहराइए',
-      },
-    },
-    en: {
-      title: 'The three-day clock — in English',
-      subtitle: 'The same video, narrated in English',
-      description:
-        'The English cut of the video above: the same rule, the same pictures, narrated in English. For sending to somebody who would rather not watch it in Hindi.',
-      chapters: {
-        hook: 'When the clock starts',
-        balance: 'Money in the account, or not',
-        three: 'Three days',
-        holiday: 'Which days count as holidays',
-        worked: 'A worked example',
-        trap: 'Nobody reminds you',
-        mdg: 'What MDG does',
-        recap: 'Recap',
       },
     },
   },

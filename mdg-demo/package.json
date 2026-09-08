@@ -15,7 +15,8 @@
     "stills": "tsx scripts/stills.mts",
     "broll": "tsx scripts/broll.mts",
     "media:push": "tsx scripts/media.mts",
-    "media:pull": "tsx scripts/media.mts --pull"
+    "media:pull": "tsx scripts/media.mts --pull",
+    "guide:entries": "tsx scripts/guide-entries.mts"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.200",
