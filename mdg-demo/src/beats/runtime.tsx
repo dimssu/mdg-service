@@ -17,7 +17,6 @@ import type { Lang } from '../marketing/film';
 
 import { VIDEO_BY_ID } from './catalog';
 import { FAMILY } from './families';
-import { Fit } from './fit';
 import { BANDS, stageBox } from './layout';
 import { densityScale } from './motion';
 import { videoTutorial } from './project';
@@ -282,16 +281,38 @@ export function BeatVideo({ videoId, lang, sceneFrames, hasAudio }: BeatVideoPro
   };
 
   const box = stageBox(video.family);
-  // The stage's own content decides its density boost; a two-item beat gets
-  // bigger type than a seven-item one without anyone choosing a number.
+
+  /*
+   * Roughly how many rows tall this beat's content is, which is what decides how
+   * much it may grow.
+   *
+   * Deliberately an ESTIMATE and not a measurement: measuring would mean a
+   * layout pass and a state update inside a headless render, which is exactly
+   * the kind of thing that works in the Studio and produces one wrong frame in
+   * a thousand on the render farm. Counting the rows a block is made of is
+   * stable, cheap, and close enough — the scale it feeds only has four rungs.
+   *
+   * Everything defaulted to 1 in the first version, which meant a `claim`
+   * carrying a 132px figure got the same 1.45 boost as a single line of text and
+   * would have drawn at 191px.
+   */
+  const b0 = rootBeat.block;
   const items =
-    rootBeat.block.kind === 'list'
-      ? rootBeat.block.items.length
-      : rootBeat.block.kind === 'flow'
-        ? rootBeat.block.steps.length
-        : rootBeat.block.kind === 'recap'
-          ? rootBeat.block.steps.length
-          : 1;
+    b0.kind === 'list'
+      ? b0.items.length + (b0.title ? 1 : 0)
+      : b0.kind === 'flow'
+        ? b0.steps.length * 2
+        : b0.kind === 'recap'
+          ? b0.steps.length + (b0.closing ? 1 : 0)
+          : b0.kind === 'claim'
+            ? 3 + (b0.viz && b0.viz !== 'none' ? 3 : 0) + (b0.note ? 1 : 0)
+            : b0.kind === 'compare'
+              ? 3 + Math.max(b0.left.rows?.length ?? 0, b0.right.rows?.length ?? 0)
+              : b0.kind === 'wrong'
+                ? 3 + (b0.slots?.length ? 2 : 0) + (b0.cost ? 2 : 0)
+                : b0.kind === 'title'
+                  ? 4
+                  : 3;
 
   return (
     <AbsoluteFill style={{ background: f.bg }}>
@@ -334,19 +355,54 @@ export function BeatVideo({ videoId, lang, sceneFrames, hasAudio }: BeatVideoPro
             <BeatBody block={rootBeat.block} args={args} />
           </div>
         ) : (
-          <Fit box={{ w: box.w, h: box.h }} into={box} max={1} boost={densityScale(items)}>
+          /*
+           * The content is sized by ITSELF and scaled up to fill the stage —
+           * not stretched into a stage-sized box and centred in it.
+           *
+           * The first version wrapped this in `<Fit box={stage} into={stage}
+           * max={1}>`, which is a no-op twice over: a box equal to its container
+           * fits at exactly 1, and `max: 1` then capped the density boost away
+           * as well. So a two-item beat drew at the same size as a seven-item
+           * one and floated in the middle of a 1,150px band with four hundred
+           * empty pixels above and below it. On a photograph that read as
+           * composition. On plain paper it reads as a mistake.
+           *
+           * `height: auto` plus a transform means a sparse beat grows into the
+           * room it has, and a dense one stays put. It cannot overflow into the
+           * caption because the scale is bounded and only ever applied to
+           * content that is already shorter than the band.
+           */
+          <div
+            style={{
+              width: box.w,
+              height: box.h,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              // `alignItems: center` matters as much as the width compensation.
+              // A column flex box leaves an explicitly-sized child at the start,
+              // so scaling it from its own centre grew it equally left and
+              // right — and the left half had nowhere to go but off the frame,
+              // taking the first letter of every heading with it.
+              alignItems: 'center',
+            }}
+          >
+            {/* Laid out NARROWER by exactly the factor it is about to be scaled
+                by, so the scaled result lands on the read-safe width to the
+                pixel. Scaling a full-width block was the obvious version and it
+                clipped the first letter of every heading off the left edge —
+                a transform grows a box in both directions, and only the height
+                had room to spare. */}
             <div
               style={{
-                width: box.w,
-                height: box.h,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
+                width: box.w / densityScale(items),
+                transform: `scale(${densityScale(items)})`,
+                transformOrigin: 'center center',
               }}
             >
               <BeatBody block={rootBeat.block} args={args} />
             </div>
-          </Fit>
+          </div>
         )}
       </div>
 

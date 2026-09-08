@@ -119,8 +119,15 @@ export function enterDirection(index: number): 1 | -1 {
  * eye. The rungs are theirs, kept rather than reinvented.
  */
 export function densityScale(itemCount: number): number {
-  if (itemCount <= 2) return 1.2;
-  if (itemCount <= 3) return 1.1;
-  if (itemCount <= 5) return 1.06;
+  // Retuned once the photographs came out. With a picture behind it, a small
+  // card floating in the middle of the band read as composition; on plain paper
+  // the same card reads as an unfinished frame. A sparse beat now grows into the
+  // room it actually has. The ceiling is 1.45 because past that the type starts
+  // to look like a poster rather than a caption, and a seven-item beat still
+  // draws at 1 — it has no spare room to grow into.
+  if (itemCount <= 1) return 1.45;
+  if (itemCount <= 2) return 1.35;
+  if (itemCount <= 3) return 1.22;
+  if (itemCount <= 5) return 1.1;
   return 1;
 }
