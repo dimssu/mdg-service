@@ -61,7 +61,13 @@ const OUT =
 /** Public-facing only. See the note above on why this is by audience. */
 const PUBLISHABLE = new Set(['dealer', 'public']);
 
-const clock = (s) => `${Math.floor(s / 60)} minute${Math.floor(s / 60) === 1 ? '' : 's'}`;
+/* "0 minutes" was the first version of this, for every video under sixty
+   seconds — which is most of the explainers. Floor division is the wrong shape
+   for a duration a person reads. */
+const clock = (s) => {
+  if (s < 90) return 'a minute';
+  return `${Math.round(s / 60)} minutes`;
+};
 
 function pageFor(v, meta) {
   const url = `${ORIGIN}/${v.id}`;
@@ -69,58 +75,85 @@ function pageFor(v, meta) {
   const chapters = meta
     ? meta.chapters
         .filter((c) => v.en.chapters[c.id] && v.hi.chapters[c.id])
-        .map((c) => `- ${v.en.chapters[c.id]} — ${v.hi.chapters[c.id]}`)
-        .join('\n')
+        .map((c) => `${v.en.chapters[c.id]} / ${v.hi.chapters[c.id]}`)
+        .join('; ')
     : '';
 
   /*
-   * TWO sections per video, not five — and no keyword list.
+   * ONE short passage per video, and NOT a restatement of its subject.
    *
-   * The first version wrote five sections each repeating the title and
-   * description, plus a section that was nothing but the video's search
-   * keywords. It measured badly, which is the only reason this is known: recall
-   * over the existing eval set fell from 93.2% to 89.2% the moment it was added,
-   * losing two questions about what MDG Services does and one about stock
-   * variation.
+   * Measured three times, and each measurement moved the design.
    *
-   * The cause is that retrieval takes the top 8 by dot product. A video page
-   * about stock variation, split five ways with the words "stock variation" in
-   * every part, puts five near-identical passages into that competition and
-   * pushes the actual guideline clause out of it — and a video page cannot
-   * answer "what is the permissible variation", it can only say that a video
-   * exists.
+   *   five sections per video, 12 videos    93.2% -> 89.2%
+   *   two sections per video, 62 videos     93.2% -> 87.8%
+   *   one section, both cuts, 62 videos     93.2% -> 90.5%
+   *   one section, cuts collapsed, no chapters      (this)
    *
-   * The keyword section was the worst of them: a bag of words with no sentence
-   * in it, which matches everything in its domain and answers nothing.
+   * Two separate causes, both about competition for the top eight slots. The
+   * first is sheer count. The second is that the pages restated their subject:
+   * a page about reading a stock variation sheet, full of sentences about stock
+   * variation, competes head-on with the guideline clause that actually answers
+   * "what is the permissible variation". A catalogue entry should win "is there
+   * a video about X" and LOSE "what is the rule for X"; restating the content
+   * made it win both, which is the wrong one to win.
    *
-   * So: one section that says the video exists and what it teaches, one that
-   * lists its parts, and nothing else. Both carry the URL, because a chunk is
-   * retrieved alone and one that cannot name its own video is a passage the
-   * assistant cannot act on.
+   * So: what it is called in both languages, its one-line subtitle, how long it
+   * runs, and where to watch each cut. No description, no chapter list — those
+   * chapter labels are domain phrases ("days to deposit", "these count as
+   * holidays") and they compete for exactly the questions the guidelines should
+   * answer.
    */
-  return `## A video about ${v.en.title.toLowerCase()} — "${v.en.title}" / "${v.hi.title}"
+  const urls = Object.values(v.cuts ?? {}).length
+    ? Object.entries(v.cuts)
+        .map(([lang, id]) => `${lang === 'en' ? 'English' : 'Hindi'}: ${ORIGIN}/${id}`)
+        .join(', ')
+    : `${ORIGIN}/${v.id}`;
 
-MDG Services publishes a free video on this. In English it is called
-"${v.en.title}"; in Hindi, "${v.hi.title}". It is narrated in Hindi, runs about
-${mins}, and anyone can watch it at ${url} with no login.
+  return `## Video: "${v.en.title}" / "${v.hi.title}"
 
-${v.en.description}
+MDG Services publishes a free video called "${v.en.title}" — in Hindi,
+"${v.hi.title}". ${v.en.subtitle}. It runs about ${mins} and anyone can watch it
+with no login. ${urls}
 
-इस विषय पर MDG Services का एक मुफ़्त वीडियो है — "${v.hi.title}"। ${v.hi.subtitle}।
-${url} पर देखिए।
-
-${v.hi.description}
-
-## What is in "${v.en.title}", part by part
-
-The video at ${url} covers these parts in order:
-
-${chapters || '- (no chapter list)'}
+हिंदी में इसका नाम "${v.hi.title}" है। ${v.hi.subtitle}। ${urls}
 `;
 }
 
+/**
+ * The two cuts of a bilingual video are ONE entry.
+ *
+ * They are the same video with the same title and the same subject; only the
+ * recording's language differs. As two entries they doubled the number of
+ * passages competing for every retrieval slot and added nothing an answer could
+ * use — measured at 90.5% recall against a 93.2% baseline. Collapsed, the entry
+ * names both cuts and gives both URLs, which is all the assistant needs to send
+ * somebody to the right one.
+ */
+function collapseCuts(videos) {
+  const byBase = new Map();
+  for (const v of videos) {
+    const base = v.id.replace(/-(hi|en)$/, '');
+    const cut = /-en$/.test(v.id) ? 'en' : /-hi$/.test(v.id) ? 'hi' : null;
+    const row = byBase.get(base);
+    if (!row) {
+      byBase.set(base, { ...v, cuts: cut ? { [cut]: v.id } : {} });
+    } else {
+      if (cut) row.cuts[cut] = v.id;
+      // Prefer the Hindi cut's copy and id: that is the one dealers watch.
+      if (cut === 'hi') {
+        row.hi = v.hi;
+        row.en = v.en;
+        row.id = v.id;
+      }
+    }
+  }
+  return [...byBase.values()];
+}
+
 async function main() {
-  const publishable = VIDEOS.filter((v) => PUBLISHABLE.has(v.audience ?? 'dealer'));
+  const publishable = collapseCuts(
+    VIDEOS.filter((v) => PUBLISHABLE.has(v.audience ?? 'dealer')),
+  );
   const manifest = await import('../data/videos.json', { with: { type: 'json' } })
     .then((m) => m.default)
     .catch(() => []);
@@ -162,9 +195,9 @@ async function main() {
   const files = await readdir(OUT);
   console.log(`\nWrote ${files.length} pages to ${OUT}`);
   console.log(`  ${publishable.length} videos (dealer + public)`);
+  const admin = VIDEOS.filter((v) => !PUBLISHABLE.has(v.audience ?? 'dealer')).length;
   console.log(
-    `  ${VIDEOS.length - publishable.length} admin walkthroughs deliberately excluded — ` +
-      'that assistant answers strangers',
+    `  ${admin} admin walkthroughs deliberately excluded — that assistant answers strangers`,
   );
   console.log('\nNext, in ~/Documents/PP/mdg-rag-ingest:');
   console.log('  add a `video-guide` entry to src/docs.ts if it is not there yet');
