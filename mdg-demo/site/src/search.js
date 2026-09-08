@@ -16,13 +16,72 @@
   if (qInput) initSearch(qInput);
 
   function initSearch(input) {
-    var index, strings;
+    /*
+     * THE INDEX ARRIVES LATE, AND THE BOX WORKS ANYWAY.
+     *
+     * It used to be inlined in the page, where at sixty-six videos it was 64% of
+     * the dashboard — 175 kB raw, 28.8 kB gzipped — paid for by every visitor
+     * before first paint, including the large majority who never type anything.
+     * On the 2G connections this site exists for, that is a second of nothing to
+     * support a feature most people do not use.
+     *
+     * So it is fetched on the FIRST FOCUS of the box, and until it lands, typing
+     * filters on the `data-t` attribute that is already on every card: both
+     * titles, both subtitles, the first four keywords. That covers most of what
+     * anybody types, including the romanised words the keyword list exists to
+     * catch. The alternative — a dead box for a second and a half — reads as
+     * broken rather than as loading, which is the worse failure by a distance.
+     *
+     * XMLHttpRequest and not fetch: this file is ES5 for old Android WebViews,
+     * and that constraint is stated at the top of every script here.
+     */
+    var index = null;
+    var indexState = 'idle';
+    var strings;
     try {
-      index = JSON.parse(doc.getElementById('idx').textContent);
       strings = JSON.parse(doc.getElementById('str').textContent);
     } catch (_e) {
-      return; // no index — leave the plain, working list alone rather than break it
+      return; // no strings — leave the plain, working list alone rather than break it
     }
+
+    function loadIndex(then) {
+      if (indexState === 'ready') return then && then();
+      if (indexState === 'loading') return;
+      var srcEl = doc.getElementById('idxsrc');
+      if (!srcEl) return;
+      var url;
+      try {
+        url = JSON.parse(srcEl.textContent);
+      } catch (_e) {
+        return;
+      }
+      indexState = 'loading';
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState !== 4) return;
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            index = JSON.parse(xhr.responseText);
+            indexState = 'ready';
+            if (then) then();
+            return;
+          } catch (_e) {
+            /* fall through */
+          }
+        }
+        // A failed index is not a broken site: the cheap filter keeps working,
+        // and a later keystroke will try again.
+        indexState = 'idle';
+      };
+      xhr.send();
+    }
+
+    // Warm it on focus, before a single letter is typed — which for most people
+    // is a few hundred milliseconds of head start.
+    input.addEventListener('focus', function () {
+      loadIndex(null);
+    });
 
     var list = doc.getElementById('list');
     var items = [].slice.call(list.querySelectorAll('.item'));
@@ -101,9 +160,42 @@
       return { score: best, chapter: chapter };
     }
 
+    /*
+     * The filter that works before the index arrives.
+     *
+     * Substring against `data-t` — both titles, both subtitles, four keywords —
+     * with no ranking and no chapter deep-links, because it has nothing to rank
+     * on. Every word must appear, matching the real scorer's rule, so the two
+     * never disagree about WHICH videos match; only about their order and their
+     * extras. When the index lands, the same keystroke re-renders properly.
+     */
+    function cheapSearch(words) {
+      var out = [];
+      for (var i = 0; i < items.length; i++) {
+        var hay = items[i].getAttribute('data-t') || '';
+        var all = true;
+        for (var w = 0; w < words.length; w++) {
+          if (hay.indexOf(words[w]) === -1) {
+            all = false;
+            break;
+          }
+        }
+        if (all) out.push({ i: i, score: 1, chapter: null });
+      }
+      return { results: out, words: words, partial: true };
+    }
+
     function search(query) {
       var words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
       if (!words.length) return null;
+
+      // Not here yet: answer with what the page already knows, and ask for it.
+      if (indexState !== 'ready' || !index) {
+        loadIndex(function () {
+          if (input.value.trim()) render(input.value);
+        });
+        return cheapSearch(words);
+      }
 
       var out = [];
       for (var i = 0; i < index.length; i++) {

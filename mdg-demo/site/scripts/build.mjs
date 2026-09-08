@@ -5,6 +5,7 @@
  * public/, all of which are committed. That is what lets Vercel build this in a
  * couple of seconds with nothing installed.
  */
+import { createHash } from 'node:crypto';
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -242,7 +243,18 @@ function card(v, i, n, section, byId) {
 
   // The chapter deep-link is a sibling of the card, not a child: a link inside
   // a link is invalid, and the whole card is already one.
-  return `<li class="item" data-i="${i}" data-id="${v.id}" data-sec="${audienceOf(v)}">
+  // `data-t` is the cheap filter that works BEFORE the search index has
+  // downloaded: both titles, both subtitles and the first four keywords, about
+  // forty extra bytes a card. Without it, the first second and a half of typing
+  // on a slow connection returns nothing at all, which reads as broken rather
+  // than as loading — and the romanised words this list exists to catch
+  // ("yoddha", "photo") are exactly the ones somebody types first.
+  const cheap = esc(
+    [v.hi.title, v.en.title, v.hi.subtitle, v.en.subtitle, ...(v.keywords ?? []).slice(0, 4)]
+      .join(' ')
+      .toLowerCase(),
+  );
+  return `<li class="item" data-i="${i}" data-id="${v.id}" data-sec="${audienceOf(v)}" data-t="${cheap}">
   <a class="card" href="/${v.id}">
     <span class="thumb${wide ? ' wide' : ''}">
       <img src="${m.thumb}" alt="" width="${box.width}" height="${box.height}" loading="lazy" decoding="async">
@@ -334,11 +346,33 @@ ${cards}
   );
 
   const json = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
-  const extra =
-    `<script id="idx" type="application/json">${json(searchIndex(videos, byId))}</script>` +
-    `<script id="str" type="application/json">${json(strings)}</script>`;
 
-  return { body, title: `${UI.hi.brand} ${UI.hi.siteTitle} · Learn`, extra };
+  /*
+   * THE SEARCH INDEX LEAVES THE PAGE.
+   *
+   * Inlined, it was 64% of the dashboard: 175 kB raw and 28.8 kB gzipped out of
+   * a 47.6 kB page, at sixty-six videos. Every visitor paid for it before first
+   * paint, including the large majority who never type anything — and on the 2G
+   * connections this site is built for, that is a second of staring at nothing
+   * to make a feature work that most people never use.
+   *
+   * It is now a hashed file fetched on the first focus of the search box, served
+   * immutable for a year like the media. Until it lands, typing filters on the
+   * `data-t` attribute already on every card, so the box is never dead.
+   */
+  const idxJson = json(searchIndex(videos, byId));
+  const idxName = `idx.${createHash('sha256').update(idxJson).digest('hex').slice(0, 8)}.json`;
+
+  const extra =
+    `<script id="str" type="application/json">${json(strings)}</script>` +
+    `<script id="idxsrc" type="application/json">${json('/' + idxName)}</script>`;
+
+  return {
+    body,
+    title: `${UI.hi.brand} ${UI.hi.siteTitle} · Learn`,
+    extra,
+    idx: { name: idxName, json: idxJson },
+  };
 }
 
 /**
@@ -591,6 +625,7 @@ async function main() {
   await cp(path.join(ROOT, 'public'), DIST, { recursive: true });
 
   const dash = dashboard(listedGroups, listed, byId);
+  await writeFile(path.join(DIST, dash.idx.name), dash.idx.json);
   await writeFile(
     path.join(DIST, 'index.html'),
     page({
