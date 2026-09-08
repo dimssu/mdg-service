@@ -1,4 +1,29 @@
+import { brokenDip } from './social/brokenDip';
+import { costOfALitre } from './social/costOfALitre';
+import { cumulativeColumn } from './social/cumulativeColumn';
+import { dailyBooks } from './social/dailyBooks';
+import { decantation } from './social/decantation';
+import { declarations } from './social/declarations';
+import { densityAt15 } from './social/densityAt15';
+import { dipSettle } from './social/dipSettle';
 import { dodClock } from './social/dodClock';
+import { duSeals } from './social/duSeals';
+import { equipmentAudit } from './social/equipmentAudit';
+import { inspectionWindow } from './social/inspectionWindow';
+import { invoiceVsDecant } from './social/invoiceVsDecant';
+import { ledgerLines } from './social/ledgerLines';
+import { mockDrill } from './social/mockDrill';
+import { plusVsMinus } from './social/plusVsMinus';
+import { proveTheMeter } from './social/proveTheMeter';
+import { shiftClose } from './social/shiftClose';
+import { staffRewards } from './social/staffRewards';
+import { stockVariation } from './social/stockVariation';
+import { supplyConditions } from './social/supplyConditions';
+import { tankerDay } from './social/tankerDay';
+import { testingLitres } from './social/testingLitres';
+import { wallPapers } from './social/wallPapers';
+import { waterDip } from './social/waterDip';
+import { waterIngress } from './social/waterIngress';
 import type { Video } from './types';
 
 /**
@@ -10,7 +35,34 @@ import type { Video } from './types';
  * hand-written videos stay exactly where they are and are untouched by any of
  * this.
  */
-export const DECLARED: Video[] = [dodClock];
+export const DECLARED: Video[] = [
+  dodClock,
+  supplyConditions,
+  decantation,
+  proveTheMeter,
+  declarations,
+  dipSettle,
+  wallPapers,
+  stockVariation,
+  brokenDip,
+  waterDip,
+  densityAt15,
+  mockDrill,
+  shiftClose,
+  testingLitres,
+  costOfALitre,
+  invoiceVsDecant,
+  plusVsMinus,
+  cumulativeColumn,
+  dailyBooks,
+  staffRewards,
+  waterIngress,
+  ledgerLines,
+  inspectionWindow,
+  tankerDay,
+  equipmentAudit,
+  duSeals,
+];
 
 /**
  * Videos by id, for the composition to resolve itself from.
