@@ -20,12 +20,14 @@ Shared shapes (from `@dk/shared`):
 - `AuditLog` - `shared/src/types/auditLog.ts`
 - `ServicePluginCatalogEntry` - `shared/src/types/plugin.ts`
 - `TtInvoice`, `TtInvoiceSummary`, `TtLatestDensity`, `TtDensityDayLog`, `TtRegisterDaySummary`, `TtDensitySummary`, `TtDensityMeView`, `TtSignedFileUrls` - `shared/src/types/ttDensity.ts`
+- `SlipParse`, `SlipBlock`, `SlipReading`, `SlipReadingForNozzle`, `SlipProof` - `shared/src/iras/slip.ts`
 - `Paginated<T>`, `ApiSuccess<T>`, `ApiError` - `shared/src/types/api.ts`
 
 Zod validators (from `@dk/shared` `schemas`):
 
 - `loginSchema`, `dealerCreateStage1Schema`, `dealerUpdateSchema`, `dealerListQuerySchema`, `attachServiceSchema`, `updateDealerServiceSchema`, `runNowSchema`, `runsListQuerySchema`.
 - `ttBusinessDateSchema`, `ttRegisterPhotoSchema`, `ttInvoiceListQuerySchema`, `ttRegisterDaysQuerySchema`, `ttDensityCollectSchema`.
+- `presignUploadSchema`, `readSlipSchema`.
 
 ---
 
@@ -278,6 +280,146 @@ Errors: `NOT_FOUND` if they have not sent one for that day.
 
 ---
 
+## Document validity and renewal reminders
+
+A dealership paper — a Fire NOC, a PESO licence, a DTO trade licence, a W&M licence — carries a date it is good until. That date lives on the **accepted `DocumentAsk`**, in `validUntil`, and it is a `YYYY-MM-DD` IST calendar day.
+
+**`validUntil` is not `expiresAt`, and the two must never be conflated.** `expiresAt` is the ASK's own lifetime — "stop chasing this unanswered request after thirty days" — it is a real instant, it is only ever set on an `ASKED` row, and the state it produces, `EXPIRED`, means the REQUEST lapsed. `validUntil` is when the PAPER stops being any good. A validity stored under the other name would be swept by `services/documents/expire.ts` and rendered by the estate table as a dead request.
+
+A **renewal is a new ask, not a reopened one**, because `ACCEPTED` is the one closed state that refuses to reopen. It is filed under a distinct period key built from the suffix mechanism that already exists — `periodKeyFor('NONE', today, 'renew-2027-03-31')` → `':renew-2027-03-31'` — so last year's certificate and this year's are separate rows with separate evidence, and the unique index (whose partial filter is `periodKey > ''`) covers every renewal after the first.
+
+### POST /asks/:id/accept
+
+Body is now `acceptDocumentAskSchema` -> `{ validUntil?, reminderOffsetDays? }`, where it used to be empty.
+
+- `validUntil` is **required by the route** — not by the schema — when the kind carries `tracksValidity`. The schema cannot make that call because it cannot see the catalog, and demanding a date for every kind would block the acceptance of a register page on a date it does not have. Errors `BAD_REQUEST`: _"This paper runs out. Enter the date printed on it before accepting."_
+- It is refused rather than defaulted from `validityMonths`. A validity we computed is a validity nobody read off the paper, and it goes on to decide when the dealer is chased and what the outlet Info tab says.
+- The **byte check runs first**. A paper whose object changed after it was sent still gets its `CONFLICT`, so an acceptance is never refused for a missing field on bytes that had already been swapped underneath us.
+- Where the kind names a `profileFieldKey`, accepting **mirrors the date onto the outlet Info tab** (`Dealer.outletProfile.$.expiresOn`). The paper wins and the profile follows; nothing ever writes back the other way. The mirror never throws — a mirror that failed must not undo an acceptance a person made.
+
+### POST /asks/:id/file-for-dealer
+
+Admin. MDG already holds the paper and is filing it on the dealer's behalf. Body `fileForDealerSchema` -> `{ attachment, note?, validUntil?, reminderOffsetDays? }`.
+
+Submits **and** accepts in one act, because the submission and the verdict are made by the same person in the same second. The row records `submission.byKind: 'admin'` and the audit action is `DOCUMENT_ASK_FILE_FOR_DEALER`, never `DOCUMENT_ASK_SUBMIT` — so nothing anywhere claims the dealer sent it, which is the claim a compliance record exists to support. No push: a dealer told "we have received your Fire NOC" about a paper they did not send reads as a mistake. The socket event still fires.
+
+The ask must exist first, because an object is filed under `ask/<dealerId>/<askId>/`. Presign with `scope: 'ask'`.
+
+### PATCH /asks/:id/validity
+
+Admin, `ACCEPTED` rows only. Body `setDocumentValiditySchema` -> `{ validUntil?: string | null, reminderOffsetDays? }`. Corrects a mistyped date or quietens one certificate. `validUntil: null` clears the date and clears the mirrored one on the Info tab.
+
+**It does not re-run the ladder.** Steps already settled stay settled: a date pushed six months out does not re-fire a warning the dealer already had.
+
+### GET /asks/me/on-file
+
+The dealer's own filing cabinet. `ApiSuccess<DealerDocumentAskList>` -> `{ rows, kinds: [], today }`. `ACCEPTED` rows only, capped at 500, sorted most-urgent-first, `dealerVisible`-gated **in the query** so a hidden kind's rows never leave the database.
+
+A sibling of `GET /asks/me` rather than a mode of it: that route answers "what is outstanding" and unions three sources, caps at 200 and shows settled rows for five days — every one of which is right for a to-do list and wrong for a filing cabinet.
+
+Each row carries `validUntil`, `validityState` (`expired` | `expiring` | `valid` — the same three words the Info tab uses), `daysToExpiry` and `validityLabel`, **already formatted in the dealer's language** ("8 दिन बाकी", "Expires today"). The verdict is decided on the SERVER against the server's IST day; a phone whose clock is a day fast must never badge a valid licence red.
+
+### GET /document-kinds
+
+Admin. `ApiSuccess<DocumentKind[]>`. `?activeOnly=true` for pickers. Unpaged — a handful of rows, and every consumer wants all of them.
+
+### POST /super-admin/document-kinds, PATCH /super-admin/document-kinds/:code
+
+Super-admin, because editing this catalog changes what every dealer can be asked for and how often each is chased. It will not rename a `code` (renaming orphans every ask filed under it), will not change `periodKind` (existing keys are in the old shape), will not expose `source` (a closed enum only the seed sets — with `reviewRequired` fixed true, that pair is what makes the auto-accept guard real), and will not delete (`active: false` retires; the row stays so old records stay readable).
+
+`reminderOffsetDays` is where the per-KIND cadence is edited. **`[]` means never remind for that kind** and is a deliberate setting, distinct from omitting the field.
+
+### GET /asks — two new filters
+
+`expiringWithinDays` (0..365) and `validityState`. Deliberately NOT folded into `from`/`to`, which bound DAY _period_ keys — a filter for "expiring this fortnight" that used those would silently drop every fire NOC, whose period key is the empty string. `expiringWithinDays` has **no lower bound**: a certificate that lapsed last month is more urgent than one lapsing next week.
+
+`validityState` narrows the query to "not yet lapsed" and then filters the band **on the row**, because the boundary between `valid` and `expiring` is the first step of each row's own ladder and is therefore per-kind and per-paper. A page can come back shorter than `limit` while `nextCursor` still points at more.
+
+### The reminder ladder
+
+Days before expiry, biggest first. Shipped default `[15, 3, 2, 1]`; overridable per KIND (catalog) and per PAPER (`PATCH /asks/:id/validity`), resolved by `resolveReminderOffsets` — one function, because the amber badge and the notification are both derived from the first step.
+
+The nightly pass (`sweepDocumentValidityReminders`) rides the existing IST-anchored Kavach task at `00:20 Asia/Kolkata`. Its three rules:
+
+1. **At most one notification per paper per pass.** Four steps overdue after an outage fires the smallest — the one closest to the truth — and writes the rest off as `skipped` so they cannot fire tomorrow.
+2. **The message never quotes the step.** A fifteen-day step going out on the tenth day says "10 days left".
+3. **Past the date the ladder stops**, and a single lapsed notice goes instead.
+
+An empty ladder means complete silence, including the lapsed notice and the renewal slot.
+
+The renewal request is opened as a **condition, not an event** — every pass asks "should this paper have an open renewal by now?" — so a process that died between firing a reminder and creating the ask self-heals on the next pass instead of leaving a dealer warned with nowhere to upload.
+
+**Two hand-run migrations, not a deploy.** Production never calls `syncIndexes()`, and the seeder writes new catalog columns under `$setOnInsert`, which never reaches an existing row. `node dist/scripts/migrateDocumentValidity.js` creates the two indexes and fills the absent columns. Without the second half the feature ships and does nothing, silently, on exactly the certificate it was built for.
+
+---
+
+## Uploads
+
+`POST /uploads/sign` is `requireAuth` **only** - every authenticated role reaches it, admin and dealer alike - so the branch a `scope` lands in is the entire access control on the object key a caller gets back.
+
+Body: `presignUploadSchema` -> `{ filename, contentType, size, scope?, conversationId?, dealerId? }`. `scope` defaults to `chat`.
+
+| `scope`      | Who                                       | Key                                           |
+| ------------ | ----------------------------------------- | --------------------------------------------- |
+| `chat`       | a participant of the thread, or any admin | `chat/<conversationId>/{voice,files}/...`     |
+| `avatar`     | any authenticated caller, for themselves  | `avatars/<userId>/<uuid>.<ext>`               |
+| `staff`      | a member of that dealer, or any admin     | `staff/<dealerId>/<uuid>.<ext>`               |
+| `tt-density` | a member of that dealer, or any admin     | `tt-density/<dealerId>/register/<uuid>.<ext>` |
+| `kavach`     | a member of that dealer, or any admin     | `kavach/<dealerId>/proof/<uuid>.<ext>`        |
+| `slip`       | **admin only**                            | `slip/<dealerId>/<uuid>.<ext>`                |
+
+**There is no fall-through.** A scope in the enum with no branch is refused, and the refusal is a `never` assignment so it stops compiling first. It used to be a catch-all `else` that wrote to `avatars/<userId>/` - the one prefix `GET /uploads/download-url` serves with no access check at all - which would have made a forecourt slip signable by any authenticated account.
+
+The `slip` scope carries its own, tighter caps from `@dk/shared`: `SLIP_PHOTO_MIME_TYPES` (`image/jpeg`, `image/png`, `image/webp` - HEIC is refused because a browser canvas cannot decode it, so it could be neither shrunk before sending nor shown back on the screen where the operator checks it against the paper) and `SLIP_PHOTO_MAX_BYTES` (4 MB, against the route's general 25 MB).
+Errors: `FORBIDDEN` _"Only MDG can send a shift slip."_ for any dealer account; `BAD_REQUEST` for a wrong type, an oversize photo, or a missing `dealerId`.
+
+### GET /uploads/download-url
+
+Query: `key`, optional `disposition=attachment`, optional `filename`.
+Serves **only** `avatars/`, `chat/`, `staff/` and `kavach/`, each with its own ownership check except `avatars/`. `slip/` and `tt-density/` are deliberately absent and adding either would be a regression: both are served by their own feature routes, which resolve the owning dealer from the stored record rather than from the key string.
+
+---
+
+## Reading the slip
+
+An admin photographs the pump console's printed shift slip on a hand-typed IRAS morning, and the meter reading boxes fill themselves in - after the operator has seen every figure against the paper. Both routes inherit `irasDataRouter`'s `requireAuth` + `requireRole('admin')`.
+
+**There is no endpoint that both reads a slip and writes a figure.** `METER_BACKWARDS` is a client-side block with no server-side equivalent in `corrections.ts`, so a server write path would walk straight past it. Every figure reaches the day through the ordinary corrections commit.
+
+Shared shapes (`shared/src/iras/slip.ts`): `SlipParse`, `SlipBlock`, `SlipReading`, `SlipReadingForNozzle`, `SlipProof`, `SlipNozzleOutcome`, `SlipSource`.
+Zod validators (`shared/src/schemas/slip.ts`): `readSlipSchema`.
+
+### POST /iras-data/dealers/:dealerId/days/:businessDate/read-slip
+
+Body: `readSlipSchema` -> `{ storageKey, filename, contentType, size }`. The key comes from `POST /uploads/sign` with `scope: 'slip'` and this `dealerId`.
+Response: `ApiSuccess<SlipReadResponse>` -> `{ slipReadId, reading, transcript, photo: { storageKey, viewUrl, expiresIn }, quota, cost }`.
+Side effects: writes one `SlipRead` row and **nothing else**. No figure is written to the day, and the day is not touched by opening it.
+Guards, in this order, each refusing before the next costs anything - all of them in `services/irasData/readSlip.ts`:
+
+1. `BAD_REQUEST` when `SLIP_READ_ENABLED` is off or no service-account key is configured - _"Reading the slip is not switched on here. Type the figures in yourself."_
+2. `FORBIDDEN` when the dealer is archived; `NOT_FOUND` when there is no such dealer.
+3. `BAD_REQUEST` when the day's snapshot is missing or is not `MANUAL`. The portal firewall, enforced on the server and not only by a client gate that lives in a bundle which can be stale.
+4. `BAD_REQUEST` when the dealer has an **ACTIVE** `iras-shift-data` service. Being collected for is a property of the outlet, not of the day, and this closes the window between midnight and a collection landing where a portal dealer can have a `MANUAL` shell day minted for them.
+5. `BAD_REQUEST` when `storageKey` does not start with `slip/<dealerId>/` - _"That photo does not belong to this dealer."_ A presigned key is attacker-influenced input.
+6. `BAD_REQUEST` when the object is not there, is over `SLIP_READ_MAX_IMAGE_BYTES`, or is not one of the three photo types - measured with `headObjectMeta`, never taken from the `size` the client declared. A presigned PUT carries no `content-length-range`.
+7. `TOO_MANY_REQUESTS` when this dealer's slip has already been read `SLIP_READ_LIMIT_PER_DEALER_DAY` (10) times for this business date, when the day's slip-reading spend has run out, or when both slip-reading slots are busy.
+
+### GET /iras-data/dealers/:dealerId/slip-reads/:slipReadId/photo-url
+
+Response: `ApiSuccess<{ viewUrl, filename, contentType, expiresIn }>` - the photograph, signed `inline`, for `S3_SIGNED_URL_TTL_SECONDS` (900). Signed on demand and never stored: a URL held across a break renders as a broken image, which on a verification screen looks identical to no evidence.
+There is no `downloadUrl` half. The operator is checking the paper on screen, not filing it.
+Side effects: writes an `AuditLog` `IRAS_SLIP_PHOTO_VIEW`.
+Errors: `NOT_FOUND` when the id is unknown **or belongs to another dealer** - 404 rather than 403, so a guessed id does not confirm the record exists; `BAD_REQUEST` when the stored key is outside `slip/<dealerId>/`.
+
+### PUT /iras-data/dealers/:dealerId/days/:businessDate/corrections
+
+Gains one optional field: `slipReadIds: string[]` (max 10). **Provenance and nothing else** - it changes no figure, and a commit that omits it saves exactly what it saved before the field existed.
+
+For each id that belongs to this dealer and this day, the commit stamps `appliedAt`, `appliedNozzleNos` and `appliedCumSale` on the `SlipRead`, and adds `readFromSlip: [{ slipReadId, nozzleNos }]` to the audit entry's `after`. A nozzle counts only when the figure now on record is the **character-identical** string the slip printed for it: that equality is what makes tomorrow's litre and rupee counters provably anchored to the same instant, and if the operator typed over the slip's figure nothing is recorded for that nozzle.
+An id from another dealer or another day is **skipped, never refused** - the figures are already saved, and a stale id in a client's state must not be able to fail a morning.
+
+---
+
 ## Status codes
 
 | Code | When                                                                                |
@@ -290,6 +432,7 @@ Errors: `NOT_FOUND` if they have not sent one for that day.
 | 403  | Role denied by `requireRole`, or the dealer is archived                             |
 | 404  | Not found                                                                           |
 | 409  | Unique conflict                                                                     |
+| 429  | Quota, daily budget or concurrency cap (`POST …/read-slip`, Credit & DOD)           |
 | 422  | Plugin config failed Ajv validation                                                 |
 | 500  | Internal                                                                            |
 
