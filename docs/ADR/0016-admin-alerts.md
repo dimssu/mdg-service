@@ -13,22 +13,22 @@ fixed. A bell in the header shows how many are waiting, on every screen.
 
 ## 2. The alerts
 
-| Alert               | Fires when                                                                                       | Clears when                                   | Who    |
-| ------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------- | ------ |
-| Portal login        | A run was refused by SDMS/IRAS, or no password is saved. One per outlet and portal               | The outlet signs in again                     | Admins |
-| Service failed      | A permanent failure, or a temporary one after its 2 automatic retries                            | A run works, or the service is paused         | Admins |
-| Service late        | 45 min past due and not running                                                                  | It runs                                       | Admins |
-| Service stopped     | On a timer but with no next run                                                                  | It has a next run                             | Admins |
-| Waiting for a reply | A dealer has had no reply for 30 min                                                             | Someone (or the AI first line) replies        | Admins |
-| Paper to review     | A dealer sent a paper we asked for                                                               | Accepted or sent back                         | Admins |
-| Paper running out   | The newest filed copy runs out by tomorrow (or ran out in the last 90 days) and no renewal is in | A renewal is sent in or filed                 | Admins |
-| Kavach proof        | Proof is waiting for verification. One per outlet, with a count                                  | Every submitted task is verified or sent back | Admins |
-| Report held back    | The correctness check is withholding a report from the last 3 days (ENFORCE mode only)           | It passes, is released, or is sent            | Admins |
-| Supply blocked      | The RO supply status reads blocked. The all-clear is pushed too                                  | It is no longer blocked                       | Admins |
-| Ledger charge       | Ledger Watch found a non-routine charge in the last 14 days                                      | It is marked as read in Ledger watch          | Admins |
-| Outdated copy       | A dealer holds a report or credit card we have since corrected                                   | The corrected copy is sent                    | Admins |
-| Server              | The last process died without shutting down, or the server was off >10 min                       | Marked as seen, or after a day                | Super  |
-| Server start-up     | A boot step failed                                                                               | The step succeeds on a later start            | Super  |
+| Alert               | Fires when                                                                                                                                                                                                                                 | Clears when                                   | Who    |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------- | ------ |
+| Portal login        | A run was refused by SDMS/IRAS, or no password is saved. One per outlet and portal                                                                                                                                                         | The outlet signs in again                     | Admins |
+| Service failed      | A permanent failure, or a temporary one after its 2 automatic retries                                                                                                                                                                      | A run works, or the service is paused         | Admins |
+| Service late        | 45 min past due and not running                                                                                                                                                                                                            | It runs                                       | Admins |
+| Service stopped     | On a timer but with no next run                                                                                                                                                                                                            | It has a next run                             | Admins |
+| Waiting for a reply | A dealer has had no reply for 30 min                                                                                                                                                                                                       | Someone (or the AI first line) replies        | Admins |
+| Paper to review     | A dealer sent a paper we asked for                                                                                                                                                                                                         | Accepted or sent back                         | Admins |
+| Paper running out   | The newest filed copy runs out by tomorrow (or ran out in the last 90 days) and no renewal is in                                                                                                                                           | A renewal is sent in or filed                 | Admins |
+| Kavach proof        | Proof is waiting for verification. One per outlet, with a count                                                                                                                                                                            | Every submitted task is verified or sent back | Admins |
+| Report held back    | The correctness check is withholding a report from the last 3 days (ENFORCE mode only)                                                                                                                                                     | It passes, is released, or is sent            | Admins |
+| Supply blocked      | The RO supply status reads blocked. The all-clear is pushed too                                                                                                                                                                            | It is no longer blocked                       | Admins |
+| Ledger charge       | A charge to the dealer, first seen in the last 14 days, that Ledger Watch can name and grades unusual or worse (NOTICE/ALERT) — interest, licence-fee recoveries. Not monthly rentals (INFO), commission (money in) or lines no rule names | It is marked as read in Ledger watch          | Admins |
+| Outdated copy       | A dealer holds a report or credit card we have since corrected                                                                                                                                                                             | The corrected copy is sent                    | Admins |
+| Server              | The last process died without shutting down, or the server was off >10 min                                                                                                                                                                 | Marked as seen, or after a day                | Super  |
+| Server start-up     | A boot step failed                                                                                                                                                                                                                         | The step succeeds on a later start            | Super  |
 
 ## 3. How it stays quiet
 
@@ -76,6 +76,12 @@ each alert is worth reading, so these rules apply:
   else, including the counts.
 - The admin app gets `alerts:changed` over the socket and refetches. The bell and
   the sidebar badge read the same query.
+
+Ledger charges were first raised on Ledger Watch's `ALERT` grade, which turned
+out to mean "a line no rule can name". The first production pass raised 58 of
+those (about six identical lines per outlet) and buried the list, so the same
+day the check moved to named charges graded `NOTICE` or worse. The 58 were
+closed automatically.
 
 ## 5. What it cannot do
 
