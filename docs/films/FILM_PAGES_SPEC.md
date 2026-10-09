@@ -22,9 +22,10 @@ Each film version is an immutable folder `/<film>/<version>/` produced by
 | file                             | what                                                                                                 |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | `master.m3u8`                    | HLS master; 5 renditions 1920/1280/960/640/426 tall (9:16), 4 s TS segments, muxed mono AAC          |
+| `hd/sd/lite.m3u8`                | the same ladder for Safari's own player, 720p / 540p / 360p listed first (it starts on the first)    |
 | `r0..r4/index.m3u8`, `s0000.ts…` | renditions, `r0` = 1080x1920 … `r4` = 240x426                                                        |
 | `film-540.mp4`                   | fast-start 540p mp4: fallback for browsers with neither native HLS nor MSE                           |
-| `poster.jpg`                     | 540x960 first-frame poster                                                                           |
+| `poster.jpg`                     | 720x1280 first-frame poster (`poster-720.jpg` added to the two v1 versions, which shipped 540x960)   |
 | `captions.hi.vtt`                | Hindi WebVTT, one cue per phrase, timed to the narration                                             |
 | `chapters.json`                  | `[{ t, title }]` (full film only; `[]` for the short)                                                |
 | `timeline.json`                  | `{ film, duration, lines: [{ id, t, end, hi }], chapters }` — every narrated line with its start/end |
@@ -51,21 +52,32 @@ redeploy. A film whose version is not yet known (the short, today) must render a
 
 **Playback — "starts immediately":** browsers forbid sound before a tap, so:
 
-- `<video playsinline muted autoplay preload="auto" poster=…>`; HLS natively where
-  `canPlayType('application/vnd.apple.mpegurl')` says yes (iOS/Safari; Android Chrome), else
-  **hls.js** (`hls.js/dist/hls.light.min.js`, self-hosted under `/film/`, loaded only when
-  needed), else `film-540.mp4`.
-- hls.js: `capLevelToPlayerSize: true`; start level from `navigator.connection` —
-  `saveData` or `effectiveType` 2g/slow-2g → r4, 3g → r3, else r2 — then ABR; cap phones
-  (`(pointer: coarse)`) at r1 (720p) to save the dealer's data.
+- `<video playsinline preload="auto" poster=…>`; **hls.js** (`hls.js/dist/hls.light.min.js`,
+  self-hosted under `/film/`) in every browser with MediaSource except Safari, whose own
+  player is kept and given `hd`/`sd`/`lite.m3u8`; else `film-540.mp4`. Chrome's own HLS player
+  is not used: it opens on the 240p rung whatever the list says (measured, 9 Oct 2026).
+  Data saver and 2G keep the browser's player to skip the 120 kB hls.js download.
+- **Sharp from the first frame (9 Oct 2026).** Start rung from `navigator.connection.downlink`
+  when the browser gives one (≥ 2 Mb/s → 720p, ≥ 1 → 540p, else 360p), else `effectiveType`
+  ("3g" → 540p, else 720p); data saver / 2G → 360p. hls.js then holds the automatic choice
+  one rung below the start (`minAutoBitrate`) and lowers that floor one step per real stall.
+  `capLevelToPlayerSize: true`; phones (`(pointer: coarse)`) capped at 720p. The old start
+  was 540p, which sharpened after the first 4 s segment and read as "it plays blurry".
+  While loading, the poster stays up with "फ़िल्म साफ़ तस्वीर में आ रही है".
 - Hindi captions (`<track kind="captions" srclang="hi" default>`) **showing while muted**;
   styled large and legible (`::cue`), positioned above the controls.
 - A big, obvious **"🔊 आवाज़ चालू करें"** button over the video while muted. First tap:
   unmute, and if the playhead is < 15 s, restart from 0 (so the viewer hears the opening).
   After sound is on, captions switch off (a CC toggle brings them back).
 - If even muted autoplay is blocked, show the poster with a large play button.
-- Native controls (`controls`), plus speed chips **1x · 1.2x · 1.5x** under the player
-  (the founder already makes 1.2x versions; this replaces separate files).
+- The page's own controls (the browser's stay only without JS): tap shows them for 3 s;
+  play/pause and 10 s back/forward in the middle, clock, "HD" at 720p+, sound, full screen
+  and a seek bar with chapter gaps at the bottom; double-tap a side third to skip 10 s; a
+  thin progress line while they are hidden. Under the player: the next step + WhatsApp,
+  then settings as labelled rows: रफ़्तार **1x · 1.2x · 1.5x** (the founder already makes 1.2x
+  versions; this replaces separate files), सबटाइटल चालू/बंद, तस्वीर अपने-आप/HD/कम डेटा
+  (hls.js only, remembered).
+- Full film: resumes where the viewer left off (offered, not forced, for 12 s).
 - Full film: chapter list under the player (title + time), tap seeks; highlight current.
 - **End screen.** Short: a large "पूरी फ़िल्म देखें (26 मिनट) →" button to
   `/film?from=short&r=<same code>` + replay. Full film: "डीलर कवच से जुड़ें" to `/register`
