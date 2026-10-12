@@ -68,11 +68,13 @@ export const SERVICE_LABELS: Record<string, ServiceLabel> = {
   'water-ingress-testing': { en: 'Water ingress testing', hi: 'टैंक में पानी की जाँच' },
   /**
    * Missing until now, so the dealer's Services page printed `load-planner`.
-   * What the dealer gets from it is when to order which tanker.
+   * What the dealer gets from it is when to order which tanker. The English is
+   * what the admin's humanising fallback already printed, as for water ingress,
+   * so no admin screen or alert title changes.
    */
-  'load-planner': { en: 'Load Planner', hi: 'टैंकर मंगाने की योजना' },
+  'load-planner': { en: 'Load planner', hi: 'टैंकर मंगाने की योजना' },
   /** Missing until now too. The dealer's question is simply whether supply is open. */
-  'ro-supply-status': { en: 'RO Supply Status', hi: 'सप्लाई की स्थिति' },
+  'ro-supply-status': { en: 'RO supply status', hi: 'सप्लाई की स्थिति' },
 };
 
 /**
