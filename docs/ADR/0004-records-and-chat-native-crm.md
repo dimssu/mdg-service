@@ -1,6 +1,13 @@
 # ADR 0004 — Records subsystem and chat-native CRM
 
-- Status: Accepted
+> **Superseded by [ADR 0018](0018-the-chat-is-the-app.md), in part (2026-10-12).** The Records
+> subsystem described below — manual upload, `POST /api/v1/records`, the `Record` model, the
+> `record:new` event, the record card in the chat and the Records shelf — no longer exists. A
+> report now reaches a dealer only as a picture or file message in the chat, and old records are
+> moved into the chat by a script. What still stands: §2's second bullet, **the `Conversation` is
+> the ticket** (extended by ADR 0017). The text below is kept as it was written.
+
+- Status: Accepted; the Records parts superseded by ADR 0018
 - Date: 2026-06-19
 - Supersedes/extends: context in ARCHITECTURE_V2.md
 
