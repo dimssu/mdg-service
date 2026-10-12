@@ -101,8 +101,8 @@ Maps to PRD §8.1. Validates a calm, chat-first landing with no setup wizard.
 3. Confirm there is no setup wizard, tour, dashboard, or empty form.
 4. Read the empty-state copy. Confirm it shows a friendly greeting
    ("How can we help?") and a short helper line.
-5. Confirm quick-action chips are present: **Report an issue**,
-   **Request a service**, **Talk to support**.
+5. Confirm quick-action chips are present: **Report an issue** and
+   **Request a service** (two chips — "Talk to support" was removed, ADR 0017).
 6. Tap **Report an issue**. Confirm the composer is pre-seeded with that text,
    ready to send with zero typing.
 7. Scan every visible label for admin-only words: ticket, priority, category,
@@ -114,7 +114,7 @@ Ramesh lands directly on **his own** chat screen. Empty state greets him and
 offers chips; tapping a chip seeds the composer. No admin/triage vocabulary
 anywhere.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -157,7 +157,7 @@ Admin can reach admin surfaces and writes; dealers cannot. Dealer reads are
 forced to their own `dealerId`; cross-dealer access and admin writes are
 refused. Bad input fails gracefully.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -187,7 +187,7 @@ Maps to PRD §8.2 (`sendMessageSchema`, presign + image attachment).
 Image uploads via presign and sends with the text. Empty sends are blocked
 gently; oversize is explained. Admin sees it live and unread.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -228,7 +228,7 @@ unread, delivered live, pushes), and resolves the conversation through OPEN →
 ASSIGNED → RESOLVED **only after logging the service provided**, which lands in
 the dealer's services-provided history.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -259,7 +259,7 @@ A resolved conversation can be reopened (by admin, and/or by a new dealer
 message), preserving full history. Record the exact reopen trigger observed —
 this resolves PRD §11's open question for the build.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -294,7 +294,7 @@ Record is created via presign + `POST /records`, appears in the admin Reports
 list, is attributed to Arjun, and (with announce on) is posted into the dealer's
 chat. Failures are recoverable.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -325,7 +325,7 @@ Maps to PRD §8.3 (`record:new` / `message:new`, system card, signed URL, push).
 The record card arrives live in chat with plain labels, opens via signed URL,
 and (in Expo) triggers a push that deep-links to the chat.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -353,7 +353,7 @@ Maps to PRD §8.4 (Records shelf grouped by type, signed-URL open).
 The shelf is one tap from chat, groups records by plain-language type, shows the
 DSR with period, opens via signed URL, and exposes no triage vocabulary.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -385,7 +385,7 @@ the explicit anti-duplicate regression check.
 Every message renders exactly once on every connected client, in order, with no
 duplicates on optimistic send, fan-out, or reconnect.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -410,7 +410,7 @@ Maps to Architecture §6 (`typing`, `read`) and PRD "Should have".
 Typing indicators appear and clear correctly; reading a message clears unread on
 the appropriate side.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -437,7 +437,7 @@ Maps to PRD §7 rule and §8.5 AC6 (admin-only fields stripped server-side).
 
 Triage fields are absent from every dealer-facing surface (UI, REST, socket).
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -481,7 +481,7 @@ The WebView shell provides persistent session, native file picker, push token
 register/unregister with **real push delivery** + deep-link, an offline screen,
 graceful load-failure handling, and correct Android back behavior.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -508,7 +508,7 @@ Maps to PRD §8.1 AC5 and §9 (thumb-first, big targets).
 Every dealer screen is usable on a small phone with large tap targets and no
 horizontal scrolling.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -544,7 +544,7 @@ Each member has a private conversation; same-org members cannot see each other's
 chats; the admin inbox groups per-member threads by organisation; records and
 service history are shared across all members of the dealer.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -578,7 +578,7 @@ A conversation cannot be resolved without a valid service log; both catalog and
 "Other" services are supported with required notes; logs build a per-dealer,
 org-shared services-provided history attributed to the admin who logged them.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -617,7 +617,7 @@ then find your Daily Sales Report."
    a photo, or send an empty message and get confused by the rejection.
    → ☐ smooth ☐ hesitated ☐ needed help
 4. **Use a quick-action chip (optional path).** If the dealer is stuck typing,
-   do the chips ("Report an issue", "Request a service", "Talk to support")
+   do the chips ("Report an issue", "Request a service")
    rescue them? Note whether they noticed the chips at all.
    → ☐ used a chip ☐ ignored chips ☐ didn't see chips
 5. **Receive a reply.** Admin replies (and uploads a DSR with announce on). Does
@@ -630,7 +630,7 @@ then find your Daily Sales Report."
    → ☐ smooth ☐ hesitated ☐ needed help
 7. **Jargon scan.** During the whole run, did the dealer encounter any word that
    confused them (ticket, priority, category, queue, DSR-as-acronym, asset)?
-   List each word that caused a pause: ********\*\*********\_\_********\*\*********
+   List each word that caused a pause: **\*\*\*\***\*\***\*\*\*\***\_\_**\*\*\*\***\*\***\*\*\*\***
 
 **Metrics to capture (PRD §5 / §9):**
 
@@ -639,7 +639,7 @@ then find your Daily Sales Report."
 - **DSR opened?** ☐ yes ☐ no
 - **Total confusion points** (count of "hesitated" + "needed help" above): \_\_\_\_
 - **"Could you do that without help?" (ask afterward):** ☐ yes ☐ no
-- **Verbatim quote of the biggest frustration:** ****\*\*\*\*****\_\_\_\_****\*\*\*\*****
+- **Verbatim quote of the biggest frustration:** \***\*\*\*\*\*\*\***\_\_\_\_\***\*\*\*\*\*\*\***
 
 **Expected result (acceptance bar)**
 
@@ -648,7 +648,7 @@ DSR — **unaided**, in **≤ 2 minutes to first message**, with **zero** exposu
 to admin/triage jargon. Two or more "needed help" confusion points is a FAIL for
 the approachability thesis even if every feature technically works.
 
-**PASS ☐ FAIL ☐** Notes: **********\*\***********\_\_**********\*\***********
+**PASS ☐ FAIL ☐** Notes: ****\*\*****\*\*****\*\*****\_\_****\*\*****\*\*****\*\*****
 
 ---
 
@@ -694,4 +694,4 @@ non-zero on any failure. **Do not start a UAT session if smoke.sh fails.**
 | A        |        |        |      |
 
 **Release recommendation:** ☐ Go ☐ Go with caveats ☐ No-go
-Caveats / blockers: **********\*\*\*\***********\_\_\_\_**********\*\*\*\***********
+Caveats / blockers: ****\*\*****\*\*\*\*****\*\*****\_\_\_\_****\*\*****\*\*\*\*****\*\*****

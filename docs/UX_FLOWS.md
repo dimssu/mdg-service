@@ -41,9 +41,11 @@ Steps:
 2. On success `login()` stores token+user, `navigate('/chat')`. There is **no
    separate onboarding wizard**: the home screen _is_ the member's **own private
    chat** (each member has their own thread; records/reports are shared across the pump).
-3. Empty chat shows `[EmptyState]` `(How can we help?)` / `(Send a message and a
-real person from our support team will reply.)` plus three quick-action chips
-   (`Report an issue`, `Request a service`, `Talk to support`).
+3. Empty chat shows `[EmptyState]` `(How can we help?)` / `(Send a message and
+the MDG team will answer you here.)` plus two quick-action chips
+   (`Report an issue`, `Request a service`). There is no "Talk to support" chip
+   and no "Talk to a person" button any more: the AI raises a ticket for a
+   person whenever it cannot settle a question (ADR 0017).
 4. Tapping a chip calls `onQuickAction` → seeds the composer via `initialText`
    (`composerSeed`), so the dealer's first message is pre-written; they just hit Send.
 
