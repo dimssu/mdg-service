@@ -1,5 +1,9 @@
 # ADR 0018 — The chat is the app
 
+> **Superseded in part by ADR 0019 (2026-10-13):** decision 3 (the Kavach page stays) and
+> the Settings rows "Your papers", "Density register" and "Pump health" in decision 8. Every
+> request MDG has of a dealer now lives in the chat.
+
 Status: accepted, 2026-10-12. **Supersedes the Records parts of ADR 0004** — §1 (manual
 upload of records) and the "Records shelf" half of §2. The other half of ADR 0004 §2, _the
 Conversation is the ticket_, stands (see ADR 0017). Extends ADR 0011 (the Kavach page keeps
