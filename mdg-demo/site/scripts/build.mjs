@@ -157,7 +157,7 @@ function page({
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(description)}">${noindex ? '\n<meta name="robots" content="noindex,nofollow">' : ''}
+<meta name="description" content="${esc(description)}">${noindex ? '\n<meta name="robots" content="noindex,nofollow">' : ''}${slug ? '' : '\n<!-- Google Search Console ownership check; keep it -->\n<meta name="google-site-verification" content="PAgPpW8tdSOkOgiBKhnx00KuB9ab-3yJoZ8CVgQ4XYs">'}
 <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="${canonical}">
