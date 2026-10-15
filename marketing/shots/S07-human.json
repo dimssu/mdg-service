@@ -1,0 +1,16 @@
+{
+  "id": "S07-human",
+  "act": 3,
+  "beat": "S07-human",
+  "problem": "Behind every pump there is a person",
+  "aspect_ratio": "9:16",
+  "action": "A different interior — a plain simple office desk somewhere else. A person in their late twenties sits at it in a plain shirt, leaning slightly forward, phone held to their ear with one hand, a pen in the other resting on a notebook. They are listening carefully — genuinely attentive, mid-conversation, not performing. This is the human being on the other end.",
+  "lighting": "Warm soft window light from the side, ordinary working interior, unglamorous and real. Not a call centre, not rows of desks — one person at one desk.",
+  "camera": "Chest-up, they are centre frame in three-quarter view. Sharp. Background soft and plain. 35mm.",
+  "detail": "NO headset, NO uniform, NO badge, NO logo, NO branding of any kind. The notebook page is blank — no writing, no letters, no numbers. No screens visible. This must NOT look like a call centre.",
+  "feeling": "Somebody is actually watching your pump. Not a system — a person, and you could talk to them.",
+  "motion": "They nod once while listening and make a small movement with the pen. A slow push in. No cuts, no camera shake, nobody else enters frame, no speech is mouthed to camera.",
+  "voice_over": {
+    "hi": "और ये सब कोई मशीन अकेले नहीं करती। हर पंप के पीछे एक इंसान है।"
+  }
+}

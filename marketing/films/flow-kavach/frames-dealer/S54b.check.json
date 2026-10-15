@@ -1,0 +1,19 @@
+{
+  "id": "S54",
+  "same_man": "same",
+  "face_notes": "The man is a very close match to the reference photo in terms of face, age, hair, and moustache.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Orange stripe on petrol dispenser"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The brief requires 'plain white dispensers'. This version has an orange stripe. Add 'plain white petrol dispenser, no stripes, no colours, no branding' to the prompt."
+}

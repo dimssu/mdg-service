@@ -1,0 +1,20 @@
+{
+  "id": "S28",
+  "same_man": "same",
+  "face_notes": "Good match to the reference photo in terms of age, face shape, hair, and moustache.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Indistinct markings on book cover",
+    "Indistinct markings on watch face"
+  ],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": true,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "keep",
+  "retake_hint": ""
+}

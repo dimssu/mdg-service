@@ -1,0 +1,21 @@
+{
+  "id": "S55",
+  "same_man": "same",
+  "face_notes": "The man's face is consistent and matches the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "Veo watermark in bottom right corner from 00:01"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The action is incorrect: the woman turns a page instead of closing the book. There is a 'Veo' watermark throughout, violating the 'no logos' rule. Prompt again, specifying the action: 'the woman closes the ledger shut'. Add negative prompts for watermarks and text: 'no logos, no watermarks, no text'."
+}

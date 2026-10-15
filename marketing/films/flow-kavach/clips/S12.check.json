@@ -1,0 +1,22 @@
+{
+  "id": "S12",
+  "same_man": "not_in_shot",
+  "face_notes": "The hero character is not in this shot.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 1,
+      "what": "A dark, smoky digital artifact, not a natural cloud shadow, moves across the sky and canopy from the top left."
+    }
+  ],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The shot matches the brief well on setting, character and action, but there is a large, dark, unnatural 'smoky' digital artifact that moves across the sky in the top left. The brief requires a 'clean empty sky' or a 'soft cloud-shadow'. This needs to be regenerated without the glitchy shadow."
+}

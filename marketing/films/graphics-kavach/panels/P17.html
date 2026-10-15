@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* a phone big enough that a chat reads on a phone screen: 32px bubbles */
+#P17 .phone{width:860px;height:1400px;border-radius:84px;padding:16px;
+  box-shadow:0 60px 120px rgba(0,0,0,.6),0 0 0 3px rgba(255,255,255,.14),0 0 90px rgba(233,140,59,.22)}
+#P17 .screen{border-radius:70px;background:#120D0B}
+#P17 .island{position:absolute;top:22px;left:50%;width:150px;height:40px;margin-left:-75px;
+  border-radius:20px;background:#000;z-index:10}
+#P17 .top{padding:84px 36px 26px;display:flex;align-items:center;gap:20px;
+  background:#1C1411;border-bottom:1px solid #2E2320}
+#P17 .logo{width:72px;height:72px;border-radius:20px;flex:none;display:flex;align-items:center;
+  justify-content:center;font-size:28px;font-weight:700;color:#fff;
+  background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep));box-shadow:0 0 0 2px rgba(233,162,59,.35)}
+#P17 .top .nm{font-size:36px;color:#F5E9DA;line-height:1.2}
+#P17 .top .st{font-size:26px;color:#B89F86;line-height:1.3}
+#P17 .top .moon{margin-left:auto;color:var(--amber)}
+#P17 .chat{flex:1;padding:34px 30px;display:flex;flex-direction:column;gap:24px;
+  background:radial-gradient(90% 60% at 50% 0%,rgba(107,22,22,.28),rgba(107,22,22,0) 70%),#15100E}
+#P17 .bub{font-size:36px;line-height:1.45;max-width:90%;border-radius:24px;padding:20px 26px;
+  box-shadow:0 3px 10px rgba(0,0,0,.35)}
+#P17 .bub.me{align-self:flex-end;background:#5A1B16;color:#FFF1E3;border-top-right-radius:8px}
+#P17 .bub.them{align-self:flex-start;background:#2A201C;color:#F3E6D6;border-top-left-radius:8px}
+#P17 .ticks{display:flex;justify-content:flex-end;margin-top:6px;height:28px;position:relative}
+#P17 .ticks svg{width:40px;height:28px;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;position:absolute;right:0;top:0}
+#P17 .ticks .grey{stroke:#9C8878}
+#P17 .ticks .read{stroke:var(--amber)}
+#P17 .photo{padding:10px;border-radius:24px}
+#P17 .photo .img{width:600px;height:420px;border-radius:16px;overflow:hidden;background:#0B0F16}
+#P17 .photo .img svg{display:block;width:100%;height:100%;filter:blur(4.6px)}
+#P17 .ok{display:inline-flex;align-items:center;gap:12px}
+#P17 .ok svg{width:38px;height:38px;color:#7FD3A4;stroke-width:3}
+/* typing dots sit exactly where the first reply will land, then leave */
+#P17 .slot{position:relative;align-self:stretch;display:flex;flex-direction:column}
+#P17 .typing{position:absolute;left:0;top:0;background:#2A201C;border-radius:24px;border-top-left-radius:8px;
+  padding:26px 30px;display:flex;gap:12px}
+#P17 .typing i{display:block;width:16px;height:16px;border-radius:50%;background:#C9B29A;
+  animation:dot .9s ease-in-out infinite paused}
+@keyframes dot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-12px);opacity:1}}
+@keyframes typingOn{0%{opacity:0;transform:translateY(20px)}12%{opacity:1;transform:none}86%{opacity:1}100%{opacity:0}}
+#P17 .compose{margin:0 26px 34px;display:flex;align-items:center;gap:18px}
+#P17 .compose .in{flex:1;background:#241B18;border-radius:999px;padding:22px 30px;font-size:28px;color:#8C7766}
+#P17 .compose .mic{width:84px;height:84px;border-radius:50%;background:var(--maroonSoft);color:#fff;
+  display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<!-- ══ P17 · a night complaint, answered · K505 "ऐसी हर ज़रूरत पर हमारी टीम तुरंत जवाब देने की कोशिश करती है…" ══ -->
+<div class="panel ink" id="P17" data-plate="night" style="--T:9s">
+  <div class="glow anim a-glow" style="background:radial-gradient(circle,rgba(233,120,59,.30),rgba(233,120,59,0) 66%)"></div>
+  <div class="phone anim a-rise" style="animation-duration:.9s">
+    <div class="screen">
+      <div class="island"></div>
+      <div class="top">
+        <div class="logo dis">DK</div>
+        <div><div class="nm hi">MDG टीम</div><div class="st hi">डीलर कवच</div></div>
+        <svg class="i moon" style="width:44px;height:44px" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+      </div>
+      <div class="chat">
+        <div class="bub me photo anim a-bub" style="animation-delay:.15s">
+          <div class="img"><svg viewBox="0 0 600 420">
+            <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B0F16"/><stop offset="1" stop-color="#1B1F25"/></linearGradient></defs>
+            <rect width="600" height="420" fill="url(#sky)"/>
+            <rect x="-20" y="26" width="640" height="38" fill="#DCE3EB" opacity=".9"/>
+            <circle cx="140" cy="84" r="16" fill="#fff"/><circle cx="460" cy="84" r="16" fill="#fff"/>
+            <rect x="0" y="336" width="600" height="84" fill="#23272D"/>
+            <rect x="58" y="170" width="84" height="170" rx="8" fill="#6E747B" opacity=".55"/>
+            <rect x="228" y="118" width="150" height="232" rx="12" fill="#C9CDD2"/>
+            <rect x="250" y="144" width="106" height="64" rx="5" fill="#111418"/>
+            <rect x="250" y="222" width="106" height="14" rx="3" fill="#9AA0A7"/>
+            <rect x="250" y="246" width="70" height="10" rx="3" fill="#9AA0A7"/>
+            <rect x="378" y="186" width="28" height="64" rx="7" fill="#868B92"/>
+            <path d="M404 244C446 300 428 342 384 352" stroke="#15181C" stroke-width="9" fill="none"/>
+            <rect x="206" y="346" width="196" height="16" rx="5" fill="#A2A8AF"/>
+            <ellipse cx="304" cy="392" rx="120" ry="14" fill="#C9CDD2" opacity=".16"/>
+          </svg></div>
+          <div class="ticks" style="margin-right:8px">
+            <svg class="grey" viewBox="0 0 40 28"><path d="M3 15l7 7L24 7"/><path d="M16 22 31 7"/></svg>
+            <svg class="read anim a-fade" style="animation-delay:3.6s;animation-duration:.4s" viewBox="0 0 40 28"><path d="M3 15l7 7L24 7"/><path d="M16 22 31 7"/></svg>
+          </div>
+        </div>
+        <div class="bub me hi anim a-bub" style="animation-delay:1.2s">डिस्पेंसिंग यूनिट 2 बंद हो गई है
+          <div class="ticks">
+            <svg class="grey" viewBox="0 0 40 28"><path d="M3 15l7 7L24 7"/><path d="M16 22 31 7"/></svg>
+            <svg class="read anim a-fade" style="animation-delay:3.6s;animation-duration:.4s" viewBox="0 0 40 28"><path d="M3 15l7 7L24 7"/><path d="M16 22 31 7"/></svg>
+          </div>
+        </div>
+        <div class="slot">
+          <div class="typing anim" style="animation-name:typingOn;animation-duration:1.25s;animation-delay:2.4s">
+            <i style="animation-delay:2.4s"></i><i style="animation-delay:2.55s"></i><i style="animation-delay:2.7s"></i></div>
+          <div class="bub them hi anim a-bub" style="animation-delay:3.65s"><span class="ok">कंप्लेंट दर्ज हो गई <svg class="i"><use href="#i-check"/></svg></span></div>
+        </div>
+        <div class="bub them hi anim a-bub" style="animation-delay:4.9s">टेक्नीशियन की विज़िट: कल सुबह। तब तक नोज़ल 1 और 3 चालू रखें। हम अपडेट देते रहेंगे।</div>
+      </div>
+      <div class="compose">
+        <div class="in hi">संदेश लिखें…</div>
+        <div class="mic"><svg class="i" style="width:38px;height:38px" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">रात में भी जवाब</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

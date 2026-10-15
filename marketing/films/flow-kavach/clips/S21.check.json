@@ -1,0 +1,36 @@
+{
+  "id": "S21",
+  "same_man": "not_in_shot",
+  "face_notes": "The man in the video is a young Indian man, as per the brief for this shot.",
+  "outfit_matches": false,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "A logo is visible on the back of the laptop, resembling a solid, stylized apple.",
+    "The text 'Veo' and a four-point sparkle logo are visible in the bottom right corner throughout."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 0,
+      "what": "The entire clip is a slideshow of different still photos, not a continuous video shot. The man's pose and head position jump between frames."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 0,
+      "what": "Man is typing, which contradicts the brief's instruction 'Hands stay still; no typing'."
+    },
+    {
+      "t": 3,
+      "what": "Man touches his chin in a thinking gesture, which is not in the brief."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The generation failed. It produced a slideshow of still images, not a video. The motion is also incorrect: the man types and touches his chin, but the brief required him to lean in, notice something, and nod. Ensure the next attempt generates a single, continuous video shot with the correct motion, and remove the logo from the laptop."
+}

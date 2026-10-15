@@ -1,0 +1,26 @@
+{
+  "id": "S51",
+  "same_man": "not_in_shot",
+  "face_notes": "The hero character is not in this shot.",
+  "outfit_matches": false,
+  "text_visible": [
+    "Veo (watermark, bottom right)"
+  ],
+  "marks_or_livery": [
+    "Veo (watermark, bottom right)"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 4,
+      "what": "After placing the paper down, the woman runs her hands over it as if reading Braille. This is not in the brief and is a very strange, unmotivated action."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "no",
+  "clean_from": 0,
+  "clean_to": 3,
+  "verdict": "retake",
+  "retake_hint": "The action is wrong. The brief requires the woman to turn the paper face-down and place it *into* the tray. In the video, she places it face-up *on top* of a file, and then performs a strange, unscripted action of running her hands over the paper as if reading Braille. The action must follow the brief exactly."
+}

@@ -1,0 +1,22 @@
+{
+  "id": "S21",
+  "same_man": "not_in_shot",
+  "face_notes": "The man in the video is not the reference character, as per the brief.",
+  "outfit_matches": false,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "Apple logo on laptop",
+    "Veo watermark in bottom right corner"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The man's action is wrong. He types throughout, but the brief requires him to stop typing, lean in to look at the screen, and nod once. The Apple logo on the laptop is also visible and should be removed."
+}

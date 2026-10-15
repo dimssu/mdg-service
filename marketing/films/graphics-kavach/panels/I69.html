@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  @keyframes rise{0%{transform:translateY(105%)}100%{transform:none}}
+  @keyframes drop{0%{opacity:0;transform:translateY(-160px)}70%{opacity:1;transform:translateY(6px)}100%{opacity:1;transform:none}}
+  @keyframes show{0%{opacity:0}100%{opacity:1}}
+  @keyframes wr{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(-10% -4% -10% 0)}}
+  @keyframes halo{0%,100%{opacity:.5}50%{opacity:.85}}
+
+  #I69{gap:56px}
+  #I69 .halo{position:absolute;left:50%;top:44%;width:1200px;height:1200px;margin:-600px 0 0 -600px;border-radius:50%;
+    background:radial-gradient(circle,rgba(233,162,59,.32),rgba(233,162,59,0) 64%);z-index:1;animation-name:halo;animation-duration:6s}
+  #I69 .temple{position:relative;width:960px;display:flex;flex-direction:column;align-items:center}
+  #I69 .roof{position:relative;width:960px;height:120px;z-index:3;animation-name:drop;animation-duration:.6s}
+  #I69 .roof .beam{position:absolute;left:0;right:0;bottom:0;height:92px;border-radius:14px;
+    background:linear-gradient(180deg,var(--maroonSoft),var(--maroonDeep));border-bottom:8px solid var(--amber);
+    box-shadow:0 22px 40px rgba(58,16,10,.35),inset 0 2px 0 rgba(255,255,255,.18)}
+  #I69 .roof .lk{position:absolute;left:50%;top:-78px;width:150px;height:150px;margin-left:-75px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#F7CD78,var(--amber) 55%,var(--amberDeep));color:var(--maroonDeep);display:flex;align-items:center;justify-content:center;
+    box-shadow:0 16px 30px rgba(58,16,10,.4),inset 0 0 0 5px rgba(255,255,255,.35)}
+  #I69 .roof .lk svg.i{width:84px;height:84px;stroke-width:2.1}
+  #I69 .cols{width:900px;height:600px;overflow:hidden;display:flex;justify-content:space-between;align-items:flex-end;padding:0 10px}
+  #I69 .col{width:270px;height:600px;display:flex;flex-direction:column;align-items:center;animation-name:rise;animation-duration:.7s}
+  #I69 .cap3{width:270px;height:40px;border-radius:8px;background:linear-gradient(180deg,#FFFDF8,#EADBC4);box-shadow:0 6px 12px rgba(58,16,10,.18)}
+  #I69 .shaft{flex:1;width:222px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:120px;gap:24px;
+    background:repeating-linear-gradient(90deg,#FFFBF3 0 26px,#EFE2CD 26px 30px),linear-gradient(90deg,rgba(0,0,0,.08),rgba(255,255,255,0) 30%,rgba(0,0,0,.10));
+    background-blend-mode:multiply;box-shadow:inset 0 0 0 2px rgba(201,160,100,.35)}
+  #I69 .shaft .g{width:96px;height:96px;border-radius:26px;display:flex;align-items:center;justify-content:center;color:#fff;
+    background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep));box-shadow:0 10px 20px rgba(58,16,10,.28)}
+  #I69 .shaft .g svg{width:56px;height:56px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+  #I69 .shaft .t{font-size:50px;color:var(--maroonDeep);text-align:center;line-height:1.2;background:rgba(255,253,248,.9);padding:6px 8px;border-radius:10px}
+  #I69 .base3{width:270px;height:40px;border-radius:8px;background:linear-gradient(180deg,#EADBC4,#D6C2A2)}
+  #I69 .plinth{width:960px;height:44px;border-radius:10px;background:linear-gradient(180deg,#8A2B2B,#4E0F0F);box-shadow:0 18px 30px rgba(58,16,10,.3);
+    animation-name:show;animation-duration:.3s}
+  #I69 .line{font-size:60px;color:var(--maroon);text-align:center;line-height:1.35}
+  #I69 .line .ln{animation-name:wr;animation-duration:.6s;animation-timing-function:linear}
+</style>
+</head>
+<body>
+<!-- ══ I69 · confidentiality, trust, limited access · K806 (held 5.24 s) ═════════ -->
+<div class="panel" id="I69" data-plate="office" style="--T:6s">
+  <div class="halo mv"></div>
+  <div class="temple">
+    <div class="roof mv" style="animation-delay:.85s">
+      <div class="beam"></div>
+      <div class="lk"><svg class="i"><use href="#i-lock"/></svg></div>
+    </div>
+    <div class="cols">
+      <div class="col mv" style="animation-delay:-.1s"><div class="cap3"></div>
+        <div class="shaft"><span class="g"><svg viewBox="0 0 24 24"><path d="M3 12s3.4-6 9-6 9 6 9 6-3.4 6-9 6-9-6-9-6Z"/><circle cx="12" cy="12" r="2.6"/><path d="M4 4l16 16"/></svg></span>
+          <span class="t hi">गोपनीयता</span></div><div class="base3"></div></div>
+      <div class="col mv" style="animation-delay:.2s"><div class="cap3"></div>
+        <div class="shaft"><span class="g"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6Z"/><path d="M8.6 12.2l2.4 2.4 4.4-4.8"/></svg></span>
+          <span class="t hi">भरोसा</span></div><div class="base3"></div></div>
+      <div class="col mv" style="animation-delay:.45s"><div class="cap3"></div>
+        <div class="shaft"><span class="g"><svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M18 12v3.5M21 12v2.5"/></svg></span>
+          <span class="t hi">सीमित<br/>एक्सेस</span></div><div class="base3"></div></div>
+    </div>
+    <div class="plinth mv" style="animation-delay:-.2s"></div>
+  </div>
+  <div class="line hi"><div class="ln mv" style="animation-delay:.75s">इन्हीं को ध्यान में रखकर</div><div class="ln mv" style="animation-delay:1.85s">आपका डेटा</div></div>
+  <div class="rail hi">आपका डेटा, आपका</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

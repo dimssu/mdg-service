@@ -1,0 +1,835 @@
+/*
+ * The printed Dealer's कवच pamphlet — two A4 sides, the leave-behind that goes
+ * with the film.
+ *
+ * WHO HOLDS THIS. A marketing person sits across a desk from a petrol pump
+ * dealer and talks him through it, then leaves it on the desk. So the sheet has
+ * to work twice: as a thing being pointed at during a conversation, and as a
+ * thing found again a week later. That is why the structure is numbered blocks
+ * with headings a finger can land on, and why nothing depends on reading order.
+ *
+ * The palette, the type and the diagrams are the same ones the film and the
+ * website use — mirrored from `mdg-landing/tailwind.config.js`. A dealer who
+ * watched the video should recognise the paper as the same thing.
+ *
+ * PRINT NOTES
+ *   - `@page` margin is 0 and the navy bands bleed to the paper edge. A print
+ *     shop handles this; an office printer will shrink it a hair to fit, which
+ *     is fine because nothing sits within 12mm of an edge.
+ *   - Colours are painted backgrounds, so the PDF must be printed with
+ *     "background graphics" on. `print-color-adjust: exact` asks for that.
+ *   - Everything is in `pt` and `mm`. No viewport units, no rem: this document
+ *     has no viewport.
+ */
+
+@import url('./fonts.css');
+
+/* ── Brand tokens ─────────────────────────────────────────────────────────
+   Mirrored from mdg-landing/tailwind.config.js. Do not invent a colour here;
+   if the pamphlet needs one the site does not have, add it to the site first. */
+:root {
+  --navy-50: #f1f2fb;
+  --navy-100: #e3e4f6;
+  --navy-200: #c5c7ed;
+  --navy-400: #6e72cc;
+  --navy-600: #393c9a;
+  --navy-700: #2c2e80;
+  --navy-800: #222466;
+  --navy-900: #1a1b4b;
+  --navy-950: #101133;
+
+  --gold-50: #fef7e7;
+  --gold-100: #fdecc4;
+  --gold-300: #f8c24b;
+  --gold-400: #f5a524;
+  --gold-600: #b96807;
+
+  --paper: #fcfcfe;
+  --paper-warm: #f5f6fb;
+  --paper-sunk: #edeff7;
+
+  --ink: #15163a;
+  --ink-soft: #3d3f66;
+  --ink-muted: #6b6d93;
+  --hairline: #e4e6f1;
+
+  --ok: #12a87b;
+  --ok-tint: #e4f6ef;
+  --risk: #d2544b;
+  --risk-tint: #fbe9e8;
+
+  --font-display: 'Space Grotesk', Inter, 'Noto Sans Devanagari', sans-serif;
+  --font-sans: Inter, 'Noto Sans Devanagari', sans-serif;
+  --font-deva: 'Tiro Devanagari Hindi', 'Noto Sans Devanagari', serif;
+}
+
+/* The Hindi sheet leads with Devanagari, so its body face is the Devanagari one
+   and Inter falls in behind for the Latin words inside a Hindi sentence — the
+   portal names, which stay Latin in both languages. */
+html[lang='hi'] {
+  --font-sans: 'Noto Sans Devanagari', Inter, sans-serif;
+  --font-display: 'Noto Sans Devanagari', 'Space Grotesk', sans-serif;
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 9.2pt;
+  line-height: 1.42;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── The sheet ───────────────────────────────────────────────────────────── */
+
+.sheet {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  overflow: hidden;
+  page-break-after: always;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+}
+.sheet:last-of-type {
+  page-break-after: auto;
+}
+
+.pad {
+  padding: 0 12mm;
+}
+
+/* ── Masthead ────────────────────────────────────────────────────────────── */
+
+.masthead {
+  background:
+    radial-gradient(70% 140% at 82% 0%, rgba(245, 165, 36, 0.22) 0%, rgba(245, 165, 36, 0) 62%),
+    linear-gradient(135deg, var(--navy-800) 0%, var(--navy-900) 55%, var(--navy-950) 100%);
+  color: #fff;
+  padding: 9mm 12mm 8mm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8mm;
+}
+
+.masthead__lockup {
+  display: flex;
+  align-items: center;
+  gap: 5mm;
+}
+
+.masthead__logo {
+  height: 15mm;
+  width: auto;
+}
+
+.masthead__rule {
+  width: 0.4mm;
+  height: 12mm;
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.kavach {
+  font-family: var(--font-display);
+  font-size: 17pt;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.kavach em {
+  font-family: var(--font-deva);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--gold-400);
+}
+
+.masthead__sub {
+  font-family: var(--font-sans);
+  font-size: 8pt;
+  font-weight: 500;
+  color: var(--navy-200);
+  margin-top: 0.8mm;
+  letter-spacing: 0.02em;
+}
+
+.masthead__tag {
+  text-align: right;
+}
+.masthead__tag b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--gold-400);
+  letter-spacing: -0.01em;
+}
+.masthead__tag span {
+  display: block;
+  font-size: 7.6pt;
+  color: var(--navy-200);
+  margin-top: 0.6mm;
+}
+
+/* ── Section furniture ───────────────────────────────────────────────────── */
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 2mm;
+  font-family: var(--font-sans);
+  font-size: 7.2pt;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--navy-600);
+  margin: 0 0 2mm;
+}
+.eyebrow::before {
+  content: '';
+  width: 1.6mm;
+  height: 1.6mm;
+  transform: rotate(45deg);
+  background: var(--gold-400);
+  flex: none;
+}
+.eyebrow--on-dark {
+  color: var(--gold-400);
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 25pt;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  margin: 0 0 3mm;
+}
+html[lang='hi'] h1 {
+  font-size: 22pt;
+  line-height: 1.24;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: 13.5pt;
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  margin: 0 0 2mm;
+}
+html[lang='hi'] h2 {
+  font-size: 12.5pt;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.gold {
+  color: var(--gold-600);
+}
+.lead {
+  font-size: 10pt;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0 0 4mm;
+  max-width: 165mm;
+}
+
+/* ── Page 1: the two columns of the problem ──────────────────────────────── */
+
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5mm;
+  margin-bottom: 5mm;
+}
+
+.panel {
+  border-radius: 3mm;
+  padding: 5mm;
+  border: 0.3mm solid var(--hairline);
+  background: #fff;
+}
+.panel--risk {
+  background: var(--paper-warm);
+  border-color: #e9d6d4;
+}
+.panel--ok {
+  background: #fff;
+  border-color: var(--navy-100);
+  box-shadow: 0 1mm 4mm -2mm rgba(16, 17, 51, 0.18);
+}
+
+.panel__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 3mm;
+  margin-bottom: 3mm;
+  padding-bottom: 2mm;
+  border-bottom: 0.3mm solid var(--hairline);
+}
+.panel__title {
+  font-family: var(--font-display);
+  font-size: 10.5pt;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+html[lang='hi'] .panel__title {
+  letter-spacing: 0;
+}
+.panel__badge {
+  font-size: 7.4pt;
+  font-weight: 700;
+  padding: 0.8mm 2mm;
+  border-radius: 99mm;
+  white-space: nowrap;
+}
+.badge--risk {
+  background: var(--risk-tint);
+  color: var(--risk);
+}
+.badge--ok {
+  background: var(--ok-tint);
+  color: var(--ok);
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4mm;
+}
+.rows li {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.4mm;
+  font-size: 8.8pt;
+  line-height: 1.35;
+}
+.mark {
+  flex: none;
+  width: 4mm;
+  height: 4mm;
+  border-radius: 99mm;
+  display: grid;
+  place-items: center;
+  margin-top: 0.3mm;
+}
+.mark svg {
+  width: 2.6mm;
+  height: 2.6mm;
+}
+.mark--risk {
+  background: var(--risk-tint);
+}
+.mark--ok {
+  background: var(--ok-tint);
+}
+
+/* ── The DSR proof block ─────────────────────────────────────────────────── */
+
+/* The block stacks — argument on top, drawing underneath at full width —
+   rather than sitting side by side. Side by side left each table about 40mm
+   wide, and eight columns of five-figure litres inside 40mm collide into an
+   unreadable smear. The whole point of the drawing is that a dealer recognises
+   his own sheet in it, so the columns get the width they need and the text
+   takes a full-width line above them. */
+.proof {
+  background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-900) 60%, var(--navy-950) 100%);
+  color: #fff;
+  border-radius: 3mm;
+  padding: 6mm;
+}
+.proof__text {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 6mm;
+  align-items: end;
+  margin-bottom: 4.5mm;
+}
+.proof h2 {
+  color: #fff;
+}
+.proof p {
+  font-size: 8.8pt;
+  line-height: 1.48;
+  color: var(--navy-100);
+  margin: 0 0 3mm;
+}
+.proof .kicker {
+  font-size: 8.4pt;
+  font-weight: 700;
+  color: var(--gold-400);
+  margin: 0;
+}
+
+/* The little register drawing: a phone showing the picture, and the register
+   page it is copied into. The whole point of the block is that the two look
+   the same, so they are drawn with the same table styles. */
+.proof__art {
+  display: flex;
+  align-items: center;
+  gap: 3mm;
+}
+
+.phone {
+  flex: 1;
+  background: #fff;
+  border-radius: 2.4mm;
+  padding: 2.4mm;
+  box-shadow: 0 2mm 6mm -2mm rgba(0, 0, 0, 0.5);
+}
+.phone__chrome {
+  display: flex;
+  align-items: center;
+  gap: 1.4mm;
+  font-size: 6pt;
+  font-weight: 700;
+  color: var(--ok);
+  margin-bottom: 1.6mm;
+}
+.phone__chrome i {
+  width: 2.6mm;
+  height: 2.6mm;
+  border-radius: 99mm;
+  background: var(--ok);
+  display: inline-block;
+  flex: none;
+}
+
+.register {
+  flex: 1;
+  background: var(--gold-50);
+  border-radius: 2.4mm;
+  padding: 2.4mm;
+  border: 0.3mm dashed var(--gold-300);
+}
+.register__label {
+  font-size: 6pt;
+  font-weight: 700;
+  color: var(--gold-600);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 1.6mm;
+}
+
+.arrow {
+  flex: none;
+  color: var(--gold-400);
+  font-size: 12pt;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* The miniature DSR table, used inside both the phone and the register.
+   Identical markup and identical figures in both — that sameness IS the
+   argument, so never restyle one without the other. */
+table.mini {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 6pt;
+  font-family: var(--font-sans);
+  table-layout: fixed;
+}
+table.mini th {
+  background: var(--navy-700);
+  color: #fff;
+  font-weight: 600;
+  padding: 1.1mm 0.9mm;
+  text-align: right;
+  letter-spacing: 0;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+table.mini th:first-child,
+table.mini td:first-child {
+  text-align: left;
+}
+table.mini td {
+  padding: 1.1mm 0.9mm;
+  text-align: right;
+  border-bottom: 0.2mm solid var(--hairline);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--ink);
+}
+table.mini tr:last-child td {
+  border-bottom: 0;
+}
+.register table.mini td {
+  color: var(--gold-600);
+}
+.register table.mini th {
+  background: var(--gold-600);
+}
+
+/* ── The daily rhythm strip ──────────────────────────────────────────────────
+   The question every dealer asks after "what do you do" is "so what actually
+   reaches me, and when". This strip answers it in four tiles, each labelled
+   with a time rather than a service name, because the dealer's day is the
+   thing he is picturing. */
+
+.daily {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3mm;
+}
+.daily__tile {
+  border: 0.3mm solid var(--hairline);
+  border-radius: 2.6mm;
+  padding: 3.4mm;
+  background: #fff;
+}
+.daily__when {
+  display: inline-block;
+  font-size: 6.4pt;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-600);
+  background: var(--gold-50);
+  border-radius: 99mm;
+  padding: 0.6mm 1.8mm;
+  margin-bottom: 1.6mm;
+}
+.daily__title {
+  font-family: var(--font-display);
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.16;
+  margin-bottom: 1mm;
+}
+html[lang='hi'] .daily__title {
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+.daily__body {
+  font-size: 7.5pt;
+  line-height: 1.38;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ── The gold promise band ───────────────────────────────────────────────── */
+
+.promise {
+  margin-bottom: 5mm;
+  background: var(--gold-400);
+  color: var(--navy-950);
+  border-radius: 3mm;
+  padding: 5mm 6mm;
+  display: flex;
+  align-items: center;
+  gap: 5mm;
+}
+.promise__big {
+  font-family: var(--font-display);
+  font-size: 15pt;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  flex: none;
+  max-width: 78mm;
+}
+html[lang='hi'] .promise__big {
+  font-size: 13pt;
+  line-height: 1.28;
+  letter-spacing: 0;
+}
+.promise__body {
+  font-size: 8.8pt;
+  line-height: 1.45;
+  color: #3a2c06;
+}
+
+/* ── Page 2: the nine services ───────────────────────────────────────────── */
+
+.grid9 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.8mm;
+  margin-bottom: 3.4mm;
+}
+
+.svc {
+  border: 0.3mm solid var(--hairline);
+  border-radius: 2.6mm;
+  padding: 3.1mm;
+  background: #fff;
+  position: relative;
+  min-height: 27.5mm;
+}
+.svc__no {
+  font-family: var(--font-display);
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--gold-400);
+  letter-spacing: 0.04em;
+}
+.svc__title {
+  font-family: var(--font-display);
+  font-size: 9.6pt;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0.6mm 0 1.4mm;
+  line-height: 1.14;
+}
+html[lang='hi'] .svc__title {
+  letter-spacing: 0;
+  line-height: 1.26;
+}
+.svc__body {
+  font-size: 7.7pt;
+  line-height: 1.4;
+  color: var(--ink-soft);
+  margin: 0 0 2mm;
+}
+.svc__covers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1mm;
+}
+.svc__covers span {
+  font-size: 6.3pt;
+  font-weight: 600;
+  color: var(--navy-700);
+  background: var(--navy-50);
+  border-radius: 99mm;
+  padding: 0.5mm 1.5mm;
+  line-height: 1.3;
+}
+
+/* ── The "more services" strip ───────────────────────────────────────────── */
+
+.extras {
+  background: var(--navy-900);
+  color: #fff;
+  border-radius: 2.6mm;
+  padding: 3.4mm 4.4mm;
+  display: grid;
+  grid-template-columns: auto repeat(4, 1fr);
+  gap: 3.6mm;
+  align-items: center;
+  margin-bottom: 3.4mm;
+}
+.extras__label {
+  font-family: var(--font-display);
+  font-size: 9.4pt;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  max-width: 30mm;
+  line-height: 1.15;
+}
+html[lang='hi'] .extras__label {
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+.extras__item b {
+  display: block;
+  font-size: 7.8pt;
+  font-weight: 700;
+  color: var(--gold-300);
+  margin-bottom: 0.6mm;
+  line-height: 1.2;
+}
+.extras__item span {
+  font-size: 6.9pt;
+  line-height: 1.32;
+  color: var(--navy-200);
+}
+
+/* ── How it works + numbers ──────────────────────────────────────────────── */
+
+.split {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 6mm;
+  margin-bottom: 4mm;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6mm;
+}
+.step {
+  display: grid;
+  grid-template-columns: 8mm 1fr;
+  gap: 2.6mm;
+  align-items: start;
+}
+.step__no {
+  font-family: var(--font-display);
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--navy-200);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.step__when {
+  font-size: 6.6pt;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-600);
+}
+.step__title {
+  font-family: var(--font-display);
+  font-size: 9.4pt;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0.4mm 0 0.6mm;
+}
+html[lang='hi'] .step__title {
+  letter-spacing: 0;
+}
+.step__body {
+  font-size: 7.8pt;
+  line-height: 1.4;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.figures {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.6mm;
+  align-content: start;
+}
+.figure {
+  border-radius: 2.4mm;
+  background: var(--paper-sunk);
+  padding: 3mm;
+}
+.figure b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 16pt;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--navy-700);
+  line-height: 1;
+}
+.figure span {
+  display: block;
+  font-size: 6.9pt;
+  line-height: 1.32;
+  color: var(--ink-muted);
+  margin-top: 1mm;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+
+.foot {
+  margin-top: auto;
+  background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-900) 60%, var(--navy-950) 100%);
+  color: #fff;
+  padding: 5mm 12mm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6mm;
+}
+.foot__cta b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 13.5pt;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+html[lang='hi'] .foot__cta b {
+  letter-spacing: 0;
+  line-height: 1.28;
+  font-size: 12.5pt;
+}
+.foot__cta span {
+  display: block;
+  font-size: 8.2pt;
+  color: var(--navy-200);
+  margin-top: 1.4mm;
+  max-width: 105mm;
+  line-height: 1.42;
+}
+.foot__contact {
+  text-align: right;
+  flex: none;
+}
+.foot__contact b {
+  display: block;
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: var(--gold-400);
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+.foot__contact span {
+  display: block;
+  font-size: 7.4pt;
+  color: var(--navy-200);
+  margin-top: 1mm;
+  line-height: 1.4;
+}
+
+.legal {
+  background: var(--navy-950);
+  color: var(--navy-400);
+  font-size: 6.2pt;
+  padding: 2.6mm 12mm;
+  display: flex;
+  justify-content: space-between;
+  gap: 4mm;
+  letter-spacing: 0.02em;
+}
+
+/* ── Small helpers ───────────────────────────────────────────────────────── */
+
+.section {
+  padding-top: 5.4mm;
+}
+.section--tight {
+  padding-top: 4mm;
+}
+.spacer {
+  height: 4mm;
+}
+
+/* ── Devanagari and letter-spacing ────────────────────────────────────────────
+   Tracked-out uppercase labels are a Latin device. Devanagari has no case, and
+   its conjuncts are single glyphs sitting under one horizontal bar — adding
+   letter-space prises them apart and prints दिक़्क़त as four floating pieces.
+   So the Hindi sheet keeps the labels' size and weight and drops almost all of
+   their tracking. `text-transform` is likewise inert on Devanagari and is left
+   alone; it still applies to the Latin portal names inside the same label. */
+html[lang='hi'] .eyebrow,
+html[lang='hi'] .daily__when,
+html[lang='hi'] .step__when,
+html[lang='hi'] .legal,
+html[lang='hi'] .svc__no,
+html[lang='hi'] .masthead__sub {
+  letter-spacing: 0.04em;
+}
+html[lang='hi'] .figure b,
+html[lang='hi'] .step__no {
+  letter-spacing: -0.03em;
+}

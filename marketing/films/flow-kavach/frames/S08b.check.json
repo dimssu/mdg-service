@@ -1,0 +1,19 @@
+{
+  "id": "S08",
+  "same_man": "not_in_shot",
+  "face_notes": "The man is not in this shot. The woman's face is clear and looks natural.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Apple logo on laptop"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The laptop has a prominent Apple logo, which violates the 'no logos' rule. Modify the prompt to specify an unbranded or generic laptop, e.g., 'a generic silver laptop with no logos'."
+}

@@ -1,0 +1,22 @@
+{
+  "id": "S18",
+  "same_man": "same",
+  "face_notes": "The man is a very good match for the reference photo in terms of age, facial features, hair, and moustache.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 3,
+      "what": "Instead of lowering the phone an inch while holding it, he puts it down on the desk and rests his right hand on the desk."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 2.5,
+  "verdict": "retake",
+  "retake_hint": "The action is incorrect. The man should lower the phone only an inch while still holding it in both hands, and then look up. He should not put the phone down on the desk or rest his hand on the desk."
+}

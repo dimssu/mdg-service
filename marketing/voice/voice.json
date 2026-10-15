@@ -1,0 +1,127 @@
+{
+  "P01-dod-deadline": {
+    "hash": "60da2e92b475bcde6fc7ac2e1ebf2397",
+    "seconds": 4.04,
+    "clip": 6
+  },
+  "P02-dsr-book-blank": {
+    "hash": "09420bc44bacb5d77480322482b8a14c",
+    "seconds": 7.29,
+    "clip": 8
+  },
+  "P03-stock-plus-minus": {
+    "hash": "9c5f04b7f5dacaef9a52a7331dce234f",
+    "seconds": 7.34,
+    "clip": 8
+  },
+  "P04-tanker-short": {
+    "hash": "4b2140a354cfaabec365ba6149c4ed01",
+    "seconds": 6.97,
+    "clip": 8
+  },
+  "P05-density-book": {
+    "hash": "5329d14c8575c808a053ba8378b1d8aa",
+    "seconds": 5.48,
+    "clip": 8
+  },
+  "P06-supply-blocked": {
+    "hash": "7f9ef76ad4bc0a125b4f03f7143c24d0",
+    "seconds": 6.64,
+    "clip": 8
+  },
+  "P07-weights-measures": {
+    "hash": "d3e963bee6a0d763ded757b0e9dc2b6c",
+    "seconds": 4.88,
+    "clip": 6
+  },
+  "P08-trade-licence": {
+    "hash": "5fc929e85c0ba86028c435bcbf36fa69",
+    "seconds": 4.18,
+    "clip": 6
+  },
+  "P09-boards-by-ten": {
+    "hash": "687dd8e0108800742fb9145e621a8756",
+    "seconds": 7.29,
+    "clip": 8
+  },
+  "P10-sdms-pile": {
+    "hash": "457471183beb6fc746de4c26169bc8e3",
+    "seconds": 9.24,
+    "clip": 8
+  },
+  "C01-fifteen-thousand": {
+    "hash": "d1bf3930d53caffc76b178e9aef485e5",
+    "seconds": 5.67,
+    "clip": 8
+  },
+  "C02-managers-pump": {
+    "hash": "ac458b83113ef16ad9021b58c66574ec",
+    "seconds": 6.18,
+    "clip": 8
+  },
+  "S00-turn": {
+    "hash": "2d43b1c93772e3ea348df4b8f4b20813",
+    "seconds": 2.46,
+    "clip": 4
+  },
+  "S01-dates": {
+    "hash": "5d26a296e6388cd68080a14955b1078a",
+    "seconds": 3.25,
+    "clip": 4
+  },
+  "S02-dsr": {
+    "hash": "881108eab88029bc24e6a47e0a7da84f",
+    "seconds": 7.11,
+    "clip": 8
+  },
+  "S03-stock": {
+    "hash": "46b8dd191a9503fb2694c81481795a40",
+    "seconds": 6.13,
+    "clip": 8
+  },
+  "S04-density": {
+    "hash": "47e06d606b37fd81b3b4367516daeef9",
+    "seconds": 2.93,
+    "clip": 4
+  },
+  "S05-supply": {
+    "hash": "23567ba75168a5a9c43de919d0493a28",
+    "seconds": 3.99,
+    "clip": 6
+  },
+  "S06-sdms": {
+    "hash": "783fadda92bfceba59560459d12dfb14",
+    "seconds": 3.58,
+    "clip": 6
+  },
+  "S07-human": {
+    "hash": "4b8a04986f81e3afc4242fcd21c665b0",
+    "seconds": 6.97,
+    "clip": 8
+  },
+  "S08-alwayson": {
+    "hash": "df2c60c75e9def85cf4fe1a9c6b67d2a",
+    "seconds": 5.8,
+    "clip": 8
+  },
+  "S09-mdg-turn": {
+    "hash": "e1e541e0d701a0be1029c33b44d5f23d",
+    "seconds": 3.3,
+    "clip": 4
+  },
+  "S10-brand": {
+    "hash": "e8bc4dd1a2b7f02622043e56afe9a903",
+    "seconds": 3.3,
+    "clip": 4
+  },
+  "S11-app": {
+    "hash": "f9615388f8da214d2e80e77cffde6975",
+    "seconds": 2.09,
+    "clip": 4
+  },
+  "S12-cta": {
+    "hash": "e10d19a51aace5e990ea0a28f3604224",
+    "seconds": 3.53,
+    "clip": 6
+  }
+}

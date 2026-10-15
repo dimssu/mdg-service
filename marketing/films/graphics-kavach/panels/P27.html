@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  @keyframes phoneIn{0%{opacity:0;transform:translateY(160px) scale(.96)}100%{opacity:1;transform:none}}
+  @keyframes iconIn{0%{opacity:0;transform:scale(.3) rotate(-10deg)}65%{opacity:1;transform:scale(1.08) rotate(2deg)}100%{opacity:1;transform:none}}
+  @keyframes wr{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(-10% -4% -10% 0)}}
+  @keyframes up{0%{opacity:0;transform:translateY(40px)}100%{opacity:1;transform:none}}
+  @keyframes press{0%,100%{transform:scale(1)}30%{transform:scale(.93)}}
+  @keyframes dark{0%,100%{filter:none}30%{filter:brightness(.8)}}
+  @keyframes ripple{0%{opacity:.5;transform:scale(0)}100%{opacity:0;transform:scale(7)}}
+  @keyframes shine{0%{transform:translateX(-160%) skewX(-18deg)}100%{transform:translateX(320%) skewX(-18deg)}}
+  @keyframes halo{0%,100%{opacity:.55}50%{opacity:.9}}
+  @keyframes glow2{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:none}}
+
+  #P27 .halo{position:absolute;left:50%;top:50%;width:1250px;height:1250px;margin:-625px 0 0 -625px;border-radius:50%;
+    background:radial-gradient(circle,rgba(233,162,59,.38),rgba(233,162,59,0) 64%);z-index:1;animation-name:halo;animation-duration:6s}
+  #P27 .phone{animation-name:phoneIn;animation-duration:.8s}
+  #P27 .screen{background:linear-gradient(180deg,#FFFDF8,#FBF1E2)}
+  #P27 .body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:60px 56px 80px;text-align:center}
+  #P27 .ico{position:relative;width:300px;height:300px;margin-bottom:56px;animation-name:iconIn;animation-duration:.8s}
+  #P27 .ico .gl{position:absolute;inset:-90px;border-radius:50%;background:radial-gradient(circle,rgba(233,162,59,.45),rgba(233,162,59,0) 66%);
+    animation-name:glow2;animation-duration:.8s}
+  #P27 .ico .sq{position:absolute;inset:0;border-radius:78px;overflow:hidden;background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep) 70%);
+    display:flex;align-items:center;justify-content:center;box-shadow:0 34px 60px rgba(58,16,10,.42),inset 0 -10px 22px rgba(0,0,0,.25),inset 0 0 0 4px rgba(233,162,59,.4)}
+  #P27 .ico .sq b{font-family:'Space Grotesk',sans-serif;font-size:132px;font-weight:700;color:var(--amber);letter-spacing:-4px;line-height:1}
+  #P27 .ico .sq i{position:absolute;inset:0;width:40%;display:block;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+    animation-name:shine;animation-duration:.9s;animation-timing-function:ease-in-out}
+  #P27 .en{font-family:'Space Grotesk',sans-serif;font-size:70px;font-weight:700;color:var(--ink);line-height:1.1;animation-name:wr;animation-duration:.5s;animation-timing-function:linear}
+  #P27 .hn{font-size:62px;color:var(--maroon);line-height:1.35;margin-top:10px;animation-name:wr;animation-duration:.45s;animation-timing-function:linear}
+  #P27 .st{font-size:42px;color:var(--inkMuted);margin-top:22px;animation-name:wr;animation-duration:.5s;animation-timing-function:linear}
+  #P27 .btnw{margin-top:70px;animation-name:up;animation-duration:.5s}
+  #P27 .btn{position:relative;overflow:hidden;display:flex;align-items:center;gap:20px;padding:34px 70px;border-radius:999px;
+    background:linear-gradient(140deg,var(--maroonSoft),var(--maroon));color:#fff;font-size:52px;box-shadow:0 18px 40px rgba(74,15,15,.4);
+    animation-name:press,dark;animation-duration:.5s,.5s;animation-timing-function:ease-in-out}
+  #P27 .btn svg{width:56px;height:56px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  #P27 .btn .rp{position:absolute;left:50%;top:50%;width:80px;height:80px;margin:-40px 0 0 -40px;border-radius:50%;background:rgba(255,255,255,.45);
+    animation-name:ripple;animation-duration:.7s;animation-timing-function:ease-out}
+</style>
+</head>
+<body>
+<!-- ══ P27 · get Dealer Kavach on Google Play (words only, no store logo) · K907 (held 5.41 s) ══ -->
+<div class="panel" id="P27" data-plate="dusk" style="--T:6s">
+  <div class="halo mv"></div>
+  <div class="phone mv" style="animation-delay:-.3s">
+    <div class="screen">
+      <div class="body">
+        <div class="ico mv" style="animation-delay:.1s">
+          <div class="gl mv" style="animation-delay:.1s"></div>
+          <div class="sq"><b>DK</b><i class="mv" style="animation-delay:1.0s"></i></div>
+        </div>
+        <div class="en mv" style="animation-delay:.65s">Dealer Kavach</div>
+        <div class="hn hi mv" style="animation-delay:1.0s">डीलर कवच</div>
+        <div class="st hi mv" style="animation-delay:1.35s">Google Play स्टोर पर</div>
+        <div class="btnw mv" style="animation-delay:1.95s">
+          <div class="btn mv" style="animation-delay:3.4s,3.4s">
+            <svg viewBox="0 0 24 24"><path d="M12 4v11"/><path d="M7.5 10.5 12 15l4.5-4.5"/><path d="M5 19.5h14"/></svg>
+            <span class="hi">डाउनलोड कीजिए</span>
+            <span class="rp mv" style="animation-delay:3.45s"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">आज ही डाउनलोड कीजिए</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

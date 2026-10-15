@@ -1,0 +1,26 @@
+{
+  "id": "S30",
+  "same_man": "same",
+  "face_notes": "The man in the video is a very close match to the reference photo in terms of age, facial structure, hair, and moustache.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "Veo watermark in bottom right corner"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 6.5,
+      "what": "The dealer waves his right hand at the phone screen, as if on a video call."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 6.4,
+  "verdict": "keep_window",
+  "retake_hint": "The dealer waves at the phone, which is not in the brief. The brief specifies only a smile and a nod."
+}

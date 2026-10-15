@@ -1,0 +1,1367 @@
+{
+  "teaser/T02": {
+    "ref": "clip:P10a-sdms-pile",
+    "dealer_in_shot": true,
+    "setting": "An office, with the dealer sitting at a desk.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 1,
+        "action": "The man sits at his desk, leaning his head on his right hand with his eyes closed. His body is completely still. His expression is one of stress and exhaustion.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static medium shot.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 1,
+        "what": "The entire shot is a static, natural pose. The man's stressed posture is clearly motivated by the large stack of paperwork on his desk."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "T02 (2.1s from the clip's start): \"और सुबह इंस्पेक्शन है।\"",
+        "fits": "yes",
+        "why": "The line about an impending inspection perfectly explains the dealer's stressed and overwhelmed posture in front of a large pile of paperwork."
+      }
+    ]
+  },
+  "teaser/T05": {
+    "ref": "clip:P03-stock-plus-minus",
+    "dealer_in_shot": true,
+    "setting": "A man is squatting at a petrol pump, checking the fuel level in an underground tank with a dipstick.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 1.2,
+        "action": "In a squatting position, he uses both hands to slowly pull a long measuring dipstick out of an open manhole. His head is tilted down, and his eyes follow the stick as it rises.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 1.2,
+        "to": 2.9,
+        "action": "He holds the dipstick still. His head turns slightly to his right and then back to the center, his eyes scanning the markings on the stick. His brow is slightly furrowed in concentration.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static medium shot, eye-level with the squatting man.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 2.9,
+        "what": "The entire shot consists of a single, coherent action: the man is measuring the fuel in a tank. All his movements are focused on and motivated by this task."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "T05",
+        "fits": "yes",
+        "why": "The line asks if there is less or more fuel in the tank. The man's action of pulling out a dipstick and carefully reading it is a direct and perfect visualization of this question."
+      }
+    ]
+  },
+  "teaser/T03": {
+    "ref": "clip:P02-dsr-book-blank",
+    "dealer_in_shot": true,
+    "setting": "An office, seen through a glass partition. The man stands behind a counter, holding a large ledger book.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 0.8,
+        "action": "The man is looking down at a large, open ledger book. His head is tilted down and his eyes are on the pages. Both hands are on the book, holding it open.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 0.8,
+        "to": 1.8,
+        "action": "He lifts his head and eyes to look forward at the person in the foreground. His expression becomes stern and questioning. His hands remain resting on the open book.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static medium shot, filmed from over the shoulder of a person in the foreground.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 1.8,
+        "what": "The entire shot consists of a single, motivated action: the man looks up from a ledger to confront the person in front of him."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "T03 (2.0s from the clip's start): \"आज डी-एस-आर किसने लिखा?\"",
+        "fits": "yes",
+        "why": "The action perfectly matches the line. The man is looking at a ledger (which could be the DSR, or Daily Sales Report) and then looks up with a stern, questioning expression, as if he is the one asking the question."
+      }
+    ]
+  },
+  "teaser/T01": {
+    "ref": "flow:H1n",
+    "dealer_in_shot": true,
+    "setting": "A petrol pump at night. A large white tanker truck is parked under the brightly lit canopy. Two men are standing in front of it.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 1.5,
+        "action": "The dealer (man on the left) and another man stand completely motionless, like figures in a photograph. The dealer's hands are by his sides, and he looks forward towards the camera.",
+        "reason_visible": false,
+        "reads_as": "odd"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static wide shot.",
+    "problems": [
+      {
+        "from": 0,
+        "to": 1.5,
+        "what": "The entire scene is completely static, like a photograph. The two men show no signs of life or natural movement (like breathing or slight shifts in posture), which is unnatural for a video clip.",
+        "severity": "fatal"
+      }
+    ],
+    "calm_windows": [],
+    "fits_lines": [
+      {
+        "beat": "T01 (2.3s from the clip's start): \"रात के दो बजे भी पंप जागता है।\"",
+        "fits": "partly",
+        "why": "The visual setting of a lit petrol pump at night with a tanker present fits the line about the pump being 'awake'. However, the complete, unnatural stillness of the men contradicts the idea of activity or being 'awake'."
+      }
+    ]
+  },
+  "teaser/T06": {
+    "ref": "clip:P05-density-book",
+    "dealer_in_shot": true,
+    "setting": "An office, with the man standing at a wooden counter next to a large window, looking at a notebook.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 0.8,
+        "action": "The man stands leaning over an open spiral notebook. His head is tilted down, looking at the pages. His left hand is on the left page, and his right hand is holding the edge of the right-hand page, as if he has just turned it.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 0.8,
+        "to": 1.5,
+        "action": "His right hand moves from the edge of the page to press it flat onto the counter. His left hand also adjusts slightly on its page.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 1.5,
+        "to": 2.5,
+        "action": "Using his right hand, he closes the notebook. His left hand moves to rest on the now-closed cover. His head remains looking down at the book.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "The camera is static in a medium shot, showing the man from his side profile.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 2.5,
+        "what": "The entire shot is calm. The man is focused on the single, continuous action of looking at a notebook and then closing it. All movements are motivated and natural."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "T06 (2.6s from the clip's start): \"टैंकर की डेंसिटी आज किसने देखी?\"",
+        "fits": "yes",
+        "why": "The line is a question about checking a log ('Who checked the tanker's density today?'). The man's action of looking intently at a logbook and then closing it perfectly visualizes the act of checking or contemplating this very question."
+      }
+    ]
+  },
+  "teaser/T08": {
+    "ref": "clip:P06-supply-blocked",
+    "dealer_in_shot": true,
+    "setting": "The forecourt of a petrol pump during the day. A pump and a small office building are visible in the background.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 2,
+        "action": "The man holds a phone to his right ear with his right hand and keeps his left hand in his left trouser pocket. He looks towards the camera with a serious expression. He takes a slow, deliberate step forward with his right foot, then begins to bring his left foot forward, walking slowly towards the camera.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static, full-length shot.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 2,
+        "what": "The entire shot consists of a single, continuous, and motivated action: a man walking while on a serious phone call."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "T08",
+        "fits": "yes",
+        "why": "The narrator asks a question about a business problem ('why has the load stopped?'). The dealer's serious expression while on the phone and walking with purpose perfectly visualizes him being actively engaged in solving that very problem."
+      }
+    ]
+  },
+  "teaser/T10": {
+    "ref": "clip:C02-managers-pump",
+    "dealer_in_shot": true,
+    "setting": "A petrol pump forecourt, likely at dawn or dusk.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 0.8,
+        "action": "The man stands still in a full shot, hands in his trouser pockets. His body is angled slightly to his right, and he looks off-camera in the same direction with a neutral, pensive expression. His mouth is closed.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      },
+      {
+        "from": 0.8,
+        "to": 2.2,
+        "action": "His head makes small, scanning movements. He looks slightly further to his right, then turns his head to look towards his left (camera right), then back towards his initial rightward gaze.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      },
+      {
+        "from": 2.2,
+        "to": 3.9,
+        "action": "He turns his head more decisively to his left (camera right) and holds his gaze, as if looking at something specific just off-screen. His body remains still.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "A static, full-length shot with a very slow, subtle push-in (digital zoom).",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 3.9,
+        "what": "The entire shot is calm. The dealer stands observing his surroundings. His head movements are consistent with someone surveying their environment and do not appear random or nonsensical."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "T10 (4.1s from the clip's start): \"एम-डी-जी सर्विसेज़। डीलर कवच प्रोग्राम।\"",
+        "fits": "no",
+        "why": "The narrator line is timed to start at 4.1 seconds, which is after this 3.9-second clip has finished playing. The action and the line do not overlap."
+      }
+    ]
+  },
+  "teaser/T09": {
+    "ref": "clip:P01-dod-deadline",
+    "dealer_in_shot": true,
+    "setting": "A man, presumably a petrol pump dealer, stands in a brightly lit doorway at night, looking out at his petrol pump which is visible but out of focus in the background.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 1.2,
+        "action": "Starts with his left hand on the back of his neck, looking up and to his right with a pensive expression. He slowly lowers his left hand to his side.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      },
+      {
+        "from": 1.2,
+        "to": 2,
+        "action": "He holds a still pose, hands at his sides (right hand holding a phone), looking up and to the right.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      },
+      {
+        "from": 2,
+        "to": 3,
+        "action": "He turns his head slowly to his left, shifting his gaze from off-screen right to looking straight ahead into the petrol pump forecourt.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      },
+      {
+        "from": 3,
+        "to": 4.2,
+        "action": "While looking ahead, he slightly raises his right hand (holding the phone) and then lowers it again in a small, fidgety gesture.",
+        "reason_visible": false,
+        "reads_as": "random"
+      },
+      {
+        "from": 4.2,
+        "to": 5.2,
+        "action": "He turns his head back to the right, returning to his original line of sight (looking up and right).",
+        "reason_visible": false,
+        "reads_as": "random"
+      },
+      {
+        "from": 5.2,
+        "to": 6.2,
+        "action": "He raises his left hand and briefly strokes his chin once.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      },
+      {
+        "from": 6.2,
+        "to": 7,
+        "action": "He lowers his left hand back to his side and holds the pose, looking up and to the right.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static medium shot, with the subject framed from the waist up.",
+    "problems": [
+      {
+        "from": 3,
+        "to": 5.2,
+        "what": "The sequence of turning his head forward, fidgeting with the phone, and then turning his head back feels unmotivated and circular. It doesn't read as a person naturally scanning their environment, but more like a programmed set of movements.",
+        "severity": "noticeable"
+      }
+    ],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 3,
+        "what": "His initial pose, the lowering of his hand, and the slow head turn to scan the area all read as natural, contemplative actions."
+      },
+      {
+        "from": 5.2,
+        "to": 7,
+        "what": "The chin stroke is a classic gesture of thoughtfulness and reads as perfectly natural in this context."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "T09 (1.5s from the clip's start): \"पूछें किससे?\"",
+        "fits": "yes",
+        "why": "At 1.5s, the dealer is holding a still, pensive pose, looking out into the distance. His expression and posture convey a sense of worry and uncertainty, which perfectly matches the question 'Who to ask?'."
+      }
+    ]
+  },
+  "teaser/T11": {
+    "ref": "clip:S08-alwayson",
+    "dealer_in_shot": true,
+    "setting": "A petrol pump at night. The man is standing on a step outside a glass-walled office, under an awning.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 2.5,
+        "action": "The man stands still, looking down at a smartphone he holds in both hands. He then begins to walk slowly forward, taking two steps, while his head and eyes remain fixed on the phone screen.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 2.5,
+        "to": 4.5,
+        "action": "As he continues his slow walk forward, a slight smile appears on his face. His head remains tilted down towards the phone.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 4.5,
+        "to": 6.5,
+        "action": "He stops walking and remains stationary. He continues looking down at the phone, his thumbs actively moving on the screen as if scrolling or typing. His slight smile is maintained.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "The camera performs a slow, steady push-in, starting with a full-length shot and ending on a medium shot of the man.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 6.5,
+        "what": "The entire shot is calm. The man's actions are consistently motivated by his interaction with his phone: he walks while looking at it, smiles at the content, and actively uses the screen. There are no random or unmotivated movements."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "हर तारीख़, हर रिपोर्ट, हर सवाल का जवाब — सीधे आपके फ़ोन पर।",
+        "fits": "yes",
+        "why": "The man is shown completely absorbed and pleased while using his phone, which directly visualizes the narrator's line about getting all business information and answers directly on the device."
+      }
+    ]
+  },
+  "teaser/T13": {
+    "ref": "flow:N5",
+    "dealer_in_shot": false,
+    "setting": "A large, busy, open-plan office with many employees working at cubicles. The aesthetic suggests a slightly dated, possibly Indian, corporate environment with high ceilings and overhead fans.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 2.2,
+        "action": "The scene is almost entirely static, like a photograph. The only movement is from the spinning ceiling fans and some very subtle, jittery movements from the seated employees, who mostly remain frozen.",
+        "reason_visible": false,
+        "reads_as": "glitch"
+      },
+      {
+        "from": 2.2,
+        "to": 5.5,
+        "action": "A man in a light blue shirt and dark trousers appears abruptly in the middle of the central aisle. He walks towards the camera, holding a dark object under his left arm, with his right arm swinging. His head is facing forward. He walks out of the frame at the bottom.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static high-angle shot looking down the central aisle of the office, with a very slow, subtle zoom-in.",
+    "problems": [
+      {
+        "from": 0,
+        "to": 5.5,
+        "what": "The entire shot appears to be an animated still image (cinemagraph), not a video. The seated people are mostly frozen, with some exhibiting unnatural, glitchy micro-movements.",
+        "severity": "fatal"
+      },
+      {
+        "from": 2.2,
+        "to": 2.5,
+        "what": "The main walking subject materializes abruptly in the middle of the aisle instead of walking into the frame from the background.",
+        "severity": "fatal"
+      }
+    ],
+    "calm_windows": [
+      {
+        "from": 2.5,
+        "to": 5.5,
+        "what": "After the man abruptly appears, his subsequent walk towards the camera is fluid and appears natural."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "T13: और पीछे मशीन अकेले नहीं — दो सौ पचास लोगों की टीम है।",
+        "fits": "yes",
+        "why": "The line translates to 'And behind the machine is not just one person - there's a team of 250 people.' The visual of a massive office filled with dozens of employees perfectly illustrates the concept of a large support team."
+      }
+    ]
+  },
+  "teaser/T15": {
+    "ref": "clip:C01-fifteen-thousand",
+    "dealer_in_shot": true,
+    "setting": "An office environment. A younger man is sitting at a desk using a laptop, and the dealer (an older man) is standing behind him, observing.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 1.1,
+        "action": "Stands still with his arms crossed, looking down towards the laptop screen with a stern, focused expression. His body is completely still.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 1.1,
+        "to": 2.1,
+        "action": "His head tilts down slightly and his gaze shifts from the screen to the person. His mouth tightens and purses slightly.",
+        "reason_visible": false,
+        "reads_as": "odd"
+      },
+      {
+        "from": 2.1,
+        "to": 3.5,
+        "action": "His head turns slightly to his right (our left), breaking his focus on the person and laptop. His gaze follows the head turn. His mouth moves slightly again.",
+        "reason_visible": false,
+        "reads_as": "random"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "A very slow, subtle push-in on the two men.",
+    "problems": [
+      {
+        "from": 1.1,
+        "to": 2.1,
+        "what": "The dealer's mouth tightens in a small, unmotivated movement that reads as a fidget rather than a reaction.",
+        "severity": "minor"
+      },
+      {
+        "from": 2.1,
+        "to": 3.5,
+        "what": "The dealer turns his head to the side for no apparent reason, breaking the intense focus of his supervision. It looks like a random, unmotivated actor's movement.",
+        "severity": "noticeable"
+      }
+    ],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 1.1,
+        "what": "The dealer stands in a perfectly still, natural, and stern supervisory pose, which clearly establishes his authority and focus."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "T15: आप पर एम-डी-जी न लगे। बस यही हमारा काम है।",
+        "fits": "yes",
+        "why": "The line is about preventing penalties, implying oversight and authority. The dealer's initial pose of standing with arms crossed, supervising the employee, is a perfect visual match for this theme of ensuring rules are followed."
+      }
+    ]
+  },
+  "teaser/T16-1": {
+    "ref": "clip:S11-app",
+    "dealer_in_shot": true,
+    "setting": "Outside a modern office building with large glass windows.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 4.1,
+        "action": "The man remains completely still for the entire duration. He is in a fixed pose, looking down at a smartphone held by a younger man, smiling slightly, with his right index finger pointing at the phone's screen. There is no movement of his hands, head, eyes, mouth, or body.",
+        "reason_visible": true,
+        "reads_as": "odd"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static medium shot.",
+    "problems": [
+      {
+        "from": 0,
+        "to": 4.1,
+        "what": "The shot is a still photograph, not a video. The dealer is completely frozen for the entire duration, which is extremely unnatural and looks like a technical error or a very poor production choice.",
+        "severity": "fatal"
+      }
+    ],
+    "calm_windows": [],
+    "fits_lines": [
+      {
+        "beat": "T16 (4.1s from the clip's start): \"डीलर कवच। एम-डी-जी सर्विसेज़। जिन्होंने ये वीडियो भेजा है, उन्हें अभी जवाब दीजिए।\"",
+        "fits": "partly",
+        "why": "The visual of two men looking at a phone aligns with the theme of a digital service and receiving a video. However, the image is completely static, which clashes with the narrator's urgent command to 'reply right now'. The lack of any action makes the scene feel passive, not active."
+      }
+    ]
+  },
+  "explainer/E01": {
+    "ref": "flow:H1n",
+    "dealer_in_shot": true,
+    "setting": "A petrol pump at night. A large white tanker truck is parked, with a hose leading from it to an underground tank. Two men are standing and watching.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 0.6,
+        "action": "The dealer stands still, body facing forward, head turned slightly to his right to look at the other man. His hands are clasped behind his back. His mouth is closed.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 0.6,
+        "to": 1.8,
+        "action": "He slowly turns his head to his left, looking away from the other man and towards the general direction of the camera. His eyes scan left. His expression is neutral, mouth closed.",
+        "reason_visible": false,
+        "reads_as": "odd"
+      },
+      {
+        "from": 1.8,
+        "to": 2.5,
+        "action": "He turns his head back to the right, resuming his original position of looking at the other man.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 2.5,
+        "to": 3.9,
+        "action": "He remains still, looking at the other man, hands behind his back.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static wide shot.",
+    "problems": [
+      {
+        "from": 0.6,
+        "to": 1.8,
+        "what": "The dealer turns his head away from the other man and the truck, looking towards nothing in particular for over a second. The movement is unmotivated by any visible cue in the scene and breaks the illusion of him supervising the fuel delivery.",
+        "severity": "noticeable"
+      }
+    ],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 0.6,
+        "what": "He stands in a natural supervisory pose, looking at the other man."
+      },
+      {
+        "from": 1.8,
+        "to": 3.9,
+        "what": "He returns his gaze to the other man and holds a still, watchful pose, which is appropriate for the scene."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E01",
+        "fits": "partly",
+        "why": "The setting and the men's presence perfectly match the line about the pump being 'awake' at night for work. However, the dealer's random head turn slightly undermines the idea of focused work or inspection prep, as he looks away from the task at hand for no reason."
+      }
+    ]
+  },
+  "explainer/E05": {
+    "ref": "clip:P02-dsr-book-blank",
+    "dealer_in_shot": true,
+    "setting": "An office environment, with the man standing behind a counter and a glass partition, interacting with a person in the foreground.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 0.8,
+        "action": "The man is looking down at a large, open ledger on the counter. His hands are holding the book open.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 0.8,
+        "to": 2.1,
+        "action": "He lifts his head and looks up, making direct eye contact with the person in the foreground. His expression is stern and questioning. His hands remain on the open book.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 2.1,
+        "to": 2.6,
+        "action": "He closes the ledger with both hands while maintaining eye contact.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 2.6,
+        "to": 3.7,
+        "action": "He continues to look at the person, his hands now resting on the closed book. His expression is serious.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 3.7,
+        "to": 4.5,
+        "action": "He breaks eye contact and looks down at the closed book on the counter.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static medium shot, filmed over the shoulder of another person.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 4.5,
+        "what": "The entire clip shows a natural and motivated sequence of actions. The man looks up from his work to address someone, closes his book, and then looks back down. All movements are coherent and contextually appropriate."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E05 (5.3s from the clip's start): \"और इनमें से एक भी छूट जाए, तो पूछने वाला सामने आकर खड़ा हो जाता है।\"",
+        "fits": "yes",
+        "why": "The line translates to 'And if even one of these is missed, the questioner comes and stands right in front of you.' The visual of the man looking up from a ledger with a stern expression at a person standing before him perfectly illustrates the scenario described by the narrator."
+      }
+    ]
+  },
+  "explainer/E06": {
+    "ref": "clip:P01-dod-deadline",
+    "dealer_in_shot": true,
+    "setting": "A middle-aged man, the dealer, stands in a doorway at night, looking out towards his petrol pump which is visible in the background.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 2.2,
+        "action": "The man stands perfectly still, holding a single pose for the entire duration. His left hand is on the back of his neck, and his right hand is by his side, holding a smartphone. His body is angled slightly to the left, but his head is turned to his right, looking up and out towards the petrol pump. His mouth is closed and his expression is thoughtful or concerned.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "The camera is static in a medium shot.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 2.2,
+        "what": "The entire shot is calm. The dealer holds a single, static, thoughtful pose that is well-motivated by the context of him looking at his business."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E06 (2.2s from the clip's start): \"तो फिर पंप कब चलाएँ?\"",
+        "fits": "yes",
+        "why": "The dealer's pose, with his hand on his neck and a concerned gaze fixed on his pump, perfectly embodies the worry and responsibility implied by the narrator's question about when he will get to run his pump."
+      }
+    ]
+  },
+  "explainer/E09": {
+    "ref": "flow:N9r",
+    "dealer_in_shot": true,
+    "setting": "A modern office at night, with a man and a woman working at their desks in front of computers.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 4.2,
+        "action": "Sits still, body angled left, head turned right to face a computer screen (off-camera). His eyes are focused on the screen. His right hand is on a computer mouse, and his left hand rests on the desk. His expression is neutral and concentrated.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 4.2,
+        "to": 5.3,
+        "action": "His head shifts slightly down and to his right. A small, satisfied smile appears on his face as he continues to look at the screen. His right hand remains on the mouse.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static medium close-up shot, showing the man in profile in the foreground and a woman in the background, slightly out of focus.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 5.3,
+        "what": "The entire shot is calm. The character is focused on his work, and his subtle change in expression is motivated by the work on screen, as reinforced by his colleague's similar reaction just prior."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E09",
+        "fits": "yes",
+        "why": "The line speaks of a program being created from a thought. The character's initial intense focus followed by a satisfied smile at the end of the shot perfectly visualizes the moment of creation and success."
+      }
+    ]
+  },
+  "explainer/E10": {
+    "ref": "flow:N5",
+    "dealer_in_shot": false,
+    "setting": "A large, warmly lit, open-plan office filled with dozens of employees working at cubicles. The style appears somewhat dated, with large ceiling fans.",
+    "timeline": [],
+    "mouth_talking": false,
+    "camera": "A very slow, subtle digital push-in on a static wide shot of the office.",
+    "problems": [
+      {
+        "from": 0,
+        "to": 3,
+        "what": "The shot is a static image with a camera zoom, not a live-action video. No one in the office moves, which is completely unnatural for a busy office scene and reads as a major production glitch.",
+        "severity": "fatal"
+      }
+    ],
+    "calm_windows": [],
+    "fits_lines": [
+      {
+        "beat": "E10 (3.3s from the clip's start): \"आज इस टीम में दो सौ पचास से ज़्यादा लोग हैं।\"",
+        "fits": "yes",
+        "why": "The line states the team has over 250 people. The shot shows a very large office packed with employees, visually representing a large and growing team, which matches the narration."
+      }
+    ]
+  },
+  "explainer/E11": {
+    "ref": "flow:H3",
+    "dealer_in_shot": true,
+    "setting": "An office or computer lab, with two men sitting side-by-side at a desk, looking at a computer monitor.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 0.9,
+        "action": "The dealer sits still, looking intently at the computer screen. His right hand rests on the mouse, his left hand is on the desk.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 0.9,
+        "to": 2.5,
+        "action": "His mouth opens and he appears to be speaking or explaining something, looking at the screen. His head moves slightly forward as he talks.",
+        "reason_visible": false,
+        "reads_as": "odd"
+      },
+      {
+        "from": 2.5,
+        "to": 5.5,
+        "action": "His mouth closes and he returns to looking intently and silently at the screen. He remains still for the rest of the shot.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": true,
+    "camera": "Static medium shot, focused on the two men from the side.",
+    "problems": [
+      {
+        "from": 0.9,
+        "to": 2.5,
+        "what": "The dealer mouths words as if he is speaking, but there is no dialogue from him in the audio track and no visible reaction from the person next to him. It reads as an unmotivated action.",
+        "severity": "noticeable"
+      }
+    ],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 0.9,
+        "what": "The dealer is still and focused on the computer screen."
+      },
+      {
+        "from": 2.5,
+        "to": 5.5,
+        "what": "After speaking, the dealer returns to being still and focused on the screen."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E11 (5.5s from the clip's start): \"पंप का काम अंदर से समझने वाले लोग, और आई-आई-टी से पढ़े इंजीनियर भी।\"",
+        "fits": "yes",
+        "why": "The visual perfectly matches the line. It shows an older, experienced-looking man (who understands the business from the inside) working with a younger, educated-looking man (the IIT engineer) on a technical task."
+      }
+    ]
+  },
+  "explainer/E14": {
+    "ref": "flow:N10r",
+    "dealer_in_shot": true,
+    "setting": "A man is sitting at a desk in a dimly lit room, likely an office at night. He is in front of a computer monitor, with a keyboard and a white mug on the desk.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 2.8,
+        "action": "His head is tilted down, eyes looking at the keyboard. Both hands are on the keyboard, fingers moving as if typing. His expression is focused.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 2.8,
+        "to": 6,
+        "action": "He stops typing, his hands resting on the keyboard. He lifts his head slightly to look forward at the computer screen. His expression remains concentrated and his body is still.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "A static, medium close-up shot from a slightly side-on angle.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 6,
+        "what": "The entire shot consists of natural, motivated actions. The man is shown typing and then looking at the screen, which are standard activities for someone working on a computer."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E14 (6.0s from the clip's start): \"लेकिन ये सब कोई मशीन अकेले नहीं करती। हर जवाब के पीछे एक इंसान है।\"",
+        "fits": "yes",
+        "why": "The line translates to 'But a machine doesn't do all this alone. Behind every answer, there is a person.' The visual of a man working intently at his computer perfectly illustrates this concept, showing the human element and effort behind the technology."
+      }
+    ]
+  },
+  "explainer/E15": {
+    "ref": "clip:S08-alwayson",
+    "dealer_in_shot": true,
+    "setting": "A middle-aged man, the dealer, is at a petrol pump at night. He is walking away from a glass-walled office, looking down at his smartphone.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 4.5,
+        "action": "The man walks slowly and continuously towards the camera. His head is tilted down and his eyes are fixed on the smartphone he holds in both hands. His thumbs are near the screen, as if ready to type or scroll. His body is engaged in the single, continuous action of walking while being engrossed in his phone.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "The camera is on a dolly, moving smoothly and slowly towards the man as he walks.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 4.5,
+        "what": "The entire shot shows a single, motivated action. The man is walking while using his phone, and all his movements are natural and consistent with this activity. There are no random or nonsensical gestures."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E15: आपको कहीं जाना नहीं पड़ता। अपने पंप से ही, अपने फ़ोन से ही।",
+        "fits": "yes",
+        "why": "The line translates to 'You don't have to go anywhere. From your own pump, from your own phone.' The visual of the dealer managing his business on his phone while at his pump perfectly illustrates the convenience described in the narration. The action directly supports the line's message."
+      }
+    ]
+  },
+  "explainer/E19": {
+    "ref": "flow:H1n",
+    "dealer_in_shot": true,
+    "setting": "A petrol pump at night, a tanker truck is present.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 2,
+        "action": "The man on the left stands completely still for the entire duration, as it is a still photograph. His body is angled slightly to his right, his head is turned towards the other man, and his hands are clasped behind his back. His mouth is closed.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static wide shot.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 2,
+        "what": "The entire clip is a still image. The dealer's pose of observing the scene is natural and motivated."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E19: और नियम रात को भी लागू रहते हैं।",
+        "fits": "yes",
+        "why": "The scene shows a fuel tanker delivery at night, a regulated process. The dealer is present and observing, which visually supports the idea that rules and procedures are being followed, even at night. The static, observational nature of the shot fits the line's tone."
+      }
+    ]
+  },
+  "explainer/E18": {
+    "ref": "clip:S07-human",
+    "dealer_in_shot": true,
+    "setting": "An office or home office. A man is sitting at a wooden desk with an open notebook in front of him.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 1.5,
+        "action": "Holds a phone to his right ear with his right hand. His left hand holds a pen, poised over an open notebook. He looks slightly to his right, off-camera, with a pleasant smile.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 1.5,
+        "to": 2.2,
+        "action": "His head tilts down, eyes looking at the notebook. His smile fades into a more neutral expression as his mouth opens slightly to speak.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 2.2,
+        "to": 3.2,
+        "action": "While looking down and speaking, he makes a small, vague gesture with his left hand and the pen over the notebook, without writing. He then looks back up and to the right.",
+        "reason_visible": false,
+        "reads_as": "odd"
+      },
+      {
+        "from": 3.2,
+        "to": 4.2,
+        "action": "He stops speaking and rests his left hand. He listens with a serious expression, which then softens and breaks into a smile.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 4.2,
+        "to": 6,
+        "action": "He smiles broadly, gives a slight nod, and closes his eyes for a moment in a gesture of satisfaction or agreement. He continues smiling and listening until the end of the shot.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": true,
+    "camera": "Static medium close-up shot with a vertical aspect ratio.",
+    "problems": [
+      {
+        "from": 2.2,
+        "to": 3.2,
+        "what": "While holding a pen to take notes, he makes a conversational hand gesture over the notebook instead of writing. The gesture feels unmotivated and slightly 'actorly', as it doesn't align with the practical task of note-taking.",
+        "severity": "minor"
+      }
+    ],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 2.2,
+        "what": "The man listens on the phone and prepares to take a note, which is a completely natural and motivated sequence of actions."
+      },
+      {
+        "from": 3.2,
+        "to": 6,
+        "what": "His facial expressions change as he listens to the call, moving from concentration to a pleased smile. This is a natural and believable reaction during a positive conversation."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E18 (6.5s from the clip's start): \"जवाब चौबीसों घंटे मिलता है। और ज़रूरत पड़े, तो इंसान ख़ुद बात करता है।\"",
+        "fits": "yes",
+        "why": "The line is about personal, human availability. The visual of an attentive man engaged in a positive, one-on-one phone conversation at his desk perfectly illustrates this concept. His actions convey helpfulness and personal service."
+      }
+    ]
+  },
+  "explainer/E17": {
+    "ref": "clip:S11-app",
+    "dealer_in_shot": true,
+    "setting": "Outdoors, in front of a modern office building with large glass windows.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 5.2,
+        "action": "The dealer remains completely motionless for the entire shot. He stands on the left, looking down at a smartphone with a slight smile. His left hand holds the phone and his right index finger is pointing at the screen. His head, eyes, mouth and body are all static.",
+        "reason_visible": true,
+        "reads_as": "odd"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static medium shot, framing the two men from the waist up.",
+    "problems": [
+      {
+        "from": 0,
+        "to": 5.2,
+        "what": "The entire shot is a still photograph, not a video. The dealer is completely frozen, with no blinking, breathing, or any micro-movements. This is unnatural for a living person and makes the scene feel artificial.",
+        "severity": "noticeable"
+      }
+    ],
+    "calm_windows": [],
+    "fits_lines": [
+      {
+        "beat": "E17: सवाल भेजिए। रिकॉर्डिंग भेजिए। काग़ज़ की फ़ोटो भेज दीजिए।",
+        "fits": "yes",
+        "why": "The visual of two people intently using a smartphone directly corresponds to the narrator's instructions to send various types of digital information (questions, recordings, photos)."
+      }
+    ]
+  },
+  "explainer/E23": {
+    "ref": "clip:S03-stock",
+    "dealer_in_shot": true,
+    "setting": "A petrol pump forecourt. A building with a 'Dealer Office' sign is visible in the background.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 1.1,
+        "action": "The man stands still in a full-length shot, looking directly at the camera. He holds a long metal dipstick in his right hand, with its end in a manhole on the ground. His left hand holds a smartphone. His expression is neutral.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      },
+      {
+        "from": 1.1,
+        "to": 2.2,
+        "action": "He lowers his head and shifts his gaze down to look at the smartphone in his left hand.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 2.2,
+        "to": 5.5,
+        "action": "While keeping his eyes on the phone, he begins to slowly lift the dipstick out of the manhole with his right hand. His body remains stationary as the camera slowly pushes in, reframing him to a medium shot (waist-up).",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "A slow, steady push-in from a full-length shot to a medium shot.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 5.5,
+        "what": "The entire shot is calm. The dealer's actions are consistent and motivated by the task of checking the fuel level with a dipstick while referencing his smartphone."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E23 (6.3s from the clip's start): \"तेल कम है या ज़्यादा, हर सुबह साफ़-साफ़। महीने बाद नहीं।\"",
+        "fits": "yes",
+        "why": "The line is about getting a clear, daily reading of fuel levels. The visual shows the dealer performing this exact task, using a dipstick and a smartphone, which implies a modern, accurate, and immediate system. The action directly illustrates the narration."
+      }
+    ]
+  },
+  "explainer/E25": {
+    "ref": "clip:S05-supply",
+    "dealer_in_shot": true,
+    "setting": "A man, presumably the dealer, is standing at a petrol pump during what appears to be sunrise or sunset.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 1.1,
+        "action": "The man stands still, looking down at a smartphone he holds with both hands. His thumbs are on the screen as if he is typing or scrolling. He has a slight, content smile.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 1.1,
+        "to": 2.2,
+        "action": "He lowers the phone into his right hand, letting his left arm drop to his side. He takes a small step forward and begins to lift his head, his smile fading into a neutral expression.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 2.2,
+        "to": 3.2,
+        "action": "His head is now fully up, and he looks forward and then slightly to his left (camera right). His expression is now thoughtful and serious. His body is stationary.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 3.2,
+        "to": 4,
+        "action": "He turns his head to his right (camera left), surveying the area. He puts his left hand into his trouser pocket. His body turns slightly to follow his gaze.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "The camera is static in a medium shot, focused on the man.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 4,
+        "what": "The entire shot is a single, coherent, and natural sequence of actions. The man finishes using his phone, looks up, and surveys his surroundings with a thoughtful expression. Every movement is motivated and reads as natural."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E25 (4.4s from the clip's start): \"लोड क्यों रुका है — और उसे खुलवाने का अगला क़दम।\"",
+        "fits": "yes",
+        "why": "The line is about identifying a problem and thinking about the next step. The actor's transition from being relaxed on his phone to a serious, observant expression as he looks around his pump perfectly matches the tone of a manager becoming aware of an issue and contemplating a solution."
+      }
+    ]
+  },
+  "explainer/E30": {
+    "ref": "clip:S02-dsr",
+    "dealer_in_shot": true,
+    "setting": "Two men in what appears to be an office, standing at a counter next to a large window. They are looking at a large, open ledger book.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 0.6,
+        "action": "The dealer stands looking down at the ledger, his left hand resting on the left page. His right hand holds a pen, poised just above the right page.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 0.6,
+        "to": 3.5,
+        "action": "He brings the pen down to the paper and begins writing in the ledger. His head and eyes remain focused on his writing. His body is still.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "The camera is static in a medium shot, with a portrait orientation.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 3.5,
+        "what": "The entire shot is calm and motivated. The dealer is focused on a single, clear task: writing in a ledger. All his movements are minimal and directly related to this action."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E30 (4.2s from the clip's start): \"ताकि बाद में किसी बात पर शक की गुंजाइश ही न रहे।\"",
+        "fits": "yes",
+        "why": "The action of carefully and diligently writing in a record book (ledger) perfectly visualizes the concept of keeping clear accounts to prevent any future doubt. The serious, focused nature of the action matches the line's meaning."
+      }
+    ]
+  },
+  "explainer/E26": {
+    "ref": "clip:S07-human",
+    "dealer_in_shot": true,
+    "setting": "A man in a light blue button-down shirt sits at a wooden desk in an office or study. An open notebook and a pen are in front of him. A window and a monitor are out of focus in the background.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 0.5,
+        "action": "Holds a phone to his right ear with his right hand. His mouth is open as if speaking. His left hand, holding a pen, makes a small gesture over the notebook. His eyes look down towards the notebook.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 0.5,
+        "to": 1.2,
+        "action": "He stops gesturing. His mouth closes and he breaks into a smile, looking slightly up and to his right, away from the notebook.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 1.2,
+        "to": 3,
+        "action": "While still smiling and holding the phone, he lowers his left hand and begins writing in the notebook with the pen. His eyes follow his hand down to the page.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": true,
+    "camera": "The camera is static in a medium shot, framed vertically.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 3,
+        "what": "The entire shot shows a man on a phone call. His actions—speaking, gesturing, listening, smiling, and taking notes—are all natural and motivated by the context of the conversation."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E26",
+        "fits": "no",
+        "why": "The audio line begins at 3.9 seconds, which is after this clip has ended."
+      }
+    ]
+  },
+  "explainer/E34": {
+    "ref": "clip:C01-fifteen-thousand",
+    "dealer_in_shot": true,
+    "setting": "An office environment. A younger man is seated at a desk using a laptop, while the dealer, an older man, stands behind him.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 1.1,
+        "action": "Stands still with his arms crossed, body angled towards the person at the desk. He looks down towards the laptop screen with a serious, focused expression.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      },
+      {
+        "from": 1.1,
+        "to": 2.2,
+        "action": "Slowly turns his head to his left, looking away from the laptop and towards something off-screen. His expression remains serious.",
+        "reason_visible": false,
+        "reads_as": "odd"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "The camera is static in a medium shot.",
+    "problems": [
+      {
+        "from": 1.1,
+        "to": 2.2,
+        "what": "The dealer turns his head to look off-screen for no apparent reason. This breaks the established focus of him supervising the work on the laptop and feels unmotivated.",
+        "severity": "noticeable"
+      }
+    ],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 1.1,
+        "what": "The dealer stands still, arms crossed, observing the work on the laptop. His posture and gaze are consistent with a supervisory role."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E34: आप पर एम-डी-जी न लगे। बस यही हमारा काम है।",
+        "fits": "no",
+        "why": "The narrator line begins at 3.4 seconds, which is after this clip has already ended. The action within the clip does not correspond to this line."
+      }
+    ]
+  },
+  "explainer/E35": {
+    "ref": "clip:S03-stock",
+    "dealer_in_shot": true,
+    "setting": "An outdoor shot at a petrol pump, likely during early morning or late afternoon.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 1.6,
+        "action": "The man stands still, holding a phone in his left hand and a metal rod in his right. His body is stationary. He looks slightly off-camera to his right with a neutral, placid expression.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      },
+      {
+        "from": 1.6,
+        "to": 2.8,
+        "action": "His head makes a very slight turn towards the camera, and his mouth breaks into a wide, deliberate smile. His eyes now look more directly towards the camera.",
+        "reason_visible": false,
+        "reads_as": "odd"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "Static medium shot of the man from the waist up.",
+    "problems": [
+      {
+        "from": 1.6,
+        "to": 2.8,
+        "what": "The man abruptly switches on a wide smile for no apparent reason. The change from a neutral expression to a full smile is unmotivated by any in-scene event and reads as an actor taking an off-camera cue.",
+        "severity": "noticeable"
+      }
+    ],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 1.6,
+        "what": "The man holds a static, neutral pose. While it's a pose, it's not distracting or unnatural for the start of a shot."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E35 (3.4s from the clip's start): \"एम-डी-जी सर्विसेज़। डीलर कवच प्रोग्राम।\"",
+        "fits": "no",
+        "why": "The provided clip is only approximately 2.8 seconds long. It ends before the narrator's line begins at the 3.4-second mark."
+      }
+    ]
+  },
+  "explainer/E36-1": {
+    "ref": "clip:S11-app",
+    "dealer_in_shot": true,
+    "setting": "Outside a modern office building, in front of large glass windows and a door.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 2.04,
+        "action": "The man is completely static as this is a still photograph with a slow zoom-in effect. He is posed looking down at a smartphone held by a younger man, smiling. His right index finger is pointing at the phone's screen, nearly touching the younger man's finger which is also on the screen.",
+        "reason_visible": true,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "A medium shot with a slow, continuous digital zoom-in.",
+    "problems": [],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 2.04,
+        "what": "The entire clip is a still photograph, so there are no actor movements, random or otherwise. The pose is natural and motivated for the action of looking at a phone together."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E36 (3.3s from the clip's start): \"ऐप आपके फ़ोन पर हम ही लगा देंगे। जिन्होंने ये वीडियो भेजा है, उन्हें जवाब दीजिए।\"",
+        "fits": "no",
+        "why": "The line is timed to start at 3.3 seconds, but this clip is only 2.04 seconds long. Therefore, the line does not play over this shot. While the visual of using a phone is thematically relevant to a line about an app, the timing makes it a complete mismatch."
+      }
+    ]
+  },
+  "explainer/E33": {
+    "ref": "clip:C02-managers-pump",
+    "dealer_in_shot": true,
+    "setting": "An outdoor petrol pump forecourt, likely at dawn or dusk.",
+    "timeline": [
+      {
+        "from": 0,
+        "to": 0.8,
+        "action": "The man stands still, body facing the camera with his hands in his trouser pockets. His head is turned slightly to his right, and his eyes look off-camera in that direction. His expression is neutral and pensive.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      },
+      {
+        "from": 0.8,
+        "to": 3.2,
+        "action": "He performs a single, slow, and continuous head turn from his right to his left. His gaze follows the direction of the turn, scanning across the scene in front of him.",
+        "reason_visible": false,
+        "reads_as": "random"
+      },
+      {
+        "from": 3.2,
+        "to": 4.9,
+        "action": "His head movement stops. He holds his head and gaze fixed towards his left, looking at something off-camera. His body and expression remain still.",
+        "reason_visible": false,
+        "reads_as": "natural"
+      }
+    ],
+    "mouth_talking": false,
+    "camera": "A very slow, steady push-in on the man.",
+    "problems": [
+      {
+        "from": 0.8,
+        "to": 3.2,
+        "what": "The man performs a slow, unmotivated head turn, scanning across the scene for no apparent reason. It doesn't read as a reaction to anything, but rather as a generic 'actorly' gesture to look thoughtful or watchful, which makes it feel random.",
+        "severity": "noticeable"
+      }
+    ],
+    "calm_windows": [
+      {
+        "from": 0,
+        "to": 0.8,
+        "what": "The man holds a simple, still, pensive pose."
+      },
+      {
+        "from": 3.2,
+        "to": 4.9,
+        "what": "The man holds a steady, watchful gaze after his head turn is complete."
+      }
+    ],
+    "fits_lines": [
+      {
+        "beat": "E33 (5.1s from the clip's start): \"कवच यही है — कि आपका पंप आपका ही रहे।\"",
+        "fits": "yes",
+        "why": "The line is about protection and ownership ('your pump remains yours'). The man's solid stance, hands in pockets, and watchful survey of his surroundings (even if the movement is unmotivated) align well with the theme of a vigilant owner guarding his business."
+      }
+    ]
+  }
+}

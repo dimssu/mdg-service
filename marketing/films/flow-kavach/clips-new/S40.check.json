@@ -1,0 +1,21 @@
+{
+  "id": "S40",
+  "same_man": "not_in_shot",
+  "face_notes": "The man in this shot is not the hero dealer. This is correct as per the brief for this specific shot.",
+  "outfit_matches": false,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "'Veo' watermark in bottom right corner"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": true,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "keep",
+  "retake_hint": ""
+}

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* the app's chat, by day: a phone big enough that a message reads on a phone */
+.phone{width:860px;height:1520px;border-radius:84px;padding:16px;margin-top:-40px}
+.screen{border-radius:70px;background:var(--cream)}
+.island{position:absolute;top:22px;left:50%;width:150px;height:40px;margin-left:-75px;
+  border-radius:20px;background:#000;z-index:10}
+.top{padding:84px 36px 24px;display:flex;align-items:center;gap:20px;background:#fff;
+  border-bottom:1px solid #EDE2D3;position:relative;z-index:2}
+.logo{width:72px;height:72px;border-radius:20px;flex:none;display:flex;align-items:center;
+  justify-content:center;font-size:28px;font-weight:700;color:#fff;
+  background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep))}
+.top .nm{font-size:36px;color:#16120F;line-height:1.2}
+.top .st{font-size:27px;color:var(--inkMuted);line-height:1.3}
+.chat{flex:1;padding:30px 30px;display:flex;flex-direction:column;gap:26px;
+  background:radial-gradient(rgba(107,22,22,.06) 1.5px,transparent 1.5px) 0 0/34px 34px,var(--creamSunk)}
+.day{align-self:center;font-size:26px;color:#6E5E50;background:#FCF6DC;padding:8px 24px;border-radius:12px;
+  box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.bub{font-size:44px;line-height:1.5;max-width:90%;border-radius:28px;padding:20px 28px 14px;
+  box-shadow:0 4px 12px rgba(74,15,15,.12);color:var(--ink)}
+.bub.them{align-self:flex-start;background:#fff;border-top-left-radius:8px}
+.bub.me{align-self:flex-end;background:#FBE7C4;border-top-right-radius:8px}
+.who{font-size:28px;color:var(--maroon);margin-bottom:4px}
+.bub.me .who{color:var(--amberDeep)}
+.bub .tm{font-size:24px;color:#9C9184;text-align:right;margin-top:4px}
+.compose{margin:0 26px 34px;display:flex;align-items:center;gap:18px}
+.compose .in{flex:1;background:#fff;border:2px solid #EDE2D3;border-radius:999px;padding:22px 30px;font-size:28px;color:#A89484}
+.compose .mic{width:84px;height:84px;border-radius:50%;background:var(--maroon);color:#fff;
+  display:flex;align-items:center;justify-content:center}
+
+/* an album of three photos: each a small scene, out of focus */
+.album{display:flex;gap:12px;margin-top:6px}
+.shot{width:200px;display:flex;flex-direction:column;gap:10px;align-items:center;position:relative}
+.ph{width:200px;height:300px;border-radius:16px;overflow:hidden;position:relative;background:#5B4636}
+.ph .sc{position:absolute;inset:-12px;filter:blur(6.5px)}
+.cap{font-size:30px;color:#6E5A48;text-align:center;line-height:1.25}
+/* an item name never splits across two lines */
+.nw{white-space:nowrap}
+.badge{position:absolute;top:-14px;right:-8px;width:64px;height:64px;border-radius:50%;background:var(--good);
+  color:#fff;display:flex;align-items:center;justify-content:center;border:5px solid #FBE7C4;
+  box-shadow:0 6px 14px rgba(30,122,74,.35)}
+.badge svg{width:34px;height:34px;stroke-width:3.2}
+/* scene: a ruled register page */
+.reg{position:absolute;left:18px;top:40px;width:200px;height:270px;transform:rotate(-6deg);background:#F7F1E3;
+  background-image:repeating-linear-gradient(transparent 0 26px,#9DB3D6 26px 28px);box-shadow:0 8px 16px rgba(0,0,0,.4)}
+.reg::before{content:'';position:absolute;left:34px;top:0;bottom:0;width:3px;background:#D98C82}
+.reg i{position:absolute;left:46px;height:9px;border-radius:5px;background:#243E8C}
+/* scene: the stock board on a wall */
+.brd{position:absolute;left:22px;top:70px;width:190px;height:180px;background:#fff;border:10px solid var(--maroon);
+  border-radius:6px;box-shadow:0 8px 14px rgba(0,0,0,.35)}
+.brd i{position:absolute;left:14px;height:12px;border-radius:6px;background:#3A2A26}
+/* scene: a label tied to a bottle */
+.btl{position:absolute;left:66px;top:44px;width:100px;height:280px;border-radius:30px 30px 14px 14px;
+  background:linear-gradient(90deg,#7A4A1C,#B77A34 45%,#6A3C14)}
+.btl::before{content:'';position:absolute;left:30px;top:-18px;width:36px;height:34px;background:#D8C9B0;border-radius:6px}
+.tag{position:absolute;left:94px;top:140px;width:118px;height:120px;background:#F2E2BE;transform:rotate(8deg);
+  border-radius:8px;box-shadow:0 6px 12px rgba(0,0,0,.35)}
+.tag i{position:absolute;left:14px;height:9px;border-radius:5px;background:#243E8C}
+.ok{display:inline-flex;align-items:center;gap:14px}
+.ok .t{width:56px;height:56px;border-radius:50%;background:var(--good);color:#fff;display:inline-flex;
+  align-items:center;justify-content:center}
+.ok .t svg{width:34px;height:34px;stroke-width:3.2}
+</style>
+</head>
+<body>
+<!-- ══ P08 · photos asked for, then matched · K308 "… हम आपके पंप से ज़रूरी फ़ोटो मँगवाते हैं, और उनका मिलान करते हैं।" (7.1 s) ══ -->
+<div class="panel" id="P08" data-plate="office" style="--T:8s">
+  <div class="glow anim a-glow" style="animation-delay:-.5s"></div>
+  <div class="phone anim a-rise" style="animation-duration:3.5s">
+    <div class="screen">
+      <div class="island"></div>
+      <div class="top">
+        <div class="logo dis">DK</div>
+        <div><div class="nm hi">MDG टीम</div><div class="st hi">डीलर कवच</div></div>
+      </div>
+      <div class="chat">
+        <div class="day hi">आज</div>
+        <div class="bub them anim a-bub" style="animation-delay:.3s;animation-duration:5s">
+          <div class="who hi">MDG टीम</div>
+          <div class="hi">आज की ज़रूरी फ़ोटो भेजिए: <span class="nw">डेंसिटी रजिस्टर</span> · <span class="nw">स्टॉक बोर्ड</span> · <span class="nw">सैंपल लेबल</span></div>
+          <div class="tm dis">11:02</div>
+        </div>
+        <div class="bub me anim a-bub" style="animation-delay:2.3s;animation-duration:4s;padding:18px 20px 12px">
+          <div class="who hi">मैनेजर</div>
+          <div class="album">
+            <div class="shot anim a-pop" style="animation-delay:2.4s;animation-duration:3s">
+              <div class="ph okclip"><div class="sc" style="background:#4A3A2E">
+                <div class="reg"><i style="top:36px;width:120px"></i><i style="top:64px;width:90px"></i><i style="top:92px;width:130px"></i><i style="top:120px;width:100px"></i><i style="top:148px;width:124px"></i><i style="top:176px;width:80px"></i></div></div></div>
+              <div class="cap hi">डेंसिटी रजिस्टर</div>
+              <div class="badge anim a-pop" style="animation-delay:4.5s;animation-duration:3s"><svg class="i"><use href="#i-check"/></svg></div>
+            </div>
+            <div class="shot anim a-pop" style="animation-delay:3.0s;animation-duration:3s">
+              <div class="ph okclip"><div class="sc" style="background:linear-gradient(#CDBBA5,#B9A58C)">
+                <div class="brd"><i style="top:18px;width:120px"></i><i style="top:46px;width:150px"></i><i style="top:74px;width:110px"></i><i style="top:102px;width:140px"></i></div></div></div>
+              <div class="cap hi">स्टॉक बोर्ड</div>
+              <div class="badge anim a-pop" style="animation-delay:4.62s;animation-duration:3s"><svg class="i"><use href="#i-check"/></svg></div>
+            </div>
+            <div class="shot anim a-pop" style="animation-delay:3.6s;animation-duration:3s">
+              <div class="ph okclip"><div class="sc" style="background:linear-gradient(#3B2D25,#261C17)">
+                <div class="btl"></div><div class="tag"><i style="top:20px;width:80px"></i><i style="top:42px;width:64px"></i><i style="top:64px;width:84px"></i><i style="top:86px;width:56px"></i></div></div></div>
+              <div class="cap hi">सैंपल लेबल</div>
+              <div class="badge anim a-pop" style="animation-delay:4.74s;animation-duration:3s"><svg class="i"><use href="#i-check"/></svg></div>
+            </div>
+          </div>
+          <div class="tm dis">11:10</div>
+        </div>
+        <div class="bub them anim a-bub" style="animation-delay:4.3s;animation-duration:4s">
+          <div class="who hi">MDG टीम</div>
+          <div class="ok hi">तीनों का मिलान पूरा <span class="t anim a-pop" style="animation-delay:4.55s;animation-duration:3s"><svg class="i"><use href="#i-check"/></svg></span></div>
+          <div class="tm dis">11:18</div>
+        </div>
+      </div>
+      <div class="compose">
+        <div class="in hi">संदेश लिखें…</div>
+        <div class="mic"><svg class="i" style="width:38px;height:38px" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">फ़ोटो मँगवाईं, और मिलान किया</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+{
+  "comment": "Which picture covers which spoken line. clip: = an existing Vertex render in clips/. flow: = a Google Flow generation in films/flow/clips/. gfx: = an animated panel. A list splits the beat evenly across those shots. An object picks WHICH seconds play: {ref, from, to} plays from..to stretched to the line (keep it under 1.3x); {ref, from} plays from there at normal speed.",
+  "map": {
+    "E01": "flow:H1n",
+    "E03": "gfx:G-checklist",
+    "E04": "gfx:G-endless",
+    "E05": "clip:P02-dsr-book-blank",
+    "E06": {
+      "ref": "clip:P01-dod-deadline",
+      "from": 0,
+      "to": 1.95
+    },
+    "E07": "gfx:G-founded",
+    "E08": "gfx:G-onlyjob",
+    "E09": "flow:N9r",
+    "E10": "flow:N5",
+    "E11": "flow:H3",
+    "E12": "gfx:G-reach",
+    "E13": "gfx:G-channels",
+    "E14": "flow:N10r",
+    "E15": "clip:S08-alwayson",
+    "E16": "gfx:G-devices",
+    "E17": {
+      "ref": "clip:S11-app",
+      "from": 0,
+      "to": 4.0
+    },
+    "E18": {
+      "ref": "clip:S07-human",
+      "from": 2.4,
+      "to": 7.95
+    },
+    "E19": "flow:H1n",
+    "E21": "gfx:G-credit",
+    "E22": "gfx:G-dsr",
+    "E23": {
+      "ref": "clip:S03-stock",
+      "from": 0,
+      "to": 4.86
+    },
+    "E24": "gfx:G-density",
+    "E25": "clip:S05-supply",
+    "E26": {
+      "ref": "clip:S07-human",
+      "from": 0,
+      "to": 3.55
+    },
+    "E27": "gfx:G-docs",
+    "E28": "gfx:G-record",
+    "E29": "gfx:G-qa",
+    "E30": {
+      "ref": "clip:S02-dsr",
+      "from": 1.25,
+      "to": 5.4
+    },
+    "E31": "gfx:G-privacy",
+    "E33": "clip:C02-managers-pump",
+    "E34": "clip:C01-fifteen-thousand",
+    "E35": {
+      "ref": "clip:S03-stock",
+      "from": 5.25,
+      "to": 7.98
+    },
+    "E36": [
+      {
+        "ref": "clip:S11-app",
+        "from": 0,
+        "to": 2.53
+      },
+      "gfx:G-cta"
+    ]
+  }
+}

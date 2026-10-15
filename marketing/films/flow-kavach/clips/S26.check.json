@@ -1,0 +1,19 @@
+{
+  "id": "S26",
+  "same_man": "not_in_shot",
+  "face_notes": "No faces are visible in the shot.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [
+    "Dust/smoke rises from the ground around the hose from 00:01 onwards."
+  ],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "retake",
+  "retake_hint": "The shot is completely static. It must have a very slow push-in as specified in the brief. The attendant should also shift his weight once, he is currently frozen still. The 'heat shimmer' effect is too strong, looking more like dust or smoke; it should be a much fainter, more subtle effect."
+}

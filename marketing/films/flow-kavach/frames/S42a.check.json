@@ -1,0 +1,17 @@
+{
+  "id": "S42",
+  "same_man": "not_in_shot",
+  "face_notes": "The hero is not in this shot. The three men depicted are suitable for the roles of advocates.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The advocate on the right is holding a pen. The brief explicitly states 'Nothing thin is held: no pen...'. Please regenerate to remove the pen."
+}

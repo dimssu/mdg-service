@@ -1,0 +1,22 @@
+{
+  "id": "S01",
+  "same_man": "not_in_shot",
+  "face_notes": "The man in the video is a young pump attendant, not the dealer from the reference photo.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 3,
+      "what": "Looks up at the canopy for no reason."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The attendant walks from the dispenser to the center of the frame. He must remain completely stationary beside the dispenser for the entire shot, with his feet planted. The only permitted movement is turning his head."
+}

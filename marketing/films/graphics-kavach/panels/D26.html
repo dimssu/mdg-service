@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* The MDG invoice: the rows print, the GST line is highlighted, and its ₹540
+   lifts off the paper and lands in his own accounts as input tax credit. */
+.inv{position:absolute;left:90px;top:290px;width:900px;--rot:-1.2deg}
+.inv .head{padding:34px 40px 22px;flex-direction:column;align-items:flex-start;gap:12px}
+.inv .head .t{font-size:48px;color:var(--maroon)}
+.inv .head .m{margin-left:0;font-size:30px;color:#6B6258;font-family:'Inter',sans-serif;letter-spacing:.02em}
+.inv .body{padding:30px 40px 40px}
+.inv table.grid th{font-size:22px}
+.inv table.grid td{font-size:36px;height:112px;padding:10px 18px}
+.inv table.grid td:first-child{text-align:left}
+.inv table.grid td.amt{text-align:right;width:236px;white-space:nowrap;font-family:'Inter',sans-serif;font-weight:500}
+.inv tr.tot td{font-weight:700;background:#F8F1E4}
+.inv tr.tot td:first-child{font-size:40px}
+.gstrow td{position:relative}
+.hl{position:absolute;inset:8px 6px;border-radius:6px;background:rgba(255,206,72,.55);transform-origin:0 50%}
+.chip{position:absolute;left:781px;top:671px;padding:8px 22px;border-radius:14px;font-size:44px;font-weight:700;
+  font-family:'Inter',sans-serif;color:var(--maroonDeep);background:linear-gradient(160deg,#FFE3A6,#F2B24C);
+  box-shadow:0 20px 40px rgba(120,60,6,.35);z-index:8}
+@keyframes fly{0%{opacity:0;transform:translate(0,0) scale(1)}
+  8%{opacity:1;transform:translate(0,-34px) scale(1.12) rotate(-3deg)}
+  30%{opacity:1;transform:translate(var(--dx),var(--dy)) scale(1) rotate(0)}
+  36%,100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1)}}
+.a-fly{animation-name:fly;animation-timing-function:cubic-bezier(.5,.05,.3,1)}
+.led{position:absolute;left:150px;top:1170px;width:800px;border-radius:24px;overflow:hidden;transform:rotate(1.4deg);
+  background:var(--paper);box-shadow:0 36px 72px rgba(40,14,6,.34),0 5px 14px rgba(40,14,6,.2),0 0 0 1px var(--paperEdge)}
+.led .top{display:flex;align-items:center;gap:18px;padding:22px 34px;background:linear-gradient(120deg,var(--maroonSoft),var(--maroon) 62%);
+  border-bottom:5px solid var(--amber);color:#fff;font-size:40px}
+.led .top svg{width:44px;height:44px;fill:none;stroke:#F6DCA8;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.led .row2{display:flex;align-items:center;justify-content:space-between;padding:34px 34px 30px;
+  background-image:linear-gradient(transparent calc(100% - 2px),var(--rule) 0);background-size:100% 64px}
+.led .k{font-size:42px;color:var(--ink)}
+.led .v{font-size:72px;font-weight:700;color:var(--good);font-family:'Space Grotesk','Inter',sans-serif}
+.hlt{position:absolute;left:90px;right:90px;top:1500px;text-align:center}
+.hlt span{display:inline-block;padding:14px 30px;border-radius:999px;font-size:42px;color:var(--maroonDeep);
+  background:rgba(255,236,190,.95);border:2px solid var(--amber);box-shadow:0 12px 26px rgba(120,60,6,.18)}
+.cav{position:absolute;left:90px;right:90px;top:1630px;text-align:center;font-size:36px;color:#6E5A4C}
+@keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.a-growx{animation-name:growX;animation-timing-function:cubic-bezier(.4,.1,.3,1)}
+</style>
+</head>
+<body>
+<!-- ══ D26 · the MDG invoice: GST is input tax credit · K603 "…ये जी-एस-टी आप अपने अकाउंट्स में इनपुट टैक्स क्रेडिट के रूप में क्लेम कर सकते हैं।" (6 s) ══ -->
+<div class="panel" id="D26" data-plate="desk" style="--T:6s">
+  <div class="paper inv anim a-rise" style="animation-delay:0s;animation-duration:3s">
+    <div class="head"><span class="t hi">टैक्स इनवॉइस · एम-डी-जी सर्विसेज़</span><span class="m">GSTIN: ●●●●●●●●●●●●●●●</span></div>
+    <div class="body">
+      <table class="grid">
+        <tr><th class="hi">विवरण</th><th class="hi">राशि</th></tr>
+        <tr class="anim a-write" style="animation-delay:.45s;animation-duration:4s"><td class="hi">सामान्य एम-डी-जी सर्विस — अगस्त</td><td class="amt">₹3,000.00</td></tr>
+        <tr class="gstrow anim a-write" style="animation-delay:.85s;animation-duration:4s"><td class="hi"><i class="hl anim a-growx" style="animation-delay:2.0s;animation-duration:.5s"></i><span style="position:relative">जी-एस-टी @ 18%</span></td><td class="amt"><i class="hl anim a-growx" style="animation-delay:2.2s;animation-duration:.4s"></i><span style="position:relative">₹540.00</span></td></tr>
+        <tr class="tot anim a-write" style="animation-delay:1.25s;animation-duration:4s"><td class="hi">कुल</td><td class="amt">₹3,540.00</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="led anim a-rise" style="animation-delay:2.1s;animation-duration:3.5s">
+    <div class="top"><svg viewBox="0 0 24 24"><path d="M5 3.2h12.2a2 2 0 0 1 2 2v13.6a2 2 0 0 1-2 2H5ZM8.6 3.2v17.6M11.4 8h5M11.4 11.4h5"/></svg><span class="hi">आपके अकाउंट्स</span></div>
+    <div class="row2"><span class="k hi">इनपुट टैक्स क्रेडिट</span><span class="v anim a-pop" style="animation-delay:3.35s;animation-duration:3s">₹540</span></div>
+  </div>
+  <div class="chip anim a-fly" style="--dx:-33px;--dy:646px;animation-delay:2.45s;animation-duration:3s">₹540</div>
+  <div class="hlt anim a-rise" style="animation-delay:3.5s;animation-duration:3s"><span class="hi">₹540 → इनपुट टैक्स क्रेडिट (ITC)</span></div>
+  <div class="cav hi anim a-write" style="animation-delay:3.55s;animation-duration:4s">लागू नियमों और आपकी पात्रता के हिसाब से</div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

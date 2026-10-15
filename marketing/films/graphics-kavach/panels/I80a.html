@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Four kinds of obligation as four paper piles, landing in the order they are
+   named, then all four keep growing while "लगातार बढ़ रहे" is said.
+   Timed to K014 (first 8.8 s): "दूसरी तरफ़" 0.06–0.57 s, "तेल कंपनी के नियम"
+   1.31–2.41 s, "कंप्लायंस" 3.03 s, "एम-डी-जी गाइडलाइंस" 4.25 s, "और तरह-तरह के
+   ऑनलाइन काम" 5.94–7.86 s, "लगातार बढ़ रहे हैं" 8.20 s.
+   एम-डी-जी गाइडलाइंस here are the oil companies' Marketing Discipline
+   Guidelines, not MDG Services: the same plain paper icon as the other three,
+   no medallion, and the footnote says what the letters stand for. For the same
+   reason this panel carries no "MDG Services" rail.
+   I80b opens on this panel's last frame (a shot sits between them): the piles
+   are built by the same code there, at the same positions. Change one, change
+   both. Nothing moves after 8.2 s. */
+#I80a .hd{position:absolute;left:60px;right:60px;top:240px;display:flex;flex-direction:column;align-items:center}
+#I80a .hd .t{font-size:88px;color:var(--maroon);line-height:1.25}
+#I80a .hd .u{width:180px;height:7px;border-radius:7px;margin-top:18px;transform-origin:50% 50%;
+  background:linear-gradient(90deg,#E9A23B,#F4C979)}
+#I80a .cnt{position:absolute;left:60px;right:60px;top:482px;display:flex;align-items:center;justify-content:center;gap:12px}
+#I80a .cnt .lb{display:flex;align-items:center;gap:10px;font-size:48px;line-height:1.2;color:#fff;padding:12px 34px 6px 24px;border-radius:999px;
+  background:linear-gradient(120deg,var(--maroonSoft),var(--maroon) 70%);box-shadow:0 12px 26px rgba(74,15,15,.24);margin-right:10px}
+#I80a .cnt .lb svg{width:44px;height:44px;fill:none;stroke:var(--amberSoft);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+#I80a .cnt .pp{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:32px;color:var(--maroonDeep);padding:8px 14px;border-radius:999px;
+  background:#FFF1D2;border:2px solid var(--amber);box-shadow:0 6px 12px rgba(120,60,6,.18)}
+/* the four columns: a pile standing on the desk edge, its name beneath */
+#I80a .cols{position:absolute;left:61px;top:0;width:958px;height:1920px}
+#I80a .col{position:absolute;top:0;width:232px;height:1920px}
+#I80a .pile{position:absolute;left:0;right:0;bottom:650px;display:flex;flex-direction:column-reverse;align-items:center}
+/* a sheet seen edge-on: a bright top edge, a shaded front, a hard bottom line */
+#I80a .sl{position:relative;width:188px;height:30px;border-radius:3px;flex:none;
+  background:linear-gradient(#FFFEFA 0,#FFFEFA 30%,#EFE3CC 100%);border:1px solid #CDB690;border-bottom:3px solid #BFA27A;
+  box-shadow:0 4px 7px rgba(58,16,10,.20)}
+#I80a .sl.f{background:linear-gradient(#FBE6BC 0,#F2C979 45%,#DDA24A 100%);border-color:#B98434;border-bottom-color:#A0702A}
+#I80a .sl.tl::after,#I80a .sl.tr::after{content:'';position:absolute;top:4px;width:30px;height:14px;border-radius:3px}
+#I80a .sl.tl::after{left:-18px;background:var(--maroonSoft)}
+#I80a .sl.tr::after{right:-18px;background:var(--amber)}
+#I80a .add{height:30px;flex:none;display:flex;justify-content:center;width:100%}
+#I80a .desk{position:absolute;left:0;right:0;bottom:640px;height:12px;border-radius:6px;background:linear-gradient(90deg,rgba(138,43,43,.06),rgba(138,43,43,.30),rgba(138,43,43,.06))}
+#I80a .nm{position:absolute;left:0;right:0;top:1304px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+#I80a .nm .pi{width:58px;height:58px;border-radius:15px;display:flex;align-items:center;justify-content:center;color:#fff;
+  background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep));box-shadow:inset 0 -4px 10px rgba(0,0,0,.2),0 6px 12px rgba(74,15,15,.18)}
+#I80a .nm .pi svg{width:34px;height:34px}
+#I80a .nm .w{font-size:42px;line-height:1.28;color:var(--ink);white-space:nowrap}
+#I80a .fnote{position:absolute;left:60px;right:60px;bottom:62px;text-align:center;font-size:31px;line-height:1.3;color:rgba(60,32,20,.72)}
+#I80a .fnote b{font-weight:400;color:var(--maroon)}
+@keyframes pileIn{0%{opacity:0;transform:translateY(-190px)}70%{opacity:1;transform:translateY(8px)}100%{opacity:1;transform:none}}
+.pin{animation-name:pileIn;animation-timing-function:cubic-bezier(.35,.6,.4,1)}
+@keyframes fadeUp{0%{opacity:0;transform:translateY(22px)}100%{opacity:1;transform:none}}
+.fu{animation-name:fadeUp}
+@keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.gx{animation-name:growX}
+@keyframes addH{0%{height:0}100%{height:30px}}
+.ah{animation-name:addH;animation-timing-function:cubic-bezier(.3,.7,.4,1)}
+@keyframes fall{0%{opacity:0;transform:translateY(-150px) rotate(var(--r0))}60%{opacity:1}100%{opacity:1;transform:translateX(var(--x)) rotate(var(--r))}}
+.fa{animation-name:fall;animation-timing-function:cubic-bezier(.4,.2,.5,1)}
+@keyframes pipIn{0%{opacity:0;transform:translateY(20px) scale(.5)}70%{opacity:1;transform:scale(1.1)}100%{opacity:1;transform:none}}
+.pn{animation-name:pipIn}
+</style>
+</head>
+<body>
+<!-- ══ I80a · rules, compliance, guidelines, online work, and the count keeps rising · K014, first 8.8 s ══ -->
+<div class="panel" id="I80a" data-plate="office" style="--T:10s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s;animation-duration:2.6s;top:50%"></div>
+
+  <div class="hd">
+    <div class="t hi anim fu" style="animation-delay:-.15s;animation-duration:.45s">दूसरी तरफ़</div>
+    <div class="u anim gx" style="animation-delay:.1s;animation-duration:.45s"></div>
+  </div>
+
+  <div class="cnt">
+    <span class="lb hi anim pn" style="animation-delay:7.72s;animation-duration:.26s"><svg viewBox="0 0 24 24"><path d="M12 20V5M5.5 11.5 12 5l6.5 6.5"/></svg>लगातार बढ़ रहे</span>
+    <span class="pp anim pn" style="animation-delay:7.86s;animation-duration:.14s">+1</span>
+    <span class="pp anim pn" style="animation-delay:7.91s;animation-duration:.14s">+1</span>
+    <span class="pp anim pn" style="animation-delay:7.96s;animation-duration:.14s">+1</span>
+    <span class="pp anim pn" style="animation-delay:8.01s;animation-duration:.14s">+1</span>
+    <span class="pp anim pn" style="animation-delay:8.06s;animation-duration:.14s">+1</span>
+  </div>
+
+  <div class="cols" id="cols"></div>
+
+  <div class="fnote hi anim a-fade" style="animation-delay:3.85s;animation-duration:2.6s"><b>एम-डी-जी</b> = मार्केटिंग डिसिप्लिन गाइडलाइंस</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* The piles. The same function builds them in I80b (animated = false), so
+   the two panels agree sheet for sheet. */
+function piles(root, animated) {
+  const names = ['तेल कंपनी के<br/>नियम', 'कंप्लायंस', 'एम-डी-जी<br/>गाइडलाइंस', 'तरह-तरह के<br/>ऑनलाइन काम'];
+  const land = [1.1, 2.8, 4.0, 5.95];           // each pile is down just before its name
+  const start = [9, 8, 10, 7], more = [5, 11, 3, 9]; // …then all four keep growing, unevenly
+  let seed = 11;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const slab = (k) => {
+    const x = ((rnd() - .5) * 20).toFixed(1), r = ((rnd() - .5) * 2.6).toFixed(2);
+    const f = k % 5 === 3 ? ' f' : '';
+    const tab = rnd();
+    const t = f ? '' : tab < .16 ? ' tl' : tab > .86 ? ' tr' : '';
+    return { x, r, cls: 'sl' + f + t };
+  };
+  /* the growth: every added sheet gets a time between 6.8 s and 8.0 s,
+     dealt round the piles in a shuffled order, a little faster towards the end */
+  const adds = [];
+  more.forEach((m, i) => { for (let j = 0; j < m; j++) adds.push(i); });
+  for (let i = adds.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [adds[i], adds[j]] = [adds[j], adds[i]]; }
+  const when = adds.map((_, k) => 6.8 + 1.2 * Math.pow(k / (adds.length - 1), .85));
+  let html = '';
+  for (let i = 0; i < 4; i++) {
+    let p = '';
+    for (let k = 0; k < start[i]; k++) {
+      const s = slab(k);
+      p += `<div class="${s.cls}" style="transform:translateX(${s.x}px) rotate(${s.r}deg)"></div>`;
+    }
+    let k = start[i];
+    adds.forEach((pile, n) => {
+      if (pile !== i) return;
+      const s = slab(k++);
+      if (animated) {
+        const t = when[n];
+        p += `<div class="add anim ah" style="animation-delay:${(t - .02).toFixed(2)}s;animation-duration:.2s">` +
+             `<div class="${s.cls} anim fa" style="--x:${s.x}px;--r:${s.r}deg;--r0:${(s.r * 3).toFixed(1)}deg;animation-delay:${(t - .12).toFixed(2)}s;animation-duration:.26s"></div></div>`;
+      } else {
+        p += `<div class="add"><div class="${s.cls}" style="transform:translateX(${s.x}px) rotate(${s.r}deg)"></div></div>`;
+      }
+    });
+    const a = animated ? ` anim pin" style="animation-delay:${(land[i] - .32).toFixed(2)}s;animation-duration:.46s` : '';
+    const b = animated ? ` anim fu" style="animation-delay:${(land[i] - .3).toFixed(2)}s;animation-duration:.36s` : '';
+    html += `<div class="col" style="left:${i * 242}px">` +
+      `<div class="desk${b}"></div>` +
+      `<div class="pile${a}">${p}</div>` +
+      `<div class="nm${b}"><span class="pi"><svg class="i"><use href="#i-doc"/></svg></span><span class="w hi">${names[i]}</span></div>` +
+      `</div>`;
+  }
+  root.innerHTML = html;
+}
+piles(document.getElementById('cols'), true);
+</script>
+</body>
+</html>

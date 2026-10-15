@@ -1,0 +1,16 @@
+{
+  "id": "S00-turn",
+  "act": 3,
+  "beat": "S00-turn",
+  "problem": "The turn — the same week, seen again",
+  "aspect_ratio": "9:16",
+  "action": "The same forecourt, at dawn, completely calm and clean and empty. The dealer walks into frame from the left at an unhurried pace, hands loose at his sides, looking ahead at his own pump. Everything is ordered. Nothing is wrong.",
+  "lighting": "Soft golden sunrise, long clean light across wet-looking swept concrete, the canopy catching the first sun. Warm, calm, hopeful — a deliberate and complete change from every shot before it.",
+  "camera": "Wide vertical establishing shot, the canopy and island filling the upper half, the dealer walking in the lower third, small but clearly him. 35mm.",
+  "detail": "The forecourt is spotless and orderly. No signage, no lettering, no logos, no number plates anywhere. Same cream full-sleeve shirt with the sleeves rolled, same dark navy trousers, same watch.",
+  "feeling": "Relief before it is explained. The audience should feel the weather change before they are told why.",
+  "motion": "He takes three or four unhurried steps across frame. A very slow push in. Nothing else moves, no cuts, no camera shake, nobody else enters frame, nobody speaks.",
+  "voice_over": {
+    "hi": "अब वही सब, एक बार और देखिए।"
+  }
+}

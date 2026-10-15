@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Permission first, then need, then access: three stops linked left to right,
+   and the camera at the end lights only once the first two are ticked. */
+.chain{position:relative;width:960px;height:520px}
+.ln{position:absolute;top:118px;height:8px;border-radius:8px;transform-origin:0 50%;
+  background:linear-gradient(90deg,#E9A23B,#F4C979)}
+.st{position:absolute;top:0;width:300px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.nd{position:relative;width:244px;height:244px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--maroon);
+  background:radial-gradient(circle at 36% 30%,#fff,#FBF1E1 70%);border:3px solid rgba(201,160,100,.6);
+  box-shadow:0 26px 50px rgba(58,16,10,.24),inset 0 -6px 14px rgba(160,110,50,.12)}
+.nd svg.ic{width:120px;height:120px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.tk{position:absolute;right:4px;top:6px;width:66px;height:66px;border-radius:50%;background:var(--good);color:#fff;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(30,122,74,.4)}
+.tk svg{width:40px;height:40px;stroke-width:3}
+.st .t{font-size:46px;color:var(--maroon);line-height:1.3;margin-top:36px}
+.lit{position:absolute;inset:-4px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--maroonDeep);
+  background:radial-gradient(circle at 36% 30%,#FBE3A8,#E9A23B 62%,#C27716);box-shadow:0 0 0 14px rgba(233,162,59,.22),0 0 70px rgba(233,162,59,.75)}
+.lit svg.ic{width:120px;height:120px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.rec{position:absolute;right:64px;top:84px;width:18px;height:18px;border-radius:50%;background:#1E7A4A;box-shadow:0 0 12px #6FE3A5}
+@keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.a-growx{animation-name:growX;animation-timing-function:cubic-bezier(.4,.1,.3,1)}
+</style>
+</head>
+<body>
+<svg style="display:none">
+  <symbol id="x-hand" viewBox="0 0 24 24"><path d="M8.5 14.2V5.4a1.2 1.2 0 0 1 2.4 0V11M10.9 11V4a1.2 1.2 0 0 1 2.4 0v7M13.3 11V5a1.2 1.2 0 0 1 2.4 0v6.4M15.7 11.4V7.6a1.2 1.2 0 0 1 2.4 0v6.6c0 4-2.6 6.8-5.8 6.8-2.3 0-3.8-.8-5-2.4l-2.8-3.9c-.7-1-.4-2.1.5-2.5.8-.4 1.7-.1 2.2.6l1.2 1.6"/></symbol>
+  <symbol id="x-cam" viewBox="0 0 24 24"><path d="M3.2 7.6 15.6 4.4l1.6 6.2-12.4 3.2ZM17.2 8.4l3.4-1.2v4.6l-3 .6M9.4 12.6l1.2 4.4H6.2M6.2 14.6V19.6"/><circle cx="7.6" cy="9.4" r="1.1"/></symbol>
+</svg>
+<!-- ══ I59 · permission first, then CCTV access · K713, first 3.16 s ("आपकी अनुमति के बाद, ज़रूरत के हिसाब से, हमारी टीम को …") ══ -->
+<div class="panel" id="I59" data-plate="office" style="--T:4s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="chain" style="margin-top:-40px">
+    <div class="ln anim a-growx" style="left:272px;width:116px;animation-delay:.8s;animation-duration:.4s"></div>
+    <div class="ln anim a-growx" style="left:602px;width:116px;animation-delay:1.5s;animation-duration:.4s"></div>
+    <div class="st" style="left:0">
+      <div class="nd anim a-pop" style="animation-delay:.1s;animation-duration:2.6s"><svg class="ic"><use href="#x-hand"/></svg>
+        <div class="tk anim a-pop" style="animation-delay:.45s;animation-duration:2s"><svg class="i"><use href="#i-check"/></svg></div></div>
+      <div class="t hi anim a-fade" style="animation-delay:.2s;animation-duration:2.5s">आपकी अनुमति</div></div>
+    <div class="st" style="left:330px">
+      <div class="nd anim a-pop" style="animation-delay:1.1s;animation-duration:2.6s"><svg class="ic"><use href="#i-gauge"/></svg>
+        <div class="tk anim a-pop" style="animation-delay:1.45s;animation-duration:2s"><svg class="i"><use href="#i-check"/></svg></div></div>
+      <div class="t hi anim a-fade" style="animation-delay:1.2s;animation-duration:2.5s">ज़रूरत के<br/>हिसाब से</div></div>
+    <div class="st" style="left:660px">
+      <div class="nd anim a-pop" style="animation-delay:1.8s;animation-duration:2.6s"><svg class="ic"><use href="#x-cam"/></svg>
+        <div class="lit anim a-fade" style="animation-delay:2.15s;animation-duration:2s"><svg class="ic"><use href="#x-cam"/></svg><span class="rec"></span></div></div>
+      <div class="t hi anim a-fade" style="animation-delay:1.9s;animation-duration:2.5s">सी-सी-टी-वी एक्सेस —<br/>हमारी टीम को</div></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

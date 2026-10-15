@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* The three new cards land on their phrases in K504 (spoken from 0, 1.9 and 4.6 s).
+   Starts from I38's last frame: the header, the clock and the four cards are
+   copied from I38 at the same positions. Change one, change both. */
+#I39 .head{position:absolute;left:90px;right:90px;top:280px;height:190px;display:flex;align-items:center}
+#I39 .head .t{font-size:76px;color:#FFF3E2;line-height:1.2}
+#I39 .clock{margin-left:auto;width:176px;height:176px;flex:none}
+#I39 .clock svg{width:100%;height:100%;overflow:visible}
+#I39 .hand{transform-origin:88px 88px;animation:tick 30s steps(30) infinite paused}
+@keyframes tick{to{transform:rotate(360deg)}}
+#I39 .need{position:absolute;width:900px;height:200px;display:flex;align-items:center;gap:36px;
+  padding:0 44px;border-radius:30px;background:linear-gradient(170deg,#FFFDF8,#F4E8D6);
+  box-shadow:0 34px 70px rgba(0,0,0,.45),0 6px 14px rgba(0,0,0,.30),inset 0 0 0 1px rgba(255,255,255,.7)}
+#I39 .need .g{width:120px;height:120px;border-radius:32px;flex:none;display:flex;align-items:center;justify-content:center;
+  color:#fff;background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep));
+  box-shadow:inset 0 -6px 14px rgba(0,0,0,.22),0 10px 22px rgba(58,16,10,.30)}
+#I39 .need .g.bad{background:linear-gradient(150deg,#D9503F,#8E1F14)}
+#I39 .need .g svg{width:68px;height:68px;stroke-width:1.9}
+#I39 .need .w{font-size:50px;color:#3A1410;line-height:1.3}
+#I39 .need.new{height:230px}
+#I39 .nw{white-space:nowrap}
+#I39 .need .w{padding-top:6px}
+#I39 .need.new .w{font-size:52px}
+/* 0–0.6 s: the four cards fly up and shrink into the grey row */
+@keyframes toRow{0%{opacity:1;transform:rotate(var(--r1))}
+  70%{opacity:.25}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.28)}}
+.old{animation-name:toRow;animation-duration:.62s!important;animation-timing-function:cubic-bezier(.5,0,.3,1)!important}
+#I39 .prev{position:absolute;left:60px;right:60px;top:500px;display:flex;justify-content:center;gap:14px}
+#I39 .chip{font-size:30px;line-height:1.3;color:rgba(255,243,226,.62);padding:12px 22px;border-radius:999px;
+  background:rgba(255,255,255,.07);border:1.5px solid rgba(255,243,226,.20);white-space:nowrap}
+@keyframes cardIn{0%{opacity:0;transform:translateX(-140px) rotate(var(--r0))}
+  60%{opacity:1}100%{opacity:1;transform:rotate(var(--r1))}}
+.in{animation-name:cardIn;animation-duration:.85s!important}
+#I39 .grp{position:absolute;inset:0;transform-origin:50% 55%}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.045)}}
+.push{animation-name:push;animation-duration:1.6s!important;animation-timing-function:cubic-bezier(.4,0,.6,1)!important}
+</style>
+</head>
+<body>
+<svg style="display:none">
+ <symbol id="x-pump" viewBox="0 0 24 24"><rect x="3.5" y="3" width="10" height="18" rx="1.6"/><rect x="6" y="5.8" width="5" height="4" rx=".6"/><path d="M2 21h13.5"/><path d="M13.5 8.5h2.6a1.9 1.9 0 0 1 1.9 1.9v6.4a1.5 1.5 0 0 0 3 0V8.2L18.4 5.6"/></symbol>
+ <symbol id="x-pipe" viewBox="-0.7 0.4 24 24"><path d="M1.5 6.8h10a6.2 6.2 0 0 1 6.2 6.2v8.5"/><path d="M1.5 12.2h10a.9.9 0 0 1 .9.9v8.4"/><rect x="5.6" y="4.6" width="2.6" height="9.8" rx=".8"/><rect x="10.2" y="15.6" width="9.8" height="2.6" rx=".8"/><path d="M6.9 17.2s-1.4 1.7-1.4 2.7a1.4 1.4 0 0 0 2.8 0c0-1-1.4-2.7-1.4-2.7Z"/></symbol>
+ <symbol id="x-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3.5 17.2a1.8 1.8 0 0 0 2.5 2.5l5.8-5.8a4 4 0 0 0 5.1-5.4l-2.4 2.4-2.2-.6-.6-2.2Z"/></symbol>
+ <symbol id="x-online" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+</svg>
+<!-- ══ I39 · needs at any hour, part 2 · K504 "पाइपलाइन की समस्या हो, किसी मशीन या उपकरण की शिकायत हो…" ══ -->
+<div class="panel ink" id="I39" data-plate="night" style="--T:8s">
+  <div class="glow anim a-glow" style="top:52%;width:1100px;height:1100px;background:radial-gradient(circle,rgba(233,120,59,.26),rgba(233,120,59,0) 66%);animation-duration:7s;animation-delay:-6.5s"></div>
+
+  <div class="head">
+    <div class="t hi">किसी भी समय</div>
+    <div class="clock">
+      <svg viewBox="0 0 176 176">
+        <circle cx="88" cy="88" r="80" fill="rgba(255,243,226,.06)" stroke="var(--amber)" stroke-width="5"/>
+        <g stroke="var(--amberSoft)" stroke-linecap="round">
+          <path d="M88 16v14M88 146v14M16 88h14M146 88h14" stroke-width="5"/>
+          <path d="M122.5 28.2l-3 5.2M147.8 53.5l-5.2 3M147.8 122.5l-5.2-3M122.5 147.8l-3-5.2M53.5 147.8l3-5.2M28.2 122.5l5.2-3M28.2 53.5l5.2 3M53.5 28.2l3 5.2" stroke-width="3" opacity=".7"/>
+        </g>
+        <path d="M88 88 88 50" stroke="#FFF3E2" stroke-width="7" stroke-linecap="round" transform="rotate(-50 88 88)"/>
+        <g class="hand" style="animation-delay:-6.5s"><path d="M88 96V30" stroke="var(--amber)" stroke-width="4" stroke-linecap="round"/></g>
+        <circle cx="88" cy="88" r="8" fill="var(--amber)"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- I38's four cards, as they were — they leave for the grey row -->
+  <div class="need anim old" style="top:620px;left:72px;--r1:-1.2deg;--dx:-245px;--dy:-167px">
+    <div class="g"><svg class="i"><use href="#i-doc"/></svg></div><div class="w hi">वर्क परमिट की ज़रूरत</div></div>
+  <div class="need anim old" style="top:880px;left:108px;--r1:.9deg;--dx:-127px;--dy:-427px">
+    <div class="g"><svg class="i"><use href="#i-chat"/></svg></div><div class="w hi">कंप्लेंट दर्ज करनी हो</div></div>
+  <div class="need anim old" style="top:1140px;left:80px;--r1:-.7deg;--dx:51px;--dy:-687px">
+    <div class="g"><svg class="i"><use href="#i-gauge"/></svg></div><div class="w hi">ऑटोमेशन में दिक़्क़त</div></div>
+  <div class="need anim old" style="top:1400px;left:100px;--r1:1.1deg;--dx:230px;--dy:-947px">
+    <div class="g bad"><svg class="i"><use href="#x-pump"/></svg></div><div class="w hi">डिस्पेंसिंग यूनिट में ख़राबी</div></div>
+
+  <div class="prev anim a-fade" style="animation-delay:.25s;animation-duration:.5s">
+    <span class="chip hi">वर्क परमिट</span><span class="chip hi">कंप्लेंट</span><span class="chip hi">ऑटोमेशन</span><span class="chip hi">डिस्पेंसिंग यूनिट</span>
+  </div>
+
+  <div class="grp anim push" style="animation-delay:6.15s">
+    <div class="need new anim in" style="top:700px;left:80px;--r0:-4deg;--r1:-1deg;animation-delay:.45s">
+      <div class="g"><svg class="i"><use href="#x-pipe"/></svg></div><div class="w hi">पाइपलाइन की समस्या</div></div>
+    <div class="need new anim in" style="top:985px;left:104px;--r0:3deg;--r1:.8deg;animation-delay:1.95s">
+      <div class="g"><svg class="i"><use href="#x-wrench"/></svg></div><div class="w hi">मशीन या उपकरण की शिकायत</div></div>
+    <div class="need new anim in" style="top:1270px;left:84px;--r0:-3deg;--r1:-.8deg;animation-delay:4.6s">
+      <div class="g"><svg class="i"><use href="#x-online"/></svg></div><div class="w hi"><span class="nw">एस-डी-एम-एस</span> और <span class="nw">आई-आर-ए-एस</span> में कोई काम</div></div>
+  </div>
+
+  <div class="rail hi">रात हो या दिन</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

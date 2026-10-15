@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Opens on I86a's last frame (same markup, same positions — change both).
+   K026b over the whole card: "छोटे (0.07–0.5), या (0.85) कम बिक्री वाले पंप के लिए
+   (1.16–2.5), ये भी (3.2) एक अतिरिक्त ख़र्च (3.6–4.7) बन जाता है।" "छोटे" is the
+   first word, so the pump and "छोटा" come up at once while the tag shrinks to a
+   chip ("छोटा" waits until 0.18 s, when the leaving tag is clear of its line); the
+   rest of the label writes in just ahead of "कम" (0.72–1.22 s) and the short
+   earnings bar grows with "कम बिक्री"; the
+   chip slides into the bar in the pause and bites on "ये भी"; "एक अतिरिक्त ख़र्च"
+   writes in amber on its words. Settled from 4.0 s. */
+#I86c{gap:0}
+/* ── I86a's last frame ── */
+#I86c .badge{position:absolute;left:50%;top:390px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:14px;font-size:46px;color:#5A3508;
+  padding:12px 40px 14px;border-radius:999px;white-space:nowrap;background:linear-gradient(150deg,#FFE3A6,var(--amber));box-shadow:0 12px 26px rgba(199,124,27,.30)}
+#I86c .who{position:absolute;left:60px;right:60px;top:508px;text-align:center;font-size:72px;line-height:1.25;color:var(--maroon)}
+#I86c .fig{position:absolute;left:360px;top:635px;width:360px;height:400px}
+#I86c .fig svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 24px 30px rgba(58,16,10,.18))}
+#I86c .fig .body{fill:rgba(255,253,248,.96)}
+#I86c .fig .p{fill:none;stroke:var(--maroon);stroke-width:12;stroke-linecap:round;stroke-linejoin:round}
+#I86c .hang{position:absolute;left:110px;top:990px;width:860px;transform-origin:430px 20px;transform:rotate(-2deg)}
+#I86c .clip{position:absolute;left:413px;top:0;width:34px;height:74px;border-radius:10px;z-index:3;
+  background:linear-gradient(90deg,#9A9A9A,#E4E4E4 45%,#8A8A8A);box-shadow:0 4px 8px rgba(0,0,0,.3)}
+#I86c .str{position:absolute;left:428px;top:60px;width:4px;height:62px;background:#8A7466;border-radius:2px}
+#I86c .tag{position:relative;margin-top:112px;border-radius:36px;background:linear-gradient(170deg,#FFFDF8,#F6ECDD);
+  border:4px solid var(--amber);box-shadow:0 44px 90px rgba(58,16,10,.28),0 8px 20px rgba(58,16,10,.16);
+  padding:62px 40px 46px;display:flex;flex-direction:column;align-items:center;gap:26px}
+#I86c .tag .hole{position:absolute;left:50%;top:18px;width:30px;height:30px;margin-left:-15px;border-radius:50%;background:#EADBC4;
+  box-shadow:inset 0 3px 5px rgba(0,0,0,.3)}
+#I86c .tag .l1{font-size:54px;color:var(--maroonSoft);line-height:1.25;white-space:nowrap}
+#I86c .tag .note{width:100%;height:2px;background:repeating-linear-gradient(90deg,#D8C8AE 0 14px,transparent 14px 26px)}
+#I86c .price{display:flex;align-items:baseline;gap:18px;color:var(--maroon);white-space:nowrap;height:150px}
+#I86c .price .n{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:144px;line-height:1;letter-spacing:-2px}
+#I86c .price .per{font-size:58px;color:#6B5A4C}
+.ctr{display:inline-flex;height:1em;line-height:1;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums}
+.ctr .cc{display:flex;flex-direction:column}
+.ctr .cc span,.ctr .fx{display:block;height:1em;line-height:1}
+@keyframes ctrRoll{from{transform:translateY(0)}to{transform:translateY(calc(var(--n) * -1em))}}
+@keyframes ctrShow{from{opacity:0}to{opacity:1}}
+
+/* ── exits ── */
+@keyframes outUp{to{opacity:0;transform:translateY(-60px)}}
+@keyframes outUpC{to{opacity:0;transform:translate(-50%,-60px)}}
+@keyframes tagAway{0%{opacity:1;transform:rotate(-2deg)}70%{opacity:1}100%{opacity:0;transform:translate(220px,-650px) scale(.34)}}
+
+/* ── the chip, the small pump, its earnings ── */
+#I86c .chipw{position:absolute;left:760px;top:470px;width:0;height:0}
+#I86c .chip{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;align-items:baseline;gap:10px;padding:8px 28px 12px;border-radius:999px;
+  background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep));border:3px solid var(--amber);color:#FFF3E2;white-space:nowrap;
+  box-shadow:0 18px 36px rgba(58,16,10,.35)}
+#I86c .chip b{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:54px;letter-spacing:-1px}
+#I86c .chip span{font-size:40px;color:var(--amberSoft)}
+@keyframes chipIn{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}100%{opacity:1;transform:translate(-50%,-50%)}}
+/* the chip travels into the bar: from (740,560) to its dock in the bar */
+@keyframes toBar{0%{transform:none}70%{transform:translate(-216px,786px) rotate(-4deg)}85%{transform:translate(-204px,786px) rotate(1deg)}100%{transform:translate(-210px,786px)}}
+#I86c .pump{position:absolute;left:412px;top:590px;width:257px;height:425px}
+#I86c .pump svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 22px 26px rgba(58,16,10,.22))}
+#I86c .pump svg .w{fill:#fff;stroke:#5C4A40;stroke-width:5;stroke-linejoin:round;stroke-linecap:round}
+#I86c .pump svg .n{fill:none;stroke:#5C4A40;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+#I86c .plab{position:absolute;left:40px;right:40px;top:1060px;text-align:center;font-size:58px;line-height:1.3;color:var(--maroon);white-space:nowrap}
+#I86c .plab .dt{color:var(--amberDeep)}
+#I86c .bar{position:absolute;left:150px;top:1214px;width:780px;height:84px;border-radius:42px;background:rgba(255,253,248,.7);
+  box-shadow:inset 0 0 0 3px #E2D2B8,inset 0 4px 10px rgba(58,16,10,.08)}
+#I86c .fill{position:absolute;left:0;top:0;bottom:0;width:360px;border-radius:42px;overflow:hidden;transform-origin:0 50%;
+  background:linear-gradient(90deg,#A63A2A,var(--maroon) 30%,var(--amberDeep) 100%);box-shadow:0 10px 20px rgba(107,22,22,.25)}
+#I86c .fill .coin{position:absolute;left:14px;top:14px;width:56px;height:56px;border-radius:50%;background:rgba(255,243,226,.18);
+  display:flex;align-items:center;justify-content:center;color:#FFF3E2}
+#I86c .fill .coin svg{width:36px;height:36px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+@keyframes grow{0%{right:100%}100%{right:0}}
+@keyframes bite{0%{width:360px}100%{width:196px}}
+#I86c .crumb{position:absolute;width:16px;height:16px;border-radius:4px;background:var(--amberDeep)}
+@keyframes crumb{0%{opacity:0;transform:none}15%{opacity:1}100%{opacity:0;transform:translate(var(--cx),var(--cy)) rotate(160deg)}}
+#I86c .verdict{position:absolute;left:40px;right:40px;top:1370px;text-align:center;font-size:80px;line-height:1.3;color:var(--amberDeep)}
+#I86c .verdict i{display:block;width:420px;height:7px;border-radius:7px;margin:10px auto 0;background:linear-gradient(90deg,rgba(233,162,59,0),var(--amber) 25%,var(--amber) 75%,rgba(233,162,59,0));transform-origin:50% 50%}
+@keyframes up{0%{opacity:0;transform:translateY(80px)}100%{opacity:1;transform:none}}
+@keyframes wr{0%{clip-path:inset(-20% 100% -20% 0)}100%{clip-path:inset(-20% -4% -20% 0)}}
+@keyframes show{from{opacity:0}to{opacity:1}}
+@keyframes drawX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+@keyframes trackIn{0%{opacity:0;transform:scaleX(.8)}100%{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<svg style="display:none">
+ <symbol id="x-rupee" viewBox="0 0 24 24"><path d="M7 5h10M7 9h10M9 5c3.2 0 4.6 1.6 4.6 4s-1.8 4-5.2 4H7.4l6.4 6"/></symbol>
+</svg>
+<!-- ══ I86c · on a small pump, one more cost · K026b "छोटे, या कम बिक्री वाले पंप के लिए, ये भी एक अतिरिक्त ख़र्च बन जाता है।" (6.62 s) ══ -->
+<div class="panel" id="I86c" data-plate="desk" style="--T:8s">
+  <div class="glow" style="top:52%;opacity:.8"></div>
+
+  <!-- I86a's last frame, leaving -->
+  <div class="badge hi" style="animation:outUpC .24s ease-in 0s both paused">मान लीजिए</div>
+  <div class="who hi" style="animation:outUp .24s ease-in 0s both paused">अलग से एक कर्मचारी</div>
+  <div class="fig" style="animation:outUp .22s ease-in 0s both paused">
+    <svg viewBox="0 0 360 400">
+      <path class="body" d="M40 398 C40 290 100 238 180 238 S320 290 320 398 Z"/>
+      <circle class="body" cx="180" cy="118" r="78"/>
+      <circle class="p" cx="180" cy="118" r="78"/>
+      <path class="p" d="M40 398 C40 290 100 238 180 238 S320 290 320 398"/>
+    </svg>
+  </div>
+  <div class="hang" style="animation:tagAway .3s cubic-bezier(.5,0,.4,1) 0s both paused">
+    <div style="position:absolute;inset:0;transform-origin:430px 20px;transform:rotate(-2deg)">
+      <div class="clip"></div><div class="str"></div>
+      <div class="tag">
+        <span class="hole"></span>
+        <div class="l1 hi">वेतन&nbsp;+ बाक़ी ख़र्च</div>
+        <div class="note"></div>
+        <div class="price">
+          <span class="n"><span class="ctr" data-from="0" data-to="₹15,000" data-at="-3" data-dur=".8"></span></span>
+          <span class="per hi">/ महीना</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- the small pump -->
+  <div class="pump" style="animation:up .32s cubic-bezier(.2,.9,.3,1) .14s both paused">
+    <svg viewBox="0 0 230 380"><rect class="w" x="30" y="20" width="140" height="330" rx="18"/><rect class="w" x="52" y="50" width="96" height="70" rx="8"/><rect class="w" x="52" y="140" width="96" height="30" rx="6"/><path class="n" d="M170 150 H192 a14 14 0 0 1 14 14 V300 a16 16 0 0 1-32 0 V250"/><rect class="w" x="10" y="350" width="180" height="22" rx="6"/></svg>
+  </div>
+  <div class="plab hi"><span style="display:inline-block;animation:wr .2s linear .18s both paused">छोटा</span><span style="display:inline-block;animation:wr .5s linear .72s both paused">&nbsp;<span class="dt">·</span> कम बिक्री वाला पंप</span></div>
+
+  <div class="bar" style="animation:trackIn .35s cubic-bezier(.2,.9,.3,1) 1.0s both paused">
+    <div style="position:absolute;left:0;top:0;bottom:0;width:360px;animation:bite .22s cubic-bezier(.5,0,.3,1) 3.12s both paused">
+      <div class="fill" style="width:auto;right:0;animation:grow .5s cubic-bezier(.2,.8,.3,1) 1.12s both paused">
+        <span class="coin"><svg><use href="#x-rupee"/></svg></span>
+      </div>
+    </div>
+    <span class="crumb" style="left:350px;top:10px;--cx:40px;--cy:-70px;animation:crumb .5s ease-out 3.14s both paused"></span>
+    <span class="crumb" style="left:340px;top:52px;--cx:60px;--cy:50px;animation:crumb .5s ease-out 3.16s both paused"></span>
+    <span class="crumb" style="left:300px;top:30px;--cx:-10px;--cy:-90px;animation:crumb .5s ease-out 3.18s both paused;width:11px;height:11px"></span>
+  </div>
+
+  <div class="chipw" style="animation:toBar .6s cubic-bezier(.5,0,.3,1) 2.55s both paused">
+    <div class="chip" style="animation:chipIn .2s cubic-bezier(.2,.9,.3,1) .16s both paused"><b>₹15,000</b><span class="hi">/ महीना</span></div>
+  </div>
+
+  <div class="verdict hi"><span style="display:inline-block;animation:wr .6s linear 3.35s both paused">एक अतिरिक्त ख़र्च</span><i style="animation:drawX .5s ease-out 3.8s both paused"></i></div>
+
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* I86a's counter, already rolled (so the figure is pixel-identical to its last frame) */
+for (const el of document.querySelectorAll('.ctr[data-to]')) {
+  const num = (s) => parseInt((s || '0').replace(/\D/g, '') || '0', 10);
+  const to = el.dataset.to, A = num(el.dataset.from), B = num(to);
+  const from = (el.dataset.from || '').padStart(to.length, ' ');
+  const at = parseFloat(el.dataset.at || '0'), dur = parseFloat(el.dataset.dur || '.9');
+  const nd = to.replace(/\D/g, '').length;
+  el.textContent = '';
+  let k = 0;
+  [...to].forEach((ch, i) => {
+    if (!/\d/.test(ch)) {
+      const f = document.createElement('span'); f.className = 'fx'; f.textContent = ch;
+      if (from[i] === ' ' && ch !== '₹') f.style.animation = `ctrShow .15s linear ${(at + dur * .3).toFixed(2)}s both paused`;
+      el.appendChild(f); return;
+    }
+    const p = nd - 1 - k++;
+    const a = Math.floor(A / 10 ** p), b = Math.floor(B / 10 ** p);
+    let n = b - a; if (n > 14) n = 10 + (((b - a) % 10) + 10) % 10;
+    const col = document.createElement('span'); col.className = 'cc';
+    for (let j = 0; j <= n; j++) {
+      const s = document.createElement('span');
+      s.textContent = (j === 0 && from[i] === ' ') ? ' ' : String((a + j) % 10);
+      col.appendChild(s);
+    }
+    col.style.setProperty('--n', n);
+    col.style.animation = `ctrRoll ${dur}s cubic-bezier(.3,.7,.25,1) ${(at + (nd - k) * .03).toFixed(2)}s both paused`;
+    el.appendChild(col);
+  });
+}
+</script>
+</body>
+</html>

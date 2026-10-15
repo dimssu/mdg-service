@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* OPENS ON I88d'S LAST FRAME: title, gold rule, maroon arrow, its label and the
+   glow at rest are the same markup at the same positions. Change one, change both.
+   Timed to K035b's voice (this card opens the beat, 3.44 s, then S66):
+   "पर उसकी" 0.09–0.48 s, "कमाई" 0.58–0.98 s, "हमेशा इतनी नहीं होती" 1.29–2.65 s.
+   So the amber arrow is in from the right by 0.4 s (its label written by 0.4 s,
+   before "कमाई"); the two heads clash; from 0.9 s the shafts thin and curl into two
+   interlocked loops (on "हमेशा इतनी नहीं होती"), the knot tightens once at
+   2.2–2.6 s and holds — the last 0.8 s is still.
+   The loops: maroon about (500,350) and amber about (580,350), r 90, then r 66,
+   settling at r 72 (centres 505 / 575). They cross at x 540; the amber band is
+   redrawn over the maroon at the lower crossing (clip ellipse about (540,420)),
+   so the two read as linked, not merely overlapping. */
+.mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+@keyframes wr{0%{clip-path:inset(-10% 100% -10% 0)}100%{clip-path:inset(-10% -4% -10% 0)}}
+@keyframes inR{0%{transform:translateX(640px)}80%{transform:translateX(-12px)}100%{transform:none}}
+@keyframes clashL{0%,100%{transform:none}30%{transform:translateX(-14px)}65%{transform:translateX(5px)}}
+@keyframes clashR{0%,100%{transform:none}30%{transform:translateX(14px)}65%{transform:translateX(-5px)}}
+@keyframes headOut{0%{opacity:1;transform:none}100%{opacity:0;transform:scale(.4)}}
+@keyframes show{0%{opacity:0}100%{opacity:1}}
+/* one list per shaft for the whole curl: 0.9 s straight → 1.8 s loop (r 90) → 2.2 s hold
+   → 2.45 s cinched (r 66) → 2.6 s settled (r 72); 1.7 s run from 0.9 s */
+@keyframes knotL{
+  0%{stroke-width:56px;d:path('M-60 350L410 350C413 350 416 350 418.75 350C421.7 350 424.6 350 427.5 350C430.4 350 433.3 350 436.25 350C439.2 350 442.1 350 445 350')}
+  53%,76.5%{stroke-width:40px;d:path('M-60 350L410 350C410 300.3 450.3 260 500 260C549.7 260 590 300.3 590 350C590 399.7 549.7 440 500 440C450.3 440 410 399.7 410 350')}
+  91%{stroke-width:45px;d:path('M-60 350L441 350C441 313.55 470.55 284 507 284C543.45 284 573 313.55 573 350C573 386.45 543.45 416 507 416C470.55 416 441 386.45 441 350')}
+  100%{stroke-width:42px;d:path('M-60 350L433 350C433 310.23 465.23 278 505 278C544.77 278 577 310.23 577 350C577 389.77 544.77 422 505 422C465.23 422 433 389.77 433 350')}}
+@keyframes knotR{
+  0%{stroke-width:56px;d:path('M1140 350L670 350C667 350 664 350 661.25 350C658.3 350 655.4 350 652.5 350C649.6 350 646.7 350 643.75 350C640.8 350 637.9 350 635 350')}
+  53%,76.5%{stroke-width:40px;d:path('M1140 350L670 350C670 300.3 629.7 260 580 260C530.3 260 490 300.3 490 350C490 399.7 530.3 440 580 440C629.7 440 670 399.7 670 350')}
+  91%{stroke-width:45px;d:path('M1140 350L639 350C639 313.55 609.45 284 573 284C536.55 284 507 313.55 507 350C507 386.45 536.55 416 573 416C609.45 416 639 386.45 639 350')}
+  100%{stroke-width:42px;d:path('M1140 350L647 350C647 310.23 614.77 278 575 278C535.23 278 503 310.23 503 350C503 389.77 535.23 422 575 422C614.77 422 647 389.77 647 350')}}
+.curl{animation-delay:.9s;animation-duration:1.7s;animation-timing-function:cubic-bezier(.55,0,.35,1)}
+
+#I88e .abs{position:absolute}
+#I88e .ttl{left:40px;right:40px;top:520px;text-align:center;font-size:116px;line-height:1.3;color:var(--maroon);
+  text-shadow:0 18px 40px rgba(107,22,22,.14)}
+#I88e .trule{left:465px;top:858px;width:150px;height:7px;border-radius:7px;background:linear-gradient(90deg,#E9A23B,#F4C979)}
+#I88e svg.ar{left:0;top:880px;width:1080px;height:700px;overflow:visible}
+#I88e .lab{font-size:60px;line-height:1.3}
+#I88e .lab.l{left:60px;top:1010px;color:var(--maroon)}
+#I88e .lab.r{right:60px;top:1372px;color:var(--amberDeep);animation-name:wr;animation-timing-function:linear}
+#I88e .hd{transform-box:fill-box}
+#I88e .hd.l{transform-origin:100% 50%}
+#I88e .hd.r{transform-origin:0 50%}
+</style>
+</head>
+<body>
+<!-- ══ I88e · the income pushes back; the two knot · K035b "पर उसकी कमाई हमेशा इतनी नहीं होती…" (first 3.44 s, then S66) ══ -->
+<div class="panel" id="I88e" data-plate="desk" style="--T:4s">
+  <div class="glow mv" style="animation-name:glowPulse;animation-timing-function:ease-in-out;animation-duration:1.6s;animation-iteration-count:2;top:62%"></div>
+  <div class="abs ttl hi">
+    <div>यहीं पर डीलर</div>
+    <div>फँस जाता है</div>
+  </div>
+  <div class="abs trule"></div>
+
+  <svg class="abs ar" viewBox="0 0 1080 700">
+    <defs>
+      <clipPath id="xLow"><ellipse cx="540" cy="420" rx="50" ry="45"/></clipPath>
+    </defs>
+    <!-- the income's answer: an amber arrow from the right (drawn under the maroon) -->
+    <g class="mv" style="animation-name:clashR;animation-delay:.36s;animation-duration:.4s;animation-timing-function:ease-out">
+      <g class="mv" style="animation-name:inR;animation-delay:0s;animation-duration:.4s;animation-timing-function:cubic-bezier(.2,.8,.3,1)">
+        <path class="mv curl" style="animation-name:knotR" fill="none" stroke="#E09A34" stroke-width="56" stroke-linecap="round"
+          d="M1140 350L670 350C667 350 664 350 661.25 350C658.3 350 655.4 350 652.5 350C649.6 350 646.7 350 643.75 350C640.8 350 637.9 350 635 350"/>
+        <path class="hd r mv" style="animation-name:headOut;animation-delay:.9s;animation-duration:.3s;animation-timing-function:ease-in"
+          d="M548 350 652 278Q662 350 652 422Z" fill="#E09A34" stroke="#E09A34" stroke-width="12" stroke-linejoin="round"/>
+      </g>
+    </g>
+    <!-- the pump's claim on his time (I88d's arrow, where I88d left it) -->
+    <g class="mv" style="animation-name:clashL;animation-delay:.36s;animation-duration:.4s;animation-timing-function:ease-out">
+      <path class="mv curl" style="animation-name:knotL" fill="none" stroke="#6B1616" stroke-width="56" stroke-linecap="round"
+        d="M-60 350L410 350C413 350 416 350 418.75 350C421.7 350 424.6 350 427.5 350C430.4 350 433.3 350 436.25 350C439.2 350 442.1 350 445 350"/>
+      <path class="hd l mv" style="animation-name:headOut;animation-delay:.9s;animation-duration:.3s;animation-timing-function:ease-in"
+        d="M532 350 428 278Q418 350 428 422Z" fill="#6B1616" stroke="#6B1616" stroke-width="12" stroke-linejoin="round"/>
+    </g>
+    <!-- amber over maroon at the lower crossing: the loops are linked -->
+    <g clip-path="url(#xLow)" class="mv" style="animation-name:show;animation-delay:1.6s;animation-duration:.2s;animation-timing-function:linear">
+      <path class="mv curl" style="animation-name:knotR" fill="none" stroke="#E09A34" stroke-width="56" stroke-linecap="round"
+        d="M1140 350L670 350C667 350 664 350 661.25 350C658.3 350 655.4 350 652.5 350C649.6 350 646.7 350 643.75 350C640.8 350 637.9 350 635 350"/>
+    </g>
+  </svg>
+  <div class="abs lab l hi">पंप को समय देना — ज़रूरी</div>
+  <div class="abs lab r hi mv" style="animation-delay:.05s;animation-duration:.35s">कमाई — दिन-रात के लायक़?</div>
+
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

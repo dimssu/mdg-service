@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  #I11 .abs{position:absolute}
+  /* the automation box: a plain unit with lights and a vent — no screen */
+  #I11 .box{left:300px;top:370px;width:480px;height:250px;border-radius:40px;
+    background:linear-gradient(160deg,#7E2424,var(--maroonDeep) 70%);
+    box-shadow:0 40px 80px rgba(58,16,10,.40),0 6px 14px rgba(58,16,10,.25),inset 0 2px 0 rgba(255,255,255,.18),inset 0 -10px 24px rgba(0,0,0,.3)}
+  #I11 .box .nm{position:absolute;left:0;right:0;top:66px;text-align:center;font-size:62px;color:#FFF3E2}
+  #I11 .box .leds{position:absolute;left:44px;top:34px;display:flex;gap:16px}
+  #I11 .box .leds i{width:20px;height:20px;border-radius:50%;background:#3A1010;display:block;position:relative}
+  #I11 .box .leds i b{position:absolute;inset:0;border-radius:50%;background:#5FE39A;box-shadow:0 0 16px 4px rgba(95,227,154,.8)}
+  #I11 .box .leds i:nth-child(2) b{background:#F6C877;box-shadow:0 0 16px 4px rgba(246,200,119,.8)}
+  #I11 .box .vent{position:absolute;left:150px;right:150px;bottom:40px;height:34px;
+    background:repeating-linear-gradient(90deg,rgba(0,0,0,.35) 0 8px,transparent 8px 18px);border-radius:6px;opacity:.8}
+  #I11 .box .ok{position:absolute;right:-26px;top:-26px;width:92px;height:92px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    color:#fff;background:radial-gradient(circle at 34% 28%,#35A06A,var(--good) 55%,#135636);box-shadow:0 0 0 8px rgba(255,253,248,.92),0 12px 26px rgba(30,122,74,.4)}
+  #I11 .box .ok svg{width:54px;height:54px;stroke-width:3.4}
+  #I11 .chips{left:0;right:0;top:682px;display:flex;justify-content:center;gap:24px}
+  #I11 .chip{font-size:46px;padding:14px 40px;border-radius:999px;background:#fff;color:var(--maroon);border:3px solid var(--amber);
+    box-shadow:0 14px 28px rgba(74,15,15,.18)}
+  #I11 .wires{left:0;top:0;width:1080px;height:1920px;overflow:visible}
+  #I11 .wires path{fill:none;stroke-linecap:round}
+  #I11 .wires .base{stroke:rgba(199,124,27,.18);stroke-width:14}
+  #I11 .wires .live{stroke:var(--amber);stroke-width:9;stroke-dasharray:1;stroke-dashoffset:1;animation-name:drawOn;--T:8s}
+  #I11 .dot{left:0;top:0;width:30px;height:30px;border-radius:50%;background:#FFE3A8;
+    box-shadow:0 0 0 6px rgba(233,162,59,.35),0 0 24px 6px rgba(233,162,59,.6);offset-rotate:0deg;animation-name:ride;animation-duration:.9s;
+    animation-timing-function:cubic-bezier(.4,.1,.4,1)}
+  @keyframes ride{0%{offset-distance:0%;opacity:0}12%{opacity:1}88%{opacity:1}100%{offset-distance:100%;opacity:0}}
+  #I11 .out{top:1120px;width:300px;padding:30px 12px 28px;border-radius:30px;text-align:center;
+    background:linear-gradient(170deg,#fff,#FBF3E7);border:1px solid rgba(201,160,100,.55);
+    box-shadow:0 28px 56px rgba(58,16,10,.24),0 4px 10px rgba(58,16,10,.12)}
+  #I11 .out .g{width:100px;height:100px;margin:0 auto 20px;border-radius:28px;display:flex;align-items:center;justify-content:center;color:#fff;
+    background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep));box-shadow:inset 0 -5px 12px rgba(0,0,0,.2)}
+  #I11 .out .g svg{width:58px;height:58px;stroke-width:2}
+  #I11 .out .t{font-size:44px;color:var(--maroon);line-height:1.15}
+  #I11 .cap{top:1490px;left:60px;right:60px;margin:0 auto;font-size:60px}
+  #I11 .q{--T:3.5s}
+</style>
+</head>
+<body>
+<!-- ══ I11 · automation feeds everything after · K205 "अगर ऑटोमेशन से रीडिंग और डिप मिल जाती है, तो आगे का सारा काम उसी डेटा से होता है" ═══ -->
+<div class="panel" id="I11" data-plate="office" style="--T:8s">
+  <div class="glow anim a-glow" style="animation-delay:-1.8s;top:40%"></div>
+
+  <svg class="abs wires" viewBox="0 0 1080 1920">
+    <path class="base" d="M540 770 C540 950 210 940 210 1120"/>
+    <path class="base" d="M540 770 V1120"/>
+    <path class="base" d="M540 770 C540 950 870 940 870 1120"/>
+    <path class="live anim" pathLength="1" d="M540 770 C540 950 210 940 210 1120" style="animation-delay:2.2s"/>
+    <path class="live anim" pathLength="1" d="M540 770 V1120" style="animation-delay:3.0s"/>
+    <path class="live anim" pathLength="1" d="M540 770 C540 950 870 940 870 1120" style="animation-delay:3.8s"/>
+  </svg>
+  <div class="abs dot anim" style="offset-path:path('M540 770 C540 950 210 940 210 1120');animation-delay:2.45s"></div>
+  <div class="abs dot anim" style="offset-path:path('M540 770 V1120');animation-delay:3.25s"></div>
+  <div class="abs dot anim" style="offset-path:path('M540 770 C540 950 870 940 870 1120');animation-delay:4.05s"></div>
+
+  <div class="abs chips">
+    <span class="chip hi q anim a-drop" style="animation-delay:1.2s">रीडिंग</span>
+    <span class="chip hi q anim a-drop" style="animation-delay:1.5s">डिप</span>
+  </div>
+
+  <div class="abs box anim a-rise" style="animation-delay:-.05s;animation-duration:5s">
+    <div class="leds"><i><b class="q anim a-fade" style="animation-delay:.45s"></b></i><i><b class="q anim a-fade" style="animation-delay:.6s"></b></i><i><b class="q anim a-fade" style="animation-delay:.75s"></b></i></div>
+    <div class="nm hi">ऑटोमेशन</div>
+    <div class="vent"></div>
+    <div class="ok q anim a-pop" style="animation-delay:.8s"><svg class="i"><use href="#i-check"/></svg></div>
+  </div>
+
+  <div class="abs out q anim a-pop" style="left:60px;animation-delay:2.95s"><div class="g"><svg class="i"><use href="#i-doc"/></svg></div><div class="t hi">डी-एस-आर</div></div>
+  <div class="abs out q anim a-pop" style="left:390px;animation-delay:3.75s"><div class="g"><svg class="i"><use href="#i-gauge"/></svg></div><div class="t hi">स्टॉक वेरिएशन</div></div>
+  <div class="abs out q anim a-pop" style="left:720px;animation-delay:4.5s"><div class="g"><svg class="i"><use href="#i-drop"/></svg></div><div class="t hi">अगला लोड</div></div>
+
+  <div class="abs cap hi q anim a-rise" style="animation-delay:4.85s">आगे का सारा काम — <b>उसी डेटा से</b></div>
+  <div class="rail hi">एक बार डेटा, हर जगह काम</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

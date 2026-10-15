@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* a monthly account sheet: printed labels, figures that roll as they are read */
+.sheet{position:absolute;left:70px;width:940px;--rot:-.8deg}
+.sheet .hd{display:flex;align-items:center;gap:18px;padding:34px 44px 26px;border-bottom:3px solid var(--print)}
+.sheet .hd .t{font-size:54px;color:var(--maroon)}
+.sheet .hd .m{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:30px;color:#6B6258}
+.sheet .hd .m b{width:46px;height:46px;border-radius:12px;background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep));
+  color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif}
+.fig{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-spacing:-1.5px;line-height:1;font-variant-numeric:tabular-nums}
+
+
+.sheet{top:320px;padding:0 0 44px;--rot:.7deg}
+.tl{display:flex;align-items:center;gap:28px;margin:32px 34px 0;padding:44px 32px;border-radius:22px;background:#fff;
+  border:2px solid #EFE4D2;box-shadow:0 10px 22px rgba(74,15,15,.08)}
+.tl .g{flex:none;width:104px;height:104px;border-radius:28px;display:flex;align-items:center;justify-content:center;color:#fff;
+  box-shadow:inset 0 -6px 14px rgba(0,0,0,.2),0 10px 20px rgba(58,16,10,.2)}
+.tl .g svg{width:58px;height:58px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tl .l{flex:1;display:flex;flex-direction:column;gap:4px}
+.tl .l .a{font-size:50px;color:var(--ink);line-height:1.2}
+.tl .l .b{font-size:34px;color:var(--inkMuted)}
+.tl .fig{font-size:74px;color:var(--print)}
+.tl.in .fig{color:var(--good)} .tl.out .fig{color:var(--amberDeep)}
+</style>
+</head>
+<body>
+<!-- ══ D29 · where the money sits · K708, first 6.5 s ("आपके पास कितना पैसा है, बैंक में कितना है, कितनी रक़म लेनदारी और देनदारी में है, …") ══ -->
+<div class="panel" id="D29" data-plate="desk" style="--T:7s">
+  <div class="paper sheet anim a-rise" style="animation-delay:0s;animation-duration:3s">
+    <div class="hd"><span class="t hi">पैसों की स्थिति · 31-08</span><span class="m"><b>M</b><span class="dis">MDG Services</span></span></div>
+    <div class="tl anim a-stamp" style="animation-delay:.3s;animation-duration:4.5s">
+      <div class="g" style="background:linear-gradient(150deg,#C98A2E,#8A5A12)"><svg viewBox="0 0 24 24"><rect x="2.6" y="6.4" width="18.8" height="11.2" rx="1.8"/><circle cx="12" cy="12" r="2.6"/><path d="M5.8 9.4v5.2M18.2 9.4v5.2"/></svg></div>
+      <div class="l"><span class="a hi">आपके पास</span><span class="b hi">(नक़द)</span></div>
+      <span class="fig"><span class="odo" data-n="1,86,400" data-at=".4" data-roll=".9">₹</span></span></div>
+    <div class="tl anim a-stamp" style="animation-delay:1.85s;animation-duration:4.5s">
+      <div class="g" style="background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep))"><svg viewBox="0 0 24 24"><path d="M3 9.2 12 4l9 5.2ZM5.4 11.4v6.2M9.8 11.4v6.2M14.2 11.4v6.2M18.6 11.4v6.2M3.6 19.8h16.8"/></svg></div>
+      <div class="l"><span class="a hi">बैंक में</span></div>
+      <span class="fig"><span class="odo" data-n="12,42,900" data-at="1.95" data-roll=".9">₹</span></span></div>
+    <div class="tl in anim a-stamp" style="animation-delay:3.45s;animation-duration:4.5s">
+      <div class="g" style="background:linear-gradient(150deg,#2E9A63,#145A36)"><svg viewBox="0 0 24 24"><path d="M17.5 6.5 7 17M7 9.5V17h7.5"/></svg></div>
+      <div class="l"><span class="a hi">लेनदारी</span><span class="b hi">(आपको मिलना है)</span></div>
+      <span class="fig"><span class="odo" data-n="3,18,000" data-at="3.55" data-roll=".9">₹</span></span></div>
+    <div class="tl out anim a-stamp" style="animation-delay:4.2s;animation-duration:4.5s">
+      <div class="g" style="background:linear-gradient(150deg,#E9A23B,#B5700F)"><svg viewBox="0 0 24 24"><path d="M6.5 17.5 17 7M9.5 7H17v7.5"/></svg></div>
+      <div class="l"><span class="a hi">देनदारी</span><span class="b hi">(आपको देना है)</span></div>
+      <span class="fig"><span class="odo" data-n="2,06,500" data-at="4.3" data-roll=".9">₹</span></span></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* Odometers that roll when their row arrives, not at frame 0: data-at is the
+   second the roll starts, data-roll how long it takes. */
+for (const el of document.querySelectorAll('.odo[data-at]')) {
+  const at = parseFloat(el.dataset.at), roll = parseFloat(el.dataset.roll || '1.3');
+  el.querySelectorAll('.col').forEach((c, i) => {
+    c.style.animationDelay = (at + i * 0.06).toFixed(2) + 's';
+    c.style.animationDuration = (roll / 0.3).toFixed(2) + 's';
+  });
+}
+</script>
+</body>
+</html>

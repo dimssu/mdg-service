@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* the numbered heading card shared by I52 / I55 / I56 / I58:
+   a gold numeral, a rule that runs out to the service's own line icon, then
+   the label and the title written in beneath. The whole block pushes in 3%. */
+.hd{width:920px;display:flex;flex-direction:column;transform-origin:50% 50%;margin-top:-60px}
+.hd-top{display:flex;align-items:center;gap:30px}
+.num{font-size:340px;font-weight:700;line-height:.8;letter-spacing:-12px;
+  padding:34px 40px 44px 24px;margin:-34px -40px -44px -24px;
+  background:linear-gradient(172deg,#F4C979 12%,#E9A23B 48%,#B5700F 92%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.grule{flex:1;height:8px;border-radius:8px;transform-origin:0 50%;margin-top:40px;
+  background:linear-gradient(90deg,#E9A23B,#F4C979 70%,rgba(244,201,121,.25))}
+.medal{flex:none;width:230px;height:230px;border-radius:50%;margin-top:40px;
+  background:radial-gradient(circle at 36% 30%,#fff,#FBF1E1 70%);border:2px solid rgba(201,160,100,.55);
+  box-shadow:0 26px 50px rgba(58,16,10,.22),inset 0 -6px 14px rgba(160,110,50,.12);
+  display:flex;align-items:center;justify-content:center;color:var(--maroon)}
+.medal svg{width:140px;height:140px;fill:none;stroke:currentColor;stroke-width:1.3;
+  stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.medal svg .anim{stroke-dasharray:1;stroke-dashoffset:1}
+.lbl{font-size:54px;color:var(--amberDeep);margin-top:70px}
+.ttl{font-size:124px;color:var(--maroon);line-height:1.22;margin-top:6px}
+.sb{font-size:58px;color:var(--inkMuted);margin-top:22px}
+@keyframes growX{0%{transform:scaleX(0)}22%,100%{transform:scaleX(1)}}
+.a-growx{animation-name:growX}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.03)}}
+.a-push{animation-name:push;animation-timing-function:linear}
+</style>
+</head>
+<body>
+<!-- ══ I52 · heading 01, legal assistance · K702 "पहली — लीगल असिस्टेंस, यानी क़ानूनी मदद।" (2.6 s) ══ -->
+<div class="panel" id="I52" data-plate="desk" style="--T:3s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="hd anim a-push">
+    <div class="hd-top">
+      <div class="num dis anim a-write" style="animation-delay:0s">01</div>
+      <div class="grule anim a-growx" style="animation-delay:.25s"></div>
+      <div class="medal anim a-pop" style="animation-delay:.9s">
+      <!-- scales: a beam on a post, two pans on cords -->
+      <svg viewBox="0 0 24 24">
+        <path class="anim a-draw" pathLength="1" style="animation-delay:1.05s" d="M12 3.2v17.2M7.6 20.4h8.8"/>
+        <path class="anim a-draw" pathLength="1" style="animation-delay:1.15s" d="M4.2 6.6h15.6M12 4.6l-1.4 2M12 4.6l1.4 2"/>
+        <path class="anim a-draw" pathLength="1" style="animation-delay:1.3s" d="M4.2 6.6 1.8 12.6M4.2 6.6l2.4 6M1.8 12.6a2.4 2.4 0 0 0 4.8 0Z"/>
+        <path class="anim a-draw" pathLength="1" style="animation-delay:1.4s" d="M19.8 6.6l-2.4 6M19.8 6.6l2.4 6M17.4 12.6a2.4 2.4 0 0 0 4.8 0Z"/>
+      </svg>
+    </div>
+    </div>
+    <div class="lbl hi anim a-fade" style="animation-delay:.55s">पहली</div>
+    <div class="ttl hi anim a-write" style="animation-delay:.7s">लीगल असिस्टेंस</div>
+    <div class="sb hi anim a-rise" style="animation-delay:1.2s">क़ानूनी मदद</div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

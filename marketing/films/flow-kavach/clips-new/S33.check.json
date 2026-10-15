@@ -1,0 +1,31 @@
+{
+  "id": "S33",
+  "same_man": "same",
+  "face_notes": "Face and appearance are a perfect match for the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Veo watermark in bottom right corner throughout"
+  ],
+  "marks_or_livery": [
+    "Veo watermark in bottom right corner throughout"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 2,
+      "what": "Books jump apart abruptly instead of sliding smoothly."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 4,
+      "what": "Man briefly rubs his stomach before folding his hands, which was not in the brief."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The action does not match the brief. The books should slide smoothly to the side, not jump. The man should lean back and fold his hands directly, without rubbing his stomach first."
+}

@@ -1,0 +1,29 @@
+{
+  "id": "S68",
+  "same_man": "same",
+  "face_notes": "The actor is a good match for the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Orange band at the bottom of the fuel dispenser."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 5,
+      "what": "Video freezes into a still image for the rest of the duration."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 3,
+      "what": "Man opens his mouth and leans forward, which is not the specified action."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 3,
+  "verdict": "retake",
+  "retake_hint": "The action is incorrect: the dealer must straighten up with a resolved look from 3s, not stay hunched over. The camera must have a slow push-in. The video freezes at 5s. The fuel dispenser must be plain white with no orange band."
+}

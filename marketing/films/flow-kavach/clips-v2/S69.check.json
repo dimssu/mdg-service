@@ -1,0 +1,24 @@
+{
+  "id": "S69",
+  "same_man": "not_in_shot",
+  "face_notes": "The man in the video is not the dealer from the reference photo, as per the brief.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Sticker with blue and green design on the background petrol dispenser, visible from 00:02."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 5,
+      "what": "The attendant starts to mouth words."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 5,
+  "verdict": "retake",
+  "retake_hint": "The actor must not mouth words. He must perform the action as briefed (run hand along dispenser). Ensure all dispensers in shot are plain white with no stickers or logos."
+}

@@ -1,0 +1,225 @@
+{
+ "note": "The short's word overlays (films/short/cut-sheet.json → overlays), one 1080x1920 transparent PNG each, made by render-overlays.mjs. t0/t1 are film seconds. 'box' is the words' block [x0,y0,x1,y1] in frame pixels; everything sits in the upper third and the bottom 30% (from y 1344) is empty for the website's captions and sound button. Lay each over its shot at full frame (overlay=0:0), cut in at t0 and out at t1.",
+ "size": [
+  1080,
+  1920
+ ],
+ "overlays": [
+  {
+   "id": "O1",
+   "file": "O1.png",
+   "t0": 0,
+   "t1": 4,
+   "text": [
+    "मान लीजिए —",
+    "मैनेजर छुट्टी पर।",
+    "उसी दिन — इंस्पेक्शन!"
+   ],
+   "lines": [
+    "मान लीजिए —",
+    "मैनेजर छुट्टी पर।",
+    "उसी दिन — इंस्पेक्शन!"
+   ],
+   "gold": [
+    true,
+    false,
+    false
+   ],
+   "box": [
+    72,
+    209,
+    1008,
+    592
+   ]
+  },
+  {
+   "id": "O3",
+   "file": "O3.png",
+   "t0": 5.45,
+   "t1": 6.58,
+   "text": [
+    "स्टाफ़ का ख़र्च"
+   ],
+   "lines": [
+    "स्टाफ़ का ख़र्च"
+   ],
+   "gold": [
+    false
+   ],
+   "box": [
+    230,
+    320,
+    851,
+    481
+   ]
+  },
+  {
+   "id": "O4",
+   "file": "O4.png",
+   "t0": 6.58,
+   "t1": 7.88,
+   "text": [
+    "नियम · ऑनलाइन काम"
+   ],
+   "lines": [
+    "नियम · ऑनलाइन काम"
+   ],
+   "gold": [
+    false
+   ],
+   "box": [
+    71,
+    327,
+    1009,
+    473
+   ]
+  },
+  {
+   "id": "O5",
+   "file": "O5.png",
+   "t0": 7.88,
+   "t1": 9.48,
+   "text": [
+    "सब बढ़ रहा है।"
+   ],
+   "lines": [
+    "सब बढ़ रहा है।"
+   ],
+   "gold": [
+    false
+   ],
+   "box": [
+    210,
+    110,
+    871,
+    271
+   ]
+  },
+  {
+   "id": "O6",
+   "file": "O6.png",
+   "t0": 9.48,
+   "t1": 10.7,
+   "text": [
+    "24 घंटे पंप पर?"
+   ],
+   "lines": [
+    "24 घंटे पंप पर?"
+   ],
+   "gold": [
+    false
+   ],
+   "box": [
+    197,
+    125,
+    883,
+    286
+   ]
+  },
+  {
+   "id": "O7",
+   "file": "O7.png",
+   "t0": 10.7,
+   "t1": 11.8,
+   "text": [
+    "आप नहीं रह सकते।"
+   ],
+   "lines": [
+    "आप नहीं रह सकते।"
+   ],
+   "gold": [
+    false
+   ],
+   "box": [
+    101,
+    320,
+    979,
+    481
+   ]
+  },
+  {
+   "id": "O8",
+   "file": "O8.png",
+   "t0": 12.9,
+   "t1": 13.55,
+   "text": [
+    "आपकी परछाई"
+   ],
+   "lines": [
+    "आपकी परछाई"
+   ],
+   "gold": [
+    false
+   ],
+   "box": [
+    206,
+    320,
+    874,
+    481
+   ]
+  },
+  {
+   "id": "O9",
+   "file": "O9.png",
+   "t0": 13.55,
+   "t1": 14.81,
+   "text": [
+    "हर पल, पंप पर नज़र"
+   ],
+   "lines": [
+    "हर पल, पंप पर नज़र"
+   ],
+   "gold": [
+    false
+   ],
+   "box": [
+    89,
+    320,
+    990,
+    481
+   ]
+  },
+  {
+   "id": "O10",
+   "file": "O10.png",
+   "t0": 28.75,
+   "t1": 30.15,
+   "text": [
+    "जब लोड के लिए…"
+   ],
+   "lines": [
+    "जब लोड के लिए…"
+   ],
+   "gold": [
+    false
+   ],
+   "box": [
+    121,
+    320,
+    959,
+    481
+   ]
+  },
+  {
+   "id": "O11",
+   "file": "O11.png",
+   "t0": 32.85,
+   "t1": 34.01,
+   "text": [
+    "तब क्या?"
+   ],
+   "lines": [
+    "तब क्या?"
+   ],
+   "gold": [
+    true
+   ],
+   "box": [
+    338,
+    320,
+    743,
+    481
+   ]
+  }
+ ]
+}

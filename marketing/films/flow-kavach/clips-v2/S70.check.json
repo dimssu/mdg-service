@@ -1,0 +1,20 @@
+{
+  "id": "S70",
+  "same_man": "same",
+  "face_notes": "The man in the video is a very close match to the reference photo in terms of age, facial features, hair, and moustache.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Red and yellow stripes on petrol dispenser from 00:04.",
+    "Logo (appears to be 'HP') on petrol dispenser from 00:04."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 4,
+  "verdict": "retake",
+  "retake_hint": "The petrol dispenser must be plain white with no logos, text, or coloured stripes, as specified in the brief. The current shot shows a logo and red/yellow stripes from 00:04 onwards."
+}

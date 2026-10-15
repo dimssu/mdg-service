@@ -1,0 +1,29 @@
+{
+  "id": "S34",
+  "same_man": "same",
+  "face_notes": "The man's face is a good match for the reference image.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [
+    "From 0:03, a second dispenser that appears in the background has a visible logo (a red circle, resembling the Indian Oil logo) and other coloured markings."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 3,
+      "what": "The background, including a second petrol pump, slides into the frame from the right, rather than being revealed by a smooth camera push-in."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 2,
+      "what": "The man starts to walk forward, which is contrary to the brief's instruction that he should have his 'feet planted'."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 2,
+  "verdict": "retake",
+  "retake_hint": "The man must remain completely still with feet planted for the entire shot; he must not walk. All petrol pumps, including those in the background, must be plain white with no logos or branding."
+}

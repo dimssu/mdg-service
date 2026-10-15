@@ -1,0 +1,17 @@
+{
+  "id": "S49",
+  "same_man": "unsure",
+  "face_notes": "The dealer is seen from behind, his face is not visible.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The brief specifies 'three pump attendants'. The image only shows two. Please regenerate with three attendants."
+}

@@ -1,0 +1,21 @@
+{
+  "id": "S32",
+  "same_man": "same",
+  "face_notes": "Excellent match to the reference photo. The face, hair, and moustache are all correct.",
+  "outfit_matches": true,
+  "text_visible": [
+    "payment symbols on dispenser screen"
+  ],
+  "marks_or_livery": [
+    "payment symbols on dispenser screen"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The shot is excellent but there are payment symbols visible on the dispenser screen. The prompt must be strengthened to ensure the dispenser screens are completely blank and black, with no symbols, icons, or markings of any kind."
+}

@@ -1,0 +1,19 @@
+{
+  "id": "S40",
+  "same_man": "not_in_shot",
+  "face_notes": "The man in the shot is not the hero character. He is an older man with greying hair, and the woman is younger, matching the brief's character descriptions.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Small yellow star-shaped logo on the back of the woman's chair."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The image is landscape, but the brief requires a vertical 9:16 aspect ratio. There is also a small logo on the back of the woman's chair which should be removed."
+}

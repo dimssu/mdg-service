@@ -1,0 +1,26 @@
+{
+  "id": "S71",
+  "same_man": "same",
+  "face_notes": "The man in the video is a very good match for the reference photo in terms of age, face shape, hair, and moustache.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 1,
+      "what": "Dealer starts walking, which is against the brief's instruction that he should be standing still."
+    },
+    {
+      "t": 4,
+      "what": "Dealer gestures with his hand, which is not in the brief (it specifies only a nod)."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The motion is wrong. The brief requires the dealer to stand still with his feet planted throughout the shot. The prompt must be stricter to prevent him from walking. For example: 'The dealer stands still, feet planted. He does not walk. He looks at the hose and gives a small nod.'"
+}

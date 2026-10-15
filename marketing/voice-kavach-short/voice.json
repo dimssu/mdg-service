@@ -1,0 +1,52 @@
+{
+  "Q01": {
+    "hash": "f13aaf6b34ec80b083b1aa0576137894",
+    "seconds": 3.65,
+    "clip": 6
+  },
+  "Q02": {
+    "hash": "6f327fc3fb0e753716b21f2f280903d3",
+    "seconds": 5.13,
+    "clip": 6
+  },
+  "Q03": {
+    "hash": "285231457aba4537181b620f6c25749d",
+    "seconds": 2.92,
+    "clip": 4
+  },
+  "Q04": {
+    "hash": "fc6ec547abea71db57a2312e6956e45f",
+    "seconds": 1.71,
+    "clip": 4
+  },
+  "Q05": {
+    "hash": "c1af5552b2aae44d084c10aa77a067f7",
+    "seconds": 1.78,
+    "clip": 4
+  },
+  "Q06": {
+    "hash": "9612049255130e102a081f004632497b",
+    "seconds": 4.05,
+    "clip": 6
+  },
+  "Q07": {
+    "hash": "d9e9919e1d1a8c23d68c4733f326fc0a",
+    "seconds": 3.32,
+    "clip": 4
+  },
+  "Q08": {
+    "hash": "f11fae85aa20d008c4b8ca932fbb37d1",
+    "seconds": 1.84,
+    "clip": 4
+  },
+  "Q09": {
+    "hash": "feac4e7e157e2148deb07b30b50d0407",
+    "seconds": 6.45,
+    "clip": 8
+  },
+  "Q10": {
+    "hash": "58eab5991a930a0444a6e8b83a1265d8",
+    "seconds": 2.29,
+    "clip": 4
+  }
+}

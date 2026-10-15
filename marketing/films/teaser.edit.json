@@ -1,0 +1,32 @@
+{
+  "comment": "Which picture covers which spoken line. clip: = an existing Vertex render in clips/. flow: = a Google Flow generation in films/flow/clips/. gfx: = an animated panel. A list splits the beat evenly across those shots. An object picks WHICH seconds play: {ref, from, to} plays from..to stretched to the line (keep it under 1.3x); {ref, from} plays from there at normal speed.",
+  "map": {
+    "T01": "flow:H1n",
+    "T02": "clip:P10a-sdms-pile",
+    "T03": "clip:P02-dsr-book-blank",
+    "T04": "gfx:G-credit",
+    "T05": {
+      "ref": "clip:P03-stock-plus-minus",
+      "from": 0.95,
+      "to": 3.5
+    },
+    "T06": "clip:P05-density-book",
+    "T07": "gfx:G-checklist",
+    "T08": "clip:P06-supply-blocked",
+    "T09": "clip:P01-dod-deadline",
+    "T10": "clip:C02-managers-pump",
+    "T11": {
+      "ref": "clip:S08-alwayson",
+      "from": 0,
+      "to": 6.15
+    },
+    "T12": "gfx:G-channels",
+    "T13": "flow:N5",
+    "T14": "gfx:G-reach",
+    "T15": "clip:C01-fifteen-thousand",
+    "T16": [
+      "clip:S11-app",
+      "gfx:G-cta"
+    ]
+  }
+}

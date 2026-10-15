@@ -13,3 +13,6 @@ frontend/tailwind.config.ts
 frontend/postcss.config.js
 frontend/vite.config.ts
 scripts
+
+# marketing tooling (film/pamphlet build scripts, browser-side graphics kits)
+marketing/

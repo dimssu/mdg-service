@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* OPENS ON I93a'S LAST FRAME: chips, lintel outline, plinth, sockets and the
+   glow at rest are the same markup at the same positions. Change one, change
+   both. The pillars are I69's (cap, fluted shaft, icon, label, base).
+   "सिर्फ़ मेहनत काफ़ी नहीं" was said over S68, the shot between the two cards, so
+   it is written in small under the plinth at once (0.0–0.5 s), in I93a's old
+   style — word by word, so no half-letter ever shows.
+   Timed to K040b's voice (this card is the whole beat, 6.94 s): "ज़रूरत है"
+   0–0.68 s, "सही सिस्टम" 1.73–2.61 s, "सही टेक्नोलॉजी" 2.97–3.94 s, "और सही सपोर्ट
+   की" 4.34–5.35 s. So each pillar has risen just before it is named (1.55 · 2.8 ·
+   4.3 s); the lintel then drops the 30 px onto them, turns solid and glows gold
+   (4.5–5.4 s, brightest ≈ 5.1 s), and holds. The cut to K003's dawn answers it. */
+.mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+@keyframes rise{0%{transform:translateY(105%)}100%{transform:none}}
+@keyframes settleOn{0%{transform:none}70%{transform:translateY(34px)}100%{transform:translateY(30px)}}
+@keyframes out{0%{opacity:1}100%{opacity:0}}
+@keyframes show{0%{opacity:0}100%{opacity:1}}
+@keyframes goldGlow{0%{opacity:0;transform:scale(.96)}55%{opacity:1;transform:scale(1.04)}100%{opacity:.8;transform:none}}
+
+#I93 .abs{position:absolute}
+#I93 .chips{left:40px;right:40px;top:420px;display:flex;justify-content:center;gap:20px}
+#I93 .chip{display:flex;align-items:center;gap:12px;padding:12px 26px 12px 18px;border-radius:999px;background:#fff;border:2px solid #EFE4D2;
+  box-shadow:0 10px 22px rgba(74,15,15,.12);font-size:40px;color:var(--maroonDeep);white-space:nowrap}
+#I93 .chip svg{width:40px;height:40px;flex:none;fill:none;stroke:var(--maroon);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#I93 .chip span{padding-top:4px}
+#I93 .linw{left:60px;width:960px;top:598px;height:92px;z-index:5}
+#I93 .lin{position:absolute;inset:0;border-radius:14px;border:5px dashed var(--amber);background:rgba(255,251,243,.55);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 18px 36px rgba(58,16,10,.10)}
+#I93 .lin .t{font-size:50px;color:var(--maroon);line-height:1;padding-top:10px;white-space:nowrap}
+#I93 .beam{position:absolute;inset:0;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,var(--maroonSoft),var(--maroonDeep));border-bottom:8px solid var(--amber);
+  box-shadow:0 22px 40px rgba(58,16,10,.35),inset 0 2px 0 rgba(255,255,255,.18)}
+#I93 .beam .t{font-size:50px;color:#FFE7B8;line-height:1;padding-top:14px;white-space:nowrap}
+#I93 .gl{position:absolute;inset:-26px;border-radius:30px;
+  box-shadow:0 0 0 5px rgba(244,201,121,.9),0 0 50px 16px rgba(233,162,59,.6)}
+#I93 .plinth{left:60px;width:960px;top:1260px;height:44px;border-radius:10px;background:linear-gradient(180deg,#8A2B2B,#4E0F0F);
+  box-shadow:0 18px 30px rgba(58,16,10,.3)}
+#I93 .sock{top:1240px;width:270px;height:20px;border-radius:8px 8px 0 0;border:3px dashed rgba(199,124,27,.55);border-bottom:0}
+#I93 .line{left:40px;right:40px;top:1352px;text-align:center;font-size:60px;color:var(--maroon);line-height:1.35}
+#I93 .line span{display:inline-block;animation-name:wordsIn;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+@keyframes wordsIn{0%{opacity:0;transform:translateX(-16px)}100%{opacity:1;transform:none}}
+/* I69's pillars, rising into the gap */
+#I93 .cols{left:90px;top:720px;width:900px;height:540px;overflow:hidden;display:flex;justify-content:space-between;align-items:flex-end;padding:0 10px;z-index:4}
+#I93 .col{width:270px;height:540px;display:flex;flex-direction:column;align-items:center;animation-name:rise;animation-duration:.6s}
+#I93 .cap3{width:270px;height:40px;border-radius:8px;background:linear-gradient(180deg,#FFFDF8,#EADBC4);box-shadow:0 6px 12px rgba(58,16,10,.18)}
+#I93 .shaft{flex:1;width:232px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:96px;gap:26px;
+  background:repeating-linear-gradient(90deg,#FFFBF3 0 26px,#EFE2CD 26px 30px),linear-gradient(90deg,rgba(0,0,0,.08),rgba(255,255,255,0) 30%,rgba(0,0,0,.10));
+  background-blend-mode:multiply;box-shadow:inset 0 0 0 2px rgba(201,160,100,.35)}
+#I93 .shaft .g{width:100px;height:100px;border-radius:28px;display:flex;align-items:center;justify-content:center;color:#fff;
+  background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep));box-shadow:0 10px 20px rgba(58,16,10,.28)}
+#I93 .shaft .g svg{width:58px;height:58px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+/* a pillar rises out of a clipped box; its label waits until the whole label is
+   above that edge (0.122 s into the rise) and then fades in, so no frame shows
+   the top half of a line */
+#I93 .shaft .t{animation-name:show;animation-duration:.12s;animation-timing-function:ease-out;font-size:48px;color:var(--maroonDeep);text-align:center;line-height:1.25;background:rgba(255,253,248,.92);padding:8px 10px 2px;border-radius:10px}
+#I93 .base3{width:270px;height:40px;border-radius:8px;background:linear-gradient(180deg,#EADBC4,#D6C2A2)}
+</style>
+</head>
+<body>
+<!-- ══ I93 · the right system, technology and support · K040b "ज़रूरत है — सही सिस्टम, सही टेक्नोलॉजी, और सही सपोर्ट की।" (6.94 s) ══ -->
+<div class="panel" id="I93" data-plate="office" style="--T:8s">
+  <div class="glow mv" style="animation-name:glowPulse;animation-timing-function:ease-in-out;animation-duration:2.4s;animation-iteration-count:2;top:50%"></div>
+  <div class="abs chips hi">
+    <div class="chip"><svg viewBox="0 0 24 24"><path d="M3 7l6 6 4-4 8 8"/><path d="M15 17h6v-6"/></svg><span>कमाई सीमित</span></div>
+    <div class="chip"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg><span>ख़र्च बढ़ रहा</span></div>
+    <div class="chip"><svg viewBox="0 0 24 24"><path d="M9 7.5a3 3 0 1 1 6 0"/><path d="M6.6 9h10.8l2.2 11H4.4Z"/></svg><span>कंप्लायंस का बोझ</span></div>
+  </div>
+
+  <div class="abs sock" style="left:100px"></div>
+  <div class="abs sock" style="left:405px"></div>
+  <div class="abs sock" style="left:710px"></div>
+  <div class="abs plinth"></div>
+
+  <div class="abs cols">
+    <div class="col mv" style="animation-delay:.95s"><div class="cap3"></div>
+      <div class="shaft"><span class="g"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+        <span class="t hi mv" style="animation-delay:1.08s">सही<br/>सिस्टम</span></div><div class="base3"></div></div>
+    <div class="col mv" style="animation-delay:2.2s"><div class="cap3"></div>
+      <div class="shaft"><span class="g"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2.2"/><rect x="9.2" y="9.2" width="5.6" height="5.6" rx="1"/><path d="M9 2.4V5M15 2.4V5M9 19v2.6M15 19v2.6M2.4 9H5M2.4 15H5M19 9h2.6M19 15h2.6"/></svg></span>
+        <span class="t hi mv" style="animation-delay:2.33s">सही<br/>टेक्नोलॉजी</span></div><div class="base3"></div></div>
+    <div class="col mv" style="animation-delay:3.7s"><div class="cap3"></div>
+      <div class="shaft"><span class="g"><svg viewBox="0 0 24 24"><path d="M4.5 14v-2a7.5 7.5 0 0 1 15 0v2"/><rect x="3" y="13" width="4.4" height="6.4" rx="1.6"/><rect x="16.6" y="13" width="4.4" height="6.4" rx="1.6"/><path d="M19 19.4c0 1.4-1.8 2.2-4.6 2.2h-1.6"/></svg></span>
+        <span class="t hi mv" style="animation-delay:3.83s">सही<br/>सपोर्ट</span></div><div class="base3"></div></div>
+  </div>
+
+  <!-- the lintel: I93a's outline, then solid on the pillars, glowing gold -->
+  <div class="abs linw mv" style="animation-name:settleOn;animation-delay:4.5s;animation-duration:.35s;animation-timing-function:cubic-bezier(.5,0,.4,1)">
+    <div class="gl mv" style="animation-name:goldGlow;animation-delay:4.8s;animation-duration:.6s;animation-timing-function:ease-out"></div>
+    <div class="beam mv" style="animation-name:show;animation-delay:4.65s;animation-duration:.25s"><div class="t hi">लंबे समय तक चलने वाला पंप</div></div>
+    <div class="lin mv" style="animation-name:out;animation-delay:4.65s;animation-duration:.25s"><div class="t hi">लंबे समय तक चलने वाला पंप</div></div>
+  </div>
+
+  <div class="abs line hi"><span class="mv" style="animation-delay:0s;animation-duration:.2s">सिर्फ़</span> <span class="mv" style="animation-delay:.1s;animation-duration:.2s">मेहनत</span> <span class="mv" style="animation-delay:.2s;animation-duration:.2s">काफ़ी</span> <span class="mv" style="animation-delay:.3s;animation-duration:.2s">नहीं</span></div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

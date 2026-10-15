@@ -1,0 +1,22 @@
+{
+  "id": "S41",
+  "same_man": "same",
+  "face_notes": "Very good match. Hair has slightly more grey at the temples than in the reference photo.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 0,
+      "what": "Box files on the top shelf are distorted and merge into each other."
+    }
+  ],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The man's shirt sleeves must be rolled up as specified in the brief. The box files on the shelves should have blank spines and should not be distorted."
+}

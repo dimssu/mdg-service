@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* I95b: continues I95a (financial assistance). The first block below is
+   I95a's stylesheet verbatim, only re-scoped to #I95b, and the markup is
+   I95a's with every delay 7.22 s earlier, so frame 0 is I95a's last frame. Then an
+   interest tag hangs off the filled gap, its value becomes "कोई नहीं" and it
+   turns gold, and the line writes in at the foot. */
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  @keyframes wr{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(-10% -4% -10% 0)}}
+  @keyframes growY{0%{transform:scaleY(0)}100%{transform:scaleY(1)}}
+  @keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+  @keyframes show{0%{opacity:0}100%{opacity:1}}
+  @keyframes medal{0%{opacity:0;transform:scale(.6) rotate(-12deg)}65%{opacity:1;transform:scale(1.06) rotate(2deg)}100%{opacity:1;transform:none}}
+  @keyframes hatch{0%{background-position:0 0}100%{background-position:148px 0}}
+  /* a sales bar lifts, then travels up into its third of the gap */
+  @keyframes fly{
+    0%{left:var(--x0);top:var(--y0);width:76px;height:var(--h0);border-radius:14px 14px 4px 4px}
+    20%{left:var(--x0);top:calc(var(--y0) - 36px);width:76px;height:var(--h0);border-radius:14px 14px 4px 4px}
+    100%{left:var(--x1);top:672px;width:100px;height:118px;border-radius:var(--r1)}}
+  @keyframes sheen{0%{transform:translateX(-120%) skewX(-18deg);opacity:0}20%{opacity:.9}100%{transform:translateX(900%) skewX(-18deg);opacity:0}}
+
+  #I95b .st{position:absolute;inset:0;z-index:3}
+  #I95b .st > *{position:absolute}
+
+  /* the stopped load */
+  #I95b .tk{left:150px;top:262px;width:430px;height:196px;overflow:visible}
+  #I95b .tk .b{fill:#EFE7DC;stroke:#A99D91;stroke-width:7;stroke-linejoin:round}
+  #I95b .tk .l{fill:none;stroke:#BFB3A6;stroke-width:5;stroke-linecap:round}
+  #I95b .tk .w{fill:#D6CCC1;stroke:#A99D91;stroke-width:7}
+  #I95b .stop{left:626px;top:318px;display:flex;align-items:center;gap:16px;padding:12px 32px 14px 14px;border-radius:999px;
+    background:var(--badBg);border:2px solid rgba(192,57,43,.32);color:var(--bad);font-size:48px;line-height:1.2;
+    box-shadow:0 14px 30px rgba(120,20,10,.14)}
+  #I95b .stop .ic{width:62px;height:62px;border-radius:50%;background:var(--bad);display:flex;align-items:center;justify-content:center;gap:9px}
+  #I95b .stop .ic i{display:block;width:8px;height:24px;border-radius:3px;background:#fff}
+
+  /* the money the load needs */
+  #I95b .nl{left:90px;top:580px;font-size:44px;color:var(--maroon);line-height:1.3}
+  #I95b .gc{right:90px;top:566px;font-size:50px;color:var(--bad);line-height:1.3;white-space:nowrap}
+  #I95b .gc .dis{font-weight:700;letter-spacing:-1px}
+  #I95b .br{left:690px;top:640px;width:300px;height:26px;overflow:visible}
+  #I95b .br path{fill:none;stroke:var(--bad);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;opacity:.75}
+  #I95b .need{left:90px;top:672px;width:900px;height:118px;border-radius:22px;overflow:hidden;background:#fff;
+    box-shadow:0 0 0 2px rgba(214,168,98,.65),0 26px 52px rgba(58,16,10,.20),0 4px 10px rgba(58,16,10,.10)}
+  #I95b .need .have{position:absolute;left:0;top:0;bottom:0;width:600px;
+    background:linear-gradient(180deg,var(--maroonSoft),var(--maroonDeep));box-shadow:inset 0 -10px 20px rgba(0,0,0,.18),inset 0 6px 10px rgba(255,255,255,.08)}
+  #I95b .need .hole{position:absolute;left:600px;right:0;top:0;bottom:0;border-left:4px dashed var(--amberDeep);
+    background:repeating-linear-gradient(-45deg,rgba(233,162,59,.62) 0 13px,rgba(255,241,210,.75) 13px 26px);
+    animation-name:hatch;animation-duration:7.7s;animation-timing-function:linear}
+  #I95b .need .sh{position:absolute;top:0;bottom:0;left:0;width:90px;
+    background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0));animation-name:sheen;animation-duration:.8s;animation-timing-function:ease-in-out}
+
+  /* the help, and who gives it */
+  #I95b .hp{left:90px;top:872px;font-size:50px;color:var(--maroon);line-height:1.3;white-space:nowrap}
+  #I95b .hp .dis{font-weight:700;letter-spacing:-1px}
+  #I95b .ml{right:466px;top:988px;font-size:38px;color:var(--amberDeep);line-height:1.3;white-space:nowrap}
+  #I95b .mm{left:638px;top:960px;width:104px;height:104px;border-radius:50%;z-index:6;
+    background:radial-gradient(circle at 35% 30%,#F7CD78,var(--amber) 50%,var(--amberDeep));display:flex;align-items:center;justify-content:center;
+    font-size:54px;font-weight:700;color:var(--maroonDeep);
+    box-shadow:0 16px 32px rgba(58,16,10,.32),inset 0 -5px 12px rgba(0,0,0,.18),inset 0 0 0 4px rgba(255,255,255,.35),0 0 0 6px rgba(233,162,59,.22)}
+
+  /* his daily sales: plain bars, no figures */
+  #I95b .base{left:90px;top:1470px;width:900px;height:4px;border-radius:4px;background:#8C7B6B;transform-origin:0 50%}
+  #I95b .sb{width:76px;border-radius:14px 14px 4px 4px;transform-origin:50% 100%;
+    background:linear-gradient(180deg,var(--maroonSoft),var(--maroonDeep));box-shadow:inset 0 -10px 20px rgba(0,0,0,.18),0 12px 24px rgba(58,16,10,.18)}
+  #I95b .pc{z-index:5;overflow:hidden}
+  #I95b .pc .au{position:absolute;inset:0;border-radius:inherit;
+    background:linear-gradient(180deg,#F8D899,#E9A23B 55%,#C27716);box-shadow:inset -6px 0 14px rgba(120,60,6,.18)}
+  #I95b .pc.pale .au{background:linear-gradient(180deg,#FBE8BF,#F2C87C 60%,#DDA24A)}
+  #I95b .slot{width:76px;border-radius:14px 14px 4px 4px;border:3px dashed rgba(199,124,27,.55);background:rgba(246,220,168,.18)}
+  #I95b .sl{left:0;right:0;top:1496px;text-align:center;font-size:46px;color:var(--maroon);line-height:1.3}
+
+  /* I95b's own: the tag that hangs off the filled gap, and the line */
+  @keyframes cord{0%{transform:scaleY(0)}100%{transform:scaleY(1)}}
+  @keyframes hang{0%{opacity:0;transform:translateY(-40px) rotate(-16deg)}35%{opacity:1;transform:translateY(0) rotate(7deg)}
+    62%{transform:rotate(-3.5deg)}82%{transform:rotate(1.4deg)}100%{opacity:1;transform:rotate(0deg)}}
+  @keyframes drop{0%{opacity:0;transform:translateY(-26px) scale(.9)}100%{opacity:1;transform:none}}
+  @keyframes glint{0%{transform:translateX(-160%) skewX(-18deg);opacity:0}25%{opacity:.95}100%{transform:translateX(420%) skewX(-18deg);opacity:0}}
+  #I95b .cd{left:858px;top:790px;width:4px;height:44px;border-radius:2px;background:#8C6A3A;transform-origin:50% 0;z-index:4}
+  #I95b .tg{left:740px;top:822px;width:240px;height:134px;transform-origin:50% 12px;z-index:4}
+  #I95b .tg .face{position:absolute;inset:0;border-radius:18px;background:#FFF8EA;border:3px solid var(--amber);overflow:hidden;
+    box-shadow:0 18px 34px rgba(58,16,10,.22),0 4px 10px rgba(58,16,10,.12);display:flex;flex-direction:column;align-items:center;padding-top:26px}
+  #I95b .tg .gold{position:absolute;inset:0;background:linear-gradient(170deg,#F8D899,#E9A23B 55%,#C27716)}
+  #I95b .tg .gl{position:absolute;top:0;bottom:0;left:0;width:60px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.75),rgba(255,255,255,0))}
+  #I95b .tg .hole{position:absolute;left:111px;top:8px;width:18px;height:18px;border-radius:50%;background:#F1E4CF;box-shadow:inset 0 2px 4px rgba(58,16,10,.35);z-index:2}
+  #I95b .tg .k{position:relative;font-size:36px;color:var(--maroon);line-height:1.2}
+  #I95b .tg .vs{position:relative;margin-top:6px;width:170px;height:54px}
+  #I95b .tg .slot2{position:absolute;inset:6px 10px;border-bottom:4px dashed rgba(199,124,27,.6)}
+  #I95b .tg .v{position:absolute;left:-20px;right:-20px;top:-4px;text-align:center;font-size:48px;color:var(--maroonDeep);line-height:1.2;white-space:nowrap}
+  #I95b .ln{left:0;right:0;top:1628px;display:flex;flex-direction:column;align-items:center}
+  #I95b .ln .t{font-size:60px;color:var(--maroon);line-height:1.3;white-space:nowrap}
+  #I95b .ln .u{width:560px;height:8px;border-radius:8px;margin-top:10px;transform-origin:0 50%;
+    background:linear-gradient(90deg,#E9A23B,#F4C979 70%,rgba(244,201,121,.3))}
+</style>
+</head>
+<body>
+<!-- ══ I95b · no interest · K726, first 3 s ("इस मदद पर कोई ब्याज नहीं लगता —")
+     Frame 0 is I95a's frame at 7.22 s exactly: I95a's own markup with every animation 7.22 s
+     further on (so each is already at its end), and the glow on I95a's clock (7.7 s, 7.62 s in).
+     Timed to K726.mp3 (measured): "इस मदद पर" 0.04–0.86 · "कोई ब्याज नहीं लगता" 0.96–2.12, then
+     silence to the cut at 3.0 s. The line's own words start at 0.04, before anything can arrive on a
+     card that must open on I95a's frame, so it is written by 0.60 s, mid-sentence; the tag's value
+     "कोई नहीं" is in by 0.75 s (0.21 s before "कोई") and the tag is gold by 1.10 s. Settled from 1.5 s. ══ -->
+<div class="panel" id="I95b" data-plate="office" style="--T:3.4s">
+  <div class="glow anim a-glow" style="animation-delay:-7.62s;animation-duration:7.7s;top:47%"></div>
+  <div class="st">
+    <!-- ── I95a's markup, every animation shifted 7.22 s earlier: frame 0 is I95a at 7.22 s ── -->
+    <!-- the load that has stopped -->
+    <svg class="tk" viewBox="0 0 460 210">
+      <rect class="b" x="8" y="42" width="298" height="112" rx="56"/>
+      <path class="l" d="M112 48v100M204 48v100"/>
+      <rect class="b" x="140" y="24" width="40" height="18" rx="5"/>
+      <path class="b" d="M306 120h14"/>
+      <path class="b" d="M320 166V74h72l52 52v40Z"/>
+      <path class="l" d="M336 90h50l34 34h-84Z"/>
+      <path class="l" d="M4 166h450" style="stroke:#A99D91;stroke-width:7"/>
+      <circle class="w" cx="74" cy="184" r="22"/><circle class="w" cx="156" cy="184" r="22"/><circle class="w" cx="398" cy="184" r="22"/>
+    </svg>
+    <div class="stop hi"><span class="ic"><i></i><i></i></span>लोड रुका</div>
+
+    <!-- the money the load needs; the end of it is missing -->
+    <div class="nl hi">लोड उठाने के लिए ज़रूरी रक़म</div>
+    <div class="gc"><span class="dis">₹1–3</span> <span class="hi">लाख कम</span></div>
+    <svg class="br" viewBox="0 0 300 26"><path d="M6 24V8h288v16"/></svg>
+    <div class="need">
+      <div class="have"></div>
+      <div class="hole mv" style="animation-delay:-7.22s"></div>
+      <div class="sh mv" style="animation-delay:-3.92s"></div>
+    </div>
+
+    <!-- who gives the help, and how much -->
+    <div class="hp hi mv" style="animation-name:wr;animation-duration:.35s;animation-timing-function:linear;animation-delay:-5.12s"><span class="dis">2–3</span> दिन के पैसों तक की मदद</div>
+    <div class="ml hi mv" style="animation-name:show;animation-duration:.3s;animation-delay:-5.17s">एम-डी-जी सर्विसेज़</div>
+    <div class="mm dis mv" style="animation-name:medal;animation-duration:.42s;animation-delay:-5.27s">M</div>
+
+    <!-- his daily sales -->
+    <div class="base mv" style="animation-name:growX;animation-duration:.35s;animation-delay:-7.17s"></div>
+    <div class="slot mv" style="left:702px;top:1288px;height:182px;animation-name:show;animation-duration:.3s;animation-delay:-4.92s"></div>
+    <div class="slot mv" style="left:802px;top:1260px;height:210px;animation-name:show;animation-duration:.3s;animation-delay:-4.84s"></div>
+    <div class="slot mv" style="left:902px;top:1280px;height:190px;animation-name:show;animation-duration:.3s;animation-delay:-4.76s"></div>
+    <div class="sb mv" style="left:102px;top:1320px;height:150px;animation-name:growY;animation-duration:.3s;animation-delay:-7.10s"></div>
+    <div class="sb mv" style="left:202px;top:1282px;height:188px;animation-name:growY;animation-duration:.3s;animation-delay:-7.05s"></div>
+    <div class="sb mv" style="left:302px;top:1304px;height:166px;animation-name:growY;animation-duration:.3s;animation-delay:-7.00s"></div>
+    <div class="sb mv" style="left:402px;top:1266px;height:204px;animation-name:growY;animation-duration:.3s;animation-delay:-6.95s"></div>
+    <div class="sb mv" style="left:502px;top:1294px;height:176px;animation-name:growY;animation-duration:.3s;animation-delay:-6.90s"></div>
+    <div class="sb mv" style="left:602px;top:1274px;height:196px;animation-name:growY;animation-duration:.3s;animation-delay:-6.85s"></div>
+    <!-- the three that travel: grow in with the rest, then fly into the gap, turning gold past the M -->
+    <div class="sb pc mv" style="--x0:702px;--y0:1288px;--h0:182px;--x1:690px;--r1:0;
+      animation-name:growY,fly;animation-duration:.3s,.9s;animation-delay:-6.80s,-5.02s;animation-timing-function:cubic-bezier(.16,.9,.24,1),cubic-bezier(.55,0,.3,1)">
+      <span class="au mv" style="animation-name:show;animation-duration:.2s;animation-delay:-4.60s"></span></div>
+    <div class="sb pc mv" style="--x0:802px;--y0:1260px;--h0:210px;--x1:790px;--r1:0;
+      animation-name:growY,fly;animation-duration:.3s,.9s;animation-delay:-6.75s,-4.94s;animation-timing-function:cubic-bezier(.16,.9,.24,1),cubic-bezier(.55,0,.3,1)">
+      <span class="au mv" style="animation-name:show;animation-duration:.2s;animation-delay:-4.52s"></span></div>
+    <div class="sb pc pale mv" style="--x0:902px;--y0:1280px;--h0:190px;--x1:890px;--r1:0 22px 22px 0;
+      animation-name:growY,fly;animation-duration:.3s,.9s;animation-delay:-6.70s,-4.86s;animation-timing-function:cubic-bezier(.16,.9,.24,1),cubic-bezier(.55,0,.3,1)">
+      <span class="au mv" style="animation-name:show;animation-duration:.2s;animation-delay:-4.44s"></span></div>
+    <div class="sl hi mv" style="animation-name:wr;animation-duration:.35s;animation-timing-function:linear;animation-delay:-6.92s">आपकी सेल के हिसाब से</div>
+
+    <!-- ── new: the interest tag hangs off the filled gap; its value is "कोई नहीं"; it turns gold ── -->
+    <div class="cd mv" style="animation-name:cord;animation-duration:.18s;animation-delay:0s"></div>
+    <div class="tg mv" style="animation-name:hang;animation-duration:.9s;animation-delay:.05s;animation-timing-function:ease-out">
+      <div class="face">
+        <div class="gold mv" style="animation-name:show;animation-duration:.3s;animation-delay:.8s"></div>
+        <div class="gl mv" style="animation-name:glint;animation-duration:.55s;animation-delay:.95s;animation-timing-function:ease-in-out"></div>
+        <div class="k hi">ब्याज</div>
+        <div class="vs">
+          <div class="slot2 mv" style="animation-name:show;animation-duration:.2s;animation-delay:.5s;animation-direction:reverse"></div>
+          <div class="v hi mv" style="animation-name:drop;animation-duration:.25s;animation-delay:.5s">कोई नहीं</div>
+        </div>
+      </div>
+      <div class="hole"></div>
+    </div>
+    <div class="ln">
+      <div class="t hi mv" style="animation-name:wr;animation-duration:.4s;animation-timing-function:linear;animation-delay:.2s">इस मदद पर कोई ब्याज नहीं</div>
+      <div class="u mv" style="animation-name:growX;animation-duration:.4s;animation-delay:.75s"></div>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

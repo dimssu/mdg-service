@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  #I05{align-items:stretch;justify-content:center;gap:0;padding:0 110px 60px}
+  #I05 .row5{position:relative;padding:44px 0 46px 44px}
+  #I05 .row5::before{content:'';position:absolute;left:0;top:58px;bottom:58px;width:8px;border-radius:8px;
+    background:linear-gradient(180deg,#F6C877,var(--amberDeep))}
+  #I05 .fig{display:flex;align-items:baseline;gap:26px;color:#FFF3E2;line-height:1}
+  #I05 .fig .n{font-size:190px;font-weight:700;letter-spacing:-4px}
+  #I05 .fig .se{font-size:84px;color:var(--amber)}
+  #I05 .pre{font-size:48px;color:var(--amberSoft);margin-bottom:6px}
+  #I05 .lab{font-size:50px;color:var(--amberSoft);margin-top:18px;line-height:1.35}
+  #I05 .sep{height:2px;margin-left:44px;background:linear-gradient(90deg,rgba(233,162,59,.55),rgba(233,162,59,0));transform-origin:left}
+  @keyframes under{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+  #I05 .sep{animation-name:under;animation-duration:1s}
+  #I05 .rise{--T:5s}
+</style>
+</head>
+<body>
+<!-- ══ I05 · since 2021 · 250+ people · about 1,700 dealers · K105 ═══════════════════════════ -->
+<div class="panel ink" id="I05" data-plate="dusk" style="--T:7s">
+  <div class="glow anim a-glow" style="animation-delay:-1.5s;top:46%"></div>
+
+  <div class="row5 rise anim a-rise" style="animation-delay:-.02s">
+    <div class="fig dis"><span class="n"><span class="odo" data-n="2021" data-at="0" style="--T:2.6s"></span></span><span class="se hi">से</span></div>
+  </div>
+  <div class="sep anim" style="animation-delay:1.5s"></div>
+
+  <div class="row5 rise anim a-rise" style="animation-delay:2.2s">
+    <div class="fig dis"><span class="n"><span class="odo" data-n="250+" data-at="2.25" style="--T:2.6s"></span></span></div>
+    <div class="lab hi">लोगों की टीम</div>
+  </div>
+  <div class="sep anim" style="animation-delay:3.3s"></div>
+
+  <div class="row5 rise anim a-rise" style="animation-delay:3.95s">
+    <div class="pre hi">लगभग</div>
+    <div class="fig dis"><span class="n"><span class="odo" data-n="1,700" data-at="4.1" style="--T:2.2s"></span></span></div>
+    <div class="lab hi">डीलरों के साथ · देश भर में</div>
+  </div>
+
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* each figure rolls when its row arrives, not at frame 0 */
+for (const el of document.querySelectorAll('.odo[data-at]')) {
+  const at = parseFloat(el.dataset.at);
+  el.querySelectorAll('.col').forEach((c, i) => { c.style.animationDelay = (at + i * 0.05).toFixed(2) + 's'; });
+}
+/* An odometer column is as wide as its widest digit, so a landed "1" leaves a
+   hole ("1 4,246"). Size each column to the digit it lands on; the wider digits
+   overflow it sideways only while they are rolling past. */
+function fitOdo() {
+  for (const col of document.querySelectorAll('.odo .col')) {
+    const p = document.createElement('span');
+    p.textContent = col.style.getPropertyValue('--d').trim();
+    p.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap';
+    col.parentElement.appendChild(p);
+    col.style.width = p.offsetWidth + 'px';
+    col.style.alignItems = 'center';
+    p.remove();
+  }
+}
+fitOdo(); document.fonts.ready.then(fitOdo);
+</script>
+</body>
+</html>

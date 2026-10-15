@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* I69's temple, without its lock and without its pillars. Timed to K040's voice
+   (the card now opens the beat, 8.9 s, and S68 follows it): "और जब कमाई सीमित हो"
+   0.0–1.33 s, "ख़र्च बढ़ रहा हो" 1.96–2.85 s, "और कंप्लायंस का बोझ भी" 3.47–4.87 s,
+   "तब पंप को लंबे समय तक चलाने के लिए" 6.39–8.63 s ("लंबे" ≈ 7.05 s). So the chips
+   drop in one by one, each just before its words (0.3 · 1.8 · 3.3 s); the empty
+   plinth and the lintel's outline, with nothing under it, arrive at 6.2 s, and
+   the lintel's words are readable by 6.85 s. Still from 6.85 s (the glow comes to
+   rest at 7.2 s). "सिर्फ़ मेहनत काफ़ी नहीं" is said over S68 and written on I93.
+   I93 OPENS ON THIS CARD'S LAST FRAME: chips, lintel outline, plinth, sockets
+   and the glow at rest are the same markup at the same positions. */
+.mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+@keyframes chipDrop{0%{opacity:0;transform:translateY(-70px)}65%{opacity:1;transform:translateY(6px)}100%{opacity:1;transform:none}}
+@keyframes plinthIn{0%{opacity:0;transform:scaleX(.6)}100%{opacity:1;transform:none}}
+@keyframes hover{0%{opacity:0;transform:translateY(-60px) rotate(-2.5deg)}55%{opacity:1;transform:translateY(8px) rotate(1deg)}80%{transform:translateY(-3px) rotate(-.4deg)}100%{opacity:1;transform:none}}
+@keyframes wordsIn{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:none}}
+
+#I93a .abs{position:absolute}
+#I93a .chips{left:40px;right:40px;top:420px;display:flex;justify-content:center;gap:20px}
+#I93a .chip{display:flex;align-items:center;gap:12px;padding:12px 26px 12px 18px;border-radius:999px;background:#fff;border:2px solid #EFE4D2;
+  box-shadow:0 10px 22px rgba(74,15,15,.12);font-size:40px;color:var(--maroonDeep);white-space:nowrap}
+#I93a .chip svg{width:40px;height:40px;flex:none;fill:none;stroke:var(--maroon);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#I93a .chip span{padding-top:4px}
+/* the lintel as an outline, 30 px above where it will rest */
+#I93a .lin{left:60px;width:960px;top:598px;height:92px;border-radius:14px;border:5px dashed var(--amber);background:rgba(255,251,243,.55);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 18px 36px rgba(58,16,10,.10)}
+#I93a .lin .t{font-size:50px;color:var(--maroon);line-height:1;padding-top:10px;white-space:nowrap}
+/* the empty plinth, with three faint sockets where pillars should stand */
+#I93a .plinth{left:60px;width:960px;top:1260px;height:44px;border-radius:10px;background:linear-gradient(180deg,#8A2B2B,#4E0F0F);
+  box-shadow:0 18px 30px rgba(58,16,10,.3)}
+#I93a .sock{top:1240px;width:270px;height:20px;border-radius:8px 8px 0 0;border:3px dashed rgba(199,124,27,.55);border-bottom:0}
+</style>
+</head>
+<body>
+<!-- ══ I93a · when income is low, costs rise, compliance weighs · K040 "और जब कमाई सीमित हो, ख़र्च बढ़ रहा हो, और कंप्लायंस का बोझ भी — तब पंप को लंबे समय तक चलाने के लिए…" (8.9 s, before S68) ══ -->
+<div class="panel" id="I93a" data-plate="office" style="--T:9.5s">
+  <div class="glow mv" style="animation-name:glowPulse;animation-timing-function:ease-in-out;animation-duration:2.4s;animation-iteration-count:3;top:50%"></div>
+  <div class="abs chips hi">
+    <div class="chip mv" style="animation-name:chipDrop;animation-delay:0s;animation-duration:.3s"><svg viewBox="0 0 24 24"><path d="M3 7l6 6 4-4 8 8"/><path d="M15 17h6v-6"/></svg><span>कमाई सीमित</span></div>
+    <div class="chip mv" style="animation-name:chipDrop;animation-delay:1.5s;animation-duration:.3s"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg><span>ख़र्च बढ़ रहा</span></div>
+    <div class="chip mv" style="animation-name:chipDrop;animation-delay:3.0s;animation-duration:.3s"><svg viewBox="0 0 24 24"><path d="M9 7.5a3 3 0 1 1 6 0"/><path d="M6.6 9h10.8l2.2 11H4.4Z"/></svg><span>कंप्लायंस का बोझ</span></div>
+  </div>
+
+  <div class="abs lin mv" style="animation-name:hover;animation-delay:5.95s;animation-duration:.5s"><div class="t hi mv" style="animation-name:wordsIn;animation-delay:6.55s;animation-duration:.3s">लंबे समय तक चलने वाला पंप</div></div>
+
+  <div class="abs sock mv" style="left:100px;animation-name:plinthIn;animation-delay:6.0s;animation-duration:.25s"></div>
+  <div class="abs sock mv" style="left:405px;animation-name:plinthIn;animation-delay:6.05s;animation-duration:.25s"></div>
+  <div class="abs sock mv" style="left:710px;animation-name:plinthIn;animation-delay:6.1s;animation-duration:.25s"></div>
+  <div class="abs plinth mv" style="animation-name:plinthIn;animation-delay:5.9s;animation-duration:.3s"></div>
+
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

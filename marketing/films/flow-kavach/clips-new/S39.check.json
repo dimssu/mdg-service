@@ -1,0 +1,25 @@
+{
+  "id": "S39",
+  "same_man": "same",
+  "face_notes": "The man in the video is a very good match for the reference image.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Dell logo on laptop lid.",
+    "Veo watermark in bottom right corner."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 0,
+      "what": "Man is typing on the laptop from 0-2.5s. The brief explicitly states 'He does not type'."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The man must not type; the brief specifies his hands are off the keyboard. The laptop must be generic and unbranded, with no visible logo."
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  #I06{gap:64px}
+  #I06 .cap{font-size:72px}
+  #I06 .route{position:relative;width:960px;display:flex;flex-direction:column;gap:30px}
+  #I06 .route::before{content:'';position:absolute;left:47px;top:50px;bottom:50px;width:6px;border-radius:6px;
+    background:repeating-linear-gradient(180deg,var(--amber) 0 14px,transparent 14px 26px);opacity:.8}
+  #I06 .st6{display:flex;align-items:center;gap:28px;--T:3s}
+  #I06 .no{width:100px;height:100px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    font-size:40px;font-weight:700;color:var(--maroonDeep);position:relative;z-index:2;
+    background:radial-gradient(circle at 34% 28%,#F8C46A,var(--amber) 46%,var(--amberDeep));
+    box-shadow:0 12px 26px rgba(74,15,15,.28),inset 0 -5px 10px rgba(120,60,0,.3)}
+  #I06 .ch{flex:1;position:relative;background:#fff;border:2px solid #EFE4D2;border-radius:22px;padding:30px 34px;
+    box-shadow:0 16px 34px rgba(74,15,15,.14),0 3px 8px rgba(74,15,15,.07)}
+  #I06 .ch .t{font-size:50px;color:var(--ink);line-height:1.1;position:relative;z-index:1}
+  #I06 .ch .hl{position:absolute;inset:-6px;z-index:0;border-radius:26px;border:5px solid var(--amber);
+    background:linear-gradient(100deg,rgba(246,220,168,.55),rgba(246,220,168,0) 70%);
+    box-shadow:0 0 0 10px rgba(233,162,59,.18),0 0 60px rgba(233,162,59,.55)}
+</style>
+</head>
+<body>
+<!-- ══ I06 · the road map, one by one · K106 "…चलिए, एक-एक करके देखते हैं।" ══════════════════ -->
+<div class="panel" id="I06" data-plate="office" style="--T:4s">
+  <div class="glow anim a-glow" style="animation-delay:-1s;top:56%"></div>
+  <div class="cap hi anim a-fade" style="animation-delay:-.05s"><b>एक-एक करके</b></div>
+  <div class="route">
+    <div class="st6 anim a-drop" style="animation-delay:.5s"><span class="no dis">01</span>
+      <div class="ch"><span class="t hi">रोज़ की निगरानी</span>
+        <div class="hl anim a-fade" style="animation-delay:2.7s"></div></div></div>
+    <div class="st6 anim a-drop" style="animation-delay:.95s"><span class="no dis">02</span>
+      <div class="ch"><span class="t hi">रिकॉर्ड का मिलान</span></div></div>
+    <div class="st6 anim a-drop" style="animation-delay:1.4s"><span class="no dis">03</span>
+      <div class="ch"><span class="t hi">पंप असेसमेंट पॉइंट सिस्टम</span></div></div>
+    <div class="st6 anim a-drop" style="animation-delay:1.85s"><span class="no dis">04</span>
+      <div class="ch"><span class="t hi">चौबीसों घंटे साथ</span></div></div>
+    <div class="st6 anim a-drop" style="animation-delay:2.3s"><span class="no dis">05</span>
+      <div class="ch"><span class="t hi">प्रीमियम सेवाएँ</span></div></div>
+  </div>
+  <div class="rail hi">आपके पंप के लिए हमारा काम</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

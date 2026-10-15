@@ -1,0 +1,19 @@
+{
+  "id": "S33",
+  "same_man": "same",
+  "face_notes": "Excellent likeness. The facial features, hair style, and moustache are a very strong match for the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Handwriting is visible on the pages of the two open registers on the desk."
+  ],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The image is excellent but violates the strict 'no text' rule. The open registers clearly show handwriting. Please regenerate with the registers closed, or with their pages visibly blank."
+}

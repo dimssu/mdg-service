@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Opens on I87b's last frame (same markup, same positions). K030 over the card:
+   "ऊपर से — (0–0.7) ऑनलाइन पोर्टल (1.28) … भुगतान (4.15) … इंस्पेक्शन (6.44) …
+   स्टाफ़ (7.99) … ग्राहक सेवा (8.92) … मशीनों का रख-रखाव (10.22) — और तय समय पर
+   होने वाले बाक़ी काम (12.37–14.7)". The second, wider orbit draws on "ऊपर से";
+   chips 06–11 settle just ahead of their words. Chip 12's words fall after this
+   card (over S65), so it joins at 10.55 s, the last thing in; the counter on the
+   dealer reaches 12 with it. Both orbits speed up with every chip and ease to a
+   stop by 11.45 s. Orbit engine shared with I87b and I87d. */
+#I87c{gap:0}
+#I87c .hd{position:absolute;left:40px;right:40px;top:168px;text-align:center;font-size:64px;line-height:1.3;color:var(--maroon)}
+#I87c .hd i{display:block;width:180px;height:7px;border-radius:7px;margin:16px auto 0;background:linear-gradient(90deg,#E9A23B,#F4C979)}
+#I87c svg.orb{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible;z-index:2}
+#I87c svg.orb path{fill:none;stroke:var(--amber);stroke-width:5;stroke-linecap:round;filter:drop-shadow(0 0 8px rgba(233,162,59,.55))}
+#I87c svg.orb path.o{stroke-width:4;opacity:.85}
+#I87c .bead{position:absolute;left:0;top:0;width:0;height:0;z-index:3}
+#I87c .bead i{position:absolute;left:-11px;top:-11px;width:22px;height:22px;border-radius:50%;
+  background:radial-gradient(circle,#FFF6DF 0 30%,#F2B650 55%,rgba(233,162,59,0) 72%);box-shadow:0 0 16px 5px rgba(233,162,59,.45)}
+#I87c .dealer{position:absolute;left:440px;top:800px;width:200px;height:280px;z-index:3}
+#I87c .dealer svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 24px 30px rgba(58,16,10,.30))}
+/* the plan names the centre: "डीलर" — above his head, so it never reads as "12 डीलर" with the counter */
+#I87c .dn{position:absolute;left:540px;top:728px;transform:translateX(-50%);white-space:nowrap;font-size:48px;line-height:1.25;color:var(--maroon);z-index:3}
+#I87c .cnt{position:absolute;left:497px;top:976px;width:86px;height:86px;border-radius:50%;z-index:4;overflow:hidden;
+  background:radial-gradient(circle at 35% 30%,#F7CD78,var(--amber) 55%,var(--amberDeep));box-shadow:0 10px 22px rgba(58,16,10,.35),inset 0 0 0 4px rgba(255,255,255,.35)}
+#I87c .cnt .col{position:absolute;left:0;right:0;top:0}
+#I87c .cnt .col span{display:block;height:86px;line-height:88px;text-align:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:38px;color:var(--maroonDeep)}
+#I87c .orbw{position:absolute;left:0;top:0;width:0;height:0;z-index:5}
+#I87c .wob{position:absolute;left:0;top:0;width:0;height:0}
+#I87c .chip{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;align-items:center;gap:12px;padding:8px 20px 8px 8px;
+  border-radius:22px;white-space:nowrap;background:linear-gradient(170deg,#fff,#FBF3E7);border:2px solid rgba(214,168,98,.7);
+  box-shadow:0 18px 34px rgba(58,16,10,.20),0 3px 8px rgba(58,16,10,.10)}
+#I87c .chip .no{width:46px;height:46px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:23px;color:#4E0F0F;
+  background:linear-gradient(160deg,#F8D899,#E9A23B 55%,#C27716);box-shadow:inset 0 -3px 6px rgba(120,60,6,.25)}
+#I87c .chip .t{font-size:32px;line-height:1.14;color:var(--maroon);padding-top:5px}
+#I87c .chip .rp{position:absolute;inset:-4px;border-radius:26px;border:4px solid var(--amber);opacity:0}
+@keyframes join{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}55%{opacity:1;transform:translate(-50%,-50%) scale(1.04)}100%{opacity:1;transform:translate(-50%,-50%)}}
+@keyframes ripple{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.35)}}
+@keyframes drawOn{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes show{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<!-- ══ I87c · the juggling, 06–12 · K030 "ऊपर से — ऑनलाइन पोर्टल और डिजिटल एंट्री, … मशीनों का रख-रखाव — और तय समय पर होने वाले बाक़ी काम।" (first 11.6 s) ══ -->
+<div class="panel" id="I87c" data-plate="office" style="--T:13s">
+  <div class="glow" style="top:49.5%;opacity:.8"></div>
+  <div class="hd hi">एक साथ कई चीज़ों पर ध्यान<i></i></div>
+  <svg class="orb" viewBox="0 0 1080 1920">
+    <path class="i" d="M540 537.0 A300.4 413.0 0 1 1 540 1363.0 A300.4 413.0 0 1 1 540 537.0" pathLength="1"/>
+    <path class="o" d="M540 352.2 A369.8 597.8 0 1 1 540 1547.8 A369.8 597.8 0 1 1 540 352.2" pathLength="1" style="stroke-dasharray:1;animation:drawOn .85s cubic-bezier(.45,.1,.3,1) .08s both paused"/>
+  </svg>
+  <div class="bead" id="b0"><i></i></div>
+  <div class="bead" id="b1"><i></i></div>
+  <div class="bead" id="b2"><i></i></div>
+  <div class="bead" id="b3"><i style="animation:show .3s linear .5s both paused"></i></div>
+  <div class="bead" id="b4"><i style="animation:show .3s linear .5s both paused"></i></div>
+  <div class="bead" id="b5"><i style="animation:show .3s linear .5s both paused"></i></div>
+  <div class="dealer"><svg viewBox="0 0 200 280">
+    <defs><linearGradient id="dlg" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="#8A2B2B"/><stop offset="1" stop-color="#4E0F0F"/></linearGradient></defs>
+    <path d="M6 278 C6 190 46 146 100 146 S194 190 194 278 Z" fill="url(#dlg)" stroke="rgba(255,243,226,.7)" stroke-width="4"/>
+    <circle cx="100" cy="66" r="56" fill="url(#dlg)" stroke="rgba(255,243,226,.7)" stroke-width="4"/>
+  </svg></div>
+  <div class="dn hi">डीलर</div>
+  <div class="cnt" style="animation:show .3s linear .25s both paused"><div class="col" id="cnt"><span>05</span><span>06</span><span>07</span><span>08</span><span>09</span><span>10</span><span>11</span><span>12</span></div></div>
+  <div class="orbw" id="c0"><div class="wob"><div class="chip"><span class="no">01</span><span class="t hi">सेल और स्टॉक</span></div></div></div>
+  <div class="orbw" id="c1"><div class="wob"><div class="chip"><span class="no">02</span><span class="t hi">डी-एस-आर<br/>और रजिस्टर</span></div></div></div>
+  <div class="orbw" id="c2"><div class="wob"><div class="chip"><span class="no">03</span><span class="t hi">डेंसिटी और<br/>क्वालिटी के रिकॉर्ड</span></div></div></div>
+  <div class="orbw" id="c3"><div class="wob"><div class="chip"><span class="no">04</span><span class="t hi">कंप्लायंस</span></div></div></div>
+  <div class="orbw" id="c4"><div class="wob"><div class="chip"><span class="no">05</span><span class="t hi">कंपनी की<br/>गाइडलाइंस</span></div></div></div>
+  <div class="orbw" id="c5"><div class="wob"><div class="chip" style="animation:join .4s cubic-bezier(.3,1.2,.5,1) 0.78s both paused"><span class="rp" style="animation:ripple .55s ease-out 0.96s both paused"></span><span class="no">06</span><span class="t hi">ऑनलाइन पोर्टल<br/>और डिजिटल एंट्री</span></div></div></div>
+  <div class="orbw" id="c6"><div class="wob"><div class="chip" style="animation:join .4s cubic-bezier(.3,1.2,.5,1) 3.65s both paused"><span class="rp" style="animation:ripple .55s ease-out 3.83s both paused"></span><span class="no">07</span><span class="t hi">भुगतान और<br/>ड्यू डेट</span></div></div></div>
+  <div class="orbw" id="c7"><div class="wob"><div class="chip" style="animation:join .4s cubic-bezier(.3,1.2,.5,1) 5.94s both paused"><span class="rp" style="animation:ripple .55s ease-out 6.12s both paused"></span><span class="no">08</span><span class="t hi">इंस्पेक्शन की<br/>तैयारी</span></div></div></div>
+  <div class="orbw" id="c8"><div class="wob"><div class="chip" style="animation:join .4s cubic-bezier(.3,1.2,.5,1) 7.49s both paused"><span class="rp" style="animation:ripple .55s ease-out 7.67s both paused"></span><span class="no">09</span><span class="t hi">स्टाफ़</span></div></div></div>
+  <div class="orbw" id="c9"><div class="wob"><div class="chip" style="animation:join .4s cubic-bezier(.3,1.2,.5,1) 8.42s both paused"><span class="rp" style="animation:ripple .55s ease-out 8.60s both paused"></span><span class="no">10</span><span class="t hi">ग्राहक सेवा</span></div></div></div>
+  <div class="orbw" id="c10"><div class="wob"><div class="chip" style="animation:join .4s cubic-bezier(.3,1.2,.5,1) 9.72s both paused"><span class="rp" style="animation:ripple .55s ease-out 9.90s both paused"></span><span class="no">11</span><span class="t hi">मशीनों का<br/>रख-रखाव</span></div></div></div>
+  <div class="orbw" id="c11"><div class="wob"><div class="chip" style="animation:join .4s cubic-bezier(.3,1.2,.5,1) 10.55s both paused"><span class="rp" style="animation:ripple .55s ease-out 10.73s both paused"></span><span class="no">12</span><span class="t hi">तय समय पर होने<br/>वाले बाक़ी काम</span></div></div></div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* The juggling orbits, shared by I87b, I87c and I87d (identical copy in each
+   — change all three). Two ellipses round the dealer; each chip sits on one
+   and the pair turn together, so the gaps between chips never close. The
+   turn speeds up as chips join (ω, deg/s, linear between breakpoints). The
+   angle is written out as keyframes (every 0.05 s) so the renderer can seek it. */
+const ORBIT = {
+  cx: 540, cy: 950, rxi: 300.4, ryi: 413.0, rxo: 369.8, ryo: 597.8,
+  /* each chip's angle (deg, 0 = 3 o'clock, clockwise) when I87c starts */
+  ang: [-42.8, 35.9, 100.8, 181, 232.8, -17.5, 36.9, 82.6, 145.9, 189.3, 228.2, 283.6],
+  W: {
+    b: [[0, 1.4], [0.35, 1.6], [1.51, 1.6], [1.85, 2.2], [3.87, 2.2], [4.2, 2.8], [6.57, 2.8], [6.9, 3.4], [7.64, 3.4], [8.0, 4.0], [9.0, 4.0], [9.75, 0], [30, 0]],
+    c: [[0, 0], [0.6, 4.0], [1.18, 4.0], [1.5, 4.4], [4.05, 4.4], [4.35, 4.8], [6.34, 4.8], [6.6, 5.2], [7.89, 5.2], [8.1, 5.6], [8.82, 5.6], [9.0, 6.0], [10.12, 6.0], [10.3, 6.4], [10.95, 6.4], [11.45, 0], [30, 0]],
+    d: [[0, 0], [0.5, 6.4], [1.7, 6.4], [2.4, 3.6], [30, 3.6]],
+  },
+};
+ORBIT.int = (W, t) => { // ∫0..t of piecewise-linear ω
+  let s = 0;
+  for (let i = 0; i < W.length - 1; i++) {
+    const [t0, w0] = W[i], [t1, w1] = W[i + 1];
+    if (t <= t0) break;
+    const e = Math.min(t, t1), we = w0 + (w1 - w0) * (e - t0) / (t1 - t0);
+    s += (w0 + we) / 2 * (e - t0);
+  }
+  return s;
+};
+ORBIT.TB = 10.61; ORBIT.TC = 12.0; // clip lengths (plan seconds + 0.4)
+ORBIT.theta = (card, t) => {
+  if (card === 'b') return ORBIT.int(ORBIT.W.b, t) - ORBIT.int(ORBIT.W.b, ORBIT.TB);
+  if (card === 'c') return ORBIT.int(ORBIT.W.c, t);
+  return ORBIT.int(ORBIT.W.c, ORBIT.TC) + ORBIT.int(ORBIT.W.d, t);
+};
+ORBIT.pos = (k, th) => {
+  const inner = k < 5, a = (ORBIT.ang[k] + th) * Math.PI / 180;
+  return [ORBIT.cx + (inner ? ORBIT.rxi : ORBIT.rxo) * Math.cos(a), ORBIT.cy + (inner ? ORBIT.ryi : ORBIT.ryo) * Math.sin(a)];
+};
+/* keyframes that move one element along a path p(t) → [x, y], 0..T */
+ORBIT.keys = (name, T, p, step = 0.05) => {
+  let s = `@keyframes ${name}{`;
+  for (let t = 0; t <= T + 1e-9; t += step) {
+    const [x, y] = p(t);
+    s += `${(t / T * 100).toFixed(3)}%{transform:translate(${x.toFixed(1)}px,${y.toFixed(1)}px)}`;
+  }
+  return s + '}';
+};
+
+const CFG = {"card": "c", "T": 13, "chips": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "beads": 6, "cnt": [[1.18, 6], [4.05, 7], [6.34, 8], [7.89, 9], [8.82, 10], [10.12, 11], [10.95, 12]], "cntStatic": null, "fall": null};
+/* write every moving thing's keyframes, then hand them to the renderer's paused clock */
+(() => {
+  const th = (t) => ORBIT.theta(CFG.card, t);
+  let css = '';
+  for (const k of CFG.chips) {
+    let p = (t) => ORBIT.pos(k, th(t));
+    if (CFG.fall && k === 6) {
+      const f = CFG.fall, [x0, y0] = ORBIT.pos(6, th(f.t0));
+      p = (t) => {
+        if (t <= f.t0) return ORBIT.pos(6, th(t));
+        if (t >= f.t1 + 0.25) return [f.x1, f.y1];
+        if (t >= f.t1) { const u = (t - f.t1) / 0.25; return [f.x1, f.y1 - 16 * Math.sin(Math.PI * u) * (1 - u * 0.4)]; }
+        const u = (t - f.t0) / (f.t1 - f.t0);
+        return [x0 + (f.x1 - x0) * u, y0 + (f.y1 - y0) * u * u];
+      };
+    }
+    css += ORBIT.keys(`orb${k}`, CFG.T, p, 1 / 48);
+    document.getElementById(`c${k}`).style.animation = `orb${k} ${CFG.T}s linear 0s both paused`;
+  }
+  /* beads run round the ellipses at six times the chips' speed: they show the pace */
+  for (let i = 0; i < CFG.beads; i++) {
+    const inner = i < 3, a0 = inner ? i * 120 - 90 : (i - 3) * 120 - 30;
+    const p = (t) => {
+      const a = (a0 + 6 * th(t)) * Math.PI / 180;
+      return [ORBIT.cx + (inner ? ORBIT.rxi : ORBIT.rxo) * Math.cos(a), ORBIT.cy + (inner ? ORBIT.ryi : ORBIT.ryo) * Math.sin(a)];
+    };
+    css += ORBIT.keys(`bd${i}`, CFG.T, p, 1 / 48);
+    document.getElementById(`b${i}`).style.animation = `bd${i} ${CFG.T}s linear 0s both paused`;
+  }
+  /* the counter on the dealer: steps up as each chip settles */
+  const col = document.getElementById('cnt');
+  if (col && CFG.cnt) {
+    let s = '@keyframes cntStep{0%{transform:translateY(0)}';
+    for (const [t, v] of CFG.cnt) {
+      const y0 = -(v - 6) * 86, y1 = -(v - 5) * 86;
+      s += `${((t - 0.14) / CFG.T * 100).toFixed(3)}%{transform:translateY(${y0}px)}${(t / CFG.T * 100).toFixed(3)}%{transform:translateY(${y1}px)}`;
+    }
+    css += s + '100%{transform:translateY(-602px)}}';
+    col.style.animation = `cntStep ${CFG.T}s linear 0s both paused`;
+  }
+  if (col && CFG.cntStatic) col.style.transform = `translateY(${-(CFG.cntStatic - 5) * 86}px)`;
+  const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+})();
+</script>
+</body>
+</html>

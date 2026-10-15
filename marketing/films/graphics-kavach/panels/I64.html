@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  @keyframes cardIn{0%{opacity:0;transform:translateY(80px) rotate(var(--r0,1.5deg)) scale(.96)}100%{opacity:1;transform:rotate(var(--r1,0deg))}}
+  @keyframes show{0%{opacity:0}100%{opacity:1}}
+  @keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+  @keyframes pop{0%{opacity:0;transform:scale(.3)}60%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:none}}
+  @keyframes stampIn{0%{opacity:0;transform:translateX(-60px)}100%{opacity:1;transform:none}}
+  @keyframes amk{0%{background-size:0% 100%}100%{background-size:100% 100%}}
+
+  #I64{gap:34px}
+  #I64 .tgt{display:flex;align-items:center;gap:16px;background:var(--maroon);color:#fff;border-radius:999px;padding:16px 36px 16px 22px;
+    font-size:40px;box-shadow:0 14px 30px rgba(74,15,15,.30);animation-name:show;animation-duration:.3s}
+  #I64 .tgt .g{width:56px;height:56px;border-radius:50%;background:var(--amber);color:var(--maroonDeep);display:flex;align-items:center;justify-content:center}
+  #I64 .tgt .g svg.i{width:34px;height:34px}
+  #I64 .card{width:950px;border-radius:26px;border:2px solid var(--amberSoft);background:linear-gradient(170deg,#fff,#FBF3E7);
+    padding:30px 36px 34px;box-shadow:0 30px 60px rgba(58,16,10,.22),0 4px 10px rgba(58,16,10,.12);
+    animation-name:cardIn;animation-duration:.6s}
+  #I64 .q{display:flex;align-items:center;gap:18px;font-size:46px;color:var(--maroon);line-height:1.3;margin-bottom:24px}
+  #I64 .q .ic{width:66px;height:66px;border-radius:18px;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;
+    box-shadow:inset 0 -4px 10px rgba(0,0,0,.2),0 8px 16px rgba(58,16,10,.22)}
+  #I64 .q .ic svg.i{width:38px;height:38px}
+  #I64 .bars{position:relative;display:flex;flex-direction:column;gap:22px;padding-top:52px}
+  #I64 .br{display:flex;align-items:center;gap:20px}
+  #I64 .br .nm{width:130px;font-size:40px;color:var(--ink);flex:none}
+  #I64 .br .tr{position:relative;flex:1;height:46px;border-radius:12px;background:#F2E8D8}
+  #I64 .br .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:12px;display:block;transform-origin:0 50%;
+    animation-name:growX;animation-duration:.9s}
+  #I64 .br .v{width:140px;flex:none;text-align:right;font-size:66px;font-weight:700;color:var(--maroon);line-height:1;
+    animation-name:show;animation-duration:.3s}
+  #I64 .line100{position:absolute;top:46px;bottom:-10px;left:calc(150px + (100% - 310px) * .8696);width:0;border-left:4px dashed var(--maroon);
+    animation-name:show;animation-duration:.4s}
+  #I64 .line100 span{position:absolute;top:-50px;left:-50px;width:100px;text-align:center;font-size:30px;font-weight:700;color:var(--maroon)}
+  #I64 .it{display:flex;align-items:center;gap:20px;font-size:42px;color:var(--ink);padding:10px 0;animation-name:stampIn;animation-duration:.45s}
+  #I64 .it .ck{width:56px;height:56px;border-radius:50%;background:var(--good);color:#fff;flex:none;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 14px rgba(30,122,74,.35);animation-name:pop;animation-duration:.4s}
+  #I64 .it .ck svg.i{width:34px;height:34px;stroke-width:3.2}
+  #I64 .fix{display:flex;align-items:center;gap:20px;font-size:44px;color:var(--ink)}
+  #I64 .fix .al{width:60px;height:60px;border-radius:50%;background:var(--amber);color:#fff;flex:none;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 16px rgba(199,124,27,.45);animation-name:pop;animation-duration:.45s}
+  #I64 .fix .al svg.i{width:36px;height:36px;stroke-width:2.8}
+  #I64 .fix .mk{padding:4px 10px;border-radius:6px;
+    background:linear-gradient(transparent 14%,rgba(233,162,59,.55) 14%,rgba(233,162,59,.55) 90%,transparent 90%) no-repeat 0 0 / 0% 100%;
+    animation-name:amk;animation-duration:.6s;animation-timing-function:cubic-bezier(.4,.1,.3,1)}
+</style>
+</head>
+<body>
+<!-- ══ I64 · how well, which tasks daily, where to improve · K722 (held 7.99 s) ══ -->
+<div class="panel" id="I64" data-plate="office" style="--T:9s">
+  <div class="tgt hi mv" style="animation-delay:-.1s"><span class="g"><svg class="i"><use href="#i-gauge"/></svg></span>रोज़ का लक्ष्य: 100 पॉइंट</div>
+
+  <div class="card mv" style="animation-delay:.1s;--r0:-1.5deg;--r1:-.6deg">
+    <div class="q hi"><span class="ic" style="background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep))"><svg class="i"><use href="#i-gauge"/></svg></span>काम कितनी अच्छी तरह</div>
+    <div class="bars">
+      <div class="line100 mv" style="animation-delay:1.05s"><span class="dis">100</span></div>
+      <div class="br"><span class="nm hi">सुनील</span><span class="tr"><i class="mv" style="width:90.43%;background:linear-gradient(90deg,#2B8C58,var(--good));animation-delay:1.25s"></i></span>
+        <span class="v dis mv" style="animation-delay:1.9s">104</span></div>
+      <div class="br"><span class="nm hi">राजू</span><span class="tr"><i class="mv" style="width:74.78%;background:linear-gradient(90deg,var(--maroonSoft),var(--maroon));animation-delay:1.5s"></i></span>
+        <span class="v dis mv" style="animation-delay:2.15s">86</span></div>
+      <div class="br"><span class="nm hi">मोहन</span><span class="tr"><i class="mv" style="width:62.61%;background:linear-gradient(90deg,var(--maroonSoft),var(--maroon));animation-delay:1.75s"></i></span>
+        <span class="v dis mv" style="animation-delay:2.4s">72</span></div>
+    </div>
+  </div>
+
+  <div class="card mv" style="animation-delay:4.4s;--r0:1.6deg;--r1:.5deg">
+    <div class="q hi"><span class="ic" style="background:linear-gradient(150deg,#2B8C58,#145A35)"><svg class="i"><use href="#i-cal"/></svg></span>कौन-से काम रोज़ हो रहे हैं</div>
+    <div class="it mv" style="animation-delay:4.6s"><span class="ck mv" style="animation-delay:4.75s"><svg class="i"><use href="#i-check"/></svg></span><span class="hi">आइलैंड की सफ़ाई</span></div>
+    <div class="it mv" style="animation-delay:4.8s"><span class="ck mv" style="animation-delay:4.95s"><svg class="i"><use href="#i-check"/></svg></span><span class="hi">स्टॉक बोर्ड अपडेट</span></div>
+    <div class="it mv" style="animation-delay:5.0s"><span class="ck mv" style="animation-delay:5.15s"><svg class="i"><use href="#i-check"/></svg></span><span class="hi">टॉयलेट की सफ़ाई</span></div>
+  </div>
+
+  <div class="card mv" style="animation-delay:5.45s;--r0:-1.4deg;--r1:-.4deg">
+    <div class="q hi"><span class="ic" style="background:linear-gradient(150deg,var(--amber),var(--amberDeep))"><svg class="i"><use href="#i-alert"/></svg></span>किस जगह सुधार की ज़रूरत</div>
+    <div class="fix"><span class="al mv" style="animation-delay:5.55s"><svg class="i"><use href="#i-alert"/></svg></span>
+      <span class="mk hi mv" style="animation-delay:5.55s">मोहन — समय पर हाज़िरी</span></div>
+  </div>
+  <div class="rail hi">रोज़ का स्टाफ़ असेसमेंट</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

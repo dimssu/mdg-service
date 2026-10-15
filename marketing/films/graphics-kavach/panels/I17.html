@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* the five daily watches tick down in order, then the chapter closes on
+   "आपके साथ है" under a gold rule */
+.hd{font-size:80px;color:var(--maroon);line-height:1.25;text-align:center}
+.list{width:940px;display:flex;flex-direction:column;gap:24px}
+.it{display:flex;align-items:center;gap:28px;background:#fff;border:2px solid #EFE4D2;border-radius:22px;
+  padding:32px 34px;box-shadow:0 10px 24px rgba(74,15,15,.10);position:relative}
+.it .no{width:76px;height:76px;border-radius:22px;flex:none;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep));color:#fff;font-size:40px;font-weight:700;
+  box-shadow:0 8px 16px rgba(74,15,15,.25)}
+.it .nm{font-size:60px;color:var(--ink);line-height:1.3;flex:1}
+.it .tk{width:72px;height:72px;border-radius:50%;background:var(--good);color:#fff;display:flex;align-items:center;justify-content:center;flex:none;
+  box-shadow:0 8px 16px rgba(30,122,74,.3)}
+.it .tk svg{width:42px;height:42px;stroke-width:3.2}
+.coda{display:flex;flex-direction:column;align-items:center;gap:26px;margin-top:10px}
+.coda .rule{width:260px;height:7px;border-radius:4px;transform-origin:50% 50%;
+  background:linear-gradient(90deg,rgba(244,201,121,0),#F4C979 25%,#E9A23B 75%,rgba(233,162,59,0))}
+.coda .t{font-size:64px;color:var(--maroon);line-height:1.3;text-align:center}
+@keyframes growC{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+@keyframes writeL{0%{clip-path:inset(-30% 100% -30% -4%)}100%{clip-path:inset(-30% -4% -30% -4%)}}
+.wl{animation-name:writeL;animation-timing-function:linear}
+</style>
+</head>
+<body>
+<!-- ══ I17 · five daily watches, with you · K221 "आप अपने पंप को चलाने पर ध्यान दीजिए। रोज़ के डेटा और कंप्लायंस की निगरानी में, हमारी अनुभवी टीम आपके साथ है।" (4 s) ══ -->
+<div class="panel" id="I17" data-plate="office" style="--T:5s">
+  <div class="glow anim a-glow" style="animation-delay:-.5s"></div>
+  <div class="hd hi anim a-fade" style="animation-delay:-.1s;animation-duration:2.5s">रोज़ की निगरानी</div>
+  <div class="list">
+    <div class="it anim a-stamp" style="animation-delay:.1s;animation-duration:3.2s"><span class="no dis">1</span><span class="nm hi">रीडिंग और डिप</span><span class="tk anim a-pop" style="animation-delay:.3s;animation-duration:2.5s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="it anim a-stamp" style="animation-delay:.4s;animation-duration:3.2s"><span class="no dis">2</span><span class="nm hi">डी-एस-आर</span><span class="tk anim a-pop" style="animation-delay:.6s;animation-duration:2.5s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="it anim a-stamp" style="animation-delay:.7s;animation-duration:3.2s"><span class="no dis">3</span><span class="nm hi">स्टॉक वेरिएशन</span><span class="tk anim a-pop" style="animation-delay:.9s;animation-duration:2.5s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="it anim a-stamp" style="animation-delay:1.0s;animation-duration:3.2s"><span class="no dis">4</span><span class="nm hi">अगला लोड</span><span class="tk anim a-pop" style="animation-delay:1.2s;animation-duration:2.5s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="it anim a-stamp" style="animation-delay:1.3s;animation-duration:3.2s"><span class="no dis">5</span><span class="nm hi">प्लस या माइनस</span><span class="tk anim a-pop" style="animation-delay:1.5s;animation-duration:2.5s"><svg class="i"><use href="#i-check"/></svg></span></div>
+  </div>
+  <div class="coda">
+    <div class="rule anim" style="animation-name:growC;animation-delay:1.45s;animation-duration:.45s"></div>
+    <div class="t hi anim wl" style="animation-delay:1.55s;animation-duration:.9s">हमारी अनुभवी टीम आपके साथ है</div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

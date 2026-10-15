@@ -1,0 +1,38 @@
+{
+  "explainer/E19": {
+    "says_the_line": 3,
+    "mismatch": "The shot is static and passive. It shows three men standing at night, but doesn't show any 'rule' being actively followed or enforced. It's just a picture of a night scene, not a picture of a rule being applied.",
+    "holds_attention": 2,
+    "fix_kind": "reshoot",
+    "fix": "A petrol pump employee at night, carefully checking the fuel density of a new tanker delivery using a hydrometer and a glass jar. The shot should be a medium close-up, focusing on the careful action.",
+    "ref": "flow:H1",
+    "hi": "और नियम रात को भी लागू रहते हैं।"
+  },
+  "explainer/E01": {
+    "says_the_line": 3,
+    "mismatch": "The picture shows a routine fuel delivery. It shows nothing about the pressure or preparation for an inspection, which is the second half of the line.",
+    "holds_attention": 2,
+    "fix_kind": "reshoot",
+    "fix": "A lone pump manager in his small office at night, looking tired but focused, surrounded by ledgers and paperwork. The glow of a desk lamp illuminates his face and the clock on the wall showing 2:00 AM.",
+    "ref": "flow:H1",
+    "hi": "रात के दो बजे भी पंप जागता है। और सुबह इंस्पेक्शन है।"
+  },
+  "teaser/T01": {
+    "says_the_line": 8,
+    "mismatch": "The scene is too static for an opening shot. The line says the pump is 'awake', but the men are standing still, observing. It shows the *reason* for being awake, but not the feeling of it.",
+    "holds_attention": 5,
+    "fix_kind": "reshoot",
+    "fix": "A low-angle, handheld shot moving with a worker as he wrestles the heavy tanker hose into place. We see the strain on his face under the harsh pump lights, and hear the clank of the metal nozzle as he connects it.",
+    "ref": "flow:H1",
+    "hi": "रात के दो बजे भी पंप जागता है।"
+  },
+  "explainer/E33": {
+    "says_the_line": 4,
+    "mismatch": "The line is about a 'kavach' (shield/armour) that ensures the pump remains his. The man in the shot looks passive, even worried, not shielded or secure. The visual shows a potential problem, not the solution.",
+    "holds_attention": 3,
+    "fix_kind": "reshoot",
+    "fix": "The pump owner, looking confident and relieved, shares a brief, warm smile with a loyal customer who is paying. The pump is busy and efficient in the background, showing a thriving business.",
+    "ref": "flow:H4",
+    "hi": "कवच यही है — कि आपका पंप आपका ही रहे।"
+  }
+}

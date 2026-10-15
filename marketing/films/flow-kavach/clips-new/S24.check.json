@@ -1,0 +1,22 @@
+{
+  "id": "S24",
+  "same_man": "same",
+  "face_notes": "Face is consistent with the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 2,
+      "what": "The motion is not fluid; it appears as a series of still frames with the man's head jumping position rather than moving smoothly."
+    }
+  ],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The motion is jerky and not fluid, looking more like a slideshow. The action also deviates from the brief: the man smiles instead of giving a single nod. Add 'smooth cinematic motion' to the prompt and reiterate the action: 'he looks up and gives a single, subtle nod, maintaining a neutral expression'."
+}

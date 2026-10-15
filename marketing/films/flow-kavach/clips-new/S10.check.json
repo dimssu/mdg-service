@@ -1,0 +1,27 @@
+{
+  "id": "S10",
+  "same_man": "same",
+  "face_notes": "The man's face, hair, and moustache are a very good match for the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 1,
+      "what": "The entire clip is an animated still image (cinemagraph), not a real video recording. This results in slightly artificial, repetitive motion throughout. The reflection in the window behind him is completely static."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 5,
+      "what": "Instead of a deliberate nod, the man's head has a very subtle, continuous, aimless drift, which is characteristic of an animated still."
+    }
+  ],
+  "matches_brief": true,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "keep",
+  "retake_hint": ""
+}

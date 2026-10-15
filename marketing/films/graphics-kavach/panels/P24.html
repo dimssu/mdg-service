@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* The steps arriving in his chat in the hard moment: a night-mode chat, the
+   first line lands, then the four steps fill the second bubble one by one.
+   No clock times on any bubble. */
+.phone{width:860px;height:1260px;border-radius:84px;padding:16px;margin-top:-60px}
+.screen{border-radius:70px}
+.ntop{background:#1F2C34;padding:34px 36px 28px;display:flex;align-items:center;gap:22px;border-bottom:1px solid #2A3942}
+.ntop .av{width:74px;height:74px;border-radius:50%;background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep));color:#fff;
+  font-size:34px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.ntop .nm{font-size:38px;color:#E9EDEF}
+.nbody{flex:1;padding:36px 30px 30px;display:flex;flex-direction:column;justify-content:flex-end;gap:22px;overflow:hidden;
+  background:#0B141A;background-image:radial-gradient(rgba(255,255,255,.035) 1.5px,transparent 1.5px);background-size:22px 22px}
+.nb{align-self:flex-start;max-width:94%;background:#202C33;color:#E9EDEF;border-radius:26px;border-top-left-radius:8px;
+  padding:24px 30px 26px;box-shadow:0 3px 8px rgba(0,0,0,.35)}
+.nb .who{font-size:28px;color:var(--amber);margin-bottom:8px}
+.nb .tx{font-size:46px;line-height:1.45}
+.slw{overflow:hidden}
+.sl{display:flex;gap:16px;font-size:43px;line-height:1.42;padding:12px 0}
+.slw + .slw .sl{border-top:1px solid rgba(233,237,239,.09)}
+@keyframes openLine{0%{max-height:0;opacity:0}22%{max-height:190px;opacity:1}100%{max-height:190px;opacity:1}}
+.a-openline{animation-name:openLine;animation-timing-function:cubic-bezier(.3,.7,.3,1)}
+.sl .n{flex:none;width:42px;color:var(--amber);font-weight:700}
+.bar{display:flex;align-items:center;gap:16px;padding:20px 22px;background:#0B141A}
+.bar .in{flex:1;height:76px;border-radius:40px;background:#202C33}
+.bar .mc{width:76px;height:76px;border-radius:50%;background:#00A884;display:flex;align-items:center;justify-content:center;color:#fff}
+.bar .mc svg{width:36px;height:36px}
+</style>
+</head>
+<body>
+<!-- ══ P24 · the steps sent in the hard moment · K715, last 5.51 s ("…हमारी टीम … तुरंत आपकी मदद करती है, और सही प्रक्रिया बताती है।") ══ -->
+<div class="panel ink" id="P24" data-plate="night" style="--T:6s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s;background:radial-gradient(circle,rgba(233,162,59,.22),rgba(233,162,59,0) 66%)"></div>
+  <div class="phone anim a-fade" style="animation-delay:-1s;animation-duration:3s">
+    <div class="screen">
+      <div class="ntop"><div class="av dis">M</div><div class="nm hi">MDG टीम · डीलर कवच</div></div>
+      <div class="nbody">
+        <div class="nb anim a-bub" style="animation-delay:.15s;animation-duration:4s">
+          <div class="who hi">MDG टीम</div><div class="tx hi">हम साथ हैं। अभी ये करें:</div></div>
+        <div class="nb anim a-bub" style="animation-delay:.95s;animation-duration:4s">
+          <div class="slw anim a-openline" style="animation-delay:1.0s;animation-duration:2s"><div class="sl"><span class="n dis">1.</span><span class="hi">सबकी सुरक्षा पहले</span></div></div>
+          <div class="slw anim a-openline" style="animation-delay:1.95s;animation-duration:2s"><div class="sl"><span class="n dis">2.</span><span class="hi">फ़ायर 101 / पुलिस 112 पर ख़बर</span></div></div>
+          <div class="slw anim a-openline" style="animation-delay:2.75s;animation-duration:2s"><div class="sl"><span class="n dis">3.</span><span class="hi">इंश्योरेंस कंपनी को सूचना — पॉलिसी की कॉपी फ़ाइल में है</span></div></div>
+          <div class="slw anim a-openline" style="animation-delay:3.55s;animation-duration:2s"><div class="sl"><span class="n dis">4.</span><span class="hi">फ़ोटो लेते रहें, कुछ न हटाएँ</span></div></div>
+        </div>
+      </div>
+      <div class="bar"><div class="in"></div><div class="mc"><svg class="i"><use href="#i-send"/></svg></div></div>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

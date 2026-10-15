@@ -1,0 +1,22 @@
+{
+  "id": "S49",
+  "same_man": "same",
+  "face_notes": "Man is seen from behind and in profile, but hair, build, and skin tone are consistent with the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 3,
+      "what": "Dealer and attendants salute each other, which was not in the brief."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "no",
+  "clean_from": 0,
+  "clean_to": 2,
+  "verdict": "retake",
+  "retake_hint": "The action is wrong. The brief called for a simple nod of inspection. The video shows a formal salute. The prompt should specify: 'the dealer gives a simple nod to the attendants, who nod back. Nobody salutes.'"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "S60",
+  "same_man": "same",
+  "face_notes": "The man is a very close match to the reference photo in terms of age, build, hair, and moustache.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 4,
+      "what": "A single sheet of paper handed to the dealer magically becomes a full folder in his hands by 00:05."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 2,
+      "what": "All three men perform a strange, synchronized gesture: the dealer covers his eyes, the older official salutes, and the younger official raises his folder to his face. This is unmotivated and not in the brief."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 1,
+  "verdict": "retake",
+  "retake_hint": "The motion is completely wrong. The prompt should explicitly forbid hand gestures in the first 3 seconds to prevent the strange saluting/face-covering. For example: 'motion: 0-3s: the men stand still with hands at their sides; the older official gives one small, formal nod; the dealer nods back, lips pressed together. Nobody raises a hand or salutes.'"
+}

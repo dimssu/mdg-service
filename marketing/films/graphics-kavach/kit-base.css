@@ -1,0 +1,232 @@
+/* Carried over verbatim from films/graphics/graphics.html so the Kavach film's
+   panels share one visual language with the earlier films. Only change: the
+   clock is a variable (--T) because some Kavach panels hold for ten seconds. */
+
+/* ═════════════════════════════════════════════════════════════════════════
+   The graphics that carry sixteen beats of the two films.
+
+   THE FIRST VERSION WAS A SLIDE DECK. Flat cream, everything centred, unicode
+   glyphs standing in for icons, and the only movement a uniform drift. It did
+   not hold a viewer for four seconds and it did not look like it belonged in
+   the same film as the footage.
+
+   WHAT CHANGED:
+   · EVERY PANEL SITS ON A DEFOCUSED FRAME FROM THE FILM ITSELF. Golden-hour
+     forecourt, a lit office at night, wet concrete under a canopy. Blurred far
+     past recognition and dimmed, so it reads as light and depth rather than as
+     a picture — but it is the film's own light, so a graphic no longer arrives
+     from a different world than the shot before it.
+   · REAL ICONS, drawn as paths, not characters borrowed from a font.
+   · NUMBERS ROLL. A figure that counts up is watched; a figure that is simply
+     printed is read once and abandoned.
+   · MOTION WITH A REASON. A list stamps itself off. A bar empties as a date
+     approaches. Messages arrive one after another. A lock shuts. Nothing just
+     drifts.
+   · DEPTH AND ASYMMETRY. Cards sit at angles, at different distances, with
+     light falling across them.
+
+   PALETTE is still the real report's — maroon, amber, cream. EVERY FIGURE IS
+   INVENTED; no real outlet's data appears anywhere.
+
+   All motion runs on one paused eight-second clock that the renderer seeks
+   frame by frame, so the result is exact and repeatable.
+   ═════════════════════════════════════════════════════════════════════════ */
+:root{
+  --maroon:#6B1616; --maroonDeep:#4E0F0F; --maroonSoft:#8A2B2B;
+  --amber:#E9A23B; --amberSoft:#F6DCA8; --amberDeep:#C77C1B;
+  --cream:#FDF7EE; --creamSunk:#F6ECDD;
+  --ink:#2A1A16; --inkMuted:#8A7466;
+  --bad:#C0392B; --badBg:#FBEAE7;
+  --good:#1E7A4A; --goodBg:#E8F5EE;
+  --wa:#075E54; --waBg:#ECE5DD;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0A0806}
+.hi{font-family:'Tiro Devanagari Hindi','Kohinoor Devanagari',serif;letter-spacing:0!important}
+.dis{font-family:'Space Grotesk','Inter',sans-serif}
+
+.panel{width:1080px;height:1920px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:52px;
+  background-size:cover;background-position:center}
+/* The scrim was inside out in the first cut: it was densest in the middle and
+   thinnest at the edges, so the only place the plate showed was the corners and
+   every panel had a brown smudge round a flat cream centre. It is now an EVEN
+   wash — the plate reads at the same strength everywhere — with a pool of light
+   lifting the middle and a vignette closing the corners. */
+.panel::before{content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(128% 92% at 50% 50%, rgba(58,26,16,0) 38%, rgba(48,20,12,.60) 100%),
+    radial-gradient(66% 46% at 50% 41%, rgba(255,252,247,.52) 0%, rgba(255,252,247,0) 72%),
+    linear-gradient(rgba(253,247,238,.885), rgba(249,238,223,.90))}
+.panel::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(107,22,22,.13) 1px,transparent 1px);background-size:6px 6px}
+.panel > *{position:relative;z-index:3}
+.panel.ink::before{background:
+    radial-gradient(126% 90% at 50% 50%, rgba(8,3,2,0) 34%, rgba(8,3,2,.80) 100%),
+    radial-gradient(64% 44% at 50% 40%, rgba(168,52,36,.42) 0%, rgba(168,52,36,0) 70%),
+    linear-gradient(rgba(74,14,14,.855), rgba(36,7,6,.90))}
+.panel.ink{color:#fff}
+
+.eyebrow{font-size:30px;color:var(--amberDeep);letter-spacing:.06em;text-transform:uppercase}
+.panel.ink .eyebrow{color:var(--amber)}
+.cap{font-size:54px;color:var(--maroon);text-align:center;max-width:860px;line-height:1.42}
+.cap b{color:var(--maroonDeep)}
+.panel.ink .cap{color:#FFF3E2}
+.sub{font-size:33px;color:var(--inkMuted);text-align:center;line-height:1.5}
+.panel.ink .sub{color:#E7CFAE}
+.rail{position:absolute;bottom:62px;left:0;right:0;text-align:center;font-size:26px;
+  color:rgba(60,32,20,.60);z-index:4}
+.panel.ink .rail{color:rgba(246,220,168,.62)}
+
+/* ── a phone that reads as an object, not a rounded rectangle ───────────── */
+.phone{width:716px;height:1180px;background:linear-gradient(150deg,#2A2523,#0B0A09 60%);
+  border-radius:76px;padding:15px;
+  box-shadow:0 60px 120px rgba(40,10,6,.55), 0 10px 30px rgba(40,10,6,.35),
+             0 0 0 3px rgba(255,255,255,.16), inset 0 0 0 1px rgba(255,255,255,.06)}
+.screen{width:100%;height:100%;border-radius:63px;overflow:hidden;display:flex;
+  flex-direction:column;position:relative}
+/* one soft diagonal glare so the glass is glass */
+.screen::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:9;
+  background:linear-gradient(118deg,rgba(255,255,255,.17) 0%,rgba(255,255,255,0) 34%)}
+
+.app-top{background:#fff;padding:27px 30px;display:flex;align-items:center;gap:15px;
+  border-bottom:1px solid #EDE7E0}
+.app-top .logo{width:50px;height:50px;border-radius:14px;
+  background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep));color:#fff;
+  font-size:23px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.app-top .nm{font-size:29px;font-weight:700;color:#16120F}
+.app-top .on{margin-left:auto;font-size:22px;color:var(--good);font-weight:600}
+.app-body{flex:1;background:var(--cream);padding:30px 26px;display:flex;
+  flex-direction:column;gap:22px;overflow:hidden}
+
+.wa-top{background:var(--wa);padding:27px 30px;display:flex;align-items:center;gap:16px}
+.wa-top .av{width:56px;height:56px;border-radius:50%;background:#fff;color:var(--maroon);
+  font-size:23px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.wa-top .nm{font-size:28px;font-weight:600;color:#fff}
+.wa-top .st{font-size:20px;color:#BFE3DD}
+.wa-body{flex:1;background:var(--waBg);padding:26px 22px;display:flex;
+  flex-direction:column;gap:18px;overflow:hidden}
+.wa-line{font-size:22px;color:#5C5248;align-self:center;background:#FCF6DC;
+  padding:8px 20px;border-radius:10px}
+.bub{border-radius:18px;padding:18px 22px;font-size:26px;line-height:1.45;max-width:78%;
+  box-shadow:0 2px 6px rgba(0,0,0,.14)}
+.bub.them{align-self:flex-start;background:#fff;color:var(--ink);border-top-left-radius:6px}
+.bub.me{align-self:flex-end;background:#D9FDD3;color:var(--ink);border-top-right-radius:6px}
+.bub .tm{font-size:17px;color:#9C9184;text-align:right;margin-top:6px}
+
+.card{border-radius:14px;overflow:hidden;border:2px solid var(--amberSoft);background:var(--cream);
+  box-shadow:0 10px 26px rgba(74,15,15,.14)}
+.card-top{background:linear-gradient(120deg,var(--maroonSoft),var(--maroon) 62%);
+  padding:19px 21px;display:flex;align-items:center;gap:14px;border-bottom:4px solid var(--amber)}
+.card-top .tile{background:#fff;color:var(--maroon);font-size:18px;font-weight:700;
+  padding:7px 11px;border-radius:8px}
+.card-top .ti{color:#fff;font-size:27px;font-weight:700}
+.card-top .dt{margin-left:auto;color:var(--amberSoft);font-size:20px}
+.card-mid{padding:27px 23px;display:flex;flex-direction:column;gap:21px}
+.foot{background:var(--maroonDeep);color:var(--amberSoft);font-size:20px;padding:14px 20px;text-align:center}
+
+.flag{align-self:flex-start;padding:10px 20px;border-radius:999px;font-size:24px;font-weight:600;
+  display:flex;align-items:center;gap:10px}
+.flag.bad{background:var(--badBg);color:var(--bad)}
+.flag.good{background:var(--goodBg);color:var(--good)}
+.hero{text-align:center;padding:4px 0}
+.hero .n{font-size:112px;font-weight:700;color:var(--maroon);line-height:.98;letter-spacing:-2px}
+.hero .n.badn{color:var(--bad)}
+.hero .u{font-size:27px;color:var(--inkMuted);margin-top:12px}
+.todo{border:2px dashed var(--amber);border-radius:12px;background:#fff;padding:21px 23px}
+.todo .k{font-size:21px;color:var(--amberDeep);font-weight:700;margin-bottom:9px}
+.todo .v{font-size:28px;color:var(--ink);line-height:1.45}
+
+.row{display:flex;align-items:center;gap:17px;background:#fff;border:2px solid #EFE4D2;
+  border-radius:13px;padding:18px 21px;box-shadow:0 4px 12px rgba(74,15,15,.07)}
+.row .ic{width:44px;height:44px;border-radius:50%;flex:none;display:flex;align-items:center;
+  justify-content:center;color:#fff}
+.row .ic.ok{background:var(--good)} .row .ic.due{background:var(--amber)} .row .ic.late{background:var(--bad)}
+.row .nm{font-size:28px;color:var(--ink);flex:1}
+.row .st{font-size:23px;font-weight:600}
+.row .st.ok{color:var(--good)} .row .st.due{color:var(--amberDeep)} .row .st.late{color:var(--bad)}
+.row .bar{height:7px;border-radius:99px;background:#EFE4D2;overflow:hidden;flex:none;width:118px}
+.row .bar i{display:block;height:100%;border-radius:99px}
+
+svg.i{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.4;
+  stroke-linecap:round;stroke-linejoin:round}
+svg.i.lg{width:88px;height:88px;stroke-width:1.85}
+svg.i.xl{width:110px;height:110px;stroke-width:1.7}
+
+/* ── an odometer: a figure that counts is watched, one that is printed is not ── */
+.odo{display:inline-flex;overflow:hidden;height:1em;line-height:1;vertical-align:baseline}
+.odo .col{display:flex;flex-direction:column;
+  animation:roll var(--T,8s) cubic-bezier(.13,.86,.2,1) both;animation-play-state:paused}
+.odo .col span{height:1em;line-height:1;display:block}
+.odo .fix{height:1em;line-height:1}
+@keyframes roll{0%{transform:translateY(0)}
+  30%,100%{transform:translateY(calc(var(--d) * -1em - 10em))}}
+
+/* ── device tiles with real depth ───────────────────────────────────────── */
+.tiles{display:flex;gap:26px;align-items:flex-end;justify-content:center}
+.tile3{width:322px;background:linear-gradient(170deg,#fff,#FBF3E7);
+  border:1px solid rgba(201,160,100,.55);border-radius:34px;padding:64px 28px 54px;
+  text-align:center;box-shadow:0 34px 70px rgba(58,16,10,.30), 0 4px 10px rgba(58,16,10,.16)}
+.tile3 .g{width:152px;height:152px;margin:0 auto 32px;border-radius:44px;display:flex;
+  align-items:center;justify-content:center;color:#fff;
+  box-shadow:inset 0 -6px 14px rgba(0,0,0,.20), 0 12px 24px rgba(58,16,10,.26)}
+.tile3 .t{font-size:50px;color:var(--maroon);font-weight:700}
+.tile3 .s{font-size:29px;color:var(--inkMuted);margin-top:14px;line-height:1.38}
+
+.counts{display:flex;gap:96px;justify-content:center;align-items:flex-end}
+.counts .n{font-size:132px;font-weight:700;color:var(--maroon);line-height:.94;letter-spacing:-3px}
+.counts .l{font-size:29px;color:var(--inkMuted);margin-top:10px;text-align:center}
+.dots{display:grid;grid-template-columns:repeat(14,1fr);gap:15px;width:800px}
+.dots i{width:100%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%, var(--maroonSoft), var(--maroonDeep));display:block}
+
+/* ── the timeline ───────────────────────────────────────────────────────── */
+.anim{animation-duration:var(--T,8s);animation-fill-mode:both;animation-play-state:paused;
+  animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+@keyframes riseIn{0%{opacity:0;transform:translateY(110px) scale(.95)}20%,100%{opacity:1;transform:none}}
+@keyframes fadeIn{0%{opacity:0}15%,100%{opacity:1}}
+@keyframes popIn{0%{opacity:0;transform:scale(.7) translateY(40px)}
+  13%{opacity:1;transform:scale(1.05) translateY(0)}21%,100%{transform:scale(1);opacity:1}}
+@keyframes stampIn{0%{opacity:0;transform:translateX(-90px) rotate(-3deg)}
+  14%{opacity:1;transform:translateX(6px) rotate(.4deg)}20%,100%{transform:none;opacity:1}}
+@keyframes dropIn{0%{opacity:0;transform:translateY(-120px)}
+  16%{opacity:1;transform:translateY(8px)}22%,100%{transform:none;opacity:1}}
+@keyframes bubbleIn{0%{opacity:0;transform:translateY(38px) scale(.94)}
+  9%,100%{opacity:1;transform:none}}
+@keyframes scrollUp{0%{transform:translateY(0)}100%{transform:translateY(var(--travel,-560px))}}
+@keyframes pulseBad{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,0)}
+  38%{box-shadow:0 0 0 18px rgba(192,57,43,.22)}64%{box-shadow:0 0 0 30px rgba(192,57,43,0)}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+@keyframes lockShut{0%{opacity:0;transform:translateY(-110px) rotate(-8deg)}
+  26%{opacity:1;transform:translateY(10px) rotate(2deg)}
+  34%{transform:translateY(-6px) rotate(-1deg)}42%,100%{transform:none;opacity:1}}
+@keyframes sweep{0%,18%{transform:translateX(-140%) skewX(-18deg);opacity:0}
+  26%{opacity:.85}46%,100%{transform:translateX(240%) skewX(-18deg);opacity:0}}
+@keyframes drain{0%{width:var(--w0,100%)}100%{width:var(--w1,12%)}}
+@keyframes ringFill{0%{stroke-dashoffset:339}64%,100%{stroke-dashoffset:var(--off,40)}}
+@keyframes slideAway{0%,26%{opacity:1;transform:none}
+  52%,100%{opacity:0;transform:translateX(var(--ax,-280px)) rotate(var(--ar,-14deg))}}
+@keyframes settleIn{0%{opacity:0;transform:translateY(70px) rotate(var(--r0,4deg)) scale(.94)}
+  22%,100%{opacity:1;transform:rotate(var(--r1,0deg))}}
+@keyframes glowPulse{0%,100%{opacity:.34;transform:scale(1)}50%{opacity:.62;transform:scale(1.14)}}
+@keyframes surviveRise{0%{opacity:0;transform:translateY(80px) scale(.94)}
+  18%{opacity:1;transform:translateY(0) scale(1)}
+  34%{transform:translateY(0)}58%,100%{transform:translateY(-96px)}}
+@keyframes scatterIn{0%{opacity:0;transform:translate(var(--sx,0),var(--sy,-90px)) scale(.4)}
+  100%{opacity:1;transform:none}}
+
+.a-rise{animation-name:riseIn} .a-fade{animation-name:fadeIn} .a-pop{animation-name:popIn}
+.a-stamp{animation-name:stampIn} .a-drop{animation-name:dropIn} .a-bub{animation-name:bubbleIn}
+.a-scroll{animation-name:scrollUp;animation-timing-function:linear}
+.a-pulse{animation-name:pulseBad;animation-iteration-count:3;animation-timing-function:ease-out}
+.a-breathe{animation-name:breathe;animation-iteration-count:4;animation-timing-function:ease-in-out}
+.a-lock{animation-name:lockShut} .a-sweep{animation-name:sweep;animation-timing-function:ease-in-out}
+.a-drain{animation-name:drain;animation-timing-function:cubic-bezier(.3,.8,.4,1)}
+.a-away{animation-name:slideAway} .a-settle{animation-name:settleIn}
+.a-glow{animation-name:glowPulse;animation-iteration-count:3;animation-timing-function:ease-in-out}
+.a-scatter{animation-name:scatterIn;animation-timing-function:cubic-bezier(.2,1.05,.3,1)}
+
+/* a warm pool of light behind the focal object */
+.glow{position:absolute;left:50%;top:50%;width:900px;height:900px;transform:translate(-50%,-50%);
+  border-radius:50%;background:radial-gradient(circle,rgba(233,162,59,.42),rgba(233,162,59,0) 66%);
+  z-index:1;pointer-events:none}

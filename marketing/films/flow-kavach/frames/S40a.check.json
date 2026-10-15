@@ -1,0 +1,21 @@
+{
+  "id": "S40",
+  "same_man": "not_in_shot",
+  "face_notes": "The hero is not in this shot. The two people shown fit the brief's description of an experienced man and a young woman.",
+  "outfit_matches": false,
+  "text_visible": [
+    "HP logo on laptop"
+  ],
+  "marks_or_livery": [
+    "HP logo on laptop"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The shot is good but has a clear 'HP' brand logo on the laptop. This violates the 'no logos' rule. Please regenerate with a generic, unbranded laptop."
+}

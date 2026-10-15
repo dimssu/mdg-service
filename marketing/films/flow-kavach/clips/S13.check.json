@@ -1,0 +1,29 @@
+{
+  "id": "S13",
+  "same_man": "not_in_shot",
+  "face_notes": "The woman in the shot is not the character from the reference photo.",
+  "outfit_matches": false,
+  "text_visible": [
+    "Faint text 'Veo' in bottom right corner"
+  ],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 1,
+      "what": "Woman's right thumb slides and morphs continuously on the phone screen instead of performing a single, clean tap."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 7,
+      "what": "Woman mouths words."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The motion is unnatural and does not match the brief. The woman's thumb should perform a single, clean tap, not slide and morph. Her mouth must remain closed throughout; she mouths words near the end of the shot."
+}

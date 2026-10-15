@@ -1,0 +1,24 @@
+{
+  "id": "S32",
+  "same_man": "same",
+  "face_notes": "The man is a perfect match for the reference image.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [
+    "A small, partially visible red and blue circular logo (looks like the Indian Oil logo) is visible on the fuel dispenser on the far left throughout the shot."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 4,
+      "what": "Man starts walking towards the camera, which violates the brief's instruction to keep feet planted."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 3,
+  "verdict": "retake",
+  "retake_hint": "The action is wrong. The man must not walk; he must remain standing in one spot for the entire shot, only turning his head and nodding slightly as per the brief. The camera should perform a very slow push-in, not be static. Also, there is a visible brand logo on the fuel dispenser which must be removed."
+}

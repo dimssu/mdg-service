@@ -1,0 +1,19 @@
+{
+  "id": "S11",
+  "same_man": "not_in_shot",
+  "face_notes": "Hero is not in this shot.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Apple logo on laptop"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The image is good but has a clear Apple logo on the laptop. Modify the prompt to specify 'a generic, unbranded laptop' or 'a laptop with no visible logo'."
+}

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  @keyframes medal{0%{opacity:0;transform:scale(.6) rotate(-12deg)}65%{opacity:1;transform:scale(1.06) rotate(2deg)}100%{opacity:1;transform:none}}
+  @keyframes ring{0%{stroke-dashoffset:339}100%{stroke-dashoffset:0}}
+  @keyframes fade{0%{opacity:0}100%{opacity:1}}
+  @keyframes riseSettle{0%{opacity:0;transform:translateY(90px)}70%{opacity:1;transform:translateY(-8px)}100%{opacity:1;transform:none}}
+  @keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+  @keyframes wr{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(-10% -4% -10% 0)}}
+  @keyframes push{0%{transform:scale(1)}100%{transform:scale(1.035)}}
+  @keyframes halo{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.08)}}
+
+  #I70 .halo{position:absolute;left:50%;top:40%;width:1100px;height:1100px;margin:-550px 0 0 -550px;border-radius:50%;
+    background:radial-gradient(circle,rgba(233,162,59,.34),rgba(233,162,59,0) 64%);z-index:1;animation-name:halo;animation-duration:5s;animation-timing-function:ease-in-out}
+  #I70 .stage{display:flex;flex-direction:column;align-items:center;gap:70px;animation-name:push;animation-duration:5s;animation-timing-function:linear}
+  #I70 .md{position:relative;width:300px;height:300px;animation-name:medal;animation-duration:.7s}
+  #I70 .md svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+  #I70 .md svg circle.r{fill:none;stroke:var(--amber);stroke-width:5;stroke-linecap:round;stroke-dasharray:339;animation-name:ring;animation-duration:1.1s}
+  #I70 .md .m{position:absolute;inset:36px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#F7CD78,var(--amber) 50%,var(--amberDeep));display:flex;
+    align-items:center;justify-content:center;font-size:120px;font-weight:700;color:var(--maroonDeep);box-shadow:0 22px 44px rgba(0,0,0,.45),inset 0 -6px 14px rgba(0,0,0,.18),inset 0 0 0 5px rgba(255,255,255,.35)}
+  #I70 .chap .no{font-size:46px;animation-name:fade;animation-duration:.5s}
+  #I70 .chap .nm{font-size:150px;line-height:1.2;margin-top:14px;animation-name:riseSettle;animation-duration:.8s}
+  #I70 .chap .rule{width:280px;height:6px;margin-top:36px;animation-name:growX;animation-duration:.5s}
+  #I70 .line{font-size:52px;color:#FFF3E2;text-align:center;line-height:1.4;animation-name:wr;animation-duration:.7s;animation-timing-function:linear}
+</style>
+</head>
+<body>
+<!-- ══ I70 · chapter 9: join · K901 (held 4.25 s) ═════════════════════════════════ -->
+<div class="panel ink" id="I70" data-plate="dusk" style="--T:5s">
+  <div class="halo mv"></div>
+  <div class="stage mv">
+    <div class="md mv" style="animation-delay:0s">
+      <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="5"/>
+        <circle class="r mv" cx="60" cy="60" r="54" style="animation-delay:.1s"/></svg>
+      <div class="m dis">M</div>
+    </div>
+    <div class="chap">
+      <div class="no hi mv" style="animation-delay:.1s">अध्याय 9</div>
+      <div class="nm hi mv" style="animation-delay:.5s">जुड़िए</div>
+      <div class="rule mv" style="animation-delay:1.05s"></div>
+    </div>
+    <div class="line hi mv" style="animation-delay:1.5s">एम-डी-जी सर्विसेज़ का<br/>मक़सद साफ़ है</div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

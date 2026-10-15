@@ -1,0 +1,31 @@
+{
+  "id": "S61",
+  "same_man": "same",
+  "face_notes": "Indian man, about 50, with greying black hair and a thick moustache. Matches the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 5,
+      "what": "The dealer's hand moves to his face in an unnaturally slow and floaty way, and seems to melt or merge with his forehead as he wipes it."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 2,
+      "what": "Instead of nodding, the dealer makes a slow, vague gesture with his right hand over the book."
+    },
+    {
+      "t": 4,
+      "what": "The dealer's gesture of wiping his brow is extremely slow and sustained, not a quick, natural action as briefed."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 1,
+  "verdict": "retake",
+  "retake_hint": "This is an animated still image ('live photo') with unnatural, slow motion and a camera push-in. The brief requires a real, locked-off video shot with natural human gestures. Regenerate as a proper video clip."
+}

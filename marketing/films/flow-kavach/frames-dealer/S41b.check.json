@@ -1,0 +1,22 @@
+{
+  "id": "S41",
+  "same_man": "same",
+  "face_notes": "The man's face is a very good match for the reference photo in terms of age, hair, moustache and facial structure.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 0,
+      "what": "The man's left hand resting on his lap is malformed, with the fingers appearing slightly fused."
+    }
+  ],
+  "random_motion": [],
+  "matches_brief": true,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The shot is excellent but for one detail: the man's left hand is malformed. Please regenerate to fix the hand."
+}

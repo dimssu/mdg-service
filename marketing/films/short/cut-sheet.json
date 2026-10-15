@@ -1,0 +1,447 @@
+{
+ "note": "The short's cut sheet, timed to the RECORDED voice (voice-kavach-short, pauses tightened 4 Oct). Film time in seconds. Every line slot = its mp3 + 0.35 s breath; the last line gets +2.0 s end hold (films/cut.mjs). Total 38.64 s. Source of the creative decisions: films/short/plan.json (10-agent creative workflow). Shots name a source and a window in that source's own seconds; 'still' = hold one frame with a slow push-in; 'frame' = a crop in the clip's own pixels (w:h:x:y). Revised 4 Oct after the skeptic review: N1 0.2-3.75; S57 0.25-1.15; I76 held at 2.05; stats card dropped; S70 at 1x; QC4 replaces I95a; O2 dropped; O8 cream and longer.",
+ "total": 38.64,
+ "lines": [
+  {
+   "id": "Q01",
+   "t": 0,
+   "slot": 4,
+   "words": {
+    "मैनेजर छुट्टी पर।": [
+     0,
+     1.13
+    ],
+    "उसी दिन": [
+     1.8,
+     2.43
+    ],
+    "इंस्पेक्शन": [
+     2.85,
+     3.46
+    ]
+   }
+  },
+  {
+   "id": "Q02",
+   "t": 4,
+   "slot": 5.48,
+   "words": {
+    "कमाई घट रही है।": [
+     4,
+     4.99
+    ],
+    "ख़र्च,": [
+     5.51,
+     6.34
+    ],
+    "नियम, ऑनलाइन काम": [
+     6.64,
+     7.5
+    ],
+    "सब बढ़ रहा है।": [
+     7.92,
+     8.94
+    ]
+   }
+  },
+  {
+   "id": "Q03",
+   "t": 9.48,
+   "slot": 3.27,
+   "words": {
+    "आप चौबीस घंटे पंप पर नहीं रह सकते।": [
+     9.48,
+     11.71
+    ]
+   },
+   "silence_after": [
+    11.71,
+    12.75
+   ]
+  },
+  {
+   "id": "Q04",
+   "t": 12.75,
+   "slot": 2.06,
+   "words": {
+    "पर आपकी परछाई रह सकती है।": [
+     12.75,
+     14.27
+    ]
+   }
+  },
+  {
+   "id": "Q05",
+   "t": 14.81,
+   "slot": 2.13,
+   "words": {
+    "यही है एम-डी-जी सर्विसेज़।": [
+     14.81,
+     16.4
+    ]
+   }
+  },
+  {
+   "id": "Q06",
+   "t": 16.94,
+   "slot": 4.4,
+   "words": {
+    "डी-एस-आर, स्टॉक,": [
+     16.94,
+     18.33
+    ],
+    "कंप्लायंस स्कोर": [
+     18.66,
+     19.62
+    ],
+    "रोज़ तैयार": [
+     20.04,
+     20.8
+    ]
+   }
+  },
+  {
+   "id": "Q07",
+   "t": 21.34,
+   "slot": 3.67,
+   "words": {
+    "तीन हज़ार रुपये महीना,": [
+     21.34,
+     22.89
+    ],
+    "उस पर जी-एस-टी।": [
+     23.31,
+     24.47
+    ]
+   }
+  },
+  {
+   "id": "Q08",
+   "t": 25.01,
+   "slot": 2.19,
+   "words": {
+    "प्रीमियम सेवाएँ": [
+     25.01,
+     25.99
+    ],
+    "अलग से": [
+     26.26,
+     26.66
+    ]
+   }
+  },
+  {
+   "id": "Q09",
+   "t": 27.21,
+   "slot": 6.8,
+   "words": {
+    "और": [
+     27.21,
+     27.5
+    ],
+    "छठी सेवा?": [
+     27.87,
+     28.54
+    ],
+    "जब लोड के लिए": [
+     29.31,
+     30.99
+    ],
+    "एक से तीन लाख": [
+     31.21,
+     32.04
+    ],
+    "कम पड़ जाएँ…": [
+     32.27,
+     33.12
+    ]
+   }
+  },
+  {
+   "id": "Q10",
+   "t": 34.01,
+   "slot": 4.63,
+   "words": {
+    "जवाब": [
+     34.01,
+     34.57
+    ],
+    "पूरी फ़िल्म में।": [
+     35.24,
+     35.95
+    ]
+   }
+  }
+ ],
+ "shots": [
+  {
+   "t0": 0,
+   "t1": 4,
+   "line": "Q01",
+   "src": "clip:N1-inspection-door 0.2-3.75",
+   "why": "skeptic: his face changes and lips part from source 3.80; plays at 0.89x"
+  },
+  {
+   "t0": 4,
+   "t1": 5.45,
+   "line": "Q02",
+   "src": "kgfx:I79a still final push 1.06"
+  },
+  {
+   "t0": 5.45,
+   "t1": 6.58,
+   "line": "Q02",
+   "src": "kflow:S57 0.25-1.15, frame 630:1120:45:0",
+   "why": "skeptic: he looks down at the envelopes 0.4-1.15; from 1.4 he pushes up and then stares into the lens"
+  },
+  {
+   "t0": 6.58,
+   "t1": 7.88,
+   "line": "Q02",
+   "src": "kflow:S63 0.3-1.6, frame 630:1120:90:0"
+  },
+  {
+   "t0": 7.88,
+   "t1": 9.48,
+   "line": "Q02",
+   "src": "kflow:S59 3.4-4.63, frame 630:1120:36:0"
+  },
+  {
+   "t0": 9.48,
+   "t1": 10.7,
+   "line": "Q03",
+   "src": "kflow:S66 5.8-7.02, frame 610:1085:55:0"
+  },
+  {
+   "t0": 10.7,
+   "t1": 11.8,
+   "line": "Q03",
+   "src": "kflow:S67 0.6-1.7, frame 630:1120:45:0"
+  },
+  {
+   "t0": 11.8,
+   "t1": 12.75,
+   "line": "Q03",
+   "src": "kflow:S05 0.5-1.45, frame 506:900:107:0"
+  },
+  {
+   "t0": 12.75,
+   "t1": 13.55,
+   "line": "Q04",
+   "src": "kflow:S05 1.45-2.25, frame 506:900:107:0"
+  },
+  {
+   "t0": 13.55,
+   "t1": 14.81,
+   "line": "Q04",
+   "src": "kflow:S04 0-1.26, frame 630:1120:45:0"
+  },
+  {
+   "t0": 14.81,
+   "t1": 16.94,
+   "line": "Q05",
+   "src": "kgfx:I76 still 2.05 push 1.04",
+   "why": "skeptic: its tagline wipes in with half letters; hold the finished frame"
+  },
+  {
+   "t0": 16.94,
+   "t1": 18.6,
+   "line": "Q06",
+   "src": "kgfx:QC2"
+  },
+  {
+   "t0": 18.6,
+   "t1": 21.34,
+   "line": "Q06",
+   "src": "kgfx:QC3",
+   "why": "skeptic: the stats card (12 words in 1.34 s, none spoken) dropped; the compliance card holds"
+  },
+  {
+   "t0": 21.34,
+   "t1": 25.01,
+   "line": "Q07",
+   "src": "kgfx:I49 3.7-7.37"
+  },
+  {
+   "t0": 25.01,
+   "t1": 27.21,
+   "line": "Q08",
+   "src": "kgfx:QC1 0-2.2"
+  },
+  {
+   "t0": 27.21,
+   "t1": 28.6,
+   "line": "Q09",
+   "src": "kgfx:QC1 2.2-3.59"
+  },
+  {
+   "t0": 28.6,
+   "t1": 30.15,
+   "line": "Q09",
+   "src": "kflow:S70 0.45-2, frame 639:1136:40:0",
+   "why": "skeptic: at 1.3x it stuttered and his face thinned on the turn; now 1x, after the lens look at 0.25-0.40"
+  },
+  {
+   "t0": 30.15,
+   "t1": 32.4,
+   "line": "Q09",
+   "src": "kgfx:QC4",
+   "why": "I95a top band enlarged: its figures were 12 px tall at phone width"
+  },
+  {
+   "t0": 32.4,
+   "t1": 34.01,
+   "line": "Q09",
+   "src": "kflow:S70 still 3.15 push 1.1, frame 639:1136:40:0"
+  },
+  {
+   "t0": 34.01,
+   "t1": 38.64,
+   "line": "Q10",
+   "src": "kgfx:QE1"
+  }
+ ],
+ "overlays": [
+  {
+   "id": "O1",
+   "t0": 0,
+   "t1": 4,
+   "text": [
+    "मान लीजिए —",
+    "मैनेजर छुट्टी पर।",
+    "उसी दिन — इंस्पेक्शन!"
+   ],
+   "style": "line 1 small gold; lines 2-3 big cream with dark shadow; upper third; all in from frame 0 (it is the thumbnail)"
+  },
+  {
+   "id": "O3",
+   "t0": 5.45,
+   "t1": 6.58,
+   "text": [
+    "स्टाफ़ का ख़र्च"
+   ],
+   "style": "big, upper third"
+  },
+  {
+   "id": "O4",
+   "t0": 6.58,
+   "t1": 7.88,
+   "text": [
+    "नियम · ऑनलाइन काम"
+   ],
+   "style": "big, upper third"
+  },
+  {
+   "id": "O5",
+   "t0": 7.88,
+   "t1": 9.48,
+   "text": [
+    "सब बढ़ रहा है।"
+   ],
+   "style": "big, upper third"
+  },
+  {
+   "id": "O6",
+   "t0": 9.48,
+   "t1": 10.7,
+   "text": [
+    "24 घंटे पंप पर?"
+   ],
+   "style": "big, upper third"
+  },
+  {
+   "id": "O7",
+   "t0": 10.7,
+   "t1": 11.8,
+   "text": [
+    "आप नहीं रह सकते।"
+   ],
+   "style": "big, upper third"
+  },
+  {
+   "id": "O8",
+   "t0": 12.9,
+   "t1": 13.55,
+   "text": [
+    "आपकी परछाई"
+   ],
+   "style": "big cream (gold on sunlit sand was 2.6:1), upper third, on \"परछाई\" (spoken 13.29-13.70)"
+  },
+  {
+   "id": "O9",
+   "t0": 13.55,
+   "t1": 14.81,
+   "text": [
+    "हर पल, पंप पर नज़र"
+   ],
+   "style": "big, upper third"
+  },
+  {
+   "id": "O10",
+   "t0": 28.75,
+   "t1": 30.15,
+   "text": [
+    "जब लोड के लिए…"
+   ],
+   "style": "big, upper third"
+  },
+  {
+   "id": "O11",
+   "t0": 32.85,
+   "t1": 34.01,
+   "text": [
+    "तब क्या?"
+   ],
+   "style": "big gold, upper third, on 'जाएँ'"
+  }
+ ],
+ "sound": {
+  "bed": "one generated bed, ~85 BPM, Indian instruments, no vocals, ducked ~12 dB under the voice. 0-11.80 tense and sparse (low tanpura drone, minor key, heartbeat low drum, a clock tick once a second that speeds up from 9.48); 11.80-12.75 total silence; 12.75-16.94 warm turn to major (santoor or plucked strings over a soft pad), brand hit at 14.81; 16.94-25.01 confident hand percussion; 25.01-28.60 pulse thins; 28.60-34.01 drums out, one held low string, slow tick, short riser cut hard at 34.01; 34.01-38.64 one sting (low drum + bell shimmer) decaying, silent by 38.6",
+  "sfx": [
+   {
+    "t": 0,
+    "what": "low sub-hit"
+   },
+   {
+    "t": 4,
+    "what": "whoosh"
+   },
+   {
+    "t": 5.45,
+    "what": "whoosh"
+   },
+   {
+    "t": 6.58,
+    "what": "whoosh"
+   },
+   {
+    "t": 7.76,
+    "what": "paper thump"
+   },
+   {
+    "t": 14.81,
+    "what": "deep brand hit"
+   },
+   {
+    "t": 16.94,
+    "what": "UI tick"
+   },
+   {
+    "t": 18.6,
+    "what": "UI tick"
+   },
+   {
+    "t": 22.3,
+    "what": "stamp (on the GST tag landing)"
+   },
+   {
+    "t": 27.79,
+    "what": "soft pop (the '?' on 'छठी')"
+   },
+   {
+    "t": 34,
+    "what": "sting: low drum + bell shimmer"
+   }
+  ]
+ }
+}

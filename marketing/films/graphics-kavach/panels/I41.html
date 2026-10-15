@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+#I41 .top{position:absolute;left:60px;right:60px;top:200px;height:230px}
+#I41 .rwrap{position:absolute;left:0;right:0;top:40px;display:flex;justify-content:center}
+#I41 .risk{display:flex;align-items:center;gap:18px;white-space:nowrap;
+  background:var(--badBg);color:var(--bad);border:3px solid rgba(192,57,43,.35);border-radius:999px;padding:18px 40px;font-size:52px}
+#I41 .risk svg{width:54px;height:54px}
+#I41 .res{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;gap:26px;
+  background:linear-gradient(150deg,#27935A,#17663C);color:#fff;border-radius:30px;padding:30px 40px;font-size:50px;line-height:1.3;
+  box-shadow:0 22px 44px rgba(23,102,60,.30)}
+#I41 .res .ck{width:92px;height:92px;border-radius:50%;background:rgba(255,255,255,.18);border:3px solid var(--amber);
+  display:flex;align-items:center;justify-content:center;flex:none}
+#I41 .res .ck svg{width:52px;height:52px;stroke-width:3}
+@keyframes riskOut{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-40px) scale(.9)}}
+.rout{animation-name:riskOut;animation-duration:.45s!important}
+#I41 .track{position:absolute;left:276px;top:560px;width:10px;height:930px;border-radius:5px;
+  background:linear-gradient(#E9A23B,#C77C1B 60%,var(--maroon));transform-origin:50% 0}
+@keyframes drawY{0%{transform:scaleY(0)}100%{transform:scaleY(1)}}
+.dy{animation-name:drawY;animation-duration:1.1s!important}
+#I41 .node{position:absolute;left:40px;right:60px;height:200px;display:flex;align-items:center}
+#I41 .node .dt{width:190px;text-align:right;font-size:50px;font-weight:700;color:var(--ink);padding-right:4px}
+#I41 .node .dot{width:60px;height:60px;border-radius:50%;margin:0 24px 0 0;flex:none;position:relative;left:21px;
+  background:#fff;border:8px solid var(--amber);box-shadow:0 6px 14px rgba(58,16,10,.22)}
+#I41 .node .dot.last{width:76px;height:76px;left:13px;border-color:var(--maroon);background:var(--maroon);
+  box-shadow:0 0 0 10px rgba(107,22,22,.14),0 8px 18px rgba(58,16,10,.3)}
+#I41 .node .dot.ok{border-color:var(--good)}
+#I41 .cd{flex:1;margin-left:24px;background:#fff;border:2px solid #EFE4D2;border-radius:24px;padding:26px 30px;
+  box-shadow:0 14px 30px rgba(74,15,15,.10);font-size:44px;line-height:1.3;color:var(--ink)}
+#I41 .cd.dep{background:linear-gradient(90deg,#F1FAF4,#fff);border-color:#BFE0CC;display:flex;align-items:center;gap:20px}
+#I41 .cd.dep .r{width:70px;height:70px;border-radius:50%;background:var(--good);color:#fff;display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:40px;flex:none}
+#I41 .cd.dep b{font-family:'Space Grotesk',sans-serif;color:var(--good);font-size:64px;line-height:1.05}
+#I41 .cd.dep .tx{display:flex;flex-direction:column;gap:2px}
+#I41 .cd.dep .tx .lb{font-size:34px;color:#4F6B5A;line-height:1.2}
+#I41 .cd.dep .tx .am{display:flex;align-items:baseline;gap:16px}
+#I41 .cd.last{background:linear-gradient(120deg,var(--maroonSoft),var(--maroon) 70%);color:#fff;border:0;display:flex;align-items:center;gap:20px}
+#I41 .cd.last .due{margin-left:auto;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:64px;line-height:1.1;color:var(--amberSoft)}
+#I41 .cd.warn{color:#8A4B10;background:#FFF6E6;border-color:var(--amberSoft);padding-top:32px;padding-bottom:20px} /* Devanagari sits high in its line box */
+@keyframes okDot{0%{border-color:var(--amber)}100%{border-color:var(--good)}}
+.okd{animation-name:okDot;animation-duration:.3s!important}
+.fast{animation-duration:.6s!important}
+</style>
+</head>
+<body>
+<!-- ══ I41 · plan the payment, avoid default · K510 "…समय रहते भुगतान की योजना बना सकें, और डिफ़ॉल्ट से बच सकें।" ══ -->
+<div class="panel" id="I41" data-plate="desk" style="--T:6s">
+  <div class="glow anim a-glow" style="top:56%"></div>
+
+  <div class="top">
+    <div class="rwrap anim rout" style="animation-delay:4.0s"><div class="risk hi anim a-pop" style="animation-delay:.3s;animation-duration:.7s"><svg class="i"><use href="#i-alert"/></svg>डिफ़ॉल्ट का ख़तरा?</div></div>
+    <div class="res hi anim a-rise" style="animation-delay:4.1s;animation-duration:.8s">
+      <span class="ck"><svg class="i"><use href="#i-check"/></svg></span><span>समय रहते योजना — डिफ़ॉल्ट से बचाव</span></div>
+  </div>
+
+  <div class="track anim dy" style="animation-delay:0s"></div>
+
+  <div class="node" style="top:470px">
+    <div class="dt dis anim a-fade fast" style="animation-delay:.2s">23-08</div>
+    <div class="dot anim a-pop fast" style="animation-delay:.15s"></div>
+    <div class="cd warn hi anim a-stamp fast" style="animation-delay:.35s">बैलेंस शून्य के पार</div>
+  </div>
+  <div class="node" style="top:780px">
+    <div class="dt dis anim a-fade fast" style="animation-delay:.45s">24-08</div>
+    <div class="dot anim a-pop fast" style="animation-delay:.4s"><div class="anim okd" style="position:absolute;inset:-8px;border-radius:50%;border:8px solid var(--amber);animation-delay:2.5s"></div></div>
+    <div class="cd dep hi anim a-drop" style="animation-delay:2.0s;animation-duration:.8s"><span class="r">₹</span><span class="tx"><span class="lb">योजना:</span><span class="am"><b>₹2,50,000</b><span>जमा</span></span></span></div>
+  </div>
+  <div class="node" style="top:1090px">
+    <div class="dt dis anim a-fade fast" style="animation-delay:.7s">25-08</div>
+    <div class="dot anim a-pop fast" style="animation-delay:.65s"><div class="anim okd" style="position:absolute;inset:-8px;border-radius:50%;border:8px solid var(--amber);animation-delay:3.3s"></div></div>
+    <div class="cd dep hi anim a-drop" style="animation-delay:2.8s;animation-duration:.8s"><span class="r">₹</span><span class="tx"><span class="lb">योजना:</span><span class="am"><b>₹2,36,120</b><span>जमा</span></span></span></div>
+  </div>
+  <div class="node" style="top:1400px">
+    <div class="dt dis anim a-fade fast" style="animation-delay:.95s;color:var(--maroon)">26-08</div>
+    <div class="dot last anim a-pop fast" style="animation-delay:.9s"></div>
+    <div class="cd last hi anim a-stamp fast" style="animation-delay:1.05s"><span>आख़िरी तारीख़</span><span class="due">₹4,86,120</span></div>
+  </div>
+
+  <div class="rail hi">हर तारीख़, आने से पहले</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

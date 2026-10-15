@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  @keyframes wr{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(-10% -4% -10% 0)}}
+  @keyframes growY{0%{transform:scaleY(0)}100%{transform:scaleY(1)}}
+  @keyframes pop{0%{opacity:0;transform:translateY(24px) scale(.8)}100%{opacity:1;transform:none}}
+  @keyframes dash{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+  @keyframes dot{0%{opacity:0;transform:scale(0)}100%{opacity:1;transform:scale(1)}}
+  @keyframes stampIn{0%{opacity:0;transform:translateX(-70px) rotate(-2deg)}70%{opacity:1;transform:translateX(5px)}100%{opacity:1;transform:none}}
+  @keyframes push{0%{transform:scale(1)}100%{transform:scale(1.05)}}
+  @keyframes show{0%{opacity:0}100%{opacity:1}}
+  @keyframes halo{0%,100%{opacity:.5}50%{opacity:.85}}
+
+  #I65 .halo{position:absolute;left:50%;top:50%;width:1200px;height:1200px;margin:-600px 0 0 -600px;border-radius:50%;
+    background:radial-gradient(circle,rgba(233,162,59,.32),rgba(233,162,59,0) 64%);z-index:1;animation-name:halo;animation-duration:9s}
+  #I65 .stage{display:flex;flex-direction:column;align-items:center;gap:60px;transform-origin:50% 88%;
+    animation-name:push;animation-duration:2.4s;animation-timing-function:cubic-bezier(.4,0,.3,1)}
+  #I65 .cap{font-size:62px;animation-name:wr;animation-duration:.9s;animation-timing-function:linear}
+  #I65 .chart{position:relative;width:900px;height:760px;border-radius:28px;background:rgba(255,253,248,.72);
+    border:2px solid rgba(233,162,59,.35);box-shadow:0 30px 60px rgba(58,16,10,.16);padding:0 60px}
+  #I65 .cols{position:absolute;left:60px;right:60px;bottom:96px;top:40px;display:flex;justify-content:space-between;align-items:flex-end}
+  #I65 .col{width:150px;display:flex;flex-direction:column;align-items:center}
+  #I65 .col .v{font-size:66px;font-weight:700;color:var(--maroon);line-height:1;margin-bottom:34px;animation-name:pop;animation-duration:.4s}
+  #I65 .col .b{width:150px;border-radius:18px 18px 4px 4px;transform-origin:50% 100%;
+    background:linear-gradient(180deg,var(--maroonSoft),var(--maroonDeep));box-shadow:inset 0 -10px 20px rgba(0,0,0,.18),0 12px 24px rgba(58,16,10,.18);
+    animation-name:growY;animation-duration:.75s}
+  #I65 .col.last .b{background:linear-gradient(180deg,#F2B650,var(--amberDeep))}
+  #I65 .col.last .v{color:var(--amberDeep)}
+  #I65 .base{position:absolute;left:40px;right:40px;bottom:94px;height:4px;border-radius:4px;background:#8C7B6B}
+  #I65 .wk{position:absolute;left:60px;right:60px;bottom:26px;display:flex;justify-content:space-between}
+  #I65 .wk span{width:150px;text-align:center;font-size:34px;color:var(--inkMuted)}
+  #I65 svg.ln{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:4}
+  #I65 svg.ln path{fill:none;stroke:var(--amber);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;
+    filter:drop-shadow(0 4px 6px rgba(120,60,10,.35));animation-name:dash;animation-duration:.8s;animation-timing-function:cubic-bezier(.5,.1,.3,1)}
+  #I65 svg.ln circle{fill:#fff;stroke:var(--amberDeep);stroke-width:6;transform-box:fill-box;transform-origin:center;animation-name:dot;animation-duration:.3s}
+  #I65 .ftr{display:flex;flex-direction:column;align-items:center;gap:22px}
+  #I65 .pair{display:flex;gap:24px}
+  #I65 .ch{display:flex;align-items:center;gap:16px;background:#fff;border:2px solid #EFE4D2;border-radius:999px;padding:14px 34px 14px 16px;
+    font-size:44px;color:var(--ink);box-shadow:0 12px 28px rgba(58,16,10,.16);animation-name:stampIn;animation-duration:.5s}
+  #I65 .ch .ck{width:60px;height:60px;border-radius:50%;background:var(--good);color:#fff;display:flex;align-items:center;justify-content:center}
+  #I65 .ch .ck svg.i{width:36px;height:36px;stroke-width:3.2}
+  #I65 .both{font-size:58px;color:var(--maroon);animation-name:wr;animation-duration:.6s;animation-timing-function:linear}
+</style>
+</head>
+<body>
+<!-- ══ I65 · staff performance across the pump, four weeks · K723 (held 8.47 s) ══ -->
+<div class="panel" id="I65" data-plate="office" style="--T:9s">
+  <div class="halo mv"></div>
+  <div class="stage mv" style="animation-delay:6.2s">
+    <div class="cap hi mv" style="animation-delay:.05s">पूरे पंप में स्टाफ़ का प्रदर्शन</div>
+    <div class="chart">
+      <div class="base"></div>
+      <div class="cols">
+        <div class="col"><span class="v dis mv" style="animation-delay:.95s">78%</span><span class="b mv" style="height:437px;animation-delay:.45s"></span></div>
+        <div class="col"><span class="v dis mv" style="animation-delay:1.2s">81%</span><span class="b mv" style="height:454px;animation-delay:.7s"></span></div>
+        <div class="col"><span class="v dis mv" style="animation-delay:1.45s">83%</span><span class="b mv" style="height:465px;animation-delay:.95s"></span></div>
+        <div class="col last"><span class="v dis mv" style="animation-delay:1.7s">86%</span><span class="b mv" style="height:482px;animation-delay:1.2s"></span></div>
+      </div>
+      <div class="wk hi"><span>हफ़्ता 1</span><span>हफ़्ता 2</span><span>हफ़्ता 3</span><span>हफ़्ता 4</span></div>
+      <svg class="ln" viewBox="0 0 900 760">
+        <path class="mv" d="M135 227 L345 210 L555 199 L765 182" pathLength="1" style="animation-delay:1.75s"/>
+        <circle class="mv" cx="135" cy="227" r="13" style="animation-delay:1.75s"/>
+        <circle class="mv" cx="345" cy="210" r="13" style="animation-delay:1.9s"/>
+        <circle class="mv" cx="555" cy="199" r="13" style="animation-delay:2.05s"/>
+        <circle class="mv" cx="765" cy="182" r="13" style="animation-delay:2.2s"/>
+      </svg>
+    </div>
+    <div class="ftr">
+      <div class="pair">
+        <div class="ch hi mv" style="animation-delay:2.1s"><span class="ck"><svg class="i"><use href="#i-check"/></svg></span>स्टाफ़ संभालना</div>
+        <div class="ch hi mv" style="animation-delay:3.7s"><span class="ck"><svg class="i"><use href="#i-check"/></svg></span>काम पर नज़र</div>
+      </div>
+      <div class="both hi mv" style="animation-delay:5.85s">— दोनों आसान</div>
+    </div>
+  </div>
+  <div class="rail hi">स्टाफ़ संभालना आसान</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

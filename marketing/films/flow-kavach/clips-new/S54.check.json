@@ -1,0 +1,17 @@
+{
+  "id": "S54",
+  "same_man": "same",
+  "face_notes": "The man in the video is a good match for the reference photo: Indian, around 50, with greying black hair and a thick moustache.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "retake",
+  "retake_hint": "The framing is incorrect. The brief specifies a 'Close-up of the dealer's face and shoulders', but this shot starts as a full-length wide shot and only zooms into a medium shot. The shot must start as a close-up."
+}

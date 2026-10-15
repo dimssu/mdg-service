@@ -1,0 +1,35 @@
+{
+  "id": "S41",
+  "same_man": "same",
+  "face_notes": "Excellent match to the reference photo in terms of age, hair, moustache, and facial structure.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 1,
+      "what": "The ledger page flickers and jumps unnaturally as the woman turns it."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 2,
+      "what": "The man points at the ledger, which is not in the brief's specified motion."
+    },
+    {
+      "t": 4,
+      "what": "The man mouths words while looking at the woman, violating the 'mouths stay closed' instruction."
+    },
+    {
+      "t": 7,
+      "what": "The woman points at the ledger, which is not in the brief's specified motion."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The man must not speak or mouth any words. The action must be ONLY: the accountant turns one page, then she looks up at the dealer and nods reassuringly, and the dealer nods back slowly. No other gestures or pointing."
+}

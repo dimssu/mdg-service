@@ -1,0 +1,22 @@
+{
+  "id": "S05",
+  "same_man": "not_in_shot",
+  "face_notes": "No faces are visible in the shot.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 0,
+      "what": "The hem of the trousers at the bottom right is unnaturally torn and frayed."
+    }
+  ],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The image is not in the required 9:16 vertical aspect ratio. The hem of the trousers is badly torn and should be a clean, normal hem."
+}

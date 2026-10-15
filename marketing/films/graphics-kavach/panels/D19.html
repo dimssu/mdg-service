@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* ── the points-ledger family (D15–D19): his paper, a stamp, points to the tally ── */
+.stage{position:absolute;inset:0;z-index:3}
+.tally{position:absolute;top:104px;right:60px;min-width:400px;padding:22px 36px 24px;border-radius:30px;
+  background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep) 72%);color:#fff;text-align:right;
+  box-shadow:0 26px 56px rgba(58,16,10,.42),inset 0 0 0 3px rgba(233,162,59,.55);transform-origin:80% 50%}
+.tally .k{font-size:30px;color:var(--amberSoft)}
+.tally .v{font-size:92px;font-weight:700;line-height:1;margin-top:8px;white-space:nowrap}
+.tally .of{font-size:40px;color:var(--amberSoft);font-weight:500;margin-left:8px}
+.tally .plus{font-size:34px;color:var(--amber);font-weight:700;margin-top:10px;height:34px}
+@keyframes bump{0%,100%{transform:scale(1)}35%{transform:scale(1.07)}}
+.bump{animation:bump .55s ease-out both paused}
+
+.lbl{position:absolute;left:60px;top:400px;max-width:560px;font-size:64px;color:var(--maroon);line-height:1.3}
+.lbl .l2{display:block;white-space:nowrap}
+.grp{position:absolute;transform-origin:50% 40%;--rot:-1.6deg;--s0:1;--s1:1.04;--dy1:-14px}
+
+/* a highlighter pass across the line that earned the points */
+.lit{background:linear-gradient(transparent 12%,rgba(255,214,64,.62) 12%,rgba(255,214,64,.62) 90%,transparent 90%)
+  no-repeat 0 0 / 0% 100%}
+@keyframes litIn{0%{background-size:0% 100%}100%{background-size:100% 100%}}
+.a-lit{animation-name:litIn;animation-timing-function:cubic-bezier(.4,.1,.3,1)}
+
+/* the round rubber stamp */
+.seal{position:absolute;width:320px;height:320px;border-radius:50%;border:9px solid var(--maroon);
+  color:var(--maroon);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;mix-blend-mode:multiply;opacity:.9;filter:url(#rough)}
+.seal::before{content:'';position:absolute;inset:14px;border-radius:50%;border:3px solid currentColor}
+.seal .w{font-size:46px;line-height:1.25}
+.seal .ck{font-size:64px;line-height:1;margin-top:4px;font-family:'Inter',sans-serif;font-weight:700}
+
+/* +points: a gold token that pops off the stamp and flies to the tally */
+.fly{position:absolute;display:flex;align-items:baseline;gap:14px;padding:18px 34px;border-radius:999px;
+  background:linear-gradient(160deg,#FBE0A0,#E9A23B 55%,#C77C1B);color:var(--maroonDeep);white-space:nowrap;
+  box-shadow:0 18px 40px rgba(120,62,8,.45),inset 0 2px 0 rgba(255,255,255,.6);
+  animation:flyTo 1.15s cubic-bezier(.55,0,.3,1) both paused}
+.fly .n{font-size:84px;font-weight:700;line-height:1}
+.fly .hi{font-size:46px}
+@keyframes flyTo{0%{opacity:0;transform:translate(0,60px) scale(.4)}
+  16%{opacity:1;transform:translate(0,-10px) scale(1.1)}
+  26%{transform:translate(0,-10px) scale(1)}
+  60%{opacity:1;transform:translate(0,-18px) scale(1)}
+  100%{opacity:0;transform:translate(var(--fx),var(--fy)) scale(.3)}}
+
+/* three stacks of his papers, dealt onto the desk in the spoken order */
+.stacks{position:absolute;left:60px;right:60px;top:600px;display:flex;justify-content:space-between}
+.stk{width:292px;position:relative;display:flex;flex-direction:column;align-items:center}
+.pile{width:280px;height:420px;position:relative;margin-top:150px}
+.pile i{position:absolute;inset:0;background:var(--paper);border-radius:6px;
+  box-shadow:0 14px 30px rgba(40,14,6,.24),0 0 0 1px var(--paperEdge)}
+.pile i:nth-child(1){transform:translate(10px,14px) rotate(4deg)}
+.pile i:nth-child(2){transform:translate(-8px,8px) rotate(-3deg)}
+.pile .top{position:absolute;inset:0;background:var(--paper);border-radius:6px;overflow:hidden;
+  box-shadow:0 20px 40px rgba(40,14,6,.30),0 0 0 1px var(--paperEdge)}
+.pile .top .hd{height:62px;display:flex;align-items:center;justify-content:center;color:#fff}
+.pile .top .rl{position:absolute;left:24px;right:24px;top:92px;bottom:24px;
+  background-image:linear-gradient(transparent calc(100% - 2px),var(--rule) 0);background-size:100% 44px}
+.pile .top .rl::before{content:'';position:absolute;left:30px;top:0;bottom:0;width:2px;background:var(--margin)}
+.pile .top .sc{position:absolute;left:66px;height:5px;border-radius:3px;background:rgba(29,58,138,.55)}
+.tick{position:absolute;right:10px;top:-30px;width:92px;height:92px;border-radius:50%;background:var(--good);color:#fff;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px rgba(30,122,74,.45);z-index:3}
+.tick svg{width:50px;height:50px;stroke-width:3}
+.stk .nm{font-size:44px;color:var(--maroon);margin-top:34px;white-space:nowrap}
+.pts{position:absolute;top:0;left:50%;display:flex;justify-content:center;
+  padding:12px 26px;border-radius:999px;white-space:nowrap;transform:translateX(-50%);
+  background:linear-gradient(160deg,#FBE0A0,#E9A23B 55%,#C77C1B);color:var(--maroonDeep);
+  box-shadow:0 14px 30px rgba(120,62,8,.40),inset 0 2px 0 rgba(255,255,255,.6)}
+.pts .n{font-size:64px;font-weight:700;line-height:1}
+@keyframes floatUp{0%{opacity:0;transform:translate(-50%,150px) scale(.5)}
+  45%{opacity:1;transform:translate(-50%,-8px) scale(1.08)}100%{opacity:1;transform:translate(-50%,0) scale(1)}}
+.float{animation:floatUp .7s cubic-bezier(.2,.9,.3,1) both paused}
+@keyframes dealIn{0%{opacity:0;transform:translate(var(--dx,420px),-260px) rotate(24deg) scale(.9)}
+  70%{opacity:1}100%{opacity:1;transform:rotate(var(--r1,0deg))}}
+.deal{animation:dealIn .6s cubic-bezier(.2,.8,.25,1) both paused}
+.pop2{animation:popIn 2.4s cubic-bezier(.16,.9,.24,1) both paused}
+
+/* a figure that rolls from one value to another (see the script at the end) */
+.ctr{display:inline-flex;height:1em;line-height:1;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums}
+.ctr .cc{display:flex;flex-direction:column}
+.ctr .cc span,.ctr .fx{display:block;height:1em;line-height:1}
+@keyframes ctrRoll{from{transform:translateY(0)}to{transform:translateY(calc(var(--n) * -1em))}}
+@keyframes ctrShow{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<!-- ══ D19 · the other registers, declarations, compliance: points, the tally reaches 4,626 · K410 "बाक़ी रजिस्टर, डिक्लेरेशन और कंप्लायंस पूरे हैं — तो उनके भी पॉइंट।" (4.2 s) ══ -->
+<div class="panel" id="D19" data-plate="desk" style="--T:5s">
+  <div class="glow anim a-glow" style="animation-delay:-.5s;top:56%"></div>
+  <div class="stage">
+    <div class="tally anim a-fade" style="animation-delay:-1s">
+      <div class="bump" style="animation-delay:3.1s">
+        <div class="k hi">पॉइंट</div>
+        <div class="v dis"><span class="ctr" data-from="460" data-to="4,626" data-at="2.45" data-dur=".8"></span><span class="of">/ 4,700</span></div>
+        <div class="plus"></div>
+      </div>
+    </div>
+    <div class="stacks">
+    <div class="stk">
+      <div class="pts float" style="animation-delay:0.55s"><span class="n dis">+1,240</span></div>
+      <div class="pile deal" style="--r1:-3deg;--dx:-380px;animation-delay:0.1s">
+        <i></i><i></i>
+        <div class="top"><div class="hd" style="background:linear-gradient(120deg,#2E4A8C,#1D3A8A)"><svg class="i" style="width:36px;height:36px"><use href="#i-doc"/></svg></div>
+          <div class="rl"></div>
+          <span class="sc" style="top:124px;width:130px"></span><span class="sc" style="top:168px;width:100px"></span>
+          <span class="sc" style="top:212px;width:140px"></span><span class="sc" style="top:256px;width:90px"></span><span class="sc" style="top:300px;width:120px"></span></div>
+        <div class="tick pop2" style="animation-delay:0.45s"><svg class="i"><use href="#i-check"/></svg></div>
+      </div>
+      <div class="nm hi deal" style="--dx:0px;animation-delay:0.20s">बाक़ी रजिस्टर</div>
+    </div>
+    <div class="stk">
+      <div class="pts float" style="animation-delay:1.6s"><span class="n dis">+1,580</span></div>
+      <div class="pile deal" style="--r1:1.5deg;--dx:380px;animation-delay:1.15s">
+        <i></i><i></i>
+        <div class="top"><div class="hd" style="background:linear-gradient(120deg,var(--maroonSoft),var(--maroon))"><svg class="i" style="width:36px;height:36px"><use href="#i-doc"/></svg></div>
+          <div class="rl"></div>
+          <span class="sc" style="top:124px;width:130px"></span><span class="sc" style="top:168px;width:100px"></span>
+          <span class="sc" style="top:212px;width:140px"></span><span class="sc" style="top:256px;width:90px"></span><span class="sc" style="top:300px;width:120px"></span></div>
+        <div class="tick pop2" style="animation-delay:1.5s"><svg class="i"><use href="#i-check"/></svg></div>
+      </div>
+      <div class="nm hi deal" style="--dx:0px;animation-delay:1.25s">डिक्लेरेशन</div>
+    </div>
+    <div class="stk">
+      <div class="pts float" style="animation-delay:2.55s"><span class="n dis">+1,346</span></div>
+      <div class="pile deal" style="--r1:3.5deg;--dx:420px;animation-delay:2.1s">
+        <i></i><i></i>
+        <div class="top"><div class="hd" style="background:linear-gradient(120deg,#1E7A4A,#135A35)"><svg class="i" style="width:36px;height:36px"><use href="#i-doc"/></svg></div>
+          <div class="rl"></div>
+          <span class="sc" style="top:124px;width:130px"></span><span class="sc" style="top:168px;width:100px"></span>
+          <span class="sc" style="top:212px;width:140px"></span><span class="sc" style="top:256px;width:90px"></span><span class="sc" style="top:300px;width:120px"></span></div>
+        <div class="tick pop2" style="animation-delay:2.45s"><svg class="i"><use href="#i-check"/></svg></div>
+      </div>
+      <div class="nm hi deal" style="--dx:0px;animation-delay:2.2s">कंप्लायंस</div>
+    </div>
+    </div>
+    <div class="seal anim a-stampdown" style="left:350px;top:1330px;width:380px;height:380px;animation-delay:2.85s">
+      <div class="w hi" style="font-size:62px">पूरे हैं</div><div class="ck" style="font-size:84px">✓</div>
+    </div>
+  </div>
+  <div class="rail hi">पंप असेसमेंट पॉइंट सिस्टम</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* A figure that rolls from one value to another, starting at a chosen second:
+   <span class="ctr" data-from="120" data-to="200" data-at="2.8" data-dur=".8">.
+   Each digit is a column running from its old digit to its new one; a place
+   that did not exist before starts blank. Same paused clock as everything else. */
+for (const el of document.querySelectorAll('.ctr[data-to]')) {
+  const num = (s) => parseInt((s || '0').replace(/\D/g, '') || '0', 10);
+  const to = el.dataset.to, A = num(el.dataset.from), B = num(to);
+  const from = (el.dataset.from || '').padStart(to.length, ' ');
+  const at = parseFloat(el.dataset.at || '0'), dur = parseFloat(el.dataset.dur || '.9');
+  const nd = to.replace(/\D/g, '').length;
+  el.textContent = '';
+  let k = 0;
+  [...to].forEach((ch, i) => {
+    if (!/\d/.test(ch)) {
+      const f = document.createElement('span'); f.className = 'fx'; f.textContent = ch;
+      if (from[i] === ' ') f.style.animation = `ctrShow .15s linear ${(at + dur * .3).toFixed(2)}s both paused`;
+      el.appendChild(f); return;
+    }
+    const p = nd - 1 - k++;
+    const a = Math.floor(A / 10 ** p), b = Math.floor(B / 10 ** p);
+    let n = b - a; if (n > 14) n = 10 + (((b - a) % 10) + 10) % 10;
+    const col = document.createElement('span'); col.className = 'cc';
+    for (let j = 0; j <= n; j++) {
+      const s = document.createElement('span');
+      s.textContent = (j === 0 && from[i] === ' ') ? '\u2007' : String((a + j) % 10);
+      col.appendChild(s);
+    }
+    col.style.setProperty('--n', n);
+    col.style.animation = `ctrRoll ${dur}s cubic-bezier(.3,.7,.25,1) ${(at + (nd - k) * .03).toFixed(2)}s both paused`;
+    el.appendChild(col);
+  });
+}
+</script>
+</body>
+</html>

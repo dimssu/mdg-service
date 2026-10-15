@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* The five records named in the line, as an inspection checklist on D38's
+   clipboard, every box EMPTY: the manager is away and nothing is done.
+   (Chapter 3's D25, the file ready all year, answers this card — keep this
+   one visibly unfinished: no ticks anywhere.)
+   Timed to K017: "उस वक़्त" 0.07–0.39 s, "डी-एस-आर" 0.87 s, "डेंसिटी रजिस्टर"
+   2.11 s, "स्टॉक बोर्ड" 3.68 s, "प्राइमरी इंस्पेक्शन" 4.77 s, "और बाक़ी सारे
+   रिकॉर्ड" 6.24 s, "अपडेट होने चाहिए" 7.50–8.41 s. The heading's
+   second half is written just before its own words, and every box pulses
+   amber on them. The note from D38 is pinned in the corner throughout. */
+#D39 .hd{position:absolute;left:60px;right:60px;top:196px;text-align:center}
+#D39 .hd > div{width:fit-content;margin-left:auto;margin-right:auto}
+#D39 .hd .a{font-size:70px;line-height:1.3;color:var(--maroon)}
+#D39 .hd .b{font-size:70px;line-height:1.3;color:var(--maroonDeep);position:relative;padding-bottom:10px}
+#D39 .hd .b i{position:absolute;left:0;right:0;bottom:0;height:8px;border-radius:8px;transform-origin:0 50%;
+  background:linear-gradient(90deg,#E9A23B,#F4C979 70%,rgba(244,201,121,.3))}
+/* the clipboard */
+#D39 .cb{position:absolute;left:110px;top:388px;width:860px;height:1150px}
+#D39 .board{position:absolute;inset:0;border-radius:36px;
+  background:linear-gradient(170deg,#7E2C22,#5A1812 60%,#461210);
+  box-shadow:0 40px 80px rgba(40,10,6,.42),inset 0 3px 0 rgba(255,255,255,.14),inset 0 -8px 20px rgba(0,0,0,.25)}
+#D39 .sheet{position:absolute;left:40px;right:40px;top:78px;bottom:44px;border-radius:6px;background:var(--paper);
+  box-shadow:0 6px 16px rgba(40,14,6,.30),0 0 0 1px var(--paperEdge);overflow:hidden}
+#D39 .sheet::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.35),rgba(255,255,255,0) 40%),radial-gradient(120% 90% at 80% 110%,rgba(160,120,70,.10),rgba(160,120,70,0) 60%)}
+#D39 .clip{position:absolute;left:50%;top:-34px;width:320px;height:120px;margin-left:-160px;z-index:5}
+#D39 .clip .plate{position:absolute;left:0;right:0;bottom:0;height:78px;border-radius:18px 18px 12px 12px;
+  background:linear-gradient(#F2D08A,#D9A94F 45%,#B7832E);box-shadow:0 10px 18px rgba(40,10,6,.40),inset 0 2px 0 rgba(255,255,255,.55)}
+#D39 .clip .ring{position:absolute;left:90px;right:90px;top:0;height:70px;border:12px solid #C99A4E;border-bottom:0;border-radius:36px 36px 0 0;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.45)}
+#D39 .clip .hole{position:absolute;left:50%;bottom:24px;width:70px;height:22px;margin-left:-35px;border-radius:11px;background:#6B4418;
+  box-shadow:inset 0 3px 6px rgba(0,0,0,.45)}
+/* the checklist */
+#D39 .rw{display:flex;align-items:center;gap:36px;height:180px;padding:14px 50px 0;border-bottom:2px solid var(--rule)}
+#D39 .rw:last-child{border-bottom:0}
+#D39 .bx{position:relative;width:74px;height:74px;flex:none;border:5px solid #8A7466;border-radius:10px;background:#fff;margin-top:-10px}
+#D39 .bx i{position:absolute;inset:-5px;border-radius:10px;border:5px solid var(--amber);opacity:0}
+#D39 .rw .t{font-size:60px;line-height:1.3;color:var(--print);white-space:nowrap}
+@keyframes rowIn{0%{opacity:0;transform:translateX(-70px)}100%{opacity:1;transform:none}}
+.ri{animation-name:rowIn;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+/* the boxes go amber together, twice, and stay amber-edged: still to do */
+@keyframes boxOn{0%{opacity:0}100%{opacity:1}}
+.bo{animation-name:boxOn}
+@keyframes ringOut{0%{opacity:0;transform:scale(1)}6%{opacity:.9;transform:scale(1.02)}100%{opacity:0;transform:scale(1.7)}}
+.ro{animation-name:ringOut;animation-timing-function:ease-out;animation-iteration-count:2}
+#D39 .bx u{position:absolute;inset:-5px;border-radius:12px;border:5px solid var(--amber);background:rgba(233,162,59,.14);opacity:0;text-decoration:none}
+/* the note from D38, pinned in the corner */
+#D39 .note{position:absolute;right:-22px;bottom:-34px;z-index:7;display:flex;align-items:center;gap:14px;white-space:nowrap;
+  font-size:44px;line-height:1.2;color:var(--maroonDeep);padding:14px 26px 8px 20px;border-radius:14px;
+  background:linear-gradient(170deg,#FFF3D2,#F8DC9A);border:2px solid #E0B25A;box-shadow:0 12px 24px rgba(58,16,10,.28);transform:rotate(4deg)}
+#D39 .note svg{width:46px;height:46px;color:var(--amberDeep);margin-top:-6px}
+@keyframes noteIn{0%{opacity:0;transform:translateY(-40px) rotate(12deg) scale(.8)}100%{opacity:1;transform:rotate(4deg)}}
+.ni{animation-name:noteIn;animation-timing-function:cubic-bezier(.2,.9,.3,1.2)}
+@keyframes slideUp{0%{opacity:0;transform:translateY(200px) rotate(2deg)}100%{opacity:1;transform:none}}
+.su{animation-name:slideUp;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+@keyframes fadeUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:none}}
+.fu{animation-name:fadeUp}
+@keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.gx{animation-name:growX}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.025)}}
+.ps{animation-name:push;animation-timing-function:linear}
+</style>
+</head>
+<body>
+<!-- ══ D39 · at inspection every record must be up to date · K017 "उस वक़्त डी-एस-आर, डेंसिटी रजिस्टर, स्टॉक बोर्ड, प्राइमरी इंस्पेक्शन, और बाक़ी सारे रिकॉर्ड अपडेट होने चाहिए।" (9.96 s) ══ -->
+<div class="panel" id="D39" data-plate="desk" style="--T:11s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s;animation-duration:3s;top:52%"></div>
+
+  <div class="hd">
+    <div class="a hi anim fu" style="animation-delay:-.2s;animation-duration:.4s">इंस्पेक्शन के समय —</div>
+    <div class="b hi"><span class="anim a-write" style="display:inline-block;animation-delay:6.9s;animation-duration:2.6s">अपडेट होने चाहिए</span><i class="anim gx" style="animation-delay:7.2s;animation-duration:.4s"></i></div>
+  </div>
+
+  <div class="cb anim su" style="top:480px;height:1150px;animation-delay:-.1s;animation-duration:.55s">
+   <div class="anim ps" style="position:absolute;inset:0;transform-origin:50% 50%;animation-delay:.45s;animation-duration:10s">
+    <div class="board"></div>
+    <div class="sheet" style="padding-top:60px">
+      <div class="rw anim ri" style="animation-delay:.4s;animation-duration:.26s"><span class="bx"><u class="anim bo" style="animation-delay:7.3s;animation-duration:.2s"></u><i class="anim ro" style="animation-delay:7.3s;animation-duration:.45s"></i></span><span class="t hi">डी-एस-आर</span></div>
+      <div class="rw anim ri" style="animation-delay:1.68s;animation-duration:.26s"><span class="bx"><u class="anim bo" style="animation-delay:7.3s;animation-duration:.2s"></u><i class="anim ro" style="animation-delay:7.3s;animation-duration:.45s"></i></span><span class="t hi">डेंसिटी रजिस्टर</span></div>
+      <div class="rw anim ri" style="animation-delay:3.2s;animation-duration:.26s"><span class="bx"><u class="anim bo" style="animation-delay:7.3s;animation-duration:.2s"></u><i class="anim ro" style="animation-delay:7.3s;animation-duration:.45s"></i></span><span class="t hi">स्टॉक बोर्ड</span></div>
+      <div class="rw anim ri" style="animation-delay:4.26s;animation-duration:.26s"><span class="bx"><u class="anim bo" style="animation-delay:7.3s;animation-duration:.2s"></u><i class="anim ro" style="animation-delay:7.3s;animation-duration:.45s"></i></span><span class="t hi">प्राइमरी इंस्पेक्शन</span></div>
+      <div class="rw anim ri" style="animation-delay:6.04s;animation-duration:.26s"><span class="bx"><u class="anim bo" style="animation-delay:7.3s;animation-duration:.2s"></u><i class="anim ro" style="animation-delay:7.3s;animation-duration:.45s"></i></span><span class="t hi">बाक़ी सारे रिकॉर्ड</span></div>
+    </div>
+    <div class="clip"><div class="ring"></div><div class="plate"></div><div class="hole"></div></div>
+    <div class="note hi anim ni" style="animation-delay:.25s;animation-duration:.4s"><svg class="i"><use href="#i-cal"/></svg>मैनेजर आज छुट्टी पर</div>
+   </div>
+  </div>
+
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "id": "S11-app",
+  "act": 3,
+  "beat": "S11-app",
+  "problem": "We will put it on your phone ourselves",
+  "aspect_ratio": "9:16",
+  "action": "The dealer and a younger staff member stand shoulder to shoulder at the office counter, both looking down at a single mobile phone the dealer is holding. The younger one is pointing at it. Both are relaxed and slightly amused — this is easy, and neither of them is struggling.",
+  "lighting": "Warm friendly indoor daylight, both faces well lit, soft background. Open and unintimidating.",
+  "camera": "Chest-up two-shot, heads close together in the upper half of the vertical frame, the phone in the lower third held up between them. Sharp on both. 35mm.",
+  "detail": "The phone screen is COMPLETELY DARK and blank — no interface, no app, no text, no icons, no glow. A real screen is composited in afterwards. No logos on clothing. Same cream full-sleeve shirt with the sleeves rolled, same dark navy trousers, same watch.",
+  "feeling": "Nobody here is going to be made to feel stupid.",
+  "motion": "The younger one's pointing finger moves slightly. The dealer's head tilts a fraction towards the phone. A slow push in. No cuts, no camera shake, nobody speaks.",
+  "voice_over": {
+    "hi": "ऐप आपके फ़ोन पर हम ही लगा देंगे।"
+  }
+}

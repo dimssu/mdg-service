@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* I50b's hand of gold cards, for the short: no fee tags, five named services,
+   and the sixth left as an empty gold dashed slot whose '?' pops on 'छठी'.
+   The sixth service is never named here — the short only asks the question;
+   the full film answers it. Same card sizes as I50a/I50b (128 px, 26 px gap). */
+.mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+#QC1 .glow{top:40%;opacity:.5}
+.grp{width:900px;display:flex;flex-direction:column;align-items:center;margin-top:-180px;transform-origin:50% 45%;
+  animation-name:pushIn;animation-duration:4s;animation-timing-function:linear}
+@keyframes pushIn{0%{transform:none}100%{transform:scale(1.035)}}
+.ttl{font-size:84px;color:var(--maroon);line-height:1.25}
+.trule{width:180px;height:7px;border-radius:7px;margin:22px 0 58px;background:linear-gradient(90deg,#E9A23B,#F4C979)}
+.stack{width:900px;display:flex;flex-direction:column;gap:26px}
+.sv{position:relative;display:flex;align-items:center;height:128px;border-radius:22px;
+  background:linear-gradient(170deg,#fff,#FBF3E7);border:2px solid rgba(214,168,98,.65);
+  box-shadow:0 26px 52px rgba(58,16,10,.22),0 4px 10px rgba(58,16,10,.12);transform:rotate(var(--r1,0deg))}
+.sv .no{flex:none;width:128px;height:100%;border-radius:20px 0 0 20px;display:flex;align-items:center;justify-content:center;
+  font-size:52px;font-weight:700;color:#4E0F0F;
+  background:linear-gradient(160deg,#F8D899,#E9A23B 55%,#C27716);box-shadow:inset -6px 0 14px rgba(120,60,6,.18)}
+.sv .nm{padding:0 30px 0 38px;font-size:46px;color:var(--maroon);line-height:1.2}
+/* rows slide in from the right and settle at their own slight angle. The travel
+   is short enough that no row's words ever cross the frame edge mid-slide. */
+@keyframes dealIn{0%{opacity:0;transform:translate(90px,-40px) rotate(5deg)}
+  70%{opacity:1;transform:translate(-6px,0) rotate(var(--r1,0deg))}100%{opacity:1;transform:rotate(var(--r1,0deg))}}
+.a-deal{animation-name:dealIn;animation-duration:.42s}
+
+/* the sixth slot: no card, only a gold dashed outline that draws itself round */
+.slot{position:relative;height:128px;display:flex;align-items:center;transform:rotate(var(--r1,0deg))}
+.slot .wash{position:absolute;inset:0;border-radius:22px;background:rgba(246,220,168,.30);
+  animation-name:fadeIn2;animation-duration:.3s;animation-delay:2.6s}
+.slot svg.ol{position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);overflow:visible}
+.slot svg.ol rect{fill:none;stroke:var(--amberDeep);stroke-width:4;stroke-dasharray:16 11;stroke-linecap:round}
+.slot svg.ol .sep{stroke:var(--amberDeep);stroke-width:4;stroke-dasharray:12 10;stroke-linecap:round}
+.slot svg.ol mask rect,.slot svg.ol mask line{stroke:#fff;stroke-width:16;stroke-dasharray:1 1;stroke-dashoffset:1;fill:none;
+  animation-name:drawOn2;animation-play-state:paused;animation-fill-mode:both;animation-timing-function:cubic-bezier(.45,.1,.3,1)}
+@keyframes drawOn2{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+.slot .no{position:relative;flex:none;width:128px;text-align:center;font-size:52px;font-weight:700;color:var(--amberDeep);
+  animation-name:fadeIn2;animation-duration:.25s;animation-delay:2.62s}
+.slot .qw{position:relative;margin-left:48px;display:inline-flex}
+.slot .q{position:relative;font-size:104px;font-weight:700;line-height:1;color:var(--amberDeep);
+  text-shadow:0 6px 16px rgba(199,124,27,.35);
+  animation-name:qPop,qPulse;animation-duration:.3s,.5s;animation-delay:2.86s,3.16s;
+  animation-timing-function:cubic-bezier(.3,1.5,.5,1),ease-in-out}
+.slot .halo{position:absolute;left:50%;top:50%;width:124px;height:124px;margin:-62px 0 0 -62px;border-radius:50%;
+  border:5px solid var(--amber);animation-name:haloOut;animation-duration:.55s;animation-delay:3.1s;animation-timing-function:ease-out}
+@keyframes fadeIn2{0%{opacity:0}100%{opacity:1}}
+@keyframes qPop{0%{opacity:0;transform:scale(.3)}45%{opacity:1}100%{opacity:1;transform:none}}
+@keyframes qPulse{0%,100%{transform:none}45%{transform:scale(1.16)}}
+@keyframes haloOut{0%{opacity:0;transform:scale(.5)}25%{opacity:.85}100%{opacity:0;transform:scale(1.7)}}
+
+.fee{position:absolute;left:70px;right:70px;top:1525px;text-align:center}
+.fee .t{font-size:50px;color:var(--maroon);line-height:1.45;animation-name:feeIn;animation-duration:.3s;animation-delay:1.25s}
+.fee .u{width:520px;height:8px;border-radius:8px;margin:14px auto 0;transform-origin:50% 50%;
+  background:linear-gradient(90deg,rgba(244,201,121,.3),#E9A23B 30%,#E9A23B 70%,rgba(244,201,121,.3));
+  animation-name:growX;animation-duration:.4s;animation-delay:1.35s}
+@keyframes feeIn{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:none}}
+@keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+</style>
+</head>
+<body>
+<!-- ══ QC1 · the short, Q08 "प्रीमियम सेवाएँ अलग से।" + Q09 "और छठी सेवा?" · 3.59 s
+     (cut in two in the edit — 0.00–2.20 under Q08, 2.20–3.59 under Q09 — but one clip)
+     Voice, on this card's clock: 'प्रीमियम सेवाएँ' 0.00–0.98, 'अलग से' 1.25–1.65,
+     'और' 2.20–2.49, 'छठी सेवा?' 2.86–3.53.
+     0.0 heading set · 0.15–0.75 rows 01–05 slide in, 0.15 s apart · 1.25 the fee
+     footnote · 2.55 slot 06 draws in, empty · 2.86 the '?' pops, then pulses once
+     (3.16) · held to the end. ══ -->
+<div class="panel" id="QC1" data-plate="office" style="--T:5s">
+  <div class="glow"></div>
+  <div class="grp mv">
+    <div class="ttl hi">प्रीमियम सेवाएँ</div>
+    <div class="trule"></div>
+    <div class="stack">
+      <div class="sv mv a-deal" style="--r1:-.9deg;animation-delay:.15s"><div class="no dis">01</div><div class="nm hi">लीगल असिस्टेंस</div></div>
+      <div class="sv mv a-deal" style="--r1:.7deg;animation-delay:.30s"><div class="no dis">02</div><div class="nm hi">अकाउंटिंग और फ़ाइनेंशियल मॉनिटरिंग</div></div>
+      <div class="sv mv a-deal" style="--r1:-.5deg;animation-delay:.45s"><div class="no dis">03</div><div class="nm hi">साइबर सिक्योरिटी</div></div>
+      <div class="sv mv a-deal" style="--r1:.8deg;animation-delay:.60s"><div class="no dis">04</div><div class="nm hi">क्विक रिस्पॉन्स सर्विस</div></div>
+      <div class="sv mv a-deal" style="--r1:-.6deg;animation-delay:.75s"><div class="no dis">05</div><div class="nm hi">स्टाफ़ असेसमेंट</div></div>
+      <div class="slot" style="--r1:.6deg">
+        <i class="wash mv"></i>
+        <svg class="ol" viewBox="0 0 906 134" preserveAspectRatio="none">
+          <defs><mask id="m6" maskUnits="userSpaceOnUse" x="-20" y="-20" width="946" height="174">
+            <rect x="3" y="3" width="900" height="128" rx="22" pathLength="1" style="animation-duration:.42s;animation-delay:2.55s"/>
+            <line x1="131" y1="18" x2="131" y2="116" pathLength="1" style="animation-duration:.2s;animation-delay:2.7s"/>
+          </mask></defs>
+          <g mask="url(#m6)">
+            <rect x="3" y="3" width="900" height="128" rx="22"/>
+            <line class="sep" x1="131" y1="18" x2="131" y2="116"/>
+          </g>
+        </svg>
+        <div class="no dis mv">06</div>
+        <span class="qw"><i class="halo mv"></i><span class="q dis mv">?</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="fee">
+    <div class="t hi mv">फ़ीस — ज़रूरत के हिसाब से</div>
+    <div class="u mv"></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

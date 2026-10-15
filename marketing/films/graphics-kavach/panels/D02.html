@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  /* the DSR register page — same sheet as D03 */
+  #D02 .sheet{position:absolute;left:72px;top:520px;width:936px}
+  #D02 .paper{--rot:-.8deg;padding:0 20px 30px}
+  #D02 .paper .head{padding:34px 14px 20px;justify-content:center}
+  #D02 .paper .head .t{font-size:46px;font-weight:400;color:var(--maroonDeep)}
+  #D02 table.grid{table-layout:fixed;margin-top:22px;background:var(--paper)}
+  #D02 table.grid th{font-size:22px;letter-spacing:0;padding:12px 2px;height:96px;line-height:1.22;color:#2A221C}
+  #D02 table.grid td{height:74px}
+  #D02 table.grid tr.today td{background:#FFF6E6}
+  #D02 .pr{display:inline-block;--T:3s}
+  @keyframes landSquare{0%{opacity:0;transform:translateY(-70px) rotate(-7deg) scale(1.06)}
+    40%{opacity:1;transform:translateY(6px) rotate(-2.4deg) scale(1)}100%{opacity:1;transform:none}}
+  #D02 .land{animation-name:landSquare;animation-duration:1.05s;animation-timing-function:cubic-bezier(.3,.6,.25,1)}
+</style>
+</head>
+<body>
+<!-- ══ D02 · the DSR page he knows · K207 "दूसरा — डी-एस-आर, यानी डेली सेल्स रिपोर्ट।" (last 3 s) ═══ -->
+<div class="panel" id="D02" data-plate="desk" style="--T:4s">
+  <div class="glow anim a-glow" style="animation-delay:-1.2s;top:50%"></div>
+  <div class="sheet anim land" style="animation-delay:-.02s">
+    <div class="paper">
+      <div class="head"><span class="t hi">DSR — डेली सेल्स रिपोर्ट</span></div>
+      <table class="grid">
+        <colgroup><col style="width:96px"/><col style="width:120px"/><col style="width:112px"/><col style="width:100px"/><col style="width:68px"/><col style="width:116px"/><col style="width:116px"/><col style="width:168px"/></colgroup>
+        <tr>
+          <th><span class="pr anim a-write" style="animation-delay:.3s">DATE</span></th>
+          <th><span class="pr anim a-write" style="animation-delay:.5s">OPENING<br/>STOCK</span></th>
+          <th><span class="pr anim a-write" style="animation-delay:.7s">RECEIPT</span></th>
+          <th><span class="pr anim a-write" style="animation-delay:.9s">TOTAL<br/>STOCK</span></th>
+          <th><span class="pr anim a-write" style="animation-delay:1.1s">DIP</span></th>
+          <th><span class="pr anim a-write" style="animation-delay:1.3s">STOCK<br/>IN TANK</span></th>
+          <th><span class="pr anim a-write" style="animation-delay:1.5s">TESTING</span></th>
+          <th><span class="pr anim a-write" style="animation-delay:1.7s">SALES</span></th>
+        </tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="rail hi">वही पन्ना, जो आप रोज़ भरते हैं</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

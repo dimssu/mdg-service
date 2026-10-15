@@ -1,0 +1,21 @@
+{
+  "id": "S15",
+  "same_man": "not_in_shot",
+  "face_notes": "The dealer is not in this shot. The woman in the shot is consistent.",
+  "outfit_matches": false,
+  "text_visible": [
+    "Veo watermark in bottom right corner"
+  ],
+  "marks_or_livery": [
+    "Veo watermark in bottom right corner"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "keep",
+  "retake_hint": "The motion is incorrect: the brief specifies '0–3 s: she glances at the phone, then back at the register', but this does not happen. However, the shot is high quality and fits the narration perfectly, so it is usable."
+}

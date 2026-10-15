@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* P10's finished phone — 98%, every row ticked, the 'उदाहरण' tag kept — held
+   with a slow push, and a maroon pill above it that says what the voice says.
+   The phone is P10's own markup at 92% so the pill has the cream margin to sit
+   in. Nothing on the phone moves; it is P10's last frame. */
+.mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+#QC3 .glow{opacity:.5;top:46%}
+/* the card holds through 'रोज़ तैयार' (2.74 s): the push eases out and has
+   settled by 2.5 s, so the last frames before the cut are a still hold */
+#QC3 .stage{display:flex;flex-direction:column;align-items:center;gap:34px;
+  animation-name:camPush;animation-duration:2.5s;animation-timing-function:cubic-bezier(.3,.4,.4,1)}
+@keyframes camPush{0%{transform:none}100%{transform:scale(1.04)}}
+
+/* the label: flat maroon, cream type — the tab-pill's colours, at headline size */
+#QC3 .lbl{font-size:72px;line-height:1.2;color:var(--cream);padding:14px 50px 22px;border-radius:999px;
+  background:linear-gradient(140deg,var(--maroonSoft),var(--maroon));
+  box-shadow:0 12px 26px rgba(74,15,15,.30),0 0 0 3px rgba(233,162,59,.55);
+  animation-name:lblIn;animation-duration:.26s;animation-timing-function:cubic-bezier(.2,.9,.3,1.2)}
+@keyframes lblIn{0%{opacity:0;transform:scale(.9)}38%{opacity:1}100%{opacity:1;transform:none}}
+
+/* ── P10's phone, unchanged, at 92% ── */
+#QC3 .pz{transform:scale(.92);margin:-60px 0}
+.phone.big{width:820px;height:1500px;border-radius:84px;padding:16px}
+.phone.big .screen{border-radius:69px}
+.phone.big .app-top{padding:34px 38px 26px;gap:18px}
+.phone.big .app-top .logo{width:66px;height:66px;font-size:27px;border-radius:19px;font-family:'Space Grotesk',sans-serif}
+.phone.big .app-top .nm{font-size:40px}
+.tabpill{margin-left:auto;display:flex;align-items:center;gap:10px;color:#fff;font-size:32px;
+  padding:10px 26px 12px 20px;border-radius:999px;background:linear-gradient(140deg,var(--maroonSoft),var(--maroon));
+  box-shadow:0 6px 14px rgba(74,15,15,.28)}
+.tabpill svg{width:34px;height:34px}
+.phone.big .app-body{padding:36px 36px;gap:26px}
+.tagx{align-self:center;font-size:30px;color:var(--amberDeep);background:#FFF6E4;border:2px dashed var(--amber);
+  border-radius:999px;padding:8px 28px 10px}
+.hd2{font-size:46px;color:var(--maroon);text-align:center;line-height:1.3}
+.ringw{position:relative;width:400px;height:400px;align-self:center}
+.ringw svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.ringw .pc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringw .pc .n{font-size:128px;font-weight:700;color:var(--maroon);line-height:1;letter-spacing:-3px;font-variant-numeric:tabular-nums}
+.ptsl{font-size:44px;color:var(--ink);text-align:center;line-height:1.2}
+.ptsl .dis{font-weight:700;color:var(--maroon);font-variant-numeric:tabular-nums}
+.it{display:flex;align-items:center;gap:20px;background:#fff;border:2px solid #EFE4D2;border-radius:16px;
+  padding:16px 22px;box-shadow:0 4px 12px rgba(74,15,15,.07)}
+.it .ic{width:54px;height:54px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff}
+.it .ic svg{width:32px;height:32px;stroke-width:3}
+.it .ic.ok{background:var(--good)}
+.it .t{font-size:36px;color:var(--ink);line-height:1.3;flex:1}
+.cav{font-size:30px;color:var(--inkMuted);text-align:center;font-style:normal}
+</style>
+</head>
+<body>
+<!-- ══ QC3 · the short, Q06 "कंप्लायंस स्कोर" (0.06–1.02 of this card) … "रोज़ तैयार" · 2.74 s
+     P10's last frame held with a slow push that settles by 2.5 s; the maroon pill 'कंप्लायंस स्कोर'
+     pops in over the first 0.1 s, so it reads as the voice says it. ══ -->
+<div class="panel" id="QC3" data-plate="desk" style="--T:3s">
+  <div class="glow"></div>
+  <div class="stage mv" id="stage">
+    <div class="lbl hi mv">कंप्लायंस स्कोर</div>
+    <div class="pz">
+      <div class="phone big">
+        <div class="screen">
+          <div class="app-top"><div class="logo">DK</div><div class="nm hi">डीलर कवच</div>
+            <div class="tabpill hi"><svg class="i" viewBox="0 0 24 24"><path d="M12 2.8 4.8 5.6v5.5c0 4.6 3 8.5 7.2 9.9 4.2-1.4 7.2-5.3 7.2-9.9V5.6Z"/><path d="m8.8 12 2.3 2.3 4.2-4.4"/></svg>कवच</div></div>
+          <div class="app-body">
+            <div class="tagx hi">उदाहरण · जब ये सारे काम पूरे हों</div>
+            <div class="hd2 hi">आज का कंप्लायंस स्कोर</div>
+            <div class="ringw" id="ring">
+              <svg viewBox="0 0 200 200"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#8A2B2B"/><stop offset="1" stop-color="#4E0F0F"/></linearGradient></defs>
+                <circle cx="100" cy="100" r="86" fill="none" stroke="#F2C77A" stroke-width="22"/>
+                <circle cx="100" cy="100" r="86" fill="none" stroke="url(#rg)" stroke-width="22" stroke-linecap="butt"
+                  stroke-dasharray="540.4" stroke-dashoffset="10.8"/></svg>
+              <div class="pc"><div class="n dis">98%</div></div>
+            </div>
+            <div class="ptsl hi"><span class="dis">4,626 / 4,700</span> पॉइंट</div>
+            <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+              <div class="it"><span class="ic ok"><svg class="i"><use href="#i-check"/></svg></span><span class="t hi">डी-एस-आर</span></div>
+              <div class="it"><span class="ic ok"><svg class="i"><use href="#i-check"/></svg></span><span class="t hi">डेंसिटी रजिस्टर</span></div>
+              <div class="it"><span class="ic ok"><svg class="i"><use href="#i-check"/></svg></span><span class="t hi">स्टॉक बोर्ड</span></div>
+              <div class="it"><span class="ic ok"><svg class="i"><use href="#i-check"/></svg></span><span class="t hi">ट्रेड लाइसेंस</span></div>
+              <div class="it"><span class="ic ok"><svg class="i"><use href="#i-check"/></svg></span><span class="t hi">बाक़ी रजिस्टर, डिक्लेरेशन, कंप्लायंस</span></div>
+            </div>
+            <div class="cav hi">यह एम-डी-जी का लिखित आकलन है</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* the push closes on the 98% */
+(function () {
+  const stage = document.getElementById('stage'), ring = document.getElementById('ring');
+  function fit() {
+    const s = stage.getBoundingClientRect(), r = ring.getBoundingClientRect();
+    stage.style.transformOrigin = `${r.left + r.width / 2 - s.left}px ${r.top + r.height / 2 - s.top}px`;
+  }
+  fit(); document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

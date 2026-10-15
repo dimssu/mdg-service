@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* the invoice and the pump's density register lie side by side; each pair of
+   figures gets a gold ring and a line with "=" between them, HSD first, then MS,
+   and the verdict stamps across both papers. The two papers share one grid so
+   every row — and every joining line — lines up exactly. */
+.tag{align-self:flex-start;margin-left:70px;background:var(--amber);color:var(--maroonDeep);font-size:36px;
+  padding:10px 30px;border-radius:999px;box-shadow:0 8px 18px rgba(199,124,27,.3)}
+.cmp{display:grid;grid-template-columns:410px 84px 410px;grid-template-rows:auto 320px 320px 170px;
+  position:relative;transform:rotate(-.8deg)}
+.bg{position:relative;grid-row:1/5;border-radius:6px;background:var(--paper);
+  box-shadow:0 40px 80px rgba(40,14,6,.34),0 6px 16px rgba(40,14,6,.2),0 0 0 1px var(--paperEdge)}
+.bg.l{grid-column:1}
+.bg.l::before{content:'';position:absolute;left:0;right:0;top:0;height:12px;background:var(--maroon);border-radius:6px 6px 0 0}
+.bg.r{grid-column:3;background-color:var(--paper);
+  background-image:linear-gradient(transparent calc(100% - 2px),var(--rule) 0);background-size:100% 70px}
+.bg.r::before{content:'';position:absolute;top:0;bottom:0;left:56px;width:2px;background:var(--margin)}
+@keyframes inL{0%{opacity:0;transform:translateX(-160px) rotate(-4deg)}100%{opacity:1;transform:none}}
+@keyframes inR{0%{opacity:0;transform:translateX(160px) rotate(4deg)}100%{opacity:1;transform:none}}
+.t{grid-row:1;padding:40px 34px 24px;border-bottom:2px solid var(--print);position:relative;z-index:2}
+.t.l{grid-column:1;font-size:50px;color:var(--maroon);text-align:right}
+.t.r{grid-column:3;font-size:38px;color:var(--maroon);line-height:1.3;padding-left:76px}
+.c{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.c.l{grid-column:1;align-items:flex-end;padding-right:44px;text-align:right}
+.c.r{grid-column:3;align-items:flex-start;padding-left:76px}
+.c .k{font-size:36px;color:#3A332C;height:50px;line-height:50px}
+.c .k2{font-size:30px;color:#7A6F64;height:42px;line-height:42px;font-family:Inter,sans-serif;font-weight:500}
+.c .v{height:110px;line-height:110px;margin-top:8px}
+.c.l .v{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:96px;color:var(--print)}
+.c.l .k{font-family:Inter,sans-serif;font-weight:500;font-size:34px}
+.c.r .k{font-size:40px}
+.c.r .v{font-size:102px}
+.v{position:relative;display:inline-block}
+svg.ring{position:absolute;left:-26px;right:-26px;top:-18px;bottom:-18px;width:calc(100% + 52px);height:calc(100% + 36px);overflow:visible}
+svg.ring ellipse{fill:none;stroke:#D9A13A;stroke-width:6;stroke-dasharray:1;stroke-dashoffset:1}
+/* the pen figures lean right and their 5 and 7 flag out past the glyph box:
+   give their ring more room so the loop goes round the figure, not through it */
+.c.r svg.ring{left:-30px;top:-26px;width:calc(100% + 84px);height:calc(100% + 52px)}
+@keyframes drawOn2{0%{stroke-dashoffset:1;opacity:0}1%{opacity:1}100%{stroke-dashoffset:0;opacity:1}}
+.join{grid-column:1/4;position:relative;z-index:3;pointer-events:none}
+.join .ln{position:absolute;left:372px;width:160px;height:6px;border-radius:3px;background:#D9A13A;transform-origin:0 50%}
+.join .eq{position:absolute;left:452px;width:84px;height:84px;margin-left:-42px;margin-top:-42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--good);color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:66px;line-height:84px;text-align:center;
+  box-shadow:0 10px 24px rgba(30,122,74,.38),0 0 0 6px #fff}
+@keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.verdict{grid-column:1/4;grid-row:4;align-self:center;justify-self:center;z-index:4;display:flex;align-items:center;gap:14px;
+  font-size:50px;padding:14px 34px;background:rgba(232,245,238,.92)}
+.verdict svg{width:52px;height:52px;stroke-width:3}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.035)}}
+</style>
+</head>
+<body>
+<!-- ══ D09 · invoice density vs the density register · K304 "इनवॉइस पर जो डेंसिटी लिखी है, उसे हम आपके पंप पर बनने वाली डेंसिटी रिपोर्ट से मिलाते हैं — ताकि पता चले कि दोनों में कोई फ़र्क़ तो नहीं है।" (6.72 s) ══ -->
+<div class="panel" id="D09" data-plate="desk" style="--T:8s">
+  <div class="glow anim a-glow" style="animation-delay:-.5s"></div>
+  <div class="tag hi anim a-fade" style="animation-delay:0s;animation-duration:3s">उदाहरण</div>
+  <div class="anim" style="animation-name:push;animation-delay:4.4s;animation-duration:3s;animation-timing-function:linear">
+  <div class="cmp">
+    <div class="bg l anim" style="animation-name:inL;animation-delay:.1s;animation-duration:.8s"></div>
+    <div class="bg r anim" style="animation-name:inR;animation-delay:.3s;animation-duration:.8s"></div>
+    <div class="t l hi anim" style="animation-name:inL;animation-delay:.1s;animation-duration:.8s">इनवॉइस पर</div>
+    <div class="t r hi anim" style="animation-name:inR;animation-delay:.3s;animation-duration:.8s">पंप पर बनी डेंसिटी<br/>रिपोर्ट / रजिस्टर</div>
+
+    <!-- HSD -->
+    <div class="c l anim" style="grid-row:2;animation-name:inL;animation-delay:.1s;animation-duration:.8s">
+      <div class="k">HSD · 20-08</div><div class="k2">Density@15</div>
+      <div class="v">831.5<svg class="ring"><ellipse class="anim" pathLength="1" cx="50%" cy="50%" rx="47%" ry="44%" style="animation-name:drawOn2;animation-delay:1.5s;animation-duration:.45s"/></svg></div>
+    </div>
+    <div class="c r hand anim" style="grid-row:2;animation-name:inR;animation-delay:.3s;animation-duration:.8s">
+      <div class="k">HSD · 20-08</div><div class="k2"></div>
+      <div class="v">831.5<svg class="ring"><ellipse class="anim" pathLength="1" cx="50%" cy="50%" rx="47%" ry="44%" style="animation-name:drawOn2;animation-delay:1.75s;animation-duration:.45s"/></svg></div>
+    </div>
+    <div class="join" style="grid-row:2">
+      <div class="ln anim" style="top:213px;animation-name:growX;animation-delay:2.05s;animation-duration:.35s"></div>
+      <div class="eq anim a-pop" style="top:216px;animation-delay:2.3s;animation-duration:3s"><svg viewBox="0 0 24 24" style="width:48px;height:48px"><path d="M5 9h14M5 15h14" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg></div>
+    </div>
+
+    <!-- MS -->
+    <div class="c l anim" style="grid-row:3;animation-name:inL;animation-delay:.1s;animation-duration:.8s">
+      <div class="k">MS · 18-08</div><div class="k2">Density@15</div>
+      <div class="v">745.2<svg class="ring"><ellipse class="anim" pathLength="1" cx="50%" cy="50%" rx="47%" ry="44%" style="animation-name:drawOn2;animation-delay:2.9s;animation-duration:.45s"/></svg></div>
+    </div>
+    <div class="c r hand anim" style="grid-row:3;animation-name:inR;animation-delay:.3s;animation-duration:.8s">
+      <div class="k">MS · 18-08</div><div class="k2"></div>
+      <div class="v">745.2<svg class="ring"><ellipse class="anim" pathLength="1" cx="50%" cy="50%" rx="47%" ry="44%" style="animation-name:drawOn2;animation-delay:3.15s;animation-duration:.45s"/></svg></div>
+    </div>
+    <div class="join" style="grid-row:3">
+      <div class="ln anim" style="top:213px;animation-name:growX;animation-delay:3.45s;animation-duration:.35s"></div>
+      <div class="eq anim a-pop" style="top:216px;animation-delay:3.7s;animation-duration:3s"><svg viewBox="0 0 24 24" style="width:48px;height:48px"><path d="M5 9h14M5 15h14" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg></div>
+    </div>
+
+    <div class="verdict stamp hi anim a-stampdown" style="animation-delay:4.25s;animation-duration:5s">
+      दोनों में कोई अंतर नहीं <svg class="i"><use href="#i-check"/></svg></div>
+  </div>
+  </div>
+  <div class="rail hi">इनवॉइस की डेंसिटी = पंप की डेंसिटी रिपोर्ट</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

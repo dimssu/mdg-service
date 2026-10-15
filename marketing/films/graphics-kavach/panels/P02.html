@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  #P02 .phone{width:860px;height:1590px;border-radius:92px;padding:18px;position:absolute;left:110px;top:140px}
+  #P02 .screen{border-radius:76px;background:#1A0A08}
+  #P02 .L{position:absolute;inset:0}
+  /* 1 · the phone at rest */
+  #P02 .home{background:radial-gradient(90% 60% at 50% 30%,#8A2B2B,#4E0F0F 60%,#240606);display:flex;flex-direction:column;align-items:center;padding-top:300px}
+  #P02 .home .clk{font-size:84px;color:#FFF3E2}
+  /* 2 · the notification */
+  #P02 .nw{left:26px;right:26px;top:80px;bottom:auto;--T:3s}
+  #P02 .nb{background:rgba(255,252,247,.96);border-radius:34px;padding:26px 28px 28px;box-shadow:0 20px 40px rgba(0,0,0,.4)}
+  #P02 .nb .r1{display:flex;align-items:center;gap:16px}
+  #P02 .nb .ai{width:54px;height:54px;border-radius:14px;background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep));color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;flex:none}
+  #P02 .nb .ap{font-size:30px;color:var(--inkMuted);flex:1}
+  #P02 .nb .tt{font-size:26px;color:var(--inkMuted)}
+  #P02 .nb .r2{font-size:42px;color:var(--ink);margin-top:14px}
+  @keyframes bannerOut{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-70px) scale(.96)}}
+  #P02 .nb.anim{animation-name:bannerOut;animation-duration:.45s}
+  /* 3 · the chat */
+  #P02 .chat{display:flex;flex-direction:column;--T:3s}
+  #P02 .ph-top{background:linear-gradient(120deg,var(--maroonSoft),var(--maroon) 65%);padding:62px 40px 30px;display:flex;align-items:center;gap:22px;
+    border-bottom:5px solid var(--amber)}
+  #P02 .ph-top .av{width:88px;height:88px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 34% 28%,#F8C46A,var(--amber) 50%,var(--amberDeep));color:var(--maroonDeep);font-size:44px;font-weight:700}
+  #P02 .ph-top .nm{font-size:42px;color:#fff;line-height:1.15}
+  #P02 .ph-top .st{font-size:30px;color:var(--amberSoft);line-height:1.2}
+  #P02 .cb{flex:1;background:#EFE6D8;padding:40px 30px;background-image:radial-gradient(rgba(107,22,22,.06) 1.5px,transparent 1.5px);background-size:22px 22px}
+  #P02 .bub2{display:inline-block;background:#fff;border-radius:28px;border-top-left-radius:8px;padding:12px 12px 10px;box-shadow:0 3px 8px rgba(40,14,6,.13)}
+  #P02 .bub2 .tm{font-size:26px;color:#8C7E70;text-align:right;padding:8px 10px 0;font-family:'Inter',sans-serif}
+  #P02 .thumb{position:relative;overflow:hidden;border-radius:14px}
+  #P02 .thumb > .rc{position:absolute;left:0;top:0;transform-origin:0 0}
+  /* 4 · the report image, opened */
+  #P02 .viewer{background:#120705;--T:3s}
+  #P02 .vw{left:20px;right:20px;top:0;bottom:0;display:flex;align-items:center}
+  #P02 .vc{width:100%;transform-origin:0 0}
+  @keyframes zoomFrom{0%{opacity:0;transform:translate(var(--zx,0),var(--zy,0)) scale(var(--zs,.6))}10%{opacity:1}
+    100%{opacity:1;transform:none}}
+  #P02 .vc.anim{animation-name:zoomFrom;animation-duration:.85s;animation-timing-function:cubic-bezier(.5,.05,.2,1)}
+  @keyframes push{0%{transform:none}100%{transform:scale(1.09)}}
+  #P02 .push.anim{animation-name:push;animation-duration:2.6s;animation-timing-function:cubic-bezier(.45,0,.4,1)}
+  /* the report card itself */
+  #P02 .rc{position:relative;width:784px;background:var(--cream);border-radius:18px;overflow:hidden;border:2px solid var(--amberSoft)}
+  #P02 .rc-top{background:linear-gradient(120deg,var(--maroonSoft),var(--maroon) 62%);padding:22px 24px;display:flex;align-items:center;gap:16px;border-bottom:5px solid var(--amber)}
+  #P02 .rc-top .tile{background:#fff;color:var(--maroon);font-size:24px;font-weight:700;padding:6px 12px;border-radius:9px}
+  #P02 .rc-top .ti{color:#fff;font-size:38px}
+  #P02 .gl{padding:18px 20px 8px;display:flex;flex-direction:column;gap:12px}
+  #P02 .gr{position:relative;display:flex;align-items:center;justify-content:space-between;background:#fff;border:2px solid #EFE4D2;border-radius:16px;padding:10px 24px;overflow:hidden}
+  #P02 .gr .k{font-size:34px;color:var(--inkMuted);position:relative;z-index:1}
+  #P02 .gr .v{font-size:64px;font-weight:700;color:var(--maroon);position:relative;z-index:1;letter-spacing:-1px}
+  #P02 .gr .v small{font-size:36px;font-weight:700;margin-left:6px}
+  #P02 .gr .hl{position:absolute;inset:0;background:linear-gradient(90deg,rgba(246,220,168,.85),rgba(246,220,168,.15));border-left:8px solid var(--amber)}
+  #P02 table.mini{width:calc(100% - 32px);margin:14px 16px 0;table-layout:fixed;border-collapse:collapse;font-family:'Inter',sans-serif}
+  #P02 table.mini th{font-size:18px;font-weight:700;color:#3A332C;border:1.5px solid #6E655B;background:#F3ECE0;padding:8px 2px;line-height:1.2;height:64px}
+  #P02 table.mini td{font-size:24px;border:1.5px solid #9C9184;text-align:center;height:62px;padding:0 2px;position:relative;background:#fff}
+  #P02 table.mini tr.hot td{background:#FFF3DC}
+  #P02 .dot{position:absolute;inset:6px;border:3px dashed var(--amberDeep);border-radius:8px}
+  #P02 .note{font-size:30px;color:var(--maroon);text-align:center;padding:18px 20px 16px}
+  #P02 .rc .foot{font-size:24px}
+  #P02 .q{--T:3s}
+</style>
+</head>
+<body>
+<!-- ══ P02 · the daily DSR lands on his phone · K209 "ये रिपोर्ट रोज़ आपके फ़ोन पर पहुँचती है…" ═══ -->
+<div class="panel" id="P02" data-plate="desk" style="--T:8s">
+  <div class="glow anim a-glow" style="animation-delay:-1.6s;top:52%"></div>
+  <div class="phone anim a-rise" style="animation-delay:-.1s;animation-duration:5s">
+    <div class="screen">
+      <div class="L home"><div class="clk hi">सुबह 8:10</div></div>
+
+      <div class="L nw anim a-drop" style="animation-delay:.15s">
+        <div class="nb anim" style="animation-delay:1.0s">
+          <div class="r1"><span class="ai dis">M</span><span class="ap hi">MDG टीम · डीलर कवच</span><span class="tt hi">सुबह 8:10</span></div>
+          <div class="r2 hi">डी-एस-आर · 21-08 · HSD</div>
+        </div>
+      </div>
+
+      <div class="L chat anim a-fade" style="animation-delay:1.0s">
+        <div class="ph-top"><div class="av dis">M</div><div><div class="nm hi">MDG टीम</div><div class="st hi">डीलर कवच</div></div></div>
+        <div class="cb"><div class="bub2 q anim a-bub" style="animation-delay:1.1s"><div class="thumb" id="thumb"></div><div class="tm">8:10</div></div></div>
+      </div>
+
+      <div class="L viewer anim a-fade" style="animation-delay:2.45s"></div>
+      <div class="L vw">
+        <div class="vc anim" id="vc" style="animation-delay:2.5s">
+          <div class="push anim" id="push" style="animation-delay:5.0s">
+            <div class="rc" id="rc">
+              <div class="rc-top"><span class="tile dis">DSR</span><span class="ti hi">डी-एस-आर · 21-08 · HSD</span></div>
+              <div class="gl">
+                <div class="gr"><i class="hl q anim a-fade" style="animation-delay:3.0s"></i><span class="k hi">कल की बिक्री</span><span class="v dis">4,222<small>L</small></span></div>
+                <div class="gr"><i class="hl q anim a-fade" style="animation-delay:3.3s"></i><span class="k hi">टंकी में अभी</span><span class="v dis">14,246<small>L</small></span></div>
+                <div class="gr"><i class="hl q anim a-fade" style="animation-delay:3.6s"></i><span class="k hi">कल आया</span><span class="v dis">6,000<small>L</small></span></div>
+              </div>
+              <table class="mini">
+                <colgroup><col style="width:84px"/><col style="width:104px"/><col style="width:100px"/><col style="width:92px"/><col style="width:62px"/><col style="width:104px"/><col style="width:104px"/><col style="width:102px"/></colgroup>
+                <tr><th>DATE</th><th>OPENING<br/>STOCK</th><th>RECEIPT</th><th>TOTAL<br/>STOCK</th><th>DIP</th><th>STOCK<br/>IN TANK</th><th>TESTING</th><th>SALES</th></tr>
+                <tr class="r20"><td>20-08</td><td>12,480</td><td>6,000</td><td>18,480</td><td>160</td><td>14,246</td><td>12</td><td>4,222</td></tr>
+                <tr><td>21-08</td><td>14,246</td><td></td><td></td><td></td><td></td><td></td><td><i class="dot q anim a-fade" style="animation-delay:4.35s"></i></td></tr>
+              </table>
+              <div class="note hi">आज की SALES कल की रीडिंग से भरेगी</div>
+              <div class="foot hi">Dealer's कवच Programme · MDG Services</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">आपको ख़ुद बैठना नहीं पड़ता</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* the chat shows the same report as a thumbnail; the opened view zooms out of it */
+(function () {
+  const rc = document.getElementById('rc'), thumb = document.getElementById('thumb');
+  const clone = rc.cloneNode(true);
+  clone.removeAttribute('id');
+  clone.querySelectorAll('.hl,.dot').forEach((n) => n.remove());
+  clone.querySelectorAll('.anim').forEach((n) => n.classList.remove('anim'));
+  thumb.appendChild(clone);
+  const screen = document.querySelector('#P02 .screen');
+  const at = (el) => { let x = 0, y = 0; for (let e = el; e && e !== screen; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; } return { x, y }; };
+  function fit() {
+    const s = 0.62, W = rc.offsetWidth, H = rc.offsetHeight;
+    clone.style.transform = `scale(${s})`;
+    thumb.style.width = (W * s) + 'px'; thumb.style.height = (H * s) + 'px';
+    const vc = document.getElementById('vc'), a = at(thumb), b = at(vc);
+    vc.style.setProperty('--zx', (a.x - b.x) + 'px');
+    vc.style.setProperty('--zy', (a.y - b.y) + 'px');
+    vc.style.setProperty('--zs', s);
+    /* the closing push lands on the 20-08 row */
+    const row = rc.querySelector('.r20'), push = document.getElementById('push');
+    let y = row.offsetHeight / 2; for (let e = row; e && e !== rc; e = e.offsetParent) y += e.offsetTop;
+    push.style.transformOrigin = `50% ${y}px`;
+  }
+  fit(); document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

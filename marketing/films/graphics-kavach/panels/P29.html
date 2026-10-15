@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+#P29 .phone{width:860px;height:1300px;border-radius:84px;padding:16px}
+#P29 .screen{border-radius:70px;background:var(--cream)}
+#P29 .island{position:absolute;top:22px;left:50%;width:150px;height:40px;margin-left:-75px;border-radius:20px;background:#000;z-index:10}
+#P29 .app-top{padding:84px 36px 24px;gap:20px}
+#P29 .app-top .logo{width:72px;height:72px;border-radius:20px;font-size:28px}
+#P29 .app-top .nm{font-size:36px}
+#P29 .app-top .tab{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:32px;color:#fff;padding:10px 24px 10px 18px;border-radius:999px;
+  background:linear-gradient(140deg,var(--maroonSoft),var(--maroon))}
+#P29 .app-top .tab svg{width:34px;height:34px;stroke-width:2.2}
+#P29 .app-body{padding:34px 30px;gap:0}
+#P29 .kc{border-radius:26px;overflow:hidden;background:#fff;border:2px solid var(--amberSoft);box-shadow:0 18px 40px rgba(74,15,15,.16);transform-origin:50% 0}
+#P29 .kc-top{background:linear-gradient(120deg,var(--maroonSoft),var(--maroon) 62%);border-bottom:5px solid var(--amber);
+  padding:28px 28px;display:flex;align-items:center;gap:16px;color:#fff;font-size:46px;line-height:1.3}
+#P29 .kc-top svg{width:46px;height:46px;flex:none}
+#P29 .kc-top b{font-family:'Space Grotesk',sans-serif;color:var(--amberSoft)}
+#P29 .sl{border-top:1.5px solid #F0E6D6;background:
+  linear-gradient(#EEE4D4,#EEE4D4) 30px 50%/140px 18px no-repeat,
+  linear-gradient(#EEE4D4,#EEE4D4) 226px 50%/260px 18px no-repeat,var(--cream)}
+#P29 .rw{display:flex;align-items:center;gap:20px;padding:30px 26px 30px 30px;background:var(--cream);min-height:176px}
+#P29 .rw .tm{width:196px;flex:none;font-size:38px;color:var(--amberDeep);line-height:1.25}
+#P29 .rw .tm b{font-family:'Space Grotesk',sans-serif;font-size:42px}
+#P29 .rw .tk{flex:1;font-size:45px;color:var(--ink);line-height:1.3;padding-top:4px}
+#P29 .rw .st{display:flex;align-items:center;gap:12px;font-size:32px;color:var(--good);flex:none}
+#P29 .ck{position:relative;width:76px;height:76px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;
+  background:linear-gradient(150deg,#27935A,#17663C);border:3px solid var(--amber);box-shadow:0 6px 14px rgba(30,122,74,.30)}
+#P29 .ck svg{width:42px;height:42px;stroke-width:3}
+#P29 .ckw{border-radius:50%;flex:none}
+@keyframes tickIn{0%{opacity:0;transform:scale(.3) rotate(-30deg)}60%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:none}}
+.ti{animation-name:tickIn;animation-duration:.45s!important}
+@keyframes glowSh{0%{box-shadow:0 0 0 0 rgba(233,162,59,0)}45%{box-shadow:0 0 0 14px rgba(233,162,59,.45),0 0 44px 16px rgba(233,162,59,.55)}100%{box-shadow:0 0 0 8px rgba(233,162,59,.30),0 0 30px 8px rgba(233,162,59,.35)}}
+.gs{animation-name:glowSh;animation-duration:.9s!important}
+@keyframes openCard{0%{opacity:0;transform:scaleY(.2) translateY(-30px)}50%{opacity:1}100%{opacity:1;transform:none}}
+.open{animation-name:openCard;animation-duration:.7s!important}
+.fast{animation-duration:.5s!important}
+</style>
+</head>
+<body>
+<!-- ══ P29 · the day's timed tasks, done on time · K519 "…तय समय के हिसाब से ज़रूरी प्रक्रिया पूरी करने में मदद करती है।" ══ -->
+<div class="panel" id="P29" data-plate="desk" style="--T:5s">
+  <div class="glow anim a-glow"></div>
+  <div class="phone anim a-rise" style="animation-duration:.7s">
+    <div class="screen">
+      <div class="island"></div>
+      <div class="app-top"><div class="logo dis">DK</div><div class="nm hi">डीलर कवच</div>
+        <div class="tab hi"><svg class="i" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.6c0 4.4 3.1 8.1 7.5 9.4 4.4-1.3 7.5-5 7.5-9.4V6Z"/></svg>कवच</div></div>
+      <div class="app-body">
+        <div class="kc anim open" style="animation-delay:.1s">
+          <div class="kc-top hi"><svg class="i"><use href="#i-clock"/></svg><span>तय समय के काम · <b>20-08</b></span></div>
+          <div class="sl"><div class="rw anim a-stamp fast" style="animation-delay:.7s"><span class="tm hi">सुबह <b>7:00</b></span><span class="tk hi">डेली डिक्लेरेशन</span>
+            <span class="ckw anim gs" style="animation-delay:3.2s"><span class="ck anim ti" style="animation-delay:.95s"><svg class="i"><use href="#i-check"/></svg></span></span></div></div>
+          <div class="sl"><div class="rw anim a-stamp fast" style="animation-delay:1.25s"><span class="tm hi">सुबह <b>8:10</b></span><span class="tk hi">डी-एस-आर</span>
+            <span class="ckw anim gs" style="animation-delay:3.2s"><span class="ck anim ti" style="animation-delay:1.5s"><svg class="i"><use href="#i-check"/></svg></span></span></div></div>
+          <div class="sl"><div class="rw anim a-stamp fast" style="animation-delay:1.8s"><span class="tm hi">सुबह <b>9:40</b></span><span class="tk hi">स्टॉक बोर्ड अपडेट</span>
+            <span class="ckw anim gs" style="animation-delay:3.2s"><span class="ck anim ti" style="animation-delay:2.05s"><svg class="i"><use href="#i-check"/></svg></span></span></div></div>
+          <div class="sl"><div class="rw anim a-stamp fast" style="animation-delay:2.35s"><span class="tm hi">हर <b>2</b> घंटे</span><span class="tk hi">वॉटर टेस्टिंग विंडो<br/><span style="font-size:38px;color:var(--good)">12 में से 12</span></span>
+            <span class="ckw anim gs" style="animation-delay:3.2s"><span class="ck anim ti" style="animation-delay:2.6s"><svg class="i"><use href="#i-check"/></svg></span></span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">हर काम, अपने समय पर</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

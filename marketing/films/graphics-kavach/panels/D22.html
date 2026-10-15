@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+#D22 .stage{position:absolute;left:0;right:0;top:0;bottom:0}
+#D22 .paper{position:absolute;left:66px;top:560px;width:948px;padding:34px 30px 44px;--rot:-1deg}
+#D22 .ttl{font-size:40px;font-weight:700;color:var(--print);line-height:1.35;padding:0 6px 22px;border-bottom:3px solid var(--print)}
+#D22 .grid{display:grid;grid-template-columns:150px 1fr 186px 186px}
+#D22 .th{font-size:26px;font-weight:700;color:#3A332C;background:#F3ECE0;padding:14px 10px;text-align:center;
+  border-bottom:2px solid #6E655B}
+#D22 .tr{display:contents}
+#D22 .c{position:relative;font-size:31px;padding:20px 12px;border-bottom:1.5px solid #CBBFAE;display:flex;align-items:center;min-height:92px;line-height:1.3}
+#D22 .c.n{font-family:'Inter',sans-serif;font-weight:500;justify-content:flex-end;font-variant-numeric:tabular-nums}
+#D22 .c.d{font-family:'Inter',sans-serif;font-weight:500;justify-content:center;color:#4A423A}
+#D22 .rowx{grid-column:1 / -1;display:grid;grid-template-columns:150px 1fr 186px 186px;position:relative}
+#D22 .hl{position:absolute;left:-10px;right:-10px;top:6px;bottom:6px;border-radius:8px;
+  background:linear-gradient(90deg,rgba(255,214,64,.62),rgba(255,214,64,.48));transform-origin:0 50%}
+@keyframes sweepIn{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.sw{animation-name:sweepIn;animation-duration:.8s!important;animation-timing-function:cubic-bezier(.4,.1,.3,1)!important}
+@keyframes greyOut{0%{opacity:1;filter:none}100%{opacity:.32;filter:grayscale(1)}}
+.gy{animation-name:greyOut;animation-duration:.6s!important}
+@keyframes printIn{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(0 0 0 0)}}
+.pr{animation-name:printIn;animation-duration:.45s!important;animation-timing-function:linear!important}
+#D22 svg.ring{position:absolute;overflow:visible;z-index:6;pointer-events:none}
+#D22 svg.ring ellipse{fill:none;stroke:var(--penRed);stroke-width:5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+@keyframes drawOn2{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+.drw{animation-name:drawOn2;animation-duration:.6s!important}
+#D22 .tag{position:absolute;z-index:7;transform-origin:50% 0}
+#D22 .tag .str{position:absolute;left:50%;top:-86px;width:3px;height:92px;background:#8C6A3E;margin-left:-1.5px}
+#D22 .tag .pin{position:absolute;left:50%;top:-100px;width:26px;height:26px;margin-left:-13px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#F07A6A,#B3261E);box-shadow:0 4px 8px rgba(0,0,0,.35)}
+#D22 .tag .bd{background:linear-gradient(160deg,#FFE7A8,#F6C865);color:#4A2A08;border-radius:16px;padding:22px 30px;
+  font-size:40px;line-height:1.3;text-align:center;box-shadow:0 18px 34px rgba(58,16,10,.30);position:relative}
+#D22 .tag .bd::before{content:'';position:absolute;left:50%;top:12px;width:16px;height:16px;margin-left:-8px;border-radius:50%;
+  background:#FFF6DC;box-shadow:inset 0 2px 3px rgba(0,0,0,.25)}
+@keyframes swingIn{0%{opacity:0;transform:rotate(-24deg) translateY(-30px)}40%{opacity:1}70%{transform:rotate(6deg)}100%{opacity:1;transform:rotate(2.5deg)}}
+.swing{animation-name:swingIn;animation-duration:.9s!important;animation-timing-function:cubic-bezier(.3,.8,.4,1)!important}
+@keyframes drift2{0%{transform:rotate(-1deg)}100%{transform:translateY(-18px) scale(1.025) rotate(-1deg)}}
+.dr{animation-name:drift2;animation-timing-function:linear!important}
+</style>
+</head>
+<body>
+<!-- ══ D22 · statement with the internal charge highlighted · K511 "…कोई इंटरनल चार्ज, या दूसरा डेबिट लगता है…" ══ -->
+<div class="panel" id="D22" data-plate="desk" style="--T:7s">
+  <div class="stage anim dr">
+  <div class="paper" style="transform:rotate(-1deg)">
+    <div class="ttl hi">तेल कंपनी के साथ खाते का स्टेटमेंट · अगस्त</div>
+    <div class="grid">
+      <div class="th hi anim pr" style="animation-delay:.15s">तारीख़</div><div class="th hi anim pr" style="animation-delay:.25s">विवरण</div><div class="th hi anim pr" style="animation-delay:.35s">डेबिट</div><div class="th hi anim pr" style="animation-delay:.45s">क्रेडिट</div>
+
+      <div class="rowx anim pr" style="animation-delay:.7s"><div class="rowx anim gy" style="grid-column:1/-1;animation-delay:3.0s">
+        <div class="c d">18-08</div><div class="c hi">HSD ख़रीद</div><div class="c n">₹5,62,380</div><div class="c n"></div></div></div>
+      <div class="rowx anim pr" style="animation-delay:1.15s"><div class="rowx anim gy" style="grid-column:1/-1;animation-delay:3.05s">
+        <div class="c d">18-08</div><div class="c hi">जमा</div><div class="c n"></div><div class="c n">₹6,00,000</div></div></div>
+      <div class="rowx anim pr" style="animation-delay:1.6s"><div class="rowx anim gy" style="grid-column:1/-1;animation-delay:3.1s">
+        <div class="c d">19-08</div><div class="c hi">MS ख़रीद</div><div class="c n">₹4,18,950</div><div class="c n"></div></div></div>
+      <div class="rowx anim pr" style="animation-delay:2.05s" id="hot">
+        <div class="hl anim sw" style="animation-delay:3.3s"></div>
+        <div class="c d" style="font-weight:700;color:var(--print)">20-08</div><div class="c hi" style="font-weight:700">इंटरनल चार्ज — लाइसेंस फ़ीस रिकवरी</div><div class="c n" id="amt" style="font-weight:700;font-size:38px;color:var(--penRed)">₹8,260</div><div class="c n"></div></div>
+      <div class="rowx anim pr" style="animation-delay:2.5s"><div class="rowx anim gy" style="grid-column:1/-1;animation-delay:3.15s">
+        <div class="c d" style="border-bottom:0">21-08</div><div class="c hi" style="border-bottom:0">जमा</div><div class="c n" style="border-bottom:0"></div><div class="c n" style="border-bottom:0">₹5,00,000</div></div></div>
+    </div>
+    <svg class="ring" style="left:570px;top:458px;width:200px;height:100px" viewBox="0 0 200 100"><ellipse class="anim drw" pathLength="1" style="animation-delay:3.9s" cx="100" cy="50" rx="96" ry="44" transform="rotate(-3 100 50)"/></svg>
+    <div class="tag anim swing" style="left:522px;top:688px;animation-delay:4.4s"><div class="str"></div><div class="pin"></div>
+      <div class="bd hi" style="padding-top:38px">सामान्य लेन-देन<br/>के अलावा</div></div>
+  </div>
+  </div>
+  <div class="rail hi">हर डेबिट पर नज़र</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

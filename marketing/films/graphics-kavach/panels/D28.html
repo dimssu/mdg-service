@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* a monthly account sheet: printed labels, figures that roll as they are read */
+.sheet{position:absolute;left:70px;width:940px;--rot:-.8deg}
+.sheet .hd{display:flex;align-items:center;gap:18px;padding:34px 44px 26px;border-bottom:3px solid var(--print)}
+.sheet .hd .t{font-size:54px;color:var(--maroon)}
+.sheet .hd .m{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:30px;color:#6B6258}
+.sheet .hd .m b{width:46px;height:46px;border-radius:12px;background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep));
+  color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif}
+.fig{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-spacing:-1.5px;line-height:1;font-variant-numeric:tabular-nums}
+
+.sheet{top:220px;padding-bottom:205px}
+.r{display:flex;align-items:center;justify-content:space-between;padding:42px 44px 38px;border-bottom:2px solid #E6DAC6}
+.r .k{font-size:48px;color:var(--ink)}
+.r .fig{font-size:80px;color:var(--print)}
+.r.exp .fig{color:var(--maroonSoft)}
+.brk{padding:6px 44px 22px 44px;border-bottom:2px solid #E6DAC6;background:#FBF6EC}
+.b{display:grid;grid-template-columns:1fr 170px 250px;align-items:center;gap:22px;padding:18px 0 18px 30px;border-left:5px solid var(--amberSoft)}
+.b .k{font-size:38px;color:#4A3F37}
+.b .bar{height:14px;border-radius:14px;background:#EFE4D2;overflow:hidden}
+.b .bar i{display:block;height:100%;border-radius:14px;background:linear-gradient(90deg,#C98D8D,var(--maroonSoft));transform-origin:0 50%}
+.b .v{font-size:38px;font-family:'Inter',sans-serif;font-weight:600;color:var(--print);text-align:right}
+.pl{display:flex;align-items:center;justify-content:space-between;padding:46px 44px 30px}
+.pl .k{font-size:46px;color:var(--maroonDeep)}
+.pl .val{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.pl .fig{font-size:100px;color:#BF7A12;text-shadow:0 2px 0 rgba(255,236,190,.9);filter:drop-shadow(0 12px 22px rgba(233,162,59,.38))}
+.pl .w{font-size:40px;color:var(--amberDeep);display:flex;align-items:center;gap:10px}
+.pl .w svg{width:46px;height:46px;fill:none;stroke:var(--good);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.vd{position:absolute;left:480px;top:1318px;font-size:54px;padding:14px 34px;z-index:7}
+@keyframes grow{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.a-grow{animation-name:grow;animation-timing-function:cubic-bezier(.3,.8,.3,1)}
+@keyframes open{0%{clip-path:inset(0 0 100% 0)}100%{clip-path:inset(0 0 0 0)}}
+.a-open{animation-name:open;animation-timing-function:cubic-bezier(.4,.1,.3,1)}
+</style>
+</head>
+<body>
+<!-- ══ D28 · income, expense, profit or loss · K707 "आपको बताया जाता है कि आमदनी कितनी रही, ख़र्च कितना रहा, और मुनाफ़े या नुक़सान की क्या स्थिति है।" (9.31 s) ══ -->
+<div class="panel" id="D28" data-plate="desk" style="--T:10s">
+  <div class="paper sheet anim a-rise" style="animation-delay:0s;animation-duration:3.5s">
+    <div class="hd"><span class="t hi">अगस्त का हिसाब</span><span class="m"><b>M</b><span class="dis">MDG Services</span></span></div>
+    <div class="r anim a-fade" style="animation-delay:.25s;animation-duration:3s"><span class="k hi">आमदनी</span>
+      <span class="fig"><span class="odo" data-n="6,42,380" data-at=".35" data-roll="1.7">₹</span></span></div>
+    <div class="r exp anim a-fade" style="animation-delay:2.6s;animation-duration:3s"><span class="k hi">ख़र्च</span>
+      <span class="fig"><span class="odo" data-n="4,91,560" data-at="2.7" data-roll="1.5">₹</span></span></div>
+    <div class="brk anim a-open" style="animation-delay:3.15s;animation-duration:1.4s">
+      <div class="b"><span class="k hi">स्टाफ़ वेतन</span><span class="bar"><i class="anim a-grow" style="width:100%;animation-delay:3.35s;animation-duration:.9s"></i></span><span class="v">₹2,64,000</span></div>
+      <div class="b"><span class="k hi">बिजली</span><span class="bar"><i class="anim a-grow" style="width:33%;animation-delay:3.55s;animation-duration:.9s"></i></span><span class="v">₹86,400</span></div>
+      <div class="b"><span class="k hi">रख-रखाव</span><span class="bar"><i class="anim a-grow" style="width:16%;animation-delay:3.75s;animation-duration:.9s"></i></span><span class="v">₹41,160</span></div>
+      <div class="b"><span class="k hi">बाक़ी</span><span class="bar"><i class="anim a-grow" style="width:38%;animation-delay:3.95s;animation-duration:.9s"></i></span><span class="v">₹1,00,000</span></div>
+    </div>
+    <div class="pl anim a-rise" style="animation-delay:5.0s;animation-duration:4s"><span class="k hi">मुनाफ़ा / नुक़सान</span>
+      <span class="val"><span class="fig"><span class="odo" data-n="1,50,820" data-at="5.1" data-roll="1.3">₹</span></span>
+        <span class="w hi"><svg viewBox="0 0 24 24" class="anim a-pop" style="animation-delay:6.0s;animation-duration:3s"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg>मुनाफ़ा</span></span></div>
+  </div>
+  <div class="stamp vd anim a-stampdown" style="animation-delay:6.4s;animation-duration:8s">मुनाफ़े में ✓</div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* Odometers that roll when their row arrives, not at frame 0: data-at is the
+   second the roll starts, data-roll how long it takes. */
+for (const el of document.querySelectorAll('.odo[data-at]')) {
+  const at = parseFloat(el.dataset.at), roll = parseFloat(el.dataset.roll || '1.3');
+  el.querySelectorAll('.col').forEach((c, i) => {
+    c.style.animationDelay = (at + i * 0.06).toFixed(2) + 's';
+    c.style.animationDuration = (roll / 0.3).toFixed(2) + 's';
+  });
+}
+</script>
+</body>
+</html>

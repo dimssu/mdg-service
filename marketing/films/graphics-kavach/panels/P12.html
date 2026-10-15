@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* ── the Dealer Kavach phone, sized up so every line reads on a phone screen ── */
+.phone.big{width:820px;height:1500px;border-radius:84px;padding:16px}
+.phone.big .screen{border-radius:69px}
+.phone.big .app-top{padding:34px 38px 26px;gap:18px}
+.phone.big .app-top .logo{width:66px;height:66px;font-size:27px;border-radius:19px;font-family:'Space Grotesk',sans-serif}
+.phone.big .app-top .nm{font-size:40px}
+.tabpill{margin-left:auto;display:flex;align-items:center;gap:10px;color:#fff;font-size:32px;
+  padding:10px 26px 12px 20px;border-radius:999px;background:linear-gradient(140deg,var(--maroonSoft),var(--maroon));
+  box-shadow:0 6px 14px rgba(74,15,15,.28)}
+.tabpill svg{width:34px;height:34px}
+.phone.big .app-body{padding:36px 36px;gap:26px}
+.tagx{align-self:center;font-size:30px;color:var(--amberDeep);background:#FFF6E4;border:2px dashed var(--amber);
+  border-radius:999px;padding:8px 28px 10px}
+.hd2{font-size:46px;color:var(--maroon);text-align:center;line-height:1.3}
+.ringw{position:relative;width:400px;height:400px;align-self:center}
+.ringw svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.ringw .pc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringw .pc .n{font-size:128px;font-weight:700;color:var(--maroon);line-height:1;letter-spacing:-3px}
+@keyframes ringTo{from{stroke-dashoffset:540.4}to{stroke-dashoffset:var(--off)}}
+.ptsl{font-size:44px;color:var(--ink);text-align:center;line-height:1.2}
+.ptsl .dis{font-weight:700;color:var(--maroon)}
+.it{display:flex;align-items:center;gap:20px;background:#fff;border:2px solid #EFE4D2;border-radius:16px;
+  padding:16px 22px;box-shadow:0 4px 12px rgba(74,15,15,.07)}
+.it .ic{width:54px;height:54px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff}
+.it .ic svg{width:32px;height:32px;stroke-width:3}
+.it .ic.ok{background:var(--good)} .it .ic.due{background:var(--amber)} .it .ic.late{background:var(--bad)}
+.it .t{font-size:36px;color:var(--ink);line-height:1.3;flex:1}
+.it .v{font-size:38px;font-weight:700;color:var(--maroon)}
+.cav{font-size:30px;color:var(--inkMuted);text-align:center;font-style:normal}
+
+/* the app's own chat, as on P07/P08/P09: notch, white header with the DK badge,
+   cream chat, maroon mic — the same phone on every chat card */
+#P12 .phone{width:860px;height:1520px;border-radius:84px;padding:16px;margin-top:-40px}
+#P12 .screen{border-radius:70px;background:var(--cream)}
+#P12 .island{position:absolute;top:22px;left:50%;width:150px;height:40px;margin-left:-75px;
+  border-radius:20px;background:#000;z-index:10}
+#P12 .top{padding:84px 36px 24px;display:flex;align-items:center;gap:20px;background:#fff;
+  border-bottom:1px solid #EDE2D3;position:relative;z-index:2}
+#P12 .top .logo{width:72px;height:72px;border-radius:20px;flex:none;display:flex;align-items:center;
+  justify-content:center;font-size:28px;font-weight:700;color:#fff;
+  background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep))}
+#P12 .top .nm{font-size:36px;color:#16120F;line-height:1.2}
+#P12 .top .st{font-size:27px;color:var(--inkMuted);line-height:1.3}
+#P12 .chat{flex:1;padding:34px 30px;display:flex;flex-direction:column;gap:26px;overflow:hidden;
+  background:radial-gradient(rgba(107,22,22,.06) 1.5px,transparent 1.5px) 0 0/34px 34px,var(--creamSunk)}
+#P12 .day{align-self:center;font-size:26px;color:#6E5E50;background:#FCF6DC;padding:8px 24px;border-radius:12px;
+  box-shadow:0 1px 3px rgba(0,0,0,.08)}
+/* this card's own text size and line width, so the message breaks into the same three lines as before */
+#P12 .bub{font-size:48px;line-height:1.5;max-width:670px;border-radius:28px;padding:26px 32px 20px;
+  box-shadow:0 4px 12px rgba(74,15,15,.12);color:var(--ink)}
+#P12 .bub.them{align-self:flex-start;background:#fff;border-top-left-radius:8px}
+#P12 .who{font-size:28px;color:var(--maroon);margin-bottom:6px}
+#P12 .bub .tm{font-size:24px;color:#9C9184;text-align:right;margin-top:4px}
+.ul{position:relative;display:inline-block;font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--maroon)}
+.ul i{position:absolute;left:-2px;right:-2px;bottom:4px;height:10px;border-radius:5px;transform-origin:0 50%;
+  animation-name:grow;animation-timing-function:cubic-bezier(.4,.1,.3,1)}
+.ul.g i{background:#E9B949} .ul.a i{background:#F08A24}
+@keyframes grow{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.lchip{align-self:center;font-size:36px;color:#fff;background:linear-gradient(140deg,var(--maroonSoft),var(--maroon));
+  border-radius:999px;padding:12px 40px 14px;
+  box-shadow:0 10px 22px rgba(74,15,15,.30);animation:hop .6s cubic-bezier(.3,.7,.3,1) 3 both paused}
+@keyframes hop{0%{opacity:0;transform:translateY(40px)}30%{opacity:1;transform:translateY(-14px)}
+  60%{transform:translateY(0)}80%{transform:translateY(-6px)}100%{opacity:1;transform:none}}
+#P12 .compose{margin:0 26px 34px;display:flex;align-items:center;gap:18px}
+#P12 .compose .in{flex:1;background:#fff;border:2px solid #EDE2D3;border-radius:999px;padding:22px 30px;font-size:28px;color:#A89484}
+#P12 .compose .mic{width:84px;height:84px;border-radius:50%;background:var(--maroon);color:#fff;
+  display:flex;align-items:center;justify-content:center}
+/* a figure that rolls from one value to another (see the script at the end) */
+.ctr{display:inline-flex;height:1em;line-height:1;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums}
+.ctr .cc{display:flex;flex-direction:column}
+.ctr .cc span,.ctr .fx{display:block;height:1em;line-height:1}
+@keyframes ctrRoll{from{transform:translateY(0)}to{transform:translateY(calc(var(--n) * -1em))}}
+@keyframes ctrShow{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<!-- ══ P12 · the team tells him what sits in the 30% · K413 "…तो हमारी टीम आपको ये भी बताएगी कि बाक़ी तीस प्रतिशत में कौन-कौन से काम पेंडिंग हैं।" (5.52 s) ══ -->
+<div class="panel" id="P12" data-plate="office" style="--T:6s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="phone anim a-rise" style="--T:4s">
+    <div class="screen">
+      <div class="island"></div>
+      <div class="top">
+        <div class="logo dis">DK</div>
+        <div><div class="nm hi">MDG टीम</div><div class="st hi">डीलर कवच</div></div>
+      </div>
+      <div class="chat" style="justify-content:flex-end">
+        <div class="day hi">आज</div>
+        <div class="bub them anim a-bub" style="--T:5s;animation-delay:.25s">
+          <div class="who hi">MDG टीम</div>
+          <div class="hi">आपका असेसमेंट <span class="ul g">70%<i class="anim" style="--T:.5s;animation-delay:1.5s"></i></span> पूरा है।
+          बाक़ी <span class="ul a">30%<i class="anim" style="--T:.5s;animation-delay:1.9s"></i></span> में 9 काम पेंडिंग हैं — पूरी लिस्ट नीचे।</div>
+          <div class="tm hi">सुबह 9:15</div>
+        </div>
+        <div class="lchip hi" style="animation-delay:3.3s">लिस्ट ↓</div>
+      </div>
+      <div class="compose">
+        <div class="in hi">संदेश लिखें…</div>
+        <div class="mic"><svg class="i" style="width:38px;height:38px" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* A figure that rolls from one value to another, starting at a chosen second:
+   <span class="ctr" data-from="120" data-to="200" data-at="2.8" data-dur=".8">.
+   Each digit is a column running from its old digit to its new one; a place
+   that did not exist before starts blank. Same paused clock as everything else. */
+for (const el of document.querySelectorAll('.ctr[data-to]')) {
+  const num = (s) => parseInt((s || '0').replace(/\D/g, '') || '0', 10);
+  const to = el.dataset.to, A = num(el.dataset.from), B = num(to);
+  const from = (el.dataset.from || '').padStart(to.length, ' ');
+  const at = parseFloat(el.dataset.at || '0'), dur = parseFloat(el.dataset.dur || '.9');
+  const nd = to.replace(/\D/g, '').length;
+  el.textContent = '';
+  let k = 0;
+  [...to].forEach((ch, i) => {
+    if (!/\d/.test(ch)) {
+      const f = document.createElement('span'); f.className = 'fx'; f.textContent = ch;
+      if (from[i] === ' ') f.style.animation = `ctrShow .15s linear ${(at + dur * .3).toFixed(2)}s both paused`;
+      el.appendChild(f); return;
+    }
+    const p = nd - 1 - k++;
+    const a = Math.floor(A / 10 ** p), b = Math.floor(B / 10 ** p);
+    let n = b - a; if (n > 14) n = 10 + (((b - a) % 10) + 10) % 10;
+    const col = document.createElement('span'); col.className = 'cc';
+    for (let j = 0; j <= n; j++) {
+      const s = document.createElement('span');
+      s.textContent = (j === 0 && from[i] === ' ') ? '\u2007' : String((a + j) % 10);
+      col.appendChild(s);
+    }
+    col.style.setProperty('--n', n);
+    col.style.animation = `ctrRoll ${dur}s cubic-bezier(.3,.7,.25,1) ${(at + (nd - k) * .03).toFixed(2)}s both paused`;
+    el.appendChild(col);
+  });
+}
+</script>
+</body>
+</html>

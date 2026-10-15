@@ -1,0 +1,24 @@
+{
+  "id": "S07",
+  "same_man": "not_in_shot",
+  "face_notes": "The hero is not in this shot, as per the brief.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Brand name on the air conditioner unit on the wall."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 3,
+      "what": "The seated woman in yellow and the man to her right look up and appear to be talking to a standing woman."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The motion is completely wrong. A woman walks through the shot and people talk. The brief required everyone to remain seated and static, with only the main woman giving a small nod. Re-prompt to enforce: 'Everyone stays seated. No one walks, enters, or leaves the frame. The woman in the yellow kurta looks up, nods confidently to a colleague beside her, then returns to her work. All other characters remain focused on their laptops. No one speaks.'"
+}

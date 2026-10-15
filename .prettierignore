@@ -10,3 +10,6 @@ backend/coverage
 backend/dist
 frontend/dist
 shared/dist
+
+# marketing tooling writes its own JSON/notes; formatting them only churns
+marketing/

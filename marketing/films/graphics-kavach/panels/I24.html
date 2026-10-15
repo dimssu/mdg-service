@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* every compliance and operational job on the pump, counted into 43 tiles: they
+   arrive one by one, tinted by their group, while the counter runs 1 → 43 in
+   step (a real integer counter — a registered custom property animated on the
+   same clock — so the figure and the tiles cannot drift apart). Twelve tiles
+   carry sample names. Then the cloud tightens and "43 अलग-अलग काम" stamps. */
+@property --n{syntax:'<integer>';initial-value:0;inherits:false}
+.hd{text-align:center;display:flex;flex-direction:column;gap:12px}
+.hd .t{font-size:60px;color:var(--maroon);line-height:1.3}
+.hd .s{font-size:40px;color:var(--inkMuted);line-height:1.35}
+.count{display:flex;flex-direction:column;align-items:center;gap:0;position:relative;transform-origin:50% 40%}
+.count .ring{position:absolute;left:50%;top:44%;width:360px;height:360px;margin:-180px 0 0 -180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(233,162,59,.38),rgba(233,162,59,0) 68%)}
+.count .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:210px;line-height:.95;color:var(--maroon);
+  letter-spacing:-6px;counter-reset:n var(--n);position:relative;font-variant-numeric:tabular-nums}
+.count .num::after{content:counter(n)}
+@keyframes countUp{0%{--n:1}100%{--n:43}}
+.count .lb{font-size:64px;color:var(--maroonDeep);line-height:1.25;position:relative;margin-top:6px}
+@keyframes thump{0%{transform:scale(1)}35%{transform:scale(1.16)}65%{transform:scale(1.04)}100%{transform:scale(1.08)}}
+@keyframes stampIn2{0%{opacity:0;transform:scale(1.9) rotate(-6deg)}55%{opacity:1;transform:scale(.96) rotate(-2deg)}100%{opacity:1;transform:rotate(-2deg)}}
+.legend{width:960px;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px}
+.lg{display:flex;align-items:center;gap:10px;font-size:32px;color:#5A4A3E;line-height:1.3}
+.lg i{width:24px;height:24px;border-radius:7px;display:block}
+.cloud{width:960px;display:flex;flex-wrap:wrap;justify-content:center;gap:14px;transform-origin:50% 30%}
+.tl{height:82px;min-width:82px;border-radius:18px;display:inline-flex;align-items:center;justify-content:center;color:#fff;
+  box-shadow:0 8px 16px rgba(40,14,6,.20),inset 0 -4px 8px rgba(0,0,0,.18)}
+.tl svg{width:38px;height:38px;opacity:.85}
+.tl.lab{padding:0 24px;font-size:35px;line-height:1.2}
+@keyframes tighten{0%{transform:scale(1);filter:saturate(1) brightness(1)}100%{transform:scale(.94);filter:saturate(.75) brightness(1.06)}}
+</style>
+</head>
+<body>
+<!-- ══ I24 · 43 separate tasks · K402 "एम-डी-जी के नियमों के तहत पंप पर होने वाले सारे कंप्लायंस और ऑपरेशनल कामों को, हमने कुल तैंतालीस अलग-अलग कामों में बाँटा है।" (7.47 s) ══ -->
+<div class="panel" id="I24" data-plate="office" style="--T:8s;gap:44px">
+  <div class="hd">
+    <div class="t hi anim a-fade" style="animation-delay:0s;animation-duration:3s">एम-डी-जी के नियमों के तहत</div>
+    <div class="s hi anim a-fade" style="animation-delay:.35s;animation-duration:3s">सारे कंप्लायंस और ऑपरेशनल काम</div>
+  </div>
+  <div class="count anim" style="animation-name:thump;animation-delay:3.40s;animation-duration:.55s">
+    <div class="ring anim a-fade" style="animation-delay:3.30s;animation-duration:3s"></div>
+    <div class="num anim" style="animation-name:countUp,fadeIn;animation-delay:0.80s,0.70s;animation-duration:2.40s,.35s;animation-timing-function:linear,ease-out"></div>
+    <div class="lb hi anim" style="animation-name:stampIn2;animation-delay:3.35s;animation-duration:.5s">अलग-अलग काम</div>
+  </div>
+  <div class="legend anim a-fade" style="animation-delay:.55s;animation-duration:3s"><span class="lg hi"><i style="background:#6B1616"></i>रोज़ के काम</span><span class="lg hi"><i style="background:#1F3B7A"></i>रजिस्टर</span><span class="lg hi"><i style="background:#5A3E8A"></i>डिक्लेरेशन</span><span class="lg hi"><i style="background:#B3261E"></i>सुरक्षा</span><span class="lg hi"><i style="background:#0C7A6C"></i>सफ़ाई</span><span class="lg hi"><i style="background:#C77C1B"></i>लाइसेंस</span><span class="lg hi"><i style="background:#4E5A66"></i>उपकरण</span></div>
+  <div class="cloud anim" style="animation-name:tighten;animation-delay:3.35s;animation-duration:2.6s">
+        <span class="tl lab hi anim a-pop" style="background:#6B1616;animation-delay:0.800s;animation-duration:2.4s">डी-एस-आर</span>
+    <span class="tl anim a-pop" style="background:#6B1616;animation-delay:0.857s;animation-duration:2.4s"><svg class="i"><use href="#i-check"/></svg></span>
+    <span class="tl lab hi anim a-pop" style="background:#6B1616;animation-delay:0.914s;animation-duration:2.4s">स्टॉक बोर्ड</span>
+    <span class="tl anim a-pop" style="background:#6B1616;animation-delay:0.971s;animation-duration:2.4s"><svg class="i"><use href="#i-drop"/></svg></span>
+    <span class="tl anim a-pop" style="background:#6B1616;animation-delay:1.029s;animation-duration:2.4s"><svg class="i"><use href="#i-gauge"/></svg></span>
+    <span class="tl lab hi anim a-pop" style="background:#6B1616;animation-delay:1.086s;animation-duration:2.4s">सैंपल</span>
+    <span class="tl anim a-pop" style="background:#6B1616;animation-delay:1.143s;animation-duration:2.4s"><svg class="i"><use href="#i-clock"/></svg></span>
+    <span class="tl anim a-pop" style="background:#6B1616;animation-delay:1.200s;animation-duration:2.4s"><svg class="i"><use href="#i-doc"/></svg></span>
+    <span class="tl anim a-pop" style="background:#1F3B7A;animation-delay:1.257s;animation-duration:2.4s"><svg class="i"><use href="#i-check"/></svg></span>
+    <span class="tl lab hi anim a-pop" style="background:#1F3B7A;animation-delay:1.314s;animation-duration:2.4s">डेंसिटी रजिस्टर</span>
+    <span class="tl anim a-pop" style="background:#1F3B7A;animation-delay:1.371s;animation-duration:2.4s"><svg class="i"><use href="#i-drop"/></svg></span>
+    <span class="tl anim a-pop" style="background:#1F3B7A;animation-delay:1.429s;animation-duration:2.4s"><svg class="i"><use href="#i-gauge"/></svg></span>
+    <span class="tl anim a-pop" style="background:#1F3B7A;animation-delay:1.486s;animation-duration:2.4s"><svg class="i"><use href="#i-lock"/></svg></span>
+    <span class="tl anim a-pop" style="background:#1F3B7A;animation-delay:1.543s;animation-duration:2.4s"><svg class="i"><use href="#i-clock"/></svg></span>
+    <span class="tl anim a-pop" style="background:#1F3B7A;animation-delay:1.600s;animation-duration:2.4s"><svg class="i"><use href="#i-doc"/></svg></span>
+    <span class="tl lab hi anim a-pop" style="background:#5A3E8A;animation-delay:1.657s;animation-duration:2.4s">स्वच्छता डिक्लेरेशन</span>
+    <span class="tl anim a-pop" style="background:#5A3E8A;animation-delay:1.714s;animation-duration:2.4s"><svg class="i"><use href="#i-drop"/></svg></span>
+    <span class="tl anim a-pop" style="background:#5A3E8A;animation-delay:1.771s;animation-duration:2.4s"><svg class="i"><use href="#i-gauge"/></svg></span>
+    <span class="tl lab hi anim a-pop" style="background:#5A3E8A;animation-delay:1.829s;animation-duration:2.4s">मिनिमम वेज डिक्लेरेशन</span>
+    <span class="tl anim a-pop" style="background:#5A3E8A;animation-delay:1.886s;animation-duration:2.4s"><svg class="i"><use href="#i-clock"/></svg></span>
+    <span class="tl anim a-pop" style="background:#5A3E8A;animation-delay:1.943s;animation-duration:2.4s"><svg class="i"><use href="#i-doc"/></svg></span>
+    <span class="tl anim a-pop" style="background:#B3261E;animation-delay:2.000s;animation-duration:2.4s"><svg class="i"><use href="#i-drop"/></svg></span>
+    <span class="tl lab hi anim a-pop" style="background:#B3261E;animation-delay:2.057s;animation-duration:2.4s">मॉक ड्रिल</span>
+    <span class="tl anim a-pop" style="background:#B3261E;animation-delay:2.114s;animation-duration:2.4s"><svg class="i"><use href="#i-lock"/></svg></span>
+    <span class="tl anim a-pop" style="background:#B3261E;animation-delay:2.171s;animation-duration:2.4s"><svg class="i"><use href="#i-clock"/></svg></span>
+    <span class="tl lab hi anim a-pop" style="background:#B3261E;animation-delay:2.229s;animation-duration:2.4s">वर्क परमिट</span>
+    <span class="tl anim a-pop" style="background:#B3261E;animation-delay:2.286s;animation-duration:2.4s"><svg class="i"><use href="#i-check"/></svg></span>
+    <span class="tl anim a-pop" style="background:#B3261E;animation-delay:2.343s;animation-duration:2.4s"><svg class="i"><use href="#i-cal"/></svg></span>
+    <span class="tl lab hi anim a-pop" style="background:#0C7A6C;animation-delay:2.400s;animation-duration:2.4s">टॉयलेट इंस्पेक्शन</span>
+    <span class="tl anim a-pop" style="background:#0C7A6C;animation-delay:2.457s;animation-duration:2.4s"><svg class="i"><use href="#i-lock"/></svg></span>
+    <span class="tl anim a-pop" style="background:#0C7A6C;animation-delay:2.514s;animation-duration:2.4s"><svg class="i"><use href="#i-clock"/></svg></span>
+    <span class="tl anim a-pop" style="background:#0C7A6C;animation-delay:2.571s;animation-duration:2.4s"><svg class="i"><use href="#i-doc"/></svg></span>
+    <span class="tl anim a-pop" style="background:#0C7A6C;animation-delay:2.629s;animation-duration:2.4s"><svg class="i"><use href="#i-check"/></svg></span>
+    <span class="tl lab hi anim a-pop" style="background:#C77C1B;animation-delay:2.686s;animation-duration:2.4s">ट्रेड लाइसेंस</span>
+    <span class="tl anim a-pop" style="background:#C77C1B;animation-delay:2.743s;animation-duration:2.4s"><svg class="i"><use href="#i-clock"/></svg></span>
+    <span class="tl lab hi anim a-pop" style="background:#C77C1B;animation-delay:2.800s;animation-duration:2.4s">फ़ायर NOC</span>
+    <span class="tl anim a-pop" style="background:#C77C1B;animation-delay:2.857s;animation-duration:2.4s"><svg class="i"><use href="#i-check"/></svg></span>
+    <span class="tl anim a-pop" style="background:#C77C1B;animation-delay:2.914s;animation-duration:2.4s"><svg class="i"><use href="#i-cal"/></svg></span>
+    <span class="tl anim a-pop" style="background:#4E5A66;animation-delay:2.971s;animation-duration:2.4s"><svg class="i"><use href="#i-clock"/></svg></span>
+    <span class="tl anim a-pop" style="background:#4E5A66;animation-delay:3.029s;animation-duration:2.4s"><svg class="i"><use href="#i-doc"/></svg></span>
+    <span class="tl lab hi anim a-pop" style="background:#4E5A66;animation-delay:3.086s;animation-duration:2.4s">नापतौल</span>
+    <span class="tl anim a-pop" style="background:#4E5A66;animation-delay:3.143s;animation-duration:2.4s"><svg class="i"><use href="#i-cal"/></svg></span>
+    <span class="tl anim a-pop" style="background:#4E5A66;animation-delay:3.200s;animation-duration:2.4s"><svg class="i"><use href="#i-drop"/></svg></span>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

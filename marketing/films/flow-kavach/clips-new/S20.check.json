@@ -1,0 +1,22 @@
+{
+  "id": "S20",
+  "same_man": "same",
+  "face_notes": "Face is consistent with the reference image.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Text on the spine of the red book, appears to say 'EARTH SUDHAR BAHINI'",
+    "Watermark 'Veo' in the bottom right corner"
+  ],
+  "marks_or_livery": [
+    "Small circular red and blue logo sticker on the window pane."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The shot contains readable text on a book spine and a logo on the window, both explicitly forbidden. The prompt must be modified to ensure there is no visible text or branding, e.g., 'plain cloth-bound registers with no text on the spine' and 'plain window glass with no stickers or logos'."
+}

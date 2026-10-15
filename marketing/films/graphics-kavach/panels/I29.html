@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* ── the validity ladder: wooden rails, cream rungs, the current rung in gold ── */
+.plank{position:relative;height:132px;border-radius:20px;display:flex;align-items:center;justify-content:center;gap:22px;
+  font-size:58px;color:var(--maroon);z-index:2;
+  background:linear-gradient(180deg,#FFFDF8,#F1E3CD);border:2px solid rgba(201,160,100,.7);
+  box-shadow:0 18px 36px rgba(58,16,10,.22),inset 0 -8px 12px rgba(160,110,50,.14),inset 0 3px 0 rgba(255,255,255,.8)}
+.plank .gl{position:absolute;inset:-2px;border-radius:20px;z-index:-1;
+  background:linear-gradient(180deg,#FBDFA0,#E9A23B 70%,#D38A22);border:2px solid #C77C1B;
+  box-shadow:0 0 0 10px rgba(233,162,59,.22),0 26px 50px rgba(120,62,8,.38),inset 0 3px 0 rgba(255,255,255,.55)}
+.plank.gold{background:linear-gradient(180deg,#FBDFA0,#E9A23B 70%,#D38A22);color:var(--maroonDeep);border-color:#C77C1B;
+  box-shadow:0 0 0 10px rgba(233,162,59,.22),0 26px 50px rgba(120,62,8,.38),inset 0 3px 0 rgba(255,255,255,.55)}
+.plank svg.i{width:52px;height:52px;stroke-width:2.2;opacity:.8}
+.lrail{position:absolute;width:38px;border-radius:14px;z-index:1;
+  background:linear-gradient(90deg,#8A3A26,#5E1B12 60%,#42110C);box-shadow:0 12px 26px rgba(40,10,6,.30)}
+/* a single rung lifted off the ladder, with stubs of the rails */
+.rh{position:relative;width:900px}
+.rh .lrail{top:-70px;bottom:-70px;-webkit-mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent);
+  mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent)}
+@keyframes liftF{0%{transform:scale(.9) translateY(40px);filter:brightness(.92)}100%{transform:scale(1.04);filter:none}}
+.lift{animation:liftF .8s cubic-bezier(.2,.9,.3,1) both paused;transform-origin:50% 60%}
+@keyframes grow{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+
+.th{width:112px;height:136px;flex:none;border-radius:6px;background:var(--paper);position:relative;overflow:hidden;
+  box-shadow:0 8px 18px rgba(40,14,6,.22),0 0 0 1px var(--paperEdge);transform:rotate(-3deg)}
+.th.grid{background-image:linear-gradient(90deg,transparent 27px,#B9AE9F 27px,#B9AE9F 29px,transparent 29px),
+  linear-gradient(transparent 21px,#B9AE9F 21px,#B9AE9F 23px,transparent 23px);background-size:28px 100%,100% 22px;background-color:var(--paper)}
+.th.grid::after{content:'';position:absolute;left:0;right:0;top:44px;height:22px;background:rgba(255,214,64,.6)}
+.th.reg{background-image:linear-gradient(transparent 20px,var(--rule) 20px,var(--rule) 22px,transparent 22px);background-size:100% 22px}
+.th.reg::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:2px;background:var(--margin)}
+.th.reg::after{content:'';position:absolute;left:32px;top:50px;width:62px;height:5px;border-radius:3px;background:rgba(29,58,138,.7);
+  box-shadow:0 22px 0 rgba(29,58,138,.7),-6px 44px 0 rgba(29,58,138,.5)}
+.th.brd{border:9px solid var(--maroon);border-radius:6px;background:#FBFBF8}
+.th.brd::before{content:'';position:absolute;left:10px;right:10px;top:16px;height:4px;background:var(--maroon);
+  box-shadow:0 26px 0 -1px #C9C2B6,0 52px 0 -1px #C9C2B6,0 78px 0 -1px #C9C2B6}
+.th.chk::before{content:'';position:absolute;left:14px;top:18px;width:16px;height:16px;border:3px solid #6E655B;border-radius:3px;
+  box-shadow:0 30px 0 -0px #FFFDF8,0 30px 0 3px #6E655B,0 60px 0 3px #6E655B,0 60px 0 0 #FFFDF8}
+.th.chk::after{content:'';position:absolute;left:42px;top:24px;width:54px;height:5px;border-radius:3px;background:#B9AE9F;
+  box-shadow:0 30px 0 #B9AE9F,0 60px 0 #B9AE9F,-8px 88px 0 #B9AE9F}
+.tk{width:78px;height:78px;border-radius:50%;background:var(--good);color:#fff;flex:none;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 22px rgba(30,122,74,.40)}
+.tk svg{width:46px;height:46px;stroke-width:3}
+.jobs{display:flex;flex-direction:column;gap:26px;width:960px}
+.job{display:flex;align-items:center;gap:30px;background:rgba(255,255,255,.94);border:2px solid #EFE4D2;border-radius:24px;
+  padding:22px 30px 22px 34px;box-shadow:0 14px 30px rgba(58,16,10,.12)}
+.job .t{flex:1;font-size:46px;color:var(--ink);line-height:1.3}
+.panel{gap:90px}
+/* a figure that rolls from one value to another (see the script at the end) */
+.ctr{display:inline-flex;height:1em;line-height:1;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums}
+.ctr .cc{display:flex;flex-direction:column}
+.ctr .cc span,.ctr .fx{display:block;height:1em;line-height:1}
+@keyframes ctrRoll{from{transform:translateY(0)}to{transform:translateY(calc(var(--n) * -1em))}}
+@keyframes ctrShow{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<!-- ══ I29 · the four daily jobs in spoken order · K416 "रोज़ के काम — डी-एस-आर भरना, डेंसिटी रजिस्टर और स्टॉक बोर्ड अपडेट करना, और बाथरूम-टॉयलेट का इंस्पेक्शन।" (7.18 s) ══ -->
+<div class="panel" id="I29" data-plate="office" style="--T:8s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="rh lift" style="animation-delay:0s">
+    <div class="lrail" style="left:96px"></div><div class="lrail" style="right:96px"></div>
+    <div class="plank gold hi"><svg class="i"><use href="#i-cal"/></svg>रोज़ के काम</div>
+  </div>
+  <div class="jobs anim a-drift" style="--rot:0deg;--s0:1;--s1:1.03;--dy1:0px">
+    <div class="job anim a-stamp" style="--T:3s;animation-delay:1.4s"><span class="th grid"></span><span class="t hi">डी-एस-आर भरना</span><span class="tk anim a-pop" style="--T:2.4s;animation-delay:1.8s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="job anim a-stamp" style="--T:3s;animation-delay:2.5s"><span class="th reg"></span><span class="t hi">डेंसिटी रजिस्टर अपडेट करना</span><span class="tk anim a-pop" style="--T:2.4s;animation-delay:2.9s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="job anim a-stamp" style="--T:3s;animation-delay:3.4s"><span class="th brd"></span><span class="t hi">स्टॉक बोर्ड अपडेट करना</span><span class="tk anim a-pop" style="--T:2.4s;animation-delay:3.8s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="job anim a-stamp" style="--T:3s;animation-delay:4.2s"><span class="th chk"></span><span class="t hi">बाथरूम-टॉयलेट का इंस्पेक्शन</span><span class="tk anim a-pop" style="--T:2.4s;animation-delay:4.6s"><svg class="i"><use href="#i-check"/></svg></span></div>
+  </div>
+  <div class="rail hi">रोज़ के काम</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* A figure that rolls from one value to another, starting at a chosen second:
+   <span class="ctr" data-from="120" data-to="200" data-at="2.8" data-dur=".8">.
+   Each digit is a column running from its old digit to its new one; a place
+   that did not exist before starts blank. Same paused clock as everything else. */
+for (const el of document.querySelectorAll('.ctr[data-to]')) {
+  const num = (s) => parseInt((s || '0').replace(/\D/g, '') || '0', 10);
+  const to = el.dataset.to, A = num(el.dataset.from), B = num(to);
+  const from = (el.dataset.from || '').padStart(to.length, ' ');
+  const at = parseFloat(el.dataset.at || '0'), dur = parseFloat(el.dataset.dur || '.9');
+  const nd = to.replace(/\D/g, '').length;
+  el.textContent = '';
+  let k = 0;
+  [...to].forEach((ch, i) => {
+    if (!/\d/.test(ch)) {
+      const f = document.createElement('span'); f.className = 'fx'; f.textContent = ch;
+      if (from[i] === ' ') f.style.animation = `ctrShow .15s linear ${(at + dur * .3).toFixed(2)}s both paused`;
+      el.appendChild(f); return;
+    }
+    const p = nd - 1 - k++;
+    const a = Math.floor(A / 10 ** p), b = Math.floor(B / 10 ** p);
+    let n = b - a; if (n > 14) n = 10 + (((b - a) % 10) + 10) % 10;
+    const col = document.createElement('span'); col.className = 'cc';
+    for (let j = 0; j <= n; j++) {
+      const s = document.createElement('span');
+      s.textContent = (j === 0 && from[i] === ' ') ? '\u2007' : String((a + j) % 10);
+      col.appendChild(s);
+    }
+    col.style.setProperty('--n', n);
+    col.style.animation = `ctrRoll ${dur}s cubic-bezier(.3,.7,.25,1) ${(at + (nd - k) * .03).toFixed(2)}s both paused`;
+    el.appendChild(col);
+  });
+}
+</script>
+</body>
+</html>

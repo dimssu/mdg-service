@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Local court to High Court: a gold line climbs the ladder, then the advocate
+   panel settles beside it. No emblems, no crests — plain buildings, plain busts. */
+.note{display:flex;flex-direction:column;align-items:center;gap:20px;position:absolute;top:250px;left:0;right:0}
+.note .t{font-size:52px;color:var(--amberDeep)}
+.note .r{width:150px;height:7px;border-radius:7px;background:linear-gradient(90deg,#E9A23B,#F4C979)}
+.lad{position:absolute;left:70px;top:470px;width:960px;height:1180px}
+.track{position:absolute;left:118px;top:120px;width:14px;height:880px;border-radius:14px;background:rgba(107,22,22,.12)}
+.fill{position:absolute;left:118px;top:120px;width:14px;height:880px;border-radius:14px;transform-origin:50% 100%;
+  background:linear-gradient(0deg,#C27716,#E9A23B 50%,#F8D899);box-shadow:0 0 26px rgba(233,162,59,.7)}
+.rung{position:absolute;left:92px;width:66px;height:6px;border-radius:6px;background:rgba(107,22,22,.18)}
+.node{position:absolute;left:25px;width:200px;height:200px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 36% 30%,#fff,#FBF1E1 70%);border:3px solid rgba(201,160,100,.6);color:var(--maroon);
+  box-shadow:0 24px 48px rgba(58,16,10,.24),inset 0 -6px 14px rgba(160,110,50,.12)}
+.node svg{width:112px;height:112px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.node.top{top:20px;width:240px;height:240px;left:5px}
+.node.top svg{width:136px;height:136px}
+.node.bot{top:900px}
+.ring{position:absolute;inset:-14px;border-radius:50%;border:6px solid #E9A23B;box-shadow:0 0 30px rgba(233,162,59,.6)}
+.lbl{position:absolute;left:290px}
+.lbl .k{font-size:96px;color:var(--maroon);line-height:1.1}
+.lbl .s{font-size:40px;color:var(--inkMuted)}
+.via{position:absolute;left:240px;top:430px;width:700px;padding:38px 40px 40px;border-radius:30px;
+  background:linear-gradient(160deg,var(--maroonSoft),var(--maroon) 60%,var(--maroonDeep));color:#fff;
+  box-shadow:0 34px 70px rgba(58,16,10,.40),0 4px 10px rgba(58,16,10,.2)}
+.via::before{content:'';position:absolute;left:-108px;top:50%;width:108px;height:6px;margin-top:-3px;
+  background:linear-gradient(90deg,#E9A23B,rgba(233,162,59,.5))}
+.via .t{font-size:52px;line-height:1.3;color:#FFF3E2}
+.busts{display:flex;gap:22px;margin-top:30px}
+.busts svg{width:92px;height:92px}
+@keyframes climb{0%{transform:scaleY(0)}100%{transform:scaleY(1)}}
+.a-climb{animation-name:climb;animation-timing-function:cubic-bezier(.45,.05,.35,1)}
+@keyframes growX{0%{transform:scaleX(0)}22%,100%{transform:scaleX(1)}}
+.a-growx{animation-name:growX}
+</style>
+</head>
+<body>
+<svg style="display:none">
+  <symbol id="x-court" viewBox="0 0 24 24"><path d="M3 9.2 12 4l9 5.2ZM4.6 9.2h14.8M6 11.2v6.6M10 11.2v6.6M14 11.2v6.6M18 11.2v6.6M4 19.6h16M3 21.4h18"/></symbol>
+  <symbol id="x-bust" viewBox="0 0 24 24"><circle cx="12" cy="7.6" r="4.2" fill="#F6DCA8"/><path d="M3.6 22c0-4.9 3.8-8.4 8.4-8.4s8.4 3.5 8.4 8.4Z" fill="#F6DCA8"/><path d="M10.6 14.1 12 17.8l1.4-3.7Z" fill="#fff"/><path d="M11.3 17.8v2.4M12.7 17.8v2.4" stroke="#fff" stroke-width="1.1"/></symbol>
+</svg>
+<!-- ══ I54 · local court to High Court, through the advocate panel · K704, first 6 s ══ -->
+<div class="panel" id="I54" data-plate="office" style="--T:6s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s;top:52%"></div>
+  <div class="note anim a-fade" style="animation-delay:0s;animation-duration:3s">
+    <div class="t hi">ज़रूरत के हिसाब से</div><div class="r"></div></div>
+  <div class="lad">
+    <div class="track"></div>
+    <div class="rung" style="top:300px"></div><div class="rung" style="top:480px"></div><div class="rung" style="top:660px"></div><div class="rung" style="top:840px"></div>
+    <div class="fill anim a-climb" style="animation-delay:1.5s;animation-duration:2s"></div>
+    <div class="node bot anim a-pop" style="animation-delay:.15s;animation-duration:3s"><svg><use href="#x-court"/></svg></div>
+    <div class="lbl anim a-fade" style="top:935px;animation-delay:.3s;animation-duration:3s"><div class="k hi" style="font-size:72px">स्थानीय अदालत</div></div>
+    <div class="node top anim a-pop" style="animation-delay:2.75s;animation-duration:3s"><svg><use href="#x-court"/></svg>
+      <div class="ring anim a-pop" style="animation-delay:3.4s;animation-duration:3s"></div></div>
+    <div class="lbl anim a-fade" style="top:70px;animation-delay:2.9s;animation-duration:3s"><div class="k hi">हाई कोर्ट</div></div>
+    <div class="via anim a-settle" style="--r0:3deg;--r1:-1deg;animation-delay:3.75s;animation-duration:4s">
+      <div class="t hi">हमारे एडवोकेट पैनल के ज़रिए</div>
+      <div class="busts">
+        <svg class="anim a-pop" style="animation-delay:3.95s;animation-duration:2.5s"><use href="#x-bust"/></svg>
+        <svg class="anim a-pop" style="animation-delay:4.0s;animation-duration:2.5s"><use href="#x-bust"/></svg>
+        <svg class="anim a-pop" style="animation-delay:4.05s;animation-duration:2.5s"><use href="#x-bust"/></svg>
+        <svg class="anim a-pop" style="animation-delay:4.1s;animation-duration:2.5s"><use href="#x-bust"/></svg>
+        <svg class="anim a-pop" style="animation-delay:4.15s;animation-duration:2.5s"><use href="#x-bust"/></svg>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

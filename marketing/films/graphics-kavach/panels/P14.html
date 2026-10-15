@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* ── the Dealer Kavach phone, sized up so every line reads on a phone screen ── */
+.phone.big{width:820px;height:1500px;border-radius:84px;padding:16px}
+.phone.big .screen{border-radius:69px}
+.phone.big .app-top{padding:34px 38px 26px;gap:18px}
+.phone.big .app-top .logo{width:66px;height:66px;font-size:27px;border-radius:19px;font-family:'Space Grotesk',sans-serif}
+.phone.big .app-top .nm{font-size:40px}
+.tabpill{margin-left:auto;display:flex;align-items:center;gap:10px;color:#fff;font-size:32px;
+  padding:10px 26px 12px 20px;border-radius:999px;background:linear-gradient(140deg,var(--maroonSoft),var(--maroon));
+  box-shadow:0 6px 14px rgba(74,15,15,.28)}
+.tabpill svg{width:34px;height:34px}
+.phone.big .app-body{padding:36px 36px;gap:26px}
+.tagx{align-self:center;font-size:30px;color:var(--amberDeep);background:#FFF6E4;border:2px dashed var(--amber);
+  border-radius:999px;padding:8px 28px 10px}
+.hd2{font-size:46px;color:var(--maroon);text-align:center;line-height:1.3}
+.ringw{position:relative;width:400px;height:400px;align-self:center}
+.ringw svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.ringw .pc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringw .pc .n{font-size:128px;font-weight:700;color:var(--maroon);line-height:1;letter-spacing:-3px}
+@keyframes ringTo{from{stroke-dashoffset:540.4}to{stroke-dashoffset:var(--off)}}
+.ptsl{font-size:44px;color:var(--ink);text-align:center;line-height:1.2}
+.ptsl .dis{font-weight:700;color:var(--maroon)}
+.it{display:flex;align-items:center;gap:20px;background:#fff;border:2px solid #EFE4D2;border-radius:16px;
+  padding:16px 22px;box-shadow:0 4px 12px rgba(74,15,15,.07)}
+.it .ic{width:54px;height:54px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff}
+.it .ic svg{width:32px;height:32px;stroke-width:3}
+.it .ic.ok{background:var(--good)} .it .ic.due{background:var(--amber)} .it .ic.late{background:var(--bad)}
+.it .t{font-size:36px;color:var(--ink);line-height:1.3;flex:1}
+.it .v{font-size:38px;font-weight:700;color:var(--maroon)}
+.cav{font-size:30px;color:var(--inkMuted);text-align:center;font-style:normal}
+
+.ghost{position:absolute;left:36px;right:36px;top:100px;height:120px;border-radius:18px;background:#fff;border:2px solid #EFE4D2}
+.dim{position:absolute;inset:0;background:rgba(40,14,8,.34);z-index:1}
+.alert{position:relative;z-index:2;border-radius:26px;overflow:hidden;background:#fff;
+  box-shadow:0 30px 60px rgba(40,10,6,.35),0 0 0 2px rgba(233,162,59,.55)}
+.al-top{display:flex;align-items:center;gap:16px;padding:24px 30px;color:#fff;font-size:38px;
+  background:linear-gradient(120deg,var(--maroonSoft),var(--maroon) 62%);border-bottom:5px solid var(--amber)}
+.al-top .bl{width:62px;height:62px;border-radius:50%;background:var(--amber);color:var(--maroonDeep);display:flex;align-items:center;justify-content:center}
+.al-top .bl svg{width:38px;height:38px}
+.al-top .nw{margin-left:auto;font-size:24px;background:rgba(255,255,255,.18);padding:6px 14px;border-radius:10px}
+.al-mid{padding:34px 32px 40px;display:flex;flex-direction:column;gap:26px}
+.al-t{font-size:54px;color:var(--maroonDeep);line-height:1.35}
+.al-t b{color:var(--bad)}
+.al-l{display:flex;gap:16px;align-items:flex-start;font-size:40px;color:var(--ink);line-height:1.35}
+.al-l svg{width:42px;height:42px;flex:none;margin-top:6px;color:var(--amberDeep)}
+.al-l b{color:var(--maroon)}
+.lad{position:relative;display:grid;grid-template-columns:repeat(4,1fr);margin-top:24px;padding-top:6px;
+  border-top:2px solid #F1E7D8;padding-top:34px}
+.lad .track{position:absolute;left:12.5%;right:12.5%;top:62px;height:6px;border-radius:3px;background:#EFE4D2}
+.lad .track b{position:absolute;inset:0;border-radius:3px;background:#C9B391;transform-origin:0 50%;
+  animation-name:grow;animation-timing-function:cubic-bezier(.4,.1,.3,1)}
+@keyframes grow{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.lad .st{display:flex;flex-direction:column;align-items:center;gap:16px;position:relative}
+.lad .st i{width:44px;height:44px;border-radius:50%;background:#fff;border:6px solid #D9CBB6;display:block}
+.lad .st.on i{background:var(--amber);border-color:#fff;box-shadow:0 0 0 6px var(--amber),0 0 26px 10px rgba(233,162,59,.6)}
+.lad .st span{font-size:33px;color:var(--inkMuted);text-align:center;white-space:nowrap}
+.lad .st.on span{color:var(--maroon);font-weight:700}
+.lad .st.on::after{content:'';position:absolute;top:-12px;width:68px;height:68px;border-radius:50%;
+  border:4px solid var(--amber);animation:ringP .9s ease-out 3.3s 2 both paused}
+@keyframes ringP{0%{opacity:0;transform:scale(.7)}8%{opacity:.9}100%{opacity:0;transform:scale(1.7)}}
+/* a figure that rolls from one value to another (see the script at the end) */
+.ctr{display:inline-flex;height:1em;line-height:1;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums}
+.ctr .cc{display:flex;flex-direction:column}
+.ctr .cc span,.ctr .fx{display:block;height:1em;line-height:1}
+@keyframes ctrRoll{from{transform:translateY(0)}to{transform:translateY(calc(var(--n) * -1em))}}
+@keyframes ctrShow{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<!-- ══ P14 · the reminder that reaches him 15 days out · K420 "…तो पॉइंट सिस्टम उस पर भी नज़र रखता है।" (5.36 s) ══ -->
+<div class="panel ink" id="P14" data-plate="night" style="--T:6s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="phone big anim a-rise" style="--T:4s;height:1400px">
+    <div class="screen">
+        <div class="app-top"><div class="logo">DK</div><div class="nm hi">डीलर कवच</div>
+          <div class="tabpill hi"><svg class="i" viewBox="0 0 24 24"><path d="M12 2.8 4.8 5.6v5.5c0 4.6 3 8.5 7.2 9.9 4.2-1.4 7.2-5.3 7.2-9.9V5.6Z"/><path d="m8.8 12 2.3 2.3 4.2-4.4"/></svg>कवच</div></div>
+        <div class="app-body" style="padding-top:40px;position:relative;justify-content:center">
+          <div class="ghost" style="top:40px"></div><div class="ghost" style="top:190px"></div><div class="ghost" style="top:340px"></div>
+          <div class="ghost" style="top:490px"></div><div class="ghost" style="top:640px"></div><div class="ghost" style="top:790px"></div>
+          <div class="ghost" style="top:940px"></div><div class="ghost" style="top:1090px"></div>
+          <div class="dim anim a-fade" style="--T:2s;animation-delay:.05s"></div>
+          <div class="alert anim a-drop" style="--T:5s;animation-delay:.1s">
+            <div class="al-top"><span class="bl"><svg class="i" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.6 1.8H4.4Z"/><path d="M10 20.6a2.2 2.2 0 0 0 4 0"/></svg></span><span class="hi">याद दिलाना</span><span class="nw dis">DK</span></div>
+            <div class="al-mid">
+              <div class="al-t hi anim a-write" style="--T:4s;animation-delay:.9s">नापतौल सर्टिफ़िकेट की मियाद <b class="dis">15</b> दिन में ख़त्म</div>
+              <div class="al-l hi anim a-rise" style="--T:3s;animation-delay:1.5s"><svg class="i"><use href="#i-cal"/></svg>आख़िरी तारीख़: <b class="dis">04-09</b></div>
+              <div class="al-l hi anim a-rise" style="--T:3s;animation-delay:2.0s"><svg class="i"><use href="#i-send"/></svg>रिन्यूअल के ज़रूरी काग़ज़ों की फ़ोटो भेजिए</div>
+              <div class="lad anim a-fade" style="--T:2s;animation-delay:2.5s">
+                <div class="track"><b class="anim" style="--T:.9s;animation-delay:2.6s"></b></div>
+              <div class="st on"><i class="anim a-pop" style="--T:2.4s;animation-delay:2.75s"></i><span class="hi anim a-fade" style="--T:2s;animation-delay:2.80s">15 दिन</span></div>
+              <div class="st"><i class="anim a-pop" style="--T:2.4s;animation-delay:2.93s"></i><span class="hi anim a-fade" style="--T:2s;animation-delay:2.98s">3 दिन</span></div>
+              <div class="st"><i class="anim a-pop" style="--T:2.4s;animation-delay:3.11s"></i><span class="hi anim a-fade" style="--T:2s;animation-delay:3.16s">2 दिन</span></div>
+              <div class="st"><i class="anim a-pop" style="--T:2.4s;animation-delay:3.29s"></i><span class="hi anim a-fade" style="--T:2s;animation-delay:3.34s">1 दिन पहले</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* A figure that rolls from one value to another, starting at a chosen second:
+   <span class="ctr" data-from="120" data-to="200" data-at="2.8" data-dur=".8">.
+   Each digit is a column running from its old digit to its new one; a place
+   that did not exist before starts blank. Same paused clock as everything else. */
+for (const el of document.querySelectorAll('.ctr[data-to]')) {
+  const num = (s) => parseInt((s || '0').replace(/\D/g, '') || '0', 10);
+  const to = el.dataset.to, A = num(el.dataset.from), B = num(to);
+  const from = (el.dataset.from || '').padStart(to.length, ' ');
+  const at = parseFloat(el.dataset.at || '0'), dur = parseFloat(el.dataset.dur || '.9');
+  const nd = to.replace(/\D/g, '').length;
+  el.textContent = '';
+  let k = 0;
+  [...to].forEach((ch, i) => {
+    if (!/\d/.test(ch)) {
+      const f = document.createElement('span'); f.className = 'fx'; f.textContent = ch;
+      if (from[i] === ' ') f.style.animation = `ctrShow .15s linear ${(at + dur * .3).toFixed(2)}s both paused`;
+      el.appendChild(f); return;
+    }
+    const p = nd - 1 - k++;
+    const a = Math.floor(A / 10 ** p), b = Math.floor(B / 10 ** p);
+    let n = b - a; if (n > 14) n = 10 + (((b - a) % 10) + 10) % 10;
+    const col = document.createElement('span'); col.className = 'cc';
+    for (let j = 0; j <= n; j++) {
+      const s = document.createElement('span');
+      s.textContent = (j === 0 && from[i] === ' ') ? '\u2007' : String((a + j) % 10);
+      col.appendChild(s);
+    }
+    col.style.setProperty('--n', n);
+    col.style.animation = `ctrRoll ${dur}s cubic-bezier(.3,.7,.25,1) ${(at + (nd - k) * .03).toFixed(2)}s both paused`;
+    el.appendChild(col);
+  });
+}
+</script>
+</body>
+</html>

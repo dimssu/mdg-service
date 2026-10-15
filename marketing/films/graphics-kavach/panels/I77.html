@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* the word itself, as it is spoken: a small label under a short gold rule,
+   then the word written large, a gold underline sweeping beneath it, and an
+   open hand drawing itself — nothing held back. The block pushes in 3%. */
+.blk{width:920px;display:flex;flex-direction:column;align-items:center;transform-origin:50% 50%;margin-top:-40px}
+.srule{width:150px;height:7px;border-radius:7px;background:linear-gradient(90deg,#E9A23B,#F4C979);transform-origin:50% 50%}
+.lbl{font-size:60px;color:var(--amberDeep);margin-top:30px}
+.word{font-size:176px;color:var(--maroon);line-height:1.3;margin-top:26px;
+  text-shadow:0 18px 40px rgba(107,22,22,.16)}
+.uline{width:760px;height:10px;border-radius:10px;margin-top:6px;transform-origin:0 50%;
+  background:linear-gradient(90deg,rgba(233,162,59,.2),#E9A23B 18%,#F4C979 70%,rgba(244,201,121,.25))}
+.medal{width:230px;height:230px;border-radius:50%;margin-top:74px;
+  background:radial-gradient(circle at 36% 30%,#fff,#FBF1E1 70%);border:2px solid rgba(201,160,100,.55);
+  box-shadow:0 26px 50px rgba(58,16,10,.22),inset 0 -6px 14px rgba(160,110,50,.12);
+  display:flex;align-items:center;justify-content:center;color:var(--maroon)}
+.medal svg{width:140px;height:140px;fill:none;stroke:currentColor;stroke-width:1.3;
+  stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.medal svg .anim{stroke-dasharray:1;stroke-dashoffset:1}
+@keyframes growX{0%{transform:scaleX(0)}22%,100%{transform:scaleX(1)}}
+.a-growx{animation-name:growX}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.03)}}
+.a-push{animation-name:push;animation-timing-function:linear}
+</style>
+</head>
+<body>
+<!-- ══ I77 · "और सबसे ज़रूरी बात — पारदर्शिता।" · K705, first 4.5 s (then D27, the paper that proves it) ══ -->
+<div class="panel" id="I77" data-plate="desk" style="--T:5s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="blk anim a-push">
+    <div class="srule anim a-growx" style="animation-delay:.05s;animation-duration:3s"></div>
+    <div class="lbl hi anim a-write" style="animation-delay:.2s;animation-duration:4s">सबसे ज़रूरी बात</div>
+    <div class="word hi anim a-write" style="animation-delay:1.75s;animation-duration:6s">पारदर्शिता</div>
+    <div class="uline anim a-growx" style="animation-delay:2.65s;animation-duration:4s"></div>
+    <div class="medal anim a-pop" style="animation-delay:2.75s;animation-duration:3s">
+      <!-- an open hand: nothing held back -->
+      <svg viewBox="0 0 24 24">
+        <path class="anim a-draw" pathLength="1" style="animation-delay:2.9s;animation-duration:9s"
+          d="M8.5 14.2V5.4a1.2 1.2 0 0 1 2.4 0V11M10.9 11V4a1.2 1.2 0 0 1 2.4 0v7M13.3 11V5a1.2 1.2 0 0 1 2.4 0v6.4M15.7 11.4V7.6a1.2 1.2 0 0 1 2.4 0v6.6c0 4-2.6 6.8-5.8 6.8-2.3 0-3.8-.8-5-2.4l-2.8-3.9c-.7-1-.4-2.1.5-2.5.8-.4 1.7-.1 2.2.6l1.2 1.6"/>
+      </svg>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

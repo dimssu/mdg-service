@@ -1,0 +1,30 @@
+{
+  "id": "S04",
+  "same_man": "same",
+  "face_notes": "The man's face, hair, and moustache are a very good match for the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Blue logo/sticker on the side of the far-right fuel dispenser.",
+    "Blue panels on the front of the fuel dispensers."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 0,
+      "what": "Camera performs a slow dolly/zoom out for the entire shot, but the brief required a slow push-in."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 2.5,
+      "what": "Man turns his head, but this action was specified for 3-6s and the preceding 'deep breath' action is missing."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The camera motion is a dolly out, not a push in. The man's action is incorrect (he turns his head too early and doesn't take a deep breath). The fuel dispensers have blue branding marks, but should be plain white. Prompt must specify: slow push-in, correct sequence of actions, and 'plain white fuel dispensers with no logos or colours'."
+}

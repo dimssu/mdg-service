@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* K514's second sentence runs over this panel: "इन्हें समय पर" ends 4.4 s in,
+   "और सही तरीक़े से करना" 4.6–6.2 s, "आसान नहीं होता" from 6.4 s. The tags and the line
+   land on those words; the pile finishes just before them. */
+#I44 .hd{position:absolute;left:60px;right:60px;top:230px;text-align:center;font-size:68px;color:#FFF3E2;line-height:1.3}
+/* cards only — no portal screen */
+#I44 .tk{position:absolute;width:450px;min-height:150px;display:flex;align-items:center;gap:18px;padding:22px 24px 22px 30px;
+  border-radius:22px;background:linear-gradient(170deg,#FFFDF8,#F2E4CF);
+  box-shadow:0 26px 50px rgba(0,0,0,.45),0 4px 10px rgba(0,0,0,.25),inset 0 0 0 1px rgba(255,255,255,.7)}
+#I44 .tk.l{flex-direction:row-reverse;padding:22px 30px 22px 24px}
+#I44 .tk .w{flex:1;font-size:40px;line-height:1.3;color:#3A1410;padding-top:4px}
+#I44 .tk .ck{width:64px;height:64px;flex:none}
+#I44 .tk .ck svg{width:100%;height:100%;overflow:visible}
+#I44 .hand{transform-origin:32px 32px;animation:tickH 3s steps(12) infinite paused}
+@keyframes tickH{to{transform:rotate(360deg)}}
+@keyframes pileDrop{0%{opacity:0;transform:translateY(-360px) rotate(calc(var(--r) * -3))}
+  55%{opacity:1;transform:translateY(14px) rotate(calc(var(--r) * 1.4))}
+  78%{transform:translateY(-6px) rotate(var(--r))}100%{opacity:1;transform:rotate(var(--r))}}
+.pd{animation-name:pileDrop;animation-duration:.62s!important;animation-timing-function:cubic-bezier(.3,.7,.4,1)!important}
+#I44 .tags{position:absolute;left:60px;right:60px;top:1500px;display:flex;justify-content:center;gap:80px}
+#I44 .tag{font-size:62px;color:#FFF3E2;position:relative;padding-bottom:14px}
+#I44 .tag i{position:absolute;left:0;right:0;bottom:0;height:9px;border-radius:5px;background:var(--amber);transform-origin:0 50%}
+@keyframes drawX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.dx{animation-name:drawX;animation-duration:.7s!important}
+#I44 .band{position:absolute;left:72px;right:72px;top:1236px;z-index:8;transform:rotate(-2.5deg)}
+#I44 .band div{background:linear-gradient(120deg,var(--maroonSoft),var(--maroonDeep));border:4px solid var(--amber);border-radius:22px;
+  padding:34px 30px;text-align:center;font-size:66px;line-height:1.25;color:#FFF3E2;box-shadow:0 30px 70px rgba(0,0,0,.55)}
+</style>
+</head>
+<body>
+<!-- ══ I44 · the online pile · K514 "…हर डीलर के लिए इन्हें समय पर और सही तरीक़े से करना आसान नहीं होता।" ══ -->
+<div class="panel ink" id="I44" data-plate="night" style="--T:10s">
+  <div class="glow anim a-glow" style="top:48%;width:1100px;height:1100px;background:radial-gradient(circle,rgba(233,120,59,.24),rgba(233,120,59,0) 66%)"></div>
+  <div class="hd hi anim a-fade" style="animation-duration:.6s">ऑनलाइन करने वाले काम</div>
+
+  <div class="tk l anim pd" style="left:70px;top:430px;--r:-5deg;animation-delay:.3s"><span class="w hi">सब्सिडी क्लेम</span><span class="ck"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#FFF4E0" stroke="var(--amberDeep)" stroke-width="4"/><g class="hand" style="animation-delay:.3s"><path d="M32 36V12" stroke="var(--maroon)" stroke-width="4" stroke-linecap="round"/></g><circle cx="32" cy="32" r="4" fill="var(--maroon)"/></svg></span></div>
+  <div class="tk anim pd" style="left:548px;top:470px;--r:4deg;animation-delay:1.2s"><span class="w hi">वर्क परमिट</span><span class="ck"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#FFF4E0" stroke="var(--amberDeep)" stroke-width="4"/><g class="hand" style="animation-delay:.9s"><path d="M32 36V12" stroke="var(--maroon)" stroke-width="4" stroke-linecap="round"/></g><circle cx="32" cy="32" r="4" fill="var(--maroon)"/></svg></span></div>
+  <div class="tk l anim pd" style="left:120px;top:634px;--r:3deg;animation-delay:1.95s"><span class="w hi">डेली डिक्लेरेशन</span><span class="ck"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#FFF4E0" stroke="var(--amberDeep)" stroke-width="4"/><g class="hand" style="animation-delay:1.7s"><path d="M32 36V12" stroke="var(--maroon)" stroke-width="4" stroke-linecap="round"/></g><circle cx="32" cy="32" r="4" fill="var(--maroon)"/></svg></span></div>
+  <div class="tk anim pd" style="left:520px;top:690px;--r:-4deg;animation-delay:2.6s"><span class="w hi">स्वच्छता डिक्लेरेशन</span><span class="ck"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#FFF4E0" stroke="var(--amberDeep)" stroke-width="4"/><g class="hand" style="animation-delay:.5s"><path d="M32 36V12" stroke="var(--maroon)" stroke-width="4" stroke-linecap="round"/></g><circle cx="32" cy="32" r="4" fill="var(--maroon)"/></svg></span></div>
+  <div class="tk l anim pd" style="left:66px;top:858px;--r:-2.5deg;animation-delay:3.15s"><span class="w hi">मिनिमम वेज डिक्लेरेशन</span><span class="ck"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#FFF4E0" stroke="var(--amberDeep)" stroke-width="4"/><g class="hand" style="animation-delay:1.1s"><path d="M32 36V12" stroke="var(--maroon)" stroke-width="4" stroke-linecap="round"/></g><circle cx="32" cy="32" r="4" fill="var(--maroon)"/></svg></span></div>
+  <div class="tk anim pd" style="left:556px;top:896px;--r:5deg;animation-delay:3.6s"><span class="w hi">वॉटर इनग्रेस टेस्टिंग</span><span class="ck"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#FFF4E0" stroke="var(--amberDeep)" stroke-width="4"/><g class="hand" style="animation-delay:2.3s"><path d="M32 36V12" stroke="var(--maroon)" stroke-width="4" stroke-linecap="round"/></g><circle cx="32" cy="32" r="4" fill="var(--maroon)"/></svg></span></div>
+  <div class="tk l anim pd" style="left:130px;top:1070px;--r:3.5deg;animation-delay:3.95s"><span class="w hi">कंप्लेंट</span><span class="ck"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#FFF4E0" stroke="var(--amberDeep)" stroke-width="4"/><g class="hand" style="animation-delay:.7s"><path d="M32 36V12" stroke="var(--maroon)" stroke-width="4" stroke-linecap="round"/></g><circle cx="32" cy="32" r="4" fill="var(--maroon)"/></svg></span></div>
+  <div class="tk anim pd" style="left:520px;top:1092px;--r:-4deg;animation-delay:4.2s"><span class="w hi">रीकंस्ट्रक्शन के काम</span><span class="ck"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#FFF4E0" stroke="var(--amberDeep)" stroke-width="4"/><g class="hand" style="animation-delay:1.9s"><path d="M32 36V12" stroke="var(--maroon)" stroke-width="4" stroke-linecap="round"/></g><circle cx="32" cy="32" r="4" fill="var(--maroon)"/></svg></span></div>
+
+  <div class="tags">
+    <div class="tag hi anim a-fade" style="animation-delay:4.4s;animation-duration:.5s">समय पर<i class="anim dx" style="animation-delay:4.6s"></i></div>
+    <div class="tag hi anim a-fade" style="animation-delay:5.05s;animation-duration:.5s">सही तरीक़े से<i class="anim dx" style="animation-delay:5.25s"></i></div>
+  </div>
+
+  <div class="band"><div class="hi anim a-write" style="animation-delay:6.2s;animation-duration:1.1s">हर डीलर के लिए आसान नहीं</div></div>
+
+  <div class="rail hi">हर काम की अपनी घड़ी</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

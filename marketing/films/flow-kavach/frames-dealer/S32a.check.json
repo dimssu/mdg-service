@@ -1,0 +1,21 @@
+{
+  "id": "S32",
+  "same_man": "same",
+  "face_notes": "Excellent match to the reference photo in terms of age, face shape, hair, and moustache.",
+  "outfit_matches": true,
+  "text_visible": [
+    "The number \"0.00\" is visible on the dark displays of both petrol dispensers."
+  ],
+  "marks_or_livery": [
+    "Small red markings on the white petrol dispensers."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The brief requires no readable text or numbers. The petrol pump dispensers must have completely blank, dark displays with no numbers visible. Also remove the small red markings from the dispensers to ensure they are plain white."
+}

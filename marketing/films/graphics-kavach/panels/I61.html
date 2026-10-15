@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Police and fire department, each with when to call: two rows that flip in. */
+.rows{width:960px;display:flex;flex-direction:column;gap:60px;margin-top:-40px}
+.fr{display:flex;align-items:center;gap:40px;padding:48px 44px;border-radius:34px;transform-origin:50% 0;
+  background:linear-gradient(170deg,#fff,#FBF3E7);border:1px solid rgba(201,160,100,.55);
+  box-shadow:0 36px 72px rgba(58,16,10,.24),0 5px 12px rgba(58,16,10,.12)}
+.fr .g{flex:none;width:180px;height:180px;border-radius:46px;display:flex;align-items:center;justify-content:center;color:#fff;
+  box-shadow:inset 0 -8px 18px rgba(0,0,0,.22),0 16px 30px rgba(58,16,10,.26)}
+.fr .g svg{width:104px;height:104px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.fr .t{font-size:64px;color:var(--maroonDeep);line-height:1.2}
+.fr .w{display:flex;align-items:baseline;gap:14px;margin-top:18px;font-size:46px;color:#3A2E27;line-height:1.35}
+.fr .w b{font-weight:400;color:var(--amberDeep)}
+@keyframes flipIn{0%{opacity:0;transform:perspective(1600px) rotateX(-84deg)}
+  14%{opacity:1;transform:perspective(1600px) rotateX(9deg)}20%{transform:perspective(1600px) rotateX(-3deg)}24%,100%{opacity:1;transform:none}}
+.a-flip{animation-name:flipIn;animation-timing-function:ease-out}
+</style>
+</head>
+<body>
+<!-- ══ I61 · when to tell the police, when the fire department · K717 "पुलिस को कब ख़बर करनी है, और फ़ायर डिपार्टमेंट को कब।" (4.9 s) ══ -->
+<div class="panel" id="I61" data-plate="office" style="--T:5s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="rows">
+    <div class="fr anim a-flip" style="animation-delay:.15s;animation-duration:4s">
+      <div class="g" style="background:linear-gradient(150deg,#3E5478,#22314A)"><svg viewBox="0 0 24 24"><path d="M12 2.8 19.5 5.6v6.1c0 4.6-3.1 8-7.5 9.6-4.4-1.6-7.5-5-7.5-9.6V5.6Z"/><path d="m12 8 1.2 2.5 2.7.4-2 1.9.5 2.7L12 14.2l-2.4 1.3.5-2.7-2-1.9 2.7-.4Z"/></svg></div>
+      <div><div class="t hi">पुलिस को ख़बर</div><div class="w hi"><b>कब:</b><span>चोरी या नुक़सान होते ही</span></div></div></div>
+    <div class="fr anim a-flip" style="animation-delay:2.05s;animation-duration:4s">
+      <div class="g" style="background:linear-gradient(150deg,#C98A2E,#8A5A12)"><svg viewBox="0 0 24 24"><path d="M8.4 21V10a3 3 0 0 1 3-3h1.2a3 3 0 0 1 3 3v11ZM10.8 7V4.6h2.4V7M13.2 5.2h3.6l1 1.4M10.8 4.8C8.4 4.8 6.6 6 6 9M8.4 13.4h7.2M8.4 16.4h7.2"/></svg></div>
+      <div><div class="t hi">फ़ायर डिपार्टमेंट को</div><div class="w hi"><b>कब:</b><span>आग या धुआँ दिखते ही</span></div></div></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

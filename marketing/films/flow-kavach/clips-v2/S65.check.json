@@ -1,0 +1,37 @@
+{
+  "id": "S65",
+  "same_man": "same",
+  "face_notes": "The man in the video is a very good match for the reference image.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Small four-point star logo in bottom right corner throughout."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 1,
+      "what": "The dealer's phone appears in his right hand; at 0s his hands are in his pockets."
+    },
+    {
+      "t": 1,
+      "what": "The woman's left hand holding the register is malformed and merges with the book and her sleeve for the entire duration."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 2,
+      "what": "Dealer looks down at the register but does not nod as specified in the brief."
+    },
+    {
+      "t": 4,
+      "what": "After looking at his phone, the dealer looks up at the woman's face, not back down at the register as specified in the brief."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The dealer must start the shot with the phone already in his hand, not with his hands in his pockets. The motion is incorrect: he must look at the register and nod, then look at his phone, then look back at the register. The woman's hand holding the register is malformed and needs to be fixed."
+}

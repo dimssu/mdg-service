@@ -1,0 +1,19 @@
+{
+  "id": "S47",
+  "same_man": "same",
+  "face_notes": "The man in the shot is a very close match to the reference photo in terms of age, facial features, hair, and moustache.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [
+    "The petrol pump canopy visible through the window has a blue band/structure, which violates the brief's requirement for a 'plain white canopy' with no branding or livery."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The brief explicitly forbids any oil company branding or livery. The canopy visible through the window has blue elements. Please regenerate with a 'plain white canopy' that has no coloured bands or stripes."
+}

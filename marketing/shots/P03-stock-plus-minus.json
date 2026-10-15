@@ -1,0 +1,16 @@
+{
+  "id": "P03-stock-plus-minus",
+  "act": 1,
+  "beat": "P03-stock-plus-minus",
+  "problem": "He cannot tell whether his fuel is short or over",
+  "aspect_ratio": "9:16",
+  "action": "Early morning on the forecourt. The dealer is crouched over an open underground tank hatch in the concrete, holding a long thin calibrated dip rod upright in both hands. The bottom third of the rod is darkened where it came out of the fuel. He is squinting up the length of it, trying to read where the wet line ends. His reading glasses are pushed up on his forehead. There is nothing else in his hands — no book, no phone, nothing to check the rod against.",
+  "lighting": "Low early sun raking straight across the concrete, long shadows, the light catching the wet band on the rod. Cool blue in the shadows, warm on his face and forearms. Slight morning haze.",
+  "camera": "Low angle from near the ground looking up past the open hatch at him, so the rod runs vertically up the whole frame and he is behind it, chest-up, sharp. Vertical composition. 35mm.",
+  "detail": "The rod carries fine measuring graduations but NO numbers, NO figures, NO printed markings of any kind — just plain machined lines. His mouth is slightly open as he counts to himself. A smear of fuel on his thumb. Same cream full-sleeve shirt with the sleeves rolled, same dark navy trousers, same watch.",
+  "feeling": "A man doing arithmetic he knows he cannot finish. Not defeated — concentrating, and getting nowhere.",
+  "motion": "Almost nothing moves. He turns the dip rod a few degrees in his hands to catch the light, and squints harder. A very slow push in. No cuts, no camera shake, nobody else enters frame, nobody speaks.",
+  "voice_over": {
+    "hi": "पिछली इंस्पेक्शन से अब तक तेल कितना कम है, कितना ज़्यादा — आज तक नहीं पता।"
+  }
+}

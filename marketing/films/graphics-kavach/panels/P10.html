@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* ── the Dealer Kavach phone, sized up so every line reads on a phone screen ── */
+.phone.big{width:820px;height:1500px;border-radius:84px;padding:16px}
+.phone.big .screen{border-radius:69px}
+.phone.big .app-top{padding:34px 38px 26px;gap:18px}
+.phone.big .app-top .logo{width:66px;height:66px;font-size:27px;border-radius:19px;font-family:'Space Grotesk',sans-serif}
+.phone.big .app-top .nm{font-size:40px}
+.tabpill{margin-left:auto;display:flex;align-items:center;gap:10px;color:#fff;font-size:32px;
+  padding:10px 26px 12px 20px;border-radius:999px;background:linear-gradient(140deg,var(--maroonSoft),var(--maroon));
+  box-shadow:0 6px 14px rgba(74,15,15,.28)}
+.tabpill svg{width:34px;height:34px}
+.phone.big .app-body{padding:36px 36px;gap:26px}
+.tagx{align-self:center;font-size:30px;color:var(--amberDeep);background:#FFF6E4;border:2px dashed var(--amber);
+  border-radius:999px;padding:8px 28px 10px}
+.hd2{font-size:46px;color:var(--maroon);text-align:center;line-height:1.3}
+.ringw{position:relative;width:400px;height:400px;align-self:center}
+.ringw svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.ringw .pc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringw .pc .n{font-size:128px;font-weight:700;color:var(--maroon);line-height:1;letter-spacing:-3px}
+@keyframes ringTo{from{stroke-dashoffset:540.4}to{stroke-dashoffset:var(--off)}}
+.ptsl{font-size:44px;color:var(--ink);text-align:center;line-height:1.2}
+.ptsl .dis{font-weight:700;color:var(--maroon)}
+.it{display:flex;align-items:center;gap:20px;background:#fff;border:2px solid #EFE4D2;border-radius:16px;
+  padding:16px 22px;box-shadow:0 4px 12px rgba(74,15,15,.07)}
+.it .ic{width:54px;height:54px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff}
+.it .ic svg{width:32px;height:32px;stroke-width:3}
+.it .ic.ok{background:var(--good)} .it .ic.due{background:var(--amber)} .it .ic.late{background:var(--bad)}
+.it .t{font-size:36px;color:var(--ink);line-height:1.3;flex:1}
+.it .v{font-size:38px;font-weight:700;color:var(--maroon)}
+.cav{font-size:30px;color:var(--inkMuted);text-align:center;font-style:normal}
+
+/* a figure that rolls from one value to another (see the script at the end) */
+.ctr{display:inline-flex;height:1em;line-height:1;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums}
+.ctr .cc{display:flex;flex-direction:column}
+.ctr .cc span,.ctr .fx{display:block;height:1em;line-height:1}
+@keyframes ctrRoll{from{transform:translateY(0)}to{transform:translateY(calc(var(--n) * -1em))}}
+@keyframes ctrShow{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<!-- ══ P10 · today's compliance score on his phone · K411 "इस तरह हर काम से मिलकर, आपका रोज़ का कंप्लायंस स्कोर बनता है।" (6.48 s) ══ -->
+<div class="panel" id="P10" data-plate="desk" style="--T:7s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="phone big anim a-rise" style="--T:4s">
+    <div class="screen">
+        <div class="app-top"><div class="logo">DK</div><div class="nm hi">डीलर कवच</div>
+          <div class="tabpill hi"><svg class="i" viewBox="0 0 24 24"><path d="M12 2.8 4.8 5.6v5.5c0 4.6 3 8.5 7.2 9.9 4.2-1.4 7.2-5.3 7.2-9.9V5.6Z"/><path d="m8.8 12 2.3 2.3 4.2-4.4"/></svg>कवच</div></div>
+        <div class="app-body">
+          <div class="tagx hi anim a-fade" style="--T:3s;animation-delay:.3s">उदाहरण · जब ये सारे काम पूरे हों</div>
+          <div class="hd2 hi anim a-fade" style="--T:3s;animation-delay:.45s">आज का कंप्लायंस स्कोर</div>
+          <div class="ringw">
+            <svg viewBox="0 0 200 200"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8A2B2B"/><stop offset="1" stop-color="#4E0F0F"/></linearGradient></defs>
+              <circle cx="100" cy="100" r="86" fill="none" stroke="#F2C77A" stroke-width="22"/>
+              <circle cx="100" cy="100" r="86" fill="none" stroke="url(#rg)" stroke-width="22" stroke-linecap="butt"
+                stroke-dasharray="540.4" style="--off:10.8;animation:ringTo 2.2s cubic-bezier(.3,.7,.25,1) 0.5s both paused"/></svg>
+            <div class="pc"><div class="n dis"><span class="ctr" data-from="0" data-to="98" data-at="0.5" data-dur="2.0"></span>%</div></div>
+          </div>
+          <div class="ptsl hi anim a-fade" style="--T:3s;animation-delay:.6s"><span class="dis"><span class="ctr" data-from="0" data-to="4,626" data-at=".6" data-dur="2"></span> / 4,700</span> पॉइंट</div>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+          <div class="it anim a-stamp" style="--T:3s;animation-delay:2.3s"><span class="ic ok"><svg class="i"><use href="#i-check"/></svg></span>
+            <span class="t hi">डी-एस-आर</span></div>
+          <div class="it anim a-stamp" style="--T:3s;animation-delay:2.75s"><span class="ic ok"><svg class="i"><use href="#i-check"/></svg></span>
+            <span class="t hi">डेंसिटी रजिस्टर</span></div>
+          <div class="it anim a-stamp" style="--T:3s;animation-delay:3.2s"><span class="ic ok"><svg class="i"><use href="#i-check"/></svg></span>
+            <span class="t hi">स्टॉक बोर्ड</span></div>
+          <div class="it anim a-stamp" style="--T:3s;animation-delay:3.65s"><span class="ic ok"><svg class="i"><use href="#i-check"/></svg></span>
+            <span class="t hi">ट्रेड लाइसेंस</span></div>
+          <div class="it anim a-stamp" style="--T:3s;animation-delay:4.1s"><span class="ic ok"><svg class="i"><use href="#i-check"/></svg></span>
+            <span class="t hi">बाक़ी रजिस्टर, डिक्लेरेशन, कंप्लायंस</span></div>
+          </div>
+          <div class="cav hi anim a-fade" style="--T:3s;animation-delay:4.45s">यह एम-डी-जी का लिखित आकलन है</div>
+        </div>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* A figure that rolls from one value to another, starting at a chosen second:
+   <span class="ctr" data-from="120" data-to="200" data-at="2.8" data-dur=".8">.
+   Each digit is a column running from its old digit to its new one; a place
+   that did not exist before starts blank. Same paused clock as everything else. */
+for (const el of document.querySelectorAll('.ctr[data-to]')) {
+  const num = (s) => parseInt((s || '0').replace(/\D/g, '') || '0', 10);
+  const to = el.dataset.to, A = num(el.dataset.from), B = num(to);
+  const from = (el.dataset.from || '').padStart(to.length, ' ');
+  const at = parseFloat(el.dataset.at || '0'), dur = parseFloat(el.dataset.dur || '.9');
+  const nd = to.replace(/\D/g, '').length;
+  el.textContent = '';
+  let k = 0;
+  [...to].forEach((ch, i) => {
+    if (!/\d/.test(ch)) {
+      const f = document.createElement('span'); f.className = 'fx'; f.textContent = ch;
+      if (from[i] === ' ') f.style.animation = `ctrShow .15s linear ${(at + dur * .3).toFixed(2)}s both paused`;
+      el.appendChild(f); return;
+    }
+    const p = nd - 1 - k++;
+    const a = Math.floor(A / 10 ** p), b = Math.floor(B / 10 ** p);
+    let n = b - a; if (n > 14) n = 10 + (((b - a) % 10) + 10) % 10;
+    const col = document.createElement('span'); col.className = 'cc';
+    for (let j = 0; j <= n; j++) {
+      const s = document.createElement('span');
+      s.textContent = (j === 0 && from[i] === ' ') ? '\u2007' : String((a + j) % 10);
+      col.appendChild(s);
+    }
+    col.style.setProperty('--n', n);
+    col.style.animation = `ctrRoll ${dur}s cubic-bezier(.3,.7,.25,1) ${(at + (nd - k) * .03).toFixed(2)}s both paused`;
+    el.appendChild(col);
+  });
+}
+</script>
+</body>
+</html>

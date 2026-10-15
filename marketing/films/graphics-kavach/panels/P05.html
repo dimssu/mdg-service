@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  /* the app's own chat, as on P06/P07/P08: notch, white header with the DK badge,
+     cream chat, maroon mic. Same size and place as P06's phone, which it cuts to. */
+  #P05 .phone{width:860px;height:1560px;border-radius:84px;padding:16px;margin-top:-40px}
+  #P05 .screen{border-radius:70px;background:var(--cream)}
+  #P05 .island{position:absolute;top:22px;left:50%;width:150px;height:40px;margin-left:-75px;
+    border-radius:20px;background:#000;z-index:10}
+  #P05 .top{padding:84px 36px 24px;display:flex;align-items:center;gap:20px;background:#fff;
+    border-bottom:1px solid #EDE2D3;position:relative;z-index:2}
+  #P05 .logo{width:72px;height:72px;border-radius:20px;flex:none;display:flex;align-items:center;
+    justify-content:center;font-size:28px;font-weight:700;color:#fff;
+    background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep))}
+  #P05 .top .nm{font-size:36px;color:#16120F;line-height:1.2}
+  #P05 .top .st{font-size:27px;color:var(--inkMuted);line-height:1.3}
+  #P05 .cb{flex:1;padding:34px 26px 34px;display:flex;flex-direction:column;gap:26px;justify-content:center;
+    background:radial-gradient(rgba(107,22,22,.06) 1.5px,transparent 1.5px) 0 0/34px 34px,var(--creamSunk)}
+  #P05 .compose{margin:0 26px 34px;display:flex;align-items:center;gap:18px}
+  #P05 .compose .in{flex:1;background:#fff;border:2px solid #EDE2D3;border-radius:999px;padding:22px 30px;font-size:28px;color:#A89484}
+  #P05 .compose .mic{width:84px;height:84px;border-radius:50%;background:var(--maroon);color:#fff;
+    display:flex;align-items:center;justify-content:center}
+  #P05 .pilltime{align-self:center;font-size:30px;color:#5C5248;background:#FCF6DC;padding:10px 26px;border-radius:14px;box-shadow:0 2px 5px rgba(0,0,0,.08)}
+  #P05 .msg{background:#fff;border-radius:28px;border-top-left-radius:8px;padding:12px;box-shadow:0 4px 12px rgba(74,15,15,.12);--T:5s}
+  #P05 .card-top{padding:22px 24px}
+  #P05 .card-top .tile{display:flex;padding:8px}
+  #P05 .card-top .ti{font-size:44px;font-weight:400}
+  #P05 .card-mid{padding:26px 26px 28px;gap:16px}
+  #P05 .li{display:flex;align-items:center;gap:18px;font-size:44px;color:var(--ink);line-height:1.3;--T:6s}
+  #P05 .li i{width:14px;height:14px;border-radius:50%;background:var(--amberDeep);flex:none}
+  #P05 .li b{font-family:'Inter',sans-serif;font-weight:700}
+  /* the tank gauge: level drains to 2.4 days; the band between low and high is where we keep it */
+  #P05 .gauge{position:relative;height:190px;margin:8px 0 4px}
+  #P05 .gauge .trk{position:absolute;left:0;right:0;top:78px;height:52px;border-radius:26px;background:#EFE4D2;overflow:hidden;
+    box-shadow:inset 0 3px 7px rgba(0,0,0,.1)}
+  #P05 .gauge .band{position:absolute;left:30%;width:40%;top:70px;height:68px;border-radius:14px;border:4px dashed var(--good);background:rgba(30,122,74,.08)}
+  #P05 .gauge .bandon{position:absolute;left:30%;width:40%;top:66px;height:76px;border-radius:16px;border:5px solid var(--good);
+    background:rgba(30,122,74,.16);box-shadow:0 0 0 8px rgba(30,122,74,.14),0 0 40px rgba(30,122,74,.45)}
+  #P05 .gauge .lvl{display:block;height:100%;width:44%;border-radius:26px;background:linear-gradient(90deg,#F6C877,var(--amberDeep))}
+  @keyframes drainTo{0%{width:100%}100%{width:44%}}
+  #P05 .gauge .lvl.anim{animation-name:drainTo;animation-duration:1.7s;animation-timing-function:cubic-bezier(.4,0,.3,1)}
+  #P05 .gauge .mk{position:absolute;left:calc(44% - 110px);width:220px;text-align:center;top:0;font-size:40px;color:var(--maroon);white-space:nowrap}
+  #P05 .gauge .mk::after{content:'';position:absolute;left:50%;top:56px;width:5px;height:84px;margin-left:-2.5px;background:var(--maroon);border-radius:3px}
+  #P05 .gauge .lo,#P05 .gauge .hi2{position:absolute;top:146px;font-size:32px;color:var(--inkMuted)}
+  #P05 .gauge .lo{left:6px} #P05 .gauge .hi2{right:6px}
+  #P05 .glab{align-self:center;font-size:36px;color:var(--good);background:#E8F5EE;border-radius:999px;padding:8px 26px}
+  #P05 .adv{border:3px solid var(--amber);border-radius:18px;padding:20px 24px;background:#fff}
+  #P05 .adv .t{font-size:46px;color:var(--maroonDeep);line-height:1.4}
+  #P05 .adv .t .mark{padding:0 4px}
+  #P05 .adv .t .mark.anim{animation-duration:.9s}
+  #P05 .msg .tm{font-size:24px;color:#9C9184;text-align:right;padding:8px 12px 0;font-family:'Space Grotesk','Inter',sans-serif}
+  #P05 .q{--T:3s}
+</style>
+</head>
+<body>
+<!-- ══ P05 · when to take the next load · K216 "…हमारी टीम बताती है कि अगला लोड कब लेना ठीक रहेगा — ताकि … न बेवजह कम हो, न ज़्यादा।" ═══ -->
+<div class="panel" id="P05" data-plate="dusk" style="--T:8s">
+  <div class="glow anim a-glow" style="animation-delay:-1.6s;top:52%"></div>
+  <div class="phone anim a-rise" style="animation-delay:-.1s;animation-duration:5s">
+    <div class="screen">
+      <div class="island"></div>
+      <div class="top">
+        <div class="logo dis">DK</div>
+        <div><div class="nm hi">MDG टीम</div><div class="st hi">डीलर कवच</div></div>
+      </div>
+      <div class="cb">
+        <div class="pilltime hi q anim a-fade" style="animation-delay:-.05s">सुबह 9:05 · 22-08</div>
+        <div class="msg anim a-bub" style="animation-delay:.3s">
+          <div class="card">
+            <div class="card-top"><span class="tile"><svg class="i" style="width:34px;height:34px"><use href="#i-drop"/></svg></span><span class="ti hi">अगला लोड · HSD</span></div>
+            <div class="card-mid">
+              <div class="li hi anim a-write" style="animation-delay:1.1s"><i></i><span>टंकी में अभी <b>10,020 L</b></span></div>
+              <div class="li hi anim a-write" style="animation-delay:1.6s"><i></i><span>रोज़ की औसत सेल <b>~4,200 L</b></span></div>
+              <div class="li hi anim a-write" style="animation-delay:2.1s"><i></i><span>स्टॉक: लगभग <b>2.4</b> दिन का</span></div>
+              <div class="gauge">
+                <span class="band"></span>
+                <div class="trk"><i class="lvl anim" style="animation-delay:1.5s"></i></div>
+                <span class="bandon q anim a-fade" style="animation-delay:4.25s"></span>
+                <span class="mk hi q anim a-pop" style="animation-delay:2.95s">2.4 दिन</span>
+                <span class="lo hi">कम</span><span class="hi2 hi">ज़्यादा</span>
+              </div>
+              <div class="glab hi q anim a-pop" style="animation-delay:4.45s">न बेवजह कम · न बेवजह ज़्यादा</div>
+              <div class="adv q anim a-fade" style="animation-delay:2.7s"><div class="t hi"><span class="mark anim a-mark" style="animation-delay:3.4s">24-08 सुबह तक<br/><b>12,000&nbsp;L</b> का लोड मँगवाएँ</span></div></div>
+            </div>
+            <div class="foot hi" style="font-size:24px">Dealer's कवच Programme · MDG Services</div>
+          </div>
+          <div class="tm">9:05</div>
+        </div>
+      </div>
+      <div class="compose">
+        <div class="in hi">संदेश लिखें…</div>
+        <div class="mic"><svg class="i" style="width:38px;height:38px" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">सही समय, सही मात्रा</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

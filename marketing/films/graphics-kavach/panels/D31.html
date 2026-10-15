@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Money received beside money recorded, row by row; three match, one does not,
+   and the ₹2,500 gap is circled and caught. */
+.rec{position:absolute;left:68px;top:300px;width:944px;--rot:-.7deg;padding-bottom:36px}
+.rec .head .t{font-size:54px;color:var(--maroon)}
+.rec .head{padding:34px 40px 24px}
+.rec .tb{padding:30px 30px 0}
+.rec table.grid th{font-size:28px;line-height:1.3;padding:14px 8px;text-transform:none}
+.rec table.grid td{font-size:36px;height:136px;font-weight:500;padding:8px 6px;position:relative}
+.rec td.dt{font-weight:600;color:#4A3F37}
+.rec td.ok{color:var(--good)}
+.rec td.ok .dash{color:#9C9184}
+.rec .tk{width:40px;height:40px;stroke-width:3;color:var(--good);margin-left:12px;vertical-align:-8px}
+.rec td.gap{color:var(--bad);font-weight:700;font-size:36px}
+.rec svg.ring{left:4px;top:22px;width:calc(100% - 8px);height:92px}
+.rec svg.ring ellipse{stroke:#D08A22;stroke-width:5}
+.mk{padding:2px 6px}
+@keyframes flash{0%{background:transparent}14%{background:#F9C865}30%{background:#FDE6B0}44%{background:#F9C865}62%,100%{background:#FFF1D2}}
+.a-flash{animation-name:flash;animation-timing-function:ease-out}
+.flag2{position:absolute;left:80px;right:80px;top:1250px;display:flex;align-items:center;gap:26px;padding:34px 38px;border-radius:26px;
+  background:linear-gradient(160deg,var(--maroonSoft),var(--maroon) 60%,var(--maroonDeep));color:#FFF3E2;
+  box-shadow:0 30px 60px rgba(58,16,10,.36);transform:rotate(.8deg)}
+.flag2 .g{flex:none;width:92px;height:92px;border-radius:50%;background:var(--amber);color:var(--maroonDeep);display:flex;align-items:center;justify-content:center}
+.flag2 .g svg{width:52px;height:52px;stroke-width:2.2}
+.flag2 .t{font-size:50px;line-height:1.35}
+</style>
+</head>
+<body>
+<!-- ══ D31 · digital payment reconciliation catches a gap · K709, first 7.5 s ══ -->
+<div class="panel" id="D31" data-plate="desk" style="--T:8s">
+  <div class="paper rec anim a-rise" style="animation-delay:0s;animation-duration:3s">
+    <div class="head"><span class="t hi">डिजिटल पेमेंट का मिलान</span></div>
+    <div class="tb">
+      <table class="grid">
+        <tr><th class="hi" style="width:150px">तारीख़</th><th class="hi">जो पैसा आया (UPI)</th><th class="hi">अकाउंट्स में दर्ज</th><th class="hi" style="width:200px">अंतर</th></tr>
+        <tr class="anim a-write" style="animation-delay:0.35s;animation-duration:4s"><td class="dt">12-08</td><td>₹1,98,240</td><td>₹1,98,240</td><td class="ok"><span class="dash">—</span><svg class="i tk anim a-pop" style="animation-delay:0.80s;animation-duration:2.5s"><use href="#i-check"/></svg></td></tr>
+        <tr class="anim a-write" style="animation-delay:1.25s;animation-duration:4s"><td class="dt">13-08</td><td>₹2,06,910</td><td>₹2,06,910</td><td class="ok"><span class="dash">—</span><svg class="i tk anim a-pop" style="animation-delay:1.70s;animation-duration:2.5s"><use href="#i-check"/></svg></td></tr>
+        <tr class="anim a-write" style="animation-delay:2.15s;animation-duration:4s"><td class="dt anim a-flash" style="animation-delay:3.6s;animation-duration:2.4s">14-08</td><td class="x anim a-flash" style="animation-delay:3.6s;animation-duration:2.4s">₹2,14,380</td><td class="x anim a-flash" style="animation-delay:3.6s;animation-duration:2.4s">₹2,11,880</td><td class="gap anim a-flash" style="animation-delay:3.6s;animation-duration:2.4s"><span class="mk mark anim a-mark" style="animation-delay:4.0s;animation-duration:.6s">₹2,500</span><svg class="draw ring" viewBox="0 0 200 90" preserveAspectRatio="none"><ellipse class="anim a-draw" pathLength="1" cx="100" cy="45" rx="94" ry="40" style="animation-delay:3.85s;animation-duration:5s"/></svg></td></tr>
+        <tr class="anim a-write" style="animation-delay:3.05s;animation-duration:4s"><td class="dt">15-08</td><td>₹2,01,560</td><td>₹2,01,560</td><td class="ok"><span class="dash">—</span><svg class="i tk anim a-pop" style="animation-delay:3.50s;animation-duration:2.5s"><use href="#i-check"/></svg></td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="flag2 anim a-rise" style="animation-delay:4.15s;animation-duration:4s">
+    <div class="g"><svg class="i"><use href="#i-alert"/></svg></div>
+    <div class="t hi"><div class="anim a-write" style="animation-delay:4.3s;animation-duration:4s">₹2,500 का अंतर —</div><div class="anim a-write" style="animation-delay:4.6s;animation-duration:4s">समय पर पकड़ में आया</div></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

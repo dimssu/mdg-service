@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  /* Brand tokens mirrored from mdg-landing/tailwind.config.js via
+     mdg-demo/src/marketing/brand.ts, so the film, the site and the printed
+     pamphlet are visibly one brand. */
+  :root {
+    --navy700: #2C2E80;  --navy800: #222466;  --navy900: #1A1B4B;  --navy950: #101133;
+    --navy100: #E3E4F6;  --navy200: #C5C7ED;  --navy400: #6E72CC;
+    --gold400: #F5A524;  --gold200: #FBD888;
+    --paper:   #FCFCFE;  --paperSunk: #EDEFF7;
+    --ink:     #15163A;  --inkMuted: #6B6D93;
+    --good:    #1F9254;  --warn: #B96807;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #101133; }
+
+  .panel { position: relative; overflow: hidden; }
+  .full  { width: 1080px; height: 1920px; }
+
+  /* ── Devanagari NEVER gets letter-spacing: it splits the conjuncts, and a
+     word like दिक़्क़त comes apart into pieces. ─────────────────────────── */
+  .hi  { font-family: 'Tiro Devanagari Hindi', 'Kohinoor Devanagari', serif; letter-spacing: 0 !important; }
+  .en  { font-family: 'Inter', system-ui, sans-serif; }
+  .dis { font-family: 'Space Grotesk', 'Inter', sans-serif; }
+
+  /* ═══ OUTRO ═══ */
+  #outro-brand, #outro-app {
+    background:
+      radial-gradient(120% 80% at 50% 0%, #2C2E80 0%, #1A1B4B 55%, #101133 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0; padding: 200px 90px; text-align: center;
+  }
+  .rule { width: 120px; height: 5px; background: var(--gold400); border-radius: 3px; }
+
+  #outro-brand .mark { width: 620px; margin-bottom: 70px; }
+  #outro-brand .tag {
+    font-size: 58px; font-weight: 500; color: var(--gold400);
+    letter-spacing: .04em; margin-top: 64px;
+  }
+  #outro-brand .sub {
+    font-size: 46px; line-height: 1.55; color: var(--navy100);
+    margin-top: 54px; max-width: 800px;
+  }
+
+  #outro-app .icon {
+    width: 260px; height: 260px; border-radius: 60px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.45); margin-bottom: 56px;
+  }
+  #outro-app .appname { font-size: 86px; font-weight: 700; color: #fff; }
+  #outro-app .appname em { font-style: normal; color: var(--gold400); }
+  #outro-app .install {
+    margin-top: 58px; font-size: 52px; line-height: 1.5; color: var(--navy100); max-width: 860px;
+  }
+  #outro-app .site {
+    margin-top: 76px; font-size: 54px; font-weight: 600; color: #fff;
+    border: 3px solid var(--navy400); border-radius: 999px; padding: 26px 62px;
+  }
+  #outro-app .logo-small { width: 300px; margin-top: 90px; opacity: .85; }
+
+  /* ═══ PHONE PANELS (transparent, composited over the film) ═══ */
+  .phone {
+    width: 620px; height: 1120px; background: #0B0C1F;
+    border-radius: 64px; padding: 16px;
+    box-shadow: 0 40px 90px rgba(0,0,0,.55), 0 0 0 3px rgba(255,255,255,.10);
+  }
+  .screen {
+    width: 100%; height: 100%; background: var(--paper);
+    border-radius: 50px; overflow: hidden; display: flex; flex-direction: column;
+  }
+  .bar {
+    background: var(--navy700); color: #fff; padding: 26px 30px 24px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .bar .dot {
+    width: 44px; height: 44px; border-radius: 12px; background: var(--gold400);
+    display: grid; place-items: center; color: var(--navy900);
+    font-size: 15px; font-weight: 700; letter-spacing: 0;
+  }
+  .bar .t  { font-size: 27px; font-weight: 600; }
+  .bar .d  { margin-left: auto; font-size: 22px; color: var(--navy200); }
+  .body { padding: 26px 28px; display: flex; flex-direction: column; gap: 20px; flex: 1; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    font-size: 17px; font-weight: 600; color: var(--inkMuted);
+    text-align: right; padding: 10px 6px; border-bottom: 2px solid var(--navy200);
+    text-transform: uppercase;
+  }
+  th:first-child, td:first-child { text-align: left; }
+  td {
+    font-size: 23px; color: var(--ink); text-align: right;
+    padding: 15px 6px; border-bottom: 1px solid var(--paperSunk);
+    font-variant-numeric: tabular-nums;
+  }
+  tr.now td { font-weight: 700; background: #FEF7E7; }
+
+  .verdict {
+    border-radius: 22px; padding: 26px 28px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .verdict.ok  { background: #E9F7EF; border: 2px solid #A8DCC0; }
+  .verdict .h  { font-size: 34px; font-weight: 700; color: var(--good); }
+  .verdict .p  { font-size: 25px; line-height: 1.5; color: #2F5F46; }
+
+  .kv { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .kv .k { font-size: 24px; color: var(--inkMuted); }
+  .kv .v { font-size: 30px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .big  { background: var(--paperSunk); border-radius: 22px; padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+  .due  { font-size: 56px; font-weight: 700; color: var(--navy700); font-variant-numeric: tabular-nums; }
+  .byline { font-size: 26px; color: var(--warn); font-weight: 600; }
+
+  .row { display: flex; gap: 16px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid var(--paperSunk); }
+  .row .tick { width: 38px; height: 38px; border-radius: 50%; background: var(--good); color:#fff; display:grid; place-items:center; font-size: 22px; flex: none; }
+  .row .tx { font-size: 25px; line-height: 1.45; color: var(--ink); }
+  .allclear { font-size: 36px; font-weight: 700; color: var(--good); }
+
+  .note { font-size: 21px; color: var(--inkMuted); line-height: 1.5; margin-top: auto; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ OUTRO 1 — the company ═══════════ -->
+<div class="panel full" id="outro-brand">
+  <img class="mark" src="logo-full-white.png" alt="" />
+  <div class="rule"></div>
+  <div class="tag dis">Fueling Success</div>
+  <div class="sub hi">काग़ज़ी काम, हमारे ज़िम्मे।<br />पंप आप चलाइए।</div>
+</div>
+
+<!-- ═══════════ OUTRO 2 — the app ═══════════ -->
+<div class="panel full" id="outro-app">
+  <img class="icon" src="icon-512.png" alt="" />
+  <div class="appname dis">Dealer <em>कवच</em></div>
+  <div class="install hi">ऐप आपके फ़ोन पर<br />हम ही लगा देंगे।</div>
+  <div class="site dis">mdgservices.in</div>
+  <img class="logo-small" src="logo-full-white.png" alt="" />
+</div>
+
+<!-- ═══════════ PHONE — the daily sales report ═══════════ -->
+<div class="panel phone" id="p-dsr">
+  <div class="screen">
+    <div class="bar"><div class="dot dis">MDG</div><div class="t hi">रोज़ाना बिक्री रिपोर्ट</div><div class="d dis">20-08</div></div>
+    <div class="body">
+      <table>
+        <tr><th>DATE</th><th>OPENING</th><th>RECEIPT</th><th>DIP</th><th>SALES</th></tr>
+        <tr><td>19-08</td><td>9,120</td><td>9,000</td><td>141</td><td>5,630</td></tr>
+        <tr class="now"><td>20-08</td><td>12,480</td><td>6,000</td><td>160</td><td>4,222</td></tr>
+      </table>
+      <div class="verdict ok">
+        <div class="h hi">स्टॉक ठीक है</div>
+        <div class="p hi">तय सीमा के अंदर है। कुछ करने की ज़रूरत नहीं।</div>
+      </div>
+      <div class="note hi">रजिस्टर में कोई भी उतार सकता है।</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ PHONE — the credit position ═══════════ -->
+<div class="panel phone" id="p-credit">
+  <div class="screen">
+    <div class="bar"><div class="dot dis">MDG</div><div class="t hi">क्रेडिट की स्थिति</div><div class="d dis">20-08</div></div>
+    <div class="body">
+      <div class="big">
+        <div class="kv"><div class="k hi">जमा करनी है</div></div>
+        <div class="due">₹4,86,120</div>
+        <div class="byline hi">आख़िरी तारीख़ — 26-08</div>
+      </div>
+      <div class="kv"><div class="k hi">निर्धारित राशि</div><div class="v">₹25,00,000</div></div>
+      <div class="kv"><div class="k hi">अब तक खपत</div><div class="v">₹18,42,650</div></div>
+      <div class="kv"><div class="k hi">बची हुई राशि</div><div class="v">₹6,57,350</div></div>
+      <div class="note hi">पिछले एक-दो दिन का जमा अभी न दिखे, ये हो सकता है।</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ PHONE — supply status ═══════════ -->
+<div class="panel phone" id="p-supply">
+  <div class="screen">
+    <div class="bar"><div class="dot dis">MDG</div><div class="t hi">सप्लाई की स्थिति</div><div class="d dis">20-08</div></div>
+    <div class="body">
+      <div class="verdict ok">
+        <div class="allclear hi">सब ठीक है</div>
+        <div class="p hi">अभी कोई चीज़ आपका लोड नहीं रोक रही।</div>
+      </div>
+      <div class="row"><div class="tick">✓</div><div class="tx hi">ऑटोमेशन का डेटा पहुँच रहा है</div></div>
+      <div class="row"><div class="tick">✓</div><div class="tx hi">तिमाही मॉक ड्रिल हो चुकी है</div></div>
+      <div class="row"><div class="tick">✓</div><div class="tx hi">पोर्टल पर कोई काम बाक़ी नहीं</div></div>
+      <div class="note hi">कुछ रुका, तो खोलने का क़दम भी यहीं मिलेगा।</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ PHONE — the stock check ═══════════ -->
+<div class="panel phone" id="p-stock">
+  <div class="screen">
+    <div class="bar"><div class="dot dis">MDG</div><div class="t hi">स्टॉक जाँच</div><div class="d dis">20-08</div></div>
+    <div class="body">
+      <div class="verdict ok">
+        <div class="h hi">स्टॉक ठीक है</div>
+        <div class="p hi">तय सीमा के अंदर। कुछ करने की ज़रूरत नहीं।</div>
+      </div>
+      <div class="kv"><div class="k hi">टंकी पर छूट (4%)</div><div class="v">400 L</div></div>
+      <div class="kv"><div class="k hi">बिक्री पर छूट</div><div class="v">50 L</div></div>
+      <div class="kv"><div class="k hi">कुल सीमा</div><div class="v">450 L</div></div>
+      <div class="kv"><div class="k hi">आज का फ़र्क़</div><div class="v">−118 L</div></div>
+      <div class="note hi">महीने बाद नहीं — हर सुबह।</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

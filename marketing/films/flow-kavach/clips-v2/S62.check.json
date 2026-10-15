@@ -1,0 +1,35 @@
+{
+  "id": "S62",
+  "same_man": "same",
+  "face_notes": "Good match to the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Veo watermark bottom right"
+  ],
+  "marks_or_livery": [
+    "Veo watermark bottom right"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 1,
+      "what": "Fast flash/static glitch across the screen."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 0,
+      "what": "Actor looks at camera instead of down at the paper as briefed."
+    },
+    {
+      "t": 7,
+      "what": "Actor looks back at camera."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 2,
+  "clean_to": 7,
+  "verdict": "retake",
+  "retake_hint": "The actor must look down at the paper on the desk from the start, not at the camera. The camera must be completely locked, with no jitter or flicker. Remove the flash glitch at 0:01."
+}

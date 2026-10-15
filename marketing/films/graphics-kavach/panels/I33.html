@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* ── the validity ladder: wooden rails, cream rungs, the current rung in gold ── */
+.plank{position:relative;height:132px;border-radius:20px;display:flex;align-items:center;justify-content:center;gap:22px;
+  font-size:58px;color:var(--maroon);z-index:2;
+  background:linear-gradient(180deg,#FFFDF8,#F1E3CD);border:2px solid rgba(201,160,100,.7);
+  box-shadow:0 18px 36px rgba(58,16,10,.22),inset 0 -8px 12px rgba(160,110,50,.14),inset 0 3px 0 rgba(255,255,255,.8)}
+.plank .gl{position:absolute;inset:-2px;border-radius:20px;z-index:-1;
+  background:linear-gradient(180deg,#FBDFA0,#E9A23B 70%,#D38A22);border:2px solid #C77C1B;
+  box-shadow:0 0 0 10px rgba(233,162,59,.22),0 26px 50px rgba(120,62,8,.38),inset 0 3px 0 rgba(255,255,255,.55)}
+.plank.gold{background:linear-gradient(180deg,#FBDFA0,#E9A23B 70%,#D38A22);color:var(--maroonDeep);border-color:#C77C1B;
+  box-shadow:0 0 0 10px rgba(233,162,59,.22),0 26px 50px rgba(120,62,8,.38),inset 0 3px 0 rgba(255,255,255,.55)}
+.plank svg.i{width:52px;height:52px;stroke-width:2.2;opacity:.8}
+.lrail{position:absolute;width:38px;border-radius:14px;z-index:1;
+  background:linear-gradient(90deg,#8A3A26,#5E1B12 60%,#42110C);box-shadow:0 12px 26px rgba(40,10,6,.30)}
+/* a single rung lifted off the ladder, with stubs of the rails */
+.rh{position:relative;width:900px}
+.rh .lrail{top:-70px;bottom:-70px;-webkit-mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent);
+  mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent)}
+@keyframes liftF{0%{transform:scale(.9) translateY(40px);filter:brightness(.92)}100%{transform:scale(1.04);filter:none}}
+.lift{animation:liftF .8s cubic-bezier(.2,.9,.3,1) both paused;transform-origin:50% 60%}
+@keyframes grow{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.panel{gap:54px}
+.gl3{display:flex;flex-direction:column;gap:28px;width:960px}
+.gr{display:flex;align-items:center;gap:28px;background:#fff;border:2px solid #EFE4D2;border-radius:26px;padding:30px 32px;
+  box-shadow:0 14px 30px rgba(58,16,10,.13)}
+.gi{width:96px;height:96px;border-radius:26px;flex:none;display:flex;align-items:center;justify-content:center;color:#fff}
+.gi svg{width:54px;height:54px}
+.gr.green .gi{background:var(--good)} .gr.red .gi{background:var(--bad)} .gr.amber .gi{background:var(--amber)}
+.gm{flex:1;min-width:0}
+.gm .k{font-size:34px;color:var(--inkMuted)}
+.gr.green .gm .k{color:var(--good)} .gr.red .gm .k{color:var(--bad)} .gr.amber .gm .k{color:var(--amberDeep)}
+.gm .nm{font-size:44px;color:var(--ink);line-height:1.3;white-space:nowrap}
+.gb{height:14px;border-radius:99px;background:#EFE4D2;overflow:hidden;margin-top:14px}
+.gb i{display:block;height:100%;border-radius:99px;animation:drainTo 1.4s cubic-bezier(.3,.8,.4,1) both paused}
+@keyframes drainTo{from{width:100%}to{width:var(--w1)}}
+.gr.green .gb i{background:var(--good)} .gr.red .gb i{background:var(--bad)} .gr.amber .gb i{background:var(--amber)}
+.gv{text-align:right;flex:none}
+.gv .left{font-size:50px;font-weight:700;line-height:1.1;white-space:nowrap}
+.gr.green .left{color:var(--good)} .gr.red .left{color:var(--bad)} .gr.amber .left{color:var(--amberDeep)}
+.gv .dt{font-size:32px;color:var(--inkMuted);margin-top:8px}
+.gr.hot::after{content:'';position:absolute;inset:0;border-radius:26px;pointer-events:none;
+  animation:hotP .75s ease-out 3s 2 both paused}
+.gr{position:relative}
+@keyframes hotP{0%{box-shadow:0 0 0 0 rgba(192,57,43,.55)}100%{box-shadow:0 0 0 26px rgba(192,57,43,0)}}
+.note{display:flex;align-items:center;gap:22px;width:960px;background:linear-gradient(140deg,var(--maroonSoft),var(--maroon));
+  color:#fff;border-radius:24px;padding:26px 34px;box-shadow:0 18px 38px rgba(58,16,10,.30)}
+.note .ey{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.16);flex:none;display:flex;align-items:center;justify-content:center;color:var(--amber)}
+.note .ey svg{width:46px;height:46px}
+.note .hi{font-size:44px;line-height:1.3}
+/* a figure that rolls from one value to another (see the script at the end) */
+.ctr{display:inline-flex;height:1em;line-height:1;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums}
+.ctr .cc{display:flex;flex-direction:column}
+.ctr .cc span,.ctr .fx{display:block;height:1em;line-height:1}
+@keyframes ctrRoll{from{transform:translateY(0)}to{transform:translateY(calc(var(--n) * -1em))}}
+@keyframes ctrShow{from{opacity:0}to{opacity:1}}
+/* the kit's write-in clips to the box, which cut each card's drop shadow into a hard
+   rectangle behind its rounded corners; this one clips the same way but leaves the shadow room */
+@keyframes writeInPad{0%{clip-path:inset(-70px 100% -70px 0)}14%,100%{clip-path:inset(-70px -70px -70px -70px)}}
+.a-writep{animation-name:writeInPad;animation-timing-function:linear}
+</style>
+</head>
+<body>
+<!-- ══ I33 · licence, certificate, document — each with its date · K420 "किसी लाइसेंस, सर्टिफ़िकेट या दस्तावेज़ की मियाद ख़त्म होने वाली हो…" (6 s) ══ -->
+<div class="panel" id="I33" data-plate="office" style="--T:6s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="cap hi anim a-fade" style="--T:3s;animation-delay:.05s;font-size:64px">किसकी मियाद <b>कब ख़त्म</b></div>
+  <div class="gl3">
+  <div class="gr green anim a-stamp" style="--T:3s;animation-delay:0.5s">
+    <span class="gi"><svg class="i"><use href="#i-doc"/></svg></span>
+    <div class="gm"><div class="k hi">लाइसेंस</div><div class="nm hi">ट्रेड लाइसेंस</div>
+      <div class="gb"><i style="--w1:58%;animation-delay:0.8s"></i></div></div>
+    <div class="gv"><div class="left hi">7 महीने</div><div class="dt dis">31-03-2027</div></div>
+  </div>
+  <div class="gr red hot anim a-stamp" style="--T:3s;animation-delay:1.3s">
+    <span class="gi"><svg class="i"><use href="#i-gauge"/></svg></span>
+    <div class="gm"><div class="k hi">सर्टिफ़िकेट</div><div class="nm hi">नापतौल सर्टिफ़िकेट</div>
+      <div class="gb"><i style="--w1:8%;animation-delay:1.6s"></i></div></div>
+    <div class="gv"><div class="left hi">15 दिन</div><div class="dt dis">04-09</div></div>
+  </div>
+  <div class="gr amber anim a-stamp" style="--T:3s;animation-delay:2.1s">
+    <span class="gi"><svg class="i"><use href="#i-doc"/></svg></span>
+    <div class="gm"><div class="k hi">दस्तावेज़</div><div class="nm hi">इंश्योरेंस पॉलिसी</div>
+      <div class="gb"><i style="--w1:15%;animation-delay:2.4s"></i></div></div>
+    <div class="gv"><div class="left hi">27 दिन</div><div class="dt dis">16-09</div></div>
+  </div>
+  </div>
+  <div class="note anim a-writep" style="--T:4s;animation-delay:3.45s"><span class="ey"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.6-6.6 10-6.6S22 12 22 12s-3.6 6.6-10 6.6S2 12 2 12Z"/><circle cx="12" cy="12" r="3.1"/></svg></span><span class="hi">पॉइंट सिस्टम इन पर भी नज़र रखता है</span></div>
+  <div class="rail hi">पंप असेसमेंट पॉइंट सिस्टम</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* A figure that rolls from one value to another, starting at a chosen second:
+   <span class="ctr" data-from="120" data-to="200" data-at="2.8" data-dur=".8">.
+   Each digit is a column running from its old digit to its new one; a place
+   that did not exist before starts blank. Same paused clock as everything else. */
+for (const el of document.querySelectorAll('.ctr[data-to]')) {
+  const num = (s) => parseInt((s || '0').replace(/\D/g, '') || '0', 10);
+  const to = el.dataset.to, A = num(el.dataset.from), B = num(to);
+  const from = (el.dataset.from || '').padStart(to.length, ' ');
+  const at = parseFloat(el.dataset.at || '0'), dur = parseFloat(el.dataset.dur || '.9');
+  const nd = to.replace(/\D/g, '').length;
+  el.textContent = '';
+  let k = 0;
+  [...to].forEach((ch, i) => {
+    if (!/\d/.test(ch)) {
+      const f = document.createElement('span'); f.className = 'fx'; f.textContent = ch;
+      if (from[i] === ' ') f.style.animation = `ctrShow .15s linear ${(at + dur * .3).toFixed(2)}s both paused`;
+      el.appendChild(f); return;
+    }
+    const p = nd - 1 - k++;
+    const a = Math.floor(A / 10 ** p), b = Math.floor(B / 10 ** p);
+    let n = b - a; if (n > 14) n = 10 + (((b - a) % 10) + 10) % 10;
+    const col = document.createElement('span'); col.className = 'cc';
+    for (let j = 0; j <= n; j++) {
+      const s = document.createElement('span');
+      s.textContent = (j === 0 && from[i] === ' ') ? '\u2007' : String((a + j) % 10);
+      col.appendChild(s);
+    }
+    col.style.setProperty('--n', n);
+    col.style.animation = `ctrRoll ${dur}s cubic-bezier(.3,.7,.25,1) ${(at + (nd - k) * .03).toFixed(2)}s both paused`;
+    el.appendChild(col);
+  });
+}
+</script>
+</body>
+</html>

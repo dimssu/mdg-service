@@ -1,0 +1,22 @@
+{
+  "id": "S28",
+  "same_man": "same",
+  "face_notes": "The man is a very close match, but has a small gold earring in his right ear which is not in the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [
+    "A 'veo' watermark is in the bottom right corner throughout."
+  ],
+  "marks_or_livery": [
+    "A faint, circular, blue-green logo is visible on the petrol pump canopy outside the window throughout the shot.",
+    "A 'veo' watermark is in the bottom right corner throughout."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The canopy outside has a faint logo on it, which violates the brief. The action is also incorrect: the man looks down, then up, and does not nod. Prompt must specify 'plain white canopy with no logos or marks' and detail the action correctly: 'he looks out, then down, then out again with a nod'."
+}

@@ -1,0 +1,22 @@
+{
+  "id": "S23",
+  "same_man": "same",
+  "face_notes": "Face is a very close match to the reference image.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 1.5,
+      "what": "Dealer turns to the attendant and begins talking/mouthing words and gesturing with his hand, which continues for the rest of the shot."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 1.5,
+  "verdict": "retake",
+  "retake_hint": "The action is wrong. The brief specified a silent nod, but the dealer talks and gestures throughout the shot. Reinforce the prompt: 'mouths closed, no speaking, no mouthing words, no hand gestures, dealer only gives a small silent nod'."
+}

@@ -1,0 +1,26 @@
+{
+  "id": "S46",
+  "same_man": "not_in_shot",
+  "face_notes": "The shot features a young Indian woman, not the man from the reference photo.",
+  "outfit_matches": false,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "Veo watermark"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 3,
+      "what": "Instead of a nod, she looks down and then back up at the screens."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "retake",
+  "retake_hint": "The brief requires the monitors behind the woman to be completely defocused, showing only a soft glow with no discernible images. In this version, the CCTV footage on the monitors is clearly visible. The prompt must be changed to enforce extreme defocus on the background monitors."
+}

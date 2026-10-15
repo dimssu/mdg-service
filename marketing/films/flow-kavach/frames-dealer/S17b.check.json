@@ -1,0 +1,17 @@
+{
+  "id": "S17",
+  "same_man": "same",
+  "face_notes": "Excellent match to the reference photo. Same face shape, hair, moustache, and apparent age.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": true,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "keep",
+  "retake_hint": ""
+}

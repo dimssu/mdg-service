@@ -1,0 +1,17 @@
+{
+  "id": "S29",
+  "same_man": "not_in_shot",
+  "face_notes": "",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "retake",
+  "retake_hint": "The action after the attendant wipes the dispenser is wrong. From 3s, he must stop with his hand flat on the cloth on the dispenser, and the manager must give an approving nod. The attendant should not pick up the cloth."
+}

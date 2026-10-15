@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  #I01 .abs{position:absolute}
+  #I01 .head{top:168px;left:60px;right:60px;text-align:center}
+  #I01 .head .cap{font-size:66px;margin:0 auto}
+  #I01 .head .eyebrow{margin-bottom:14px}
+  #I01 .win{top:290px;left:80px;right:80px;height:1270px;
+    -webkit-mask-image:linear-gradient(transparent 0,#000 4%,#000 86%,transparent 100%);
+            mask-image:linear-gradient(transparent 0,#000 4%,#000 86%,transparent 100%)}
+  #I01 .stack{display:flex;flex-direction:column;gap:20px;padding:58px 16px 0}
+  #I01 .lc{display:flex;align-items:center;gap:30px;height:124px;padding:0 34px 0 24px;background:#fff;
+    border:2px solid #EFE4D2;border-radius:20px;box-shadow:0 14px 30px rgba(74,15,15,.13),0 3px 8px rgba(74,15,15,.08)}
+  #I01 .lc .pi{width:76px;height:76px;border-radius:18px;flex:none;display:flex;align-items:center;justify-content:center;
+    color:#fff;background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep));
+    box-shadow:inset 0 -4px 10px rgba(0,0,0,.2)}
+  #I01 .lc .pi svg{width:42px;height:42px}
+  #I01 .lc .t{font-size:58px;color:var(--ink);flex:1;line-height:1;padding-top:14px}
+  #I01 .lc .bx{width:50px;height:50px;border:3px solid #D9C7AE;border-radius:10px;flex:none}
+  #I01 .lc.blank{background:#FFFCF6;border-style:dashed}
+  #I01 .lc.blank .pi{background:#EADDCB;box-shadow:none}
+  #I01 .lc.blank .bar{height:22px;border-radius:99px;background:#EFE4D2;flex:none}
+  #I01 .coda{top:1590px;left:60px;right:60px;text-align:center;font-size:54px;color:var(--maroon);line-height:1.35}
+  /* the cards drop quicker than the panel's clock: a 4 s local clock makes the fall ~0.65 s */
+  #I01 .drop{--T:4s}
+</style>
+</head>
+<body>
+<!-- ══ I01 · the daily list that never ends · K002 "रीडिंग, डिप, डी-एस-आर … कभी ख़त्म ही नहीं होती" ═══ -->
+<div class="panel" id="I01" data-plate="office" style="--T:7s">
+  <div class="glow anim a-glow" style="animation-delay:-1s;top:44%"></div>
+  <div class="abs head">
+    <div class="cap hi anim a-fade" style="animation-delay:-.2s"><b>रोज़ की लिस्ट</b></div>
+  </div>
+
+  <div class="abs win">
+    <div class="stack anim a-scroll" style="--travel:-520px;animation-delay:4.6s;animation-duration:2.6s">
+      <div class="drop anim a-drop" style="animation-delay:.2s"><div class="lc" style="transform:rotate(-1.1deg)"><span class="pi"><svg class="i"><use href="#i-doc"/></svg></span><span class="t hi">रीडिंग</span><span class="bx"></span></div></div>
+      <div class="drop anim a-drop" style="animation-delay:.9s"><div class="lc" style="transform:rotate(.8deg)"><span class="pi"><svg class="i"><use href="#i-doc"/></svg></span><span class="t hi">डिप</span><span class="bx"></span></div></div>
+      <div class="drop anim a-drop" style="animation-delay:1.6s"><div class="lc" style="transform:rotate(-.6deg)"><span class="pi"><svg class="i"><use href="#i-doc"/></svg></span><span class="t hi">डी-एस-आर</span><span class="bx"></span></div></div>
+      <div class="drop anim a-drop" style="animation-delay:2.3s"><div class="lc" style="transform:rotate(1.2deg)"><span class="pi"><svg class="i"><use href="#i-doc"/></svg></span><span class="t hi">डेंसिटी</span><span class="bx"></span></div></div>
+      <div class="drop anim a-drop" style="animation-delay:3.0s"><div class="lc" style="transform:rotate(-1deg)"><span class="pi"><svg class="i"><use href="#i-doc"/></svg></span><span class="t hi">स्टॉक</span><span class="bx"></span></div></div>
+      <div class="drop anim a-drop" style="animation-delay:3.7s"><div class="lc" style="transform:rotate(.6deg)"><span class="pi"><svg class="i"><use href="#i-doc"/></svg></span><span class="t hi">लाइसेंस</span><span class="bx"></span></div></div>
+      <div class="drop anim a-drop" style="animation-delay:4.4s"><div class="lc" style="transform:rotate(-.9deg)"><span class="pi"><svg class="i"><use href="#i-doc"/></svg></span><span class="t hi">डिक्लेरेशन</span><span class="bx"></span></div></div>
+      <!-- and the list keeps coming -->
+      <div class="drop anim a-drop" style="animation-delay:4.95s"><div class="lc blank" style="transform:rotate(1deg)"><span class="pi"></span><span class="bar" style="width:300px"></span><span style="flex:1"></span><span class="bx"></span></div></div>
+      <div class="drop anim a-drop" style="animation-delay:5.45s"><div class="lc blank" style="transform:rotate(-.8deg)"><span class="pi"></span><span class="bar" style="width:220px"></span><span style="flex:1"></span><span class="bx"></span></div></div>
+      <div class="drop anim a-drop" style="animation-delay:5.95s"><div class="lc blank" style="transform:rotate(.7deg)"><span class="pi"></span><span class="bar" style="width:340px"></span><span style="flex:1"></span><span class="bx"></span></div></div>
+      <div class="drop anim a-drop" style="animation-delay:6.4s"><div class="lc blank" style="transform:rotate(-1.1deg)"><span class="pi"></span><span class="bar" style="width:260px"></span><span style="flex:1"></span><span class="bx"></span></div></div>
+    </div>
+  </div>
+
+  <div class="abs coda hi anim a-rise" style="animation-delay:4.7s;--T:5s">…ये लिस्ट कभी <b>ख़त्म ही नहीं होती</b></div>
+  <div class="rail hi">रोज़ का काम, रोज़</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

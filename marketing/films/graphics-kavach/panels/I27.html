@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* ── the validity ladder: wooden rails, cream rungs, the current rung in gold ── */
+.plank{position:relative;height:132px;border-radius:20px;display:flex;align-items:center;justify-content:center;gap:22px;
+  font-size:58px;color:var(--maroon);z-index:2;
+  background:linear-gradient(180deg,#FFFDF8,#F1E3CD);border:2px solid rgba(201,160,100,.7);
+  box-shadow:0 18px 36px rgba(58,16,10,.22),inset 0 -8px 12px rgba(160,110,50,.14),inset 0 3px 0 rgba(255,255,255,.8)}
+.plank .gl{position:absolute;inset:-2px;border-radius:20px;z-index:-1;
+  background:linear-gradient(180deg,#FBDFA0,#E9A23B 70%,#D38A22);border:2px solid #C77C1B;
+  box-shadow:0 0 0 10px rgba(233,162,59,.22),0 26px 50px rgba(120,62,8,.38),inset 0 3px 0 rgba(255,255,255,.55)}
+.plank.gold{background:linear-gradient(180deg,#FBDFA0,#E9A23B 70%,#D38A22);color:var(--maroonDeep);border-color:#C77C1B;
+  box-shadow:0 0 0 10px rgba(233,162,59,.22),0 26px 50px rgba(120,62,8,.38),inset 0 3px 0 rgba(255,255,255,.55)}
+.plank svg.i{width:52px;height:52px;stroke-width:2.2;opacity:.8}
+.lrail{position:absolute;width:38px;border-radius:14px;z-index:1;
+  background:linear-gradient(90deg,#8A3A26,#5E1B12 60%,#42110C);box-shadow:0 12px 26px rgba(40,10,6,.30)}
+/* a single rung lifted off the ladder, with stubs of the rails */
+.rh{position:relative;width:900px}
+.rh .lrail{top:-70px;bottom:-70px;-webkit-mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent);
+  mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent)}
+@keyframes liftF{0%{transform:scale(.9) translateY(40px);filter:brightness(.92)}100%{transform:scale(1.04);filter:none}}
+.lift{animation:liftF .8s cubic-bezier(.2,.9,.3,1) both paused;transform-origin:50% 60%}
+@keyframes grow{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+
+.panel{gap:42px}
+.tagx{font-size:34px;color:var(--amberDeep);background:#FFF6E4;border:2px dashed var(--amber);border-radius:999px;padding:8px 32px 10px}
+.lab{font-size:56px;line-height:1.2;white-space:nowrap}
+.lab b{font-weight:700}
+.lab.done{color:var(--maroon)} .lab.rem{color:var(--amberDeep);margin-top:40px}
+.donut{position:relative;width:700px;height:700px}
+.donut svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 22px 34px rgba(58,16,10,.25))}
+@keyframes draw70{from{stroke-dashoffset:659.7}to{stroke-dashoffset:0}}
+@keyframes wedge{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:1;transform:translateY(34px)}}
+.donut .mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut .mid .n{font-size:156px;font-weight:700;color:var(--maroon);line-height:1;letter-spacing:-4px}
+.donut .mid .u{font-size:48px;color:var(--inkMuted);margin-top:6px}
+.q{position:relative;font-size:58px;color:#fff;background:linear-gradient(140deg,var(--maroonSoft),var(--maroon));
+  padding:24px 48px 28px;border-radius:28px;box-shadow:0 20px 44px rgba(58,16,10,.35)}
+.q::before{content:'';position:absolute;left:50%;top:-18px;margin-left:-20px;border:20px solid transparent;border-top:0;
+  border-bottom:20px solid #7E2424}
+/* a figure that rolls from one value to another (see the script at the end) */
+.ctr{display:inline-flex;height:1em;line-height:1;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums}
+.ctr .cc{display:flex;flex-direction:column}
+.ctr .cc span,.ctr .fx{display:block;height:1em;line-height:1}
+@keyframes ctrRoll{from{transform:translateY(0)}to{transform:translateY(calc(var(--n) * -1em))}}
+@keyframes ctrShow{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<!-- ══ I27 · the 70/30 split as a ring · K413 "मान लीजिए आपका असेसमेंट सत्तर प्रतिशत पूरा है। तो … बाक़ी तीस प्रतिशत में …" (6.3 s) ══ -->
+<div class="panel" id="I27" data-plate="office" style="--T:7s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="tagx hi anim a-fade" style="--T:2s;animation-delay:.05s">मान लीजिए</div>
+  <div class="lab done hi anim a-rise" style="--T:3s;animation-delay:.25s"><b class="dis">70%</b> पूरा · <b class="dis">3,290</b> पॉइंट</div>
+  <div class="donut">
+    <svg viewBox="0 0 400 400">
+      <defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8A2B2B"/><stop offset="1" stop-color="#4E0F0F"/></linearGradient>
+        <filter id="gl" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9" result="b"/><feFlood flood-color="#F2B24A" flood-opacity=".85"/><feComposite in2="b" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <circle cx="200" cy="200" r="150" fill="none" stroke="#EADCC6" stroke-width="64"/>
+      <circle cx="200" cy="200" r="150" fill="none" stroke="url(#mg)" stroke-width="64" transform="rotate(144 200 200)"
+        stroke-dasharray="659.7 942.48" style="animation:draw70 2.4s cubic-bezier(.35,.6,.25,1) .2s both paused"/>
+      <g style="animation:wedge .9s cubic-bezier(.2,.9,.3,1.1) 2.7s both paused">
+        <circle cx="200" cy="200" r="150" fill="none" stroke="#E9A23B" stroke-width="64" transform="rotate(36 200 200)"
+          stroke-dasharray="282.7 942.48" filter="url(#gl)"/>
+      </g>
+    </svg>
+    <div class="mid"><div class="n dis"><span class="ctr" data-from="0" data-to="70" data-at=".2" data-dur="2.2"></span>%</div><div class="u hi">पूरा</div></div>
+  </div>
+  <div class="lab rem hi anim a-rise" style="--T:3s;animation-delay:3.0s"><b class="dis">30%</b> बाक़ी · <b class="dis">1,410</b> पॉइंट</div>
+  <div class="q hi anim a-pop" style="--T:3s;animation-delay:3.65s">कौन-कौन से काम पेंडिंग?</div>
+  <div class="rail hi">पंप असेसमेंट पॉइंट सिस्टम</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* A figure that rolls from one value to another, starting at a chosen second:
+   <span class="ctr" data-from="120" data-to="200" data-at="2.8" data-dur=".8">.
+   Each digit is a column running from its old digit to its new one; a place
+   that did not exist before starts blank. Same paused clock as everything else. */
+for (const el of document.querySelectorAll('.ctr[data-to]')) {
+  const num = (s) => parseInt((s || '0').replace(/\D/g, '') || '0', 10);
+  const to = el.dataset.to, A = num(el.dataset.from), B = num(to);
+  const from = (el.dataset.from || '').padStart(to.length, ' ');
+  const at = parseFloat(el.dataset.at || '0'), dur = parseFloat(el.dataset.dur || '.9');
+  const nd = to.replace(/\D/g, '').length;
+  el.textContent = '';
+  let k = 0;
+  [...to].forEach((ch, i) => {
+    if (!/\d/.test(ch)) {
+      const f = document.createElement('span'); f.className = 'fx'; f.textContent = ch;
+      if (from[i] === ' ') f.style.animation = `ctrShow .15s linear ${(at + dur * .3).toFixed(2)}s both paused`;
+      el.appendChild(f); return;
+    }
+    const p = nd - 1 - k++;
+    const a = Math.floor(A / 10 ** p), b = Math.floor(B / 10 ** p);
+    let n = b - a; if (n > 14) n = 10 + (((b - a) % 10) + 10) % 10;
+    const col = document.createElement('span'); col.className = 'cc';
+    for (let j = 0; j <= n; j++) {
+      const s = document.createElement('span');
+      s.textContent = (j === 0 && from[i] === ' ') ? '\u2007' : String((a + j) % 10);
+      col.appendChild(s);
+    }
+    col.style.setProperty('--n', n);
+    col.style.animation = `ctrRoll ${dur}s cubic-bezier(.3,.7,.25,1) ${(at + (nd - k) * .03).toFixed(2)}s both paused`;
+    el.appendChild(col);
+  });
+}
+</script>
+</body>
+</html>

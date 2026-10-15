@@ -1,0 +1,16 @@
+{
+  "id": "S08-alwayson",
+  "act": 3,
+  "beat": "S08-alwayson",
+  "problem": "An answer at any hour",
+  "aspect_ratio": "9:16",
+  "action": "Night, and deliberately the same position as the very first shot of the film: the dealer standing just outside the lit doorway of his office, phone in hand. But now he is calm. He is looking down at the phone with an easy, unworried face, his weight settled. The forecourt behind him is lit and quiet.",
+  "lighting": "The same night lighting as the opening shot — hard white spill from the office glass on one side of his face, cold canopy light behind. Same look, opposite mood.",
+  "camera": "Chest-up, off-centre left, the lit forecourt falling away soft behind him on the right. Sharp on his face. 35mm. This must visually rhyme with the opening shot.",
+  "detail": "The phone screen is DARK and unreadable. No signage, no lettering anywhere. Same cream full-sleeve shirt with the sleeves rolled, same dark navy trousers, same watch.",
+  "feeling": "The film's strongest rhyme — the same man, the same doorway, the same hour as the very first shot, and nothing wrong this time.",
+  "motion": "He looks down at the phone and his shoulders settle. A very slow push in. Nothing else moves, no cuts, no camera shake, nobody speaks.",
+  "voice_over": {
+    "hi": "जवाब चौबीसों घंटे मिलता है। और ज़रूरत पड़े, तो इंसान ख़ुद बात करता है।"
+  }
+}

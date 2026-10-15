@@ -1,0 +1,1629 @@
+{
+  "assets": {
+    "S01": {
+      "kind": "shot",
+      "title": "Forecourt at night, pump running",
+      "dealer": false,
+      "setting": "forecourt-night",
+      "frame": "Wide vertical shot of a small Indian roadside fuel station at night, seen from across a dry concrete forecourt. Plain white canopy lit by white under-canopy lights, two plain white dispensers with no markings, a small single-storey office with a warm lit window behind. One silver hatchback already parked at the far dispenser, a young attendant in a plain grey shirt standing still beside it. Dark empty sky. Vertical 9:16, photoreal documentary still, 35mm lens, natural Indian light. No text, letters, numbers, signage, logos, oil-company colours or livery, badges, number plates or flags anywhere; any screen is dark or fully defocused.",
+      "motion": "Locked-off camera with a very slow push-in. 0-3 s: the attendant shifts his weight and glances toward the office; the canopy lights glow steadily. 3-6.5 s: the attendant turns his head back to the car and gives a small nod toward its window; the car stays parked. Nobody walks, nothing enters frame, no birds, dry ground. No text, no logos, no number plates."
+    },
+    "S02": {
+      "kind": "shot",
+      "title": "Dealer at home at night, phone-lit, worried",
+      "dealer": true,
+      "setting": "home-night",
+      "frame": "Vertical medium close-up of the dealer at home at night, sitting on the edge of his bed in a dark bedroom, a warm bedside lamp low to one side. He holds his phone in both hands at chest height; the phone's back faces camera and its glow lights his face. He looks down at it, brow slightly furrowed. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural light. No text, letters, numbers, signage, logos or flags anywhere; the phone screen is never visible.",
+      "motion": "Camera locked with a very slow push-in. 0-3 s: he reads, then gives one slow worried blink. 3-6.5 s: he lifts his eyes from the phone toward the dark window, exhales through his nose, and his shoulders drop a little. He does not speak. No text, no logos."
+    },
+    "S03": {
+      "kind": "shot",
+      "title": "Dealer buried in registers",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot of the dealer seated at a wooden desk in his small pump office by day. Thick cloth-bound registers are stacked high at his elbow, one lies open in front of him showing only soft blurred ruled lines. A window behind him shows a soft-focus plain white canopy. His fingertips rest on his forehead. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural Indian daylight. No text, letters, numbers, signage, logos or flags anywhere; nothing legible on any page.",
+      "motion": "Camera locked, very slow push-in. He slowly rubs his brow with his fingertips, lowers his hand onto the open register and exhales, looking at the pile. Nothing in his hands, no pen. No text, no logos."
+    },
+    "S04": {
+      "kind": "shot",
+      "title": "His long shadow at golden hour",
+      "dealer": true,
+      "setting": "forecourt-golden",
+      "frame": "Vertical wide shot at golden hour on a dry concrete fuel station forecourt. The dealer stands still near a plain white dispenser, seen three-quarter from behind, the low sun behind him casting his long shadow forward across the dry concrete toward camera. Edge of a plain white canopy above, clear empty sky. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch, black shoes. Vertical 9:16, photoreal documentary still, 35mm lens, natural Indian light. No text, letters, numbers, signage, logos, oil-company colours or livery, number plates or flags anywhere.",
+      "motion": "Camera locked with a very slow push-in toward the shadow. He slowly turns his head to look across his forecourt, and his long shadow on the ground turns with him. Warm dust drifts in the light. No one else, no birds. No text, no logos."
+    },
+    "S05": {
+      "kind": "shot",
+      "title": "Dealer nods yes across the desk",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot across a wooden desk in the dealer's pump office. The dealer sits facing camera. In the left foreground, the soft out-of-focus shoulder and back of a young man in a plain light-blue shirt (an MDG representative, no badge, face not seen). A closed plain cardboard file lies on the desk between them. Soft window light from the side. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural light. No text, letters, numbers, signage, logos or flags anywhere.",
+      "motion": "Camera locked. 0-3 s: the dealer listens, then gives one slow, deliberate nod of agreement. 3.5-6.5 s: he leans back slightly with a small approving smile and nods once more. His mouth stays closed. No text, no logos."
+    },
+    "S06": {
+      "kind": "shot",
+      "title": "MDG pair at a laptop, senior guides junior",
+      "dealer": false,
+      "setting": "mdg-office",
+      "frame": "Vertical medium shot in a bright modern Indian office by day. Two MDG team members share a desk: a senior man about 40 in a plain white shirt and a young woman about 26 in a plain teal kurta, both looking at a laptop whose screen is dim and completely defocused. Plants and a daylight window behind, bare walls. Vertical 9:16, photoreal documentary still, 35mm lens, natural light. No text, letters, numbers, signage, logos or flags anywhere; no readable screen.",
+      "motion": "Camera locked, slow push-in. 0-3 s: both study the laptop and the woman nods. 3.5-6.5 s: the senior man turns to her and gestures gently with an open palm toward the screen; she nods again and smiles. No typing, no readable screen. No text, no logos."
+    },
+    "S07": {
+      "kind": "shot",
+      "title": "MDG team member listening on headset",
+      "dealer": false,
+      "setting": "mdg-office",
+      "frame": "Vertical medium close-up of a young MDG team member, an Indian man about 28 in a plain navy polo shirt with a slim headset, seated at a desk in a bright office; a laptop in the soft foreground with its screen defocused; daylight window behind. Vertical 9:16, photoreal documentary still, 35mm lens, natural light. No text, letters, numbers, signage, logos or flags anywhere; no readable screen.",
+      "motion": "Camera locked, very slow push-in. He listens attentively, nods twice and gives a small reassuring smile. Mouth closed. No text, no logos."
+    },
+    "S08": {
+      "kind": "shot",
+      "title": "Dealer puts the phone down and rests",
+      "dealer": true,
+      "setting": "home-night",
+      "frame": "Vertical medium shot of the dealer at home at night, sitting up against the headboard of his bed, warm low lamp light, holding his phone with its back to camera. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, warm lamp light. No text, letters, numbers, signage, logos or flags anywhere; the phone screen is never visible.",
+      "motion": "Camera locked. 0-3 s: he glances at the phone once more, then places it face down on the bedside table. 3.5-6.5 s: he leans his head back against the headboard, closes his eyes, and his chest rises and falls with one slow calm breath. No text, no logos."
+    },
+    "S09": {
+      "kind": "shot",
+      "title": "MDG desk awake at night",
+      "dealer": false,
+      "setting": "mdg-office-night",
+      "frame": "Vertical medium-wide shot of an MDG office at night: a young Indian woman team member in a plain dark kurta with a slim headset sits at a desk lit by a warm desk lamp, laptop screen dim and defocused; behind her a dark window with soft city bokeh; the rest of the office dim and empty. Vertical 9:16, photoreal documentary still, 35mm lens. No text, letters, numbers, signage, logos or flags anywhere; no readable screen.",
+      "motion": "Camera locked, very slow push-in. 0-3.5 s: she listens and nods, focused. 3.5-6.5 s: she looks down, nods once decisively and settles back, calm. No typing. No text, no logos."
+    },
+    "S10": {
+      "kind": "shot",
+      "title": "MDG office floor at work",
+      "dealer": false,
+      "setting": "mdg-office",
+      "frame": "Vertical wide shot of a bright MDG office floor by day: rows of desks with young Indian men and women in plain shirts and kurtas, some with slim headsets, all seated and working at laptops whose screens are defocused. Large windows, plants, bare walls, no signs. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere; no readable screen.",
+      "motion": "Camera slides very slowly sideways. Everyone is already seated; small natural motions only: a nod, a head turning to a colleague, a hand touching a headset. Nobody stands or walks. No text, no logos."
+    },
+    "S11": {
+      "kind": "shot",
+      "title": "Dealer leans in, curious",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot of the dealer seated back in his chair at his pump-office desk, a closed register on the desk, a window behind him with a soft plain white canopy. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere.",
+      "motion": "Camera locked, slow push-in. 0-3 s: he leans forward, rests his forearms on the desk and looks down at the register with interest, then gives a small nod. 3.2-6 s: he opens the register cover with a flat hand and looks down at the page, thoughtful. No pen. No text, no logos."
+    },
+    "S12": {
+      "kind": "shot",
+      "title": "MDG team member checks a printed page",
+      "dealer": false,
+      "setting": "mdg-office",
+      "frame": "Vertical medium close-up in a bright office: a young MDG team member, an Indian woman about 27 in a plain mustard kurta, at a laptop whose screen is turned away or fully defocused; a printed page lies flat beside the laptop, blurred, nothing legible. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere.",
+      "motion": "Camera locked. 0-3 s: she looks at the screen and nods once. 3.5-6 s: she looks down at the printed page, back up, and gives a small satisfied smile. Hands rest on the desk; no typing. No text, no logos."
+    },
+    "S13": {
+      "kind": "shot",
+      "title": "Forecourt morning, a car at the pump",
+      "dealer": false,
+      "setting": "forecourt-morning",
+      "frame": "Vertical wide shot of a fuel station on a bright morning: plain white canopy, plain white dispensers with no markings, clean dry concrete. A silver hatchback is already parked at a dispenser with the fuel hose resting locked in its filler; a young attendant in a plain grey shirt stands beside it, hands at his sides. Clear sky. Vertical 9:16, photoreal documentary still, 35mm lens, natural Indian daylight. No text, letters, numbers, signage, logos, oil-company colours or livery, badges, number plates or flags anywhere.",
+      "motion": "Camera locked, very slow push-in. The attendant glances at the dispenser and gives a small nod toward the car's window; soft cloud-shadow slides across the forecourt. Nobody walks, no hand on the nozzle, no liquid, dry ground. No text, no logos, no number plates."
+    },
+    "S14": {
+      "kind": "shot",
+      "title": "Automation console lights",
+      "dealer": false,
+      "setting": "pump-office",
+      "frame": "Vertical close-up inside a pump office: a plain grey metal electronics console box mounted on a wall, with a row of small green and amber indicator lights and neat cables running down. No labels, no screen, no lettering. Vertical 9:16, photoreal documentary still, macro-leaning 50mm lens, soft office light. No text, letters, numbers, logos anywhere.",
+      "motion": "Very slow push-in. The indicator lights blink in a steady rhythm; one amber light turns green. No text, no logos."
+    },
+    "S15": {
+      "kind": "shot",
+      "title": "Manager photographs the register",
+      "dealer": false,
+      "setting": "pump-office",
+      "frame": "Vertical medium close-up at a pump-office desk: the pump manager, an Indian man about 35 in a plain light-grey shirt with no badge, holds his phone flat above an open register lying on the desk, framing the page; the phone's back faces camera; the register shows only soft blurred ruled lines. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere; nothing legible on the page.",
+      "motion": "Camera locked. 0-3 s: he steadies the phone over the page and a soft screen-flash glows once. 3.5-6 s: he lowers the phone, glances at it and nods. No pen. No text, no logos."
+    },
+    "S16": {
+      "kind": "shot",
+      "title": "Experienced MDG hand compares two sheets",
+      "dealer": false,
+      "setting": "mdg-office",
+      "frame": "Vertical medium shot: an experienced MDG team member, an Indian man about 45 with greying temples, spectacles and a plain white shirt, at a desk in a bright office; two printed sheets lie flat side by side in front of him, blurred, nothing legible; a laptop soft behind them. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere.",
+      "motion": "Camera locked. 0-3 s: he looks from the left sheet to the right one, a fingertip resting on the edge of the first. 3.5-6 s: he nods slowly, satisfied, and squares the two sheets together with flat hands. No pen. No text, no logos."
+    },
+    "S17": {
+      "kind": "shot",
+      "title": "Manager copies the DSR into the register",
+      "dealer": false,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot in a pump office on a morning: the pump manager (Indian man about 35, plain light-grey shirt, no badge) seated at the desk with a large register open in front of him; his phone stands propped against a stack of files beside it, screen dark and angled away. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere; nothing legible on the page.",
+      "motion": "Camera locked. He looks from the phone to the register, then turns one page with a flat hand and smooths it down. No pen. No text, no logos."
+    },
+    "S18": {
+      "kind": "shot",
+      "title": "Dealer on the forecourt, phone, small smile",
+      "dealer": true,
+      "setting": "forecourt-morning",
+      "frame": "Vertical medium shot of the dealer standing on his forecourt on a fresh morning, plain white canopy and dispensers soft behind, dry concrete, holding his phone in one hand at waist height with the screen toward him, not visible. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural Indian morning light. No text, letters, numbers, signage, logos, oil-company colours or flags anywhere.",
+      "motion": "Camera locked, slight push-in. 0-2.5 s: he glances down at the phone and a small smile forms. 2.8-6 s: he nods slowly to himself, slides the phone into his trouser pocket and looks out over his forecourt, relaxed. No text, no logos."
+    },
+    "S19": {
+      "kind": "shot",
+      "title": "MDG team member lays two reports side by side",
+      "dealer": false,
+      "setting": "mdg-office",
+      "frame": "Vertical medium close-up in a bright office: a young MDG team member, an Indian woman about 30 in a plain olive kurta and spectacles, at a desk with two documents laid flat side by side: a thin stapled report and a printed daily sheet, both blurred, nothing legible. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere.",
+      "motion": "Camera locked. She looks from one paper to the other, lays her flat hand on the second, and nods. No pen. No text, no logos."
+    },
+    "S20": {
+      "kind": "shot",
+      "title": "Tanker at the decantation point",
+      "dealer": false,
+      "setting": "decantation",
+      "frame": "Vertical wide shot of a plain white fuel tanker lorry with no markings, no livery and no number plate, parked at the decantation point of a fuel station on a clear morning; a thick hose already connected from the tanker to a closed fill point on dry concrete; a small safety cone beside it; plain white canopy in the background. Vertical 9:16, photoreal documentary still, 35mm lens, natural Indian daylight. No text, letters, numbers, signage, logos, oil-company colours or livery, number plates or flags anywhere.",
+      "motion": "Camera locked, slow push-in. Faint heat shimmer rises off the tanker roof and light glints along the tank shell; the hose stays still. No people moving, no liquid, dry ground. No text, no logos, no number plates."
+    },
+    "S21": {
+      "kind": "shot",
+      "title": "Dealer listens on a call, relief",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium close-up of the dealer seated in his pump office holding his phone to his ear, listening; the window behind him soft with a plain white canopy. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere.",
+      "motion": "Camera locked. He listens, his brow eases, he nods twice slowly and lets out a small breath of relief. His mouth stays closed. No text, no logos."
+    },
+    "S22": {
+      "kind": "shot",
+      "title": "MDG team member spots something",
+      "dealer": false,
+      "setting": "mdg-office",
+      "frame": "Vertical medium close-up of a young MDG team member, an Indian man about 30 in a plain grey shirt with a slim headset, at a desk in a bright office, leaning forward attentively; laptop screen defocused in the foreground. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere; no readable screen.",
+      "motion": "Camera locked. He leans in listening intently, raises his eyebrows slightly, then nods decisively and sits up straight. Mouth closed. No typing. No text, no logos."
+    },
+    "S23": {
+      "kind": "shot",
+      "title": "Dealer at the office window, watching his pump",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot from inside a pump office: the dealer stands at the window in three-quarter back view, looking out through the glass at his forecourt (plain white canopy, a parked car at a dispenser, all in soft focus), morning light on the side of his face. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural light. No text, letters, numbers, signage, logos, oil-company colours, number plates or flags anywhere.",
+      "motion": "Camera locked, very slow push toward him. He watches his forecourt calmly, turns his head slightly to follow something outside, and folds his arms. No text, no logos."
+    },
+    "S24": {
+      "kind": "shot",
+      "title": "Dealer and attendant, hand on shoulder",
+      "dealer": true,
+      "setting": "forecourt-morning",
+      "frame": "Vertical medium shot on a forecourt in soft morning light: the dealer and a young attendant in a plain grey uniform shirt (no badge) stand side by side near a plain white dispenser, both already in place, looking out across the forecourt. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural Indian light. No text, letters, numbers, signage, logos, oil-company colours or livery, badges or flags anywhere.",
+      "motion": "Camera locked. 0-2 s: they both look across the forecourt. 2-4.5 s: the dealer turns to the attendant, gives a small nod and rests a hand briefly on his shoulder; the attendant smiles. Mouths closed. Nobody walks. No text, no logos."
+    },
+    "S25": {
+      "kind": "shot",
+      "title": "Dealer at the tanker with his file",
+      "dealer": true,
+      "setting": "decantation",
+      "frame": "Vertical medium shot at the decantation point on a clear morning: the dealer stands near the rear of a plain white unmarked tanker, holding a thick closed cardboard file folder against his chest with both hands; dry concrete. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural Indian daylight. No text, letters, numbers, signage, logos, livery, number plates or flags anywhere; the folder cover is plain.",
+      "motion": "Camera locked, slight push-in. He looks from the tanker to the folder and nods once. No text, no logos, no number plates."
+    },
+    "S26": {
+      "kind": "shot",
+      "title": "Sealed sample bottles",
+      "dealer": false,
+      "setting": "pump-office",
+      "frame": "Vertical close-up on a wooden table in a pump office: a neat row of four sealed glass sample bottles of pale amber fuel, each with a blank white paper label and a red wax seal on its cap; soft window light; no people, no hands. Vertical 9:16, photoreal documentary still, 50mm lens, shallow depth of field. No text, letters, numbers or logos anywhere; labels are blank.",
+      "motion": "The camera slides slowly along the row and racks focus from the first bottle to the last; a sunbeam moves gently across the glass. No hands enter frame. No text, no logos."
+    },
+    "S27": {
+      "kind": "shot",
+      "title": "Manager shows the dealer the photo he sent",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot in a pump office: the dealer seated at his desk; the pump manager (Indian man about 35, plain light-grey shirt, no badge) stands beside him, leaning in, holding a phone low toward the dealer with its screen dark and angled away from camera. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere.",
+      "motion": "Camera locked. The manager tilts the phone toward the dealer; the dealer leans in, looks and nods approvingly; the manager straightens up. Mouths closed. No text, no logos."
+    },
+    "S28": {
+      "kind": "shot",
+      "title": "Dealer closes the register, satisfied",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium close-up: the dealer seated at his desk with a large cloth-bound register open in front of him, pages of soft blurred ruled lines, morning window light. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural light. No text, letters, numbers, signage, logos or flags anywhere; nothing legible on the page.",
+      "motion": "Camera locked, slow push-in. He closes the register with both hands, rests his palm flat on its cover and gives a slow satisfied nod. No pen. No text, no logos."
+    },
+    "S29": {
+      "kind": "shot",
+      "title": "Attendant wipes the dispenser, manager watches",
+      "dealer": false,
+      "setting": "forecourt-golden",
+      "frame": "Vertical medium-wide shot at golden hour: a young pump attendant in a plain grey uniform with no badge stands at a plain white dispenser island on dry concrete, a folded cloth in his hand on top of the dispenser; the pump manager in a plain light-grey shirt stands a few steps back watching; both already in place. Vertical 9:16, photoreal documentary still, 35mm lens, warm natural light. No text, letters, numbers, signage, logos, oil-company colours or livery, badges or flags anywhere.",
+      "motion": "Camera locked. 0-3 s: the attendant wipes the top of the dispenser in slow even strokes. 3.5-6.5 s: he finishes, folds the cloth and looks to the manager, who nods approvingly. Nobody walks. No text, no logos."
+    },
+    "S30": {
+      "kind": "shot",
+      "title": "Dealer reads his phone, then leans back",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot: the dealer seated in his pump-office chair, holding his phone in both hands at chest height with the screen toward him, not visible; soft window light. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural light. No text, letters, numbers, signage, logos or flags anywhere.",
+      "motion": "Camera locked. 0-3 s: he reads the phone and gives a slow nod. 3.5-6.5 s: he leans back in the chair with a relaxed smile and lowers the phone to his lap. No text, no logos."
+    },
+    "S31": {
+      "kind": "shot",
+      "title": "Turning a register page",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical close-up over the dealer's shoulder at his desk: a thick register lies open, pages soft-focus with no legible writing; his hand with the steel wristwatch and the rolled cream sleeve rests on the page. Dealer from the reference photo (cream full-sleeve shirt, sleeves rolled, steel wristwatch). Vertical 9:16, photoreal documentary still, 50mm lens, natural window light. No text, letters, numbers, logos anywhere.",
+      "motion": "Camera locked. He turns one heavy page with his flat hand and smooths it down. No pen. No text, no logos."
+    },
+    "S32": {
+      "kind": "shot",
+      "title": "Dealer on his veranda with chai",
+      "dealer": true,
+      "setting": "home-evening",
+      "frame": "Vertical medium shot of the dealer at home in the early evening, seated on a cane chair on a small veranda with potted plants, warm last light, holding a small glass of chai. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, warm natural light. No text, letters, numbers, signage, logos or flags anywhere.",
+      "motion": "Camera locked. 0-3 s: he takes a slow sip of chai and lowers the glass. 3.3-6.5 s: he looks out at the evening with a calm, contented expression and exhales. No text, no logos."
+    },
+    "S33": {
+      "kind": "shot",
+      "title": "Dealer on his forecourt, quiet pride",
+      "dealer": true,
+      "setting": "forecourt-golden",
+      "frame": "Vertical wide shot at golden hour: the dealer stands on his dry forecourt with his hands in his trouser pockets, exactly as in the reference photo, a plain white canopy and plain white dispensers behind him, long warm light, empty sky. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch, black shoes. Vertical 9:16, photoreal documentary still, 35mm lens, natural Indian light. No text, letters, numbers, signage, logos, oil-company colours or livery, number plates or flags anywhere.",
+      "motion": "Very slow push-in. He surveys his forecourt, then lifts his chin slightly with quiet pride. No text, no logos."
+    },
+    "S34": {
+      "kind": "shot",
+      "title": "Technician at an open dispenser",
+      "dealer": false,
+      "setting": "forecourt-morning",
+      "frame": "Vertical medium shot on a forecourt by day: a technician in a plain navy work shirt with no logo kneels beside a plain white dispenser whose lower side panel is open, showing neat internal pipes; dry concrete. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos, oil-company colours or livery, badges or flags anywhere.",
+      "motion": "Camera locked. He leans in, looks inside and nods, his hands resting on the panel edge. No tools in hand. No text, no logos."
+    },
+    "S35": {
+      "kind": "shot",
+      "title": "Manager at night, reply received",
+      "dealer": false,
+      "setting": "forecourt-night",
+      "frame": "Vertical medium close-up at night under a plain white canopy: the pump manager (Indian man about 35, plain light-grey shirt, no badge) stands by a plain white dispenser holding his phone, its glow on his face, screen not visible. Vertical 9:16, photoreal documentary still, 35mm lens, night canopy light. No text, letters, numbers, signage, logos, oil-company colours or flags anywhere.",
+      "motion": "Camera locked. He reads, his shoulders relax and he nods with relief. No text, no logos."
+    },
+    "S36": {
+      "kind": "shot",
+      "title": "Dealer photographs a paper to ask about it",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium close-up: the dealer seated at his desk holds his phone flat above a single printed paper lying on the desk, soft focus with nothing legible; the phone's back faces camera. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere.",
+      "motion": "Camera locked. He steadies the phone over the paper, a soft screen-flash glows once, then he lowers the phone and looks at it. No text, no logos."
+    },
+    "S37": {
+      "kind": "shot",
+      "title": "Dealer plans his payment",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot: the dealer seated in his pump office in afternoon light, his phone in one hand resting on the desk, looking thoughtfully toward the window. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural light. No text, letters, numbers, signage, logos or flags anywhere; phone screen not visible.",
+      "motion": "Camera locked. He glances at the phone, exhales, taps the desk once lightly with his fingers as if deciding, and nods to himself. No text, no logos."
+    },
+    "S38": {
+      "kind": "shot",
+      "title": "Dealer tired at a computer",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot: the dealer seated in his pump office in front of an old desktop monitor whose screen is a completely blurred glow lighting his face; a keyboard on the desk, his hands off it. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens. No text, letters, numbers, signage, logos or flags anywhere; nothing readable on the screen.",
+      "motion": "Camera locked. He squints at the screen, rubs his forehead with two fingers, and leans back with a tired sigh. No typing, nothing readable on screen. No text, no logos."
+    },
+    "S39": {
+      "kind": "shot",
+      "title": "Dealer shelves his files, inspection-ready",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot: the dealer stands in his office beside a steel shelf of neatly stacked box files with plain blank spines, holding one thick box file in both hands. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere; all spines blank.",
+      "motion": "Camera locked. He slides the file into its place on the shelf, pats it once and rests his hand on the shelf, satisfied. No text, no logos."
+    },
+    "S40": {
+      "kind": "shot",
+      "title": "Accountant reviews the ledger with the dealer",
+      "dealer": true,
+      "setting": "accountant-office",
+      "frame": "Vertical medium shot in a small accountant's office: a middle-aged Indian accountant about 50 with spectacles and a plain half-sleeve shirt sits behind a desk with ledger books and a closed laptop; the dealer sits across from him in three-quarter back view. The dealer from the reference photo: greying black hair, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural window light. No text, letters, numbers, signage, logos or flags anywhere; ledger pages unreadable.",
+      "motion": "Camera locked. 0-3 s: the accountant opens a ledger book and runs his flat hand down the page. 3.5-6.5 s: he looks up at the dealer and nods reassuringly; the dealer nods back. No pens. Mouths closed. No text, no logos."
+    },
+    "S41": {
+      "kind": "shot",
+      "title": "Advocate in his chamber with the dealer",
+      "dealer": true,
+      "setting": "lawyer-chamber",
+      "frame": "Vertical medium shot in a lawyer's chamber: an Indian advocate about 55 in a black coat with white neck bands sits behind a wooden desk with neat stacks of files; law books with plain blank spines line the shelf behind; the dealer sits across the desk in three-quarter back view; warm lamp light. The dealer from the reference photo: greying black hair, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens. No text, letters, numbers, signage, logos, emblems or flags anywhere; all spines and files blank.",
+      "motion": "Camera locked. 0-3 s: the advocate opens a file and looks through it. 3.2-6.5 s: he looks up at the dealer and gives a steady, reassuring nod. No pens. Mouths closed. No text, no logos."
+    },
+    "S42": {
+      "kind": "shot",
+      "title": "Dealer reads the cost letter, relieved",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium close-up: the dealer seated at his desk looking down at a single-page letter lying flat on the desk, soft focus, nothing legible; window light. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural light. No text, letters, numbers, signage, logos or flags anywhere.",
+      "motion": "Camera locked. He reads, his eyebrows lift slightly, and he sits back with a nod of quiet relief. No text, no logos."
+    },
+    "S43": {
+      "kind": "shot",
+      "title": "Payment terminal and phone on the counter",
+      "dealer": false,
+      "setting": "pump-office",
+      "frame": "Vertical close-up on the cash counter of a fuel-station office: a plain card-payment terminal and a smartphone lying on the counter, both screens dark, a steel cash box beside them, soft daylight. No brand marks on any device. Vertical 9:16, photoreal documentary still, 50mm lens, shallow depth of field. No text, letters, numbers, logos or QR codes anywhere.",
+      "motion": "Slow push-in with a gentle rack focus from the terminal to the phone; a soft band of daylight moves across the counter. Screens stay dark. No text, no logos."
+    },
+    "S44": {
+      "kind": "shot",
+      "title": "Dealer pockets his phone, at ease",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot: the dealer stands at his office counter holding his phone in one hand, screen toward him, not visible; morning light. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with a chest pocket and sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural light. No text, letters, numbers, signage, logos or flags anywhere.",
+      "motion": "Camera locked. He glances at the phone, nods once, slides it into his shirt pocket and relaxes his shoulders. No text, no logos."
+    },
+    "S45": {
+      "kind": "shot",
+      "title": "Dealer before the CCTV monitors",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot in a dim pump office: the dealer stands with his arms folded in front of a wall of six small CCTV monitors whose pictures are soft grey blurs with no readable content and no timestamps. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens. No text, letters, numbers, timestamps, logos or flags anywhere.",
+      "motion": "Camera locked, slow push-in. He watches the monitors, turns his head slowly from one to another, and nods. No text, no logos."
+    },
+    "S46": {
+      "kind": "shot",
+      "title": "Insurance folder under his hand",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical close-up on the dealer's desk: a thick blue insurance folder and a smaller document wallet lying neatly together, covers plain with no printing; the dealer's hand with the steel wristwatch and rolled cream sleeve resting flat on top. Vertical 9:16, photoreal documentary still, 50mm lens, natural window light. No text, letters, numbers, logos anywhere; covers blank.",
+      "motion": "Slow push-in. His fingers tap the folder once and settle; a band of window light moves slowly across the desk. No text, no logos."
+    },
+    "S47": {
+      "kind": "shot",
+      "title": "Dealer on a night call, then exhales",
+      "dealer": true,
+      "setting": "forecourt-night",
+      "frame": "Vertical medium shot at night under a plain white canopy on dry concrete: the dealer stands holding his phone to his ear, calm and focused; forecourt lights soft behind. Everything intact: no fire, no smoke, no damage, no emergency vehicles. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens. No text, letters, numbers, signage, logos, oil-company colours or flags anywhere.",
+      "motion": "Camera locked. 0-3 s: he listens intently and nods. 3.4-6.5 s: he lowers the phone, exhales slowly and his shoulders ease. Mouth closed. No text, no logos."
+    },
+    "S48": {
+      "kind": "shot",
+      "title": "Dealer and his staff in a row",
+      "dealer": true,
+      "setting": "forecourt-morning",
+      "frame": "Vertical medium-wide shot on a forecourt in morning light: three pump attendants in plain grey uniforms with no badges stand in a row by a plain white dispenser island; the dealer stands facing them in three-quarter back view. Everyone already in place. The dealer from the reference photo: greying black hair, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural Indian light. No text, letters, numbers, signage, logos, oil-company colours or livery, badges or flags anywhere.",
+      "motion": "Camera locked. 0-3 s: the dealer looks along the row and nods to each attendant. 3.3-6.5 s: the attendants smile and the dealer gives an approving nod. Everyone stays in place. Mouths closed. No text, no logos."
+    },
+    "S49": {
+      "kind": "shot",
+      "title": "Dealer locks his files away",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot in the dealer's office: a grey steel almirah with its door open, shelves of neat plain files; the dealer stands beside it holding one closed file. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural light. No text, letters, numbers, signage, logos or flags anywhere; files blank.",
+      "motion": "Camera locked. He places the file on a shelf, presses the steel door shut and rests his palm on it. No text, no logos."
+    },
+    "S50": {
+      "kind": "shot",
+      "title": "Dealer runs his forecourt, calm",
+      "dealer": true,
+      "setting": "forecourt-morning",
+      "frame": "Vertical medium shot on a calm morning under a plain white canopy: the dealer stands near a plain white dispenser with his hands clasped behind his back; a car is already parked at the next dispenser with an attendant in a plain grey shirt standing beside it. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, navy pleated trousers, black belt with silver buckle, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural Indian light. No text, letters, numbers, signage, logos, oil-company colours or livery, number plates or flags anywhere.",
+      "motion": "Very slow push-in. He watches his forecourt with a calm small smile and nods. Nobody walks. No text, no logos, no number plates."
+    },
+    "S51": {
+      "kind": "shot",
+      "title": "MDG team member answers, warm",
+      "dealer": false,
+      "setting": "mdg-office",
+      "frame": "Vertical medium close-up of a young MDG team member, an Indian woman about 25 in a plain maroon kurta with a slim headset, at a desk in a bright office; laptop defocused in the foreground. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos or flags anywhere; no readable screen.",
+      "motion": "Camera locked. 0-3 s: she listens and smiles warmly. 3.2-6 s: she nods, attentive, with a reassuring look. Mouth closed. No text, no logos."
+    },
+    "S52": {
+      "kind": "shot",
+      "title": "Dealer's relieved smile, golden hour",
+      "dealer": true,
+      "setting": "forecourt-golden",
+      "frame": "Vertical close-up of the dealer's face at golden hour on his forecourt, warm side light, a plain white canopy soft behind him. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt collar visible. Vertical 9:16, photoreal documentary still, 50mm lens, natural Indian light. No text, letters, numbers, signage, logos, oil-company colours or flags anywhere.",
+      "motion": "Camera locked, very slow push-in. He exhales and a slow, relieved smile spreads across his face. Mouth closed. No text, no logos."
+    },
+    "S53": {
+      "kind": "shot",
+      "title": "MDG representative visits the dealer",
+      "dealer": true,
+      "setting": "pump-office",
+      "frame": "Vertical medium shot in the dealer's office: a young MDG representative, an Indian man about 30 in a plain white shirt with no badge, sits across the desk from the dealer in three-quarter back view; the dealer faces camera; a closed plain folder lies between them. The dealer from the reference photo: Indian man about 50, greying black hair, thick moustache, cream full-sleeve shirt with sleeves rolled to the forearm, steel wristwatch. Vertical 9:16, photoreal documentary still, 35mm lens, natural daylight. No text, letters, numbers, signage, logos, ID cards or flags anywhere; folder blank.",
+      "motion": "Camera locked. The representative opens the plain folder and turns it toward the dealer; the dealer leans in, looks and nods. Mouths closed. No text, no logos."
+    },
+
+    "D01": {
+      "kind": "doc",
+      "title": "Daily readings and dip record",
+      "template": "readings-dip",
+      "content": {
+        "heading": "रोज़ की रीडिंग और डिप",
+        "date": "20-08",
+        "readingColumns": ["नोज़ल", "ओपनिंग रीडिंग", "क्लोज़िंग रीडिंग"],
+        "readings": [
+          ["नोज़ल 1 · MS", "4,18,236.4", "4,20,418.9"],
+          ["नोज़ल 2 · MS", "3,96,102.7", "3,97,955.2"],
+          ["नोज़ल 3 · HSD", "6,02,881.0", "6,05,011.6"],
+          ["नोज़ल 4 · HSD", "5,77,340.2", "5,79,443.6"]
+        ],
+        "dipColumns": ["टैंक", "डिप", "वॉटर डिप"],
+        "dips": [["टैंक 1 · MS", "118 cm", "0 cm"], ["टैंक 2 · HSD", "160 cm", "0 cm"]],
+        "footer": "हर दिन — हमारी टीम के पास"
+      },
+      "animate": "Ruled register page slides up from the desk plate. 0-3.5 s: the four nozzle rows fill left to right, closing figures rolling in. 3.5-5.5 s: the two tank rows fill; 160 cm gets a gold circle. 5.5-7.3 s: a tick lands at the right of every row and the footer fades in."
+    },
+    "D02": {
+      "kind": "doc",
+      "title": "The DSR page he knows",
+      "template": "dsr-sheet",
+      "content": {
+        "heading": "DSR — डेली सेल्स रिपोर्ट",
+        "product": "HSD",
+        "columns": ["DATE", "OPENING STOCK", "RECEIPT", "TOTAL STOCK", "DIP", "STOCK IN TANK", "TESTING", "SALES"]
+      },
+      "animate": "A blank ruled register page lands at a slight angle. The eight column headings print one after another left to right (about 0.3 s each); the page settles square."
+    },
+    "D03": {
+      "kind": "doc",
+      "title": "DSR row built from reading, dip, sale, other figures",
+      "template": "dsr-sheet",
+      "content": {
+        "inputs": ["रीडिंग", "डिप", "सेल", "बाक़ी आँकड़े"],
+        "columns": ["DATE", "OPENING STOCK", "RECEIPT", "TOTAL STOCK", "DIP", "STOCK IN TANK", "TESTING", "SALES"],
+        "rows": [
+          ["19-08", "9,120", "9,000", "18,120", "141", "12,480", "10", "5,630"],
+          ["20-08", "12,480", "6,000", "18,480", "160", "14,246", "12", "4,222"]
+        ],
+        "check": "18,480 − 14,246 − 12 = 4,222 ✓ मिलान"
+      },
+      "animate": "0-1.5 s: four chips (रीडिंग, डिप, सेल, बाक़ी आँकड़े) float in from the left in that order. 1.5-4 s: each chip drops into the 20-08 row and its cells fill. 4-5.7 s: the check line writes under the row and a maroon tick stamps beside SALES."
+    },
+    "D04": {
+      "kind": "doc",
+      "title": "DSR + inspection report make the variation sheet",
+      "template": "variation-sheet",
+      "content": {
+        "left": {"title": "डी-एस-आर", "sub": "रोज़ की रिपोर्ट"},
+        "right": {"title": "इंस्पेक्शन रिपोर्ट", "sub": "सेल्स ऑफ़िसर · आख़िरी इंस्पेक्शन 04-08"},
+        "output": "स्टॉक वेरिएशन शीट"
+      },
+      "animate": "0-2.5 s: the DSR page slides in from the left, the inspection report from the right, each with its label. 2.5-4.5 s: both tilt and slide down into a third sheet between them. 4.5-6.3 s: the third sheet's title 'स्टॉक वेरिएशन शीट' prints and a gold rule draws under it."
+    },
+    "D05": {
+      "kind": "doc",
+      "title": "Stock variation sheet — how much, and inside the limit?",
+      "template": "variation-sheet",
+      "content": {
+        "heading": "स्टॉक वेरिएशन शीट — HSD",
+        "period": "04-08 (इंस्पेक्शन) से 20-08 तक",
+        "rows": [["बुक स्टॉक", "14,558 L"], ["डिप स्टॉक (टंकी में)", "14,246 L"], ["वेरिएशन", "−312 L (कमी)"]],
+        "band": [["4% टंकी स्टॉक", "570 L"], ["0.25% बिक्री पर (सिर्फ़ कमी पर)", "158 L"]],
+        "limit": "तय सीमा: 728 L",
+        "verdict": "सीमा के अंदर ✓"
+      },
+      "animate": "0-2 s: book stock and dip stock rows fill. 2-3 s: the variation −312 L gets a gold circle. 3-4.8 s: the two parts of the limit print and add into 'तय सीमा: 728 L'. 4.8-6.25 s: a horizontal gauge shows −312 inside the 728 band and the verdict stamps in green-gold."
+    },
+    "D06": {
+      "kind": "doc",
+      "title": "Plus or minus — the running stock sheet",
+      "template": "variation-sheet",
+      "content": {
+        "heading": "स्टॉक प्लस में या माइनस में — HSD",
+        "columns": ["तारीख़", "आज का अंतर", "कुल"],
+        "rows": [
+          ["14-08", "+48 L", "+48 L"],
+          ["15-08", "−22 L", "+26 L"],
+          ["16-08", "+36 L", "+62 L"],
+          ["17-08", "−41 L", "+21 L"],
+          ["18-08", "−58 L", "−37 L"],
+          ["19-08", "−77 L", "−114 L"],
+          ["20-08", "−96 L", "−210 L"]
+        ],
+        "trend": "लगातार माइनस की ओर"
+      },
+      "animate": "Rows write in one per 0.6 s; the running total column turns from maroon plus to amber minus at 18-08. At 5 s a downward arrow draws beside the last four rows with the label 'लगातार माइनस की ओर'."
+    },
+    "D07": {
+      "kind": "doc",
+      "title": "Invoice, density, the records tied to them",
+      "template": "density-compare",
+      "content": {
+        "papers": [
+          {"title": "टैंकर इनवॉइस", "lines": ["इनवॉइस नं. 0091 4436", "HSD · 6,000 L", "Density@15: 831.5"]},
+          {"title": "डेंसिटी रजिस्टर", "lines": ["20-08 · HSD · 831.5"]},
+          {"title": "उनसे जुड़े रिकॉर्ड", "lines": ["टैंकर रसीद रजिस्टर", "डी-एस-आर में रसीद"]}
+        ]
+      },
+      "animate": "Three papers fan out on the desk plate in spoken order: invoice (0-1.8 s), density register (1.8-3.4 s), the related records (3.4-4.8 s). 4.8-5.6 s: a soft magnifier ring rests over the three."
+    },
+    "D08": {
+      "kind": "doc",
+      "title": "Invoice density vs density register, side by side",
+      "template": "density-compare",
+      "content": {
+        "tag": "उदाहरण",
+        "left": {"title": "टैंकर इनवॉइस", "rows": [["HSD · Density@15", "831.5"], ["MS · Density@15", "745.2"]]},
+        "right": {"title": "पंप का डेंसिटी रजिस्टर", "rows": [["HSD · 20-08", "831.5"], ["MS · 20-08", "745.2"]]},
+        "verdict": "कोई अंतर नहीं ✓"
+      },
+      "animate": "0-2 s: invoice and register lie side by side. 2-4 s: HSD figures on both get gold rings and a line joins them with '='. 4-5.5 s: same for MS. 5.5-6.7 s: verdict stamps between the papers."
+    },
+    "D09": {
+      "kind": "doc",
+      "title": "The stock board, checked daily",
+      "template": "stock-board",
+      "content": {
+        "heading": "स्टॉक बोर्ड",
+        "date": "20-08 · सुबह 9:40",
+        "columns": ["उत्पाद", "टंकी में स्टॉक", "डेंसिटी"],
+        "rows": [["MS", "5,828 L", "745.2"], ["HSD", "14,246 L", "831.5"]],
+        "checks": ["ज़रूरी जानकारी ✓", "सही तरीक़े से ✓", "रोज़ भरा गया ✓"],
+        "week": ["14", "15", "16", "17", "18", "19", "20"]
+      },
+      "animate": "0-2.5 s: a white wall board with a maroon frame appears; figures appear as if chalked, row by row. 2.5-6 s: the three checks tick in one by one beside the board, in spoken order. 6-9.5 s: under the board, a 7-day strip (14 to 20) fills with a tick for each day."
+    },
+    "D10": {
+      "kind": "doc",
+      "title": "Sample label, every field checked",
+      "template": "sample-label",
+      "content": {
+        "heading": "सैंपल लेबल",
+        "fields": [
+          ["उत्पाद", "HSD"],
+          ["तारीख़", "20-08"],
+          ["टैंकर इनवॉइस नं.", "0091 4436"],
+          ["टैंक नं.", "2"],
+          ["डेंसिटी @15°C", "831.5"],
+          ["सील नं.", "S-20718"],
+          ["डीलर के हस्ताक्षर", "✓"],
+          ["ड्राइवर के हस्ताक्षर", "✓"]
+        ],
+        "verdict": "सैंपलिंग सही ✓ · जानकारी पूरी ✓"
+      },
+      "animate": "A bottle outline with a large paper label fills the frame. 0-4.5 s: the eight fields tick one after another. 4.5-6.14 s: the verdict line stamps along the bottom of the label."
+    },
+    "D11": {
+      "kind": "doc",
+      "title": "Challan entry matched against the invoice",
+      "template": "challan",
+      "content": {
+        "heading": "टैंकर रसीद रजिस्टर",
+        "columns": ["तारीख़", "चालान नंबर", "उत्पाद", "मात्रा (L)", "डेंसिटी @15°C", "टैंक"],
+        "rows": [["19-08", "0091 4381", "HSD", "9,000", "831.8", "2"], ["20-08", "0091 4436", "HSD", "6,000", "831.5", "2"]],
+        "compareTo": "इनवॉइस: 0091 4436 · 6,000 L · 831.5",
+        "checks": ["चालान नंबर ✓", "डेंसिटी ✓", "बाक़ी ज़रूरी जानकारी ✓"]
+      },
+      "animate": "0-2.5 s: register page, 19-08 row already written; 20-08 row writes in. 2.5-5 s: the invoice chip slides in beside it; challan number on both gets a gold ring and a joining line. 5-7.5 s: same for density. 7.5-9.94 s: the three checks tick down the right margin in spoken order."
+    },
+    "D12": {
+      "kind": "doc",
+      "title": "What happened at the pump vs what the DSR says",
+      "template": "dsr-sheet",
+      "content": {
+        "left": "पंप पर असल रिकॉर्ड",
+        "right": "डी-एस-आर में लिखा",
+        "rows": [["रसीद", "6,000 L", "6,000 L", "✓"], ["डिप", "160 cm", "160 cm", "✓"], ["टेस्टिंग", "12 L", "10 L", "अंतर"], ["टंकी में स्टॉक", "14,246 L", "14,246 L", "✓"]],
+        "flag": "टेस्टिंग में 2 L का अंतर — ठीक करवाया ✓"
+      },
+      "animate": "Two columns face each other. Rows compare one at a time (1 s each): ticks land on three; the testing row flashes amber with a circle. 4.5-6.77 s: the 10 L is struck and corrected to 12 L, the flag line writes underneath."
+    },
+    "D13": {
+      "kind": "doc",
+      "title": "Every task has points and a validity",
+      "template": "list",
+      "content": {
+        "tag": "उदाहरण",
+        "columns": ["काम", "पॉइंट", "वैलिडिटी"],
+        "rows": [
+          ["डी-एस-आर भरना", "40", "रोज़"],
+          ["डेंसिटी रजिस्टर", "30", "रोज़"],
+          ["स्टॉक बोर्ड", "30", "रोज़"],
+          ["साप्ताहिक डिक्लेरेशन", "60", "हर हफ़्ते"],
+          ["मॉक ड्रिल", "120", "तीन महीने"],
+          ["ट्रेड लाइसेंस", "250", "साल"]
+        ]
+      },
+      "animate": "Rows print one per 0.8 s; the points column rolls up in gold; validity chips colour by cycle (daily maroon, weekly amber, yearly deep gold). At 5.5 s the whole table gets a soft sweep."
+    },
+    "D14": {
+      "kind": "doc",
+      "title": "DSR filled right — points",
+      "template": "dsr-sheet",
+      "content": {"doc": "डी-एस-आर · 20-08", "stamp": "सही भरी गई ✓", "points": "+40", "running": "40 पॉइंट"},
+      "animate": "The DSR page (as D03) slides in; a round maroon stamp lands at 1.5 s; '+40' pops up in gold and flies to a running counter in the top corner, which rolls 0 → 40."
+    },
+    "D15": {
+      "kind": "doc",
+      "title": "Density register filled right — points",
+      "template": "density-compare",
+      "content": {"doc": "डेंसिटी रजिस्टर · 20-08 · HSD 831.5", "stamp": "सही भरा गया ✓", "points": "+30", "running": "70 पॉइंट"},
+      "animate": "Density register page slides in replacing the DSR; stamp lands at 1.5 s; '+30' flies to the corner counter, 40 → 70."
+    },
+    "D16": {
+      "kind": "doc",
+      "title": "Stock board up to date — points",
+      "template": "stock-board",
+      "content": {"doc": "स्टॉक बोर्ड · 20-08", "stamp": "अपडेट ✓", "points": "+30", "running": "100 पॉइंट"},
+      "animate": "The stock board (as D09) appears; stamp at 1.4 s; '+30' flies to the counter, 70 → 100."
+    },
+    "D17": {
+      "kind": "doc",
+      "title": "Trade licence valid — points",
+      "template": "licence",
+      "content": {"doc": "ट्रेड लाइसेंस", "lines": ["नगर निगम", "लाइसेंस नं. TL/••••/2026", "वैध: 31-03-2027 तक"], "stamp": "वैध ✓", "points": "+250", "running": "350 पॉइंट"},
+      "animate": "A printed licence with a border appears; the validity date gets a gold underline at 1 s; stamp at 1.6 s; '+250' flies to the counter, 100 → 350."
+    },
+    "D18": {
+      "kind": "doc",
+      "title": "The other registers, declarations, compliance — points",
+      "template": "list",
+      "content": {
+        "groups": [
+          {"title": "रजिस्टर", "items": ["शिकायत पुस्तिका ✓", "टॉयलेट इंस्पेक्शन शीट ✓"]},
+          {"title": "डिक्लेरेशन", "items": ["सेफ़्टी डिक्लेरेशन ✓", "स्वच्छता डिक्लेरेशन ✓"]},
+          {"title": "कंप्लायंस", "items": ["फ़र्स्ट-एड बॉक्स ✓", "क्वालिटी-क्वांटिटी किट ✓"]}
+        ],
+        "points": "+3,786",
+        "running": "4,136 पॉइंट"
+      },
+      "animate": "Three small paper stacks deal in, in spoken order (रजिस्टर, डिक्लेरेशन, कंप्लायंस), each flipping its two ticks. At 4.5 s '+3,786' flies to the counter, 350 → 4,136."
+    },
+    "D19": {
+      "kind": "doc",
+      "title": "Bathroom-toilet inspection sheet",
+      "template": "list",
+      "content": {
+        "heading": "बाथरूम-टॉयलेट इंस्पेक्शन शीट · 20-08",
+        "columns": ["समय", "सफ़ाई", "पानी", "जाँचा"],
+        "rows": [["सुबह 8:00", "✓", "✓", "✓"], ["दोपहर 12:00", "✓", "✓", "✓"], ["शाम 4:00", "✓", "✓", "✓"], ["रात 8:00", "", "", ""]]
+      },
+      "animate": "The sheet slides in; the first three time rows tick across, one row per second; the 8 pm row stays open with a soft amber outline."
+    },
+    "D20": {
+      "kind": "doc",
+      "title": "Trade licence renewal",
+      "template": "licence",
+      "content": {"band": "साल के काम", "doc": "ट्रेड लाइसेंस — रिन्यूअल", "lines": ["पिछली वैधता: 31-03-2026", "नई वैधता: 31-03-2027"], "stamp": "रिन्यू ✓"},
+      "animate": "Band 'साल के काम' sits on top. The old date is struck through, the new date writes in, and the renewal stamp lands at 3 s."
+    },
+    "D21": {
+      "kind": "doc",
+      "title": "Weights & Measures annual work",
+      "template": "licence",
+      "content": {"band": "साल के काम", "doc": "नापतौल — सालाना सत्यापन", "lines": ["डिस्पेंसिंग यूनिट: 4", "सील: लगी हुई ✓", "प्रमाणपत्र वैध: 23-08-2026 तक"], "note": "रिन्यूअल आने वाला है"},
+      "animate": "A certificate with a round seal emblem (plain, no government crest) appears; the three lines write in; the validity date glows amber and the note slides in at 3.5 s."
+    },
+    "D22": {
+      "kind": "doc",
+      "title": "Account statement with the internal charge highlighted",
+      "template": "ledger",
+      "content": {
+        "heading": "ऑयल कंपनी के साथ खाते का स्टेटमेंट",
+        "columns": ["तारीख़", "विवरण", "रक़म (₹)"],
+        "rows": [
+          ["16-08", "फ़्यूल ख़रीद", "−4,86,120", "routine"],
+          ["17-08", "जमा", "+5,00,000", "routine"],
+          ["18-08", "इंटरनल चार्ज — ब्याज", "−7,218", "flag"],
+          ["19-08", "फ़्यूल ख़रीद", "−5,12,300", "routine"],
+          ["19-08", "लाइसेंस फ़ीस वसूली", "−2,950", "flag"],
+          ["20-08", "जमा", "+5,50,000", "routine"]
+        ],
+        "label": "सामान्य लेन-देन के अलावा"
+      },
+      "animate": "0-2.5 s: the statement prints row by row. 2.5-4.5 s: routine rows fade to grey. 4.5-7 s: a gold highlight sweeps across the two flagged rows and the label tags them."
+    },
+    "D23": {
+      "kind": "doc",
+      "title": "Work permit, approved",
+      "template": "licence",
+      "content": {"doc": "वर्क परमिट", "lines": ["काम: टैंक 2 के पास पाइपलाइन मरम्मत", "तारीख़: 22-08, सुबह 10 से शाम 5", "सुरक्षा: फ़ायर एक्सटिंग्विशर, घेराबंदी"], "stamp": "स्वीकृत ✓"},
+      "animate": "The permit slides in; three lines write in (1.2 s each); the approval stamp lands at 4.5 s with a small bounce."
+    },
+    "D24": {
+      "kind": "doc",
+      "title": "Declarations filed — this week",
+      "template": "list",
+      "content": {
+        "heading": "डिक्लेरेशन — इस हफ़्ते",
+        "rows": [["डेली डिक्लेरेशन", "20-08", "✓"], ["स्वच्छता डिक्लेरेशन", "20-08", "✓"], ["स्टाफ़ मिनिमम वेज डिक्लेरेशन", "अगस्त", "✓"], ["बाक़ी डिजिटल कंप्लायंस — SDMS · IRAS", "", "✓"]]
+      },
+      "animate": "Rows appear in spoken order, each tick landing as the row settles (about 1.4 s apart)."
+    },
+    "D25": {
+      "kind": "doc",
+      "title": "Inspection-ready, all year",
+      "template": "list",
+      "content": {"heading": "इंस्पेक्शन के लिए तैयार — साल भर", "items": ["डी-एस-आर ✓", "डेंसिटी रजिस्टर ✓", "स्टॉक बोर्ड ✓", "सैंपल ✓", "लाइसेंस और सर्टिफ़िकेट ✓"], "teams": ["Dhruva", "MDT", "QRC", "mobile lab"]},
+      "animate": "Five ticks drop quickly down the list (0.5 s apart); the four inspection names slide in as small chips along the bottom."
+    },
+    "D26": {
+      "kind": "doc",
+      "title": "MDG tax invoice — the GST is input credit",
+      "template": "ledger",
+      "content": {
+        "heading": "टैक्स इनवॉइस — MDG Services",
+        "gstin": "GSTIN: •••••••••••••••",
+        "rows": [["सामान्य एम-डी-जी सर्विस — अगस्त", "₹3,000.00"], ["GST @ 18%", "₹540.00"], ["कुल", "₹3,540.00"]],
+        "highlight": "₹540 → इनपुट टैक्स क्रेडिट (ITC)",
+        "caveat": "लागू नियमों और आपकी पात्रता के हिसाब से"
+      },
+      "animate": "0-2 s: invoice lays down; rows print. 2-4 s: the GST line gets a gold highlight; ₹540 lifts off and travels into a small 'आपके अकाउंट्स' ledger card labelled ITC. 4-6.5 s: the caveat writes along the bottom."
+    },
+    "D27": {
+      "kind": "doc",
+      "title": "Legal cost estimate, before anything starts",
+      "template": "ledger",
+      "content": {
+        "heading": "क़ानूनी कार्यवाही — अनुमानित ख़र्च",
+        "stamp": "कार्यवाही शुरू होने से पहले",
+        "rows": [["वकील की फ़ीस", "₹25,000"], ["कोर्ट फ़ीस और काग़ज़ात", "₹3,500"], ["आना-जाना और अन्य", "₹4,000"], ["कुल अनुमान", "₹32,500"]]
+      },
+      "animate": "0-1.5 s: the page slides in; the stamp 'कार्यवाही शुरू होने से पहले' lands at the top. 1.5-5 s: the four rows fill. 5-8 s: the total gets a gold circle and a soft tick."
+    },
+    "D28": {
+      "kind": "doc",
+      "title": "Monthly accounts report cover",
+      "template": "accounts",
+      "content": {"heading": "मासिक अकाउंट्स रिपोर्ट", "month": "अगस्त", "pump": "पंप: DK-4721"},
+      "animate": "A report cover drops onto the desk plate and opens a crack to reveal the first page edge."
+    },
+    "D29": {
+      "kind": "doc",
+      "title": "Income, expense, profit",
+      "template": "accounts",
+      "content": {"heading": "अगस्त — आमदनी और ख़र्च", "rows": [["आमदनी", "₹2,31,46,800"], ["ख़र्च", "₹2,26,58,300"], ["मुनाफ़ा", "₹4,88,500"]]},
+      "animate": "Rows appear in spoken order with figures rolling (0-2.5 s, 2.5-5 s); 5-7.5 s: the profit row lifts forward in gold with a small upward arrow; the other two dim slightly."
+    },
+    "D30": {
+      "kind": "doc",
+      "title": "Where the money sits",
+      "template": "accounts",
+      "content": {"heading": "आज की स्थिति", "rows": [["नक़द", "₹1,86,400"], ["बैंक में", "₹12,42,900"], ["लेनदारी (आपको मिलना है)", "₹3,18,000"], ["देनदारी (आपको देना है)", "₹2,06,500"]]},
+      "animate": "Four tiles fill in spoken order, 1.5 s apart, figures rolling up."
+    },
+    "D31": {
+      "kind": "doc",
+      "title": "Digital payments this month",
+      "template": "accounts",
+      "content": {"heading": "डिजिटल पेमेंट और लेन-देन — अगस्त", "rows": [["UPI", "₹62,18,400"], ["कार्ड", "₹21,46,900"], ["वॉलेट", "₹3,12,600"]], "total": "कुल ₹86,77,900"},
+      "animate": "Three bars grow side by side, figures roll, total slides in underneath at 3 s."
+    },
+    "D32": {
+      "kind": "doc",
+      "title": "Digital payment reconciliation catches a gap",
+      "template": "ledger",
+      "content": {
+        "heading": "डिजिटल पेमेंट का मिलान",
+        "columns": ["तारीख़", "बैंक में आया (UPI)", "अकाउंट्स में दर्ज", "अंतर"],
+        "rows": [["12-08", "₹1,98,240", "₹1,98,240", "—"], ["13-08", "₹2,06,910", "₹2,06,910", "—"], ["14-08", "₹2,14,380", "₹2,11,880", "₹2,500"], ["15-08", "₹2,01,560", "₹2,01,560", "—"]],
+        "flag": "₹2,500 का अंतर — समय पर पकड़ में आया"
+      },
+      "animate": "Rows compare top to bottom (1 s each), matching rows tick; the 14-08 row flashes amber, the ₹2,500 gets a gold circle and a highlight sweep; flag line writes in at 6 s."
+    },
+    "D33": {
+      "kind": "doc",
+      "title": "Emergency file — all in one place",
+      "template": "list",
+      "content": {
+        "heading": "इमरजेंसी फ़ाइल — सब एक जगह",
+        "tabs": [
+          {"t": "इंश्योरेंस की डिटेल", "lines": ["फ़ायर एंड स्पेशल पेरिल्स पॉलिसी", "बर्गलरी (चोरी) पॉलिसी", "वैध: 31-03-2027 तक"]},
+          {"t": "ज़रूरी फ़ोन नंबर", "lines": ["फ़ायर — 101", "पुलिस — 112", "एम्बुलेंस — 108"]},
+          {"t": "इमरजेंसी कॉन्टैक्ट", "lines": ["सेल्स ऑफ़िसर — 98••• •••••", "बीमा एजेंट — 97••• •••••"]},
+          {"t": "ज़रूरी दस्तावेज़", "lines": ["एक्सप्लोसिव लाइसेंस", "फ़ायर NOC", "ट्रेड लाइसेंस"]}
+        ]
+      },
+      "animate": "A maroon folder opens; four tabs slide out one after another in spoken order (about 1.8 s each), each showing its lines."
+    },
+    "D34": {
+      "kind": "doc",
+      "title": "Which policy covers it, and how to tell the insurer",
+      "template": "policy",
+      "content": {
+        "heading": "इंश्योरेंस पॉलिसी",
+        "policies": [["फ़ायर एंड स्पेशल पेरिल्स पॉलिसी", "आग, दुर्घटना से नुक़सान"], ["बर्गलरी (चोरी) पॉलिसी", "चोरी"]],
+        "match": "इस घटना में क्लेम: फ़ायर एंड स्पेशल पेरिल्स ✓",
+        "howToTell": ["कब: घटना के तुरंत बाद", "कैसे: फ़ोन पर, फिर लिखित में — पॉलिसी नंबर के साथ"]
+      },
+      "animate": "0-3 s: two policy cards lie side by side; one gets a gold tick and lifts. 3-7.55 s: the 'कब / कैसे' strip slides up under it, two lines writing in."
+    },
+    "D35": {
+      "kind": "doc",
+      "title": "Who to tell first, which papers for the claim",
+      "template": "list",
+      "content": {
+        "left": {"title": "सबसे पहले किसे बताना है", "items": ["1. फ़ायर / पुलिस", "2. इंश्योरेंस कंपनी", "3. ऑयल कंपनी के सेल्स ऑफ़िसर"]},
+        "right": {"title": "क्लेम के लिए काग़ज़", "items": ["पॉलिसी की कॉपी", "FIR / फ़ायर रिपोर्ट", "नुक़सान की फ़ोटो", "स्टॉक और बिल का रिकॉर्ड"]}
+      },
+      "animate": "Left list builds 0-2.8 s, right checklist ticks down 2.8-6.53 s."
+    },
+    "D36": {
+      "kind": "doc",
+      "title": "Staff assessment sheet — the fixed yardsticks",
+      "template": "staff-sheet",
+      "content": {"heading": "स्टाफ़ असेसमेंट शीट", "criteria": ["समय पर हाज़िरी", "सफ़ाई", "ग्राहक से व्यवहार", "रिकॉर्ड और रजिस्टर", "सुरक्षा नियम"]},
+      "animate": "The sheet grid draws; the five criteria headings print across the top one by one."
+    },
+    "D37": {
+      "kind": "doc",
+      "title": "Daily staff assessment filled",
+      "template": "staff-sheet",
+      "content": {"heading": "स्टाफ़ असेसमेंट · 20-08", "rows": [["सुनील", "92"], ["राजू", "84"], ["मोहन", "71"], ["दीपक", "88"]], "target": "रोज़ का लक्ष्य: 100 पॉइंट"},
+      "animate": "Names sit in the left column; each score bar grows toward the 100 target line, one after another (1 s each); the target line glows at the end."
+    },
+    "D38": {
+      "kind": "doc",
+      "title": "A report that carries only the code",
+      "template": "dsr-sheet",
+      "content": {"heading": "डी-एस-आर · 20-08", "pump": "पंप: DK-4721", "absent": ["नाम: —", "पता: —"]},
+      "animate": "A DSR report header lands; a magnifier glides across it, pausing on 'पंप: DK-4721', then on the empty name and address lines, which show a dash."
+    },
+    "D39": {
+      "kind": "doc",
+      "title": "Confidentiality agreement signed first",
+      "template": "licence",
+      "content": {
+        "heading": "गोपनीयता समझौता (NDA)",
+        "clauses": ["आपके दस्तावेज़ और डेटा गोपनीय रहेंगे", "सिर्फ़ आपके पंप के काम के लिए इस्तेमाल", "बिना अनुमति किसी को नहीं दिए जाएँगे"],
+        "sign": ["एम-डी-जी सर्विसेज़", "डीलर"],
+        "stamp": "काग़ज़ देखने से पहले साइन ✓"
+      },
+      "animate": "0-2.5 s: the three clauses write in. 2.5-4.5 s: a signature stroke draws itself on the MDG line (no hand or pen shown). 4.5-6.5 s: the stamp lands."
+    },
+
+    "P01": {
+      "kind": "phone",
+      "title": "Welcome message: your pump is now watched daily",
+      "template": "phone-chat",
+      "content": {"header": "MDG Services · डीलर कवच", "messages": [{"from": "mdg", "text": "नमस्ते! आपकी अनुमति के बाद, आपका पंप अब हमारी रोज़ की निगरानी में है।", "time": "10:12"}]},
+      "animate": "Phone rises into frame; the message bubble slides in with a soft tick mark at 1.5 s."
+    },
+    "P02": {
+      "kind": "phone",
+      "title": "Manual dip and running sent in chat",
+      "template": "phone-chat",
+      "content": {
+        "header": "MDG Services · डीलर कवच",
+        "messages": [
+          {"from": "pump", "text": "आज ऑटोमेशन बंद है — डिप और रनिंग भेज रहा हूँ", "time": "08:05"},
+          {"from": "pump", "photo": "हाथ से लिखी डिप-रनिंग पर्ची (धुंधली)", "time": "08:05"},
+          {"from": "mdg", "text": "मिल गया। आपकी आज की डी-एस-आर इसी से तैयार हो रही है।", "time": "08:11"}
+        ]
+      },
+      "animate": "Messages arrive one after another at 0.5 s, 2 s and 4 s; the photo bubble is a blurred handwritten slip; a double tick lands on each."
+    },
+    "P03": {
+      "kind": "phone",
+      "title": "The daily DSR image lands on his phone",
+      "template": "phone-dsr",
+      "content": {
+        "header": "MDG Services · डीलर कवच",
+        "card": "डी-एस-आर · 21-08 · HSD",
+        "glance": [["कल की बिक्री", "4,222 L"], ["टंकी में अभी", "14,246 L"], ["कल आया", "6,000 L"]],
+        "rows": [["19-08", "9,120", "9,000", "18,120", "141", "12,480", "10", "5,630"], ["20-08", "12,480", "6,000", "18,480", "160", "14,246", "12", "4,222"], ["21-08", "14,246", "", "", "", "", "", ""]],
+        "note": "आज की SALES कल की रीडिंग से भरेगी"
+      },
+      "animate": "A notification drops in; the chat opens to the report image; the image scales up to fill the phone at 2 s and the rows become readable; today's empty SALES cell gets a soft dotted outline."
+    },
+    "P04": {
+      "kind": "phone",
+      "title": "The glance strip — his pump today in three numbers",
+      "template": "phone-dsr",
+      "content": {"glance": [["कल की बिक्री", "4,222 L"], ["टंकी में अभी", "14,246 L"], ["कल आया", "6,000 L"]]},
+      "animate": "Push into the top strip of the DSR image; the three figures roll up one after another (2 s apart)."
+    },
+    "P05": {
+      "kind": "phone",
+      "title": "Stock check verdict",
+      "template": "phone-alert",
+      "content": {"verdict": "स्टॉक ठीक है ✓", "line1": "कमी 312 L · तय सीमा 728 L (570 + 158)", "line2": "अभी कुछ करने की ज़रूरत नहीं"},
+      "animate": "Card slides up on the phone; verdict pill turns green-gold at 1 s; the two lines write in."
+    },
+    "P06": {
+      "kind": "phone",
+      "title": "Alert — shortage four days running",
+      "template": "phone-alert",
+      "content": {"level": "ध्यान दें", "title": "लगातार 4 दिन स्टॉक में कमी", "line1": "17-08 से 20-08 · कुल −272 L", "line2": "सीमा के अंदर है, पर जाँच ज़रूरी — आज की डिप सेटल होने के बाद लें"},
+      "animate": "Amber alert banner drops in with a soft pulse; body text writes in; a small bar strip of the four days sits under it."
+    },
+    "P07": {
+      "kind": "phone",
+      "title": "Supply status — why the load is held and the next step",
+      "template": "phone-alert",
+      "content": {
+        "state": "सप्लाई रुकी है — 2 काम बाक़ी",
+        "items": [
+          {"why": "तिमाही मॉक ड्रिल दर्ज नहीं", "next": "अगला क़दम: ड्रिल की फ़ोटो भेजें"},
+          {"why": "ऑटोमेशन का डेटा नहीं पहुँच रहा", "next": "अगला क़दम: वेंडर आज शाम तक आएगा"}
+        ]
+      },
+      "animate": "0-1.5 s: red state pill appears. 1.5-4 s: the first reason and its next step. 4-6.7 s: the second reason and its next step, each with an arrow."
+    },
+    "P08": {
+      "kind": "phone",
+      "title": "Message — stock heading minus",
+      "template": "phone-chat",
+      "content": {"messages": [{"from": "mdg", "text": "इस हफ़्ते HSD का स्टॉक लगातार माइनस में जा रहा है: 14 से 20 अगस्त तक कुल −210 L। हम कारण देख रहे हैं।", "time": "19:30"}]},
+      "animate": "Bubble slides in; the '−210 L' gets a gold underline at 2 s."
+    },
+    "P09": {
+      "kind": "phone",
+      "title": "Tanker density to write in the register",
+      "template": "phone-alert",
+      "content": {"card": "टैंकर डेंसिटी · 20-08", "value": "HSD 831.5", "line": "रजिस्टर में आज ही चढ़ा दीजिए", "status": "इनवॉइस से मिलान ✓"},
+      "animate": "The card slides up; 831.5 rolls in large; the status tick lands at 2.5 s."
+    },
+    "P10": {
+      "kind": "phone",
+      "title": "Photos sent, matched",
+      "template": "phone-chat",
+      "content": {"messages": [{"from": "pump", "photo": "डेंसिटी रजिस्टर का पन्ना (धुंधला)"}, {"from": "pump", "photo": "स्टॉक बोर्ड (धुंधला)"}, {"from": "mdg", "text": "फ़ोटो मिल गईं — मिलान पूरा ✓"}]},
+      "animate": "Two photo bubbles arrive quickly (0.4 s, 1.2 s); the reply lands at 2.2 s."
+    },
+    "P11": {
+      "kind": "phone",
+      "title": "Staff photos arrive and get verified",
+      "template": "phone-chat",
+      "content": {"messages": [{"from": "pump", "photo": "डेंसिटी रजिस्टर", "status": "वेरिफ़ाइड ✓"}, {"from": "pump", "photo": "स्टॉक बोर्ड", "status": "वेरिफ़ाइड ✓"}, {"from": "pump", "photo": "सैंपल लेबल", "status": "वेरिफ़ाइड ✓"}]},
+      "animate": "Three photo thumbnails (blurred) stack in; a green-gold 'वेरिफ़ाइड' tick stamps on each in turn."
+    },
+    "P12": {
+      "kind": "phone",
+      "title": "Today's assessment on his phone",
+      "template": "gauge",
+      "content": {"tab": "कवच", "heading": "आज का असेसमेंट · 20-08", "percent": "88%", "days": [["16", "84%"], ["17", "86%"], ["18", "85%"], ["19", "87%"], ["20", "88%"]]},
+      "animate": "The Kavach tab opens; the ring fills to 88%; the five-day strip underneath fills left to right."
+    },
+    "P13": {
+      "kind": "phone",
+      "title": "Done vs pending, on the Kavach tab",
+      "template": "split",
+      "content": {"tab": "कवच", "done": "पूरा 88%", "pending": "बाक़ी 12%", "line": "आप और हम — दोनों यही देखते हैं"},
+      "animate": "A horizontal bar splits into maroon 88% and amber 12%; the labels settle; the line fades in at 3.5 s."
+    },
+    "P14": {
+      "kind": "phone",
+      "title": "Team message — the 30% that is pending",
+      "template": "phone-chat",
+      "content": {"messages": [{"from": "mdg", "text": "आपका असेसमेंट: 70% पूरा। बाक़ी 30% में 6 काम पेंडिंग हैं — लिस्ट नीचे।", "time": "09:15"}]},
+      "animate": "Bubble slides in; '70%' and '30%' get gold and amber underlines; a small 'लिस्ट ↓' chip bounces at the bottom."
+    },
+    "P15": {
+      "kind": "phone",
+      "title": "The full pending list",
+      "template": "phone-alert",
+      "content": {"heading": "पेंडिंग काम (6)", "items": ["मॉक ड्रिल — फ़ाइलिंग बाक़ी", "फ़ायर NOC — रिन्यूअल", "स्टाफ़ मिनिमम वेज डिक्लेरेशन", "टॉयलेट इंस्पेक्शन शीट — फ़ोटो चाहिए", "हाइड्रोमीटर कैलिब्रेशन", "फ़र्स्ट-एड बॉक्स — फ़ोटो चाहिए"]},
+      "animate": "The list unrolls one item every 0.8 s, each with an amber dot."
+    },
+    "P16": {
+      "kind": "phone",
+      "title": "Expiry alert — W&M certificate in 3 days",
+      "template": "phone-alert",
+      "content": {"level": "याद दिलाना", "title": "नापतौल सर्टिफ़िकेट की मियाद 3 दिन में ख़त्म", "line1": "आख़िरी तारीख़: 23-08", "line2": "रिन्यूअल की तैयारी शुरू ✓"},
+      "animate": "Alert drops in; a small countdown '3 दिन' pulses; the second line ticks in at 2.5 s."
+    },
+    "P17": {
+      "kind": "phone",
+      "title": "Total, done, remaining",
+      "template": "gauge",
+      "content": {"tiles": [["कुल कंप्लायंस", "4,700 पॉइंट"], ["कितना पूरा हुआ", "4,136 (88%)"], ["कितना बाक़ी", "564 (12%)"]]},
+      "animate": "Three tiles appear one after another in spoken order (about 1.8 s apart), figures rolling."
+    },
+    "P18": {
+      "kind": "phone",
+      "title": "Pending tasks and what is about to expire",
+      "template": "phone-alert",
+      "content": {"tiles": [["पेंडिंग काम", "4 — मॉक ड्रिल फ़ाइलिंग · फ़ायर NOC रिन्यूअल · हाइड्रोमीटर · फ़र्स्ट-एड बॉक्स"], ["वैलिडिटी ख़त्म होने वाली", "नापतौल सर्टिफ़िकेट — 3 दिन"]]},
+      "animate": "Tile four slides in (0-2.5 s), then tile five with its amber countdown (2.5-5.12 s)."
+    },
+    "P19": {
+      "kind": "phone",
+      "title": "Daily standing — where the pump stands today",
+      "template": "phone-chat",
+      "content": {"messages": [{"from": "mdg", "text": "आज 20-08 · आपका पंप: 88% कंप्लायंस · 4 काम पेंडिंग · 2 की जाँच बाक़ी · 1 फ़ोटो चाहिए", "time": "09:00"}], "footnote": "यह एम-डी-जी का लिखित आकलन है"},
+      "animate": "Morning message slides in; each of the four figures gets a small coloured dot as it is read; the footnote fades in small."
+    },
+    "P20": {
+      "kind": "phone",
+      "title": "Night complaint, answered in minutes",
+      "template": "phone-chat",
+      "content": {"messages": [{"from": "pump", "text": "डिस्पेंसिंग यूनिट 2 बंद हो गई है", "time": "23:40"}, {"from": "mdg", "text": "कंप्लेंट दर्ज हो गई ✓ नंबर C-58213। टेक्नीशियन सुबह 9 बजे तक। तब तक नोज़ल 1 और 3 चालू रखें।", "time": "23:44"}]},
+      "animate": "The late-night message arrives; a typing indicator shows briefly; the reply lands at 2.5 s with its timestamp highlighted."
+    },
+    "P21": {
+      "kind": "phone",
+      "title": "What is done, what is pending",
+      "template": "phone-alert",
+      "content": {"done": ["वर्क परमिट — 22-08 ✓", "कंप्लेंट C-58213 — डिस्पेंसिंग यूनिट 2 ✓", "डेली डिक्लेरेशन ✓"], "pending": ["पाइपलाइन मरम्मत — वेंडर कल", "मॉक ड्रिल फ़ाइलिंग"]},
+      "animate": "Two sections: 'पूरे हो चुके' fills first with green-gold ticks (0-5 s), then 'पेंडिंग' with amber dots (5-9.41 s)."
+    },
+    "P22": {
+      "kind": "phone",
+      "title": "Ask by typing, speaking or sending a photo",
+      "template": "phone-chat",
+      "content": {
+        "messages": [
+          {"from": "dealer", "text": "नापतौल का कैलिब्रेशन कब है?", "label": "लिखकर"},
+          {"from": "dealer", "voice": "0:07", "label": "बोलकर"},
+          {"from": "dealer", "photo": "काग़ज़ की फ़ोटो (धुंधली)", "label": "फ़ोटो भेजकर"},
+          {"from": "mdg", "text": "इसी महीने की 23 को। 3 दिन पहले याद दिला देंगे।"}
+        ],
+        "footer": "हर बात का लिखित रिकॉर्ड"
+      },
+      "animate": "The three ways arrive in spoken order, each tagged with its small label (0-5 s); the reply lands at 5.5 s; the footer strip slides up at 7 s."
+    },
+    "P23": {
+      "kind": "phone",
+      "title": "Credit card — days left and what is still unpaid",
+      "template": "phone-alert",
+      "content": {"card": "क्रेडिट · DOD", "rows": [["DUE DATE · जमा करने की आख़िरी तारीख़", "23-08 — 3 दिन बाक़ी"], ["CURRENT LIMIT · आज तक के लिए निर्धारित राशि", "₹25,00,000"], ["AVAILED · अभी तक की गई खपत", "₹18,42,650"], ["AVAILABLE · खपत के लिए बची राशि", "₹6,57,350"]], "bar": "73.7% इस्तेमाल"},
+      "animate": "Card opens; '3 दिन बाक़ी' counts down from 5 to 3 at the top; the rows fill; the usage bar grows to 73.7%."
+    },
+    "P24": {
+      "kind": "phone",
+      "title": "How much to deposit, by when",
+      "template": "phone-alert",
+      "content": {"label": "DUE AMOUNT · ऑयल कंपनी के खाते में जमा करनी है", "amount": "₹4,86,120", "by": "23-08 तक", "caveat": "पिछले एक-दो दिन का जमा शायद अभी न दिखे"},
+      "animate": "Push into the due block; ₹4,86,120 rolls up large; the date pill lands; the caveat fades in small."
+    },
+    "P25": {
+      "kind": "phone",
+      "title": "Ledger Watch — money that went out that was not fuel",
+      "template": "ledger",
+      "content": {"heading": "खाते में अलग से कटे पैसे", "badge": "यह DOD जमा राशि नहीं है", "rows": [["18-08", "ब्याज (इंटरनल चार्ज)", "₹7,218"], ["19-08", "लाइसेंस फ़ीस वसूली", "₹2,950"], ["09-08", "कार्ड सेटलमेंट चार्ज", "₹1,146"], ["02-08", "कमीशन वापसी", "₹3,480"]], "total": "इन 4 का कुल: ₹14,794"},
+      "animate": "Card arrives in chat; the badge stamps first; four rows fill; total writes in at 4 s."
+    },
+    "P26": {
+      "kind": "phone",
+      "title": "Declarations done",
+      "template": "phone-chat",
+      "content": {"messages": [{"from": "mdg", "text": "आज के डिक्लेरेशन हो गए ✓ डेली · स्वच्छता। अगस्त का स्टाफ़ मिनिमम वेज डिक्लेरेशन भी ✓", "time": "11:20"}]},
+      "animate": "Bubble lands; the ticks inside it pop one after another."
+    },
+    "P27": {
+      "kind": "phone",
+      "title": "A technical question, an expert answer",
+      "template": "phone-chat",
+      "content": {"messages": [{"from": "dealer", "text": "ऑटोमेशन में टैंक 2 की डिप नहीं आ रही", "time": "10:02"}, {"from": "mdg", "text": "वेंडर से बात हो गई — कल सुबह 11 बजे आएँगे। तब तक डिप हाथ से भेज दीजिए, डी-एस-आर नहीं रुकेगी।", "time": "10:09"}]},
+      "animate": "Question arrives; reply lands at 2 s; 'डी-एस-आर नहीं रुकेगी' gets a gold underline at 4 s."
+    },
+    "P28": {
+      "kind": "phone",
+      "title": "Water testing day card",
+      "template": "phone-alert",
+      "content": {"heading": "वॉटर टेस्टिंग रिकॉर्ड · 20-08", "summary": "12 में से 12 विंडो दर्ज", "slots": ["00–02 ✓", "02–04 ✓", "04–06 ✓", "06–08 ✓", "08–10 ✓", "10–12 ✓", "12–14 ✓", "14–16 ✓", "16–18 ✓", "18–20 ✓", "20–22 ✓", "22–24 ✓"], "last": "आख़िरी जाँच: 22:14 · पानी नहीं मिला"},
+      "animate": "Summary pill appears; the twelve slot rows tick down quickly (0.35 s apart); the last-check line fades in."
+    },
+    "P29": {
+      "kind": "phone",
+      "title": "UPI mismatch flagged",
+      "template": "phone-alert",
+      "content": {"level": "मिलान", "title": "14-08 की UPI रक़म में ₹2,500 का अंतर", "line1": "बैंक में आया ₹2,14,380 · अकाउंट्स में दर्ज ₹2,11,880", "line2": "एक एंट्री दर्ज होनी बाक़ी है"},
+      "animate": "Alert slides in; ₹2,500 pulses amber; the two figures write in beneath."
+    },
+    "P30": {
+      "kind": "phone",
+      "title": "Emergency — steps in the chat",
+      "template": "phone-chat",
+      "content": {"messages": [{"from": "mdg", "text": "1. सबको सुरक्षित जगह पर रखें\n2. फ़ायर 101 / पुलिस 112 पर कॉल करें\n3. इंश्योरेंस कंपनी को सूचना — पॉलिसी की कॉपी हमारे पास है\n4. नुक़सान की फ़ोटो लेते रहें", "time": "02:17"}]},
+      "animate": "The numbered steps appear line by line (1.2 s apart) inside one message."
+    },
+    "P31": {
+      "kind": "phone",
+      "title": "Today's work ratings for each staff member",
+      "template": "points-ledger",
+      "content": {"heading": "आज का काम · वॉरियर", "rows": [["सुनील", "आइलैंड की सफ़ाई, स्टॉक बोर्ड", "92"], ["राजू", "टॉयलेट सफ़ाई, सैंपल", "84"], ["मोहन", "नोज़ल पर ड्यूटी", "71"], ["दीपक", "टैंकर के समय मदद", "88"]]},
+      "animate": "Rows tick in; each points figure counts up; a 'भेजा गया ✓' chip lands at the bottom at 3 s."
+    },
+    "P32": {
+      "kind": "phone",
+      "title": "Dealer Kavach app home",
+      "template": "phone-chat",
+      "content": {"tabs": ["चैट", "रिपोर्ट", "कवच", "प्रोफ़ाइल"], "header": "डीलर कवच"},
+      "animate": "The six tiles from I74 fly into the phone; the app home settles with its four tabs lit one after another."
+    },
+    "P33": {
+      "kind": "phone",
+      "title": "Get Dealer Kavach on Google Play",
+      "template": "phone-alert",
+      "content": {"appName": "Dealer Kavach", "hindiName": "डीलर कवच", "store": "Google Play पर उपलब्ध", "button": "इंस्टॉल"},
+      "animate": "App icon (the DK logomark) scales in on the phone; name and 'Google Play पर उपलब्ध' write under it; the install button presses itself once at 3.5 s. No Google logo drawn, words only."
+    },
+
+    "I01": {
+      "kind": "info",
+      "title": "The daily list that never ends",
+      "template": "list",
+      "content": {"heading": "रोज़ की लिस्ट", "items": ["रीडिंग", "डिप", "डी-एस-आर", "डेंसिटी", "स्टॉक", "लाइसेंस", "डिक्लेरेशन"], "tail": "…और लिस्ट चलती रहती है"},
+      "animate": "Items stamp in one by one in spoken order (about 0.75 s apart), each with a small paper icon. After the seventh, the list keeps scrolling up and faint blank rows keep arriving beneath; the tail line fades in."
+    },
+    "I02": {
+      "kind": "info",
+      "title": "MDG Services title",
+      "template": "title",
+      "content": {"logo": "M", "title": "एम-डी-जी सर्विसेज़", "sub": "MDG Services", "chapter": "आपकी परछाई"},
+      "animate": "Gold M medallion scales in (0-0.8 s); the name writes in; the chapter label rises at 1.6 s."
+    },
+    "I03": {
+      "kind": "info",
+      "title": "The worries move from him to the team",
+      "template": "split",
+      "content": {"condition": "आपकी अनुमति के बाद", "left": "डीलर", "right": "एम-डी-जी टीम", "items": ["रोज़ की चिंताएँ", "निगरानी", "डेटा का सारा काम"], "result": "ज़िम्मेदारी — हमारी टीम की"},
+      "animate": "0-1 s: the three cards sit on the dealer's side. 1-5 s: in spoken order each card slides across to the team's side. 5-5.8 s: the condition badge stamps above the arrow. 5.8-6.8 s: the result line underlines in gold."
+    },
+    "I04": {
+      "kind": "info",
+      "title": "Since 2021 · 250+ people · ~1,700 dealers",
+      "template": "list",
+      "content": {"figures": [["2021", "से"], ["250+", "लोगों की टीम"], ["लगभग 1,700", "डीलरों के साथ"]], "footer": "देश भर में"},
+      "animate": "Three figures roll up in sequence as spoken (0 s, 2.6 s, 5.2 s); the footer fades in last."
+    },
+    "I05": {
+      "kind": "info",
+      "title": "Roadmap — one by one",
+      "template": "list",
+      "content": {"heading": "एक-एक करके", "items": ["रोज़ की निगरानी", "रिकॉर्ड का मिलान", "पंप असेसमेंट पॉइंट सिस्टम", "चौबीसों घंटे साथ", "प्रीमियम सेवाएँ"]},
+      "animate": "Five numbered chips drop in quickly (0.5 s apart); the first chip glows at the end."
+    },
+    "I06": {"kind": "info", "title": "Chapter: daily watch", "template": "title", "content": {"number": "02", "chapter": "रोज़ की निगरानी"}, "animate": "Title rises; a gold rule draws under it."},
+    "I07": {"kind": "info", "title": "Heading: 1 · readings and dip", "template": "title", "content": {"label": "पहला काम", "title": "रोज़ की रीडिंग और डिप", "icons": ["नोज़ल मीटर", "टैंक डिप"]}, "animate": "Numeral 1 draws in gold; the title writes; two line icons (meter, dip scale) draw themselves beside it."},
+    "I08": {
+      "kind": "info",
+      "title": "Automation data flows into everything after",
+      "template": "list",
+      "content": {"nodes": ["ऑटोमेशन", "रीडिंग ✓ · डिप ✓", "आगे का सारा काम"], "note": "उसी डेटा से"},
+      "animate": "A pulse travels left to right through the three nodes; ticks land on the middle node; the note fades in."
+    },
+    "I09": {"kind": "info", "title": "Heading: 2 · DSR", "template": "title", "content": {"label": "दूसरा", "title": "डी-एस-आर", "sub": "डेली सेल्स रिपोर्ट"}, "animate": "Numeral 2 draws; title and sub write in."},
+    "I10": {"kind": "info", "title": "Heading: 3 · stock variation", "template": "title", "content": {"label": "तीसरा", "title": "स्टॉक वेरिएशन पर नज़र"}, "animate": "Numeral 3 draws; title writes; a small eye icon opens."},
+    "I11": {
+      "kind": "info",
+      "title": "Daily variation trend — a run of shortages",
+      "template": "gauge",
+      "content": {"heading": "रोज़ का स्टॉक वेरिएशन (लीटर)", "days": ["14", "15", "16", "17", "18", "19", "20"], "values": [48, -22, 36, -41, -58, -77, -96], "bracket": "लगातार 4 दिन कमी"},
+      "animate": "Bars grow one per 0.5 s above/below a zero line; the last four turn amber; a bracket and label draw over them at 4 s."
+    },
+    "I12": {"kind": "info", "title": "Heading: 4 · next load", "template": "title", "content": {"label": "चौथा", "title": "अगला लोड कब लेना है"}, "animate": "Numeral 4 draws; title writes; a small tanker line icon slides in."},
+    "I13": {
+      "kind": "info",
+      "title": "Tank level and when to take the next load",
+      "template": "gauge",
+      "content": {"tank": "HSD टैंक", "capacity": "20,000 L", "now": "14,246 L", "sales": "रोज़ लगभग 4,200 L", "next": "अगला लोड: परसों सुबह — 12,000 L की जगह", "band": "न कम, न ज़्यादा"},
+      "animate": "A tank drains in two steps (today, tomorrow) with the daily sale label; when the level nears the low line, the next-load marker drops in; at the end a band between low and high glows with 'न कम, न ज़्यादा'."
+    },
+    "I14": {"kind": "info", "title": "Heading: 5 · plus or minus", "template": "title", "content": {"label": "पाँचवाँ", "title": "स्टॉक प्लस में है, या माइनस में", "icons": ["+", "−"]}, "animate": "Numeral 5 draws; a balance tilts to + then to − and settles level."},
+    "I15": {"kind": "info", "title": "Chapter: records matched", "template": "title", "content": {"number": "03", "chapter": "रिकॉर्ड का मिलान"}, "animate": "Title rises; a gold rule draws."},
+    "I16": {"kind": "info", "title": "Heading: 1 · invoice density", "template": "title", "content": {"label": "पहला", "title": "इनवॉइस की डेंसिटी का मिलान"}, "animate": "Numeral 1 draws; title writes."},
+    "I17": {"kind": "info", "title": "Heading: 2 · stock board", "template": "title", "content": {"label": "दूसरा", "title": "स्टॉक बोर्ड"}, "animate": "Numeral 2 draws; title writes."},
+    "I18": {"kind": "info", "title": "Heading: 3 · sampling", "template": "title", "content": {"label": "तीसरा", "title": "सैंपलिंग"}, "animate": "Numeral 3 draws; title writes; a small bottle icon draws."},
+    "I19": {"kind": "info", "title": "Heading: 4 · challan, density", "template": "title", "content": {"label": "चौथा", "title": "चालान नंबर, डेंसिटी और ज़रूरी जानकारी"}, "animate": "Numeral 4 draws; title writes."},
+    "I20": {"kind": "info", "title": "Heading: 5 · photo verification", "template": "title", "content": {"label": "पाँचवाँ", "title": "डिजिटल फ़ोटो से वेरिफ़िकेशन"}, "animate": "Numeral 5 draws; title writes; a camera icon clicks."},
+    "I21": {
+      "kind": "info",
+      "title": "Paper records vs what really happens",
+      "template": "split",
+      "content": {"left": {"title": "काग़ज़ का रिकॉर्ड", "items": ["डी-एस-आर", "डेंसिटी रजिस्टर", "स्टॉक बोर्ड"]}, "right": {"title": "पंप पर असल में", "items": ["टंकी की डिप", "टैंकर की डेंसिटी", "बोर्ड की फ़ोटो"]}, "result": "दोनों का मिलान ✓"},
+      "animate": "Left column fills, then right; lines join each pair; a tick lands in the middle at 4.5 s with the result line."
+    },
+    "I22": {"kind": "info", "title": "Chapter: pump assessment points", "template": "title", "content": {"number": "04", "chapter": "पंप असेसमेंट पॉइंट सिस्टम"}, "animate": "Title rises; a points counter flickers once in the corner."},
+    "I23": {
+      "kind": "info",
+      "title": "43 separate tasks",
+      "template": "list",
+      "content": {"heading": "एम-डी-जी के नियमों के तहत", "count": "43", "label": "अलग-अलग काम", "sub": "कंप्लायंस और ऑपरेशनल", "sample": ["डी-एस-आर", "डेंसिटी रजिस्टर", "स्टॉक बोर्ड", "टॉयलेट इंस्पेक्शन", "मॉक ड्रिल", "ट्रेड लाइसेंस", "नापतौल", "फ़ायर NOC", "स्वच्छता डिक्लेरेशन", "मिनिमम वेज डिक्लेरेशन", "सैंपल", "वर्क परमिट"]},
+      "animate": "Tiles fill a grid one by one while a counter rolls 1 → 43; twelve tiles carry the sample labels; at 43 the grid tightens and the count stamps large."
+    },
+    "I24": {
+      "kind": "info",
+      "title": "Suppose the total is 4,700 points",
+      "template": "gauge",
+      "content": {"tag": "मान लीजिए", "label": "कुल असेसमेंट स्कोर", "value": "4,700", "unit": "पॉइंट"},
+      "animate": "The tag sits in the corner from the start; an empty ring draws; the figure rolls 0 → 4,700 over 3 s and holds, ring marked with the full scale."
+    },
+    "I25": {
+      "kind": "info",
+      "title": "All tasks done — near 100%",
+      "template": "gauge",
+      "content": {"value": "4,652 / 4,700", "percent": "99%", "label": "सारे ज़रूरी काम सही तरीक़े से पूरे"},
+      "animate": "Ring fills from 0 to 99% over 4 s; the ring warms from maroon to gold at the end."
+    },
+    "I26": {
+      "kind": "info",
+      "title": "Every task adds up to today's score",
+      "template": "points-ledger",
+      "content": {"rows": [["डी-एस-आर", "+40"], ["डेंसिटी रजिस्टर", "+30"], ["स्टॉक बोर्ड", "+30"], ["ट्रेड लाइसेंस", "+250"], ["बाक़ी रजिस्टर, डिक्लेरेशन, कंप्लायंस", "+3,786"]], "total": "4,136 / 4,700", "percent": "88%", "label": "आज का कंप्लायंस स्कोर"},
+      "animate": "The five rows stack quickly, then collapse into one total; the ring fills to 88% and the label writes in."
+    },
+    "I27": {
+      "kind": "info",
+      "title": "70% done, 30% pending",
+      "template": "split",
+      "content": {"tag": "मान लीजिए", "done": "70% पूरा", "pending": "30% बाक़ी", "question": "कौन-कौन से काम?"},
+      "animate": "A donut fills to 70% in maroon; the remaining 30% glows amber and pulls outward as a wedge; the question label appears beside it."
+    },
+    "I28": {
+      "kind": "info",
+      "title": "Validity ladder",
+      "template": "ladder",
+      "content": {"heading": "हर काम की अपनी वैलिडिटी", "rungs": ["रोज़", "हर हफ़्ते", "हर महीने", "तीन महीने", "छह महीने", "साल"]},
+      "animate": "Rungs build bottom to top, one every 0.5 s; the heading sits above."
+    },
+    "I29": {
+      "kind": "info",
+      "title": "Daily tasks",
+      "template": "ladder",
+      "content": {"rung": "रोज़ के काम", "items": ["डी-एस-आर भरना", "डेंसिटी रजिस्टर अपडेट", "स्टॉक बोर्ड अपडेट", "बाथरूम-टॉयलेट इंस्पेक्शन"]},
+      "animate": "The 'रोज़' rung lifts forward; the four items appear in spoken order with paper thumbnails; the fourth glows and hands off to the sheet that follows."
+    },
+    "I30": {
+      "kind": "info",
+      "title": "Weekly tasks",
+      "template": "ladder",
+      "content": {"rung": "हफ़्ते के काम", "system": "SDMS", "items": ["हर हफ़्ते के डिक्लेरेशन", "कंप्लायंस"], "weeks": ["हफ़्ता 1", "हफ़्ता 2", "हफ़्ता 3", "हफ़्ता 4"]},
+      "animate": "The 'हर हफ़्ते' rung lifts forward; the two items write in; a four-week strip below gets one tick per week, 1.2 s apart."
+    },
+    "I31": {
+      "kind": "info",
+      "title": "Monthly, quarterly, half-yearly tasks",
+      "template": "ladder",
+      "content": {"rungs": ["हर महीने", "तीन महीने", "छह महीने"], "categories": ["तय डिक्लेरेशन", "कंप्लायंस", "समय पर रिन्यूअल"], "example": "जैसे: तिमाही मॉक ड्रिल"},
+      "animate": "Three rungs lift together; across them three category columns fill with dots in spoken order; the example chip lands on 'तीन महीने'."
+    },
+    "I32": {
+      "kind": "info",
+      "title": "Other yearly compliance",
+      "template": "ladder",
+      "content": {"rung": "साल के काम", "items": ["ओ-टी-पी", "ओ-टी-वी", "इवेंट"], "label": "बाक़ी सालाना कंप्लायंस"},
+      "animate": "Three chips drop onto the 'साल' rung in spoken order; the label underlines."
+    },
+    "I33": {
+      "kind": "info",
+      "title": "Which paper runs out when",
+      "template": "gauge",
+      "content": {"heading": "कौन-सा काग़ज़ कब ख़त्म हो रहा है", "rows": [["नापतौल सर्टिफ़िकेट", "3 दिन", "red"], ["फ़ायर NOC", "12 दिन", "amber"], ["ट्रेड लाइसेंस", "7 महीने", "green"], ["एक्सप्लोसिव लाइसेंस", "9 महीने", "green"]], "note": "मियाद ख़त्म होने से पहले ख़बर"},
+      "animate": "Four bars empty toward their dates; the 3-day bar pulses red; the note writes in at 5 s."
+    },
+    "I34": {
+      "kind": "info",
+      "title": "At one glance",
+      "template": "title",
+      "content": {"heading": "एक ही नज़र में", "sub": "आपके पंप की पूरी तस्वीर", "card": [["स्कोर", "88%"], ["पेंडिंग", "4 काम"], ["मियाद पास", "1 काग़ज़"]]},
+      "animate": "Scattered paper icons converge into one card; the three figures pop in."
+    },
+    "I35": {
+      "kind": "info",
+      "title": "Registers and dates fold into one score",
+      "template": "gauge",
+      "content": {"before": ["डी-एस-आर रजिस्टर", "डेंसिटी रजिस्टर", "स्टॉक बोर्ड", "लाइसेंस की तारीख़ें", "डिक्लेरेशन"], "line": "याद रखने की ज़रूरत नहीं", "after": {"score": "4,136 / 4,700", "percent": "88%"}},
+      "animate": "0-3.5 s: five paper tiles fan out wide. 3.5-6 s: they fold into a single card. 6-8.5 s: the score and percent roll up; the line writes under it."
+    },
+    "I36": {"kind": "info", "title": "Chapter: with you 24 hours", "template": "title", "content": {"number": "05", "chapter": "चौबीसों घंटे साथ"}, "animate": "Title rises around a 24-hour clock ring that closes its circle."},
+    "I37": {
+      "kind": "info",
+      "title": "Any need, any time — first four",
+      "template": "list",
+      "content": {"clock": "किसी भी समय", "items": ["वर्क परमिट", "कंप्लेंट दर्ज करनी हो", "ऑटोमेशन में दिक़्क़त", "डिस्पेंसिंग यूनिट में ख़राबी"]},
+      "animate": "Items appear with line icons in spoken order (about 1.5 s apart); a small 24-hour clock ticks in the corner."
+    },
+    "I38": {
+      "kind": "info",
+      "title": "Any need, any time — three more",
+      "template": "list",
+      "content": {"previous": ["वर्क परमिट", "कंप्लेंट", "ऑटोमेशन", "डिस्पेंसिंग यूनिट"], "items": ["पाइपलाइन की समस्या", "मशीन या उपकरण की शिकायत", "SDMS और IRAS का काम"]},
+      "animate": "The previous four shrink to a grey row at the top; the three new items appear in spoken order (about 2 s apart)."
+    },
+    "I39": {"kind": "info", "title": "Heading: credit and DOD watch", "template": "title", "content": {"label": "एक और सुविधा", "title": "क्रेडिट और डी-ओ-डी की निगरानी"}, "animate": "Label then title write in; a small calendar icon flips."},
+    "I40": {
+      "kind": "info",
+      "title": "Default risk seen early",
+      "template": "gauge",
+      "content": {"label": "क्रेडिट इस्तेमाल", "limit": "लिमिट ₹25,00,000", "from": "73.7%", "to": "88%", "threshold": "85%", "warning": "ड्यू डेट से पहले ₹4,86,120 जमा करें — डिफ़ॉल्ट से बचें"},
+      "animate": "Bar grows from 73.7% to 88% as a next-load chip is added; crossing the 85% line it turns amber; the warning slides in at 3.5 s."
+    },
+    "I41": {
+      "kind": "info",
+      "title": "Cash flow this week",
+      "template": "gauge",
+      "content": {"heading": "इस हफ़्ते का कैश फ़्लो", "days": ["सोम", "मंगल", "बुध", "गुरु", "शुक्र", "शनि"], "in": ["₹3,12,400", "₹2,98,700", "₹3,05,100", "₹3,21,800", "₹3,40,200", "₹3,66,900"], "marker": "गुरुवार — DOD जमा ₹4,86,120", "line": "योजना पहले से"},
+      "animate": "Six inflow bars rise; on Thursday an outflow marker drops with its label; the line writes in at the end."
+    },
+    "I42": {"kind": "info", "title": "Heading: SDMS and IRAS digital work", "template": "title", "content": {"label": "अब", "title": "एस-डी-एम-एस और आई-आर-ए-एस का डिजिटल काम"}, "animate": "Title writes in; a thin gold rule draws."},
+    "I43": {
+      "kind": "info",
+      "title": "Online tasks pile up, each with a clock",
+      "template": "list",
+      "content": {"heading": "ऑनलाइन करने वाले काम", "tiles": ["सब्सिडी क्लेम", "वर्क परमिट", "डेली डिक्लेरेशन", "स्वच्छता डिक्लेरेशन", "मिनिमम वेज डिक्लेरेशन", "वॉटर इनग्रेस टेस्टिंग", "कंप्लेंट", "रीकंस्ट्रक्शन"], "tags": ["समय पर", "सही तरीक़े से"], "line": "हर डीलर के लिए आसान नहीं"},
+      "animate": "0-5 s: tiles drop and pile up, each with a small ticking clock. 5-8.63 s: the two tags underline in amber and the line writes in."
+    },
+    "I44": {
+      "kind": "info",
+      "title": "Subsidy, reconstruction, work permit",
+      "template": "list",
+      "content": {"heading": "हमारी अनुभवी टीम मदद करती है", "items": ["सब्सिडी क्लेम", "पंप रीकंस्ट्रक्शन से जुड़े काम", "वर्क परमिट बनाना"]},
+      "animate": "Three items tick in spoken order (about 1.8 s apart)."
+    },
+    "I45": {
+      "kind": "info",
+      "title": "Water ingress testing — fixed windows",
+      "template": "gauge",
+      "content": {"label": "नया काम", "title": "वॉटर इनग्रेस टेस्टिंग", "clock": "24 घंटे · 12 विंडो · हर 2 घंटे"},
+      "animate": "A clock face divided into 12 segments lights up around the dial, segment by segment."
+    },
+    "I46": {
+      "kind": "info",
+      "title": "On time, as scheduled",
+      "template": "list",
+      "content": {"heading": "तय समय के हिसाब से", "rows": [["वॉटर टेस्टिंग विंडो", "12 में से 12 ✓"], ["डेली डिक्लेरेशन", "आज ✓"], ["मॉक ड्रिल", "अगली: 18 दिन में"]]},
+      "animate": "A day timeline runs left to right; each row ticks as the marker passes it."
+    },
+    "I47": {"kind": "info", "title": "Chapter: the fee", "template": "title", "content": {"number": "06", "chapter": "फ़ीस"}, "animate": "Title rises; a gold rule draws."},
+    "I48": {
+      "kind": "info",
+      "title": "Fee card — ₹3,000 a month + 18% GST",
+      "template": "fee-card",
+      "content": {"badge": "पूरे भारत में एक ही चार्ज", "service": "सामान्य एम-डी-जी सर्विस", "price": "₹3,000", "per": "महीना", "tax": "+ 18% जी-एस-टी"},
+      "animate": "Badge stamps at 0.8 s; the price rolls up to ₹3,000 at 2.5 s; 'महीना' settles; the GST chip clicks on at 5 s."
+    },
+    "I49": {
+      "kind": "info",
+      "title": "Premium services — fee depends on need",
+      "template": "list",
+      "content": {"heading": "प्रीमियम सेवाएँ", "items": ["लीगल असिस्टेंस", "अकाउंटिंग और फ़ाइनेंशियल मॉनिटरिंग", "साइबर सिक्योरिटी", "क्विक रिस्पॉन्स सर्विस", "स्टाफ़ असेसमेंट"], "feeNote": "फ़ीस — हर पंप की ज़रूरत और चुनी गई सेवा के हिसाब से"},
+      "animate": "Five cards deal in (1 s apart); each gets a small 'फ़ीस: ज़रूरत के हिसाब से' tag; the fee note underlines at 7 s."
+    },
+    "I50": {"kind": "info", "title": "Chapter: premium services", "template": "title", "content": {"number": "07", "chapter": "प्रीमियम सेवाएँ", "sub": "एक-एक करके"}, "animate": "Title rises; five small numbered dots appear under it."},
+    "I51": {"kind": "info", "title": "Heading: 1 · legal help", "template": "title", "content": {"label": "पहली", "title": "लीगल असिस्टेंस", "sub": "क़ानूनी मदद"}, "animate": "Numeral 1 draws; title and sub write; a scales icon settles level."},
+    "I52": {
+      "kind": "info",
+      "title": "The kinds of legal matters",
+      "template": "list",
+      "content": {"items": ["साइबर सिक्योरिटी से जुड़े मामले", "पंप से जुड़े क़ानूनी मामले", "ग्राहकों से जुड़े मामले", "कोई और कारोबारी या क़ानूनी विषय"]},
+      "animate": "Items appear in spoken order (about 2 s apart), each with a line icon."
+    },
+    "I53": {
+      "kind": "info",
+      "title": "Local court to High Court, through the advocate panel",
+      "template": "ladder",
+      "content": {"steps": ["स्थानीय अदालत", "हाई कोर्ट"], "via": "एडवोकेट पैनल के ज़रिए", "note": "ज़रूरत के हिसाब से"},
+      "animate": "A ladder rises from 'स्थानीय अदालत' at the bottom to 'हाई कोर्ट' at the top; five advocate silhouettes line up beside it with the 'via' label."
+    },
+    "I54": {"kind": "info", "title": "Heading: 2 · accounting", "template": "title", "content": {"label": "दूसरी", "title": "अकाउंटिंग और फ़ाइनेंशियल मॉनिटरिंग"}, "animate": "Numeral 2 draws; title writes."},
+    "I55": {"kind": "info", "title": "Heading: 3 · cyber security", "template": "title", "content": {"label": "तीसरी", "title": "साइबर सिक्योरिटी"}, "animate": "Numeral 3 draws; title writes; a shield icon outlines."},
+    "I56": {
+      "kind": "info",
+      "title": "Payments up, risk up",
+      "template": "gauge",
+      "content": {"rows": [["डिजिटल पेमेंट", "↑"], ["ऑनलाइन लेन-देन", "↑"], ["साइबर सुरक्षा", "बहुत ज़रूरी"]]},
+      "animate": "Two lines rise together; the third row lands with a shield outline that fills gold."
+    },
+    "I57": {
+      "kind": "info",
+      "title": "Making payment devices safer",
+      "template": "list",
+      "content": {"heading": "आपकी अनुमति से", "items": ["पेमेंट वाले फ़ोन और डिवाइस की जाँच", "ऐप और सॉफ़्टवेयर अपडेट", "पेमेंट ऐप पर लॉक", "संदिग्ध लिंक और कॉल से सावधानी"], "note": "उपलब्ध तकनीकी व्यवस्था के हिसाब से"},
+      "animate": "Heading first; four items tick in (1.3 s apart); note writes at the bottom."
+    },
+    "I58": {"kind": "info", "title": "Cyber fraud risk down", "template": "title", "content": {"title": "साइबर फ़्रॉड का ख़तरा कम", "icon": "lock"}, "animate": "A padlock shackle closes with a click; the shield behind it glows; title writes."},
+    "I59": {"kind": "info", "title": "Heading: 4 · quick response", "template": "title", "content": {"label": "चौथी", "title": "क्विक रिस्पॉन्स सर्विस"}, "animate": "Numeral 4 draws; title writes."},
+    "I60": {
+      "kind": "info",
+      "title": "Permission, then CCTV access",
+      "template": "list",
+      "content": {"steps": ["आपकी अनुमति", "ज़रूरत के हिसाब से", "सी-सी-टी-वी एक्सेस"]},
+      "animate": "Three steps link left to right with ticks; a camera icon lights at the end."
+    },
+    "I61": {
+      "kind": "info",
+      "title": "Accident, theft, fire, any emergency",
+      "template": "list",
+      "content": {"items": ["दुर्घटना", "चोरी", "आग", "कोई और इमरजेंसी"], "response": "तुरंत मदद · सही प्रक्रिया"},
+      "animate": "Four muted line icons appear in spoken order (no flames drawn in colour); the response line writes in at 4 s."
+    },
+    "I62": {
+      "kind": "info",
+      "title": "When to tell the police, when the fire department",
+      "template": "list",
+      "content": {"cards": [["पुलिस", "112", "कब ख़बर करनी है"], ["फ़ायर डिपार्टमेंट", "101", "कब ख़बर करनी है"]]},
+      "animate": "Two cards flip in one after another."
+    },
+    "I63": {"kind": "info", "title": "Right information, right coordination, on time", "template": "list", "content": {"line": "मुश्किल घड़ी में", "items": ["सही जानकारी", "सही तालमेल", "समय पर"]}, "animate": "Line first; three words land in a row with a gold rule under them."},
+    "I64": {"kind": "info", "title": "Heading: 5 · staff assessment", "template": "title", "content": {"label": "पाँचवीं", "title": "स्टाफ़ असेसमेंट"}, "animate": "Numeral 5 draws; title writes."},
+    "I65": {
+      "kind": "info",
+      "title": "How well, which tasks daily, where to improve",
+      "template": "staff-sheet",
+      "content": {
+        "sections": [
+          {"q": "काम कितनी अच्छी तरह", "bars": [["सुनील", "92"], ["राजू", "84"], ["मोहन", "71"]]},
+          {"q": "कौन-से काम रोज़ हो रहे हैं", "items": ["आइलैंड की सफ़ाई ✓", "स्टॉक बोर्ड ✓", "टॉयलेट सफ़ाई ✓"]},
+          {"q": "कहाँ सुधार चाहिए", "items": ["मोहन — समय पर हाज़िरी"]}
+        ]
+      },
+      "animate": "Three sections appear in spoken order (about 2.5 s each): bars grow, ticks land, the improvement line gets an amber marker."
+    },
+    "I66": {
+      "kind": "info",
+      "title": "Staff performance across the pump",
+      "template": "gauge",
+      "content": {"heading": "पूरे पंप में स्टाफ़ का प्रदर्शन", "weeks": [["हफ़्ता 1", "78%"], ["हफ़्ता 2", "81%"], ["हफ़्ता 3", "83%"], ["हफ़्ता 4", "86%"]], "footer": "स्टाफ़ संभालना · काम पर नज़र — दोनों आसान"},
+      "animate": "Four weekly bars rise; a line joins their tops; the footer writes in at 5 s."
+    },
+    "I67": {"kind": "info", "title": "Chapter: your data is yours", "template": "title", "content": {"number": "08", "chapter": "आपका डेटा, आपका", "icon": "lock"}, "animate": "A padlock draws and closes; the title writes under it."},
+    "I68": {
+      "kind": "info",
+      "title": "Not by name — by a code",
+      "template": "split",
+      "content": {"before": "पंप का नाम: ████████", "after": "DK-4721", "note": "नाम नहीं — कोड"},
+      "animate": "A blurred name bar is struck through; a code chip slides over it; the note writes in."
+    },
+    "I69": {
+      "kind": "info",
+      "title": "The code alone points to no pump",
+      "template": "split",
+      "content": {"code": "DK-4721", "pumps": 3, "line": "सिर्फ़ कोड से पहचान आसान नहीं"},
+      "animate": "Three identical plain white pump outlines sit in a row; the code chip moves between them and a soft question mark appears over each; the line writes in."
+    },
+    "I70": {
+      "kind": "info",
+      "title": "Never sold, never used in ads",
+      "template": "list",
+      "content": {"items": [["डेटा बेचा नहीं जाता", "✗"], ["किसी विज्ञापन में इस्तेमाल नहीं", "✗"]]},
+      "animate": "Two chips land; a maroon cross strikes each action icon (a price tag, a megaphone) in turn."
+    },
+    "I71": {"kind": "info", "title": "Confidentiality, trust, limited access", "template": "list", "content": {"items": ["गोपनीयता", "भरोसा", "सीमित एक्सेस"]}, "animate": "Three pillars rise in spoken order and a shared lintel settles on top."},
+    "I72": {"kind": "info", "title": "Chapter: join us", "template": "title", "content": {"number": "09", "chapter": "जुड़िए", "line": "मक़सद साफ़ है"}, "animate": "The M medallion settles; chapter title and line write under it."},
+    "I73": {
+      "kind": "info",
+      "title": "Everything his team takes on",
+      "template": "list",
+      "content": {"items": ["डेटा", "कंप्लायंस", "डिजिटल काम", "निगरानी", "हर ज़रूरी मदद"], "into": "हमारी टीम आपके साथ"},
+      "animate": "Five chips appear in spoken order (1 s apart) and slide into a shield outline; the into-line writes under it."
+    },
+    "I74": {
+      "kind": "info",
+      "title": "Six things, one place",
+      "template": "list",
+      "content": {"items": ["चौबीसों घंटे का साथ", "रोज़ की निगरानी", "कंप्लायंस का हिसाब", "पैसों पर नज़र", "डिजिटल काम में मदद", "प्रीमियम सपोर्ट"], "into": "सब एक ही जगह"},
+      "animate": "Six tiles appear in spoken order (about 1.2 s apart) in a 2x3 grid; at 7.5 s they draw together toward the centre with the into-line."
+    },
+    "I75": {"kind": "info", "title": "Meet your city representative", "template": "join-card", "content": {"line": "अपने शहर में", "title": "अधिकृत एम-डी-जी सर्विस रिप्रेज़ेंटेटिव से मिलिए"}, "animate": "A person icon with a map pin draws; the lines write in."},
+    "I76": {
+      "kind": "info",
+      "title": "Join card — toll-free and website",
+      "template": "join-card",
+      "content": {"rows": [["टोल-फ़्री नंबर", "FOUNDER TO SUPPLY — do not invent a number"], ["वेबसाइट", "mdgservices.in"]], "small": "या अपने शहर के एम-डी-जी रिप्रेज़ेंटेटिव से मिलिए"},
+      "animate": "Card rises; the toll-free row lands at 1.5 s, the website row at 5.5 s (as spoken); both hold to the end."
+    },
+    "I77": {
+      "kind": "info",
+      "title": "Any oil company — service in 7 days",
+      "template": "ladder",
+      "content": {"line": "किसी भी तेल कंपनी का पंप", "steps": [["दिन 1", "कीमत तय"], ["दिन 7 के अंदर", "सेवा शुरू"]], "icons": "three plain white pump outlines, no colours, no logos"},
+      "animate": "Three plain pump outlines appear (0-2.5 s); a seven-dot timeline runs from 'कीमत तय' to 'सेवा शुरू' (2.5-6.5 s); the last dot stamps gold."
+    },
+    "I78": {"kind": "info", "title": "End card", "template": "title", "content": {"logo": "M", "lines": ["एम-डी-जी सर्विसेज़", "डीलर कवच प्रोग्राम", "आपके पंप की परछाई"], "footer": "mdgservices.in"}, "animate": "Medallion settles; the three lines write in as spoken (about 1.6 s apart); a soft long shadow stretches under the medallion; footer fades in."}
+  },
+
+  "beats": {
+    "K001": {"segments": [{"asset": "S01", "seconds": 3.6, "from": 0}, {"asset": "S02", "seconds": 3.76, "from": 0}], "why": "The pump runs through the night while he, at home, cannot be there — he sees both halves of the sentence."},
+    "K002": {"segments": [{"asset": "I01", "seconds": 6.6}, {"asset": "S03", "seconds": 4.38, "from": 0}], "why": "The seven words spoken, printed in his order; then him under the pile for 'never ends'."},
+    "K003": {"segments": [{"asset": "S04", "seconds": 8.52, "from": 0}], "why": "His own shadow on his forecourt is the 'परछाई' made literal."},
+    "K101": {"segments": [{"asset": "I02", "seconds": 3.23}], "why": "Name the company once, cleanly."},
+    "K102": {"segments": [{"asset": "S05", "seconds": 4.3, "from": 0}, {"asset": "S06", "seconds": 4.36, "from": 0}], "why": "He gives permission himself (a nod), then the people who work as his shadow."},
+    "K103": {"segments": [{"asset": "I03", "seconds": 6.8}, {"asset": "S07", "seconds": 4.83, "from": 0}], "why": "The three named worries physically move off his side; a team member takes them on."},
+    "K104": {"segments": [{"asset": "S08", "seconds": 4.45, "from": 0}, {"asset": "S09", "seconds": 5.0, "from": 0}], "why": "He puts the phone down at night; the MDG desk is lit and awake."},
+    "K105": {"segments": [{"asset": "I04", "seconds": 7.9}, {"asset": "S10", "seconds": 3.36, "from": 0}], "why": "Three spoken numbers shown as numbers, then the team at work."},
+    "K106": {"segments": [{"asset": "S11", "seconds": 3.9, "from": 0}, {"asset": "I05", "seconds": 4.02}], "why": "He leans in to listen; the roadmap tells him what is coming."},
+    "K201": {"segments": [{"asset": "I06", "seconds": 3.0}, {"asset": "S12", "seconds": 3.86, "from": 0}, {"asset": "P01", "seconds": 3.2}], "why": "Chapter card; the connection shown only as its outcome — a team member at work and a welcome on his phone, no portal."},
+    "K202": {"segments": [{"asset": "S13", "seconds": 7.97, "from": 0}], "why": "His ordinary selling day — the sale the team now sees daily."},
+    "K203": {"segments": [{"asset": "I07", "seconds": 5.78}], "why": "Numbered heading for the first job."},
+    "K204": {"segments": [{"asset": "D01", "seconds": 7.32}], "why": "He sees the meter-reading and dip record he keeps, filled."},
+    "K205": {"segments": [{"asset": "S14", "seconds": 3.6, "from": 0}, {"asset": "I08", "seconds": 3.62}], "why": "The automation box he recognises, then how its data feeds everything after."},
+    "K206": {"segments": [{"asset": "S15", "seconds": 4.3, "from": 0}, {"asset": "P02", "seconds": 7.2}], "why": "When automation fails his manager just photographs the dip and running, and the DSR still comes."},
+    "K207": {"segments": [{"asset": "I09", "seconds": 3.0}, {"asset": "D02", "seconds": 3.02}], "why": "Heading, then the DSR page with his own column names."},
+    "K208": {"segments": [{"asset": "S16", "seconds": 3.8, "from": 0}, {"asset": "D03", "seconds": 5.7}], "why": "An experienced hand checks, then reading, dip, sale and other figures drop into a DSR row that adds up."},
+    "K209": {"segments": [{"asset": "P03", "seconds": 5.2}, {"asset": "S17", "seconds": 3.3, "from": 0}, {"asset": "S18", "seconds": 3.32, "from": 0}], "why": "The DSR image on his phone, his manager copying it into the register, and him free on the forecourt."},
+    "K210": {"segments": [{"asset": "P04", "seconds": 7.04}], "why": "Three numbers tell him his pump's real state today."},
+    "K211": {"segments": [{"asset": "I10", "seconds": 4.76}], "why": "Numbered heading."},
+    "K212": {"segments": [{"asset": "D04", "seconds": 6.3}, {"asset": "S19", "seconds": 3.43, "from": 0}], "why": "The two papers he knows — DSR and the inspection report — become the variation sheet; a team member works from both."},
+    "K213": {"segments": [{"asset": "D05", "seconds": 6.25}, {"asset": "P05", "seconds": 4.5}], "why": "How much the variation is and the limit in its two parts, then the plain verdict he receives."},
+    "K214": {"segments": [{"asset": "I11", "seconds": 5.2}, {"asset": "P06", "seconds": 4.62}], "why": "A run of shortages made visible, then the alert that asks for attention."},
+    "K215": {"segments": [{"asset": "I12", "seconds": 4.25}], "why": "Numbered heading."},
+    "K216": {"segments": [{"asset": "I13", "seconds": 6.2}, {"asset": "S20", "seconds": 6.46, "from": 0}], "why": "His tank draining against his sales tells him when; the tanker arrives at the right time."},
+    "K217": {"segments": [{"asset": "P07", "seconds": 6.7}, {"asset": "S21", "seconds": 4.47, "from": 0}], "why": "Why the load is held and the next step, on his phone; then his relief on the call."},
+    "K218": {"segments": [{"asset": "I14", "seconds": 6.02}], "why": "Numbered heading with the plus and minus he thinks in."},
+    "K219": {"segments": [{"asset": "D06", "seconds": 6.5}, {"asset": "P08", "seconds": 4.62}], "why": "The running plus/minus sheet, then the message that tells him which way it is heading."},
+    "K220": {"segments": [{"asset": "S22", "seconds": 4.5, "from": 0}, {"asset": "S23", "seconds": 8.02, "from": 0}], "why": "Someone spots the problem early; he watches his forecourt at ease."},
+    "K221": {"segments": [{"asset": "S24", "seconds": 5.2, "from": 0}, {"asset": "S10", "seconds": 4.3, "from": 3.2}], "why": "He runs his pump with his staff; the team behind him keeps watch."},
+    "K301": {"segments": [{"asset": "I15", "seconds": 3.23}], "why": "Chapter title over the heading line."},
+    "K302": {"segments": [{"asset": "D07", "seconds": 5.6}, {"asset": "S25", "seconds": 4.5, "from": 0}], "why": "The invoice, density register and linked records named in the line, then him at the tanker holding his file."},
+    "K303": {"segments": [{"asset": "I16", "seconds": 4.62}], "why": "Numbered heading."},
+    "K304": {"segments": [{"asset": "D08", "seconds": 6.72}, {"asset": "P09", "seconds": 4.5}], "why": "Invoice density beside his register's density, equal; then the figure sent to his phone."},
+    "K305": {"segments": [{"asset": "I17", "seconds": 3.2}, {"asset": "D09", "seconds": 9.5}], "why": "His stock board, checked for the right information, the right way, every day."},
+    "K306": {"segments": [{"asset": "I18", "seconds": 3.0}, {"asset": "S26", "seconds": 5.0, "from": 0}, {"asset": "D10", "seconds": 6.14}], "why": "The sealed bottles he knows, then the label with every field checked."},
+    "K307": {"segments": [{"asset": "I19", "seconds": 3.0}, {"asset": "D11", "seconds": 9.94}], "why": "Challan number, density and the rest — matched line by line against the invoice."},
+    "K308": {"segments": [{"asset": "I20", "seconds": 3.0}, {"asset": "S15", "seconds": 3.5, "from": 3.5}, {"asset": "P10", "seconds": 3.6}], "why": "His manager sends the photo; it comes back matched."},
+    "K309": {"segments": [{"asset": "D12", "seconds": 6.77}, {"asset": "S16", "seconds": 3.8, "from": 3.2}], "why": "The pump's real record against the DSR — a 2 L gap caught and fixed; the checker squares his sheets."},
+    "K310": {"segments": [{"asset": "S27", "seconds": 5.5, "from": 0}, {"asset": "P11", "seconds": 4.0}, {"asset": "S12", "seconds": 3.39, "from": 3.2}], "why": "His staff do their part, the photos arrive and get verified, the team signs off."},
+    "K311": {"segments": [{"asset": "I21", "seconds": 6.0}, {"asset": "S28", "seconds": 5.87, "from": 0}], "why": "Paper against reality, matched; he closes his register satisfied."},
+    "K401": {"segments": [{"asset": "I22", "seconds": 4.34}], "why": "Chapter title over the heading line."},
+    "K402": {"segments": [{"asset": "S29", "seconds": 4.3, "from": 0}, {"asset": "I23", "seconds": 7.47}], "why": "Everyday work on his forecourt, then the count of 43 separate tasks."},
+    "K403": {"segments": [{"asset": "D13", "seconds": 7.0}, {"asset": "P12", "seconds": 5.15}], "why": "A table of tasks with points and validity, then today's assessment on his phone."},
+    "K404": {"segments": [{"asset": "I24", "seconds": 9.78}], "why": "The example total, 4,700, as a number he can hold."},
+    "K405": {"segments": [{"asset": "I25", "seconds": 5.5}, {"asset": "S18", "seconds": 3.81, "from": 2.8}], "why": "The ring filling near 100%; his quiet nod."},
+    "K406": {"segments": [{"asset": "D14", "seconds": 4.85}], "why": "The DSR page itself earning its points."},
+    "K407": {"segments": [{"asset": "D15", "seconds": 4.99}], "why": "The density register earning its points."},
+    "K408": {"segments": [{"asset": "D16", "seconds": 4.53}], "why": "The stock board earning its points."},
+    "K409": {"segments": [{"asset": "D17", "seconds": 4.07}], "why": "The trade licence, valid, earning its points."},
+    "K410": {"segments": [{"asset": "D18", "seconds": 6.94}], "why": "Registers, declarations and compliance named in that order, each ticked."},
+    "K411": {"segments": [{"asset": "I26", "seconds": 6.48}], "why": "The points add into today's score."},
+    "K412": {"segments": [{"asset": "P13", "seconds": 6.55}, {"asset": "S30", "seconds": 4.3, "from": 0}], "why": "Done and pending on the screen both sides see; he reads it."},
+    "K413": {"segments": [{"asset": "I27", "seconds": 6.3}, {"asset": "P14", "seconds": 5.52}], "why": "The 70/30 split, then the team telling him what sits in the 30%."},
+    "K414": {"segments": [{"asset": "P15", "seconds": 6.85}], "why": "Not just a percent: the whole pending list in front of him."},
+    "K415": {"segments": [{"asset": "S11", "seconds": 3.2, "from": 3.2}, {"asset": "I28", "seconds": 3.84}], "why": "He opens his register — not every job is daily — then the ladder of validity cycles as the second half is spoken."},
+    "K416": {"segments": [{"asset": "I29", "seconds": 6.2}, {"asset": "D19", "seconds": 4.23}], "why": "The four daily jobs in spoken order, ending on the toilet inspection sheet he fills."},
+    "K417": {"segments": [{"asset": "I30", "seconds": 8.66}], "why": "Weekly SDMS declarations and compliance, one tick per week."},
+    "K418": {"segments": [{"asset": "I31", "seconds": 6.5}, {"asset": "S31", "seconds": 4.95, "from": 0}], "why": "Monthly, quarterly and half-yearly rungs with their three kinds of work; his hand turning the register."},
+    "K419": {"segments": [{"asset": "D20", "seconds": 5.0}, {"asset": "D21", "seconds": 5.0}, {"asset": "I32", "seconds": 4.89}], "why": "The trade licence renewal, the W&M annual paper, then OTP, OTV and event — in the spoken order."},
+    "K420": {"segments": [{"asset": "I33", "seconds": 6.5}, {"asset": "P16", "seconds": 4.86}], "why": "Which paper runs out when, then the reminder that reaches him."},
+    "K421": {"segments": [{"asset": "S30", "seconds": 4.3, "from": 3.4}, {"asset": "I34", "seconds": 3.34}], "why": "He leans back at ease; the whole picture on one card."},
+    "K422": {"segments": [{"asset": "P17", "seconds": 6.0}, {"asset": "P18", "seconds": 5.12}], "why": "The five things named — total, done, remaining, pending, expiring — as tiles on his phone."},
+    "K423": {"segments": [{"asset": "I35", "seconds": 8.51}, {"asset": "S32", "seconds": 4.1, "from": 0}], "why": "His registers and dates fold into one score; he sips chai with nothing to remember."},
+    "K424": {"segments": [{"asset": "P19", "seconds": 6.0}, {"asset": "S33", "seconds": 6.42, "from": 0}], "why": "Today's standing arrives every morning; he stands on his forecourt knowing where he is."},
+    "K501": {"segments": [{"asset": "I36", "seconds": 3.32}], "why": "Chapter title over the heading line."},
+    "K502": {"segments": [{"asset": "S01", "seconds": 4.5, "from": 3.0}, {"asset": "S02", "seconds": 4.58, "from": 3.1}], "why": "Echo of the opening: the pump at night, and a need that can reach him at any hour."},
+    "K503": {"segments": [{"asset": "I37", "seconds": 6.5}, {"asset": "S34", "seconds": 4.16, "from": 0}], "why": "The four needs in his order, ending on a dispenser opened up for repair."},
+    "K504": {"segments": [{"asset": "I38", "seconds": 7.5}, {"asset": "S09", "seconds": 3.53, "from": 3.9}], "why": "The next three needs, and the night desk that takes them."},
+    "K505": {"segments": [{"asset": "P20", "seconds": 5.0}, {"asset": "S35", "seconds": 3.48, "from": 0}], "why": "A 23:40 complaint answered at 23:44; his manager relaxes."},
+    "K506": {"segments": [{"asset": "P21", "seconds": 9.41}], "why": "Done and pending, listed as he receives it."},
+    "K507": {"segments": [{"asset": "S36", "seconds": 4.0, "from": 0}, {"asset": "P22", "seconds": 8.05}], "why": "He photographs a paper; the chat shows typing, voice and photo, and the written record."},
+    "K508": {"segments": [{"asset": "I39", "seconds": 5.6}], "why": "Heading for credit and DOD."},
+    "K509": {"segments": [{"asset": "P23", "seconds": 6.5}, {"asset": "P24", "seconds": 5.92}], "why": "Days left, what is still owed, and exactly how much to deposit — his credit card, in that order."},
+    "K510": {"segments": [{"asset": "I40", "seconds": 5.5}, {"asset": "S37", "seconds": 5.76, "from": 0}], "why": "The usage bar crossing into warning before it becomes a default; he plans his deposit."},
+    "K511": {"segments": [{"asset": "D22", "seconds": 7.0}, {"asset": "P25", "seconds": 5.47}], "why": "His statement with the internal charge highlighted, then the separate card he gets for it."},
+    "K512": {"segments": [{"asset": "I41", "seconds": 6.39}], "why": "His week's cash flow with the deposit planned in."},
+    "K513": {"segments": [{"asset": "I42", "seconds": 5.18}], "why": "Heading."},
+    "K514": {"segments": [{"asset": "S38", "seconds": 7.0, "from": 0}, {"asset": "I43", "seconds": 8.63}], "why": "The tired dealer at a screen he cannot read; the pile of online jobs, each with a clock."},
+    "K515": {"segments": [{"asset": "I44", "seconds": 6.5}, {"asset": "D23", "seconds": 6.9}], "why": "The three jobs named, then a work permit he recognises, approved."},
+    "K516": {"segments": [{"asset": "D24", "seconds": 6.5}, {"asset": "P26", "seconds": 4.39}], "why": "The declarations named in the line, filed and ticked; the confirmation on his phone."},
+    "K517": {"segments": [{"asset": "S06", "seconds": 4.33, "from": 3.4}, {"asset": "P27", "seconds": 6.0}], "why": "A senior guiding a colleague, then an expert answer to a technical problem in his chat."},
+    "K518": {"segments": [{"asset": "I45", "seconds": 3.5}, {"asset": "P28", "seconds": 6.51}], "why": "The new two-hour windows, then the day card he receives — outcome only, never how."},
+    "K519": {"segments": [{"asset": "S08", "seconds": 4.2, "from": 3.5}, {"asset": "I46", "seconds": 5.07}], "why": "He rests; the timed tasks tick off on schedule."},
+    "K520": {"segments": [{"asset": "S39", "seconds": 4.5, "from": 0}, {"asset": "D25", "seconds": 3.98}], "why": "His files in order on the shelf; the inspection-ready checklist."},
+    "K601": {"segments": [{"asset": "I47", "seconds": 3.42}], "why": "Chapter title over the heading line."},
+    "K602": {"segments": [{"asset": "I48", "seconds": 7.3}, {"asset": "S05", "seconds": 4.38, "from": 3.4}], "why": "The exact fee as spoken; his approving nod."},
+    "K603": {"segments": [{"asset": "D26", "seconds": 6.5}, {"asset": "S40", "seconds": 4.58, "from": 0}], "why": "The invoice line that is GST, moving into his accounts as ITC; his accountant opens the ledger."},
+    "K604": {"segments": [{"asset": "I49", "seconds": 10.1}], "why": "The five premium services, each with a fee set by need."},
+    "K701": {"segments": [{"asset": "I50", "seconds": 4.25}], "why": "Chapter title."},
+    "K702": {"segments": [{"asset": "I51", "seconds": 5.23}], "why": "Numbered heading."},
+    "K703": {"segments": [{"asset": "I52", "seconds": 8.0}, {"asset": "S41", "seconds": 3.4, "from": 0}], "why": "The four kinds of matter in his order, then the advocate's chamber."},
+    "K704": {"segments": [{"asset": "I53", "seconds": 6.46}, {"asset": "S41", "seconds": 4.2, "from": 3.0}], "why": "Local court up to High Court through the panel; the advocate's reassuring nod."},
+    "K705": {"segments": [{"asset": "D27", "seconds": 8.0}, {"asset": "S42", "seconds": 6.47, "from": 0}], "why": "The cost written down before anything starts; his relief reading it."},
+    "K706": {"segments": [{"asset": "I54", "seconds": 3.5}, {"asset": "S40", "seconds": 4.0, "from": 3.6}, {"asset": "D28", "seconds": 3.25}], "why": "Heading, the accountant with him, and the monthly report that follows."},
+    "K707": {"segments": [{"asset": "D29", "seconds": 9.31}], "why": "Income, expense, profit — three figures, in spoken order."},
+    "K708": {"segments": [{"asset": "D30", "seconds": 7.0}, {"asset": "D31", "seconds": 4.54}], "why": "Cash, bank, receivable, payable; then his digital payments."},
+    "K709": {"segments": [{"asset": "D32", "seconds": 8.0}, {"asset": "P29", "seconds": 5.77}], "why": "Money received beside money recorded, with the ₹2,500 gap caught; the message he gets about it."},
+    "K710": {"segments": [{"asset": "I55", "seconds": 3.5}, {"asset": "S43", "seconds": 4.44, "from": 0}, {"asset": "I56", "seconds": 4.44}], "why": "Heading, the payment devices on his own counter, and why the risk rises."},
+    "K711": {"segments": [{"asset": "I57", "seconds": 7.0}, {"asset": "S44", "seconds": 4.36, "from": 0}, {"asset": "I58", "seconds": 4.36}], "why": "What is made safer, him at ease, and the lock closing on fraud risk."},
+    "K712": {"segments": [{"asset": "I59", "seconds": 4.11}], "why": "Numbered heading."},
+    "K713": {"segments": [{"asset": "S45", "seconds": 5.0, "from": 0}, {"asset": "I60", "seconds": 3.66}], "why": "His CCTV wall; access given only with his permission."},
+    "K714": {"segments": [{"asset": "D33", "seconds": 8.0}, {"asset": "S46", "seconds": 6.84, "from": 0}], "why": "The four things kept together, as tabs of one file; his hand on the insurance folder."},
+    "K715": {"segments": [{"asset": "I61", "seconds": 5.0}, {"asset": "S47", "seconds": 4.3, "from": 0}, {"asset": "P30", "seconds": 6.51}], "why": "The emergencies named without showing any; him calm on the call; the steps in his chat."},
+    "K716": {"segments": [{"asset": "D34", "seconds": 7.55}], "why": "Which policy covers it, and when and how to inform the insurer."},
+    "K717": {"segments": [{"asset": "I62", "seconds": 4.9}], "why": "Police and fire, each with when to call."},
+    "K718": {"segments": [{"asset": "D35", "seconds": 6.53}], "why": "Who to tell first, and the claim papers."},
+    "K719": {"segments": [{"asset": "S47", "seconds": 4.3, "from": 3.4}, {"asset": "I63", "seconds": 4.13}], "why": "The calm after: he lowers the phone and breathes."},
+    "K720": {"segments": [{"asset": "I64", "seconds": 3.5}, {"asset": "S29", "seconds": 4.3, "from": 3.4}, {"asset": "D36", "seconds": 4.44}], "why": "Heading, his staff at work under the manager's eye, and the fixed yardsticks."},
+    "K721": {"segments": [{"asset": "P31", "seconds": 4.0}, {"asset": "D37", "seconds": 5.55}], "why": "Ratings sent from the pump, then the daily assessment sheet."},
+    "K722": {"segments": [{"asset": "I65", "seconds": 7.99}, {"asset": "S48", "seconds": 4.2, "from": 0}], "why": "How well, which daily jobs, where to improve — then him with his staff."},
+    "K723": {"segments": [{"asset": "I66", "seconds": 7.85}, {"asset": "S48", "seconds": 4.2, "from": 3.3}], "why": "The pump-wide performance trend; his staff smile back."},
+    "K801": {"segments": [{"asset": "I67", "seconds": 6.29}], "why": "Chapter title over the heading line."},
+    "K802": {"segments": [{"asset": "S49", "seconds": 6.76, "from": 0}], "why": "He locks his papers away — privacy as a feeling he knows."},
+    "K803": {"segments": [{"asset": "I68", "seconds": 5.97}], "why": "Name struck out, code in its place."},
+    "K804": {"segments": [{"asset": "D38", "seconds": 6.5}, {"asset": "I69", "seconds": 5.09}], "why": "A report carrying only the code, and the code pointing to no pump."},
+    "K805": {"segments": [{"asset": "D39", "seconds": 6.5}, {"asset": "I70", "seconds": 5.55}], "why": "The NDA signed first, then the two promises struck out as never."},
+    "K806": {"segments": [{"asset": "I71", "seconds": 6.0}, {"asset": "S32", "seconds": 4.24, "from": 3.3}], "why": "The three words as pillars; him at peace at home."},
+    "K901": {"segments": [{"asset": "I72", "seconds": 4.25}], "why": "Chapter title."},
+    "K902": {"segments": [{"asset": "S50", "seconds": 5.0, "from": 0}, {"asset": "I73", "seconds": 6.0}, {"asset": "S51", "seconds": 4.07, "from": 0}], "why": "He runs his business; the five things named go to the team; a team member ready."},
+    "K903": {"segments": [{"asset": "I74", "seconds": 8.5}, {"asset": "P32", "seconds": 4.44}], "why": "The six promises in spoken order, all landing in one app."},
+    "K904": {"segments": [{"asset": "S52", "seconds": 4.58, "from": 0}], "why": "His relieved smile carries the line."},
+    "K905": {"segments": [{"asset": "S53", "seconds": 5.0, "from": 0}, {"asset": "I75", "seconds": 3.34}], "why": "A representative across his desk, then who to meet."},
+    "K906": {"segments": [{"asset": "S51", "seconds": 3.5, "from": 3.2}, {"asset": "I76", "seconds": 9.67}], "why": "A person answers; the number and website he must read."},
+    "K907": {"segments": [{"asset": "P33", "seconds": 5.41}], "why": "The app's name as it appears on Google Play."},
+    "K908": {"segments": [{"asset": "I77", "seconds": 7.97}], "why": "Any oil company, seven days from price to service."},
+    "K909": {"segments": [{"asset": "I78", "seconds": 5.74}], "why": "End card with the three spoken lines."}
+  }
+}

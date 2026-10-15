@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* the stock board on the forecourt wall: a white board in a maroon frame, the
+   day's figures written on in marker; then the three things we check tick in
+   under it in the order they are spoken, and a week strip fills day by day. */
+.wrap{display:flex;flex-direction:column;align-items:center;gap:48px;transform-origin:50% 40%}
+.board{width:920px;background:linear-gradient(170deg,#FFFFFF,#F4F1EC);border:18px solid var(--maroon);border-radius:18px;
+  padding:26px 30px 30px;position:relative;
+  box-shadow:0 40px 80px rgba(40,14,6,.36),0 8px 18px rgba(40,14,6,.22),inset 0 0 0 2px rgba(0,0,0,.05)}
+.board::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.6),rgba(255,255,255,0) 38%)}
+.board .screw{position:absolute;top:-30px;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#EEE,#8A8178)}
+.bh{font-size:46px;color:var(--maroon);line-height:1.3;padding-bottom:14px;border-bottom:3px solid #D9D2C8;margin-bottom:6px}
+.bh b{font-family:'Kalam',cursive;font-weight:700}
+.tb{display:grid;grid-template-columns:150px 1fr 1fr 180px}
+.tb > div{height:124px;display:flex;align-items:center;justify-content:center;border-bottom:2px solid #E4DED5}
+.tb > div:not(:nth-child(4n+1)){border-left:2px solid #E4DED5}
+.tb .th{height:92px;font-size:32px;color:#6B6258;line-height:1.2;text-align:center}
+.tb .p{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;color:var(--maroon)}
+.tb .m{font-family:'Kalam',cursive;font-weight:700;font-size:56px;color:#1F3B7A}
+@keyframes writeL{0%{clip-path:inset(-30% 100% -30% -4%)}100%{clip-path:inset(-30% -4% -30% -4%)}}
+.wl{animation-name:writeL;animation-timing-function:linear}
+
+.checks{width:920px;display:flex;flex-direction:column;gap:18px}
+.ck{display:flex;align-items:center;gap:26px;background:#fff;border:2px solid #EFE4D2;border-radius:20px;
+  padding:26px 32px;box-shadow:0 8px 20px rgba(74,15,15,.10)}
+.ck .ic{width:76px;height:76px;border-radius:50%;background:var(--good);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.ck .ic svg{width:40px;height:40px;stroke-width:3}
+.ck span{font-size:52px;color:var(--ink);line-height:1.3}
+
+.week{width:920px;display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
+.day{background:rgba(255,255,255,.9);border:2px solid #EFE4D2;border-radius:18px;padding:20px 0 22px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 6px 14px rgba(74,15,15,.08)}
+.day .n{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:var(--maroon);line-height:1}
+.day .t{width:62px;height:62px;border-radius:50%;background:var(--good);color:#fff;display:flex;align-items:center;justify-content:center}
+.day .t svg{width:36px;height:36px;stroke-width:3.2}
+.day .o{width:62px;height:62px;border-radius:50%;border:3px dashed #D8CBB6;position:relative}
+.day .o .t{position:absolute;left:-3px;top:-3px}
+.wlab{font-size:32px;color:var(--inkMuted);margin-bottom:-24px;align-self:flex-start;margin-left:80px}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.03)}}
+</style>
+</head>
+<body>
+<!-- ══ D10 · the stock board, checked every day · K305 "दूसरा — स्टॉक बोर्ड। हम देखते हैं कि स्टॉक बोर्ड पर ज़रूरी जानकारी सही तरीक़े से, और रोज़ भरी जा रही है या नहीं।" (9.7 s) ══ -->
+<div class="panel" id="D10" data-plate="office" style="--T:11s">
+  <div class="glow anim a-glow" style="animation-delay:-.5s;top:36%"></div>
+  <div class="wrap anim" style="animation-name:push;animation-delay:6.8s;animation-duration:4s;animation-timing-function:linear">
+    <div class="board anim a-rise" style="animation-delay:0s;animation-duration:3s">
+      <div class="screw" style="left:120px"></div><div class="screw" style="right:120px"></div>
+      <div class="bh hi anim wl" style="animation-delay:.35s;animation-duration:.6s">स्टॉक बोर्ड · <b>21-08</b> · सुबह <b>9:40</b></div>
+      <div class="tb">
+        <div class="th hi anim a-fade" style="animation-delay:.8s;animation-duration:3s">उत्पाद</div>
+        <div class="th hi anim a-fade" style="animation-delay:.85s;animation-duration:3s">टंकी में स्टॉक</div>
+        <div class="th hi anim a-fade" style="animation-delay:.9s;animation-duration:3s">कल की बिक्री</div>
+        <div class="th hi anim a-fade" style="animation-delay:.95s;animation-duration:3s">डेंसिटी</div>
+        <div class="p"><span class="anim wl" style="animation-delay:1.15s;animation-duration:.2s">MS</span></div>
+        <div class="m"><span class="anim wl" style="animation-delay:1.3s;animation-duration:.3s">6,440 L</span></div>
+        <div class="m"><span class="anim wl" style="animation-delay:1.55s;animation-duration:.3s">3,426 L</span></div>
+        <div class="m"><span class="anim wl" style="animation-delay:1.8s;animation-duration:.25s">745.2</span></div>
+        <div class="p" style="border-bottom:none"><span class="anim wl" style="animation-delay:1.95s;animation-duration:.2s">HSD</span></div>
+        <div class="m" style="border-bottom:none"><span class="anim wl" style="animation-delay:2.1s;animation-duration:.3s">14,246 L</span></div>
+        <div class="m" style="border-bottom:none"><span class="anim wl" style="animation-delay:2.35s;animation-duration:.3s">4,222 L</span></div>
+        <div class="m" style="border-bottom:none"><span class="anim wl" style="animation-delay:2.6s;animation-duration:.25s">831.5</span></div>
+      </div>
+    </div>
+
+    <div class="checks">
+      <div class="ck anim a-stamp" style="animation-delay:2.9s;animation-duration:4s"><div class="ic anim a-pop" style="animation-delay:3.15s;animation-duration:3s"><svg class="i"><use href="#i-check"/></svg></div><span class="hi">ज़रूरी जानकारी</span></div>
+      <div class="ck anim a-stamp" style="animation-delay:4.0s;animation-duration:4s"><div class="ic anim a-pop" style="animation-delay:4.25s;animation-duration:3s"><svg class="i"><use href="#i-check"/></svg></div><span class="hi">सही तरीक़े से</span></div>
+      <div class="ck anim a-stamp" style="animation-delay:5.1s;animation-duration:4s"><div class="ic anim a-pop" style="animation-delay:5.35s;animation-duration:3s"><svg class="i"><use href="#i-check"/></svg></div><span class="hi">रोज़ भरी गई</span></div>
+    </div>
+
+    <div class="week anim a-rise" style="animation-delay:5.5s;animation-duration:3s">
+      <div class="day"><div class="n">15</div><div class="o"><div class="t anim a-pop" style="animation-delay:5.85s;animation-duration:2s"><svg class="i"><use href="#i-check"/></svg></div></div></div>
+      <div class="day"><div class="n">16</div><div class="o"><div class="t anim a-pop" style="animation-delay:6.0s;animation-duration:2s"><svg class="i"><use href="#i-check"/></svg></div></div></div>
+      <div class="day"><div class="n">17</div><div class="o"><div class="t anim a-pop" style="animation-delay:6.15s;animation-duration:2s"><svg class="i"><use href="#i-check"/></svg></div></div></div>
+      <div class="day"><div class="n">18</div><div class="o"><div class="t anim a-pop" style="animation-delay:6.3s;animation-duration:2s"><svg class="i"><use href="#i-check"/></svg></div></div></div>
+      <div class="day"><div class="n">19</div><div class="o"><div class="t anim a-pop" style="animation-delay:6.45s;animation-duration:2s"><svg class="i"><use href="#i-check"/></svg></div></div></div>
+      <div class="day"><div class="n">20</div><div class="o"><div class="t anim a-pop" style="animation-delay:6.6s;animation-duration:2s"><svg class="i"><use href="#i-check"/></svg></div></div></div>
+      <div class="day"><div class="n">21</div><div class="o"><div class="t anim a-pop" style="animation-delay:6.75s;animation-duration:2s"><svg class="i"><use href="#i-check"/></svg></div></div></div>
+    </div>
+  </div>
+  <div class="rail hi">हर दिन, सही जानकारी</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

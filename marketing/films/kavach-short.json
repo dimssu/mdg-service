@@ -1,0 +1,81 @@
+{
+ "film": "Dealer Kavach — the 40-second short",
+ "slug": "kavach-short",
+ "language": "hi",
+ "note": "The short made from the full film (kavach.json) on 4 Oct 2026: a trailer cut that stops on the sixth premium service and sends the viewer to the full film. Every fact is from the full film; source_beats name the lines. Plan: films/short/plan.json.",
+ "chapters": {
+  "0": "शॉर्ट"
+ },
+ "beats": [
+  {
+   "id": "Q01",
+   "act": 0,
+   "hi": "मैनेजर छुट्टी पर। उसी दिन — इंस्पेक्शन।",
+   "plan": "L1",
+   "source": "short 4 Oct 2026: from K016"
+  },
+  {
+   "id": "Q02",
+   "act": 0,
+   "hi": "कमाई घट रही है। ख़र्च, नियम, ऑनलाइन काम — सब बढ़ रहा है।",
+   "plan": "L2",
+   "source": "short 4 Oct 2026: from K011, K014"
+  },
+  {
+   "id": "Q03",
+   "act": 0,
+   "hi": "आप चौबीस घंटे पंप पर नहीं रह सकते।",
+   "plan": "L3",
+   "source": "short 4 Oct 2026: from K104, K001"
+  },
+  {
+   "id": "Q04",
+   "act": 0,
+   "hi": "पर आपकी परछाई रह सकती है।",
+   "plan": "L4",
+   "source": "short 4 Oct 2026: from K003, K104"
+  },
+  {
+   "id": "Q05",
+   "act": 0,
+   "hi": "यही है एम-डी-जी सर्विसेज़।",
+   "plan": "L5",
+   "source": "short 4 Oct 2026: from K101"
+  },
+  {
+   "id": "Q06",
+   "act": 0,
+   "hi": "डी-एस-आर, स्टॉक, कंप्लायंस स्कोर — रोज़ तैयार।",
+   "plan": "L6",
+   "source": "short 4 Oct 2026: from K208, K209, K219, K403, K411, K105"
+  },
+  {
+   "id": "Q07",
+   "act": 0,
+   "hi": "तीन हज़ार रुपये महीना, उस पर जी-एस-टी।",
+   "plan": "L7",
+   "source": "short 4 Oct 2026: from K602"
+  },
+  {
+   "id": "Q08",
+   "act": 0,
+   "hi": "प्रीमियम सेवाएँ अलग से।",
+   "plan": "L8",
+   "source": "short 4 Oct 2026: from K604"
+  },
+  {
+   "id": "Q09",
+   "act": 0,
+   "hi": "और छठी सेवा? जब लोड के लिए एक से तीन लाख कम पड़ जाएँ…",
+   "plan": "L9",
+   "source": "short 4 Oct 2026: from K724, K725"
+  },
+  {
+   "id": "Q10",
+   "act": 0,
+   "hi": "जवाब — पूरी फ़िल्म में।",
+   "plan": "L10",
+   "source": "short 4 Oct 2026: from K909, K725b, K726"
+  }
+ ]
+}

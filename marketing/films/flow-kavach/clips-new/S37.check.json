@@ -1,0 +1,26 @@
+{
+  "id": "S37",
+  "same_man": "same",
+  "face_notes": "The man is a very close match to the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "'Veo' watermark in bottom right corner from 00:01"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 5,
+      "what": "Man looks up from the phone, smiles at the camera and mouths words."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 4,
+  "verdict": "keep_window",
+  "retake_hint": "The shot is a frontal medium close-up, not side-on from table height. The actor's performance is wrong: he should give a small nod, not look up, smile and talk to camera."
+}

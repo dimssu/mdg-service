@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* The four kinds of legal matter, one card per phrase as it is spoken. */
+.eb{display:flex;align-items:center;gap:22px;font-size:44px;color:var(--amberDeep)}
+.eb .n{font-size:44px;font-weight:700;color:#4E0F0F;padding:6px 16px;border-radius:12px;
+  background:linear-gradient(160deg,#F8D899,#E9A23B 55%,#C27716)}
+.list{width:940px;display:flex;flex-direction:column;gap:36px;margin-top:10px}
+.mt{display:flex;align-items:center;gap:34px;padding:30px 36px;border-radius:26px;
+  background:linear-gradient(170deg,#fff,#FBF3E7);border:1px solid rgba(201,160,100,.55);
+  box-shadow:0 30px 60px rgba(58,16,10,.22),0 4px 10px rgba(58,16,10,.12)}
+.mt .g{flex:none;width:120px;height:120px;border-radius:32px;display:flex;align-items:center;justify-content:center;color:#fff;
+  background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep));
+  box-shadow:inset 0 -6px 14px rgba(0,0,0,.22),0 12px 24px rgba(58,16,10,.26)}
+.mt .g svg{width:66px;height:66px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.mt .t{font-size:50px;color:var(--maroon);line-height:1.3}
+</style>
+</head>
+<body>
+<svg style="display:none">
+  <symbol id="x-pump" viewBox="0 0 24 24"><path d="M4 20.5V5a1.6 1.6 0 0 1 1.6-1.6h6.8A1.6 1.6 0 0 1 14 5v15.5M2.8 20.5h12.4M6.4 7h5.2v3.8H6.4ZM14 9.2h2.1a1.4 1.4 0 0 1 1.4 1.4v6a1.35 1.35 0 0 0 2.7 0V8.4l-2.6-2.8"/></symbol>
+  <symbol id="x-people" viewBox="0 0 24 24"><path d="M9 11a3.3 3.3 0 1 0 0-6.6A3.3 3.3 0 0 0 9 11ZM2.8 20.2c0-3.4 2.8-6.2 6.2-6.2s6.2 2.8 6.2 6.2M15.8 11.1a2.9 2.9 0 1 0-.8-5.7M17.4 14.4c2.2.8 3.8 3 3.8 5.8"/></symbol>
+  <symbol id="x-case" viewBox="0 0 24 24"><path d="M3.4 8.4h17.2v11.2H3.4ZM8.6 8.4V6.1a1.6 1.6 0 0 1 1.6-1.6h3.6a1.6 1.6 0 0 1 1.6 1.6v2.3M3.4 13.2h17.2M10.6 12v2.4h2.8V12"/></symbol>
+</svg>
+<!-- ══ I53 · the kinds of legal matter · K703, first 6.5 s ══ -->
+<div class="panel" id="I53" data-plate="office" style="--T:7s;gap:60px">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="eb hi anim a-fade" style="animation-delay:0s;animation-duration:3s"><span class="n dis">01</span>लीगल असिस्टेंस</div>
+  <div class="list">
+    <div class="mt anim a-stamp" style="animation-delay:.3s;animation-duration:5s;margin-right:40px">
+      <div class="g"><svg class="i"><use href="#i-lock"/></svg></div><div class="t hi">साइबर सिक्योरिटी से जुड़े मामले</div></div>
+    <div class="mt anim a-stamp" style="animation-delay:2.5s;animation-duration:5s;margin-left:40px">
+      <div class="g"><svg><use href="#x-pump"/></svg></div><div class="t hi">पंप से जुड़े क़ानूनी मामले</div></div>
+    <div class="mt anim a-stamp" style="animation-delay:3.8s;animation-duration:5s;margin-right:40px">
+      <div class="g"><svg><use href="#x-people"/></svg></div><div class="t hi">ग्राहकों से जुड़े मामले</div></div>
+    <div class="mt anim a-stamp" style="animation-delay:4.5s;animation-duration:5s;margin-left:40px">
+      <div class="g"><svg><use href="#x-case"/></svg></div><div class="t hi">कोई और कारोबारी या क़ानूनी विषय</div></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

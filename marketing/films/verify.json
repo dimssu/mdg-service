@@ -1,0 +1,169 @@
+{
+  "explainer/E18": {
+    "ref": "clip:S07-human",
+    "dealer_present": false,
+    "same_person": "not_applicable",
+    "why_person": "The man in the shot is a much younger man, not the middle-aged dealer from the reference photo.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": ""
+  },
+  "teaser/T10": {
+    "ref": "clip:C02-managers-pump",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The man in the foreground is the same person as in the reference photo, based on his facial features, hair, moustache, and build.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": ""
+  },
+  "explainer/E17": {
+    "ref": "clip:S11-app",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The man on the left has the same facial features, including the moustache and hairstyle, as well as the same build as the man in the reference photo.",
+    "text_or_logo": [
+      "SIKHNA"
+    ],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": ""
+  },
+  "explainer/E35": {
+    "ref": "clip:S03-stock",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The facial features, including the shape of the face, nose, and the distinctive moustache, are a clear match. The hairstyle and build are also consistent with the reference image.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": ""
+  },
+  "teaser/T05": {
+    "ref": "clip:P03-stock-plus-minus",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The man's facial features, including his moustache, hair, and face shape, as well as his build, are a clear match for the person in the reference photo.",
+    "text_or_logo": [
+      "90",
+      "80",
+      "70",
+      "60",
+      "50"
+    ],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": ""
+  },
+  "teaser/T11": {
+    "ref": "clip:S08-alwayson",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The man in the video has the same facial features, including a prominent mustache, hairstyle, and build as the man in the reference photo.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false
+  },
+  "explainer/E06": {
+    "ref": "clip:P01-dod-deadline",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The facial features, including the shape of the face, nose, and moustache, are a clear match to the reference photo.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": ""
+  },
+  "teaser/T15": {
+    "ref": "clip:C01-fifteen-thousand",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The man standing in the shot has the same facial features, including the shape of his face, hair, and prominent mustache, as the man in the reference photo. He also has a similar build.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": ""
+  },
+  "explainer/E14": {
+    "ref": "flow:N10r",
+    "dealer_present": false,
+    "same_person": "not_applicable",
+    "why_person": "The person in the shot is a young man, not the middle-aged dealer from the reference photo.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false
+  },
+  "explainer/E26": {
+    "ref": "clip:S07-human",
+    "dealer_present": false,
+    "same_person": "not_applicable",
+    "why_person": "The person in the shot is a young man, not the middle-aged dealer from the reference photo.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": ""
+  },
+  "explainer/E25": {
+    "ref": "clip:S05-supply",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The man in the video has the same facial features, build, hairstyle, and moustache as the man in the reference photo.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": ""
+  },
+  "explainer/E23": {
+    "ref": "clip:S03-stock",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The man in the video has the same facial features (face shape, moustache, hair) and build as the man in the reference photo.",
+    "text_or_logo": [
+      "Dealer Office"
+    ],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": ""
+  },
+  "explainer/E30": {
+    "ref": "clip:S02-dsr",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The man in the foreground has the same facial features, moustache, hair, and build as the man in the reference photo.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": ""
+  },
+  "explainer/E33": {
+    "ref": "clip:C02-managers-pump",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The man in the shot has the same facial features (face shape, nose, moustache), build, and hairstyle as the man in the reference photo.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": "No liquid spill is visible."
+  },
+  "explainer/E34": {
+    "ref": "clip:C01-fifteen-thousand",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The man standing has the same facial features, build, hair, and prominent mustache as the man in the reference photo.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false,
+    "spill_detail": ""
+  },
+  "explainer/E36": {
+    "ref": "clip:S11-app",
+    "dealer_present": true,
+    "same_person": "yes",
+    "why_person": "The man in the shot has the same facial features, hairstyle, moustache, and build as the man in the reference photo.",
+    "text_or_logo": [],
+    "watermark": false,
+    "liquid_spill": false
+  }
+}

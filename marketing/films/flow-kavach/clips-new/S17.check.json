@@ -1,0 +1,21 @@
+{
+  "id": "S17",
+  "same_man": "same",
+  "face_notes": "The man is a very good match for the reference photo in terms of face, hair, moustache, and age.",
+  "outfit_matches": true,
+  "text_visible": [
+    "'Veo' watermark in bottom right corner throughout"
+  ],
+  "marks_or_livery": [
+    "'Veo' watermark in bottom right corner throughout"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": true,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "retake",
+  "retake_hint": "Excellent shot, but there is a 'Veo' text watermark in the bottom right corner throughout. Please regenerate without any watermarks or logos."
+}

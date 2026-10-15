@@ -1,0 +1,17 @@
+{
+  "id": "S58",
+  "same_man": "not_in_shot",
+  "face_notes": "The dealer is not in this shot. The faces of the three characters in the shot are consistent.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The core action is wrong: from 3s, the manager and attendants perform a 'namaste' gesture instead of the manager nodding and the attendant nodding back. Also, a third person walks out of frame at the very start, which violates the brief's instruction that nobody should enter or leave."
+}

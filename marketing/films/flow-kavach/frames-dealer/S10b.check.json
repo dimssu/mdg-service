@@ -1,0 +1,17 @@
+{
+  "id": "S10",
+  "same_man": "same",
+  "face_notes": "Face, hair, and moustache are a very good match for the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": true,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "keep",
+  "retake_hint": ""
+}

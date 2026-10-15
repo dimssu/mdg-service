@@ -1,0 +1,24 @@
+{
+  "id": "S14",
+  "same_man": "not_in_shot",
+  "face_notes": "The man in the video is not the hero actor. He is an older man with greying hair and glasses, as per the brief for this shot.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Yellow and green auto-rickshaw livery visible through window"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 0,
+      "what": "Man is mouthing words at the start of the clip."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 1,
+  "clean_to": 8,
+  "verdict": "keep_window",
+  "retake_hint": ""
+}

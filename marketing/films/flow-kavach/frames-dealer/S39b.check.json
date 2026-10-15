@@ -1,0 +1,21 @@
+{
+  "id": "S39",
+  "same_man": "same",
+  "face_notes": "The man has slightly more grey hair at the temples than in the reference photo, but the facial structure, age, and moustache are a very strong match.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Dell logo on laptop"
+  ],
+  "marks_or_livery": [
+    "Dell logo on laptop"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The Dell logo on the laptop violates the 'no logos' rule. The prompt must specify 'a generic unbranded laptop'. Also, the brief requires his hands to be off the keyboard at the start of the shot; here they are on it."
+}

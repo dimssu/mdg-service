@@ -1,0 +1,17 @@
+{
+  "id": "S48",
+  "same_man": "same",
+  "face_notes": "Excellent match. Face shape, hair style and colour, moustache, and apparent age are all consistent with the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The brief requires 'blank dark displays' on the petrol dispensers. In this image, the displays have faint shapes resembling unlit digital numbers. Please ensure the displays are completely blank and black."
+}

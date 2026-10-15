@@ -1,0 +1,21 @@
+{
+  "id": "S39",
+  "same_man": "same",
+  "face_notes": "The man in the shot is a very good match for the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Apple logo on laptop"
+  ],
+  "marks_or_livery": [
+    "Apple logo on laptop"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The shot is good but must be retaken because of the prominent Apple logo on the back of the laptop. The brief explicitly forbids all logos. The prompt should specify 'a generic, unbranded laptop'."
+}

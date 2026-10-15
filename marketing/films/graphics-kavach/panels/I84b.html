@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Opens on I84a's last frame (same markup, same positions — change one, change
+   both), then clears the question and the ring and lifts the monitor.
+   K024 over this card (0–4.7 s): "आजकल डिजिटल (≈0.4) और (0.74) रोज़ (1.0) के काम
+   (≈1.5) इतने बढ़ गए हैं (≈1.7–2.8), कि डीलर को (3.3) सिस्टम (≈4.0) और रिकॉर्ड (≈4.8)…".
+   The exits are quick (0–0.38 s) so each heading is in 0.1–0.3 s before its word.
+   "हर वक़्त नज़र" is only said at ≈5.6 s, over S63 after this card, so the eye
+   lands on "डीलर को" / "सिस्टम" and is the last thing in; only its pupil moves
+   after 4.2 s. Icons and words only — no screen content, ever. */
+#I84b .q{position:absolute;left:60px;right:60px;top:250px;text-align:center;font-size:100px;line-height:1.25;color:#FFF3E2}
+#I84b .dial{position:absolute;left:130px;top:590px;width:820px;height:820px}
+#I84b .dial svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#I84b .arc{filter:drop-shadow(0 0 14px rgba(233,162,59,.55))}
+#I84b .tk line{stroke:var(--amberSoft);stroke-linecap:round;opacity:.22}
+#I84b .tl line{stroke:var(--amber);stroke-linecap:round;opacity:.95}
+#I84b .pill{position:absolute;left:50%;top:820px;transform:translate(-50%,-50%);padding:10px 36px 12px;border-radius:999px;
+  background:linear-gradient(150deg,#5A1414,#3A0B0B);border:3px solid var(--amber);color:var(--amber);font-size:46px;white-space:nowrap;
+  box-shadow:0 14px 30px rgba(0,0,0,.45)}
+#I84b .mon{position:absolute;left:300px;top:820px;width:420px;height:350px;transform-origin:50% 50%}
+#I84b .mon svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 26px 40px rgba(0,0,0,.45))}
+#I84b .mon .scr{fill:url(#glass);stroke:#FFF3E2;stroke-width:9;stroke-linejoin:round}
+#I84b .mon .lit{fill:url(#litg);stroke:none}
+#I84b .mon .ln{fill:none;stroke:#FFF3E2;stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+#I84b .qm{position:absolute;left:736px;top:850px;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#F7CD78,var(--amber) 55%,var(--amberDeep));color:var(--maroonDeep);
+  display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:86px;line-height:1;
+  box-shadow:0 16px 34px rgba(0,0,0,.45),inset 0 0 0 5px rgba(255,255,255,.3)}
+
+/* exits (0–0.65 s) */
+@keyframes outUp{to{opacity:0;transform:translateY(-70px)}}
+@keyframes ringOut{to{opacity:0;transform:scale(.62)}}
+@keyframes qmOut{to{opacity:0;transform:scale(.3)}}
+@keyframes monUp{to{transform:translate(30px,-215px) scale(.8)}}
+@keyframes show{from{opacity:0}to{opacity:1}}
+
+/* the two kinds of work */
+#I84b .hd{position:absolute;top:960px;width:420px;text-align:center;font-size:56px;color:#FFF3E2;line-height:1.2;padding-bottom:14px}
+#I84b .hd i{position:absolute;left:110px;right:110px;bottom:0;height:6px;border-radius:4px;background:var(--amber);transform-origin:50% 50%}
+@keyframes hdIn{0%{opacity:0;transform:translateY(24px)}100%{opacity:1;transform:none}}
+@keyframes drawX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+#I84b .tl2{position:absolute;width:380px;height:118px;display:flex;align-items:center;gap:20px;padding:0 22px;border-radius:22px;
+  background:linear-gradient(170deg,#FFFDF8,#F2E4CF);
+  box-shadow:0 26px 50px rgba(0,0,0,.45),0 4px 10px rgba(0,0,0,.25),inset 0 0 0 1px rgba(255,255,255,.7)}
+#I84b .tl2.r{flex-direction:row-reverse;text-align:right}
+#I84b .tl2 .g{width:76px;height:76px;border-radius:20px;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;
+  background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep));box-shadow:inset 0 -4px 10px rgba(0,0,0,.22)}
+#I84b .tl2 .g svg{width:44px;height:44px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#I84b .tl2 .w{flex:1;font-size:42px;color:#3A1410;line-height:1.2;padding-top:6px;white-space:nowrap}
+@keyframes attachL{0%{opacity:0;transform:translateX(-120px) rotate(-3deg)}65%{opacity:1;transform:translateX(8px)}100%{opacity:1;transform:none}}
+@keyframes attachR{0%{opacity:0;transform:translateX(120px) rotate(3deg)}65%{opacity:1;transform:translateX(-8px)}100%{opacity:1;transform:none}}
+@keyframes swell{0%,100%{transform:none}45%{transform:scale(1.045)}}
+
+/* gold wiring: trunk from the monitor, a branch to every tile */
+#I84b svg.wire{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible;z-index:2}
+#I84b svg.wire path{fill:none;stroke:var(--amber);stroke-width:5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;
+  filter:drop-shadow(0 0 8px rgba(233,162,59,.6))}
+#I84b svg.wire circle{fill:var(--amber)}
+@keyframes drawOn{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes dotIn{0%{opacity:0;transform:scale(0)}70%{transform:scale(1.4)}100%{opacity:1;transform:none}}
+
+/* the eye */
+#I84b .eye{position:absolute;left:430px;top:290px;width:220px;height:130px}
+#I84b .eye svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 16px rgba(233,162,59,.45))}
+#I84b .eye .lid{fill:rgba(255,243,226,.08);stroke:var(--amber);stroke-width:8;stroke-linejoin:round}
+#I84b .eye .iris{fill:none;stroke:#FFF3E2;stroke-width:7}
+#I84b .eye .pup{fill:#FFF3E2}
+@keyframes eyeOpen{0%{opacity:0;transform:scaleY(.1)}60%{opacity:1;transform:scaleY(1.08)}100%{opacity:1;transform:none}}
+@keyframes look{0%,100%{transform:translateX(0)}25%{transform:translateX(-34px)}75%{transform:translateX(34px)}}
+#I84b .el{position:absolute;left:60px;right:60px;top:450px;text-align:center;font-size:60px;color:var(--amber);line-height:1.25}
+@keyframes wr{0%{clip-path:inset(-20% 100% -20% 0)}100%{clip-path:inset(-20% -4% -20% 0)}}
+</style>
+</head>
+<body>
+<svg style="display:none">
+ <symbol id="x-key" viewBox="0 0 24 24"><rect x="2.5" y="6.5" width="19" height="11" rx="2.2"/><path d="M6 10h.01M9 10h.01M12 10h.01M15 10h.01M18 10h.01M7.5 14h9"/></symbol>
+ <symbol id="x-rupee" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.2"/><path d="M8.6 7.6h6.8M8.6 10.6h6.8M10.2 7.6c2.6 0 3.4 1.4 3.4 3s-1.4 3-3.9 3H8.8l4.8 4.2"/></symbol>
+ <symbol id="x-dip" viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="12.5" rx="2.4"/><path d="M4 15.5c2.7-1.2 5.3 1.2 8 0s5.3-1.2 8 0"/><path d="M12 2v17"/><path d="M12 4.6h2.6M12 7.4h2.6"/></symbol>
+ <symbol id="x-book" viewBox="0 0 24 24"><path d="M3.5 5.5c3-1.2 5.8-1.2 8.5.6 2.7-1.8 5.5-1.8 8.5-.6v13c-3-1.2-5.8-1.2-8.5.6-2.7-1.8-5.5-1.8-8.5-.6Z"/><path d="M12 6.1v13"/></symbol>
+</svg>
+<!-- ══ I84b · digital and daily work, watched all the time · K024 "आजकल डिजिटल और रोज़ के काम इतने बढ़ गए हैं, कि डीलर को सिस्टम और रिकॉर्ड…" (first 4.7 s) ══ -->
+<div class="panel ink" id="I84b" data-plate="night" style="--T:6s">
+  <div class="glow" style="top:52%;width:1100px;height:1100px;opacity:.55;background:radial-gradient(circle,rgba(233,120,59,.30),rgba(233,120,59,0) 66%)"></div>
+
+  <!-- I84a's last frame -->
+  <div class="q hi" style="animation:outUp .32s cubic-bezier(.5,0,.7,.4) 0s both paused">चौबीसों घंटे?</div>
+  <div class="dial" style="animation:ringOut .3s cubic-bezier(.5,0,.6,.5) 0s both paused">
+    <svg viewBox="0 0 820 820">
+      <circle cx="410" cy="410" r="400" fill="none" stroke="rgba(233,162,59,.16)" stroke-width="4"/>
+      <circle class="arc" cx="410" cy="410" r="400" fill="none" stroke="var(--amber)" stroke-width="6" stroke-linecap="round"/>
+      <g class="tk" id="tk"></g>
+      <g class="tl" id="tl"></g>
+    </svg>
+    <div class="pill hi">24 घंटे</div>
+  </div>
+  <div class="qm" style="animation:qmOut .25s ease-in 0s both paused"><span style="display:block">?</span></div>
+
+  <!-- wiring sits under the tiles and the monitor -->
+  <svg class="wire" viewBox="0 0 1080 1920">
+    <path pathLength="1" d="M540 912 V1432" style="animation:drawOn .5s cubic-bezier(.5,.1,.4,1) 2.72s both paused"/>
+    <path pathLength="1" d="M540 1132 H486" style="animation:drawOn .22s linear 2.86s both paused"/>
+    <path pathLength="1" d="M540 1132 H594" style="animation:drawOn .22s linear 2.86s both paused"/>
+    <path pathLength="1" d="M540 1282 H486" style="animation:drawOn .22s linear 3.0s both paused"/>
+    <path pathLength="1" d="M540 1282 H594" style="animation:drawOn .22s linear 3.0s both paused"/>
+    <path pathLength="1" d="M540 1432 H486" style="animation:drawOn .22s linear 3.14s both paused"/>
+    <path pathLength="1" d="M540 1432 H594" style="animation:drawOn .22s linear 3.14s both paused"/>
+    <g style="transform-box:fill-box">
+      <circle cx="540" cy="1132" r="10" style="transform-origin:540px 1132px;animation:dotIn .3s ease-out 2.84s both paused"/>
+      <circle cx="540" cy="1282" r="10" style="transform-origin:540px 1282px;animation:dotIn .3s ease-out 2.98s both paused"/>
+      <circle cx="540" cy="1432" r="10" style="transform-origin:540px 1432px;animation:dotIn .3s ease-out 3.12s both paused"/>
+    </g>
+  </svg>
+
+  <div class="mon" style="animation:monUp .38s cubic-bezier(.45,.05,.25,1) 0s both paused">
+    <svg viewBox="0 0 420 350">
+      <defs><linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="rgba(255,243,226,.13)"/><stop offset=".45" stop-color="rgba(255,243,226,.03)"/><stop offset="1" stop-color="rgba(255,243,226,.06)"/></linearGradient></defs>
+      <radialGradient id="litg" cx=".5" cy=".45" r=".7"><stop offset="0" stop-color="rgba(246,200,119,.34)"/><stop offset=".6" stop-color="rgba(233,162,59,.12)"/><stop offset="1" stop-color="rgba(233,162,59,.04)"/></radialGradient>
+      <rect class="lit" x="14" y="14" width="392" height="254" rx="21" style="animation:show .35s ease-out 3.9s both paused"/>
+      <rect class="scr" x="10" y="10" width="400" height="262" rx="24"/>
+      <path class="ln" d="M190 272 L182 322 M230 272 L238 322"/>
+      <rect class="ln" x="112" y="322" width="196" height="16" rx="8"/>
+    </svg>
+  </div>
+
+  <div class="hd hi" style="left:80px;animation:hdIn .32s cubic-bezier(.2,.9,.3,1) .18s both paused">डिजिटल काम<i style="animation:drawX .35s ease-out .26s both paused"></i></div>
+  <div class="hd hi" style="left:580px;animation:hdIn .32s cubic-bezier(.2,.9,.3,1) .58s both paused">रोज़ के काम<i style="animation:drawX .35s ease-out .66s both paused"></i></div>
+
+  <div style="position:absolute;left:100px;top:1073px;animation:attachL .42s cubic-bezier(.2,.9,.3,1) .3s both paused"><div class="tl2" style="position:relative;animation:swell .45s ease-in-out 1.98s both paused">
+    <span class="g"><svg><use href="#x-key"/></svg></span><span class="w hi">ऑनलाइन एंट्री</span></div></div>
+  <div style="position:absolute;left:100px;top:1223px;animation:attachL .42s cubic-bezier(.2,.9,.3,1) .44s both paused"><div class="tl2" style="position:relative;animation:swell .45s ease-in-out 2.08s both paused">
+    <span class="g"><svg><use href="#i-doc"/></svg></span><span class="w hi">डिक्लेरेशन</span></div></div>
+  <div style="position:absolute;left:100px;top:1373px;animation:attachL .42s cubic-bezier(.2,.9,.3,1) .58s both paused"><div class="tl2" style="position:relative;animation:swell .45s ease-in-out 2.18s both paused">
+    <span class="g"><svg><use href="#x-rupee"/></svg></span><span class="w hi">भुगतान</span></div></div>
+
+  <div style="position:absolute;left:600px;top:1073px;animation:attachR .42s cubic-bezier(.2,.9,.3,1) .74s both paused"><div class="tl2 r" style="position:relative;animation:swell .45s ease-in-out 2.03s both paused">
+    <span class="g"><svg><use href="#i-gauge"/></svg></span><span class="w hi">रीडिंग</span></div></div>
+  <div style="position:absolute;left:600px;top:1223px;animation:attachR .42s cubic-bezier(.2,.9,.3,1) .88s both paused"><div class="tl2 r" style="position:relative;animation:swell .45s ease-in-out 2.13s both paused">
+    <span class="g"><svg><use href="#x-dip"/></svg></span><span class="w hi">डिप</span></div></div>
+  <div style="position:absolute;left:600px;top:1373px;animation:attachR .42s cubic-bezier(.2,.9,.3,1) 1.02s both paused"><div class="tl2 r" style="position:relative;animation:swell .45s ease-in-out 2.23s both paused">
+    <span class="g"><svg><use href="#x-book"/></svg></span><span class="w hi">रजिस्टर</span></div></div>
+
+  <div class="eye" style="animation:eyeOpen .4s cubic-bezier(.3,1.1,.5,1) 3.2s both paused">
+    <svg viewBox="0 0 220 130">
+      <path class="lid" d="M8 65 C50 8 170 8 212 65 C170 122 50 122 8 65 Z"/>
+      <g style="animation:look 1.6s ease-in-out 3.7s 2 both paused">
+        <circle class="iris" cx="110" cy="65" r="31"/>
+        <circle class="pup" cx="110" cy="65" r="14"/>
+      </g>
+    </svg>
+  </div>
+  <div class="el hi" style="animation:wr .5s linear 3.35s both paused">हर वक़्त नज़र</div>
+
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+const ns = 'http://www.w3.org/2000/svg';
+for (let k = 0; k < 24; k++) {
+  const a = (k * 15 - 90) * Math.PI / 180, big = k % 6 === 0;
+  const r0 = big ? 358 : 372, r1 = 390;
+  for (const g of ['tk', 'tl']) {
+    const l = document.createElementNS(ns, 'line');
+    l.setAttribute('x1', (410 + r0 * Math.cos(a)).toFixed(1)); l.setAttribute('y1', (410 + r0 * Math.sin(a)).toFixed(1));
+    l.setAttribute('x2', (410 + r1 * Math.cos(a)).toFixed(1)); l.setAttribute('y2', (410 + r1 * Math.sin(a)).toFixed(1));
+    l.setAttribute('stroke-width', big ? 7 : 4);
+    document.getElementById(g).appendChild(l);
+  }
+}
+</script>
+</body>
+</html>

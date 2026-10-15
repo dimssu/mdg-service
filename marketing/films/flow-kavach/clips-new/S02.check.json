@@ -1,0 +1,21 @@
+{
+  "id": "S02",
+  "same_man": "same",
+  "face_notes": "The man in the video is a very close match to the reference photo in terms of age, facial structure, hair, and moustache.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "Star logo with 'Veo' text underneath in the bottom right corner"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "retake",
+  "retake_hint": "The clip is two static images with a dissolve, not a continuous shot. It must be a single shot with a very slow camera push-in and the specified character action (reading, blinking, looking up). Also, the shot must be free of all text, including the 'Veo' text under the watermark."
+}

@@ -1,0 +1,21 @@
+{
+  "id": "S67",
+  "same_man": "not_in_shot",
+  "face_notes": "The dealer is not in this shot.",
+  "outfit_matches": false,
+  "text_visible": [
+    "A calendar is visible on the left wall with some numbers that may be readable on a large screen."
+  ],
+  "marks_or_livery": [],
+  "liquid_or_danger": [
+    "Red fire extinguisher on the right wall."
+  ],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "retake",
+  "retake_hint": "The shot is excellent but the brief strictly forbids any visible text or numbers. The calendar on the left wall has readable numbers. Please remove the calendar from the scene."
+}

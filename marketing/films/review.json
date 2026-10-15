@@ -1,0 +1,122 @@
+{
+  "flow:N1r": {
+    "looks_real": 6,
+    "artifacts": [
+      {
+        "what": "A bird appears and flies with a slightly unnatural, jerky motion.",
+        "when": "from 1s",
+        "severity": "noticeable"
+      },
+      {
+        "what": "Two more birds appear and fly in a strange, merged formation.",
+        "when": "at 7s",
+        "severity": "fatal"
+      },
+      {
+        "what": "The car's right headlight flickers unnaturally.",
+        "when": "at 7s",
+        "severity": "noticeable"
+      },
+      {
+        "what": "The smoke from the car's exhaust has a slightly unnatural, pulsing movement rather than a smooth flow.",
+        "when": "throughout",
+        "severity": "minor"
+      }
+    ],
+    "better_as": "live_action",
+    "verdict": "rerender",
+    "why": "The concept of a moody, atmospheric night shot is perfect for the line. However, the execution is fatally flawed by the appearance of birds that fly and merge unnaturally, breaking the illusion of reality. The shot should be re-rendered without these distracting elements.",
+    "beats": [
+      "teaser/T01",
+      "explainer/E01"
+    ]
+  },
+  "flow:C02r": {
+    "looks_real": 10,
+    "artifacts": [],
+    "better_as": "live_action",
+    "verdict": "keep",
+    "why": "The shot is indistinguishable from live-action footage. The actor's performance and expression perfectly match the spoken lines, conveying a sense of worry and uncertainty that will resonate with the target audience of petrol pump dealers. It effectively establishes the problem in a human, relatable way.",
+    "beats": [
+      "teaser/T09",
+      "explainer/E06"
+    ]
+  },
+  "flow:S10r": {
+    "looks_real": 4,
+    "artifacts": [
+      {
+        "what": "A thin, vertical smear appears and fades in the sky above the man's head.",
+        "when": "at 3s",
+        "severity": "noticeable"
+      }
+    ],
+    "better_as": "live_action",
+    "verdict": "rerender",
+    "why": "The concept of a cinematic, emotional shot of a dealer is correct for this line and audience. However, a noticeable rendering artifact appears in the sky at 3s, which breaks the illusion of reality. A clean version of this shot would be effective.",
+    "beats": [
+      "teaser/T10",
+      "explainer/E35"
+    ]
+  },
+  "flow:N9r": {
+    "looks_real": 4,
+    "artifacts": [
+      {
+        "what": "When the man raises his hand to adjust his glasses, his fingers and the glasses frame appear to merge and pass through each other.",
+        "when": "from 6s",
+        "severity": "fatal"
+      }
+    ],
+    "better_as": "live_action",
+    "verdict": "rerender",
+    "why": "The concept of showing the dedicated team behind the program is strong for this line. However, the execution is flawed by a fatal artifact where the man's hand unnaturally interacts with his glasses, which would destroy credibility with the target audience.",
+    "beats": [
+      "explainer/E09"
+    ]
+  },
+  "flow:N10r": {
+    "looks_real": 8,
+    "artifacts": [
+      {
+        "what": "The fingers on the keyboard have a slight morphing, jittery quality, especially the left hand.",
+        "when": "0-2s",
+        "severity": "minor"
+      },
+      {
+        "what": "The texture of the t-shirt, particularly around the collar, has a subtle 'crawling' or shimmering effect.",
+        "when": "throughout",
+        "severity": "minor"
+      }
+    ],
+    "better_as": "live_action",
+    "verdict": "rerender",
+    "why": "The concept is perfect for the line, but subtle AI artifacts (finger morphing, texture crawl) undermine the documentary realism required for a skeptical audience. A new render might eliminate these flaws.",
+    "beats": [
+      "explainer/E11"
+    ]
+  },
+  "flow:N4r": {
+    "looks_real": 7,
+    "artifacts": [
+      {
+        "what": "The subjects are unnaturally still. Real people, even when concentrating, exhibit more micro-movements from breathing and slight shifts in posture.",
+        "when": "throughout",
+        "severity": "noticeable"
+      },
+      {
+        "what": "There is a subtle but persistent 'crawling' texture on surfaces, most visible on the man's blue shirt and in the out-of-focus background.",
+        "when": "throughout",
+        "severity": "noticeable"
+      }
+    ],
+    "better_as": "graphic_or_ui",
+    "verdict": "replace",
+    "why": "The shot is conceptually weak for this line. The line is about the impressive scale of a 250-person team, but the visual shows only two people. This undermines the message. The subtle AI artifacts also work against the 'documentary' feel needed for a skeptical audience.",
+    "graphic_suggestion": "A simple, strong graphic showing a number rapidly counting up to '250+'. This directly visualizes the scale mentioned in the voiceover in a way this live-action shot cannot.",
+    "beats": [
+      "teaser/T13",
+      "explainer/E10"
+    ]
+  }
+}

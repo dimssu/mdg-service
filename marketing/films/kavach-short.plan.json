@@ -1,0 +1,213 @@
+{
+  "note": "The short. Segments carry their own windows (from/to/still/frame/push); built from films/short/cut-sheet.json.",
+  "assets": {
+    "N1": {
+      "kind": "shot",
+      "title": "Inspection day at his door (new, Flow still + Vertex Veo)",
+      "dealer": true,
+      "clip": "clips/N1-inspection-door.mp4",
+      "window": "0.2-4.2: he reads the file, worried; looks up at 3.6 (Gemini + by eye, 4 Oct)"
+    },
+    "QC1": {
+      "kind": "info",
+      "template": "list",
+      "title": "Premium services, sixth slot a gold question mark",
+      "brief": "Template I50b (cream list), without its per-row fee tags. 0.0: heading 'प्रीमियम सेवाएँ' already set. 0.15-0.75: rows 01 लीगल असिस्टेंस, 02 अकाउंटिंग और फ़ाइनेंशियल मॉनिटरिंग, 03 साइबर सिक्योरिटी, 04 क्विक रिस्पॉन्स सर्विस, 05 स्टाफ़ असेसमेंट slide in 0.15 s apart. 1.55 (on 'अलग से'): footnote fades in, 'फ़ीस — ज़रूरत के हिसाब से'. 2.70: row 06 draws in as an empty gold dashed slot, '06 · ?'. 2.90 (on 'छठी'): the '?' pops and pulses once. Hold to 3.84 (through 'सेवा?'). Never names the sixth service or its terms."
+    },
+    "QC2": {
+      "kind": "info",
+      "template": "phone",
+      "title": "DSR + stock ready (P02 variant)",
+      "brief": "Variant of P02, built in the P02 panel template: the finished phone (कल की बिक्री 4,222 L, टंकी में अभी 14,246 L, कल आया 6,000 L) as its final frame, slow push-in on the three big rows. Added in the design system, in the empty dark top of the phone screen above the DSR header: cream pill with maroon text 'डी-एस-आर' from 0.0; at 0.97 (on 'स्टॉक') '· स्टॉक' slides in beside it, so it reads 'डी-एस-आर · स्टॉक'. Check the final frame for clashes with the header."
+    },
+    "QC3": {
+      "kind": "info",
+      "template": "phone",
+      "title": "Compliance score (P10 variant)",
+      "brief": "Variant of P10, built in the P10 panel template: the finished phone with 98% and the 'उदाहरण' tag kept, held with a slow push-in. Added in the design system, in the cream margin above the phone (scale the phone to about 92% if the pill needs the room): maroon pill with cream text 'कंप्लायंस स्कोर', in from 0.0. Check the final frame."
+    },
+    "QE1": {
+      "kind": "info",
+      "template": "title",
+      "title": "End card: the answer is in the full film",
+      "brief": "Template I76 (cream paper, gold M) with I74's flat maroon label pill. From 0.0: footer with gold M mark and 'एम-डी-जी सर्विसेज़ · डीलर कवच'. 0.0-0.5: 'छठी सेवा का जवाब —' in gold, word by word. 0.6: maroon label pill 'पूरी फ़िल्म देखें' (no ▶, no shadow, so it reads as an instruction, not a button). 0.9: gold chip '26 मिनट'. 1.2: 'mdgservices.in/film', the biggest and clearest line on the card. Fully static from 1.4 to 3.23, so the last frame carries the whole call to action when forwarded."
+    },
+    "QC4": {
+      "kind": "info",
+      "template": "split",
+      "title": "The shortfall, large (I95a top band variant)",
+      "brief": "I95a's opening state only — greyed tanker outline with the 'लोड रुका' pause chip, the bar 'लोड उठाने के लिए ज़रूरी रक़म' and the hatched gap '₹1–3 लाख कम' — enlarged about 1.6x and centred in the upper two-thirds; nothing below it. The hatched gap and its '₹1–3 लाख कम' label wipe in over 0.9–1.4 s (on 'एक से तीन लाख', spoken 1.06–1.89 s into the card); hold to the end."
+    }
+  },
+  "beats": {
+    "Q01": {
+      "segments": [
+        {
+          "asset": "N1",
+          "from": 0.2,
+          "to": 3.75,
+          "seconds": 4,
+          "why": "skeptic: his face changes and lips part from source 3.80; plays at 0.89x",
+          "blend": true
+        }
+      ]
+    },
+    "Q02": {
+      "segments": [
+        {
+          "asset": "I79a",
+          "still": "final",
+          "push": 1.06,
+          "seconds": 1.45
+        },
+        {
+          "asset": "S57",
+          "from": 0.25,
+          "to": 1.15,
+          "frame": "630:1120:45:0",
+          "seconds": 1.13,
+          "why": "skeptic: he looks down at the envelopes 0.4-1.15; from 1.4 he pushes up and then stares into the lens"
+        },
+        {
+          "asset": "S63",
+          "from": 0.3,
+          "to": 1.6,
+          "frame": "630:1120:90:0",
+          "seconds": 1.3
+        },
+        {
+          "asset": "S59",
+          "from": 3.4,
+          "to": 4.63,
+          "frame": "630:1120:36:0",
+          "seconds": 1.6
+        }
+      ]
+    },
+    "Q03": {
+      "segments": [
+        {
+          "asset": "S66",
+          "from": 5.8,
+          "to": 7.02,
+          "frame": "610:1085:55:0",
+          "seconds": 1.22
+        },
+        {
+          "asset": "S67",
+          "from": 0.6,
+          "to": 1.7,
+          "frame": "630:1120:45:0",
+          "seconds": 1.1
+        },
+        {
+          "asset": "S05",
+          "from": 0.5,
+          "to": 1.45,
+          "frame": "506:900:107:0",
+          "seconds": 0.95
+        }
+      ]
+    },
+    "Q04": {
+      "segments": [
+        {
+          "asset": "S05",
+          "from": 1.45,
+          "to": 2.25,
+          "frame": "506:900:107:0",
+          "seconds": 0.8
+        },
+        {
+          "asset": "S04",
+          "from": 0,
+          "to": 1.26,
+          "frame": "630:1120:45:0",
+          "seconds": 1.26
+        }
+      ]
+    },
+    "Q05": {
+      "segments": [
+        {
+          "asset": "I76",
+          "seconds": 2.13,
+          "still": 2.05,
+          "push": 1.04,
+          "why": "skeptic: its tagline wipes in with half letters; hold the finished frame"
+        }
+      ]
+    },
+    "Q06": {
+      "segments": [
+        {
+          "asset": "QC2",
+          "seconds": 1.66
+        },
+        {
+          "asset": "QC3",
+          "seconds": 2.74,
+          "why": "skeptic: the stats card (12 words in 1.34 s, none spoken) dropped; the compliance card holds"
+        }
+      ]
+    },
+    "Q07": {
+      "segments": [
+        {
+          "asset": "I49",
+          "from": 3.7,
+          "to": 7.37,
+          "seconds": 3.67
+        }
+      ]
+    },
+    "Q08": {
+      "segments": [
+        {
+          "asset": "QC1",
+          "from": 0,
+          "to": 2.2,
+          "seconds": 2.2
+        }
+      ]
+    },
+    "Q09": {
+      "segments": [
+        {
+          "asset": "QC1",
+          "seconds": 1.39,
+          "from": 2.2,
+          "to": 3.59
+        },
+        {
+          "asset": "S70",
+          "seconds": 1.55,
+          "from": 0.45,
+          "to": 2,
+          "frame": "639:1136:40:0",
+          "why": "skeptic: at 1.3x it stuttered and his face thinned on the turn; now 1x, after the lens look at 0.25-0.40"
+        },
+        {
+          "asset": "QC4",
+          "seconds": 2.25,
+          "why": "I95a top band enlarged: its figures were 12 px tall at phone width"
+        },
+        {
+          "asset": "S70",
+          "seconds": 1.61,
+          "still": 3.15,
+          "push": 1.1,
+          "frame": "639:1136:40:0"
+        }
+      ]
+    },
+    "Q10": {
+      "segments": [
+        {
+          "asset": "QE1",
+          "seconds": 4.63
+        }
+      ]
+    }
+  }
+}

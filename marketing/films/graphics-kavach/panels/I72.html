@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  @keyframes settle{0%{opacity:0;transform:translateY(90px) rotate(var(--r0)) scale(.9)}70%{opacity:1;transform:translateY(-6px) rotate(var(--r1))}100%{opacity:1;transform:rotate(var(--r1))}}
+  @keyframes gather{0%{transform:none}100%{transform:translate(var(--gx),var(--gy)) scale(.97)}}
+  @keyframes frameIn{0%{opacity:0;transform:scale(1.08)}100%{opacity:1;transform:none}}
+  @keyframes pill{0%{opacity:0;transform:translateY(40px) scale(.9)}100%{opacity:1;transform:none}}
+  @keyframes halo{0%,100%{opacity:.5}50%{opacity:.85}}
+
+  #I72{gap:50px}
+  #I72 .halo{position:absolute;left:50%;top:48%;width:1250px;height:1250px;margin:-625px 0 0 -625px;border-radius:50%;
+    background:radial-gradient(circle,rgba(233,162,59,.32),rgba(233,162,59,0) 64%);z-index:1;animation-name:halo;animation-duration:8s}
+  #I72 .gridw{position:relative;padding:18px}
+  #I72 .frame{position:absolute;inset:-4px;border-radius:44px;border:6px solid var(--amber);box-shadow:0 0 40px rgba(233,162,59,.35),inset 0 0 30px rgba(233,162,59,.18);
+    background:rgba(255,251,243,.35);animation-name:frameIn;animation-duration:.6s}
+  #I72 .grid6{display:grid;grid-template-columns:440px 440px;gap:36px;position:relative}
+  #I72 .gw{animation-name:gather;animation-duration:.8s;animation-timing-function:cubic-bezier(.5,0,.3,1)}
+  #I72 .tile{height:318px;border-radius:34px;padding:38px 30px 30px;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;
+    background:linear-gradient(170deg,#fff,#FBF3E7);border:1px solid rgba(201,160,100,.55);
+    box-shadow:0 30px 60px rgba(58,16,10,.26),0 4px 10px rgba(58,16,10,.14);animation-name:settle;animation-duration:.7s}
+  #I72 .tile .g{width:118px;height:118px;border-radius:34px;display:flex;align-items:center;justify-content:center;color:#fff;flex:none;
+    box-shadow:inset 0 -6px 14px rgba(0,0,0,.2),0 12px 24px rgba(58,16,10,.24)}
+  #I72 .tile .g svg{width:66px;height:66px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  #I72 .tile .t{font-size:46px;color:var(--maroon);line-height:1.25}
+  #I72 .coda{display:flex;align-items:center;gap:20px;background:linear-gradient(140deg,var(--maroonSoft),var(--maroonDeep));color:#fff;
+    font-size:64px;padding:22px 56px;border-radius:999px;box-shadow:0 20px 44px rgba(74,15,15,.36),inset 0 0 0 4px rgba(233,162,59,.6);
+    animation-name:pill;animation-duration:.55s}
+  #I72 .coda b{font-weight:400;color:var(--amberSoft)}
+</style>
+</head>
+<body>
+<!-- ══ I72 · six things, one place · K903 (held 9.6 s) ═══════════════════════════
+     Each tile lands ~0.2 s before its words. Measured onsets in K903.mp3 (s into the beat):
+     0.07 · 2.06 · 3.55 · 5.30 · 6.77 · 8.73; "सब एक ही जगह" is spoken at 10.45, on P26,
+     so that line is said there and not here. -->
+<div class="panel" id="I72" data-plate="dusk" style="--T:11s">
+  <div class="halo mv"></div>
+  <div class="gridw">
+    <div class="frame mv" style="animation-delay:8.85s"></div>
+    <div class="grid6">
+      <div class="gw mv" style="animation-delay:8.8s;--gx:14px;--gy:14px"><div class="tile mv" style="animation-delay:-.1s;--r0:-6deg;--r1:-1.5deg">
+        <span class="g" style="background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep))"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6.8V12l3.4 2"/></svg></span>
+        <span class="t hi">चौबीसों घंटे<br/>का साथ</span></div></div>
+      <div class="gw mv" style="animation-delay:8.8s;--gx:-14px;--gy:14px"><div class="tile mv" style="animation-delay:1.86s;--r0:6deg;--r1:1.4deg">
+        <span class="g" style="background:linear-gradient(150deg,var(--amber),var(--amberDeep))"><svg viewBox="0 0 24 24"><path d="M3 12s3.4-6 9-6 9 6 9 6-3.4 6-9 6-9-6-9-6Z"/><circle cx="12" cy="12" r="2.6"/></svg></span>
+        <span class="t hi">रोज़ की<br/>निगरानी</span></div></div>
+      <div class="gw mv" style="animation-delay:8.8s;--gx:14px;--gy:0px"><div class="tile mv" style="animation-delay:3.35s;--r0:-5deg;--r1:-1deg">
+        <span class="g" style="background:linear-gradient(150deg,#2B8C58,#145A35)"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/><path d="M8.8 14.2l2.2 2.2 4.2-4.6"/></svg></span>
+        <span class="t hi">कंप्लायंस<br/>का हिसाब</span></div></div>
+      <div class="gw mv" style="animation-delay:8.8s;--gx:-14px;--gy:0px"><div class="tile mv" style="animation-delay:5.1s;--r0:5deg;--r1:1.2deg">
+        <span class="g" style="background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep))"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.8 8.2h6.4M8.8 10.8h6.4M9.8 8.2c3.2 0 3.2 5 0 5h-1l4.6 4.6"/></svg></span>
+        <span class="t hi">पैसों पर<br/>नज़र</span></div></div>
+      <div class="gw mv" style="animation-delay:8.8s;--gx:14px;--gy:-14px"><div class="tile mv" style="animation-delay:6.57s;--r0:-6deg;--r1:-1.3deg">
+        <span class="g" style="background:linear-gradient(150deg,#0C7A6C,#044B43)"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.6"/><path d="M11 16.6h2"/></svg></span>
+        <span class="t hi">डिजिटल काम<br/>में मदद</span></div></div>
+      <div class="gw mv" style="animation-delay:8.8s;--gx:-14px;--gy:-14px"><div class="tile mv" style="animation-delay:8.53s;--r0:6deg;--r1:1.5deg">
+        <span class="g" style="background:linear-gradient(150deg,var(--amber),var(--amberDeep))"><svg viewBox="0 0 24 24"><path d="M12 3.2l2.7 5.5 6 .9-4.35 4.25 1 6L12 17l-5.35 2.85 1-6L3.3 9.6l6-.9Z"/></svg></span>
+        <span class="t hi">प्रीमियम<br/>सपोर्ट</span></div></div>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

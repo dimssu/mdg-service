@@ -1,0 +1,21 @@
+{
+  "id": "S09",
+  "same_man": "not_in_shot",
+  "face_notes": "The hero character is not in this shot.",
+  "outfit_matches": false,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "Veo logo in bottom right corner"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The generator has produced a still image with a slow zoom, not a video with the specified character actions. The prompt must be changed to generate the required motion: two people turning and nodding, then turning back. The brief also specifies a woman is present, but the shot only contains men."
+}

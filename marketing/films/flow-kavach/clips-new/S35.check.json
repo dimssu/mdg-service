@@ -1,0 +1,26 @@
+{
+  "id": "S35",
+  "same_man": "same",
+  "face_notes": "The man in the video is a very good match for the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Veo watermark in bottom right corner"
+  ],
+  "marks_or_livery": [
+    "Veo watermark in bottom right corner"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 7,
+      "what": "After putting the phone down, he looks down and left abruptly for no clear reason."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "retake",
+  "retake_hint": "The initial state and action do not match the brief. The phone should start face-down with a glow spilling from its edges. The man should be awake, notice the glow, and pick up the phone while keeping its screen hidden from the camera."
+}

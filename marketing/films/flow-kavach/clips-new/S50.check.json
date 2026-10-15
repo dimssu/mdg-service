@@ -1,0 +1,21 @@
+{
+  "id": "S50",
+  "same_man": "same",
+  "face_notes": "Face is consistent with the reference image.",
+  "outfit_matches": true,
+  "text_visible": [
+    "hp logo on computer monitor"
+  ],
+  "marks_or_livery": [
+    "hp logo on computer monitor"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The computer monitor has a visible 'hp' logo, which violates the 'no logos' rule. Change the prompt to specify 'a generic unbranded computer monitor' or add 'no logos on any equipment' to the negative prompt."
+}

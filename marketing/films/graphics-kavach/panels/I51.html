@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Chapter 7's card: the chapter number, the title settling with a gold rule
+   drawing beneath it, and the six services waiting as numbered stops.
+   Six 104 px stops at the old 58 px gap would be 914 px, edge to edge of the
+   920 px block, so the gap is 40 px (824 px). Stop 06 pops 0.25 s after 05,
+   as the others are spaced; the card still holds to 4.25 s. */
+.chap .no{font-size:46px}
+.chap .nm{font-size:138px;line-height:1.28;margin-top:22px;text-shadow:0 20px 50px rgba(0,0,0,.35)}
+.chap .rule{width:260px;height:7px;margin-top:30px;transform-origin:50% 50%;
+  background:linear-gradient(90deg,rgba(233,162,59,.2),#E9A23B 25%,#F4C979 75%,rgba(244,201,121,.2))}
+.chap .sb{font-size:52px;color:#E7CFAE;margin-top:40px}
+.stops{position:relative;display:flex;gap:40px;margin-top:120px}
+.stops .track{position:absolute;left:52px;right:52px;top:50%;height:4px;margin-top:-2px;
+  background:rgba(246,220,168,.28);border-radius:4px;transform-origin:0 50%}
+.stop{position:relative;width:104px;height:104px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:40px;font-weight:700;color:#4E0F0F;
+  background:radial-gradient(circle at 34% 28%,#F8D899,#E9A23B 58%,#B5700F);
+  box-shadow:0 14px 30px rgba(0,0,0,.45),inset 0 -4px 10px rgba(120,60,6,.35)}
+@keyframes growX{0%{transform:scaleX(0)}22%,100%{transform:scaleX(1)}}
+.a-growx{animation-name:growX}
+</style>
+</head>
+<body>
+<!-- ══ I51 · chapter 7 card · K701 "आइए, एक-एक करके प्रीमियम सेवाएँ देखें।" (4.25 s)
+     Timed to K701.mp3 (measured): "आइए" 0.04–0.42 · "एक-एक करके" 0.96–1.74 · "प्रीमियम सेवाएँ देखें" 1.82–2.93.
+     The voice says "एक-एक करके" before the title's words, so the sub cannot wait for the title: the
+     eyebrow is in by 0.30 s, the title settles at 0.62 s, the sub at 0.80 s (0.16 s before "एक"),
+     the rule at 0.85 s. The stops pop one by one under "प्रीमियम सेवाएँ देखें", 06 settled at 3.68 s. ══ -->
+<div class="panel ink" id="I51" data-plate="dusk" style="--T:5s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s;background:radial-gradient(circle,rgba(233,162,59,.26),rgba(233,162,59,0) 66%)"></div>
+  <div class="chap" style="display:flex;flex-direction:column;align-items:center;margin-top:-60px">
+    <div class="no hi anim a-fade" style="animation-delay:0s;animation-duration:2s">अध्याय 7</div>
+    <div class="nm hi anim a-rise" style="animation-delay:.05s;animation-duration:2.85s">प्रीमियम सेवाएँ</div>
+    <div class="rule anim a-growx" style="animation-delay:.3s;animation-duration:2.5s"></div>
+    <div class="sb hi anim a-fade" style="animation-delay:.38s;animation-duration:2.8s">एक-एक करके</div>
+    <div class="stops">
+      <div class="track anim a-growx" style="animation-delay:1.7s;animation-duration:6s"></div>
+      <div class="stop dis anim a-pop" style="animation-delay:1.8s;animation-duration:3s">01</div>
+      <div class="stop dis anim a-pop" style="animation-delay:2.05s;animation-duration:3s">02</div>
+      <div class="stop dis anim a-pop" style="animation-delay:2.3s;animation-duration:3s">03</div>
+      <div class="stop dis anim a-pop" style="animation-delay:2.55s;animation-duration:3s">04</div>
+      <div class="stop dis anim a-pop" style="animation-delay:2.8s;animation-duration:3s">05</div>
+      <div class="stop dis anim a-pop" style="animation-delay:3.05s;animation-duration:3s">06</div>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

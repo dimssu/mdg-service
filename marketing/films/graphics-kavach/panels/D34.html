@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Who to tell first, and which papers the claim needs: two sheets side by side,
+   the first ticking down in order, then the papers checklist beside it. */
+.two{position:absolute;left:60px;right:60px;top:400px;display:flex;gap:30px;align-items:flex-start}
+.sh{flex:1;padding:0 0 40px;min-height:920px}
+.sh .hd{padding:30px 30px 24px;border-bottom:3px solid var(--print)}
+.sh .hd .n{font-size:30px;color:var(--amberDeep);font-family:'Space Grotesk',sans-serif;font-weight:700}
+.sh .hd .t{font-size:50px;line-height:1.3;color:var(--maroon);margin-top:6px}
+.sh ul{list-style:none;padding:10px 26px 0}
+.sh li{display:flex;align-items:flex-start;gap:16px;padding:32px 0 30px;border-bottom:2px dashed #D9CCB6;font-size:42px;line-height:1.35;color:#2A1A16}
+.sh li:last-child{border-bottom:0}
+.num{flex:none;width:52px;height:52px;border-radius:50%;background:var(--maroon);color:#fff;font-size:30px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.cb{flex:none;width:52px;height:52px;border-radius:12px;border:3px solid var(--good);color:var(--good);display:flex;align-items:center;justify-content:center;margin-top:2px;background:#fff}
+.cb svg{width:36px;height:36px;stroke-width:3.2}
+</style>
+</head>
+<body>
+<!-- ══ D34 · who to tell first, which papers for the claim · K718 "सबसे पहले किन लोगों को बताना है, और क्लेम के लिए कौन-कौन से काग़ज़ चाहिए।" (6.53 s) ══ -->
+<div class="panel" id="D34" data-plate="desk" style="--T:7s">
+  <div class="two">
+    <div class="paper sh anim a-rise" style="--rot:-1.4deg;animation-delay:0s;animation-duration:3s">
+      <div class="hd"><div class="t hi">सबसे पहले<br/>किसे बताना है</div></div>
+      <ul><li class="anim a-stamp" style="animation-delay:0.35s;animation-duration:4s"><span class="num dis">1</span><span class="hi">पुलिस / फ़ायर डिपार्टमेंट</span></li><li class="anim a-stamp" style="animation-delay:0.95s;animation-duration:4s"><span class="num dis">2</span><span class="hi">इंश्योरेंस कंपनी</span></li><li class="anim a-stamp" style="animation-delay:1.55s;animation-duration:4s"><span class="num dis">3</span><span class="hi">सेल्स ऑफ़िसर</span></li><li class="anim a-stamp" style="animation-delay:2.15s;animation-duration:4s"><span class="num dis">4</span><span class="hi">एम-डी-जी टीम</span></li></ul>
+    </div>
+    <div class="paper sh anim a-rise" style="--rot:1.2deg;margin-top:60px;animation-delay:2.55s;animation-duration:3s">
+      <div class="hd"><div class="t hi">क्लेम के लिए<br/>कौन-कौन से काग़ज़</div></div>
+      <ul><li class="anim a-stamp" style="animation-delay:2.90s;animation-duration:4s"><span class="cb"><svg class="i anim a-pop" style="animation-delay:3.20s;animation-duration:2.5s"><use href="#i-check"/></svg></span><span class="hi">पॉलिसी की कॉपी</span></li><li class="anim a-stamp" style="animation-delay:3.35s;animation-duration:4s"><span class="cb"><svg class="i anim a-pop" style="animation-delay:3.65s;animation-duration:2.5s"><use href="#i-check"/></svg></span><span class="hi">FIR / फ़ायर रिपोर्ट की कॉपी</span></li><li class="anim a-stamp" style="animation-delay:3.80s;animation-duration:4s"><span class="cb"><svg class="i anim a-pop" style="animation-delay:4.10s;animation-duration:2.5s"><use href="#i-check"/></svg></span><span class="hi">घटना की फ़ोटो</span></li><li class="anim a-stamp" style="animation-delay:4.25s;animation-duration:4s"><span class="cb"><svg class="i anim a-pop" style="animation-delay:4.55s;animation-duration:2.5s"><use href="#i-check"/></svg></span><span class="hi">नुक़सान की सूची और बिल</span></li></ul>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

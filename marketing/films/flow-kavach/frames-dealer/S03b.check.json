@@ -1,0 +1,19 @@
+{
+  "id": "S03",
+  "same_man": "same",
+  "face_notes": "The face is a very close match to the reference photo in terms of age, hair, and moustache. The lighting is different but he is clearly the same character.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [
+    "Orange/red colour on forecourt structure visible through window"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The shot is excellent, but the structure visible through the window has orange/red colour, which looks like branding. The brief requires a 'plain white canopy' with no brand colours. Please regenerate ensuring the forecourt visible through the window has no brand colours or logos, only plain white structures."
+}

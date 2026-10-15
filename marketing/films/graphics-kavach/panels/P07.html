@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* the app's chat, by day: a phone big enough that a message reads on a phone */
+.phone{width:860px;height:1520px;border-radius:84px;padding:16px;margin-top:-40px}
+.screen{border-radius:70px;background:var(--cream)}
+.island{position:absolute;top:22px;left:50%;width:150px;height:40px;margin-left:-75px;
+  border-radius:20px;background:#000;z-index:10}
+.top{padding:84px 36px 24px;display:flex;align-items:center;gap:20px;background:#fff;
+  border-bottom:1px solid #EDE2D3}
+.logo{width:72px;height:72px;border-radius:20px;flex:none;display:flex;align-items:center;
+  justify-content:center;font-size:28px;font-weight:700;color:#fff;
+  background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep))}
+.top .nm{font-size:36px;color:#16120F;line-height:1.2}
+.top .st{font-size:27px;color:var(--inkMuted);line-height:1.3}
+.chat{flex:1;padding:34px 30px;display:flex;flex-direction:column;gap:24px;
+  background:radial-gradient(rgba(107,22,22,.06) 1.5px,transparent 1.5px) 0 0/34px 34px,var(--creamSunk)}
+.day{align-self:center;font-size:26px;color:#6E5E50;background:#FCF6DC;padding:8px 24px;border-radius:12px;
+  box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.bub{font-size:44px;line-height:1.5;max-width:100%;border-radius:28px;padding:22px 28px 16px;
+  box-shadow:0 4px 12px rgba(74,15,15,.12);color:var(--ink)}
+.bub.them{align-self:flex-start;background:#fff;border-top-left-radius:8px}
+.who{font-size:28px;color:var(--maroon);margin-bottom:6px}
+.bub .tm{font-size:24px;color:#9C9184;text-align:right;margin-top:4px}
+.compose{margin:0 26px 34px;display:flex;align-items:center;gap:18px}
+.compose .in{flex:1;background:#fff;border:2px solid #EDE2D3;border-radius:999px;padding:22px 30px;font-size:28px;color:#A89484}
+.compose .mic{width:84px;height:84px;border-radius:50%;background:var(--maroon);color:#fff;
+  display:flex;align-items:center;justify-content:center}
+
+/* the week's running total, as a card inside the message */
+.chart{background:#FFFBF4;border:2px solid #F0DDBE;border-radius:20px;padding:18px 18px 10px;margin:8px 0 18px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart .ln{fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+@keyframes drawL{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+.chart text{font-family:'Space Grotesk',sans-serif;font-size:26px;fill:#8A7466}
+.chart text.big{font-size:76px;font-weight:700;fill:var(--bad);letter-spacing:-1px}
+
+/* the two words the eye must land on */
+.u{position:relative;white-space:nowrap}
+.u i{position:absolute;left:-2px;right:-2px;bottom:.05em;height:.2em;border-radius:6px;transform-origin:0 50%;z-index:-1}
+.u.g i{background:rgba(233,162,59,.9)}
+.u.a i{background:rgba(233,162,59,.42)}
+.u.g{color:var(--bad);font-family:'Space Grotesk',sans-serif;font-weight:700}
+@keyframes under{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.txt{position:relative;z-index:0}
+</style>
+</head>
+<body>
+<!-- ══ P07 · the message: stock heading minus · K219 "… आपका स्टॉक लगातार प्लस में जा रहा है, या माइनस में।" (4.62 s) ══ -->
+<div class="panel" id="P07" data-plate="dusk" style="--T:6s">
+  <div class="glow anim a-glow" style="animation-delay:-.5s"></div>
+  <div class="phone anim a-rise" style="animation-duration:3.5s">
+    <div class="screen">
+      <div class="island"></div>
+      <div class="top">
+        <div class="logo dis">DK</div>
+        <div><div class="nm hi">MDG टीम</div><div class="st hi">डीलर कवच</div></div>
+      </div>
+      <div class="chat">
+        <div class="day hi">आज</div>
+        <div class="bub them anim a-bub" style="animation-delay:.3s;animation-duration:5s">
+          <div class="who hi">MDG टीम</div>
+          <div class="chart">
+            <!-- running total 14→20 Aug: +48 +26 +62 +21 −37 −114 −210 L -->
+            <svg viewBox="0 0 640 380">
+              <rect x="0" y="0" width="640" height="115" fill="rgba(30,122,74,.07)"/>
+              <rect x="0" y="115" width="640" height="232" fill="rgba(233,162,59,.10)"/>
+              <path d="M20 115H620" stroke="#B9A48C" stroke-width="2.5" stroke-dasharray="8 8" fill="none"/>
+              <path class="ln anim" pathLength="1" style="stroke:var(--maroon);animation-name:drawL;animation-delay:.7s;animation-duration:.55s" d="M40 70 133 91 227 57 320 95 354 115"/>
+              <path class="ln anim" pathLength="1" style="stroke:var(--amberDeep);animation-name:drawL;animation-delay:1.25s;animation-duration:.55s;animation-timing-function:linear" d="M354 115 413 149 507 221 600 311"/>
+              <circle cx="600" cy="311" r="14" class="anim a-pop" style="fill:var(--bad);transform-box:fill-box;transform-origin:50% 50%;animation-delay:1.7s;animation-duration:3s"/>
+              <text class="big anim a-pop" x="40" y="318" style="transform-box:fill-box;transform-origin:0 100%;animation-delay:1.75s;animation-duration:3s">−210 L</text>
+              <text x="40" y="372" text-anchor="middle">14</text><text x="600" y="372" text-anchor="middle">20</text>
+            </svg>
+          </div>
+          <div class="txt hi">इस हफ़्ते MS का स्टॉक लगातार <span class="u a">माइनस<i class="anim" style="animation-name:under;animation-delay:2.2s;animation-duration:.4s"></i></span> की ओर जा रहा है — 14 से 20 अगस्त तक कुल <span class="u g">−210 L<i class="anim" style="animation-name:under;animation-delay:1.8s;animation-duration:.4s"></i></span>। कारण हम देख रहे हैं।</div>
+          <div class="tm hi">शाम 7:30</div>
+        </div>
+      </div>
+      <div class="compose">
+        <div class="in hi">संदेश लिखें…</div>
+        <div class="mic"><svg class="i" style="width:38px;height:38px" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">किस ओर जा रहा है, समय पर पता</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  /* numbered heading — the same build as chapter 2's I10 / I12 / I13 / I15, so the
+     list reads as one series: a gold numeral that draws itself, a short gold
+     rule, the label and the title written in, a line icon drawn beneath, and a
+     slow 3% push for the rest of the line. */
+  .hd{display:flex;flex-direction:column;align-items:center;text-align:center;width:960px}
+  .hd svg.num{width:620px;height:330px;overflow:visible}
+  .hd .numtx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:340px;letter-spacing:-8px;
+    fill:url(#gold);stroke:#C77C1B;stroke-width:3;stroke-dasharray:1500;stroke-dashoffset:1500;fill-opacity:0;
+    paint-order:stroke}
+  @keyframes numDraw{0%{stroke-dashoffset:1500;fill-opacity:0}55%{stroke-dashoffset:0;fill-opacity:0}100%{stroke-dashoffset:0;fill-opacity:1}}
+  .hd .numtx.anim{animation-name:numDraw;animation-duration:.95s;animation-timing-function:cubic-bezier(.45,.1,.3,1)}
+  .hd .rule{width:180px;height:8px;border-radius:8px;margin:14px 0 40px;
+    background:linear-gradient(90deg,var(--amberDeep),#F6C877,var(--amberDeep));transform-origin:center}
+  @keyframes ruleIn{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+  .hd .rule.anim{animation-name:ruleIn;animation-duration:.7s}
+  .hd .lab{font-size:50px;color:var(--amberDeep);line-height:1.2}
+  .hd .ttl{font-size:98px;color:var(--maroon);line-height:1.22;margin-top:18px;max-width:940px}
+  .hd svg.ico{width:300px;height:230px;margin-top:56px;overflow:visible}
+  .hd svg.ico path,.hd svg.ico rect,.hd svg.ico circle{fill:none;stroke:var(--maroonSoft);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:1;stroke-dashoffset:1}
+  .hd svg.ico .gd{stroke:var(--amber)}
+  .hd svg.ico .gn{stroke:var(--good)}
+  .hd svg.ico .rd{stroke:var(--bad)}
+  @keyframes drawIco{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+  .hd svg.ico .anim{animation-name:drawIco;animation-duration:.7s;animation-timing-function:cubic-bezier(.5,.1,.3,1)}
+
+</style>
+</head>
+<body>
+<!-- ══ I21 · heading 05, photo verification · K308 "पाँचवाँ — डिजिटल फ़ोटो से वेरिफ़िकेशन। …" (3 s) ══ -->
+<div class="panel" id="I21" data-plate="desk" style="--T:4s">
+  <div class="glow anim a-glow" style="animation-delay:-1.4s;top:44%"></div>
+  <div class="hd anim a-drift" style="--rot:0deg;--dy1:-24px;--s0:1;--s1:1.03">
+    <svg class="num" viewBox="0 0 620 330">
+      <defs><linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F8C977"/><stop offset=".55" stop-color="#E9A23B"/><stop offset="1" stop-color="#B96E12"/></linearGradient></defs>
+      <text class="numtx anim" x="310" y="300" text-anchor="middle" style="animation-delay:-.02s">05</text>
+    </svg>
+    <div class="rule anim" style="animation-delay:.35s"></div>
+    <div class="lab hi anim a-write" style="animation-delay:.45s;animation-duration:5s">पाँचवाँ</div>
+    <div class="ttl hi"><div class="anim a-write" style="animation-delay:1.0s;animation-duration:5s">डिजिटल फ़ोटो से</div><div class="anim a-write" style="animation-delay:1.4s;animation-duration:5s">वेरिफ़िकेशन</div></div>
+    <!-- a camera whose lens holds a tick: the photo is checked -->
+    <svg class="ico" viewBox="0 0 300 230">
+      <path d="M26 74a18 18 0 0 1 18-18h40l20-28h92l20 28h40a18 18 0 0 1 18 18v120a18 18 0 0 1-18 18H44a18 18 0 0 1-18-18Z" pathLength="1" class="anim" style="animation-delay:1.20s"/>
+      <circle cx="150" cy="132" r="52" pathLength="1" class="anim" style="animation-delay:1.40s"/>
+      <circle cx="240" cy="88" r="7" pathLength="1" class="anim gd" style="animation-delay:1.55s"/>
+      <path d="M126 132l16 16 32-36" pathLength="1" class="anim gn" style="animation-delay:1.70s"/>
+    </svg>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

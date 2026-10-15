@@ -1,0 +1,16 @@
+{
+  "id": "P04-tanker-short",
+  "act": 1,
+  "beat": "P04-tanker-short",
+  "problem": "He cannot tell if the tanker delivered what it should have",
+  "aspect_ratio": "9:16",
+  "action": "Dawn. A large plain road tanker lorry stands on the forecourt with its discharge hose already coupled and running down into the ground. The dealer stands a few feet back from it with his arms folded across his chest, watching the hose where it meets the tank, not the driver. His weight is on one leg. He is not helping; he is watching, and he does not look satisfied.",
+  "lighting": "Cold blue pre-sunrise light with the forecourt lamps still on overhead, so the scene is half cold daylight and half warm artificial. The tanker is a dark bulk against a pale sky.",
+  "camera": "Waist-up on the dealer standing on the left of the vertical frame, with the flank of the tanker filling the right side and running out of frame. He is sharp, the tanker slightly soft. 35mm.",
+  "detail": "The tanker is COMPLETELY UNMARKED — plain dull metal and plain paint, no company name, no logo, no livery, no stripes, no number plate, no lettering of any kind anywhere on it. The driver is not visible. Same cream full-sleeve shirt with the sleeves rolled, same dark navy trousers, same watch.",
+  "feeling": "Watching something you have no way of checking. Suspicion with nowhere to put itself.",
+  "motion": "Almost nothing moves. The hose shifts very slightly with the flow. He shifts his weight once and keeps watching. A very slow push in. No cuts, no camera shake, no people enter frame, nobody speaks.",
+  "voice_over": {
+    "hi": "टैंकर से तेल पूरा आ रहा है, या रास्ते में कुछ हो गया। कैसे जानूँ?"
+  }
+}

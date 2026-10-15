@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  @keyframes paperIn{0%{opacity:0;transform:translateY(120px) rotate(2.5deg) scale(.96)}100%{opacity:1;transform:rotate(-1deg)}}
+  @keyframes wr{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(-10% -4% -10% 0)}}
+  @keyframes dash{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+  @keyframes show{0%{opacity:0}100%{opacity:1}}
+
+  #D37 .paper{--rot:-1deg;width:940px;padding:56px 60px 250px;animation-name:paperIn;animation-duration:.7s}
+  #D37 .wm{position:absolute;left:50%;margin-left:-180px;top:200px;color:rgba(107,22,22,.06);z-index:0}
+  #D37 .wm svg.i{width:360px;height:360px;stroke-width:1.4}
+  #D37 .ttl{text-align:center;font-size:58px;font-weight:700;color:var(--maroonDeep);line-height:1.25}
+  #D37 .dbl{height:10px;border-top:3px solid var(--print);border-bottom:1.5px solid var(--print);margin:26px 0 34px}
+  #D37 ol{list-style:none;display:flex;flex-direction:column;gap:26px;position:relative;z-index:1}
+  #D37 li{display:flex;gap:20px;font-size:44px;line-height:1.35;color:var(--print);animation-name:wr;animation-duration:.6s;animation-timing-function:linear}
+  #D37 li .n{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--maroon);flex:none;width:44px}
+  #D37 .sig{display:flex;justify-content:space-between;margin-top:70px;gap:40px}
+  #D37 .sig .s{flex:1;display:flex;flex-direction:column;align-items:center}
+  #D37 .sig svg{width:100%;height:120px;overflow:visible}
+  #D37 .sig path{fill:none;stroke:var(--pen);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;
+    animation-name:dash;animation-duration:.8s;animation-timing-function:cubic-bezier(.45,.05,.35,1)}
+  #D37 .sig .ln{width:100%;height:0;border-top:2.5px solid var(--print)}
+  #D37 .sig .who{font-size:38px;color:var(--print);margin-top:14px}
+  #D37 .stamp{position:absolute;right:120px;bottom:44px;z-index:8;text-align:center;padding:16px 30px 18px;border-width:7px;
+    background:rgba(232,245,238,.35);
+    /* the kit's stampDown lands at 7% of the clock: give it the panel's clock and its own overshoot, or it pops in with no motion */
+    animation-duration:var(--T);animation-timing-function:cubic-bezier(.3,1.3,.5,1)}
+  #D37 .stamp .big{font-size:62px;line-height:1.2}
+  #D37 .stamp .sm{font-size:31px;line-height:1.3;font-weight:400}
+</style>
+</head>
+<body>
+<!-- ══ D37 · confidentiality agreement signed first · K805 (held 6.5 s) ══════════ -->
+<div class="panel" id="D37" data-plate="desk" style="--T:7s">
+  <div class="paper mv" style="animation-delay:-.1s">
+    <div class="wm"><svg class="i"><use href="#i-lock"/></svg></div>
+    <div class="ttl hi">गोपनीयता समझौता (NDA)</div>
+    <div class="dbl"></div>
+    <ol>
+      <li class="hi mv" style="animation-delay:.4s"><span class="n">1.</span><span>आपके काग़ज़ और डेटा गोपनीय रहेंगे</span></li>
+      <li class="hi mv" style="animation-delay:1.0s"><span class="n">2.</span><span>सिर्फ़ आपके पंप के काम के लिए इस्तेमाल</span></li>
+      <li class="hi mv" style="animation-delay:1.6s"><span class="n">3.</span><span>बिना अनुमति किसी को नहीं</span></li>
+    </ol>
+    <div class="sig">
+      <div class="s">
+        <svg viewBox="0 0 380 120"><path class="mv" pathLength="1" style="animation-delay:2.25s"
+          d="M20 88 C40 30 62 20 66 52 C70 86 52 104 60 74 C70 40 96 36 104 66 C110 90 122 60 136 58 C150 56 150 86 168 76 C190 64 214 40 240 58 C262 72 300 70 350 54"/></svg>
+        <div class="ln"></div><div class="who hi">एम-डी-जी सर्विसेज़</div>
+      </div>
+      <div class="s">
+        <svg viewBox="0 0 380 120"><path class="mv" pathLength="1" style="animation-delay:3.0s"
+          d="M30 80 C50 70 70 22 88 30 C104 38 80 96 100 92 C120 88 132 44 150 50 C166 56 150 90 172 84 C196 78 206 52 226 62 C246 72 238 94 262 86 C290 76 320 60 356 66"/></svg>
+        <div class="ln"></div><div class="who hi">डीलर</div>
+      </div>
+    </div>
+    <div class="stamp hi mv a-stampdown" style="animation-delay:3.85s">
+      <div class="big">साइन हुआ</div>
+      <div class="sm">कोई भी काग़ज़ देखने से पहले</div>
+    </div>
+  </div>
+  <div class="rail hi">काग़ज़ देखने से पहले समझौता</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

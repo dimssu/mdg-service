@@ -1,0 +1,30 @@
+{
+  "id": "S45",
+  "same_man": "same",
+  "face_notes": "Indian man, approx 50, greying black hair parted on the side, thick black moustache, consistent with reference photo.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "Veo watermark"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 0,
+      "what": "Younger man makes small pointing gestures towards the phone, not an open-hand gesture."
+    },
+    {
+      "t": 3,
+      "what": "Younger man starts talking/mouthing words, continues until 5s."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The motion is incorrect. The younger man gestures and talks, but the brief requires the dealer to act. The young man should gesture with an open hand (0-3s), and the dealer should tap the phone and nod (3-6s). All mouths must remain closed."
+}

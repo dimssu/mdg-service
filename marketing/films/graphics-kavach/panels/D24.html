@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* paper cards only — no portal screen */
+#D24{gap:0}
+#D24 .hd{font-size:66px;line-height:1.3;color:var(--maroon);text-align:center;margin-bottom:64px}
+#D24 .list{width:940px;display:flex;flex-direction:column;gap:34px}
+#D24 .pc{position:relative;display:flex;align-items:center;gap:24px;background:var(--paper);border-radius:10px;
+  padding:34px 190px 34px 40px;min-height:196px;
+  box-shadow:0 26px 50px rgba(40,14,6,.24),0 4px 10px rgba(40,14,6,.14),0 0 0 1px var(--paperEdge)}
+#D24 .pc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:10px;border-radius:10px 0 0 10px;background:var(--amber)}
+#D24 .pc .tx{display:flex;flex-direction:column;gap:10px}
+#D24 .pc .n{font-size:46px;line-height:1.3;color:var(--print)}
+#D24 .pc .d{font-size:34px;color:#6B6258;display:flex;align-items:center;gap:12px}
+#D24 .pc .d svg{width:34px;height:34px}
+#D24 .pc .d b{font-family:'Space Grotesk',sans-serif;font-weight:700;color:#4A423A}
+/* a round rubber stamp */
+#D24 .rs{position:absolute;right:26px;top:50%;margin-top:-76px;width:152px;height:152px;border-radius:50%;
+  border:6px solid var(--good);box-shadow:inset 0 0 0 5px #fff,inset 0 0 0 8px var(--good);color:var(--good);
+  display:flex;align-items:center;justify-content:center;font-size:35px;line-height:1;opacity:.92;padding-top:4px;mix-blend-mode:multiply;transform:rotate(-12deg)}
+@keyframes rStamp{0%{opacity:0;transform:scale(1.9) rotate(-26deg)}55%{opacity:.95;transform:scale(.94) rotate(-12deg)}
+  75%{transform:scale(1.03) rotate(-12deg)}100%{opacity:.92;transform:scale(1) rotate(-12deg)}}
+.st{animation-name:rStamp;animation-duration:.45s!important;animation-timing-function:cubic-bezier(.3,.9,.4,1)!important}
+@keyframes cardIn{0%{opacity:0;transform:translateY(60px) rotate(var(--r0))}100%{opacity:1;transform:rotate(var(--r1))}}
+.ci{animation-name:cardIn;animation-duration:.6s!important}
+</style>
+</head>
+<body>
+<!-- ══ D24 · digital declarations filed · K516 "डेली डिक्लेरेशन, स्वच्छता डिक्लेरेशन, स्टाफ़ मिनिमम वेज डिक्लेरेशन…" ══ -->
+<div class="panel" id="D24" data-plate="desk" style="--T:7s">
+  <div class="hd hi anim a-fade" style="animation-duration:.6s">इस हफ़्ते के डिजिटल कंप्लायंस</div>
+  <div class="list">
+    <div class="pc anim ci" style="--r0:-3deg;--r1:-.8deg;animation-delay:.5s">
+      <div class="tx"><div class="n hi">डेली डिक्लेरेशन</div><div class="d"><svg class="i"><use href="#i-cal"/></svg><b>20-08</b></div></div>
+      <div class="rs hi anim st" style="animation-delay:.95s">जमा ✓</div></div>
+    <div class="pc anim ci" style="--r0:3deg;--r1:.7deg;animation-delay:1.55s">
+      <div class="tx"><div class="n hi">स्वच्छता डिक्लेरेशन</div><div class="d"><svg class="i"><use href="#i-cal"/></svg><b>20-08</b></div></div>
+      <div class="rs hi anim st" style="animation-delay:2.0s">जमा ✓</div></div>
+    <div class="pc anim ci" style="--r0:-3deg;--r1:-.6deg;animation-delay:2.75s">
+      <div class="tx"><div class="n hi">स्टाफ़ मिनिमम वेज डिक्लेरेशन</div><div class="d hi"><svg class="i"><use href="#i-cal"/></svg>अगस्त</div></div>
+      <div class="rs hi anim st" style="animation-delay:3.2s">जमा ✓</div></div>
+    <div class="pc anim ci" style="--r0:3deg;--r1:.8deg;animation-delay:3.85s">
+      <div class="tx"><div class="n hi"><span style="white-space:nowrap">एस-डी-एम-एस</span>, <span style="white-space:nowrap">आई-आर-ए-एस</span> के बाक़ी ज़रूरी डिजिटल कंप्लायंस</div><div class="d hi"><svg class="i"><use href="#i-cal"/></svg>इस हफ़्ते</div></div>
+      <div class="rs hi anim st" style="animation-delay:4.3s">जमा ✓</div></div>
+  </div>
+  <div class="rail hi">हर डिक्लेरेशन, समय पर</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

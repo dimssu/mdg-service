@@ -1,0 +1,26 @@
+{
+  "id": "P02-dsr-book-blank",
+  "act": 1,
+  "card": 2,
+  "of": 10,
+  "problem": "His staff stopped writing the daily sales register, and he found out with someone standing in front of him",
+  "duration_s": 4,
+  "aspect_ratio": "9:16",
+  "action": "Broad daylight inside the pump office. The dealer stands behind his counter holding a large open hardbound register up in both hands, turned towards himself. He is staring down into it. The double page he is looking at is ruled into empty columns and is unmistakably unused — clean, bare paper with nothing written in it at all. In the immediate foreground, very close to the lens and thrown heavily out of focus, is the shoulder and upper back of another man standing on the customer side of the counter, waiting. We never see that man's face. The dealer's eyes stay down on the page. He has not looked up yet.",
+  "lighting": "Hard midday light coming in through the office glass behind the visitor, so the visitor's shoulder is a dark mass in the foreground and the dealer and his register are lit brightly. Dust in the light. The contrast is harsh and unflattering — this is the middle of a working day, not a beautiful hour.",
+  "camera": "Chest-up on the dealer, shot past the out-of-focus shoulder in the near foreground on the right of the vertical frame. The dealer is centre-left, sharp. The open register fills the lower third of the frame, angled so we clearly see the ruled columns are blank. 35mm.",
+  "detail": "CRITICAL — THE PAGES ARE UNUSED. Both visible pages are bare cream paper carrying only faint pre-printed ruled lines and column dividers. There is NO ink on them of any kind: no handwriting, no figures, no scribbles, no smudges, no crossings-out, no pen marks, no printed words, no letters, no numbers. Pristine, untouched, never written in — the columns are empty white space from top to bottom. If anything at all appears written on these pages the picture is wrong. His jaw is tight and the knuckle of the hand holding the left page has gone slightly white. Same cream shirt with the sleeves rolled, same watch.",
+  "feeling": "The half-second before you have to look up at somebody and explain. Not caught lying — caught not knowing. The blank page is the loudest thing in the picture.",
+  "motion": "Almost nothing moves. Hold the composition. The dealer's eyes stay down on the page; his chest rises once with a held breath. A very slow push in towards him. The blurred shoulder in the foreground shifts its weight slightly, once. No cuts, no camera shake, nobody enters or leaves frame, nobody speaks, no faces turn towards camera.",
+  "voice_over": {
+    "hi": "स्टाफ़ ने DSR लिखना बंद कर दिया था। पता तब चला जब सामने कोई खड़ा था।",
+    "en": "My staff had stopped writing the DSR. I found out with someone standing in front of me."
+  },
+  "on_screen_text": {
+    "hi": "किताब ख़ाली थी",
+    "note": "ADDED IN POST — never generated. Tiro Devanagari Hindi, never letter-spaced."
+  },
+  "sfx": "a ceiling fan, a vehicle pulling off the forecourt outside, no voices",
+  "answered_in": "S02-dsr-answer",
+  "notes": "Card 2 of Act 1. Daylight, to break from card 1's night. The visitor is deliberately faceless and unbranded — no uniform, no badge, no logo, no clipboard marking. No penalty or consequence is stated or shown."
+}

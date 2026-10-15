@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* the tanker's tax invoice, printed; its fields arrive top to bottom, then a
+   maroon pen loops the one that matters — Density@15 — and the rest fall back. */
+.chip{display:flex;align-items:center;gap:18px;background:linear-gradient(140deg,var(--maroonSoft),var(--maroon));
+  color:#fff;border-radius:999px;padding:20px 40px 20px 22px;font-size:40px;line-height:1.3;
+  box-shadow:0 16px 34px rgba(74,15,15,.30);max-width:960px}
+.chip .no{width:66px;height:66px;border-radius:50%;background:var(--amber);color:var(--maroonDeep);flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:700}
+.inv{width:900px;--rot:-1.4deg;padding:0 0 34px}
+.inv .bar{height:14px;background:var(--maroon);border-radius:6px 6px 0 0}
+.inv .head{padding:30px 44px 22px;align-items:center}
+.inv .head .t{font-size:58px;font-weight:400;line-height:1.3}
+.inv .head .m{font-size:30px}
+.f{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 44px;height:112px;
+  border-bottom:1.5px dashed #D8CBB6;position:relative}
+.f .k{font-size:38px;color:#6B6258}
+.f .v{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:var(--print)}
+.f .v .hi{font-family:'Tiro Devanagari Hindi',serif;font-weight:400;font-size:38px;color:#6B6258}
+.f.key .k{color:var(--maroon)}
+.f.key .v{color:var(--maroon);font-size:64px}
+@keyframes dimOut{0%{filter:opacity(1)}100%{filter:opacity(.3)}}
+svg.loop{position:absolute;left:14px;right:14px;top:-26px;height:164px;width:calc(100% - 28px);overflow:visible;pointer-events:none}
+svg.loop path{fill:none;stroke:var(--maroon);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1;stroke-dashoffset:1}
+@keyframes drawOn2{0%{stroke-dashoffset:1;opacity:0}1%{opacity:1}100%{stroke-dashoffset:0;opacity:1}}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.03)}}
+</style>
+</head>
+<body>
+<!-- ══ D08 · first: the invoice density · K303 "पहला — इनवॉइस की डेंसिटी का मिलान।" (4.62 s) ══ -->
+<div class="panel" id="D08" data-plate="desk" style="--T:6s">
+  <div class="glow anim a-glow" style="animation-delay:-.5s"></div>
+  <div class="chip anim a-stamp" style="animation-delay:0s;animation-duration:4s">
+    <div class="no dis">1</div><span class="hi">पहला · इनवॉइस की डेंसिटी का मिलान</span></div>
+  <div class="anim" style="animation-name:push;animation-delay:2.4s;animation-duration:3s;animation-timing-function:linear;transform-origin:50% 70%">
+  <!-- a plain maroon rule for a header: no company name, no mark -->
+  <div class="paper inv anim a-settle" style="--r0:4deg;--r1:-1.4deg;animation-delay:.25s;animation-duration:3s">
+    <div class="bar"></div>
+    <div class="head"><div class="t hi">टैक्स इनवॉइस</div></div>
+    <div class="f anim a-fade" style="animation-delay:.8s;animation-duration:2s"><div class="k hi">इनवॉइस नं.</div><div class="v">••••4436</div></div>
+    <div class="f anim a-fade" style="animation-delay:1.05s;animation-duration:2s"><div class="k hi">उत्पाद</div><div class="v">HSD</div></div>
+    <div class="f anim a-fade" style="animation-delay:1.3s;animation-duration:2s"><div class="k hi">मात्रा</div><div class="v">6,000 L</div></div>
+    <div class="f anim a-fade" style="animation-delay:1.55s;animation-duration:2s"><div class="k hi">तापमान</div><div class="v">31.0 °C</div></div>
+    <div class="f key anim a-fade" style="animation-delay:1.8s;animation-duration:2s">
+      <div class="k" style="font-family:Inter,sans-serif;font-weight:600;font-size:36px">Density@15</div><div class="v">831.5</div>
+      <svg class="loop" viewBox="0 0 800 164" preserveAspectRatio="none">
+        <path class="anim" pathLength="1" style="animation-name:drawOn2;animation-delay:2.4s;animation-duration:.75s;animation-timing-function:cubic-bezier(.5,.1,.4,1)"
+          d="M470 20 C 640 6, 790 30, 792 84 C 794 140, 600 158, 400 154 C 190 150, 8 138, 10 82 C 12 30, 200 10, 430 14 C 520 16, 600 22, 640 34"/>
+      </svg>
+    </div>
+    <div class="f anim a-fade" style="animation-delay:2.05s;animation-duration:2s;border-bottom:none"><div class="k hi">वाहन नं.</div><div class="v">●●●● <span class="hi">(छिपा)</span></div></div>
+  </div>
+  </div>
+  <div class="rail hi">इनवॉइस पर लिखी डेंसिटी</div>
+</div>
+<script>
+/* once the loop is drawn, every other field falls back: a second animation on
+   each row (on filter, so it cannot fight the arrival fade on opacity) */
+for (const f of document.querySelectorAll('#D08 .f:not(.key)')) {
+  f.style.animationName = 'fadeIn, dimOut';
+  f.style.animationDelay = `${f.style.animationDelay}, 2.7s`;
+  f.style.animationDuration = '2s, .5s';
+}
+</script>
+<script src="../kit.js"></script>
+</body>
+</html>

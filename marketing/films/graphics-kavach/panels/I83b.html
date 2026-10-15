@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Opens on I83a's last frame exactly (same markup, same positions, glow at
+   rest). The two sides slide apart, a tiny chip is left where the heading was,
+   and two thick arrows grow out of it to two big results: small cause, big
+   result.
+   Timed to K022: "यानी" 0.08–0.41 s, "एक छोटी-सी भूल" 0.86–2.12 s, "जेब पर भी
+   भारी पड़ सकती है" 2.98–4.79 s, "और कंप्लायंस पर भी" 5.41–6.59 s. */
+#I83b .ink{position:absolute;inset:-4px;border-radius:54px}
+#I83b .hd{position:absolute;left:0;right:0;top:330px;text-align:center;font-size:120px;line-height:1.25;color:var(--maroon)}
+#I83b svg.br{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible;pointer-events:none}
+#I83b svg.br path{fill:none;stroke:var(--maroon);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+#I83b .side{position:absolute;top:720px;width:450px;height:700px;border-radius:34px;padding:58px 26px 40px;text-align:center;
+  background:linear-gradient(170deg,#fff,#FBF3E7);border:1px solid rgba(201,160,100,.55);
+  box-shadow:0 34px 70px rgba(58,16,10,.28),0 4px 10px rgba(58,16,10,.14);display:flex;flex-direction:column;align-items:center}
+#I83b .side.l{left:70px} #I83b .side.r{left:560px}
+#I83b .g{position:relative;width:196px;height:196px;border-radius:54px;display:flex;align-items:center;justify-content:center;color:#fff;
+  box-shadow:inset 0 -6px 14px rgba(0,0,0,.20),0 12px 24px rgba(58,16,10,.26)}
+#I83b .g.m{background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep))}
+#I83b .g.b{background:#FBEAE7;border:4px dashed rgba(192,57,43,.45);box-shadow:none}
+#I83b .g.b .ink{position:absolute;inset:-4px;border-radius:54px;background:linear-gradient(150deg,#D9543F,#9E2A1F);
+  box-shadow:inset 0 -6px 14px rgba(0,0,0,.20),0 12px 24px rgba(58,16,10,.26)}
+#I83b .g svg{position:relative;width:128px;height:128px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+#I83b .coin{width:124px;height:124px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:76px;font-weight:700;color:var(--maroonDeep);padding-bottom:4px;
+  background:radial-gradient(circle at 34% 28%,#F8D899,#E9A23B 58%,#B5700F);box-shadow:inset 0 -4px 10px rgba(120,60,6,.35),0 6px 12px rgba(0,0,0,.25)}
+#I83b .dn{position:absolute;right:-14px;bottom:-14px;width:70px;height:70px;border-radius:50%;background:#fff;color:var(--bad);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 8px 16px rgba(58,16,10,.25)}
+#I83b .dn svg{width:48px!important;height:48px!important;stroke-width:3!important}
+#I83b .k{font-size:48px;line-height:1.3;color:var(--inkMuted);margin-top:40px;white-space:nowrap}
+#I83b .t{font-size:70px;line-height:1.3;color:var(--maroon);margin-top:14px}
+#I83b .side.l .t{margin-top:58px}
+#I83b .h{font-size:46px;line-height:1.3;color:var(--inkMuted);margin-top:22px;padding:6px 26px 2px;border-radius:999px;border:2px dashed rgba(138,116,102,.6)}
+@keyframes drawOn2{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+.dr{animation-name:drawOn2;animation-timing-function:cubic-bezier(.5,.1,.3,1)}
+@keyframes fadeUp{0%{opacity:0;transform:translateY(24px)}100%{opacity:1;transform:none}}
+.fu{animation-name:fadeUp}
+@keyframes sideIn{0%{opacity:0;transform:translateY(90px) scale(.95)}100%{opacity:1;transform:none}}
+.si{animation-name:sideIn;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+@keyframes popG{0%{opacity:0;transform:scale(.6)}70%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:none}}
+.pg{animation-name:popG;animation-timing-function:cubic-bezier(.2,.9,.3,1)}
+/* the stamp comes down once and leaves its mark */
+@keyframes thump{0%{opacity:0;transform:translateY(-120px) rotate(-10deg) scale(1.1)}55%{opacity:1;transform:translateY(8px) rotate(0) scale(1)}
+  70%{transform:translateY(-6px) scale(1.03,.95)}100%{opacity:1;transform:none}}
+.th{animation-name:thump;animation-timing-function:cubic-bezier(.4,0,.3,1)}
+@keyframes shock{0%{opacity:.9;transform:scale(.8)}100%{opacity:0;transform:scale(1.6)}}
+.sk{animation-name:shock;animation-timing-function:ease-out}
+#I83b .ring{position:absolute;inset:-14px;border-radius:62px;border:6px solid rgba(192,57,43,.6);opacity:0}
+/* ── what happens next ── */
+@keyframes out{0%{opacity:1}100%{opacity:0}}
+@keyframes outUp{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-40px)}}
+.o{animation-name:out} .ou{animation-name:outUp}
+@keyframes awayL{0%{opacity:1;transform:none}100%{opacity:0;transform:translateX(-220px) rotate(-6deg) scale(.9)}}
+@keyframes awayR{0%{opacity:1;transform:none}100%{opacity:0;transform:translateX(220px) rotate(6deg) scale(.9)}}
+.awL{animation-name:awayL;animation-timing-function:cubic-bezier(.5,0,.6,1)}
+.awR{animation-name:awayR;animation-timing-function:cubic-bezier(.5,0,.6,1)}
+/* the small cause */
+#I83b .slip{position:absolute;left:0;right:0;top:470px;display:flex;justify-content:center}
+#I83b .slip > span{position:relative;font-size:48px;line-height:1.2;color:var(--maroonDeep);padding:12px 34px 6px;border-radius:999px;
+  background:#FFF1D2;border:3px solid var(--amber);box-shadow:0 10px 22px rgba(120,60,6,.20);white-space:nowrap}
+#I83b .slip i{position:absolute;inset:-6px;border-radius:999px;border:5px solid var(--amber);opacity:0}
+@keyframes popTag{0%{opacity:0;transform:scale(.6)}70%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:none}}
+.pt{animation-name:popTag;animation-timing-function:cubic-bezier(.2,.9,.3,1)}
+@keyframes beat{0%,100%{transform:scale(1)}40%{transform:scale(1.14)}}
+.bt{animation-name:beat;animation-timing-function:ease-in-out}
+@keyframes ringOut{0%{opacity:0;transform:scale(1)}6%{opacity:.9;transform:scale(1.02)}100%{opacity:0;transform:scale(1.5,1.9)}}
+.ro{animation-name:ringOut;animation-timing-function:ease-out}
+/* the arrows */
+#I83b svg.ar{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible;pointer-events:none}
+#I83b svg.ar path{fill:none;stroke-width:22;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+#I83b svg.ar .m{stroke:var(--maroon)} #I83b svg.ar .a{stroke:var(--amber)}
+@keyframes drawOn3{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+.dw{animation-name:drawOn3;animation-timing-function:cubic-bezier(.45,.1,.3,1)}
+/* the big results */
+#I83b .res{position:absolute;top:1080px;width:450px;height:430px;border-radius:36px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:30px;text-align:center;box-shadow:0 34px 70px rgba(58,16,10,.32),0 4px 10px rgba(58,16,10,.16)}
+#I83b .res.l{left:70px;color:#fff;background:linear-gradient(150deg,var(--maroonSoft),var(--maroon) 60%,var(--maroonDeep))}
+#I83b .res.r{left:560px;color:var(--maroonDeep);background:linear-gradient(160deg,#F8D899,#E9A23B 55%,#C77C1B)}
+#I83b .res .w{font-size:80px;line-height:1.2}
+#I83b .res .gi{width:132px;height:132px;border-radius:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.16);
+  border:3px solid rgba(255,255,255,.35)}
+#I83b .res.r .gi{background:rgba(255,255,255,.35);border-color:rgba(107,22,22,.25)}
+#I83b .res .gi .coin2{width:92px;height:92px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700;
+  color:var(--maroonDeep);background:radial-gradient(circle at 34% 28%,#F8D899,#E9A23B 58%,#B5700F);box-shadow:inset 0 -4px 10px rgba(120,60,6,.35)}
+#I83b .res .gi svg{width:92px;height:92px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+@keyframes bigIn{0%{opacity:0;transform:scale(.7) translateY(40px)}65%{opacity:1;transform:scale(1.04)}100%{opacity:1;transform:none}}
+.bi{animation-name:bigIn;animation-timing-function:cubic-bezier(.2,.9,.3,1)}
+</style>
+</head>
+<body>
+<!-- ══ I83b · a small slip, two big risks · K022 "यानी एक छोटी-सी भूल, जेब पर भी भारी पड़ सकती है, और कंप्लायंस पर भी।" (8.01 s) ══ -->
+<div class="panel" id="I83b" data-plate="office" style="--T:9s">
+  <!-- I83a's glow, at rest -->
+  <div class="glow" style="top:52%;opacity:.34;transform:scale(1)"></div>
+
+  <div class="hd hi anim ou" style="animation-delay:0s;animation-duration:.34s">नतीजा</div>
+
+  <!-- a thin maroon line from the heading to both sides -->
+  <svg class="br anim o" viewBox="0 0 1080 1920" style="animation-delay:0s;animation-duration:.3s">
+    <path pathLength="1" d="M540 510 V 610 H 295 V 700"/>
+    <path pathLength="1" d="M540 610 H 785 V 700"/>
+  </svg>
+
+  <!-- one side: the money -->
+  <div class="side l anim awL" style="animation-delay:.04s;animation-duration:.6s">
+    <div class="g m"><span class="coin dis">₹</span><span class="dn"><svg viewBox="0 0 24 24"><path d="M12 5v13M6.5 12.5 12 18l5.5-5.5"/></svg></span></div>
+    <div class="t hi">पैसों का<br/>नुक़सान</div>
+  </div>
+
+  <!-- the other side: the company -->
+  <div class="side r anim awR" style="animation-delay:.04s;animation-duration:.6s">
+    <div class="g b"><span class="ink"></span>
+      <svg viewBox="0 0 24 24">
+        <path d="M9.4 3.6h5.2v3.6c0 1.3 1 2.1 2.2 2.6 1 .4 1.6 1.2 1.6 2.3v1.3H5.6v-1.3c0-1.1.6-1.9 1.6-2.3 1.2-.5 2.2-1.3 2.2-2.6Z"/>
+        <path d="M4.6 13.4h14.8v2.8H4.6Z"/><path d="M5.8 19.8h12.4" stroke="#F6DCA8"/></svg></div>
+    <div class="k hi">कंपनी की ओर से —</div>
+    <div class="t hi">डिफ़ॉल्ट या<br/>पेनल्टी</div>
+    <div class="h hi">हो सकती है</div>
+  </div>
+
+
+  <svg class="ar" viewBox="0 0 1080 1920">
+    <path class="m anim dw" pathLength="1" style="animation-delay:2.2s;animation-duration:.42s" d="M505 572 C 505 780, 295 830, 295 1045"/>
+    <path class="m anim dw" pathLength="1" style="animation-delay:2.55s;animation-duration:.12s" d="M255 1005 L 295 1048 L 335 1005"/>
+    <path class="a anim dw" pathLength="1" style="animation-delay:4.95s;animation-duration:.42s" d="M575 572 C 575 780, 785 830, 785 1045"/>
+    <path class="a anim dw" pathLength="1" style="animation-delay:5.3s;animation-duration:.12s" d="M745 1005 L 785 1048 L 825 1005"/>
+  </svg>
+
+  <div class="slip"><span class="hi anim pt" style="animation-delay:.6s;animation-duration:.34s"><span class="anim bt" style="display:inline-block;animation-delay:6.3s;animation-duration:.55s">छोटी-सी भूल</span><i class="anim ro" style="animation-delay:6.3s;animation-duration:.7s"></i></span></div>
+
+
+  <div class="res l anim bi" style="animation-delay:2.42s;animation-duration:.36s">
+    <span class="gi"><span class="coin2 dis">₹</span></span>
+    <span class="w hi">जेब पर<br/>भारी</span></div>
+  <div class="res r anim bi" style="animation-delay:5.16s;animation-duration:.36s">
+    <span class="gi"><svg viewBox="0 0 24 24"><path d="M9.4 3.6h5.2v3.6c0 1.3 1 2.1 2.2 2.6 1 .4 1.6 1.2 1.6 2.3v1.3H5.6v-1.3c0-1.1.6-1.9 1.6-2.3 1.2-.5 2.2-1.3 2.2-2.6Z"/>
+      <path d="M4.6 13.4h14.8v2.8H4.6Z"/><path d="M5.8 19.8h12.4"/></svg></span>
+    <span class="w hi">कंप्लायंस पर<br/>भारी</span></div>
+
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

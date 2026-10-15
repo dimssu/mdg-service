@@ -1,0 +1,19 @@
+{
+  "id": "S45",
+  "same_man": "same",
+  "face_notes": "The dealer is a very close match to the reference photo in terms of age, hair, moustache and general facial structure.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [
+    "The canopy visible through the window has an orange stripe, which violates the brief's requirement for a plain white canopy and no brand colours."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The canopy visible through the window has an orange brand stripe. The brief requires a plain white canopy with no brand colours or stripes. Modify the prompt to ensure the canopy is all-white, e.g., '...a window onto the forecourt with a plain all-white canopy, no coloured stripes or logos'."
+}

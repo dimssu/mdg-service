@@ -1,0 +1,26 @@
+{
+  "id": "S56",
+  "same_man": "same",
+  "face_notes": "The man is seen in profile and from behind. The profile view is consistent with the reference image in terms of age, hair, and moustache.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Red and white circular 'No Entry' sign on a pillar, visible from 0:05."
+  ],
+  "marks_or_livery": [
+    "Red and white circular 'No Entry' sign."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 1,
+      "what": "Dealer raises his hand to his chin in a thinking gesture, which is not in the brief."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The action and camera motion are wrong. The dealer must not move his hands or make gestures. The camera must push in very slowly. The dealer and attendant must perform the specified head turns. Remove the red and white 'No Entry' sign from the pillar."
+}

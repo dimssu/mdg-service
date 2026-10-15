@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* The founder's own line, in quotes, in I77's big-word layout. Timed to K039b's
+   voice (this card is the whole beat, 10.29 s): "असली चुनौती है —" 0.09–1.14 s,
+   "हर दिन" 2.32 s, "हर समय" 3.38 s, "हर नियम" 4.53 s, "और हर कंप्लायंस" 5.73 s
+   ("हर" ≈ 5.95 s), "को सही तरीक़े से संभालना" 7.26–8.71 s. "असली" is said from 0.09 s, so the label is already written at the cut; each pair of words lands ~0.2 s before it is spoken; the tail
+   writes in by 7.2 s with a gold sweep under it, and the closing quote mark
+   lands under the sweep's end at 7.8 s.
+   The block pushes in 3% over the card; nothing else moves after 7.9 s. */
+.mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+@keyframes wr{0%{clip-path:inset(-12% 100% -12% 0)}100%{clip-path:inset(-12% -4% -12% 0)}}
+@keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.03)}}
+@keyframes land{0%{opacity:0;transform:translateY(60px) scale(.94)}70%{opacity:1;transform:translateY(-4px)}100%{opacity:1;transform:none}}
+@keyframes qIn{0%{opacity:0;transform:scale(.6) translateY(20px)}70%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:none}}
+
+#I92{gap:0}
+#I92 .blk{position:relative;width:1000px;display:flex;flex-direction:column;align-items:center;transform-origin:50% 50%;margin-top:-90px;animation-name:push;animation-timing-function:linear}
+#I92 .srule{width:150px;height:7px;border-radius:7px;background:linear-gradient(90deg,#E9A23B,#F4C979);transform-origin:50% 50%;animation-name:growX}
+#I92 .lbl{font-size:64px;color:var(--amberDeep);margin-top:30px;line-height:1.35;animation-name:wr;animation-timing-function:linear}
+#I92 .words{position:relative;margin-top:34px;padding:10px 90px 0;text-align:center}
+#I92 .wd{font-size:136px;line-height:1.2;color:var(--maroon);white-space:nowrap;animation-name:land;text-shadow:0 18px 40px rgba(107,22,22,.14)}
+#I92 .wd b{font-weight:400;color:var(--amberDeep)}
+#I92 .q{position:absolute;font-family:'Tiro Devanagari Hindi',serif;font-size:300px;line-height:1;
+  background:linear-gradient(172deg,#F4C979 12%,#E9A23B 48%,#B5700F 92%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  padding:0 10px;animation-name:qIn}
+#I92 .q.o{left:-22px;top:-40px}
+#I92 .q.c{right:40px;bottom:-330px}
+#I92 .tail{margin-top:40px;font-size:74px;color:var(--maroon);line-height:1.35;animation-name:wr;animation-timing-function:linear}
+#I92 .uline{width:780px;height:10px;border-radius:10px;margin-top:8px;transform-origin:0 50%;animation-name:growX;
+  background:linear-gradient(90deg,rgba(233,162,59,.2),#E9A23B 18%,#F4C979 70%,rgba(244,201,121,.25))}
+</style>
+</head>
+<body>
+<!-- ══ I92 · the founder's line, as a quote · K039b "असली चुनौती है — हर दिन, हर समय, हर नियम, और हर कंप्लायंस को सही तरीक़े से संभालना।" (10.29 s) ══ -->
+<div class="panel" id="I92" data-plate="desk" style="--T:11s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s;top:48%"></div>
+  <div class="blk mv" style="animation-duration:10.7s">
+    <div class="srule mv" style="animation-delay:-.45s;animation-duration:.35s"></div>
+    <div class="lbl hi mv" style="animation-delay:-.42s;animation-duration:.4s">असली चुनौती —</div>
+    <div class="words">
+      <span class="q o mv" style="animation-delay:.05s;animation-duration:.35s">“</span>
+      <div class="wd hi mv" style="animation-delay:1.9s;animation-duration:.3s"><b>हर</b> दिन</div>
+      <div class="wd hi mv" style="animation-delay:2.95s;animation-duration:.3s"><b>हर</b> समय</div>
+      <div class="wd hi mv" style="animation-delay:4.1s;animation-duration:.3s"><b>हर</b> नियम</div>
+      <div class="wd hi mv" style="animation-delay:5.5s;animation-duration:.3s"><b>हर</b> कंप्लायंस</div>
+    </div>
+    <div class="tail hi mv" style="animation-delay:6.85s;animation-duration:.35s">को सही तरीक़े से संभालना</div>
+    <div class="uline mv" style="animation-delay:7.15s;animation-duration:.7s"></div>
+    <span class="q c mv" style="animation-delay:7.55s;animation-duration:.35s">”</span>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

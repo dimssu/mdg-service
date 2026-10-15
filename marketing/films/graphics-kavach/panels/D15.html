@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* ── the points-ledger family (D15–D19): his paper, a stamp, points to the tally ── */
+.stage{position:absolute;inset:0;z-index:3}
+.tally{position:absolute;top:104px;right:60px;min-width:400px;padding:22px 36px 24px;border-radius:30px;
+  background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep) 72%);color:#fff;text-align:right;
+  box-shadow:0 26px 56px rgba(58,16,10,.42),inset 0 0 0 3px rgba(233,162,59,.55);transform-origin:80% 50%}
+.tally .k{font-size:30px;color:var(--amberSoft)}
+.tally .v{font-size:92px;font-weight:700;line-height:1;margin-top:8px;white-space:nowrap}
+.tally .of{font-size:40px;color:var(--amberSoft);font-weight:500;margin-left:8px}
+.tally .plus{font-size:34px;color:var(--amber);font-weight:700;margin-top:10px;height:34px}
+@keyframes bump{0%,100%{transform:scale(1)}35%{transform:scale(1.07)}}
+.bump{animation:bump .55s ease-out both paused}
+
+.lbl{position:absolute;left:60px;top:400px;max-width:560px;font-size:64px;color:var(--maroon);line-height:1.3}
+.lbl .l2{display:block;white-space:nowrap}
+.grp{position:absolute;transform-origin:50% 40%;--rot:-1.6deg;--s0:1;--s1:1.04;--dy1:-14px}
+
+/* a highlighter pass across the line that earned the points */
+.lit{background:linear-gradient(transparent 12%,rgba(255,214,64,.62) 12%,rgba(255,214,64,.62) 90%,transparent 90%)
+  no-repeat 0 0 / 0% 100%}
+@keyframes litIn{0%{background-size:0% 100%}100%{background-size:100% 100%}}
+.a-lit{animation-name:litIn;animation-timing-function:cubic-bezier(.4,.1,.3,1)}
+
+/* the round rubber stamp */
+.seal{position:absolute;width:320px;height:320px;border-radius:50%;border:9px solid var(--maroon);
+  color:var(--maroon);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;mix-blend-mode:multiply;opacity:.9;filter:url(#rough)}
+.seal::before{content:'';position:absolute;inset:14px;border-radius:50%;border:3px solid currentColor}
+.seal .w{font-size:46px;line-height:1.25}
+.seal .ck{font-size:64px;line-height:1;margin-top:4px;font-family:'Inter',sans-serif;font-weight:700}
+
+/* +points: a gold token that pops off the stamp and flies to the tally */
+.fly{position:absolute;display:flex;align-items:baseline;gap:14px;padding:18px 34px;border-radius:999px;
+  background:linear-gradient(160deg,#FBE0A0,#E9A23B 55%,#C77C1B);color:var(--maroonDeep);white-space:nowrap;
+  box-shadow:0 18px 40px rgba(120,62,8,.45),inset 0 2px 0 rgba(255,255,255,.6);
+  animation:flyTo 1s cubic-bezier(.55,0,.3,1) both paused}
+.fly .n{font-size:84px;font-weight:700;line-height:1}
+.fly .hi{font-size:46px}
+@keyframes flyTo{0%{opacity:0;transform:translate(0,60px) scale(.4)}
+  16%{opacity:1;transform:translate(0,-10px) scale(1.1)}
+  26%{transform:translate(0,-10px) scale(1)}
+  56%{opacity:1;transform:translate(0,-18px) scale(1)}
+  90%{opacity:1;transform:translate(var(--fx),var(--fy)) scale(.42)}
+  100%{opacity:0;transform:translate(var(--fx),calc(var(--fy) + 10px)) scale(.3)}}
+.sheet .head .t{font-size:36px}
+.sheet table.grid td{font-size:29px;height:76px;padding:10px 3px}
+.sheet table.grid th{padding:10px 3px;font-size:18px}
+.sheet table.grid td{font-family:'Kalam','Tiro Devanagari Hindi',cursive;color:var(--pen);font-size:31px}
+.sheet .lit td{font-weight:700;font-size:31px}
+/* a figure that rolls from one value to another (see the script at the end) */
+.ctr{display:inline-flex;height:1em;line-height:1;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums}
+.ctr .cc{display:flex;flex-direction:column}
+.ctr .cc span,.ctr .fx{display:block;height:1em;line-height:1}
+@keyframes ctrRoll{from{transform:translateY(0)}to{transform:translateY(calc(var(--n) * -1em))}}
+@keyframes ctrShow{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<!-- ══ D15 · his DSR page, stamped, +120 to the tally · K406 "आज डी-एस-आर सही भरी गई — उसके पॉइंट मिले।" (4.85 s) ══ -->
+<div class="panel" id="D15" data-plate="desk" style="--T:5s">
+  <div class="glow anim a-glow" style="animation-delay:-.5s;top:58%"></div>
+  <div class="stage">
+    <div class="tally anim a-drop" style="animation-delay:0.25s">
+      <div class="bump" style="animation-delay:2.90s">
+        <div class="k hi">पॉइंट</div>
+        <div class="v dis"><span class="ctr" data-from="0" data-to="120" data-at="2.85" data-dur=".65"></span><span class="of">/ 4,700</span></div>
+        <div class="plus dis" style="animation:ctrShow .3s linear 3.05s both paused">+120</div>
+      </div>
+    </div>
+
+    <div class="lbl hi anim a-fade" style="animation-delay:.15s">डी-एस-आर · 20-08</div>
+
+    <div class="grp anim a-drift" style="left:80px;top:610px;width:920px">
+      <div class="paper sheet anim a-drop" style="animation-delay:.05s">
+        <div class="head"><span class="t hi">DSR · HSD · टैंक 2</span></div>
+        <div style="padding:18px 22px 26px">
+          <table class="grid">
+            <tr><th>Date</th><th>Opening<br/>stock</th><th>Receipt</th><th>Total<br/>stock</th><th>Dip</th><th>Stock<br/>in tank</th><th>Testing</th><th>Sales</th></tr>
+            <tr><td>19-08</td><td>9,120</td><td>9,000</td><td>18,120</td><td>141</td><td>12,480</td><td>10</td><td>5,630</td></tr>
+            <tr class="lit anim a-lit" style="--T:.6s;animation-delay:.75s"><td>20-08</td><td>12,480</td><td>6,000</td><td>18,480</td><td>160</td><td>14,246</td><td>12</td><td>4,222</td></tr>
+            <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="seal anim a-stampdown" style="left:560px;top:560px;animation-delay:1.2s">
+        <div class="w hi">सही भरी गई</div><div class="ck">✓</div>
+      </div>
+    </div>
+
+    <div class="fly" style="left:540px;top:990px;--fx:185px;--fy:-778px;animation-delay:2.0s">
+      <span class="n dis">+120</span><span class="hi">पॉइंट</span></div>
+  </div>
+  <div class="rail hi">पंप असेसमेंट पॉइंट सिस्टम</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* A figure that rolls from one value to another, starting at a chosen second:
+   <span class="ctr" data-from="120" data-to="200" data-at="2.8" data-dur=".8">.
+   Each digit is a column running from its old digit to its new one; a place
+   that did not exist before starts blank. Same paused clock as everything else. */
+for (const el of document.querySelectorAll('.ctr[data-to]')) {
+  const num = (s) => parseInt((s || '0').replace(/\D/g, '') || '0', 10);
+  const to = el.dataset.to, A = num(el.dataset.from), B = num(to);
+  const from = (el.dataset.from || '').padStart(to.length, ' ');
+  const at = parseFloat(el.dataset.at || '0'), dur = parseFloat(el.dataset.dur || '.9');
+  const nd = to.replace(/\D/g, '').length;
+  el.textContent = '';
+  let k = 0;
+  [...to].forEach((ch, i) => {
+    if (!/\d/.test(ch)) {
+      const f = document.createElement('span'); f.className = 'fx'; f.textContent = ch;
+      if (from[i] === ' ') f.style.animation = `ctrShow .15s linear ${(at + dur * .3).toFixed(2)}s both paused`;
+      el.appendChild(f); return;
+    }
+    const p = nd - 1 - k++;
+    const a = Math.floor(A / 10 ** p), b = Math.floor(B / 10 ** p);
+    let n = b - a; if (n > 14) n = 10 + (((b - a) % 10) + 10) % 10;
+    const col = document.createElement('span'); col.className = 'cc';
+    for (let j = 0; j <= n; j++) {
+      const s = document.createElement('span');
+      s.textContent = (j === 0 && from[i] === ' ') ? '\u2007' : String((a + j) % 10);
+      col.appendChild(s);
+    }
+    col.style.setProperty('--n', n);
+    col.style.animation = `ctrRoll ${dur}s cubic-bezier(.3,.7,.25,1) ${(at + (nd - k) * .03).toFixed(2)}s both paused`;
+    el.appendChild(col);
+  });
+}
+</script>
+</body>
+</html>

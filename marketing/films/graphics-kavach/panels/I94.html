@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* the numbered heading card shared by I52 / I55 / I56 / I58 / I63 / I94:
+   a gold numeral, a rule that runs out to the service's own line icon, then
+   the label and the title written in beneath. The whole block pushes in 3%.
+   I94 is the sixth and last, laid out as I52 (numeral, rule, medal, label,
+   title, sub). Its title does not fit one line at 124 px (about 1,170 px), so
+   it breaks where I58's does, onto a second line at the same size. */
+.hd{width:920px;display:flex;flex-direction:column;transform-origin:50% 50%;margin-top:-60px}
+.hd-top{display:flex;align-items:center;gap:30px}
+.num{font-size:340px;font-weight:700;line-height:.8;letter-spacing:-12px;
+  padding:34px 40px 44px 24px;margin:-34px -40px -44px -24px;
+  background:linear-gradient(172deg,#F4C979 12%,#E9A23B 48%,#B5700F 92%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.grule{flex:1;height:8px;border-radius:8px;transform-origin:0 50%;margin-top:40px;
+  background:linear-gradient(90deg,#E9A23B,#F4C979 70%,rgba(244,201,121,.25))}
+.medal{flex:none;width:230px;height:230px;border-radius:50%;margin-top:40px;
+  background:radial-gradient(circle at 36% 30%,#fff,#FBF1E1 70%);border:2px solid rgba(201,160,100,.55);
+  box-shadow:0 26px 50px rgba(58,16,10,.22),inset 0 -6px 14px rgba(160,110,50,.12);
+  display:flex;align-items:center;justify-content:center;color:var(--maroon)}
+.medal svg{width:140px;height:140px;fill:none;stroke:currentColor;stroke-width:1.3;
+  stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.medal svg .anim{stroke-dasharray:1;stroke-dashoffset:1}
+.lbl{font-size:54px;color:var(--amberDeep);margin-top:70px}
+.ttl{font-size:124px;color:var(--maroon);line-height:1.22;margin-top:6px}
+.sb{font-size:58px;color:var(--inkMuted);margin-top:22px}
+@keyframes growX{0%{transform:scaleX(0)}22%,100%{transform:scaleX(1)}}
+.a-growx{animation-name:growX}
+/* each title word arrives whole, finishing when the old left-to-right write did:
+   the write showed a lone "ि" in "फ़ाइनेंशि" and "अि" for a frame */
+@keyframes wordIn{0%{opacity:0;transform:translateX(-30px)}100%{opacity:1;transform:none}}
+.a-word{animation-name:wordIn;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.03)}}
+.a-push{animation-name:push;animation-timing-function:linear}
+</style>
+</head>
+<body>
+<!-- ══ I94 · heading 06, financial assistance · K724 "छठी — फ़ाइनेंशियल असिस्टेंस, यानी लोड के लिए पैसों की मदद।" (7.73 s)
+     Timed to the voice (K724.mp3, measured): "छठी" 0.04–0.48 · "फ़ाइनेंशियल" 1.40–2.12 · "असिस्टेंस" 2.16–2.70 ·
+     "यानी" 3.20 · "लोड के लिए पैसों की मदद" 3.88–5.80, then silence to the cut.
+     "छठी" is the beat's first word, so the numeral and label are in within its own 0.3 s. Each title
+     line is a 920 px block but its word fills only 59% / 45% of it, so the write finishes the word
+     early: "फ़ाइनेंशियल" is fully written at 1.20 s (0.20 s before its word) and "असिस्टेंस" at 1.92 s
+     (0.24 s before), the sub 0.28 s before "लोड". Settled from 3.6 s. ══ -->
+<div class="panel" id="I94" data-plate="desk" style="--T:8.2s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="hd anim a-push">
+    <div class="hd-top">
+      <div class="num dis anim a-write" style="animation-delay:0s;animation-duration:2s">06</div>
+      <div class="grule anim a-growx" style="animation-delay:.15s;animation-duration:2s"></div>
+      <div class="medal anim a-pop" style="animation-delay:.5s;animation-duration:3s">
+        <!-- a tanker (tank, cab, two wheels) with a rupee coin above it: money for the load.
+             Drawn as open as the other medals' icons: two wheels, no cab window, and the rupee
+             sign a touch thinner than the rest so its two bars stay apart at this size. -->
+        <svg viewBox="0 0 24 24">
+          <path class="anim a-draw" pathLength="1" style="animation-delay:.65s;animation-duration:3s" d="M5 11h6.6a2.7 2.7 0 0 1 0 5.4H5a2.7 2.7 0 0 1 0-5.4Z"/>
+          <path class="anim a-draw" pathLength="1" style="animation-delay:.8s;animation-duration:3s" d="M15.8 16.4v-4.6h3.3l2.6 2.8v1.8M2.4 16.4h19.3"/>
+          <path class="anim a-draw" pathLength="1" style="animation-delay:.95s;animation-duration:3s" d="M8.1 18.6a1.6 1.6 0 1 1-3.2 0a1.6 1.6 0 1 1 3.2 0M20 18.6a1.6 1.6 0 1 1-3.2 0a1.6 1.6 0 1 1 3.2 0"/>
+          <path class="anim a-draw" pathLength="1" style="animation-delay:1.1s;animation-duration:3s" d="M12.3 4.9a3.9 3.9 0 1 1-7.8 0a3.9 3.9 0 1 1 7.8 0"/>
+          <path class="anim a-draw" pathLength="1" style="animation-delay:1.2s;animation-duration:3s;stroke-width:1" d="M6.9 3.1h3.1M6.9 4.7h3.1M7.4 3.1c1.35 0 2 .6 2 1.6s-.65 1.6-2 1.6h-.5l2.5 1.9"/>
+        </svg>
+      </div>
+    </div>
+    <div class="lbl hi anim a-fade" style="animation-delay:0s;animation-duration:1s">छठी</div>
+    <div class="ttl hi"><div class="anim a-word" style="animation-delay:.87s;animation-duration:.33s">फ़ाइनेंशियल</div><div class="anim a-word" style="animation-delay:1.67s;animation-duration:.25s">असिस्टेंस</div></div>
+    <div class="sb hi anim a-rise" style="animation-delay:3s;animation-duration:3s">लोड के लिए पैसों की मदद</div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  #D04 .abs{position:absolute}
+  #D04 .src{width:440px}
+  #D04 .src .paper{height:560px;overflow:hidden}
+  #D04 .src .lb{font-size:38px;color:var(--maroon);text-align:center;line-height:1.3;margin-top:34px}
+  #D04 .src .ttl{font-size:46px;color:var(--maroonDeep);text-align:center;padding:30px 20px 18px;border-bottom:2px solid var(--print)}
+  /* a mini DSR page: ruled grid with pen entries */
+  #D04 .dsrgrid{position:absolute;left:24px;right:24px;top:130px;bottom:30px;border:1.5px solid #9C9184;
+    background:repeating-linear-gradient(90deg,transparent 0 48px,#B9AFA3 48px 49.5px),repeating-linear-gradient(transparent 0 52px,#C9C0B4 52px 53.5px)}
+  #D04 .dsrgrid i{position:absolute;height:7px;border-radius:6px;background:var(--pen);opacity:.75}
+  /* a mini inspection report: printed form, seal, signature */
+  #D04 .form{position:absolute;left:30px;right:30px;top:140px}
+  #D04 .form .fr{display:flex;gap:14px;align-items:center;margin-bottom:26px}
+  #D04 .form .fr b{display:block;height:10px;border-radius:6px;background:#CFC6BA}
+  #D04 .form .fr i{display:block;height:8px;border-radius:6px;background:var(--print);opacity:.55}
+  #D04 .dt{position:absolute;right:30px;top:100px;font-size:34px;color:var(--print);font-family:'Inter',sans-serif;font-weight:600}
+  #D04 .seal{position:absolute;left:44px;bottom:40px;width:120px;height:120px;border-radius:50%;border:5px solid rgba(29,58,138,.55);
+    box-shadow:inset 0 0 0 10px rgba(255,253,248,1),inset 0 0 0 13px rgba(29,58,138,.4);transform:rotate(-12deg)}
+  #D04 .sig{position:absolute;right:40px;bottom:60px;width:180px;height:70px}
+  /* sheets fly in from their sides, then fold into the new sheet */
+  @keyframes inL{0%{opacity:0;transform:translateX(-640px) rotate(-14deg)}100%{opacity:1;transform:none}}
+  @keyframes inR{0%{opacity:0;transform:translateX(640px) rotate(14deg)}100%{opacity:1;transform:none}}
+  #D04 .inL{animation-name:inL;animation-duration:.8s;animation-timing-function:cubic-bezier(.2,.8,.25,1)}
+  #D04 .inR{animation-name:inR;animation-duration:.8s;animation-timing-function:cubic-bezier(.2,.8,.25,1)}
+  @keyframes fold{0%{opacity:1;transform:none}70%{opacity:1}100%{opacity:0;transform:translate(var(--mx),var(--my)) rotate(var(--mr)) scale(.42)}}
+  #D04 .fold{animation-name:fold;animation-duration:.85s;animation-timing-function:cubic-bezier(.55,0,.35,1)}
+  /* the stock variation sheet they make */
+  #D04 .res{left:170px;top:720px;width:740px}
+  #D04 .res .paper{--rot:.8deg;padding:0 0 30px}
+  #D04 .res .head{justify-content:center;padding:34px 20px 22px;border-bottom:3px solid var(--maroon)}
+  #D04 .res .head .t{font-size:58px;font-weight:400;color:var(--maroon)}
+  #D04 .res .rw{display:flex;align-items:flex-end;gap:14px;padding:26px 40px 0}
+  #D04 .res .rw .k{font-size:40px;color:var(--print);white-space:nowrap}
+  #D04 .res .rw .ln{flex:1;border-bottom:3px dotted #B9AFA3;height:30px}
+  #D04 .res .rw .bx{width:170px;height:58px;border:2px dashed #C9A56E;border-radius:10px;background:#FFF8EA}
+  @keyframes sheetIn{0%{opacity:0;transform:scale(.8) translateY(40px)}100%{opacity:1;transform:none}}
+  #D04 .res.anim{animation-name:sheetIn;animation-duration:.7s;animation-timing-function:cubic-bezier(.2,1.2,.3,1)}
+  /* what the sheet was made from stays named above it once the two papers have folded in */
+  #D04 .srcs{left:60px;right:60px;top:548px;display:flex;justify-content:center;align-items:center;gap:18px}
+  #D04 .srcs .sc{display:flex;align-items:center;gap:12px;font-size:38px;line-height:1.2;color:var(--maroon);background:#fff;
+    border:2px solid #EFE4D2;border-radius:999px;padding:12px 28px 12px 16px;box-shadow:0 12px 26px rgba(74,15,15,.14)}
+  #D04 .srcs .sc svg{width:40px;height:40px;color:var(--maroonSoft)}
+  #D04 .srcs .plus{font-family:'Inter',sans-serif;font-size:50px;font-weight:700;color:var(--amberDeep)}
+  #D04 .dn{left:510px;top:640px;width:60px;height:70px}
+  #D04 .by{left:60px;right:60px;top:1330px;display:flex;justify-content:center;align-items:center;gap:22px}
+  #D04 .by .av{width:90px;height:90px;border-radius:26px;display:flex;align-items:center;justify-content:center;color:#fff;
+    background:linear-gradient(150deg,#F2B04E,var(--amberDeep));box-shadow:0 12px 26px rgba(74,15,15,.22)}
+  #D04 .by .av svg{width:58px;height:58px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  #D04 .by .t{font-size:58px;color:var(--maroon)}
+</style>
+</head>
+<body>
+<svg style="display:none">
+  <symbol id="p-team" viewBox="0 0 24 24"><circle cx="12" cy="7.6" r="3.4"/><path d="M5.8 20c0-3.6 2.8-6.4 6.2-6.4s6.2 2.8 6.2 6.4"/>
+    <circle cx="4.9" cy="9.4" r="2.4"/><path d="M1 18.6c0-2.6 1.7-4.5 3.9-4.5"/><circle cx="19.1" cy="9.4" r="2.4"/><path d="M23 18.6c0-2.6-1.7-4.5-3.9-4.5"/></symbol>
+</svg>
+<!-- ══ D04 · two papers make the variation sheet · K212 "आपकी डी-एस-आर, और … इंस्पेक्शन की रिपोर्ट के आधार पर, हमारी टीम स्टॉक वेरिएशन शीट तैयार करती है" ═══ -->
+<div class="panel" id="D04" data-plate="office" style="--T:6s">
+  <div class="glow anim a-glow" style="animation-delay:-1.4s;top:48%"></div>
+
+  <!-- the DSR, from the left -->
+  <div class="abs src inL anim" style="left:80px;top:470px;animation-delay:.05s">
+    <div class="fold anim" style="--mx:240px;--my:150px;--mr:10deg;animation-delay:2.35s">
+      <div class="paper" style="--rot:-4deg">
+        <div class="ttl hi">डी-एस-आर</div>
+        <div class="dsrgrid">
+          <i style="left:8px;top:18px;width:36px"></i><i style="left:58px;top:18px;width:38px"></i><i style="left:108px;top:18px;width:36px"></i><i style="left:160px;top:18px;width:34px"></i><i style="left:258px;top:18px;width:38px"></i><i style="left:308px;top:18px;width:30px"></i>
+          <i style="left:8px;top:72px;width:36px"></i><i style="left:58px;top:72px;width:34px"></i><i style="left:108px;top:72px;width:38px"></i><i style="left:160px;top:72px;width:36px"></i><i style="left:210px;top:72px;width:30px"></i><i style="left:258px;top:72px;width:36px"></i><i style="left:308px;top:72px;width:38px"></i>
+          <i style="left:8px;top:126px;width:36px"></i><i style="left:58px;top:126px;width:38px"></i><i style="left:160px;top:126px;width:34px"></i><i style="left:258px;top:126px;width:38px"></i><i style="left:308px;top:126px;width:34px"></i>
+          <i style="left:8px;top:180px;width:36px"></i><i style="left:58px;top:180px;width:34px"></i><i style="left:108px;top:180px;width:36px"></i><i style="left:160px;top:180px;width:38px"></i><i style="left:210px;top:180px;width:28px"></i><i style="left:258px;top:180px;width:34px"></i>
+          <i style="left:8px;top:234px;width:36px"></i><i style="left:58px;top:234px;width:38px"></i><i style="left:108px;top:234px;width:34px"></i>
+        </div>
+      </div>
+      <div class="lb hi">डी-एस-आर · रोज़ की रिपोर्ट</div>
+    </div>
+  </div>
+
+  <!-- the inspection report, from the right -->
+  <div class="abs src inR anim" style="left:566px;top:520px;animation-delay:.6s">
+    <div class="fold anim" style="--mx:-250px;--my:100px;--mr:-10deg;animation-delay:2.4s">
+      <div class="paper" style="--rot:2.6deg">
+        <div class="ttl hi" style="font-size:40px">इंस्पेक्शन रिपोर्ट</div>
+        <div class="dt">12-08</div>
+        <div class="form" style="top:170px">
+          <div class="fr"><b style="width:110px"></b><i style="width:180px"></i></div>
+          <div class="fr"><b style="width:140px"></b><i style="width:140px"></i></div>
+          <div class="fr"><b style="width:90px"></b><i style="width:200px"></i></div>
+          <div class="fr"><b style="width:130px"></b><i style="width:120px"></i></div>
+          <div class="fr"><b style="width:100px"></b><i style="width:170px"></i></div>
+        </div>
+        <div class="seal"></div>
+        <svg class="sig" viewBox="0 0 180 70"><path d="M6 50c14-30 22-36 26-20s-4 26 6 14 18-34 26-22 0 30 12 18 20-28 30-16 8 14 18 6 20-10 50-14" fill="none" stroke="#1D3A8A" stroke-width="3.2" stroke-linecap="round" opacity=".8"/></svg>
+      </div>
+      <div class="lb hi" style="font-size:34px">सेल्स ऑफ़िसर की<br/>इंस्पेक्शन रिपोर्ट · 12-08</div>
+    </div>
+  </div>
+
+  <!-- the two papers, named, once they have folded into the sheet -->
+  <div class="abs srcs anim a-pop" style="--T:3s;animation-delay:3.0s">
+    <span class="sc hi"><svg class="i"><use href="#i-doc"/></svg>डी-एस-आर</span>
+    <span class="plus">+</span>
+    <span class="sc hi"><svg class="i"><use href="#i-doc"/></svg>इंस्पेक्शन रिपोर्ट · 12-08</span>
+  </div>
+  <svg class="abs dn anim a-fade" viewBox="0 0 60 70" style="--T:3s;animation-delay:3.2s">
+    <path d="M30 4V56M14 42 30 60 46 42" fill="none" stroke="var(--amberDeep)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+  <!-- what they become -->
+  <div class="abs res anim" style="animation-delay:2.85s">
+    <div class="paper">
+      <div class="head"><span class="t hi anim a-write" style="animation-delay:3.05s">स्टॉक वेरिएशन शीट</span></div>
+      <div class="rw"><span class="k hi">बुक स्टॉक</span><span class="ln"></span><span class="bx"></span></div>
+      <div class="rw"><span class="k hi">टंकी में (डिप से)</span><span class="ln"></span><span class="bx"></span></div>
+      <div class="rw"><span class="k hi">वेरिएशन कितना</span><span class="ln"></span><span class="bx"></span></div>
+      <div class="rw"><span class="k hi">तय सीमा</span><span class="ln"></span><span class="bx"></span></div>
+    </div>
+  </div>
+
+  <div class="abs by anim a-rise" style="--T:4s;animation-delay:3.85s"><span class="av"><svg><use href="#p-team"/></svg></span><span class="t hi">हमारी टीम तैयार करती है</span></div>
+  <div class="rail hi">दो काग़ज़, एक साफ़ हिसाब</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

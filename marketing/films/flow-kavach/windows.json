@@ -1,0 +1,704 @@
+{
+  "_why": "Seconds chosen by eye from 1.5 fps contact sheets of each downloaded clip, 28 Sep 2026. Overrides the plan's from/to for one beat+asset. 'still' holds that source second with a slow push-in (cut.mjs still mode).",
+  "K001|S01": {
+    "still": 0.1,
+    "why": "the attendant walks toward camera from 1.3 s in both takes"
+  },
+  "K502|S01": {
+    "from": 4.6,
+    "to": 7.95,
+    "why": "after the walk (ends ~4.5 s) he stands still, hands clasped"
+  },
+  "K306|S25": {
+    "from": 0,
+    "to": 5,
+    "why": "final watch 29 Sep: the old take read as a crate of wax-sealed whisky in a barn. New take (S25e): clear lab bottles of pale diesel on a steel office shelf, seal strips over the caps, blank tags; the camera pushes in to the middle bottle's tag over 0-5 s, on 'the sample's details written properly'"
+  },
+  "K704|S42": {
+    "still": 1,
+    "why": "after 3 s the advocates start talking"
+  },
+  "K709|S44": {
+    "split": [
+      {
+        "from": 0,
+        "to": 3.2
+      },
+      {
+        "still": 3.1
+      }
+    ],
+    "why": "she stares at the ceiling from 3.3 s and mouths at 7 s"
+  },
+  "K804|S51": {
+    "from": 0,
+    "to": 3.9,
+    "why": "strange hand-rubbing on the page from 4 s"
+  },
+  "K208|S14": {
+    "split": [
+      {
+        "from": 2.4,
+        "to": 4
+      },
+      {
+        "still": 3.95
+      }
+    ],
+    "why": "final watch: mouth works like muttering 1.1-2.3 s; start after it settles, then hold"
+  },
+  "_S12": "retaken 28 Sep from the closer still (S12b) with a clear-sky prompt; plan windows stand",
+  "K310|S27": {
+    "split": [
+      {
+        "from": 0,
+        "to": 3.2
+      },
+      {
+        "still": 3.1
+      }
+    ],
+    "why": "both turn and seem to talk from ~4s"
+  },
+  "K507|S37": {
+    "from": 0,
+    "to": 3.6,
+    "why": "Head down on the phone, mouth closed, tapping the screen; stops before he looks up at 3.67s. Stretch 4/3.6 = 1.11"
+  },
+  "K510|S38": {
+    "from": 3.9,
+    "to": 8,
+    "why": "Starts as he swings upright: sits back, exhales with his head back, then settles looking down. Skips the finger flutter and the sideways lean. Stretch 5.26/4.1 = 1.28"
+  },
+  "K514|S39": {
+    "from": 0.3,
+    "to": 6.8,
+    "why": "round 5 (from S39e, dark hair as in the photo): squints at the screen, rubs his eyes 3-5.5 s, looks back down; ends before he turns toward the lens at 7.2 s. 6.5 s at 1x"
+  },
+  "K603|S41": {
+    "split": [
+      {
+        "from": 0,
+        "to": 2.9
+      },
+      {
+        "still": 2.85
+      }
+    ],
+    "why": "Plays the page turn and his hand flat on the ledger, then holds as he turns to her while she is still looking down with her mouth closed (2.9s played, 2.18s held). Every later second has her talking"
+  },
+  "K703|S43": {
+    "from": 1.5,
+    "to": 6.3,
+    "why": "Both mouths closed. The dealer leans toward the file while the advocate looks down at it, hands still. Cuts out both of the advocate's talking stretches. Stretch 4.9/4.8 = 1.02"
+  },
+  "K711|S45": {
+    "split": [
+      {
+        "from": 3.75,
+        "to": 6.1
+      },
+      {
+        "still": 5.9
+      }
+    ],
+    "why": "first take — Rechecked the first take at 6-8 fps. At 3.75-6.1 s both mouths stay closed while the dealer taps the phone the representative holds, sits back, and the two look at each other. The represe"
+  },
+  "K714|S47": {
+    "split": [
+      {
+        "from": 5.5,
+        "to": 8
+      },
+      {
+        "still": 7.9
+      }
+    ],
+    "why": "retake take — 5.5-8.0 s is the calmest material in either take. His left hand rests on the folder and his right hand on his thigh, and he looks steadily at the camera with his lips together. There are"
+  },
+  "K715|S48": {
+    "split": [
+      {
+        "from": 4,
+        "to": 8
+      },
+      {
+        "still": 7.9
+      }
+    ],
+    "why": "Starts once the phone is silver again: he stands, exhales with head back and eyes closed, then lowers his gaze calmly. 4.0s at normal speed, then a 1.3s hold on his lowered gaze; a straight window fro"
+  },
+  "K722|S49": {
+    "split": [
+      {
+        "from": 0,
+        "to": 2.05
+      },
+      {
+        "still": 1.95
+      }
+    ],
+    "why": "The dealer faces the row and everyone stands still, before the salute starts at 2.1s. 2.05s played, then a 2.15s hold"
+  },
+  "K723|S49": {
+    "from": 5.2,
+    "to": 8,
+    "frame": "412:732:300:324",
+    "why": "After the salute: all arms down, the attendants stand easy and the middle one smiles. Stretch 3.58/2.8 = 1.28. Final watch found the join from K722's hold (1.95 s) a visible jump cut in the same framing, so this half cuts in close on the three attendants — a cut, not a jump; 412 wide (was 420) so the black strip at the source's right edge stays out"
+  },
+  "K802|S50": {
+    "split": [
+      {
+        "from": 1.25,
+        "to": 3
+      },
+      {
+        "still": 2.75
+      }
+    ],
+    "why": "plays him folding the cover shut and pressing it flat on the desk (1.75 s), then holds on his hands resting on the closed file for the remaining 5.0 s; avoids the hand wave at 3.1 and the talking from"
+  },
+  "K904|S54": {
+    "split": [
+      {
+        "from": 2.3,
+        "to": 4.12
+      },
+      {
+        "still": 4.1
+      }
+    ],
+    "why": "plays the settled, crinkle-eyed smile with the head level, then holds on a frame where the face still matches; skips the head-back laugh and the late face drift. Final watch: the played part used to run to 4.4 while the hold is 4.1, so the figure jumped back 7 frames into the freeze; it now ends where the hold is"
+  },
+  "K706|S55": {
+    "split": [
+      {
+        "from": 0,
+        "to": 1
+      },
+      {
+        "still": 0.5
+      }
+    ],
+    "why": "only clean stretch is 0-1.0: she reads the open ledger with both hands on it while the dealer watches; plays that 1 s, then holds 5.25 s on the two of them over the ledger"
+  },
+  "K103|S07": {
+    "from": 3.7,
+    "to": 7.9,
+    "why": "retake take — The whole team works heads-down at their laptops under a slow push-in, after her head turn and hand gesture are over. 4.2s at 1.0x, so no stretch needed."
+  },
+  "K403|S07": {
+    "split": [
+      {
+        "from": 0,
+        "to": 1.5
+      },
+      {
+        "still": 1.5
+      }
+    ],
+    "why": "retake take — Opening stretch, all heads down, before she looks up at 1.7s. About 1.95s live at 1.3x, then hold about 1.3s. This keeps K403 off the frames K103 uses."
+  },
+  "K104|S08": {
+    "still": 0.17,
+    "why": "round 3 (new still, right face): he talks from 0.5 s, so hold the calm listening frame"
+  },
+  "K504|S08": {
+    "still": 0.17,
+    "why": "round 3: same clean listening frame; every later second has talking or a lurch"
+  },
+  "K201|S11": {
+    "still": 5.2,
+    "why": "retake take — The briefed look exactly: a faint closed-lip smile down at the screen, hands out of sight. Every calm stretch (0.7-1.0, 4.0-4.2, 5.1-5.4s) is under half a second, so no window can cover "
+  },
+  "K516|S11": {
+    "still": 4,
+    "why": "retake take — A second closed-lip frame, eyes toward the screen, so K516 does not repeat K201's freeze."
+  },
+  "K220|S21": {
+    "split": [
+      {
+        "from": 0,
+        "to": 1.5
+      },
+      {
+        "still": 1.4
+      }
+    ],
+    "why": "plays him working and leaning in toward the screen with lips closed (1.5 s), then holds 2.0 s on the leaned-in reading look; cuts before his mouth starts moving at 1.6"
+  },
+  "K517|S40": {
+    "split": [
+      {
+        "from": 0,
+        "to": 1.25
+      },
+      {
+        "still": 1
+      }
+    ],
+    "why": "plays the senior pointing gently at her screen while she follows (1.25 s), then holds 3.75 s on that guiding moment; stops before the fist-to-chin gesture"
+  },
+  "K721|S40": {
+    "split": [
+      {
+        "from": 2.3,
+        "to": 2.95
+      },
+      {
+        "still": 2.85
+      }
+    ],
+    "why": "plays him straightening up and looking over her work (0.65 s), then holds 3.4 s on the upright, appraising pose; the later lean-in is spoiled by his talking"
+  },
+  "K713|S46": {
+    "split": [
+      {
+        "from": 4.25,
+        "to": 5.3
+      },
+      {
+        "still": 5.3
+      }
+    ],
+    "why": "round 3 (new still, right face): only closed-lip stretch, then hold before the blink"
+  },
+  "K001|S02": {
+    "from": 0,
+    "to": 3.76,
+    "why": "round 3: one continuous shot; reads, lifts eyes, lips closed"
+  },
+  "K104|S02": {
+    "from": 4,
+    "to": 8,
+    "why": "round 3: settles into a calm gaze; no overlap with K001"
+  },
+  "K002|S03": {
+    "from": 0.55,
+    "to": 4.73,
+    "why": "Skips most of the lens look. Tired forehead rub, then chin on knuckles over the register fits the endless list; stretch 1.0"
+  },
+  "K003|S04": {
+    "split": [
+      {
+        "from": 0,
+        "to": 2.2
+      },
+      {
+        "still": 2.2
+      }
+    ],
+    "why": "retake take — Camera locked, feet planted, face true to the portrait, chin rising on the in-breath. Cut before the flare bloom at 2.3s, then hold on him and his long shadow for the 'like your shadow' "
+  },
+  "K520|S04": {
+    "from": 3,
+    "to": 5.6,
+    "why": "retake take — After the flare settles: locked camera, feet planted, he looks across his forecourt in profile. Ends before the foot shift at 5.8s. 2.6s stretched 1.25x to 3.25s. Warm haze and a green l"
+  },
+  "K102|S06": {
+    "split": [
+      {
+        "from": 2,
+        "to": 3
+      },
+      {
+        "still": 3
+      }
+    ],
+    "why": "retake take — Hand back on the desk, mouth closed, listening to the rep. Ends before the lips part at 3.1s. About 1.3s live at 1.3x, then hold about 3.7s. A calm, faithful dealer instead of the first "
+  },
+  "K905|S06": {
+    "split": [
+      {
+        "from": 4.6,
+        "to": 5.9
+      },
+      {
+        "still": 5.9
+      }
+    ],
+    "why": "retake take — After the rep's hand has left frame: dealer settled, mouth closed, eyes on the rep, which suits 'meet our representative'. Ends before the talking at 6.0s. About 1.7s live at 1.3x, then "
+  },
+  "K106|S10": {
+    "from": 0,
+    "to": 4,
+    "why": "Raise, sip and lower the glass, then look out over the forecourt with lips closed; stretch 1.0"
+  },
+  "K719|S10": {
+    "split": [
+      {
+        "from": 3.3,
+        "to": 3.95
+      },
+      {
+        "still": 3.95
+      }
+    ],
+    "why": "Glass coming down, then hold the calm closed-mouth gaze over the forecourt, before the lips part at 4.2s"
+  },
+  "K210|S16": {
+    "split": [
+      {
+        "from": 0.3,
+        "to": 2.1
+      },
+      {
+        "still": 2.1
+      }
+    ],
+    "why": "Only the calm glance at the phone is usable before the lunge; hold on his pleased look at the phone"
+  },
+  "K405|S16": {
+    "from": 5.05,
+    "to": 8,
+    "why": "Leaned back, content and settled after the camera stops, which suits the near-100% score line. Grin shape stays steady; stretch 1.29"
+  },
+  "K212|S17": {
+    "from": 0,
+    "to": 4,
+    "why": "Reaches for and opens the file cover, then settles on the papers, which suits preparing the variation sheet; stretch 1.0"
+  },
+  "K418|S17": {
+    "from": 1.55,
+    "to": 5.85,
+    "why": "Cover flip, the page turn and the attentive pause, ending just before he starts to rise; stretch 1.27"
+  },
+  "K214|S18": {
+    "from": 0,
+    "to": 3.33,
+    "why": "Frowning read of the phone, then he lowers it and looks up, which suits 'does it need attention'; stretch 1.30"
+  },
+  "K710|S18": {
+    "from": 1.35,
+    "to": 6,
+    "why": "Keeps the phone in shot for the digital-payments line, then a long thoughtful upward look, mouth closed; stretch 1.29"
+  },
+  "K217|S20": {
+    "from": 0.3,
+    "to": 4.6,
+    "why": "Opens and checks the file, lays it flat and looks up with resolve, which suits being told why the load stopped and the next step; stretch 1.09"
+  },
+  "K220|S22": {
+    "split": [
+      {
+        "from": 6.2,
+        "to": 6.8
+      },
+      {
+        "still": 6.8
+      }
+    ],
+    "why": "retake take — The only calm stretch, and it shows the briefed beat: eyes on the phone, small closed-lip smile, slight nod. About 0.8s live at 1.3x, then hold about 4.2s. It is a stationary full figure"
+  },
+  "K221|S23": {
+    "split": [
+      {
+        "from": 3.75,
+        "to": 5.9
+      },
+      {
+        "still": 5.75
+      }
+    ],
+    "why": "first take — The retake's longest clean stretch is 1.3 s, and gestures, talking, a step and a hand swing break it up. The first take's 3.75-5.9 s is still the best material. Checked at 8 fps: the deal"
+  },
+  "K304|S24": {
+    "from": 0,
+    "to": 3.5,
+    "why": "Looks down and reads, then starts to rise. His hands stay still on the desk and there is no finger tracing. Stretch 1.29."
+  },
+  "K410|S24": {
+    "from": 3.3,
+    "to": 5.5,
+    "why": "He looks up and settles into a pleased look. Stretch 1.25. The window stops before the mouth movement at 5.75 s and the gaunt face at 6 s. It still includes the direct look into the lens with teeth sh"
+  },
+  "K311|S28": {
+    "from": 0,
+    "to": 3.5,
+    "why": "He looks out, looks down at the register under his hand, then starts to look back out, which matches the line about paper against reality. Stretch 1.2. The teal emblem is not there yet."
+  },
+  "K602|S28": {
+    "from": 3.5,
+    "to": 6.75,
+    "why": "He looks steadily out at the forecourt at stretch 1.0 and stops before he looks down at 7 s. The teal emblem on the canopy edge is visible from 4 s and should be patched or blurred."
+  },
+  "K412|S30": {
+    "from": 0.3,
+    "to": 5.9,
+    "why": "The rep leans in, then both look at the phone and the dealer smiles. It plays almost at natural speed (stretch 1.04) and ends before the hand flick at 6.25 s. The toothy grin and the rep's closeness r"
+  },
+  "K421|S32": {
+    "split": [
+      {
+        "from": 0,
+        "to": 0.9
+      },
+      {
+        "still": 0.85
+      }
+    ],
+    "why": "first take — First take: the only look across the pump is the head turn at 0.4-0.9 s, before his feet move at 1.0 s. It suits 'at one glance' and holds on 0.85 s. The retake has no look at all, only 0"
+  },
+  "K902|S32": {
+    "split": [
+      {
+        "from": 5.9,
+        "to": 6.9
+      },
+      {
+        "still": 6.9
+      }
+    ],
+    "why": "third cut: frames 168-178 of the cleaned clip carry a failed fill on the gravel; end the live part before it and hold 6.9 s"
+  },
+  "K423|S33": {
+    "from": 1,
+    "to": 7,
+    "why": "Plays at natural speed (stretch 1.0): he pushes both registers aside, then leans back with folded hands and a relaxed, eyes-closed smile, which matches 'no need to remember separate registers'."
+  },
+  "K424|S34": {
+    "split": [
+      {
+        "from": 0,
+        "to": 2.75
+      },
+      {
+        "still": 2.72
+      }
+    ],
+    "why": "retake take — 0-2.75 s is clean. His feet stay planted and his mouth stays closed. He tilts his head up to the canopy lights at 0.3-2.5 s, then brings it back level with a slight smile. The camera is "
+  },
+  "K502|S35": {
+    "from": 0.25,
+    "to": 4.5,
+    "why": "He notices the phone, picks it up and reads it with its back to the camera, which fits 'any time, any work or complaint'. Stretch 1.08. The window ends before the long tapping, the vanishing phone and"
+  },
+  "K307|S26": {
+    "split": [
+      {
+        "from": 0,
+        "to": 0.8
+      },
+      {
+        "still": 0.75
+      }
+    ],
+    "why": "final watch 29 Sep: from 1.0 s a dust cloud boils up round the tanker's wheel and the wheel turns while the hose is still coupled (reads as driving off mid-delivery, or vapour). Only 0-0.9 s is clean in the whole take: play 0.8 s, hold the coupled hose"
+  },
+  "K309|S14": {
+    "split": [
+      {
+        "from": 2.7,
+        "to": 4.45
+      },
+      {
+        "still": 4.45
+      }
+    ],
+    "why": "final watch: his lips move as if speaking from 4.6 s; play to 4.45 (looking up, mouth closed) and hold"
+  },
+  "K402|S29": {
+    "split": [
+      {
+        "from": 0,
+        "to": 2.15
+      },
+      {
+        "still": 2.1
+      }
+    ],
+    "why": "final watch: the manager talks from 2.24 s; play the wipe to 2.15, hold with her mouth closed"
+  },
+  "K720|S29": {
+    "split": [
+      {
+        "from": 4.2,
+        "to": 6
+      },
+      {
+        "still": 5.9
+      }
+    ],
+    "why": "final watch: she mouths a phrase 2.5-4.1 s; use 4.2-6 (hand on the dispenser, her lips settled) and hold"
+  },
+  "K003|S05": {
+    "from": 0.5,
+    "to": 4.02,
+    "frame": "506:900:107:0",
+    "why": "final watch: the trouser hems at the bottom of the shot are torn with loose threads; crop to the shadow and the post only (1.41x from the top), which is the परछाई image anyway"
+  },
+  "K010|S56": {
+    "still": 0.2,
+    "frame": "596:1060:0:0",
+    "why": "STAND-IN until the S72 retake: held on the first second, the dealer from behind in his doorway looking over the forecourt, before he turns (his profile in this take has no moustache and all-grey hair). Slow push-in"
+  },
+  "K028|S56": {
+    "still": 0.2,
+    "why": "the same doorway from behind, before he moves (the star is still below the standard crop), held with a slow push on 'पंप अब सिर्फ़ बेचने का कारोबार नहीं'"
+  },
+  "K012|S57": {
+    "from": 3.8,
+    "to": 7.8,
+    "why": "thinking over the wage envelopes (hand to jaw 4-6 s, then back); 0-3.5 s has an abrupt push-up from the desk"
+  },
+  "K027|S57": {
+    "still": 0.3,
+    "why": "the envelopes before he moves, held"
+  },
+  "K013|S58": {
+    "still": 7.1,
+    "why": "STAND-IN until the S58 re-animation: held on the one clean stretch (5.7-7.8 s), all three staff still at their posts; before that a second attendant walks in, they tug collars in unison and all do namaste to the camera. Slow push-in"
+  },
+  "K014|S59": {
+    "from": 0,
+    "to": 1.12,
+    "why": "v2 final watch: only the first 1.15 s, while he still looks down at the files (his eyes roll up and his mouth opens at 1.17 s); cropped to y 0-1120 because the generator star's top ray reaches y 1137 from 0.5 s",
+    "frame": "630:1120:36:0"
+  },
+  "K032|S59": {
+    "from": 3.4,
+    "to": 6.6,
+    "why": "fingertips to his temples, then hands back on the pile; cropped to y 0-1120 to keep the star's ray out (v2 final watch:)",
+    "frame": "630:1120:36:0"
+  },
+  "K016|S60": {
+    "still": 0.3,
+    "why": "the inspection team at his door, all three still, held; 1-2.5 s has an odd synchronized hand-to-face gesture"
+  },
+  "K018|S60": {
+    "from": 3,
+    "to": 6.2,
+    "why": "the older official hands over the open folder and he takes it, uneasy"
+  },
+  "K019|S61": {
+    "from": 0.3,
+    "to": 7,
+    "why": "the afternoon rush: the register, two nods, a wipe of the brow (checked at 4 fps: the hand holds its shape)"
+  },
+  "K021|S62": {
+    "from": 2.5,
+    "to": 5.15,
+    "why": "v2 final watch: he leans in to the sheet; cut 1.55 s sooner so I83a's heading and loss box land on 'पैसों का नुक़सान'"
+  },
+  "K033|S62": {
+    "split": [
+      {
+        "from": 4.6,
+        "to": 6.6
+      },
+      {
+        "still": 6.55
+      }
+    ],
+    "why": "eyes closed, leaning back; ends before he looks into the lens at 7 s"
+  },
+  "K023|S63": {
+    "from": 0.3,
+    "to": 3.5,
+    "why": "at the monitor late at night, clicking"
+  },
+  "K024|S63": {
+    "from": 3.6,
+    "to": 6.8,
+    "why": "rubs the back of his neck and leans in again; ends before he turns toward the lens at 7 s; cut in closer (1.35x) so the return 12 s after K023 reads as a new angle",
+    "frame": "484:860:176:250"
+  },
+  "K025b|S64": {
+    "why": "v2 final watch: 2 a.m., awake, looking up; stops before his hand starts up to his face at 2.5 s (the eye-rub) and holds, so K026 does not jump out of it",
+    "split": [
+      {
+        "from": 0.2,
+        "to": 2.5
+      },
+      {
+        "still": 2.45
+      }
+    ]
+  },
+  "K026|S64": {
+    "from": 4.9,
+    "to": 7.7,
+    "why": "v2 final watch: arms folded, watchful, cut in closer (1.4x) so it reads as a new angle after K025b rather than a jump in the same framing; re-check: starts at 4.9 s, his hand already resting, not mid-move",
+    "frame": "468:832:90:331"
+  },
+  "K029|S65": {
+    "from": 1,
+    "to": 4.3,
+    "why": "the manager's register and his phone; starts after the phone appears in his hand at ~1 s"
+  },
+  "K030|S65": {
+    "from": 4.5,
+    "to": 7.8,
+    "why": "still pulled two ways, looking at her; close on him and the register (1.5x), so the return reads as a new angle",
+    "frame": "432:768:250:360"
+  },
+  "K034|S66": {
+    "from": 0,
+    "to": 3.2,
+    "why": "dinner untouched, reading his phone"
+  },
+  "K035b|S66": {
+    "split": [
+      {
+        "from": 5.8,
+        "to": 7.8
+      },
+      {
+        "still": 7.75
+      }
+    ],
+    "why": "head in his hands; skips 3-5.5 s where the phone jumps from his hand to the chair to the table; cropped to y 0-1085 so the second phone on the chair stays out of frame",
+    "frame": "610:1085:55:0"
+  },
+  "K036|S67": {
+    "from": 0.6,
+    "to": 5.8,
+    "why": "v2 final watch: the empty chair; starts after the fan shadow pops onto the wall at 0.5 s"
+  },
+  "K037|S68": {
+    "split": [
+      {
+        "from": 0,
+        "to": 2.9
+      },
+      {
+        "still": 2.85
+      }
+    ],
+    "why": "pre-dawn on the step, a slow breath out; his mouth opens at ~3 s"
+  },
+  "K040|S68": {
+    "why": "v2 final watch: now AFTER I93a, on 'सिर्फ़ मेहनत काफ़ी नहीं': back straight, chin up, close (1.5x) so it is not a replay of K037's wide",
+    "from": 4.8,
+    "to": 7.8,
+    "frame": "432:768:230:360"
+  },
+  "K038|S69": {
+    "split": [
+      {
+        "from": 0,
+        "to": 3.2
+      },
+      {
+        "still": 3.15
+      }
+    ],
+    "why": "the attendant at his post, hand on the dispenser; the camera then pushes in close and he mouths words from ~5 s"
+  },
+  "K039|S69": {
+    "from": 3.3,
+    "to": 4.45,
+    "why": "v2 re-check: closer on him, ready, slowed 1.3x for 1.5 s and no freeze (it was 3 s held); ends before his lips part at 4.57 s, so I92a's heading lands on its own words"
+  },
+  "K725|S70": {
+    "from": 0,
+    "to": 3.2,
+    "frame": "639:1136:40:0",
+    "why": "v2 re-check: slowed 1.19x to 3.8 s instead of a 3.3 s freeze; stops before the red-and-yellow dispenser enters at 3.5 s; cropped to y 0-1136 to keep the generator's star out"
+  },
+  "K726|S71": {
+    "from": 2.8,
+    "to": 5.3,
+    "why": "v2 final watch: the tanker coupled, he checks the hose; ends before he turns to the lens with a frown at 5.7 s"
+  }
+}

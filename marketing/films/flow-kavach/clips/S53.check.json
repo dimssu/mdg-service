@@ -1,0 +1,27 @@
+{
+  "id": "S53",
+  "same_man": "not_in_shot",
+  "face_notes": "Hero character is not in this shot.",
+  "outfit_matches": false,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "Watermark text 'Veo' in bottom right corner",
+    "Four-point sparkle/star watermark in bottom right corner"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 3,
+      "what": "Does not perform the briefed action of nodding twice. She smiles and listens throughout instead."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The setting and character are excellent, but the motion is incorrect and there is a watermark. Prompt for the specific action: 'she listens and a warm smile forms, then she nods twice'. Also specify 'no watermarks' to avoid the 'Veo' text."
+}

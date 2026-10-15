@@ -1,0 +1,25 @@
+{
+  "id": "P01-dod-deadline",
+  "act": 1,
+  "card": 1,
+  "of": 10,
+  "problem": "The credit deadline passed and nobody told him",
+  "duration_s": 4,
+  "aspect_ratio": "9:16",
+  "action": "The dealer stands alone just outside the lit doorway of his pump office at night. His mobile phone hangs low in his right hand, forgotten. His left hand is at the back of his neck. He is not looking at the phone and not looking at the forecourt — he is looking at nothing, the way a man does a second after he has understood something. Shoulders dropped. Mouth slightly open. The forecourt behind him is lit and completely empty of customers.",
+  "lighting": "Night. Hard white light spilling from the office glass onto his shoulder and one side of his face; the canopy lights cold and even further back; deep blue-black beyond the forecourt edge. His face is half lit, half in shadow.",
+  "camera": "Chest-up. He fills the vertical frame — his head sits in the upper third and his shoulders span most of the width. Slightly low angle, eye level or just under. He is off-centre to the left; over his right shoulder the lit forecourt falls away, small and far and thrown well out of focus. 35mm, close. His face is the subject of this photograph and every line of it must be readable at a glance on a phone held at arm's length.",
+  "detail": "His face carries the whole card: eyes unfocused and fixed on nothing, jaw slack, a crease between the brows. Not crying, not angry — emptied. The phone is only just in frame at the bottom edge, screen dark. Shirt sleeves still rolled from the day. Nobody else anywhere.",
+  "feeling": "The private moment of realising a date has already gone past. Not panic — the quiet, sinking, sick kind of knowing. This is the first thing the viewer sees and it must feel like being caught out alone.",
+  "voice_over": {
+    "hi": "आज मेरे DOD का आख़िरी दिन था। मुझे पता ही नहीं चला।",
+    "en": "Today was my last day for DOD. I never even knew."
+  },
+  "on_screen_text": {
+    "hi": "तारीख़ निकल गई",
+    "note": "ADDED IN POST — never generated. Tiro Devanagari Hindi, never letter-spaced."
+  },
+  "sfx": "a distant highway truck, the hum of forecourt lights, nothing else",
+  "answered_in": "S01-dod-answer",
+  "notes": "Card 1 of Act 1. Opens the film. No penalty, no consequence stated — the fear is the date, not the punishment."
+}

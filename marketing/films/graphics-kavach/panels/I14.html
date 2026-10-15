@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  #I14 .abs{position:absolute}
+  #I14 .hd{top:290px;left:60px;right:60px;text-align:center;font-size:44px;color:var(--maroon)}
+  #I14 .qs{top:380px;left:60px;right:60px;display:flex;justify-content:center;gap:50px}
+  #I14 .qq{position:relative;font-size:48px;padding:16px 38px;border-radius:999px;background:#fff;color:var(--ink);border:3px solid #E6D8C2;
+    box-shadow:0 10px 24px rgba(74,15,15,.12)}
+  #I14 .qq .on{position:absolute;inset:-3px;border-radius:999px;border:5px solid var(--amber);background:rgba(246,220,168,.35);
+    box-shadow:0 0 0 8px rgba(233,162,59,.16)}
+  #I14 .qq .tk{position:absolute;right:-30px;top:-30px;width:62px;height:62px;border-radius:50%;background:var(--maroon);color:#fff;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(74,15,15,.35)}
+  #I14 .qq .tk svg{width:38px;height:38px;stroke-width:3.4}
+  #I14 .qq span{position:relative}
+  #I14 .ch{left:60px;top:560px;width:960px;height:720px}
+  #I14 .zero{position:absolute;left:0;right:0;top:78px;height:4px;background:var(--print);border-radius:2px}
+  #I14 .day{position:absolute;top:18px;width:104px;margin-left:-52px;text-align:center;font-family:'Inter',sans-serif;font-weight:600;font-size:30px;color:#6B6258}
+  #I14 .bar{position:absolute;top:82px;width:66px;margin-left:-33px;border-radius:0 0 12px 12px;transform-origin:50% 0;
+    background:linear-gradient(180deg,#D9544A,var(--bad));box-shadow:0 10px 20px rgba(192,57,43,.22)}
+  @keyframes growDown{0%{transform:scaleY(0)}100%{transform:scaleY(1)}}
+  #I14 .bar.anim{animation-name:growDown;animation-duration:.5s;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+  #I14 .val{position:absolute;width:104px;margin-left:-52px;text-align:center;font-family:'Inter',sans-serif;font-weight:700;font-size:30px;color:var(--bad);--T:3s}
+  #I14 .trend{position:absolute;inset:0;overflow:visible;--T:7s}
+  #I14 .tot{position:absolute;left:0;top:560px;display:flex;align-items:baseline;gap:18px;--T:4s}
+  #I14 .tot .k{font-size:44px;color:var(--maroon)}
+  #I14 .tot .v{font-size:76px;font-weight:700;color:var(--bad);letter-spacing:-1px}
+  #I14 .flag2{left:60px;right:60px;top:1380px;display:flex;align-items:center;gap:24px;padding:28px 34px;border-radius:26px;
+    background:linear-gradient(180deg,#FFF1D6,#FBE2B4);border:3px solid var(--amber);box-shadow:0 18px 40px rgba(199,124,27,.25);--T:4s}
+  #I14 .flag2 .ic{width:84px;height:84px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;
+    background:linear-gradient(150deg,var(--amber),var(--amberDeep))}
+  #I14 .flag2 .ic svg{width:50px;height:50px;stroke-width:2.6}
+  #I14 .flag2 .t{font-size:44px;color:var(--maroonDeep);line-height:1.35}
+  #I14 .q{--T:3s}
+</style>
+</head>
+<body>
+<!-- ══ I14 · short every day, caught early · K214 "कहीं स्टॉक में लगातार कमी या बढ़त तो नहीं हो रही…" ═══ -->
+<div class="panel" id="I14" data-plate="office" style="--T:6s">
+  <div class="glow anim a-glow" style="animation-delay:-1.5s;top:44%"></div>
+  <div class="abs hd hi anim a-fade" style="animation-delay:-.1s">रोज़ का वेरिएशन · HSD · लीटर</div>
+  <div class="abs qs">
+    <div class="qq hi q anim a-pop" style="animation-delay:-.05s"><i class="on q anim a-fade" style="animation-delay:3.3s"></i><span>लगातार कमी?</span>
+      <b class="tk q anim a-pop" style="animation-delay:3.35s"><svg class="i"><use href="#i-check"/></svg></b></div>
+    <div class="qq hi q anim a-pop" style="animation-delay:.15s"><span>लगातार बढ़त?</span></div>
+  </div>
+
+  <div class="abs ch">
+    <div class="zero anim a-fade" style="animation-delay:-.1s"></div>
+    <!-- 20 px per litre below the zero line -->
+    <span class="day anim a-fade" style="left:64px;animation-delay:.5s">12</span>
+    <span class="day anim a-fade" style="left:168px;animation-delay:.77s">13</span>
+    <span class="day anim a-fade" style="left:272px;animation-delay:1.04s">14</span>
+    <span class="day anim a-fade" style="left:376px;animation-delay:1.31s">15</span>
+    <span class="day anim a-fade" style="left:480px;animation-delay:1.58s">16</span>
+    <span class="day anim a-fade" style="left:584px;animation-delay:1.85s">17</span>
+    <span class="day anim a-fade" style="left:688px;animation-delay:2.12s">18</span>
+    <span class="day anim a-fade" style="left:792px;animation-delay:2.39s">19</span>
+    <span class="day anim a-fade" style="left:896px;animation-delay:2.66s">20</span>
+
+    <i class="bar anim" style="left:64px;height:240px;animation-delay:.55s"></i>
+    <i class="bar anim" style="left:168px;height:360px;animation-delay:.82s"></i>
+    <i class="bar anim" style="left:272px;height:180px;animation-delay:1.09s"></i>
+    <i class="bar anim" style="left:376px;height:420px;animation-delay:1.36s"></i>
+    <i class="bar anim" style="left:480px;height:320px;animation-delay:1.63s"></i>
+    <i class="bar anim" style="left:584px;height:480px;animation-delay:1.9s"></i>
+    <i class="bar anim" style="left:688px;height:380px;animation-delay:2.17s"></i>
+    <i class="bar anim" style="left:792px;height:540px;animation-delay:2.44s"></i>
+    <i class="bar anim" style="left:896px;height:560px;animation-delay:2.71s"></i>
+
+    <span class="val anim a-fade" style="left:64px;top:330px;animation-delay:.9s">−12</span>
+    <span class="val anim a-fade" style="left:168px;top:450px;animation-delay:1.17s">−18</span>
+    <span class="val anim a-fade" style="left:272px;top:270px;animation-delay:1.44s">−9</span>
+    <span class="val anim a-fade" style="left:376px;top:510px;animation-delay:1.71s">−21</span>
+    <span class="val anim a-fade" style="left:480px;top:410px;animation-delay:1.98s">−16</span>
+    <span class="val anim a-fade" style="left:584px;top:570px;animation-delay:2.25s">−24</span>
+    <span class="val anim a-fade" style="left:688px;top:470px;animation-delay:2.52s">−19</span>
+    <span class="val anim a-fade" style="left:792px;top:630px;animation-delay:2.79s">−27</span>
+    <span class="val anim a-fade" style="left:896px;top:650px;animation-delay:3.06s">−28</span>
+
+    <!-- the trend through them (least-squares fit of the nine days) -->
+    <svg class="trend anim a-write" viewBox="0 0 960 720" style="animation-delay:3.05s">
+      <path d="M30 302 L930 631" fill="none" stroke="var(--maroonDeep)" stroke-width="6" stroke-dasharray="18 14" stroke-linecap="round"/>
+    </svg>
+
+    <div class="tot anim a-rise" style="animation-delay:3.15s"><span class="k hi">कुल</span><span class="v dis">−174 L</span></div>
+  </div>
+
+  <div class="abs flag2 anim a-drop" style="animation-delay:3.7s"><span class="ic"><svg class="i"><use href="#i-alert"/></svg></span>
+    <span class="t hi">9 में से 9 दिन कमी —<br/>अभी सीमा के अंदर, पर ध्यान दें</span></div>
+  <div class="rail hi">समस्या बढ़ने से पहले पकड़ में</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Opens on I85a's last frame (same markup, same positions — change one,
+   change both). K025b over this card (0–4.8 s): "अगर कोई काम (0.1–0.9) हर दो घंटे
+   (1.27–1.95) में करना हो, तो उस पर (3.27) लगातार (3.85) नज़र रखने वाला (≈4.4–5.5)…".
+   A hand sweeps the ring once (0.35–3.95 s); every window it reaches flashes
+   amber with a bell and goes back to empty, and the centre's countdown rolls to
+   zero and restarts. The chip pins just before "हर दो घंटे" (in by 1.15 s). "एक ज़िम्मेदार व्यक्ति चाहिए"
+   is only said at 6.2 s, over S64 after this card, so the person lands on
+   "लगातार नज़र रखने वाला" instead. */
+#I85b .lab1{position:absolute;left:40px;right:40px;top:340px;text-align:center;font-size:86px;line-height:1.2;color:var(--maroon)}
+#I85b .lab2{position:absolute;left:40px;right:40px;top:450px;text-align:center;font-size:60px;line-height:1.2;color:var(--amberDeep)}
+#I85b .sub{position:absolute;left:40px;right:40px;top:536px;text-align:center;font-size:48px;line-height:1.3;color:#6B5A4C}
+#I85b .dial{position:absolute;left:90px;top:710px;width:900px;height:900px}
+#I85b .dial > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#I85b .bs{fill:none;stroke:#DECBAF;stroke-width:64}
+#I85b .fl{fill:none;stroke:url(#ag);stroke-width:64}
+#I85b .lb{font-family:'Inter',sans-serif;font-weight:600;font-size:30px;fill:#A89886;text-anchor:middle}
+#I85b .ctr{position:absolute;left:50%;top:50%;width:392px;height:392px;margin:-196px 0 0 -196px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#FFFDF8,#F4E8D6);box-shadow:0 20px 44px rgba(58,16,10,.18),inset 0 0 0 1px rgba(201,160,100,.5)}
+#I85b .ctr .ic{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+#I85b .ctr svg.i{width:150px;height:150px;stroke-width:1.3;color:#D9C7AE}
+/* the countdown */
+#I85b .cd{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+#I85b .cd .k{font-size:40px;color:var(--amberDeep);line-height:1.2}
+#I85b .cd .win{height:84px;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(transparent,#000 22%,#000 78%,transparent)}
+#I85b .cd .col{display:flex;flex-direction:column}
+#I85b .cd .col span{display:block;height:84px;line-height:84px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:74px;color:var(--maroon);
+  font-variant-numeric:tabular-nums;text-align:center;letter-spacing:-1px}
+@keyframes cdRoll{0%,12%{transform:translateY(0)}88%,100%{transform:translateY(-336px)}}
+/* the person who has to keep watch */
+#I85b .who{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding-top:6px}
+#I85b .who svg{width:118px;height:128px;overflow:visible}
+#I85b .who .p{fill:none;stroke:var(--maroon);stroke-width:9;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+#I85b .who .t{font-size:40px;line-height:1.25;color:var(--maroon);text-align:center}
+/* the hand */
+#I85b .hand{transform-origin:450px 450px}
+#I85b .hand path{stroke:var(--maroon);stroke-width:10;stroke-linecap:round}
+/* the chip */
+#I85b .chip{position:absolute;left:50%;top:638px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:12px 34px 14px 16px;border-radius:999px;
+  background:linear-gradient(150deg,#FFE3A6,var(--amber));color:#5A3508;font-size:46px;white-space:nowrap;box-shadow:0 14px 28px rgba(199,124,27,.32)}
+#I85b .chip .dot{width:56px;height:56px;border-radius:50%;background:#fff;color:var(--amberDeep);display:flex;align-items:center;justify-content:center;flex:none}
+#I85b .chip .dot svg{width:34px;height:34px;stroke-width:2.6}
+@keyframes pinIn{0%{opacity:0;transform:translate(-50%,-90px) rotate(-6deg)}60%{opacity:1;transform:translate(-50%,8px) rotate(1deg)}100%{opacity:1;transform:translate(-50%,0)}}
+@keyframes sweep{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes flash{0%{opacity:0}18%{opacity:1}45%{opacity:1}100%{opacity:0}}
+@keyframes bell{0%{opacity:0;transform:scale(.4)}20%{opacity:1;transform:scale(1.15) rotate(-14deg)}40%{transform:scale(1) rotate(12deg)}60%{transform:rotate(-6deg)}80%{opacity:1}100%{opacity:0;transform:none}}
+@keyframes show{from{opacity:0}to{opacity:1}}
+@keyframes hide{from{opacity:1}to{opacity:0}}
+@keyframes drawOn{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes up{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<svg style="display:none">
+ <symbol id="x-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.6 1.8H4.4Z"/><path d="M10 20.6a2.2 2.2 0 0 0 4 0"/></symbol>
+</svg>
+<!-- ══ I85b · every two hours, someone responsible · K025b "अगर कोई काम हर दो घंटे में करना हो, तो उस पर लगातार नज़र…" (first 4.8 s) ══ -->
+<div class="panel" id="I85b" data-plate="office" style="--T:6s">
+  <div class="glow" style="top:58%;opacity:.8"></div>
+  <!-- I85a's last frame -->
+  <div class="lab1 hi">वॉटर इनग्रेस टेस्टिंग</div>
+  <div class="lab2 hi">जैसे काम</div>
+  <div class="sub hi">तय अंतराल पर</div>
+  <div class="dial">
+    <svg viewBox="0 0 900 900" id="ring">
+      <defs><linearGradient id="ag" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6C877"/><stop offset="1" stop-color="#D98B22"/></linearGradient></defs>
+    </svg>
+    <div class="ctr">
+      <div class="ic" style="animation:hide .2s linear .15s both paused"><svg class="i"><use href="#i-clock"/></svg></div>
+      <div style="position:absolute;inset:0;animation:hide .22s linear 3.72s both paused"><div class="cd" style="animation:show .2s linear .2s both paused">
+        <div class="k hi">अगली बार:</div>
+        <div class="win"><div class="col" style="animation:cdRoll .3s cubic-bezier(.4,0,.7,1) .5s 12 both paused">
+          <span>2:00:00</span><span>1:30:00</span><span>1:00:00</span><span>0:30:00</span><span>0:00:00</span></div></div>
+      </div></div>
+      <div class="who">
+        <svg viewBox="0 0 118 128"><circle class="p" pathLength="1" cx="59" cy="34" r="26" style="animation:drawOn .35s ease-out 3.92s both paused"/>
+          <path class="p" pathLength="1" d="M10 124 C10 88 30 70 59 70 S108 88 108 124" style="animation:drawOn .4s ease-out 3.98s both paused"/></svg>
+        <div class="t hi" style="animation:up .3s cubic-bezier(.2,.9,.3,1) 4.02s both paused">एक ज़िम्मेदार<br/>व्यक्ति चाहिए</div>
+      </div>
+    </div>
+  </div>
+  <div class="chip hi" style="animation:pinIn .35s cubic-bezier(.3,1.1,.5,1) .8s both paused"><span class="dot"><svg class="i"><use href="#i-clock"/></svg></span>हर 2 घंटे</div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+const ns = 'http://www.w3.org/2000/svg', ring = document.getElementById('ring');
+const L = [[540.6,121.9],[697.5,212.5],[788.1,369.4],[788.1,550.6],[697.5,707.5],[540.6,798.1],[359.4,798.1],[202.5,707.5],[111.9,550.6],[111.9,369.4],[202.5,212.5],[359.4,121.9]];
+const mk = (tag, attrs) => { const e = document.createElementNS(ns, tag); for (const [a, v] of Object.entries(attrs)) e.setAttribute(a, v); return e; };
+/* the hand reaches window k's middle at 0.5 + 0.3k s */
+for (let k = 0; k < 12; k++) {
+  const seg = { cx: 450, cy: 450, r: 262, pathLength: 360, 'stroke-dasharray': '26 334', transform: `rotate(${-88 + 30 * k} 450 450)` };
+  ring.appendChild(mk('circle', { ...seg, class: 'bs' }));
+  const at = (0.5 + 0.3 * k - 0.04).toFixed(2);
+  const f = mk('circle', { ...seg, class: 'fl' }); f.style.animation = `flash .5s linear ${at}s both paused`; ring.appendChild(f);
+  const tx = mk('text', { x: L[k][0], y: L[k][1], class: 'lb' });
+  tx.textContent = `${String(2 * k).padStart(2, '0')}–${String(2 * k + 2).padStart(2, '0')}`;
+  ring.appendChild(tx);
+}
+/* the hand, over the windows, under the bells */
+const hand = mk('g', { class: 'hand' });
+hand.style.animation = 'show .2s linear .15s both paused, sweep 3.6s linear .35s both paused';
+hand.appendChild(mk('path', { d: 'M450 450 V150' }));
+hand.appendChild(mk('circle', { cx: 450, cy: 150, r: 13, fill: 'var(--maroon)' }));
+ring.appendChild(hand);
+for (let k = 0; k < 12; k++) {
+  const a = (-75 + 30 * k) * Math.PI / 180, x = 450 + 262 * Math.cos(a), y = 450 + 262 * Math.sin(a);
+  const g = mk('g', { transform: `translate(${x.toFixed(1)} ${y.toFixed(1)})` });
+  const inner = mk('g', {}); inner.style.transformBox = 'fill-box'; inner.style.transformOrigin = 'center'; inner.style.animation = `bell .5s ease-out ${(0.5 + 0.3 * k - 0.02).toFixed(2)}s both paused`;
+  const u = mk('use', { href: '#x-bell', x: -19, y: -19, width: 38, height: 38 });
+  u.setAttribute('style', 'fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round');
+  inner.appendChild(u); g.appendChild(inner); ring.appendChild(g);
+}
+</script>
+</body>
+</html>

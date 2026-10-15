@@ -1,0 +1,19 @@
+{
+  "id": "S43",
+  "same_man": "different",
+  "face_notes": "The man in the shot has a longer, more angular face and jawline than the reference man, who has a rounder, fuller face. The hair also appears more grey. They do not look like the same person.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Gold lettering on book spines"
+  ],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The dealer's face does not match the reference photo. The lawyer is missing his white neck bands. The book spines have visible gold lettering, which violates the 'no text' and 'blank spines' instruction."
+}

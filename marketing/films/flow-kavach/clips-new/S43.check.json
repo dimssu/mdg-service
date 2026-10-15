@@ -1,0 +1,35 @@
+{
+  "id": "S43",
+  "same_man": "same",
+  "face_notes": "The man is a very close match to the reference photo in terms of age, hair, moustache, and facial structure.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "Veo watermark in bottom right"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 1,
+      "what": "The lawyer's face subtly melts and distorts, particularly around his right eye."
+    },
+    {
+      "t": 2,
+      "what": "The pages of the open file ripple unnaturally."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 0,
+      "what": "The advocate is continuously mouthing words throughout the entire shot."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The shot is a static image with a zoom, not the specified motion (dealer leans, then nods). The advocate is also mouthing words, which violates the brief. Re-prompt to generate the specific character actions and ensure mouths remain closed."
+}

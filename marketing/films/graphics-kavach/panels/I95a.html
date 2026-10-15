@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Financial assistance, the picture of it. I95a and I95b share this markup
+   and these positions exactly; I95b opens on I95a's last frame.
+
+   Top: the load that has stopped (a greyed tanker). Under it, the money the
+   load needs as one long bar — most of it there, the end hatched amber and
+   marked "₹1–3 लाख कम". Below, the dealer's own daily sales as plain bars,
+   no figures. On the help line, the last three bars lift, pass the gold M and
+   turn gold, and close the gap: two or three days of his own sales. The third
+   is paler — "2–3", not always three. Only the founder's figures appear.
+
+   Every position here is absolute on the 1080 × 1920 panel, so that I95b can
+   add its tag and line without anything moving. */
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  /* a line's words arrive whole, one after another (a left-to-right wipe cut letters in half) */
+  @keyframes wIn{0%{opacity:0;transform:translateX(-16px)}100%{opacity:1;transform:none}}
+  #I95a .wd{display:inline-block;animation-name:wIn;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+  @keyframes growY{0%{transform:scaleY(0)}100%{transform:scaleY(1)}}
+  @keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+  @keyframes show{0%{opacity:0}100%{opacity:1}}
+  @keyframes medal{0%{opacity:0;transform:scale(.6) rotate(-12deg)}65%{opacity:1;transform:scale(1.06) rotate(2deg)}100%{opacity:1;transform:none}}
+  @keyframes hatch{0%{background-position:0 0}100%{background-position:148px 0}}
+  /* a sales bar lifts, then travels up into its third of the gap */
+  @keyframes fly{
+    0%{left:var(--x0);top:var(--y0);width:76px;height:var(--h0);border-radius:14px 14px 4px 4px}
+    20%{left:var(--x0);top:calc(var(--y0) - 36px);width:76px;height:var(--h0);border-radius:14px 14px 4px 4px}
+    100%{left:var(--x1);top:672px;width:100px;height:118px;border-radius:var(--r1)}}
+  @keyframes sheen{0%{transform:translateX(-120%) skewX(-18deg);opacity:0}20%{opacity:.9}100%{transform:translateX(900%) skewX(-18deg);opacity:0}}
+
+  #I95a .st{position:absolute;inset:0;z-index:3}
+  #I95a .st > *{position:absolute}
+
+  /* the stopped load */
+  #I95a .tk{left:150px;top:262px;width:430px;height:196px;overflow:visible}
+  #I95a .tk .b{fill:#EFE7DC;stroke:#A99D91;stroke-width:7;stroke-linejoin:round}
+  #I95a .tk .l{fill:none;stroke:#BFB3A6;stroke-width:5;stroke-linecap:round}
+  #I95a .tk .w{fill:#D6CCC1;stroke:#A99D91;stroke-width:7}
+  #I95a .stop{left:626px;top:318px;display:flex;align-items:center;gap:16px;padding:12px 32px 14px 14px;border-radius:999px;
+    background:var(--badBg);border:2px solid rgba(192,57,43,.32);color:var(--bad);font-size:48px;line-height:1.2;
+    box-shadow:0 14px 30px rgba(120,20,10,.14)}
+  #I95a .stop .ic{width:62px;height:62px;border-radius:50%;background:var(--bad);display:flex;align-items:center;justify-content:center;gap:9px}
+  #I95a .stop .ic i{display:block;width:8px;height:24px;border-radius:3px;background:#fff}
+
+  /* the money the load needs */
+  #I95a .nl{left:90px;top:580px;font-size:44px;color:var(--maroon);line-height:1.3}
+  #I95a .gc{right:90px;top:566px;font-size:50px;color:var(--bad);line-height:1.3;white-space:nowrap}
+  #I95a .gc .dis{font-weight:700;letter-spacing:-1px}
+  #I95a .br{left:690px;top:640px;width:300px;height:26px;overflow:visible}
+  #I95a .br path{fill:none;stroke:var(--bad);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;opacity:.75;stroke-dasharray:1;
+    animation-name:drawB;animation-duration:.4s;animation-delay:.08s;animation-timing-function:cubic-bezier(.4,.1,.3,1)}
+  /* the shortfall is a recap (it was spoken over S70), so it is laid in at the
+     top of the card rather than simply being there: the hatched end wipes in
+     from the bar's edge 0–0.5 s, its bracket draws, its words slide in whole */
+  @keyframes wipeX{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(0 0 0 0)}}
+  @keyframes drawB{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+  @keyframes gcIn{0%{opacity:0;transform:translateX(-26px)}100%{opacity:1;transform:none}}
+  #I95a .gc{animation-name:gcIn;animation-duration:.32s;animation-delay:.16s;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+  #I95a .need{left:90px;top:672px;width:900px;height:118px;border-radius:22px;overflow:hidden;background:#fff;
+    box-shadow:0 0 0 2px rgba(214,168,98,.65),0 26px 52px rgba(58,16,10,.20),0 4px 10px rgba(58,16,10,.10)}
+  #I95a .need .have{position:absolute;left:0;top:0;bottom:0;width:600px;
+    background:linear-gradient(180deg,var(--maroonSoft),var(--maroonDeep));box-shadow:inset 0 -10px 20px rgba(0,0,0,.18),inset 0 6px 10px rgba(255,255,255,.08)}
+  #I95a .need .hole{position:absolute;left:600px;right:0;top:0;bottom:0;border-left:4px dashed var(--amberDeep);
+    background:repeating-linear-gradient(-45deg,rgba(233,162,59,.62) 0 13px,rgba(255,241,210,.75) 13px 26px);
+    animation-name:hatch,wipeX;animation-duration:7.7s,.5s;animation-delay:0s,0s;animation-timing-function:linear,cubic-bezier(.35,.1,.3,1)}
+  #I95a .need .sh{position:absolute;top:0;bottom:0;left:0;width:90px;
+    background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0));animation-name:sheen;animation-duration:.8s;animation-timing-function:ease-in-out}
+
+  /* the help, and who gives it */
+  #I95a .hp{left:90px;top:872px;font-size:50px;color:var(--maroon);line-height:1.3;white-space:nowrap}
+  #I95a .hp .dis{font-weight:700;letter-spacing:-1px}
+  #I95a .ml{right:466px;top:988px;font-size:38px;color:var(--amberDeep);line-height:1.3;white-space:nowrap}
+  #I95a .mm{left:638px;top:960px;width:104px;height:104px;border-radius:50%;z-index:6;
+    background:radial-gradient(circle at 35% 30%,#F7CD78,var(--amber) 50%,var(--amberDeep));display:flex;align-items:center;justify-content:center;
+    font-size:54px;font-weight:700;color:var(--maroonDeep);
+    box-shadow:0 16px 32px rgba(58,16,10,.32),inset 0 -5px 12px rgba(0,0,0,.18),inset 0 0 0 4px rgba(255,255,255,.35),0 0 0 6px rgba(233,162,59,.22)}
+
+  /* his daily sales: plain bars, no figures */
+  #I95a .base{left:90px;top:1470px;width:900px;height:4px;border-radius:4px;background:#8C7B6B;transform-origin:0 50%}
+  #I95a .sb{width:76px;border-radius:14px 14px 4px 4px;transform-origin:50% 100%;
+    background:linear-gradient(180deg,var(--maroonSoft),var(--maroonDeep));box-shadow:inset 0 -10px 20px rgba(0,0,0,.18),0 12px 24px rgba(58,16,10,.18)}
+  #I95a .pc{z-index:5;overflow:hidden}
+  #I95a .pc .au{position:absolute;inset:0;border-radius:inherit;
+    background:linear-gradient(180deg,#F8D899,#E9A23B 55%,#C27716);box-shadow:inset -6px 0 14px rgba(120,60,6,.18)}
+  #I95a .pc.pale .au{background:linear-gradient(180deg,#FBE8BF,#F2C87C 60%,#DDA24A)}
+  #I95a .slot{width:76px;border-radius:14px 14px 4px 4px;border:3px dashed rgba(199,124,27,.55);background:rgba(246,220,168,.18)}
+  #I95a .sl{left:0;right:0;top:1496px;text-align:center;font-size:46px;color:var(--maroon);line-height:1.3}
+</style>
+</head>
+<body>
+<!-- ══ I95a · the help, sized by his sales · K725 end + K725b "ऐसे में, आपकी सेल के हिसाब से, दो से तीन दिन के पैसों तक की मदद की जा सकती है।" (9.9 s)
+     The shortfall was spoken over S70 (K725), so the tanker and the bar are there from frame 0, and the
+     hatched shortfall with "₹1–3 लाख कम" is laid in over the first 0.5 s, as a recap.
+     The card now opens 2.68 s earlier, inside K725 ("…कम पड़ जाते हैं", 0.31–1.14 s, lands the shortfall
+     wipe 0–0.5 s), and runs on unbroken into K725b: 9.9 s in all. Every element after the shortfall is
+     2.68 s later than it was, so it keeps its place on K725b's words (card time):
+     "ऐसे में" 2.68–3.17 · "आपकी सेल के हिसाब से" 3.58–5.0 · "दो से तीन दिन के पैसों तक की मदद की जा सकती है"
+     5.38–8.4. Sales bars up by 3.5 s and their line by 3.33 s; the M by 5.05 s and the help line by 5.13 s;
+     the three bars travel 4.88–5.94 s. Settled from 6.1 s, then a hold. ══ -->
+<div class="panel" id="I95a" data-plate="office" style="--T:10.5s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s;animation-duration:7.7s;top:47%"></div>
+  <div class="st">
+    <!-- the load that has stopped -->
+    <svg class="tk" viewBox="0 0 460 210">
+      <rect class="b" x="8" y="42" width="298" height="112" rx="56"/>
+      <path class="l" d="M112 48v100M204 48v100"/>
+      <rect class="b" x="140" y="24" width="40" height="18" rx="5"/>
+      <path class="b" d="M306 120h14"/>
+      <path class="b" d="M320 166V74h72l52 52v40Z"/>
+      <path class="l" d="M336 90h50l34 34h-84Z"/>
+      <path class="l" d="M4 166h450" style="stroke:#A99D91;stroke-width:7"/>
+      <circle class="w" cx="74" cy="184" r="22"/><circle class="w" cx="156" cy="184" r="22"/><circle class="w" cx="398" cy="184" r="22"/>
+    </svg>
+    <div class="stop hi"><span class="ic"><i></i><i></i></span>लोड रुका</div>
+
+    <!-- the money the load needs; the end of it is missing -->
+    <div class="nl hi">लोड उठाने के लिए ज़रूरी रक़म</div>
+    <div class="gc mv"><span class="dis">₹1–3</span> <span class="hi">लाख कम</span></div>
+    <svg class="br" viewBox="0 0 300 26"><path class="mv" pathLength="1" d="M6 24V8h288v16"/></svg>
+    <div class="need">
+      <div class="have"></div>
+      <div class="hole mv"></div>
+      <div class="sh mv" style="animation-delay:5.98s"></div>
+    </div>
+
+    <!-- who gives the help, and how much -->
+    <div class="hp hi"><span class="wd mv dis" style="animation-delay:4.78s;animation-duration:.14s">2–3</span> <span class="wd mv" style="animation-delay:4.815s;animation-duration:.14s">दिन</span> <span class="wd mv" style="animation-delay:4.85s;animation-duration:.14s">के</span> <span class="wd mv" style="animation-delay:4.885s;animation-duration:.14s">पैसों</span> <span class="wd mv" style="animation-delay:4.92s;animation-duration:.14s">तक</span> <span class="wd mv" style="animation-delay:4.955s;animation-duration:.14s">की</span> <span class="wd mv" style="animation-delay:4.99s;animation-duration:.14s">मदद</span></div>
+    <div class="ml hi mv" style="animation-name:show;animation-duration:.3s;animation-delay:4.73s">एम-डी-जी सर्विसेज़</div>
+    <div class="mm dis mv" style="animation-name:medal;animation-duration:.42s;animation-delay:4.63s">M</div>
+
+    <!-- his daily sales -->
+    <div class="base mv" style="animation-name:growX;animation-duration:.35s;animation-delay:2.73s"></div>
+    <div class="slot mv" style="left:702px;top:1288px;height:182px;animation-name:show;animation-duration:.3s;animation-delay:4.98s"></div>
+    <div class="slot mv" style="left:802px;top:1260px;height:210px;animation-name:show;animation-duration:.3s;animation-delay:5.06s"></div>
+    <div class="slot mv" style="left:902px;top:1280px;height:190px;animation-name:show;animation-duration:.3s;animation-delay:5.14s"></div>
+    <div class="sb mv" style="left:102px;top:1320px;height:150px;animation-name:growY;animation-duration:.3s;animation-delay:2.8s"></div>
+    <div class="sb mv" style="left:202px;top:1282px;height:188px;animation-name:growY;animation-duration:.3s;animation-delay:2.85s"></div>
+    <div class="sb mv" style="left:302px;top:1304px;height:166px;animation-name:growY;animation-duration:.3s;animation-delay:2.9s"></div>
+    <div class="sb mv" style="left:402px;top:1266px;height:204px;animation-name:growY;animation-duration:.3s;animation-delay:2.95s"></div>
+    <div class="sb mv" style="left:502px;top:1294px;height:176px;animation-name:growY;animation-duration:.3s;animation-delay:3s"></div>
+    <div class="sb mv" style="left:602px;top:1274px;height:196px;animation-name:growY;animation-duration:.3s;animation-delay:3.05s"></div>
+    <!-- the three that travel: grow in with the rest, then fly into the gap, turning gold past the M -->
+    <div class="sb pc mv" style="--x0:702px;--y0:1288px;--h0:182px;--x1:690px;--r1:0;
+      animation-name:growY,fly;animation-duration:.3s,.9s;animation-delay:3.1s,4.88s;animation-timing-function:cubic-bezier(.16,.9,.24,1),cubic-bezier(.55,0,.3,1)">
+      <span class="au mv" style="animation-name:show;animation-duration:.2s;animation-delay:5.3s"></span></div>
+    <div class="sb pc mv" style="--x0:802px;--y0:1260px;--h0:210px;--x1:790px;--r1:0;
+      animation-name:growY,fly;animation-duration:.3s,.9s;animation-delay:3.15s,4.96s;animation-timing-function:cubic-bezier(.16,.9,.24,1),cubic-bezier(.55,0,.3,1)">
+      <span class="au mv" style="animation-name:show;animation-duration:.2s;animation-delay:5.38s"></span></div>
+    <div class="sb pc pale mv" style="--x0:902px;--y0:1280px;--h0:190px;--x1:890px;--r1:0 22px 22px 0;
+      animation-name:growY,fly;animation-duration:.3s,.9s;animation-delay:3.2s,5.04s;animation-timing-function:cubic-bezier(.16,.9,.24,1),cubic-bezier(.55,0,.3,1)">
+      <span class="au mv" style="animation-name:show;animation-duration:.2s;animation-delay:5.46s"></span></div>
+    <div class="sl hi"><span class="wd mv" style="animation-delay:2.98s;animation-duration:.15s">आपकी</span> <span class="wd mv" style="animation-delay:3.03s;animation-duration:.15s">सेल</span> <span class="wd mv" style="animation-delay:3.08s;animation-duration:.15s">के</span> <span class="wd mv" style="animation-delay:3.13s;animation-duration:.15s">हिसाब</span> <span class="wd mv" style="animation-delay:3.18s;animation-duration:.15s">से</span></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* three papers land on the desk in the order the line names them — the tanker
+   invoice, the density register, the records tied to them — and a thin maroon
+   magnifier ring comes to rest over all three. */
+.panel{justify-content:flex-start}
+.ttl{position:absolute;top:160px;left:0;right:0;text-align:center}
+.ttl .eb{font-size:34px;color:var(--amberDeep)}
+.ttl .t{font-size:78px;color:var(--maroon);line-height:1.25;margin-top:6px}
+.stage{position:absolute;inset:0;transform-origin:640px 1030px}
+.pp{position:absolute;width:660px}
+.pp .paper{padding-bottom:26px}
+.pp .head{padding:24px 32px 16px;border-bottom:none;flex-direction:column;align-items:flex-start;gap:12px}
+.pp .head .t{font-size:48px;font-weight:400;line-height:1.3}
+.bar{height:10px;width:100%;background:var(--maroon);border-radius:2px}
+.ln{padding:12px 34px;font-size:42px;line-height:1.35;color:var(--print)}
+.ln b{font-family:'Space Grotesk',sans-serif;font-weight:700}
+.ln.dim{color:#6B6258}
+.reg{background-image:linear-gradient(transparent calc(100% - 2px),var(--rule) 0);background-size:100% 64px;
+  background-position:0 118px;min-height:380px}
+.reg .ml{position:absolute;top:0;bottom:0;left:84px;width:2px;background:var(--margin)}
+.reg .head{padding-left:108px}
+.reg .hand{font-size:52px;padding:14px 32px 0 108px}
+.rec{display:flex;align-items:center;gap:18px;margin:10px 32px 0;padding:18px 20px;border:2px solid #E6D9C4;border-radius:14px;background:#FFFBF3}
+.rec .ic{width:58px;height:58px;border-radius:14px;background:var(--maroon);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.rec .ic svg{width:34px;height:34px}
+.rec span{font-size:40px;color:var(--ink)}
+/* the magnifier */
+.lens{position:absolute;left:640px;top:1030px;width:0;height:0}
+.lens .ring{position:absolute;left:-320px;top:-320px;width:640px;height:640px;border-radius:50%;
+  border:10px solid var(--maroon);
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.22),rgba(255,255,255,.04) 55%,rgba(107,22,22,.05));
+  box-shadow:0 30px 60px rgba(40,10,6,.28),inset 0 0 0 3px rgba(255,255,255,.35)}
+.lens .handle{position:absolute;left:214px;top:214px;width:230px;height:40px;border-radius:20px;transform:rotate(45deg);
+  transform-origin:0 50%;background:linear-gradient(var(--maroonSoft),var(--maroonDeep));box-shadow:0 20px 40px rgba(40,10,6,.3)}
+@keyframes rest{0%{opacity:0;transform:scale(1.25) rotate(-8deg)}60%{opacity:1;transform:scale(.97) rotate(1deg)}100%{opacity:1;transform:none}}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.04)}}
+</style>
+</head>
+<body>
+<!-- ══ D07 · invoice, density, and the records tied to them · K302 "आपकी अनुमति के बाद, हमारी टीम आपके पंप के इनवॉइस, डेंसिटी और उनसे जुड़े रिकॉर्ड पर नियमित नज़र रखती है।" (6.85 s) ══ -->
+<div class="panel" id="D07" data-plate="desk" style="--T:8s">
+  <div class="glow anim a-glow" style="animation-delay:-.5s;top:56%"></div>
+  <div class="stage anim" style="animation-name:push;animation-delay:4.4s;animation-duration:2.8s;animation-timing-function:linear">
+    <div class="ttl"><div class="t hi anim a-fade" style="animation-delay:0s;animation-duration:3s">नियमित नज़र</div></div>
+
+    <!-- 1 · the tanker invoice — a plain maroon rule for a header, no company name or mark -->
+    <div class="pp anim a-settle" style="left:92px;top:330px;--r0:-12deg;--r1:-5deg;animation-delay:.15s;animation-duration:3.2s">
+      <div class="paper" style="--rot:0deg;transform:none">
+        <div class="head"><div class="bar"></div><div class="t hi">टैंकर इनवॉइस</div></div>
+        <div class="ln hi">इनवॉइस नं. <b>••••4436</b></div>
+        <div class="ln"><b>HSD</b> · <b>6,000 L</b></div>
+        <div class="ln"><b>Density@15: 831.5</b></div>
+      </div>
+    </div>
+
+    <!-- 2 · the density register -->
+    <div class="pp anim a-settle" style="left:300px;top:850px;width:650px;--r0:10deg;--r1:4deg;animation-delay:1.15s;animation-duration:3.2s">
+      <div class="paper reg" style="--rot:0deg;transform:none">
+        <div class="ml"></div>
+        <div class="head" style="border-bottom:2px solid var(--print)"><div class="t hi">डेंसिटी रजिस्टर</div></div>
+        <div class="hand">20-08 · HSD · 831.5</div>
+      </div>
+    </div>
+
+    <!-- 3 · the records tied to them -->
+    <div class="pp anim a-settle" style="left:90px;top:1250px;--r0:-8deg;--r1:-2deg;animation-delay:2.3s;animation-duration:3.2s">
+      <div class="paper" style="--rot:0deg;transform:none">
+        <div class="head" style="border-bottom:2px solid var(--print)"><div class="t hi">उनसे जुड़े रिकॉर्ड</div></div>
+        <div class="rec"><div class="ic"><svg class="i"><use href="#i-doc"/></svg></div><span class="hi">टैंकर रसीद रजिस्टर</span></div>
+        <div class="rec"><div class="ic"><svg class="i"><use href="#i-doc"/></svg></div><span class="hi">डी-एस-आर में रसीद</span></div>
+      </div>
+    </div>
+
+    <div class="lens anim" style="animation-name:rest;animation-delay:3.8s;animation-duration:.9s">
+      <div class="handle"></div>
+      <div class="ring"></div>
+    </div>
+  </div>
+  <div class="rail hi">इनवॉइस, डेंसिटी और उनसे जुड़े रिकॉर्ड</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

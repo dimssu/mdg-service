@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+#I49 .cam{position:relative;width:900px;transform-origin:50% 50%}
+#I49 .fc{position:relative;border-radius:40px;background:linear-gradient(170deg,#FFFDF8,#F6ECDD);overflow:visible;
+  box-shadow:0 50px 100px rgba(58,16,10,.30),0 8px 20px rgba(58,16,10,.16),inset 0 0 0 1px rgba(201,160,100,.55)}
+#I49 .fc .top{border-radius:40px 40px 0 0;background:linear-gradient(120deg,var(--maroonSoft),var(--maroon) 60%,var(--maroonDeep));
+  border-bottom:6px solid var(--amber);padding:50px 50px 46px;color:#FFF3E2;font-size:64px;line-height:1.3;text-align:center}
+#I49 .fc .mid{padding:64px 40px 150px;display:flex;flex-direction:column;align-items:center;gap:40px}
+#I49 .badge{display:inline-flex;align-items:center;gap:16px;font-size:48px;color:#5A3508;padding:16px 34px 16px 22px;border-radius:999px;
+  background:linear-gradient(150deg,#FFE3A6,var(--amber));box-shadow:0 12px 26px rgba(199,124,27,.30)}
+#I49 .badge .dot{width:56px;height:56px;border-radius:50%;background:#fff;color:var(--amberDeep);display:flex;align-items:center;justify-content:center;flex:none}
+#I49 .badge .dot svg{width:34px;height:34px;stroke-width:3}
+#I49 .price{display:flex;align-items:baseline;gap:20px;color:var(--maroon);white-space:nowrap}
+#I49 .price .n{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:168px;line-height:1;letter-spacing:-2px}
+#I49 .price .odo{height:1.02em;font-variant-numeric:tabular-nums}
+#I49 .price .odo .col span{text-align:center}
+#I49 .price .per{font-size:62px;color:#6B5A4C}
+#I49 .note{width:100%;height:2px;background:repeating-linear-gradient(90deg,#D8C8AE 0 14px,transparent 14px 26px)}
+/* the GST tag clips onto the card's edge */
+#I49 .tag{position:absolute;right:40px;bottom:-66px;transform-origin:85% -20px;z-index:5}
+#I49 .tag .bd{position:relative;background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep));color:#FFF3E2;font-size:60px;line-height:1.2;
+  padding:26px 44px 26px 76px;border-radius:18px 18px 18px 18px;box-shadow:0 22px 44px rgba(58,16,10,.40);border:4px solid var(--amber)}
+#I49 .tag .bd::before{content:'';position:absolute;left:28px;top:50%;width:26px;height:26px;margin-top:-13px;border-radius:50%;background:#F6ECDD;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.35)}
+#I49 .tag .bd b{font-family:'Space Grotesk',sans-serif}
+#I49 .clip{position:absolute;right:120px;top:-54px;width:34px;height:74px;border-radius:10px;background:linear-gradient(90deg,#9A9A9A,#E4E4E4 45%,#8A8A8A);
+  box-shadow:0 4px 8px rgba(0,0,0,.3)}
+@keyframes clipOn{0%{opacity:0;transform:translateY(-160px) rotate(-18deg)}45%{opacity:1;transform:translateY(12px) rotate(4deg)}
+  70%{transform:translateY(-4px) rotate(-2deg)}100%{opacity:1;transform:rotate(-3deg)}}
+.co{animation-name:clipOn;animation-duration:.9s!important;animation-timing-function:cubic-bezier(.3,.7,.4,1)!important}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.03)}}
+.push{animation-name:push;animation-duration:2.1s!important;animation-timing-function:cubic-bezier(.4,0,.6,1)!important}
+@keyframes settleX{0%{opacity:0;transform:translateX(40px)}100%{opacity:1;transform:none}}
+.sx{animation-name:settleX;animation-duration:.7s!important}
+</style>
+</head>
+<body>
+<!-- ══ I49 · one charge, all India: ₹3,000 a month + 18% GST · K602 "…तीन हज़ार रुपये महीना, और उस पर अठारह प्रतिशत जी-एस-टी।" ══ -->
+<div class="panel" id="I49" data-plate="desk" style="--T:9s">
+  <div class="glow anim a-glow"></div>
+  <div class="cam anim push" style="animation-delay:6.3s">
+    <div class="fc anim a-rise" style="animation-duration:.8s">
+      <div class="top hi anim a-write" style="animation-delay:.25s;animation-duration:3s">सामान्य <span style="white-space:nowrap">एम-डी-जी</span> सर्विस</div>
+      <div class="mid">
+        <div class="badge hi anim a-stamp" style="animation-delay:.9s;animation-duration:.6s"><span class="dot"><svg class="i"><use href="#i-check"/></svg></span>पूरे भारत में एक ही चार्ज</div>
+        <div class="note"></div>
+        <div class="price anim a-fade" style="animation-delay:1.55s;animation-duration:.3s">
+          <span class="n"><span class="odo" data-n="3,000" data-at="1.6">₹</span></span>
+          <span class="per hi anim sx" style="animation-delay:3.4s">/ महीना</span>
+        </div>
+      </div>
+      <div class="tag anim co" style="animation-delay:4.6s"><div class="clip"></div><div class="bd hi">+ <b>18%</b> जी-एस-टी</div></div>
+    </div>
+  </div>
+  <div class="rail hi">MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* the price starts rolling when it is spoken, not at frame 0 */
+for (const el of document.querySelectorAll('.odo[data-at]')) {
+  const at = parseFloat(el.dataset.at);
+  el.querySelectorAll('.col').forEach((c, i) => { c.style.animationDelay = (at + i * 0.09).toFixed(2) + 's'; });
+}
+</script>
+</body>
+</html>

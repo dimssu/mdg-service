@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+#P22 .phone{width:880px;height:1240px;border-radius:84px;padding:16px}
+#P22 .screen{border-radius:70px;background:#F4EBDD}
+#P22 .island{position:absolute;top:22px;left:50%;width:150px;height:40px;margin-left:-75px;border-radius:20px;background:#000;z-index:10}
+#P22 .top{padding:84px 36px 24px;display:flex;align-items:center;gap:20px;background:#fff;border-bottom:1px solid #EDE7E0}
+#P22 .logo{width:72px;height:72px;border-radius:20px;flex:none;display:flex;align-items:center;justify-content:center;
+  font-size:28px;font-weight:700;color:#fff;background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep))}
+#P22 .top .nm{font-size:36px;color:#16120F;line-height:1.2}
+#P22 .top .st{font-size:26px;color:var(--inkMuted);line-height:1.3}
+#P22 .chat{flex:1;padding:30px 28px;display:flex;flex-direction:column;gap:30px}
+#P22 .day{align-self:center;font-size:26px;color:#5C5248;background:#FCF6DC;padding:8px 22px;border-radius:12px}
+#P22 .bub{font-size:47px;line-height:1.5;max-width:90%;border-radius:26px;padding:22px 28px 14px;box-shadow:0 3px 10px rgba(74,15,15,.10)}
+#P22 .bub.me{max-width:97%;align-self:flex-end;background:#FCE6C6;color:var(--ink);border-top-right-radius:8px}
+#P22 .bub.them{align-self:flex-start;background:#fff;color:var(--ink);border-top-left-radius:8px;max-width:94%}
+#P22 .meta{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:4px;font-family:'Space Grotesk',sans-serif;font-size:26px;color:#8C7E70}
+#P22 .meta svg{width:36px;height:26px;fill:none;stroke:var(--amberDeep);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+#P22 .ul{background:linear-gradient(var(--amber),var(--amber)) no-repeat 0 100% / 0% 9px;padding-bottom:4px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+@keyframes ulIn{0%{background-size:0% 9px}100%{background-size:100% 9px}}
+.uli{animation-name:ulIn;animation-duration:1s!important;animation-timing-function:cubic-bezier(.4,.1,.3,1)!important}
+#P22 .slot{position:relative;align-self:stretch;display:flex;flex-direction:column}
+#P22 .typing{position:absolute;left:0;top:0;background:#fff;border-radius:26px;border-top-left-radius:8px;padding:28px 32px;display:flex;gap:12px;
+  box-shadow:0 3px 10px rgba(74,15,15,.10)}
+#P22 .typing i{display:block;width:16px;height:16px;border-radius:50%;background:#B9A48E;animation:dot .9s ease-in-out infinite paused}
+@keyframes dot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-12px);opacity:1}}
+@keyframes typingOn{0%{opacity:0;transform:translateY(20px)}14%{opacity:1;transform:none}86%{opacity:1}100%{opacity:0}}
+#P22 .compose{margin:0 26px 34px;display:flex;align-items:center;gap:18px}
+#P22 .compose .in{flex:1;background:#fff;border-radius:999px;padding:22px 30px;font-size:28px;color:#A89886}
+#P22 .compose .mic{width:84px;height:84px;border-radius:50%;background:var(--maroon);color:#fff;display:flex;align-items:center;justify-content:center}
+.nw{white-space:nowrap}
+</style>
+</head>
+<body>
+<!-- ══ P22 · a technical problem, an expert answer · K517 "…ख़ास अनुभव या तकनीकी जानकारी चाहिए…" ══ -->
+<div class="panel" id="P22" data-plate="desk" style="--T:6s">
+  <div class="glow anim a-glow"></div>
+  <div class="phone anim a-rise" style="animation-duration:.8s">
+    <div class="screen">
+      <div class="island"></div>
+      <div class="top">
+        <div class="logo dis">DK</div>
+        <div><div class="nm hi">MDG टीम</div><div class="st hi">डीलर कवच</div></div>
+      </div>
+      <div class="chat">
+        <div class="day hi">आज</div>
+        <div class="bub me anim a-bub" style="animation-delay:.1s;animation-duration:.5s"><span class="hi">ऑटोमेशन में टैंक 2 की डिप नहीं आ रही</span>
+          <div class="meta">10:02 <svg viewBox="0 0 40 28"><path d="M3 15l7 7L24 7"/><path d="M16 22 31 7"/></svg></div></div>
+        <div class="slot">
+          <div class="typing anim" style="animation-name:typingOn;animation-duration:1s;animation-delay:1.0s">
+            <i style="animation-delay:1.0s"></i><i style="animation-delay:1.15s"></i><i style="animation-delay:1.3s"></i></div>
+          <div class="bub them anim a-bub" style="animation-delay:2.0s;animation-duration:.5s"><span class="hi">वेंडर से बात हो गई — कल सुबह 11 बजे आएँगे। तब तक डिप हाथ से भेज दीजिए, आपकी <span class="ul anim uli" style="animation-delay:3.0s"><span class="nw">डी-एस-आर</span> नहीं रुकेगी</span>।</span>
+            <div class="meta">10:09</div></div>
+        </div>
+      </div>
+      <div class="compose">
+        <div class="in hi">संदेश लिखें…</div>
+        <div class="mic"><svg class="i" style="width:38px;height:38px" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">तकनीकी काम में भी साथ</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* ── the validity ladder: wooden rails, cream rungs, the current rung in gold ── */
+.plank{position:relative;height:132px;border-radius:20px;display:flex;align-items:center;justify-content:center;gap:22px;
+  font-size:58px;color:var(--maroon);z-index:2;
+  background:linear-gradient(180deg,#FFFDF8,#F1E3CD);border:2px solid rgba(201,160,100,.7);
+  box-shadow:0 18px 36px rgba(58,16,10,.22),inset 0 -8px 12px rgba(160,110,50,.14),inset 0 3px 0 rgba(255,255,255,.8)}
+.plank .gl{position:absolute;inset:-2px;border-radius:20px;z-index:-1;
+  background:linear-gradient(180deg,#FBDFA0,#E9A23B 70%,#D38A22);border:2px solid #C77C1B;
+  box-shadow:0 0 0 10px rgba(233,162,59,.22),0 26px 50px rgba(120,62,8,.38),inset 0 3px 0 rgba(255,255,255,.55)}
+.plank.gold{background:linear-gradient(180deg,#FBDFA0,#E9A23B 70%,#D38A22);color:var(--maroonDeep);border-color:#C77C1B;
+  box-shadow:0 0 0 10px rgba(233,162,59,.22),0 26px 50px rgba(120,62,8,.38),inset 0 3px 0 rgba(255,255,255,.55)}
+.plank svg.i{width:52px;height:52px;stroke-width:2.2;opacity:.8}
+.lrail{position:absolute;width:38px;border-radius:14px;z-index:1;
+  background:linear-gradient(90deg,#8A3A26,#5E1B12 60%,#42110C);box-shadow:0 12px 26px rgba(40,10,6,.30)}
+/* a single rung lifted off the ladder, with stubs of the rails */
+.rh{position:relative;width:900px}
+.rh .lrail{top:-70px;bottom:-70px;-webkit-mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent);
+  mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent)}
+@keyframes liftF{0%{transform:scale(.9) translateY(40px);filter:brightness(.92)}100%{transform:scale(1.04);filter:none}}
+.lift{animation:liftF .8s cubic-bezier(.2,.9,.3,1) both paused;transform-origin:50% 60%}
+@keyframes grow{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.panel{gap:60px}
+.stagec{position:relative;width:640px;height:390px}
+.pp{position:absolute;left:250px;top:110px;width:140px;height:170px;border-radius:8px;background:var(--paper);
+  box-shadow:0 12px 26px rgba(40,14,6,.25),0 0 0 1px var(--paperEdge);
+  background-image:linear-gradient(transparent 26px,var(--rule) 26px,var(--rule) 28px,transparent 28px);background-size:100% 28px;
+  animation:converge .9s cubic-bezier(.5,0,.3,1) both paused}
+@keyframes converge{0%{opacity:0;transform:translate(var(--sx),var(--sy)) rotate(var(--r)) scale(1)}
+  15%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translate(0,0) rotate(0) scale(.55)}}
+.one{position:absolute;inset:0;border-radius:34px;overflow:hidden;background:#fff;
+  box-shadow:0 40px 80px rgba(58,16,10,.35),0 0 0 2px rgba(201,160,100,.5)}
+.one .ot{display:flex;align-items:center;gap:18px;padding:26px 30px;background:linear-gradient(120deg,var(--maroonSoft),var(--maroon));
+  color:#fff;font-size:40px;border-bottom:5px solid var(--amber)}
+.one .lg{width:62px;height:62px;border-radius:18px;background:#fff;color:var(--maroon);font-size:26px;font-weight:700;
+  display:flex;align-items:center;justify-content:center}
+.one .ob{display:flex;align-items:center;gap:36px;padding:48px 40px}
+.one .gg{width:170px;height:170px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;
+  background:radial-gradient(circle at 35% 30%,var(--maroonSoft),var(--maroonDeep));box-shadow:0 14px 30px rgba(58,16,10,.3)}
+.one .gg svg{width:108px;height:108px;stroke-width:1.9}
+.one .ol{flex:1;display:flex;flex-direction:column;gap:26px}
+.one .ol i{display:block;height:22px;border-radius:11px;background:#EFE4D2}
+.one .ol i:first-child{background:linear-gradient(90deg,var(--maroon) 70%,var(--amber) 70%)}
+/* a figure that rolls from one value to another (see the script at the end) */
+.ctr{display:inline-flex;height:1em;line-height:1;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums}
+.ctr .cc{display:flex;flex-direction:column}
+.ctr .cc span,.ctr .fx{display:block;height:1em;line-height:1}
+@keyframes ctrRoll{from{transform:translateY(0)}to{transform:translateY(calc(var(--n) * -1em))}}
+@keyframes ctrShow{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<!-- ══ I34 · the literal "एक ही नज़र में" over golden hour · K421 "इसका सबसे बड़ा फ़ायदा? एक ही नज़र में आपके पंप की पूरी तस्वीर।" (3.14 s) ══ -->
+<div class="panel" id="I34" data-plate="dusk" style="--T:4s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="cap hi anim a-fade" style="--T:2s;animation-delay:.1s;font-size:104px;line-height:1.2">एक ही नज़र में</div>
+  <div class="stagec anim a-drift" style="--rot:0deg;--s0:1;--s1:1.05;--dy0:0px;--dy1:0px">
+    <i class="pp" style="--sx:-380px;--sy:-520px;--r:-14deg;animation-delay:0.05s"></i>
+    <i class="pp" style="--sx:360px;--sy:-560px;--r:12deg;animation-delay:0.11s"></i>
+    <i class="pp" style="--sx:-420px;--sy:-40px;--r:-8deg;animation-delay:0.17s"></i>
+    <i class="pp" style="--sx:430px;--sy:40px;--r:10deg;animation-delay:0.23s"></i>
+    <i class="pp" style="--sx:-330px;--sy:420px;--r:9deg;animation-delay:0.29s"></i>
+    <i class="pp" style="--sx:350px;--sy:470px;--r:-11deg;animation-delay:0.35s"></i>
+    <i class="pp" style="--sx:-40px;--sy:-690px;--r:5deg;animation-delay:0.41s"></i>
+    <i class="pp" style="--sx:20px;--sy:640px;--r:-6deg;animation-delay:0.47s"></i>
+    <div class="one anim a-pop" style="--T:3s;animation-delay:.5s">
+      <div class="ot"><span class="lg dis">DK</span><span class="hi">डीलर कवच</span></div>
+      <div class="ob"><span class="gg"><svg class="i"><use href="#i-gauge"/></svg></span>
+        <div class="ol"><i style="width:88%"></i><i style="width:64%"></i><i style="width:76%"></i></div></div>
+    </div>
+  </div>
+  <div class="sub hi anim a-write" style="--T:3s;animation-delay:.3s;font-size:56px;color:var(--maroon)">आपके पंप की पूरी तस्वीर</div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* A figure that rolls from one value to another, starting at a chosen second:
+   <span class="ctr" data-from="120" data-to="200" data-at="2.8" data-dur=".8">.
+   Each digit is a column running from its old digit to its new one; a place
+   that did not exist before starts blank. Same paused clock as everything else. */
+for (const el of document.querySelectorAll('.ctr[data-to]')) {
+  const num = (s) => parseInt((s || '0').replace(/\D/g, '') || '0', 10);
+  const to = el.dataset.to, A = num(el.dataset.from), B = num(to);
+  const from = (el.dataset.from || '').padStart(to.length, ' ');
+  const at = parseFloat(el.dataset.at || '0'), dur = parseFloat(el.dataset.dur || '.9');
+  const nd = to.replace(/\D/g, '').length;
+  el.textContent = '';
+  let k = 0;
+  [...to].forEach((ch, i) => {
+    if (!/\d/.test(ch)) {
+      const f = document.createElement('span'); f.className = 'fx'; f.textContent = ch;
+      if (from[i] === ' ') f.style.animation = `ctrShow .15s linear ${(at + dur * .3).toFixed(2)}s both paused`;
+      el.appendChild(f); return;
+    }
+    const p = nd - 1 - k++;
+    const a = Math.floor(A / 10 ** p), b = Math.floor(B / 10 ** p);
+    let n = b - a; if (n > 14) n = 10 + (((b - a) % 10) + 10) % 10;
+    const col = document.createElement('span'); col.className = 'cc';
+    for (let j = 0; j <= n; j++) {
+      const s = document.createElement('span');
+      s.textContent = (j === 0 && from[i] === ' ') ? '\u2007' : String((a + j) % 10);
+      col.appendChild(s);
+    }
+    col.style.setProperty('--n', n);
+    col.style.animation = `ctrRoll ${dur}s cubic-bezier(.3,.7,.25,1) ${(at + (nd - k) * .03).toFixed(2)}s both paused`;
+    el.appendChild(col);
+  });
+}
+</script>
+</body>
+</html>

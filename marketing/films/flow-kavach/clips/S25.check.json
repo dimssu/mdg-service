@@ -1,0 +1,31 @@
+{
+  "id": "S25",
+  "same_man": "not_in_shot",
+  "face_notes": "No faces in shot.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 1,
+      "what": "Two bottles magically appear standing up in the box, accompanied by a puff of smoke."
+    },
+    {
+      "t": 6,
+      "what": "The leftmost bottle lying down begins to morph and sink into the side of the box."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 2,
+      "what": "Camera pans slightly to the right, contrary to 'locked camera' brief."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 1,
+  "verdict": "retake",
+  "retake_hint": "The prompt needs to enforce a static scene. Two extra bottles appear at 1s. The camera also pans when it should be locked. Specify 'static scene, locked camera, no objects appear or disappear'."
+}

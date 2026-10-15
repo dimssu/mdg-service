@@ -1,0 +1,19 @@
+{
+  "id": "S20",
+  "same_man": "same",
+  "face_notes": "The man is a very close match to the reference photo. Face shape, moustache, and age are correct. The hair is slightly less grey and styled differently, but it's plausibly the same person.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Numbers on a calendar on the wall are partially readable."
+  ],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The image is excellent but fails on the 'no text/numbers' rule because of a calendar on the wall with readable numbers. Please regenerate, adding 'no calendar' to the prompt."
+}

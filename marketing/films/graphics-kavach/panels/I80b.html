@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Opens on I80a's last frame exactly (a shot sits between them): the same
+   piles, built by the same code, the heading and counter where I80a left them.
+   Then a clock pins to each pile, the dealer settles beneath them, and the
+   challenge stamps across him.
+   Timed to K014's last 6.05 s (the card now starts 2.25 s earlier, so
+   "और इन्हें समय पर पूरा करना" 0.19–2.10 s is said over it): the caption is in
+   by 0.36 s; the dealer and "डीलर के लिए" settle by 2.6 s, just before
+   "अपने आप में एक बड़ी चुनौती है" (2.74–4.81 s, "एक बड़ी चुनौती" ≈ 3.55–4.45 s);
+   the stamp is down at 3.35 s. Then a hold, the clocks still ticking. */
+#I80b .hd{position:absolute;left:60px;right:60px;top:240px;display:flex;flex-direction:column;align-items:center}
+#I80b .hd .t{font-size:88px;color:var(--maroon);line-height:1.25}
+#I80b .hd .u{width:180px;height:7px;border-radius:7px;margin-top:18px;transform-origin:50% 50%;
+  background:linear-gradient(90deg,#E9A23B,#F4C979)}
+#I80b .cnt{position:absolute;left:60px;right:60px;top:482px;display:flex;align-items:center;justify-content:center;gap:12px}
+#I80b .cnt .lb{display:flex;align-items:center;gap:10px;font-size:48px;line-height:1.2;color:#fff;padding:12px 34px 6px 24px;border-radius:999px;
+  background:linear-gradient(120deg,var(--maroonSoft),var(--maroon) 70%);box-shadow:0 12px 26px rgba(74,15,15,.24);margin-right:10px}
+#I80b .cnt .lb svg{width:44px;height:44px;fill:none;stroke:var(--amberSoft);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+#I80b .cnt .pp{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:32px;color:var(--maroonDeep);padding:8px 14px;border-radius:999px;
+  background:#FFF1D2;border:2px solid var(--amber);box-shadow:0 6px 12px rgba(120,60,6,.18)}
+/* the four columns: a pile standing on the desk edge, its name beneath */
+#I80b .cols{position:absolute;left:61px;top:0;width:958px;height:1920px}
+#I80b .col{position:absolute;top:0;width:232px;height:1920px}
+#I80b .pile{position:absolute;left:0;right:0;bottom:650px;display:flex;flex-direction:column-reverse;align-items:center}
+/* a sheet seen edge-on: a bright top edge, a shaded front, a hard bottom line */
+#I80b .sl{position:relative;width:188px;height:30px;border-radius:3px;flex:none;
+  background:linear-gradient(#FFFEFA 0,#FFFEFA 30%,#EFE3CC 100%);border:1px solid #CDB690;border-bottom:3px solid #BFA27A;
+  box-shadow:0 4px 7px rgba(58,16,10,.20)}
+#I80b .sl.f{background:linear-gradient(#FBE6BC 0,#F2C979 45%,#DDA24A 100%);border-color:#B98434;border-bottom-color:#A0702A}
+#I80b .sl.tl::after,#I80b .sl.tr::after{content:'';position:absolute;top:4px;width:30px;height:14px;border-radius:3px}
+#I80b .sl.tl::after{left:-18px;background:var(--maroonSoft)}
+#I80b .sl.tr::after{right:-18px;background:var(--amber)}
+#I80b .add{height:30px;flex:none;display:flex;justify-content:center;width:100%}
+#I80b .desk{position:absolute;left:0;right:0;bottom:640px;height:12px;border-radius:6px;background:linear-gradient(90deg,rgba(138,43,43,.06),rgba(138,43,43,.30),rgba(138,43,43,.06))}
+#I80b .nm{position:absolute;left:0;right:0;top:1304px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+#I80b .nm .pi{width:58px;height:58px;border-radius:15px;display:flex;align-items:center;justify-content:center;color:#fff;
+  background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep));box-shadow:inset 0 -4px 10px rgba(0,0,0,.2),0 6px 12px rgba(74,15,15,.18)}
+#I80b .nm .pi svg{width:34px;height:34px}
+#I80b .nm .w{font-size:42px;line-height:1.28;color:var(--ink);white-space:nowrap}
+#I80b .fnote{position:absolute;left:60px;right:60px;bottom:62px;text-align:center;font-size:31px;line-height:1.3;color:rgba(60,32,20,.72)}
+#I80b .fnote b{font-weight:400;color:var(--maroon)}
+@keyframes pileIn{0%{opacity:0;transform:translateY(-190px)}70%{opacity:1;transform:translateY(8px)}100%{opacity:1;transform:none}}
+.pin{animation-name:pileIn;animation-timing-function:cubic-bezier(.35,.6,.4,1)}
+@keyframes fadeUp{0%{opacity:0;transform:translateY(22px)}100%{opacity:1;transform:none}}
+.fu{animation-name:fadeUp}
+/* ── what happens next ── */
+@keyframes out{0%{opacity:1}100%{opacity:0}}
+.o{animation-name:out}
+#I80b .cap{position:absolute;left:60px;right:60px;top:240px;display:flex;flex-direction:column;align-items:center}
+#I80b .cap .t{display:flex;align-items:center;gap:22px;font-size:88px;color:var(--maroon);line-height:1.25}
+#I80b .cap .t svg{width:84px;height:84px;color:var(--amberDeep);stroke-width:2}
+#I80b .cap .u{width:180px;height:7px;border-radius:7px;margin-top:18px;background:linear-gradient(90deg,#E9A23B,#F4C979)}
+#I80b .sway{position:absolute;left:0;top:0;width:232px;height:1920px;transform-origin:116px 1270px}
+@keyframes swayK{0%,100%{transform:rotate(0deg)}30%{transform:rotate(.7deg)}70%{transform:rotate(-.6deg)}}
+.sw{animation-name:swayK;animation-timing-function:ease-in-out;animation-iteration-count:infinite}
+#I80b .ck{position:absolute;left:73px;width:86px;height:86px;border-radius:50%;
+  filter:drop-shadow(0 8px 10px rgba(58,16,10,.28))}
+#I80b .ck svg{width:100%;height:100%;overflow:visible}
+#I80b .hand{transform-origin:32px 32px;animation-name:tickH;animation-duration:3s;animation-timing-function:steps(12);animation-iteration-count:infinite}
+@keyframes tickH{to{transform:rotate(360deg)}}
+@keyframes popC{0%{opacity:0;transform:translateY(-60px) scale(.6)}70%{opacity:1;transform:translateY(4px) scale(1.06)}100%{opacity:1;transform:none}}
+.pop{animation-name:popC;animation-timing-function:cubic-bezier(.3,.8,.4,1)}
+/* the dealer: a plain bust, small beneath the piles */
+#I80b .who{position:absolute;left:150px;top:1390px;width:250px;height:292px;
+  -webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
+#I80b .who svg{width:100%;height:100%}
+#I80b .wl{position:absolute;left:430px;top:1396px;font-size:64px;line-height:1.25;color:var(--maroon);white-space:nowrap}
+/* the piles rise 120 px as the caption changes, to give the dealer room */
+@keyframes liftK{0%{transform:none}100%{transform:translateY(-120px)}}
+.lift{animation-name:liftK;animation-timing-function:cubic-bezier(.45,0,.25,1)}
+@keyframes settle{0%{opacity:0;transform:translateY(60px)}100%{opacity:1;transform:none}}
+.st{animation-name:settle;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+#I80b .stp{position:absolute;left:318px;top:1540px;width:620px;text-align:center;font-size:72px;line-height:1.2;
+  color:var(--maroon);border-color:var(--maroon);border-width:8px;padding:10px 20px 4px;background:rgba(253,247,238,.88);
+  mix-blend-mode:normal;transform:rotate(-7deg);box-shadow:0 14px 30px rgba(74,15,15,.18)}
+@keyframes stampM{0%{opacity:0;transform:scale(1.7) rotate(-14deg)}60%{opacity:1;transform:scale(.97) rotate(-7deg)}100%{opacity:1;transform:rotate(-7deg)}}
+.sm{animation-name:stampM;animation-timing-function:cubic-bezier(.3,1.2,.5,1)}
+</style>
+</head>
+<body>
+<!-- ══ I80b · on time, a big challenge for the dealer · K014, last 6.05 s ("…और इन्हें समय पर पूरा करना अपने आप में एक बड़ी चुनौती है।") ══ -->
+<div class="panel" id="I80b" data-plate="office" style="--T:6.6s">
+  <!-- I80a's glow, at rest -->
+  <div class="glow" style="top:50%;opacity:.34;transform:scale(1)"></div>
+
+  <div class="hd anim o" style="animation-delay:0s;animation-duration:.22s">
+    <div class="t hi">दूसरी तरफ़</div>
+    <div class="u"></div>
+  </div>
+  <div class="cap anim fu" style="animation-delay:.1s;animation-duration:.26s">
+    <div class="t hi"><svg class="i"><use href="#i-clock"/></svg>समय पर पूरा करना</div>
+    <div class="u"></div>
+  </div>
+
+  <div class="cnt anim o" style="animation-delay:0s;animation-duration:.25s">
+    <span class="lb hi"><svg viewBox="0 0 24 24"><path d="M12 20V5M5.5 11.5 12 5l6.5 6.5"/></svg>लगातार बढ़ रहे</span>
+    <span class="pp">+1</span><span class="pp">+1</span><span class="pp">+1</span><span class="pp">+1</span><span class="pp">+1</span>
+  </div>
+
+  <div class="cols anim lift" id="cols" style="animation-delay:.02s;animation-duration:.32s"></div>
+
+  <div class="who anim st" style="animation-delay:2.26s;animation-duration:.34s">
+    <svg viewBox="0 0 240 280"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A1C16"/><stop offset="1" stop-color="#2A1A16"/></linearGradient></defs>
+      <circle cx="120" cy="74" r="56" fill="url(#sg)"/>
+      <path d="M14 280c0-82 44-138 106-138s106 56 106 138Z" fill="url(#sg)"/></svg>
+  </div>
+  <div class="wl hi anim st" style="animation-delay:2.28s;animation-duration:.34s">डीलर के लिए</div>
+  <div class="stamp stp hi anim sm" style="animation-delay:3.11s;animation-duration:.24s">एक बड़ी चुनौती</div>
+
+  <div class="fnote hi"><b>एम-डी-जी</b> = मार्केटिंग डिसिप्लिन गाइडलाइंस</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* The piles — the same function as I80a's, run with animated = false, so the
+   two panels agree sheet for sheet. Only the column's wrapper differs: here
+   each pile sways a little on its base, and a clock is pinned to its top. */
+function piles(root, animated) {
+  const names = ['तेल कंपनी के<br/>नियम', 'कंप्लायंस', 'एम-डी-जी<br/>गाइडलाइंस', 'तरह-तरह के<br/>ऑनलाइन काम'];
+  const land = [1.1, 2.8, 4.0, 5.95];           // each pile is down just before its name
+  const start = [9, 8, 10, 7], more = [5, 11, 3, 9]; // …then all four keep growing, unevenly
+  let seed = 11;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const slab = (k) => {
+    const x = ((rnd() - .5) * 20).toFixed(1), r = ((rnd() - .5) * 2.6).toFixed(2);
+    const f = k % 5 === 3 ? ' f' : '';
+    const tab = rnd();
+    const t = f ? '' : tab < .16 ? ' tl' : tab > .86 ? ' tr' : '';
+    return { x, r, cls: 'sl' + f + t };
+  };
+  /* the growth: every added sheet gets a time between 6.8 s and 8.0 s,
+     dealt round the piles in a shuffled order, a little faster towards the end */
+  const adds = [];
+  more.forEach((m, i) => { for (let j = 0; j < m; j++) adds.push(i); });
+  for (let i = adds.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [adds[i], adds[j]] = [adds[j], adds[i]]; }
+  const when = adds.map((_, k) => 6.8 + 1.2 * Math.pow(k / (adds.length - 1), .85));
+  let html = '';
+  for (let i = 0; i < 4; i++) {
+    let p = '';
+    for (let k = 0; k < start[i]; k++) {
+      const s = slab(k);
+      p += `<div class="${s.cls}" style="transform:translateX(${s.x}px) rotate(${s.r}deg)"></div>`;
+    }
+    let k = start[i];
+    adds.forEach((pile, n) => {
+      if (pile !== i) return;
+      const s = slab(k++);
+      if (animated) {
+        const t = when[n];
+        p += `<div class="add anim ah" style="animation-delay:${(t - .02).toFixed(2)}s;animation-duration:.2s">` +
+             `<div class="${s.cls} anim fa" style="--x:${s.x}px;--r:${s.r}deg;--r0:${(s.r * 3).toFixed(1)}deg;animation-delay:${(t - .12).toFixed(2)}s;animation-duration:.26s"></div></div>`;
+      } else {
+        p += `<div class="add"><div class="${s.cls}" style="transform:translateX(${s.x}px) rotate(${s.r}deg)"></div></div>`;
+      }
+    });
+    const a = animated ? ` anim pin" style="animation-delay:${(land[i] - .32).toFixed(2)}s;animation-duration:.46s` : '';
+    const b = animated ? ` anim fu" style="animation-delay:${(land[i] - .3).toFixed(2)}s;animation-duration:.36s` : '';
+    const top = 1270 - (start[i] + more[i]) * 30;
+    const clock = `<div class="ck anim pop" style="top:${top - 76}px;animation-delay:${(.05 + i * .06).toFixed(2)}s;animation-duration:.24s">` +
+      `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#FFF4E0" stroke="var(--amberDeep)" stroke-width="4"/>` +
+      `<g class="hand anim" style="animation-delay:${(-.3 - i * .7).toFixed(2)}s"><path d="M32 36V12" stroke="var(--maroon)" stroke-width="4" stroke-linecap="round"/></g>` +
+      `<circle cx="32" cy="32" r="4" fill="var(--maroon)"/></svg></div>`;
+    html += `<div class="col" style="left:${i * 242}px">` +
+      `<div class="desk${b}"></div>` +
+      `<div class="sway anim sw" style="animation-delay:${(.9 + i * .23).toFixed(2)}s;animation-duration:${(2.6 + i * .3).toFixed(1)}s">` +
+      `<div class="pile${a}">${p}</div>${clock}</div>` +
+      `<div class="nm${b}"><span class="pi"><svg class="i"><use href="#i-doc"/></svg></span><span class="w hi">${names[i]}</span></div>` +
+      `</div>`;
+  }
+  root.innerHTML = html;
+}
+piles(document.getElementById('cols'), false);
+</script>
+</body>
+</html>

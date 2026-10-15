@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+#I48{gap:0}
+#I48 .chap .no{font-size:54px;color:var(--amber)}
+#I48 .chap .nm{font-size:230px;line-height:1.2;margin-top:30px;color:#FFF3E2}
+/* a-rise arrives in 20% of its duration: 3 s gives the title a 0.6 s settle, landing
+   just before "फीस" is spoken (1.4 s) — at 1.1 s it snapped in over 0.2 s */
+#I48 .chap .rule{width:340px;height:8px;margin:36px auto 0;border-radius:8px;transform-origin:50% 50%}
+@keyframes drawX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.dx{animation-name:drawX;animation-duration:.8s!important}
+</style>
+</head>
+<body>
+<!-- ══ I48 · chapter 6: the fee · K601 "अब बात, फीस की।" ══ -->
+<div class="panel ink" id="I48" data-plate="dusk" style="--T:4s">
+  <div class="glow anim a-glow" style="top:48%;width:1000px;height:1000px"></div>
+  <div class="chap">
+    <div class="no hi anim a-fade" style="animation-duration:.6s">अध्याय 6</div>
+    <div class="nm hi anim a-rise" style="animation-duration:3s;animation-delay:.45s">फ़ीस</div>
+    <div class="rule anim dx" style="animation-delay:1.05s"></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

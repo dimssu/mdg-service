@@ -1,0 +1,21 @@
+{
+  "id": "S38",
+  "same_man": "same",
+  "face_notes": "The man in the video is a perfect match for the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Yeo"
+  ],
+  "marks_or_livery": [
+    "'Yeo' watermark in bottom right corner throughout."
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The dealer must place the phone face-DOWN on the table as specified in the brief, not face-up. This will also solve the issue of the screen being visible. Also, remove the 'Yeo' watermark."
+}

@@ -1,0 +1,488 @@
+{
+  "S01": {
+    "films/flow-kavach/frames/S01b.jpg": {
+      "same_man": "different",
+      "face_notes": "The man in the shot is a young South Asian man, who is not the older dealer shown in the reference photo. This is correct per the brief.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "Excellent image, but the brief specifically calls for 'dry pale concrete' on the forecourt. The current image shows a dirt/sand surface. Please regenerate with a concrete forecourt."
+    },
+    "films/flow-kavach/frames/S01a.jpg": {
+      "same_man": "different",
+      "face_notes": "The man in the shot is a young pump attendant, not the middle-aged dealer from the reference photo.",
+      "outfit_matches": false,
+      "text_visible": [
+        "Indistinct numbers on the petrol pump keypad."
+      ],
+      "marks_or_livery": [
+        "There is a small, dark, square shape on the petrol dispenser above the screen that could be a logo, but it is indistinct."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": true,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "keep",
+      "retake_hint": ""
+    }
+  },
+  "S12": {
+    "films/flow-kavach/frames/S12a.jpg": {
+      "same_man": "different",
+      "face_notes": "The man in the shot is a young pump attendant, not the middle-aged hero character from the reference photo.",
+      "outfit_matches": false,
+      "text_visible": [
+        "Faded posters on the wall of the office cabin.",
+        "Stickers on the white support pillar."
+      ],
+      "marks_or_livery": [],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The image is very good, but it violates the strict 'no text, letters, signs' rule. Please remove the posters from the cabin wall and the stickers from the support pillar."
+    },
+    "films/flow-kavach/frames/S12b.jpg": {
+      "same_man": "different",
+      "face_notes": "A young Indian man, appropriate for a pump attendant. Not the hero dealer from the reference photo.",
+      "outfit_matches": false,
+      "text_visible": [
+        "Papers with blurry text/markings visible in the window of the office cabin."
+      ],
+      "marks_or_livery": [
+        "Star-shaped watermark in the bottom right corner."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "partly",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The brief is very strict. The cabin window must be clear, with no posters or text. The canopy and dispensers must be plain white, not cream. The ground should be pale concrete, not dusty earth. Remove the star watermark."
+    }
+  },
+  "S15": {
+    "films/flow-kavach/frames/S15a.jpg": {
+      "same_man": "not_in_shot",
+      "face_notes": "The person in the shot is a woman, not the reference man.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [
+        "Small white star-like shape on the woman's kurta, bottom right."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The woman appears to be in her 40s, not her 'early thirties' as specified in the brief. Her kurta also has a small star-like mark which violates the 'no logos' rule. Please regenerate with a visibly younger woman in completely plain clothing."
+    },
+    "films/flow-kavach/frames/S15b.jpg": {
+      "same_man": "not_in_shot",
+      "face_notes": "The woman in the shot matches the description (Indian, hair in a plait). She may be slightly older than 'early thirties' but is plausible for the role.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": true,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "keep",
+      "retake_hint": ""
+    }
+  },
+  "S19": {
+    "films/flow-kavach/frames/S19a.jpg": {
+      "same_man": "different",
+      "face_notes": "The man in the shot is a young South Asian man, who is not the middle-aged hero from the reference photo.",
+      "outfit_matches": false,
+      "text_visible": [
+        "Indecipherable markings/stickers on the window and wall of the background office cabin.",
+        "Markings that resemble button layouts or symbols on the fuel dispensers."
+      ],
+      "marks_or_livery": [
+        "A small star-like watermark/artifact in the bottom right corner."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The image violates the 'no text, letters, numbers, signs or logos' rule. The dispensers are not plain with blank displays, and there are markings on the background building. There is also a watermark artifact. Prompt must be stricter about generating a completely clean, unmarked scene."
+    },
+    "films/flow-kavach/frames/S19b.jpg": {
+      "same_man": "different",
+      "face_notes": "The person in the shot is a young South Asian man, likely in his 20s. He is not the middle-aged man from the reference photo.",
+      "outfit_matches": false,
+      "text_visible": [
+        "Indecipherable text or symbols on the front of both petrol dispensers."
+      ],
+      "marks_or_livery": [
+        "The petrol dispensers have some markings and design elements, although they are not a recognizable real-world brand."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [
+        {
+          "t": 0,
+          "what": "Small, bright, star-shaped lens flare or artifact in the bottom right corner."
+        }
+      ],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The brief requires 'no text, letters, numbers, signs or logos anywhere' and 'plain white dispensers with blank dark displays'. The generated dispensers have markings and symbols on them. Reinforce the negative prompt to get completely blank, unmarked dispensers."
+    }
+  },
+  "S27": {
+    "films/flow-kavach/frames/S27b.jpg": {
+      "same_man": "different",
+      "face_notes": "The man in the shot is a young pump attendant, not the middle-aged hero character from the reference photo. The woman fits the age description for the manager.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [
+        "A small, bright, star-shaped watermark is visible in the bottom right corner."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The image has three key errors. 1. The woman's hair is down, but the brief specifies it should be in a plait. 2. The phone's flashlight is on, which is a major deviation from the brief ('screen...shows only as a faint soft glow on her fingers'). 3. There is a watermark in the bottom right corner. Prompt should specify 'woman with hair in a plait', 'phone flashlight is off', and 'no watermarks'."
+    },
+    "films/flow-kavach/frames/S27a.jpg": {
+      "same_man": "different",
+      "face_notes": "The man in the shot is a young pump attendant and the woman is a manager. Neither is the hero character from the reference photo.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [
+        "Small white star-like watermark in the bottom right corner."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The image has a watermark in the bottom right corner. The woman's pose is incorrect: the brief specifies she holds the phone flat over the register to photograph it, but here she holds it upright and looks at it. The man is also not holding the register with both hands as briefed."
+    }
+  },
+  "S29": {
+    "films/flow-kavach/frames/S29a.jpg": {
+      "same_man": "different",
+      "face_notes": "The faces of the attendant and manager are clear and plausible for their roles.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [
+        "Small star-like watermark/logo in the bottom right corner"
+      ],
+      "liquid_or_danger": [],
+      "glitches": [
+        {
+          "t": 0,
+          "what": "Small star-like watermark/logo in the bottom right corner"
+        }
+      ],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "Excellent generation, but there is a small star-like watermark/logo in the bottom right corner. Re-run the prompt, perhaps adding 'logo, watermark' to the negative prompt, to get a version without this artifact."
+    },
+    "films/flow-kavach/frames/S29b.jpg": {
+      "same_man": "not_in_shot",
+      "face_notes": "The attendant is a young man, seen in profile. The manager is a woman in her early thirties, her face is visible and she looks appropriate for the role.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [
+        "A small, four-pointed star-like watermark or logo is visible in the bottom right corner."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The image has a watermark/logo in the bottom right corner. The brief requires no logos or marks. Add 'watermark, logo, signature' to the negative prompt. The displays on the pump show faint shapes of digits; they should be completely blank and black."
+    }
+  },
+  "S36": {
+    "films/flow-kavach/frames/S36a.jpg": {
+      "same_man": "different",
+      "face_notes": "The man in the shot is a young South Asian man, who is not the hero dealer shown in the reference photo.",
+      "outfit_matches": false,
+      "text_visible": [
+        "Possible signs or notices visible inside the windows of the office cabin.",
+        "Markings on the front of the fuel dispensers that could be interpreted as text or symbols."
+      ],
+      "marks_or_livery": [
+        "The fuel dispensers have dark panels and markings, they are not 'plain white'."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The brief is not met. 1. The attendant is looking away from the dispenser, not at it. 2. The dispensers are not 'plain white' and have markings. 3. There are signs in the background cabin window. The prompt must be stricter: '...attendant looking directly at the dispenser... completely plain white dispenser with no markings... office cabin with empty windows, no signs or posters.'"
+    },
+    "films/flow-kavach/frames/S36b.jpg": {
+      "same_man": "different",
+      "face_notes": "The man in the shot is a young Indian pump attendant, not the middle-aged dealer from the reference photo. This is correct as per the brief.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The brief requires the attendant to be looking at the dark display of the dispenser. In this image, he is looking away to the side. Please regenerate with him looking at the dispenser screen."
+    }
+  },
+  "S44": {
+    "films/flow-kavach/frames/S44a.jpg": {
+      "same_man": "not_in_shot",
+      "face_notes": "The woman in the shot matches the description of a mid-thirties Indian accountant.",
+      "outfit_matches": false,
+      "text_visible": [
+        "Numbers on the keys of two calculators",
+        "Mathematical symbols (+, -, x, =, %) on calculator keys",
+        "Letters on calculator keys (e.g., M+, MRC, AC)",
+        "The number '0.' is visible on the screen of the calculator on the right"
+      ],
+      "marks_or_livery": [],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The brief strictly forbids any visible text, letters, or numbers. The two calculators have many readable numbers and symbols on their keys, and one has a readable number on its screen. The shot must be retaken without the calculators, or with them positioned so no details are visible."
+    },
+    "films/flow-kavach/frames/S44b.jpg": {
+      "same_man": "not_in_shot",
+      "face_notes": "The woman in the shot fits the description of an Indian accountant in her mid-thirties.",
+      "outfit_matches": false,
+      "text_visible": [
+        "Numbers on calculator keys"
+      ],
+      "marks_or_livery": [
+        "Star-shaped watermark in the bottom right corner."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The image violates the 'no text/logos' rule. Numbers are visible on the calculator keys, and there is a star-shaped watermark in the bottom-right corner. Regenerate to remove these elements. The calculator could be replaced with other office items, be turned over, or be much more out of focus."
+    }
+  },
+  "S46": {
+    "films/flow-kavach/frames/S46b.jpg": {
+      "same_man": "not_in_shot",
+      "face_notes": "The woman's face is clear, in profile, and fits the description.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [
+        "Small white star-shaped watermark in the bottom right corner."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The background monitors show discernible CCTV footage; the brief requires them to be completely defocused into soft, even light panels with no images. There is a small watermark in the bottom right corner which must be removed."
+    },
+    "films/flow-kavach/frames/S46a.jpg": {
+      "same_man": "different",
+      "face_notes": "The person in the shot is a young woman, not the middle-aged man from the reference photo.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [
+        "Small star-shaped lens flare or watermark in the bottom right corner."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The brief specifically requires the background to be a 'wall of monitors reads only as evenly soft grey-blue light panels, completely defocused'. The current image shows windows and stacks of paper, which does not match the high-tech context of CCTV monitoring."
+    }
+  },
+  "S51": {
+    "films/flow-kavach/frames/S51a.jpg": {
+      "same_man": "not_in_shot",
+      "face_notes": "The image features a young Indian woman, not the hero character.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [],
+      "liquid_or_danger": [],
+      "glitches": [
+        {
+          "t": 0,
+          "what": "A small, bright, four-pointed star-shaped artifact is visible in the lower right corner."
+        }
+      ],
+      "random_motion": [],
+      "matches_brief": true,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "keep",
+      "retake_hint": ""
+    },
+    "films/flow-kavach/frames/S51b.jpg": {
+      "same_man": "not_in_shot",
+      "face_notes": "The person in the shot is a young Indian woman, as specified in the brief.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [
+        "sparkle-shaped watermark in bottom right corner"
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The image is almost perfect but has a small sparkle-shaped watermark in the bottom right corner. Please regenerate without any watermarks or logos."
+    }
+  },
+  "S52": {
+    "films/flow-kavach/frames/S52a.jpg": {
+      "same_man": "different",
+      "face_notes": "The man in the shot is a young Indian man, not the older man from the reference photo. His face is visible in profile and appears natural.",
+      "outfit_matches": false,
+      "text_visible": [
+        "blurry writing on a notepad on the desk"
+      ],
+      "marks_or_livery": [
+        "Apple logo on the back of the laptop"
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": false,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "The image contains a prominent Apple logo on the laptop, which violates the 'no logos' rule. There is also blurry text on a notepad. The prompt should be modified to specify a generic, unbranded laptop and a desk clear of any visible writing."
+    },
+    "films/flow-kavach/frames/S52b.jpg": {
+      "same_man": "different",
+      "face_notes": "A young Indian man, seen in profile, focused on his laptop. He is not the hero character.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [],
+      "liquid_or_danger": [],
+      "glitches": [
+        {
+          "t": 0,
+          "what": "A small, bright, four-pointed star-shaped sparkle/artifact is visible on the white desk in the foreground."
+        }
+      ],
+      "random_motion": [],
+      "matches_brief": true,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "keep",
+      "retake_hint": ""
+    }
+  },
+  "S53": {
+    "films/flow-kavach/frames/S53a.jpg": {
+      "same_man": "not_in_shot",
+      "face_notes": "The woman's appearance and neutral expression are suitable for the role and the planned animation.",
+      "outfit_matches": false,
+      "text_visible": [
+        "blurry text on foreground laptop screen"
+      ],
+      "marks_or_livery": [],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": true,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "retake",
+      "retake_hint": "Excellent image, but the text on the foreground laptop screen is not 'fully defocused' as required by the brief. The structure of the text is visible. Please regenerate with the laptop screen either angled away, dark, or blurred to complete abstraction."
+    },
+    "films/flow-kavach/frames/S53b.jpg": {
+      "same_man": "not_in_shot",
+      "face_notes": "The woman's face is clear and well-lit. Her expression is neutral and attentive, suitable as a starting point for the described animation.",
+      "outfit_matches": false,
+      "text_visible": [],
+      "marks_or_livery": [
+        "Small, bright, four-pointed star shape on the desk in the foreground, possibly a watermark or lens flare artifact."
+      ],
+      "liquid_or_danger": [],
+      "glitches": [],
+      "random_motion": [],
+      "matches_brief": true,
+      "fits_line": "yes",
+      "clean_from": 0,
+      "clean_to": 0,
+      "verdict": "keep",
+      "retake_hint": ""
+    }
+  }
+}

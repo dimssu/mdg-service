@@ -1,0 +1,17 @@
+{
+  "id": "S22",
+  "same_man": "same",
+  "face_notes": "Excellent match to the reference photo. Face shape, hair, moustache, and age are all correct.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "keep",
+  "retake_hint": "The brief for the first frame specifies 'phone with its back to camera', but the image shows him looking at the screen. However, the brief for the *motion* specifies 'he looks down at the phone and reads', which this image depicts perfectly. The image is high quality, the character is a perfect match, and it fits the narrative line well, so it should be kept despite the minor contradiction with the static frame description."
+}

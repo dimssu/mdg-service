@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  #D03 .abs{position:absolute}
+  #D03 .chips{left:60px;right:60px;top:400px;display:flex;justify-content:center;gap:18px}
+  #D03 .chip{font-size:42px;padding:14px 32px;border-radius:999px;background:var(--maroon);color:#FFF3E2;line-height:1.2;white-space:nowrap;
+    box-shadow:0 14px 28px rgba(74,15,15,.26)}
+  #D03 .cw{--T:3s}
+  @keyframes sink{0%{transform:none;opacity:1}62%{transform:translate(var(--tx,0),var(--ty,0)) scale(.62);opacity:1}
+    100%{transform:translate(var(--tx,0),var(--ty,0)) scale(.3);opacity:0}}
+  #D03 .chip.anim{animation-name:sink;animation-duration:.62s;animation-timing-function:cubic-bezier(.5,0,.4,1)}
+  /* the DSR register page — same sheet as D02 */
+  #D03 .sheet{left:72px;top:560px;width:936px}
+  #D03 .paper{--rot:-.8deg;padding:0 20px 34px}
+  #D03 .paper .head{padding:32px 14px 18px;justify-content:center}
+  #D03 .paper .head .t{font-size:44px;font-weight:400;color:var(--maroonDeep)}
+  #D03 table.grid{table-layout:fixed;margin-top:22px;background:var(--paper)}
+  #D03 table.grid th{font-size:22px;letter-spacing:0;padding:12px 2px;height:96px;line-height:1.22;color:#2A221C}
+  /* SALES is the widest column: the figure sits in its left part so a tick fits beside it */
+  #D03 table.grid tr > :nth-child(8){padding-right:74px}
+  #D03 table.grid td{height:78px;padding:6px 2px;position:relative}
+  #D03 table.grid td.hand{font-size:31px;line-height:1}
+  #D03 table.grid tr.today td{background:#FFF3DC}
+  #D03 .w{display:inline-block;--T:3s}
+  #D03 .ck{position:absolute;right:10px;top:50%;margin-top:-29px;width:58px;height:58px;border-radius:50%;background:var(--maroon);color:#fff;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(74,15,15,.35);z-index:5;--T:3s}
+  #D03 .ck svg{width:36px;height:36px;stroke-width:3.4}
+  #D03 .proof{margin-top:30px;display:flex;align-items:center;justify-content:center;gap:22px;--T:5s}
+  #D03 .proof .hand{font-size:44px;color:var(--pen)}
+  #D03 .proof .ok{display:flex;align-items:center;gap:10px;font-size:40px;color:var(--good);border:4px solid var(--good);border-radius:14px;padding:4px 18px 4px 12px}
+  #D03 .proof .ok svg{width:36px;height:36px;stroke-width:3.4}
+</style>
+</head>
+<body>
+<!-- ══ D03 · the DSR built from reading, dip, sale and the rest · K208 "…रीडिंग, डिप, सेल और बाक़ी आँकड़ों का मिलान करके आपकी डी-एस-आर तैयार करती है" ═══ -->
+<div class="panel" id="D03" data-plate="desk" style="--T:6s">
+  <div class="glow anim a-glow" style="animation-delay:-1.4s;top:50%"></div>
+
+  <div class="abs sheet anim a-fade" style="animation-delay:-.1s">
+    <div class="paper">
+      <div class="head"><span class="t hi">DSR · HSD · टैंक 2</span></div>
+      <table class="grid">
+        <colgroup><col style="width:96px"/><col style="width:120px"/><col style="width:112px"/><col style="width:100px"/><col style="width:68px"/><col style="width:116px"/><col style="width:116px"/><col style="width:168px"/></colgroup>
+        <tr><th>DATE</th><th>OPENING<br/>STOCK</th><th>RECEIPT</th><th>TOTAL<br/>STOCK</th><th>DIP</th><th>STOCK<br/>IN TANK</th><th>TESTING</th><th>SALES</th></tr>
+        <tr><td class="hand">19-08</td><td class="hand">9,120</td><td class="hand">9,000</td><td class="hand">18,120</td><td class="hand">141</td><td class="hand">12,480</td><td class="hand">10</td><td class="hand">5,630</td></tr>
+        <tr class="today">
+          <td class="hand">20-08</td>
+          <td class="hand" id="c2"><span class="w anim a-write" style="animation-delay:3.15s">12,480</span></td>
+          <td class="hand" id="c3"><span class="w anim a-write" style="animation-delay:3.25s">6,000</span></td>
+          <td class="hand" id="c4"><span class="w anim a-write" style="animation-delay:3.35s">18,480</span></td>
+          <td class="hand" id="c5"><span class="w anim a-write" style="animation-delay:2.15s">160</span></td>
+          <td class="hand" id="c6"><span class="w anim a-write" style="animation-delay:2.25s">14,246</span></td>
+          <td class="hand" id="c7"><span class="w anim a-write" style="animation-delay:2.65s">12</span></td>
+          <td class="hand" id="c8"><span class="w anim a-write" style="animation-delay:1.65s">4,222</span>
+            <span class="ck anim a-pop" style="animation-delay:3.8s"><svg class="i"><use href="#i-check"/></svg></span></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <div class="proof anim a-write" style="animation-delay:3.4s">
+        <span class="hand">18,480 − 14,246 − 12 = 4,222</span>
+        <span class="ok hi"><svg class="i"><use href="#i-check"/></svg>मिलान</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- the four inputs arrive, then each drops into its cells of the 20-08 row -->
+  <div class="abs chips">
+    <div class="cw anim a-stamp" style="animation-delay:.1s"><div class="chip hi anim" data-to="c8" style="animation-delay:1.3s">रीडिंग</div></div>
+    <div class="cw anim a-stamp" style="animation-delay:.35s"><div class="chip hi anim" data-to="c5,c6" style="animation-delay:1.8s">डिप</div></div>
+    <div class="cw anim a-stamp" style="animation-delay:.6s"><div class="chip hi anim" data-to="c7,c8" style="animation-delay:2.3s">सेल</div></div>
+    <div class="cw anim a-stamp" style="animation-delay:.85s"><div class="chip hi anim" data-to="c2,c3,c4" style="animation-delay:2.8s">बाक़ी आँकड़े</div></div>
+  </div>
+  <div class="rail hi">हर आँकड़ा, मिलान के बाद</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* aim each chip at the centre of its cells (layout positions, so the paused
+   entrance transforms do not skew the measurement) */
+function aim() {
+  const panel = document.getElementById('D03');
+  const at = (el) => { let x = 0, y = 0; for (let e = el; e && e !== panel; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; } return { x: x + el.offsetWidth / 2, y: y + el.offsetHeight / 2 }; };
+  for (const chip of document.querySelectorAll('#D03 .chip[data-to]')) {
+    const ids = chip.dataset.to.split(',');
+    const pts = ids.map((i) => at(document.getElementById(i)));
+    const tx = pts.reduce((s, p) => s + p.x, 0) / pts.length, ty = pts.reduce((s, p) => s + p.y, 0) / pts.length;
+    const c = at(chip);
+    chip.style.setProperty('--tx', (tx - c.x).toFixed(1) + 'px');
+    chip.style.setProperty('--ty', (ty - c.y).toFixed(1) + 'px');
+  }
+}
+aim();
+document.fonts.ready.then(aim);
+</script>
+</body>
+</html>

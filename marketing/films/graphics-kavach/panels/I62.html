@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* The aim, said once: in the hard moment — right information, right
+   coordination, on time. Three words land in a row on one gold rule. */
+.l{font-size:64px;color:var(--amberDeep)}
+.wr{display:flex;justify-content:center;width:960px}
+.col{width:320px;display:flex;flex-direction:column;align-items:center;gap:30px}
+.md{width:200px;height:200px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--maroon);
+  background:radial-gradient(circle at 36% 30%,#fff,#FBF1E1 70%);border:3px solid rgba(214,168,98,.7);
+  box-shadow:0 24px 46px rgba(58,16,10,.22),inset 0 -6px 14px rgba(160,110,50,.12)}
+.md svg{width:104px;height:104px;stroke-width:1.5}
+.wd{font-size:52px;color:var(--maroon);white-space:nowrap}
+.gr{width:900px;height:10px;border-radius:10px;margin-top:-30px;transform-origin:50% 50%;
+  background:linear-gradient(90deg,rgba(233,162,59,.15),#E9A23B 18%,#F4C979 50%,#E9A23B 82%,rgba(233,162,59,.15))}
+@keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.a-growx{animation-name:growX;animation-timing-function:cubic-bezier(.4,.1,.3,1)}
+</style>
+</head>
+<body>
+<svg style="display:none"><symbol id="x-link" viewBox="0 0 24 24"><path d="M10 13.6a4 4 0 0 0 5.7.3l3.2-3.2a4 4 0 0 0-5.7-5.7l-1.4 1.4"/><path d="M14 10.4a4 4 0 0 0-5.7-.3l-3.2 3.2a4 4 0 0 0 5.7 5.7l1.4-1.4"/></symbol></svg>
+<!-- ══ I62 · right information, right coordination, on time · K719, last 3.93 s ("मक़सद यही है कि मुश्किल घड़ी में, सही जानकारी और सही तालमेल समय पर मिल जाए।") ══ -->
+<div class="panel" id="I62" data-plate="dusk" style="--T:4s;gap:70px">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="l hi anim a-fade" style="animation-delay:0s;animation-duration:3s">मुश्किल घड़ी में</div>
+  <div class="wr">
+    <div class="col anim a-pop" style="animation-delay:.15s;animation-duration:2.6s"><div class="md"><svg class="i"><use href="#i-doc"/></svg></div><span class="wd hi">सही जानकारी</span></div>
+    <div class="col anim a-pop" style="animation-delay:.45s;animation-duration:2.6s"><div class="md"><svg class="i"><use href="#x-link"/></svg></div><span class="wd hi">सही तालमेल</span></div>
+    <div class="col anim a-pop" style="animation-delay:1.0s;animation-duration:2.6s"><div class="md"><svg class="i"><use href="#i-clock"/></svg></div><span class="wd hi">समय पर</span></div>
+  </div>
+  <div class="gr anim a-growx" style="animation-delay:1.35s;animation-duration:.7s"></div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

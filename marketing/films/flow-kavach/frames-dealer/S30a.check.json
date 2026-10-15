@@ -1,0 +1,19 @@
+{
+  "id": "S30",
+  "same_man": "same",
+  "face_notes": "The dealer is a very good match for the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Faint Devanagari script visible on the spine and cover of the large register book on the desk."
+  ],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The shot is excellent but violates the 'no text' rule. There is faint but discernible text on the spine and cover of the register book. Modify the prompt to specify 'cloth-bound registers with completely plain, unmarked covers and spines'."
+}

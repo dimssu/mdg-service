@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  /* P02's finished phone — the daily report already open, its three big rows
+     lit — with one thing added in the empty dark top of the screen: the words
+     the voice is saying, as a cream pill. Same markup and sizes as P02's last
+     frame, held where P02's closing push leaves it (1.09x), then pushed on further
+     toward the three rows. */
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  #QC2 .glow{top:52%;opacity:.5}
+  #QC2 .cam{position:absolute;inset:0;animation-name:camPush;animation-duration:2.1s;animation-timing-function:linear}
+  @keyframes camPush{0%{transform:none}100%{transform:scale(1.05)}}
+
+  #QC2 .phone{width:860px;height:1590px;border-radius:92px;padding:18px;position:absolute;left:110px;top:140px}
+  #QC2 .screen{border-radius:76px;background:#120705}
+  #QC2 .vw{position:absolute;left:20px;right:20px;top:0;bottom:0;display:flex;align-items:center}
+  #QC2 .vc{width:100%}
+  /* P02 ends pushed 1.09x on the 20-08 row; this card opens on exactly that */
+  #QC2 .push{transform:scale(1.09)}
+  /* the report card itself — P02's, unchanged */
+  #QC2 .rc{position:relative;width:784px;background:var(--cream);border-radius:18px;overflow:hidden;border:2px solid var(--amberSoft)}
+  #QC2 .rc-top{background:linear-gradient(120deg,var(--maroonSoft),var(--maroon) 62%);padding:22px 24px;display:flex;align-items:center;gap:16px;border-bottom:5px solid var(--amber)}
+  #QC2 .rc-top .tile{background:#fff;color:var(--maroon);font-size:24px;font-weight:700;padding:6px 12px;border-radius:9px}
+  #QC2 .rc-top .ti{color:#fff;font-size:38px}
+  #QC2 .gl{padding:18px 20px 8px;display:flex;flex-direction:column;gap:12px}
+  #QC2 .gr{position:relative;display:flex;align-items:center;justify-content:space-between;background:#fff;border:2px solid #EFE4D2;border-radius:16px;padding:10px 24px;overflow:hidden}
+  #QC2 .gr .k{font-size:34px;color:var(--inkMuted);position:relative;z-index:1}
+  #QC2 .gr .v{font-size:64px;font-weight:700;color:var(--maroon);position:relative;z-index:1;letter-spacing:-1px}
+  #QC2 .gr .v small{font-size:36px;font-weight:700;margin-left:6px}
+  #QC2 .gr .hl{position:absolute;inset:0;background:linear-gradient(90deg,rgba(246,220,168,.85),rgba(246,220,168,.15));border-left:8px solid var(--amber)}
+  #QC2 table.mini{width:calc(100% - 32px);margin:14px 16px 0;table-layout:fixed;border-collapse:collapse;font-family:'Inter',sans-serif}
+  #QC2 table.mini th{font-size:18px;font-weight:700;color:#3A332C;border:1.5px solid #6E655B;background:#F3ECE0;padding:8px 2px;line-height:1.2;height:64px}
+  #QC2 table.mini td{font-size:24px;border:1.5px solid #9C9184;text-align:center;height:62px;padding:0 2px;position:relative;background:#fff}
+  #QC2 .dot{position:absolute;inset:6px;border:3px dashed var(--amberDeep);border-radius:8px}
+  #QC2 .note{font-size:30px;color:var(--maroon);text-align:center;padding:18px 20px 16px}
+  #QC2 .rc .foot{font-size:24px}
+
+  /* the added pill. 'डी-एस-आर' is there from the first frame; on 'स्टॉक' the
+     pill's cream grows to the right, the pair re-centres, and '· स्टॉक' slides
+     in whole beside it. The cream is a separate layer, so no letter is ever
+     cut by the growing edge. --wb (the width '· स्टॉक' adds) is measured. */
+  #QC2 .pw{position:absolute;left:0;right:0;display:flex;justify-content:center;z-index:5}
+  #QC2 .pill{position:relative;display:inline-flex;align-items:baseline;padding:16px 46px 24px;
+    animation-name:recentre;animation-duration:.2s;animation-delay:.9s;animation-timing-function:cubic-bezier(.3,.7,.3,1)}
+  #QC2 .pill .bg{position:absolute;inset:0;border-radius:999px;background:var(--cream);
+    box-shadow:0 14px 34px rgba(0,0,0,.45),0 0 0 3px rgba(233,162,59,.55);
+    animation-name:grow;animation-duration:.2s;animation-delay:.9s;animation-timing-function:cubic-bezier(.3,.7,.3,1)}
+  #QC2 .pill .w{position:relative;font-size:72px;line-height:1.2;color:var(--maroon);white-space:nowrap}
+  #QC2 .pill .b{margin-left:.28em;animation-name:slideWord;animation-duration:.18s;animation-delay:1.0s;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+  @keyframes recentre{0%{transform:translateX(calc(var(--wb) / 2))}100%{transform:none}}
+  @keyframes grow{0%{clip-path:inset(0 var(--wb) 0 0 round 999px)}100%{clip-path:inset(0 0 0 0 round 999px)}}
+  @keyframes slideWord{0%{opacity:0;transform:translateX(-26px)}100%{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<!-- ══ QC2 · the short, Q06 "डी-एस-आर, स्टॉक," (0.00–1.39 of this card) · 1.66 s
+     P02's finished phone held with a slow push on its three big rows. A cream
+     pill in the dark top of the screen says what the voice says: 'डी-एस-आर'
+     from frame 0, '· स्टॉक' slides in beside it at 0.9 s (on 'स्टॉक'). ══ -->
+<div class="panel" id="QC2" data-plate="desk" style="--T:3s">
+  <div class="glow"></div>
+  <div class="cam mv" id="cam">
+    <div class="phone">
+      <div class="screen">
+        <div class="vw">
+          <div class="vc">
+           <div class="push" id="push">
+            <div class="rc" id="rc">
+              <div class="rc-top"><span class="tile dis">DSR</span><span class="ti hi">डी-एस-आर · 21-08 · HSD</span></div>
+              <div class="gl" id="gl">
+                <div class="gr"><i class="hl"></i><span class="k hi">कल की बिक्री</span><span class="v dis">4,222<small>L</small></span></div>
+                <div class="gr"><i class="hl"></i><span class="k hi">टंकी में अभी</span><span class="v dis">14,246<small>L</small></span></div>
+                <div class="gr"><i class="hl"></i><span class="k hi">कल आया</span><span class="v dis">6,000<small>L</small></span></div>
+              </div>
+              <table class="mini">
+                <colgroup><col style="width:84px"/><col style="width:104px"/><col style="width:100px"/><col style="width:92px"/><col style="width:62px"/><col style="width:104px"/><col style="width:104px"/><col style="width:102px"/></colgroup>
+                <tr><th>DATE</th><th>OPENING<br/>STOCK</th><th>RECEIPT</th><th>TOTAL<br/>STOCK</th><th>DIP</th><th>STOCK<br/>IN TANK</th><th>TESTING</th><th>SALES</th></tr>
+                <tr class="r20"><td>20-08</td><td>12,480</td><td>6,000</td><td>18,480</td><td>160</td><td>14,246</td><td>12</td><td>4,222</td></tr>
+                <tr><td>21-08</td><td>14,246</td><td></td><td></td><td></td><td></td><td></td><td><i class="dot"></i></td></tr>
+              </table>
+              <div class="note hi">आज की SALES कल की रीडिंग से भरेगी</div>
+              <div class="foot hi">Dealer's कवच Programme · MDG Services</div>
+            </div>
+           </div>
+          </div>
+        </div>
+        <div class="pw" id="pw">
+          <div class="pill mv" id="pill"><i class="bg mv"></i><span class="w hi">डी-एस-आर</span><span class="w b hi mv" id="b">· स्टॉक</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+(function () {
+  const cam = document.getElementById('cam'), gl = document.getElementById('gl');
+  const rc = document.getElementById('rc'), pw = document.getElementById('pw');
+  const pill = document.getElementById('pill'), b = document.getElementById('b');
+  const screen = document.querySelector('#QC2 .screen');
+  function fit() {
+    /* P02's closing push is centred on the 20-08 row */
+    const row = rc.querySelector('.r20'), push = document.getElementById('push');
+    let y = row.offsetHeight / 2; for (let e = row; e && e !== rc; e = e.offsetParent) y += e.offsetTop;
+    push.style.transformOrigin = `50% ${y}px`;
+    /* the push lands on the middle of the three big rows */
+    const p = cam.getBoundingClientRect(), g = gl.getBoundingClientRect();
+    cam.style.transformOrigin = `${g.left + g.width / 2 - p.left}px ${g.top + g.height / 2 - p.top}px`;
+    /* the pill sits in the middle of the dark band above the report's header */
+    const s = screen.getBoundingClientRect(), r = rc.getBoundingClientRect();
+    const band = r.top - s.top, h = pill.offsetHeight;
+    pw.style.top = Math.round((band - h) / 2 + 10) + 'px';
+    /* how much wider '· स्टॉक' makes the pill */
+    const wb = b.offsetWidth + parseFloat(getComputedStyle(b).marginLeft);
+    pill.style.setProperty('--wb', wb.toFixed(1) + 'px');
+  }
+  fit(); document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

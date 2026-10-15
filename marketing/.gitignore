@@ -1,0 +1,32 @@
+# marketing/ keeps its SOURCE in git (scripts, script and shot JSON, prompts,
+# page sources, notes) and its MEDIA in S3 (see README.md → Backup).
+# Media is large and binary, and git keeps every version for ever.
+
+# Media — backed up to s3://mdg-chat/marketing-backup/ instead
+*.mp4
+*.mov
+*.mp3
+*.wav
+*.m4a
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.gif
+*.pdf
+
+# Downloaded brand fonts (node vendor-fonts.mjs fetches them again)
+*.woff
+*.woff2
+
+# Render scratch and outputs, all regenerable
+.work/
+out/
+.verify/
+graphify-out/
+*.log
+__pycache__/
+*.pyc
+
+# Signed, expiring download links from Google Flow
+films/flow-kavach/vids.txt

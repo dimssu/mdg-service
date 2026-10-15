@@ -1,0 +1,17 @@
+{
+  "id": "S05",
+  "same_man": "not_in_shot",
+  "face_notes": "No faces in shot.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "retake",
+  "retake_hint": "The clip is a static image, but the brief requires subtle motion (shadow swaying). Also, the trouser hems are badly torn/frayed, which is wrong for the character."
+}

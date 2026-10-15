@@ -1,0 +1,17 @@
+{
+  "id": "S63",
+  "same_man": "same",
+  "face_notes": "Face and build match the reference image.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "retake",
+  "retake_hint": "The brief states 'He does not type'. In the video, the man is typing on a keyboard. The action should be: he clicks the mouse twice, then sits back and rubs his neck."
+}

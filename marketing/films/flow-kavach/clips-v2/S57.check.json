@@ -1,0 +1,34 @@
+{
+  "id": "S57",
+  "same_man": "same",
+  "face_notes": "Face is a perfect match for the reference image.",
+  "outfit_matches": true,
+  "text_visible": [
+    "veo"
+  ],
+  "marks_or_livery": [
+    "veo watermark"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 0,
+      "what": "Starts with eyes closed, not in brief."
+    },
+    {
+      "t": 1,
+      "what": "Abruptly opens eyes and pushes up from the desk, an aggressive motion not in the brief."
+    },
+    {
+      "t": 4,
+      "what": "Strokes chin, but the preceding action of looking along the envelopes did not happen."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The character and setting are perfect, but the action is completely wrong. The man must not start with eyes closed or push up from the desk. The prompt must specify the performance: '0-3s: he looks slowly along the row of envelopes from left to right. 3-6s: he leans back and rubs his jaw thoughtfully'."
+}

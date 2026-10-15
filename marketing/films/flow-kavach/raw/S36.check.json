@@ -1,0 +1,21 @@
+{
+  "id": "S36",
+  "same_man": "not_in_shot",
+  "face_notes": "The man in the video is a young pump attendant, not the middle-aged dealer from the reference photo.",
+  "outfit_matches": false,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "Veo watermark in bottom right corner"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "keep",
+  "retake_hint": ""
+}

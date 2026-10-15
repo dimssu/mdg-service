@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Timed to K034's voice (the card starts 4.20 s into the beat, after S66).
+   "पर पंप को … आसान नहीं" is said over the shot; "कि डीलर" runs across the cut
+   ("कि" −0.32 s, "डीलर" −0.10–0.34 s, after its "d" closure at −0.15 s), "उससे" 0.71 s, "पूरी तरह हटकर" 1.16–2.26 s, "कोई" 2.87 s,
+   "दूसरा कारोबार" 3.24–4.15 s, the line ends 4.61 s. So the pump, the man and his
+   label are there at the cut, the slack rope by 0.3 s; he leans toward the right and the rope
+   snaps taut on "पूरी तरह हटकर" (0.85–1.75 s) as the caption writes (it names
+   those words, so it must land while they are said, not after); the door lands
+   by 3.05 s, just past his reach. Still from 3.1 s.
+   The rope's end rides his waist: he turns about his feet (500, 700) by 11° then
+   10° while stepping 32 then 30 px right, which puts the rope's left belt point
+   (422, 540) at (486, 528) and then (481, 529) — the rope's own keyframes use
+   those ends at the same stops, on the same easing. */
+.mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+@keyframes wr{0%{clip-path:inset(-10% 100% -10% 0)}100%{clip-path:inset(-10% -4% -10% 0)}}
+@keyframes pop{0%{opacity:0;transform:scale(.8) translateY(30px)}62%{opacity:1;transform:scale(1.03)}100%{opacity:1;transform:none}}
+@keyframes fade{0%{opacity:0}100%{opacity:1}}
+@keyframes doorIn{0%{opacity:0;transform:translateX(40px) scale(.96)}100%{opacity:1;transform:none}}
+@keyframes lean{0%{transform:none}70%{transform:translateX(32px) rotate(11deg)}100%{transform:translateX(30px) rotate(10deg)}}
+@keyframes ropeD{0%{d:path('M262 580Q342 670 422 540')}70%{d:path('M262 580Q374 551 486 528')}100%{d:path('M262 580Q372 556 481 529')}}
+@keyframes armD{0%{d:path('M572 420Q586 490 592 560')}70%,100%{d:path('M572 420Q622 428 670 420')}}
+@keyframes handM{0%{transform:translate(592px,560px)}70%,100%{transform:translate(670px,420px)}}
+.leanrun{animation-delay:.85s;animation-duration:.9s;animation-timing-function:cubic-bezier(.5,0,.3,1)}
+
+#I88c{gap:40px}
+#I88c svg.sc{width:1080px;height:794px;overflow:visible}
+#I88c .man{transform-box:view-box;transform-origin:500px 700px;animation-name:lean}
+#I88c .rope{fill:none;stroke-linecap:round;animation-name:ropeD}
+#I88c .arm{fill:none;stroke:#6A1717;stroke-width:30;stroke-linecap:round;animation-name:armD}
+#I88c .hand{animation-name:handM}
+#I88c .lb{font-size:50px;fill:var(--maroon);text-anchor:middle}
+#I88c .door{transform-box:view-box;transform-origin:880px 700px;animation-name:doorIn}
+#I88c .cap{font-size:66px;color:var(--maroon);line-height:1.35;text-align:center;animation-name:wr;animation-timing-function:linear}
+#I88c .cap b{font-weight:400;color:var(--maroonDeep)}
+</style>
+</head>
+<body>
+<!-- ══ I88c · tied to the pump, the other door out of reach · K034 "…कि डीलर उससे पूरी तरह हटकर, कोई दूसरा कारोबार कर सके।" (6.37 s, after S66) ══ -->
+<div class="panel" id="I88c" data-plate="dusk" style="--T:7s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s;top:44%"></div>
+  <svg class="sc" viewBox="50 200 980 720">
+    <defs>
+      <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8A2B2B"/><stop offset="1" stop-color="#4E0F0F"/></linearGradient>
+      <radialGradient id="doorGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="rgba(244,201,121,.75)"/><stop offset="1" stop-color="rgba(244,201,121,0)"/></radialGradient>
+      <linearGradient id="doorFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF8EA"/><stop offset="1" stop-color="#F6E6C8"/></linearGradient>
+    </defs>
+    <!-- floor -->
+    <path d="M40 700H1040" stroke="rgba(107,22,22,.22)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- the door, just out of reach -->
+    <g class="door mv" style="animation-delay:2.75s;animation-duration:.3s">
+      <ellipse cx="880" cy="500" rx="190" ry="260" fill="url(#doorGlow)"/>
+      <rect x="800" y="280" width="160" height="420" rx="10" fill="url(#doorFill)" stroke="var(--maroon)" stroke-width="7"/>
+      <rect x="826" y="310" width="108" height="150" rx="6" fill="none" stroke="rgba(107,22,22,.35)" stroke-width="4"/>
+      <rect x="826" y="490" width="108" height="180" rx="6" fill="none" stroke="rgba(107,22,22,.35)" stroke-width="4"/>
+      <circle cx="822" cy="484" r="9" fill="var(--amberDeep)"/>
+    </g>
+
+    <!-- a plain pump, outline only -->
+    <g>
+      <rect x="100" y="240" width="162" height="460" rx="24" fill="#FFFDF8" stroke="var(--maroon)" stroke-width="7"/>
+      <rect x="124" y="280" width="114" height="100" rx="12" fill="#F6ECDD" stroke="var(--maroon)" stroke-width="5"/>
+      <path d="M138 416H224M138 448H224M138 480H190" stroke="rgba(107,22,22,.4)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M100 640H262" stroke="var(--maroon)" stroke-width="5"/>
+      <path d="M262 300c42 0 52 26 52 60v70" fill="none" stroke="var(--maroon)" stroke-width="7" stroke-linecap="round"/>
+      <rect x="298" y="424" width="32" height="64" rx="8" fill="#FFFDF8" stroke="var(--maroon)" stroke-width="6"/>
+      <circle cx="262" cy="580" r="10" fill="none" stroke="#7A5530" stroke-width="6"/>
+    </g>
+
+    <!-- the rope, from the pump to his waist -->
+    <g class="mv" style="animation-name:fade;animation-delay:.05s;animation-duration:.25s">
+      <path class="rope mv leanrun" stroke="#7A5530" stroke-width="12" d="M262 580Q342 670 422 540"/>
+      <path class="rope mv leanrun" stroke="#D2A868" stroke-width="7" stroke-dasharray="12 7" d="M262 580Q342 670 422 540"/>
+    </g>
+
+    <!-- the man: turns about his feet toward the door -->
+    <g class="mv" style="animation-name:pop;animation-delay:-.28s;animation-duration:.3s;transform-box:view-box;transform-origin:500px 700px">
+      <g class="man mv leanrun">
+        <path d="M425 700L435 575L420 440Q428 396 500 394Q572 396 580 440L565 575L575 700L528 700L500 610L472 700Z" fill="url(#skin)"/>
+        <circle cx="500" cy="330" r="50" fill="url(#skin)"/>
+        <ellipse cx="500" cy="540" rx="80" ry="12" fill="none" stroke="#7A5530" stroke-width="9"/>
+        <path class="arm mv leanrun" d="M572 420Q586 490 592 560"/>
+        <circle class="hand mv leanrun" r="17" cx="0" cy="0" fill="#4E0F0F" style="transform:translate(592px,560px)"/>
+      </g>
+    </g>
+
+    <!-- labels -->
+    <text class="lb hi" x="181" y="778">पंप</text>
+    <text class="lb hi mv" x="500" y="778" style="animation-name:fade;animation-duration:.2s;animation-delay:-.22s">डीलर</text>
+    <g class="mv" style="animation-name:fade;animation-delay:2.85s;animation-duration:.2s">
+      <text class="lb hi" x="880" y="778">दूसरा</text>
+      <text class="lb hi" x="880" y="842">कारोबार</text>
+    </g>
+  </svg>
+  <div class="cap hi mv" style="animation-delay:.9s;animation-duration:.45s">पूरी तरह हटना — <b>आसान नहीं</b></div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

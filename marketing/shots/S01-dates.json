@@ -1,0 +1,16 @@
+{
+  "id": "S01-dates",
+  "act": 3,
+  "beat": "S01-dates",
+  "problem": "Every date arrives before the date does",
+  "aspect_ratio": "9:16",
+  "action": "Morning. Chest-up on the dealer standing under the canopy holding his phone up in front of him in one hand, reading it. His face is relaxed and faintly pleased — the look of a man who has just been told something in good time rather than too late. His shoulders are down and easy.",
+  "lighting": "Clean warm morning light on his face from camera left, soft shadow, bright airy background thrown out of focus.",
+  "camera": "Chest-up, he fills the vertical frame, head in the upper third, phone entering the lower edge. Sharp on his face. 35mm.",
+  "detail": "The phone screen is DARK and unreadable — no interface, no text, no glow, no logos. Same cream full-sleeve shirt with the sleeves rolled, same dark navy trousers, same watch.",
+  "feeling": "Being told in time. The whole product in one facial expression.",
+  "motion": "He reads, then nods once, very slightly. A slow push in. Nothing else moves, no cuts, no camera shake, nobody speaks.",
+  "voice_over": {
+    "hi": "हर तारीख़ की ख़बर, तारीख़ आने से पहले।"
+  }
+}

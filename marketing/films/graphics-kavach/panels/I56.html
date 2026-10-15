@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* the numbered heading card shared by I52 / I55 / I56 / I58:
+   a gold numeral, a rule that runs out to the service's own line icon, then
+   the label and the title written in beneath. The whole block pushes in 3%. */
+.hd{width:920px;display:flex;flex-direction:column;transform-origin:50% 50%}
+.hd-top{display:flex;align-items:center;gap:30px}
+.num{font-size:270px;font-weight:700;line-height:.8;letter-spacing:-12px;
+  padding:34px 40px 44px 24px;margin:-34px -40px -44px -24px;
+  background:linear-gradient(172deg,#F4C979 12%,#E9A23B 48%,#B5700F 92%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.grule{flex:1;height:8px;border-radius:8px;transform-origin:0 50%;margin-top:40px;
+  background:linear-gradient(90deg,#E9A23B,#F4C979 70%,rgba(244,201,121,.25))}
+.medal{flex:none;width:210px;height:210px;position:relative;border-radius:50%;margin-top:40px;
+  background:radial-gradient(circle at 36% 30%,#fff,#FBF1E1 70%);border:2px solid rgba(201,160,100,.55);
+  box-shadow:0 26px 50px rgba(58,16,10,.22),inset 0 -6px 14px rgba(160,110,50,.12);
+  display:flex;align-items:center;justify-content:center;color:var(--maroon)}
+.medal svg{width:140px;height:140px;fill:none;stroke:currentColor;stroke-width:1.3;
+  stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.medal svg .anim{stroke-dasharray:1;stroke-dashoffset:1}
+.lbl{font-size:52px;color:var(--amberDeep);margin-top:54px}
+.ttl{font-size:124px;color:var(--maroon);line-height:1.22;margin-top:6px}
+.sb{font-size:58px;color:var(--inkMuted);margin-top:22px}
+@keyframes growX{0%{transform:scaleX(0)}22%,100%{transform:scaleX(1)}}
+.a-growx{animation-name:growX}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.03)}}
+.a-push{animation-name:push;animation-timing-function:linear}
+/* why it matters now: two lines rising together */
+.why{width:920px;padding:40px 44px 44px;border-radius:30px;margin-top:6px;
+  background:linear-gradient(170deg,#fff,#FBF3E7);border:1px solid rgba(201,160,100,.55);
+  box-shadow:0 34px 70px rgba(58,16,10,.26),0 4px 10px rgba(58,16,10,.14);transform:rotate(-.8deg)}
+.legend{display:flex;gap:44px}
+.legend span{display:flex;align-items:center;gap:16px;font-size:36px;color:var(--ink)}
+.legend i{display:block;width:46px;height:8px;border-radius:8px}
+.chart{display:block;width:832px;height:290px;margin-top:26px;overflow:visible}
+.chart .grid{stroke:#EADFCC;stroke-width:2}
+.chart .ln{fill:none;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.chart .hd2{fill:none;stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+.said{margin-top:30px;font-size:44px;line-height:1.45;color:var(--ink)}
+.said b{color:var(--maroon);font-weight:400;background:linear-gradient(transparent 62%,rgba(233,162,59,.38) 62%)}
+.shfill{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.shfill svg{width:140px;height:140px}
+</style>
+</head>
+<body>
+<!-- ══ I56 · heading 03, cyber security, and why it matters now · K710 "तीसरी — साइबर सिक्योरिटी। डिजिटल पेमेंट और ऑनलाइन लेन-देन बढ़ने के साथ, साइबर सुरक्षा भी बहुत ज़रूरी हो गई है।" (6.38 s) ══ -->
+<div class="panel" id="I56" data-plate="desk" style="--T:7s;gap:40px">
+  <div class="glow anim a-glow" style="animation-delay:-.4s;top:34%"></div>
+  <div class="hd anim a-push">
+    <div class="hd-top">
+      <div class="num dis anim a-write" style="animation-delay:0s;animation-duration:3s">03</div>
+      <div class="grule anim a-growx" style="animation-delay:.3s;animation-duration:3s"></div>
+      <div class="medal anim a-pop" style="animation-delay:.8s;animation-duration:3s">
+        <!-- the shield fills gold once the reason has been given -->
+        <div class="shfill anim a-fade" style="animation-delay:4.4s;animation-duration:4s">
+          <svg viewBox="0 0 24 24"><path d="M12 2.8 19.5 5.6v6.1c0 4.6-3.1 8-7.5 9.6-4.4-1.6-7.5-5-7.5-9.6V5.6Z" fill="url(#gold)" stroke="none"/>
+            <defs><linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4C979"/><stop offset="1" stop-color="#D08A22"/></linearGradient></defs></svg>
+        </div>
+        <svg viewBox="0 0 24 24" style="position:relative">
+          <path class="anim a-draw" pathLength="1" style="animation-delay:.95s;animation-duration:4s" d="M12 2.8 19.5 5.6v6.1c0 4.6-3.1 8-7.5 9.6-4.4-1.6-7.5-5-7.5-9.6V5.6Z"/>
+          <path class="anim a-draw" pathLength="1" style="animation-delay:1.4s;animation-duration:3s" d="M8.7 12.1l2.3 2.4 4.4-4.7"/>
+        </svg>
+      </div>
+    </div>
+    <div class="lbl hi anim a-fade" style="animation-delay:.7s;animation-duration:3s">तीसरी</div>
+    <div class="ttl hi anim a-write" style="animation-delay:.9s;animation-duration:5s">साइबर सिक्योरिटी</div>
+  </div>
+
+  <div class="why anim a-rise" style="animation-delay:2.85s;animation-duration:5s">
+    <div class="legend">
+      <span class="hi"><i style="background:var(--maroon)"></i>डिजिटल पेमेंट</span>
+      <span class="hi"><i style="background:var(--amber)"></i>ऑनलाइन लेन-देन</span>
+    </div>
+    <svg class="chart" viewBox="0 0 832 290">
+      <path class="grid" d="M0 288H832M0 192H832M0 96H832"/>
+      <path class="ln anim a-draw" pathLength="1" style="stroke:var(--amber);animation-delay:3.05s;animation-duration:9s"
+        d="M8 262C90 256 150 240 222 226S356 214 424 180 560 126 630 104 740 70 800 52"/>
+      <path class="ln anim a-draw" pathLength="1" style="stroke:var(--maroon);animation-delay:3.05s;animation-duration:9s"
+        d="M8 240C84 232 150 214 222 188S354 160 424 124 552 74 626 52 744 24 800 12"/>
+      <g class="anim a-pop" style="transform-box:fill-box;transform-origin:50% 50%;animation-delay:4.1s;animation-duration:3s">
+        <circle cx="800" cy="12" r="15" fill="var(--maroon)"/><circle cx="800" cy="52" r="15" fill="var(--amber)"/>
+      </g>
+    </svg>
+    <div class="said hi anim a-stamp" style="animation-delay:4.2s;animation-duration:5s">डिजिटल पेमेंट और ऑनलाइन लेन-देन बढ़े → <b>साइबर सुरक्षा बहुत ज़रूरी</b></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

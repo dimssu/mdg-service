@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* ── the validity ladder: wooden rails, cream rungs, the current rung in gold ── */
+.plank{position:relative;height:132px;border-radius:20px;display:flex;align-items:center;justify-content:center;gap:22px;
+  font-size:58px;color:var(--maroon);z-index:2;
+  background:linear-gradient(180deg,#FFFDF8,#F1E3CD);border:2px solid rgba(201,160,100,.7);
+  box-shadow:0 18px 36px rgba(58,16,10,.22),inset 0 -8px 12px rgba(160,110,50,.14),inset 0 3px 0 rgba(255,255,255,.8)}
+.plank .gl{position:absolute;inset:-2px;border-radius:20px;z-index:-1;
+  background:linear-gradient(180deg,#FBDFA0,#E9A23B 70%,#D38A22);border:2px solid #C77C1B;
+  box-shadow:0 0 0 10px rgba(233,162,59,.22),0 26px 50px rgba(120,62,8,.38),inset 0 3px 0 rgba(255,255,255,.55)}
+.plank.gold{background:linear-gradient(180deg,#FBDFA0,#E9A23B 70%,#D38A22);color:var(--maroonDeep);border-color:#C77C1B;
+  box-shadow:0 0 0 10px rgba(233,162,59,.22),0 26px 50px rgba(120,62,8,.38),inset 0 3px 0 rgba(255,255,255,.55)}
+.plank svg.i{width:52px;height:52px;stroke-width:2.2;opacity:.8}
+.lrail{position:absolute;width:38px;border-radius:14px;z-index:1;
+  background:linear-gradient(90deg,#8A3A26,#5E1B12 60%,#42110C);box-shadow:0 12px 26px rgba(40,10,6,.30)}
+/* a single rung lifted off the ladder, with stubs of the rails */
+.rh{position:relative;width:900px}
+.rh .lrail{top:-70px;bottom:-70px;-webkit-mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent);
+  mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent)}
+@keyframes liftF{0%{transform:scale(.9) translateY(40px);filter:brightness(.92)}100%{transform:scale(1.04);filter:none}}
+.lift{animation:liftF .8s cubic-bezier(.2,.9,.3,1) both paused;transform-origin:50% 60%}
+@keyframes grow{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+
+.dial{position:relative;width:860px;height:860px;display:flex;align-items:center;justify-content:center}
+.dial svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 0 18px rgba(233,162,59,.35))}
+@keyframes close{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.dial .tk line{stroke:var(--amber);stroke-width:4;stroke-linecap:round;animation:tkIn .3s linear both paused}
+@keyframes tkIn{from{opacity:0}to{opacity:.85}}
+.chap .nm{margin-top:14px}
+/* a figure that rolls from one value to another (see the script at the end) */
+.ctr{display:inline-flex;height:1em;line-height:1;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums}
+.ctr .cc{display:flex;flex-direction:column}
+.ctr .cc span,.ctr .fx{display:block;height:1em;line-height:1}
+@keyframes ctrRoll{from{transform:translateY(0)}to{transform:translateY(calc(var(--n) * -1em))}}
+@keyframes ctrShow{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<!-- ══ I37 · chapter card on a night plate · K501 "अब बात चौबीसों घंटे के साथ की।" (3.32 s) ══ -->
+<div class="panel ink" id="I37" data-plate="night" style="--T:4s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="dial">
+    <svg viewBox="0 0 800 800">
+      <circle cx="400" cy="400" r="386" fill="none" stroke="rgba(233,162,59,.16)" stroke-width="3"/>
+      <circle cx="400" cy="400" r="386" fill="none" stroke="var(--amber)" stroke-width="5" stroke-linecap="round" pathLength="1"
+        transform="rotate(-90 400 400)" style="stroke-dasharray:1;animation:close 1.2s cubic-bezier(.45,.1,.3,1) .05s both paused"/>
+      <g class="tk"><line x1="400.0" y1="28.0" x2="400.0" y2="54.0" style="animation-delay:0.00s"/><line x1="496.3" y1="40.7" x2="492.7" y2="54.2" style="animation-delay:0.05s"/><line x1="586.0" y1="77.8" x2="579.0" y2="90.0" style="animation-delay:0.10s"/><line x1="663.0" y1="137.0" x2="653.1" y2="146.9" style="animation-delay:0.15s"/><line x1="722.2" y1="214.0" x2="710.0" y2="221.0" style="animation-delay:0.20s"/><line x1="759.3" y1="303.7" x2="745.8" y2="307.3" style="animation-delay:0.25s"/><line x1="772.0" y1="400.0" x2="746.0" y2="400.0" style="animation-delay:0.30s"/><line x1="759.3" y1="496.3" x2="745.8" y2="492.7" style="animation-delay:0.35s"/><line x1="722.2" y1="586.0" x2="710.0" y2="579.0" style="animation-delay:0.40s"/><line x1="663.0" y1="663.0" x2="653.1" y2="653.1" style="animation-delay:0.45s"/><line x1="586.0" y1="722.2" x2="579.0" y2="710.0" style="animation-delay:0.50s"/><line x1="496.3" y1="759.3" x2="492.7" y2="745.8" style="animation-delay:0.55s"/><line x1="400.0" y1="772.0" x2="400.0" y2="746.0" style="animation-delay:0.60s"/><line x1="303.7" y1="759.3" x2="307.3" y2="745.8" style="animation-delay:0.65s"/><line x1="214.0" y1="722.2" x2="221.0" y2="710.0" style="animation-delay:0.70s"/><line x1="137.0" y1="663.0" x2="146.9" y2="653.1" style="animation-delay:0.75s"/><line x1="77.8" y1="586.0" x2="90.0" y2="579.0" style="animation-delay:0.80s"/><line x1="40.7" y1="496.3" x2="54.2" y2="492.7" style="animation-delay:0.85s"/><line x1="28.0" y1="400.0" x2="54.0" y2="400.0" style="animation-delay:0.90s"/><line x1="40.7" y1="303.7" x2="54.2" y2="307.3" style="animation-delay:0.95s"/><line x1="77.8" y1="214.0" x2="90.0" y2="221.0" style="animation-delay:1.00s"/><line x1="137.0" y1="137.0" x2="146.9" y2="146.9" style="animation-delay:1.05s"/><line x1="214.0" y1="77.8" x2="221.0" y2="90.0" style="animation-delay:1.10s"/><line x1="303.7" y1="40.7" x2="307.3" y2="54.2" style="animation-delay:1.15s"/></g>
+    </svg>
+    <div class="chap">
+      <div class="no hi anim a-rise" style="--T:3s;animation-delay:.3s;font-size:44px">अध्याय 5</div>
+      <div class="nm hi anim a-rise" style="--T:3s;animation-delay:.5s;font-size:104px">चौबीसों घंटे<br/>साथ</div>
+      <div class="rule anim" style="--T:1s;animation-delay:.9s;animation-name:grow"></div>
+    </div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* A figure that rolls from one value to another, starting at a chosen second:
+   <span class="ctr" data-from="120" data-to="200" data-at="2.8" data-dur=".8">.
+   Each digit is a column running from its old digit to its new one; a place
+   that did not exist before starts blank. Same paused clock as everything else. */
+for (const el of document.querySelectorAll('.ctr[data-to]')) {
+  const num = (s) => parseInt((s || '0').replace(/\D/g, '') || '0', 10);
+  const to = el.dataset.to, A = num(el.dataset.from), B = num(to);
+  const from = (el.dataset.from || '').padStart(to.length, ' ');
+  const at = parseFloat(el.dataset.at || '0'), dur = parseFloat(el.dataset.dur || '.9');
+  const nd = to.replace(/\D/g, '').length;
+  el.textContent = '';
+  let k = 0;
+  [...to].forEach((ch, i) => {
+    if (!/\d/.test(ch)) {
+      const f = document.createElement('span'); f.className = 'fx'; f.textContent = ch;
+      if (from[i] === ' ') f.style.animation = `ctrShow .15s linear ${(at + dur * .3).toFixed(2)}s both paused`;
+      el.appendChild(f); return;
+    }
+    const p = nd - 1 - k++;
+    const a = Math.floor(A / 10 ** p), b = Math.floor(B / 10 ** p);
+    let n = b - a; if (n > 14) n = 10 + (((b - a) % 10) + 10) % 10;
+    const col = document.createElement('span'); col.className = 'cc';
+    for (let j = 0; j <= n; j++) {
+      const s = document.createElement('span');
+      s.textContent = (j === 0 && from[i] === ' ') ? '\u2007' : String((a + j) % 10);
+      col.appendChild(s);
+    }
+    col.style.setProperty('--n', n);
+    col.style.animation = `ctrRoll ${dur}s cubic-bezier(.3,.7,.25,1) ${(at + (nd - k) * .03).toFixed(2)}s both paused`;
+    el.appendChild(col);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "id": "S06",
+  "same_man": "same",
+  "face_notes": "The man in the video is a good match for the reference photo in terms of age, facial features, and hair.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Veo"
+  ],
+  "marks_or_livery": [
+    "'Veo' watermark in bottom right corner"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 2,
+      "what": "Dealer makes an un-briefed gesture, touching his forehead."
+    },
+    {
+      "t": 3,
+      "what": "Dealer leans forward, which is the opposite of the briefed 'leans back slightly'."
+    },
+    {
+      "t": 5,
+      "what": "The representative starts gesturing with his hands, which was not in the brief."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 1,
+  "verdict": "retake",
+  "retake_hint": "The dealer's motion is wrong. He should not raise his hand to his head. He should only give one slow, deliberate nod between 0-3s, and another after 3s while leaning back slightly. The representative should only nod, not gesture with his hands."
+}

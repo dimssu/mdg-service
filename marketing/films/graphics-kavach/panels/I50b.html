@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* The six premium services as a hand of gold cards. I50a deals them in;
+   I50b opens on I50a's last frame exactly (same markup, same positions),
+   pushes in, tags each card with its fee rule and writes the fee note, both
+   at once, because the voice has finished the fee clause by 2.27 s.
+   Six cards: 128 px at a 26 px gap, as in I50a. The tag is a size smaller
+   and hangs a little lower than it did over 150 px cards, so it neither
+   touches the card above across the narrower gap nor reaches the name.
+   Card 06 is the one without a fee: the founder said no interest and named
+   no fee, so its tag says "ब्याज: कोई नहीं". */
+.grp{width:900px;display:flex;flex-direction:column;align-items:center;margin-top:-150px;transform-origin:50% 40%}
+.ttl{font-size:84px;color:var(--maroon);line-height:1.25}
+.trule{width:180px;height:7px;border-radius:7px;margin:22px 0 58px;
+  background:linear-gradient(90deg,#E9A23B,#F4C979);transform-origin:50% 50%}
+.stack{width:900px;display:flex;flex-direction:column;gap:26px}
+.sv{position:relative;display:flex;align-items:center;height:128px;border-radius:22px;overflow:visible;
+  background:linear-gradient(170deg,#fff,#FBF3E7);border:2px solid rgba(214,168,98,.65);
+  box-shadow:0 26px 52px rgba(58,16,10,.22),0 4px 10px rgba(58,16,10,.12);transform:rotate(var(--r1,0deg))}
+.sv .no{flex:none;width:128px;height:100%;border-radius:20px 0 0 20px;display:flex;align-items:center;justify-content:center;
+  font-size:52px;font-weight:700;color:#4E0F0F;
+  background:linear-gradient(160deg,#F8D899,#E9A23B 55%,#C27716);box-shadow:inset -6px 0 14px rgba(120,60,6,.18)}
+.sv .nm{padding:0 30px 0 38px;font-size:46px;color:var(--maroon);line-height:1.2}
+.tag{position:absolute;top:-25px;right:26px;padding:3px 16px 5px;border-radius:999px;font-size:25px;
+  color:var(--maroonDeep);background:#FFF1D2;border:2px solid var(--amber);
+  box-shadow:0 8px 16px rgba(120,60,6,.22);white-space:nowrap}
+.fee{position:absolute;left:70px;right:70px;top:1520px;text-align:center}
+.fee .t{font-size:46px;color:var(--maroon);line-height:1.45}
+.fee .u{width:620px;height:8px;border-radius:8px;margin:14px auto 0;transform-origin:0 50%;
+  background:linear-gradient(90deg,#E9A23B,#F4C979 70%,rgba(244,201,121,.3))}
+@keyframes dealIn{0%{opacity:0;transform:translate(460px,-90px) rotate(14deg)}
+  16%{opacity:1;transform:translate(-8px,0) rotate(var(--r1,0deg))}22%,100%{opacity:1;transform:rotate(var(--r1,0deg))}}
+.a-deal{animation-name:dealIn}
+@keyframes growX{0%{transform:scaleX(0)}22%,100%{transform:scaleX(1)}}
+.a-growx{animation-name:growX}
+@keyframes pushIn{0%{transform:scale(1)}48%,100%{transform:scale(1.05)}}
+.a-pushin{animation-name:pushIn;animation-timing-function:cubic-bezier(.35,.1,.3,1)}
+</style>
+</head>
+<body>
+<!-- ══ I50b · fee set by need, six cards · K604, last 4.1 s ("…जिनकी फीस हर पंप की ज़रूरत, और चुनी गई सेवा के हिसाब से अलग होती है।")
+     Frame 0 is I50a's last frame: same markup, same positions, nothing arriving.
+     Timed to K604.mp3 (measured; this card starts 6.0 s in): the fee clause "जिनकी फीस हर पंप की ज़रूरत"
+     was spoken over I50a (2.48–4.71), "और चुनी गई" at −0.52–0.28, "सेवा के हिसाब से" 0.40–1.44 and
+     "अलग होती है" 1.56–2.27, then silence to the cut. So nothing here can wait: the six tags pop 0.15 s
+     apart from 0.05 s (all in by 1.11 s, settled 1.30 s) while the fee note writes in at the foot
+     (each line's text fills ~75% of its 940 px block, so line 1 is written by 0.33 s and line 2 by
+     0.62 s, 0.14 s before "के हिसाब से") and its rule draws by 1.15 s. Settled from 1.3 s. ══ -->
+<div class="panel" id="I50b" data-plate="office" style="--T:5s">
+  <div class="glow anim a-glow" style="animation-delay:-.333s;top:40%"></div>
+  <div class="grp anim a-pushin" style="animation-duration:4.2s">
+    <div class="ttl hi">प्रीमियम सेवाएँ</div>
+    <div class="trule"></div>
+    <div class="stack">
+      <div class="sv" style="--r1:-.9deg">
+        <div class="no dis">01</div><div class="nm hi">लीगल असिस्टेंस</div>
+        <div class="tag hi anim a-pop" style="animation-delay:0.05s;animation-duration:2.4s">फ़ीस: ज़रूरत के हिसाब से</div>
+      </div>
+      <div class="sv" style="--r1:.7deg">
+        <div class="no dis">02</div><div class="nm hi">अकाउंटिंग और फ़ाइनेंशियल मॉनिटरिंग</div>
+        <div class="tag hi anim a-pop" style="animation-delay:0.20s;animation-duration:2.4s">फ़ीस: ज़रूरत के हिसाब से</div>
+      </div>
+      <div class="sv" style="--r1:-.5deg">
+        <div class="no dis">03</div><div class="nm hi">साइबर सिक्योरिटी</div>
+        <div class="tag hi anim a-pop" style="animation-delay:0.35s;animation-duration:2.4s">फ़ीस: ज़रूरत के हिसाब से</div>
+      </div>
+      <div class="sv" style="--r1:.8deg">
+        <div class="no dis">04</div><div class="nm hi">क्विक रिस्पॉन्स सर्विस</div>
+        <div class="tag hi anim a-pop" style="animation-delay:0.50s;animation-duration:2.4s">फ़ीस: ज़रूरत के हिसाब से</div>
+      </div>
+      <div class="sv" style="--r1:-.6deg">
+        <div class="no dis">05</div><div class="nm hi">स्टाफ़ असेसमेंट</div>
+        <div class="tag hi anim a-pop" style="animation-delay:0.65s;animation-duration:2.4s">फ़ीस: ज़रूरत के हिसाब से</div>
+      </div>
+      <div class="sv" style="--r1:.6deg">
+        <div class="no dis">06</div><div class="nm hi">फ़ाइनेंशियल असिस्टेंस</div>
+        <div class="tag hi anim a-pop" style="animation-delay:0.80s;animation-duration:2.4s">ब्याज: कोई नहीं</div>
+      </div>
+    </div>
+  </div>
+  <div class="fee">
+    <div class="t hi"><div class="anim a-write" style="animation-delay:.05s;animation-duration:2.7s">फ़ीस — हर पंप की ज़रूरत,</div><div class="anim a-write" style="animation-delay:.28s;animation-duration:3.16s">और चुनी गई सेवा के हिसाब से</div></div>
+    <div class="u anim a-growx" style="animation-delay:.6s;animation-duration:2.5s"></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

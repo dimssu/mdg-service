@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* a phone big enough that the screen reads on a phone: 860 wide, 34-46px text */
+.phone{width:860px;height:1560px;border-radius:84px;padding:16px;margin-top:-40px}
+.body{justify-content:flex-start}
+.screen{border-radius:70px;background:var(--cream)}
+.island{position:absolute;top:22px;left:50%;width:150px;height:40px;margin-left:-75px;
+  border-radius:20px;background:#000;z-index:10}
+.top{padding:84px 36px 24px;display:flex;align-items:center;gap:20px;background:#fff;
+  border-bottom:1px solid #EDE2D3}
+.logo{width:72px;height:72px;border-radius:20px;flex:none;display:flex;align-items:center;
+  justify-content:center;font-size:28px;font-weight:700;color:#fff;
+  background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep))}
+.top .nm{font-size:36px;color:#16120F;line-height:1.2}
+.top .st{font-size:27px;color:var(--inkMuted);line-height:1.3}
+.body{flex:1;padding:44px 36px 48px;display:flex;flex-direction:column;gap:36px}
+
+/* the status card */
+.stat{border-radius:28px;overflow:hidden;background:#fff;border:2px solid var(--amberSoft);
+  box-shadow:0 18px 40px rgba(74,15,15,.16)}
+.stat-top{background:linear-gradient(120deg,var(--maroonSoft),var(--maroon) 62%);padding:30px 34px;
+  display:flex;align-items:center;gap:22px;border-bottom:5px solid var(--amber)}
+.stat-top .ic{width:78px;height:78px;border-radius:22px;background:rgba(255,255,255,.14);color:#fff;
+  display:flex;align-items:center;justify-content:center;flex:none}
+.stat-top .ti{font-size:48px;color:#fff;line-height:1.25}
+.stat-top .dt{margin-left:auto;font-size:30px;color:var(--amberSoft)}
+.stat-mid{padding:34px;display:flex;flex-direction:column;gap:28px}
+.hero{align-self:center;position:relative;width:190px;height:190px;border-radius:50%;
+  background:radial-gradient(circle at 38% 32%,#fff,#FBE5E1 70%);border:3px solid rgba(192,57,43,.28);
+  display:flex;align-items:center;justify-content:center;color:var(--maroon);margin-top:6px}
+.hero svg{width:122px;height:122px;stroke-width:1.5}
+.hero .hold{position:absolute;right:-8px;bottom:-4px;width:78px;height:78px;border-radius:50%;
+  background:var(--bad);color:#fff;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 18px rgba(192,57,43,.35);border:5px solid #fff}
+.hero .hold i{display:block;width:9px;height:30px;background:#fff;border-radius:3px;margin:0 4px}
+.act{margin-top:auto;align-self:stretch;display:flex;align-items:center;justify-content:center;gap:18px;
+  background:linear-gradient(140deg,var(--maroonSoft),var(--maroon));color:#fff;border-radius:999px;
+  padding:26px 40px;font-size:40px;box-shadow:0 14px 30px rgba(74,15,15,.30)}
+.act svg{width:46px;height:46px;stroke-width:2.2}
+.pill{align-self:center;display:flex;align-items:center;gap:16px;padding:18px 34px 18px 24px;
+  border-radius:999px;background:var(--badBg);color:var(--bad);font-size:44px;line-height:1.3;
+  box-shadow:inset 0 0 0 2px rgba(192,57,43,.25)}
+.pill svg{width:44px;height:44px;flex:none}
+
+/* why: a row that opens out under the pill */
+.why{overflow:hidden}
+.why-in{display:flex;gap:24px;align-items:flex-start;background:#FFF8EC;border-radius:20px;
+  padding:26px 28px;border:2px solid #F0DDBE}
+.why .dot{width:62px;height:62px;border-radius:50%;background:var(--amber);color:#fff;flex:none;
+  display:flex;align-items:center;justify-content:center;margin-top:4px}
+.k{font-size:32px;color:var(--amberDeep);line-height:1.3}
+.v{font-size:45px;color:var(--ink);line-height:1.4}
+@keyframes openRow{0%{max-height:0;opacity:0;margin-top:-28px}60%{opacity:1}100%{max-height:260px;opacity:1;margin-top:0}}
+
+/* next step: a dashed box whose sentence writes itself on, line by line */
+.next{display:flex;gap:24px;align-items:flex-start;border:3px dashed var(--amber);border-radius:22px;
+  background:#fff;padding:28px 30px;box-shadow:0 10px 26px rgba(74,15,15,.10)}
+.next .go{width:62px;height:62px;border-radius:50%;background:var(--maroon);color:#fff;flex:none;
+  display:flex;align-items:center;justify-content:center;margin-top:4px}
+.next .go svg{width:34px;height:34px;stroke-width:2.8}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(9px)}}
+@keyframes writeL{0%{clip-path:inset(-30% 100% -30% -4%)}100%{clip-path:inset(-30% -4% -30% -4%)}}
+.wl{animation-name:writeL;animation-timing-function:linear}
+</style>
+</head>
+<body>
+<!-- ══ P06 · supply status: why the load is held, and the next step · K217 "और अगर लोड कहीं रुक जाए, तो वो क्यों रुका है, और उसे खुलवाने का अगला क़दम क्या है …" (6.5 s) ══ -->
+<div class="panel" id="P06" data-plate="desk" style="--T:7s">
+  <div class="glow anim a-glow" style="animation-delay:-.5s"></div>
+  <!-- follows P05 on a straight cut (3:35): the same phone is already on screen, so it does not rise in again -->
+  <div class="phone anim a-rise" style="animation-duration:3.5s;animation-delay:-.8s">
+    <div class="screen">
+      <div class="island"></div>
+      <div class="top">
+        <div class="logo dis">DK</div>
+        <div><div class="nm hi">MDG टीम</div><div class="st hi">डीलर कवच</div></div>
+      </div>
+      <div class="body">
+        <div class="stat anim a-drop" style="animation-delay:.25s;animation-duration:5s">
+          <div class="stat-top">
+            <div class="ic">
+              <!-- a tanker, held -->
+              <svg class="i" viewBox="0 0 24 24" style="width:48px;height:48px;stroke-width:1.9">
+                <path d="M2.5 7.5h11a3 3 0 0 1 3 3v4.5h-14Z"/><path d="M16.5 10h2.6l2.4 3v2h-5"/>
+                <circle cx="6.5" cy="17.2" r="1.8"/><circle cx="17.5" cy="17.2" r="1.8"/></svg></div>
+            <div class="ti hi">सप्लाई स्टेटस</div>
+            <div class="dt hi">आज</div>
+          </div>
+          <div class="stat-mid">
+            <div class="hero anim a-pop" style="animation-delay:.4s;animation-duration:4s">
+              <svg class="i" viewBox="0 0 24 24"><path d="M2.5 7.5h11a3 3 0 0 1 3 3v4.5h-14Z"/><path d="M16.5 10h2.6l2.4 3v2h-5"/>
+                <circle cx="6.5" cy="17.2" r="1.8"/><circle cx="17.5" cy="17.2" r="1.8"/></svg>
+              <div class="hold anim a-pop" style="animation-delay:1.0s;animation-duration:3s"><i></i><i></i></div>
+            </div>
+            <div class="pill hi anim a-pop" style="animation-delay:.7s;animation-duration:4s">
+              <svg class="i" viewBox="0 0 24 24"><use href="#i-alert"/></svg>लोड रुका है · 1 काम बाक़ी</div>
+            <div class="why anim" style="animation-name:openRow;animation-delay:1.5s;animation-duration:.9s">
+              <div class="why-in">
+                <div class="dot"><svg class="i" style="width:34px;height:34px"><use href="#i-alert"/></svg></div>
+                <div><div class="k hi">क्यों रुका</div>
+                  <div class="v hi">तिमाही मॉक ड्रिल दर्ज नहीं</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="next anim a-rise" style="animation-delay:3.3s;animation-duration:2.5s">
+          <div class="go anim" style="animation-name:nudge;animation-delay:4.2s;animation-duration:.8s;animation-iteration-count:2">
+            <svg class="i" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+          <div>
+            <div class="k hi anim a-fade" style="animation-delay:3.45s;animation-duration:3s">अगला क़दम</div>
+            <div class="v hi"><div class="anim wl" style="animation-delay:3.7s;animation-duration:.75s">आज मॉक ड्रिल कराएँ और</div><div class="anim wl" style="animation-delay:4.4s;animation-duration:.8s">उसकी फ़ोटो चैट में भेजें</div></div>
+          </div>
+        </div>
+        <div class="act anim a-rise" style="animation-delay:4.5s;animation-duration:3s">
+          <svg class="i" viewBox="0 0 24 24"><path d="M3.5 8.6a2 2 0 0 1 2-2h2.4l1.5-2.1h5.2l1.5 2.1h2.4a2 2 0 0 1 2 2v8.8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Z"/><circle cx="12" cy="12.9" r="3.4"/></svg>
+          <span class="hi">फ़ोटो भेजें</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="rail hi">रुका क्यों, और आगे क्या करना है</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

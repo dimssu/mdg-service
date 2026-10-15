@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* a monthly account sheet: printed labels, figures that roll as they are read */
+.sheet{position:absolute;left:70px;width:940px;--rot:-.8deg}
+.sheet .hd{display:flex;align-items:center;gap:18px;padding:34px 44px 26px;border-bottom:3px solid var(--print)}
+.sheet .hd .t{font-size:54px;color:var(--maroon)}
+.sheet .hd .m{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:30px;color:#6B6258}
+.sheet .hd .m b{width:46px;height:46px;border-radius:12px;background:linear-gradient(145deg,var(--maroonSoft),var(--maroonDeep));
+  color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif}
+.fig{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-spacing:-1.5px;line-height:1;font-variant-numeric:tabular-nums}
+
+
+.sheet{top:340px;padding:0 0 56px;--rot:-.6deg}
+.bars{padding:20px 44px 0}
+.br{padding:40px 0 12px}
+.br .top{display:flex;align-items:baseline;justify-content:space-between}
+.br .k{font-size:50px;color:var(--ink);font-family:'Inter',sans-serif;font-weight:600}
+.br .k.hi{font-weight:400}
+.br .fig{font-size:68px;color:var(--print)}
+.br .trk{margin-top:18px;height:40px;border-radius:12px;background:#F1E8DA;overflow:hidden}
+.br .trk i{display:block;height:100%;border-radius:12px;transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--maroonSoft),var(--maroon));box-shadow:inset 0 -6px 10px rgba(0,0,0,.15)}
+.tot{display:flex;align-items:center;justify-content:space-between;margin:40px 44px 0;padding:30px 0 0;border-top:6px double #6E655B}
+.tot .k{font-size:50px;color:var(--maroonDeep)}
+.tot .fig{font-size:84px;color:var(--maroon)}
+.flagc{position:absolute;left:0;right:0;top:1470px;display:flex;justify-content:center}
+.flagc span{display:flex;align-items:center;gap:18px;padding:20px 40px 22px;border-radius:999px;font-size:48px;color:#7A4A06;
+  background:#FFF1D2;border:3px solid var(--amber);box-shadow:0 18px 36px rgba(120,60,6,.25)}
+.flagc svg{width:52px;height:52px;color:var(--amberDeep)}
+@keyframes grow{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.a-grow{animation-name:grow;animation-timing-function:cubic-bezier(.3,.8,.3,1)}
+@keyframes blinkIn{0%{opacity:0;transform:scale(.8)}12%{opacity:1;transform:scale(1.06)}20%{opacity:1;transform:scale(1);background:#FFF1D2}
+  30%{background:#F9C865;box-shadow:0 0 0 18px rgba(233,162,59,.35)}44%,100%{opacity:1;transform:scale(1);background:#FFF1D2;box-shadow:0 18px 36px rgba(120,60,6,.25)}}
+.a-blink{animation-name:blinkIn;animation-timing-function:ease-out}
+</style>
+</head>
+<body>
+<!-- ══ D30 · digital payments this month · K708, last 5.04 s ("…और आपके डिजिटल पेमेंट और लेन-देन की क्या स्थिति है।") ══ -->
+<div class="panel" id="D30" data-plate="desk" style="--T:6s">
+  <div class="paper sheet anim a-rise" style="animation-delay:0s;animation-duration:2.5s">
+    <div class="hd"><span class="t hi">डिजिटल पेमेंट और लेन-देन · अगस्त</span></div>
+    <div class="bars">
+      <div class="br"><div class="top"><span class="k">UPI</span><span class="fig"><span class="odo" data-n="62,18,400" data-at=".3" data-roll="1.5">₹</span></span></div>
+        <div class="trk"><i class="anim a-grow" style="width:100%;animation-delay:.3s;animation-duration:1.8s"></i></div></div>
+      <div class="br"><div class="top"><span class="k hi">कार्ड</span><span class="fig"><span class="odo" data-n="21,46,900" data-at=".55" data-roll="1.5">₹</span></span></div>
+        <div class="trk"><i class="anim a-grow" style="width:34.5%;animation-delay:.55s;animation-duration:1.8s"></i></div></div>
+      <div class="br"><div class="top"><span class="k hi">वॉलेट</span><span class="fig"><span class="odo" data-n="3,12,600" data-at=".8" data-roll="1.5">₹</span></span></div>
+        <div class="trk"><i class="anim a-grow" style="width:5%;animation-delay:.8s;animation-duration:1.8s"></i></div></div>
+    </div>
+    <div class="tot anim a-stamp" style="animation-delay:2.5s;animation-duration:5s"><span class="k hi">कुल</span><span class="fig">₹86,77,900</span></div>
+  </div>
+  <div class="flagc"><span class="hi anim a-blink" style="animation-delay:3.3s;animation-duration:3s"><svg class="i"><use href="#i-alert"/></svg>मिलान में 1 अंतर</span></div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* Odometers that roll when their row arrives, not at frame 0: data-at is the
+   second the roll starts, data-roll how long it takes. */
+for (const el of document.querySelectorAll('.odo[data-at]')) {
+  const at = parseFloat(el.dataset.at), roll = parseFloat(el.dataset.roll || '1.3');
+  el.querySelectorAll('.col').forEach((c, i) => {
+    c.style.animationDelay = (at + i * 0.06).toFixed(2) + 's';
+    c.style.animationDuration = (roll / 0.3).toFixed(2) + 's';
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  @keyframes shadowIn{0%{transform:rotate(58deg) scaleX(0)}100%{transform:rotate(58deg) scaleX(1)}}
+  @keyframes medal{0%{opacity:0;transform:translateY(-60px) scale(.8)}70%{opacity:1;transform:translateY(6px) scale(1.03)}100%{opacity:1;transform:none}}
+  @keyframes ring{0%{stroke-dashoffset:352}100%{stroke-dashoffset:0}}
+  @keyframes wr{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(-10% -4% -10% 0)}}
+  @keyframes show{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:none}}
+  @keyframes push{0%{transform:scale(1)}100%{transform:scale(1.03)}}
+
+  #I76 .shadow{position:absolute;left:540px;top:685px;width:1600px;height:280px;margin-top:-140px;transform-origin:0 50%;z-index:1;
+    background:linear-gradient(90deg,rgba(74,30,14,.46),rgba(74,30,14,.22) 40%,rgba(74,30,14,0) 92%);filter:blur(26px);border-radius:0 50% 50% 0;
+    animation-name:shadowIn;animation-duration:1.2s;animation-timing-function:cubic-bezier(.3,.6,.3,1)}
+  #I76 .stage{display:flex;flex-direction:column;align-items:center;gap:0;animation-name:push;animation-duration:7s;animation-timing-function:linear}
+  #I76 .md{position:relative;width:280px;height:280px;margin-bottom:80px;animation-name:medal;animation-duration:.6s}
+  #I76 .md svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+  #I76 .md svg circle.r{fill:none;stroke:var(--amber);stroke-width:4;stroke-linecap:round;stroke-dasharray:352;animation-name:ring;animation-duration:1.2s}
+  #I76 .md .m{position:absolute;inset:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#F7CD78,var(--amber) 50%,var(--amberDeep));
+    display:flex;align-items:center;justify-content:center;font-size:118px;font-weight:700;color:var(--maroonDeep);
+    box-shadow:0 26px 50px rgba(58,16,10,.40),inset 0 -8px 16px rgba(0,0,0,.18),inset 0 0 0 5px rgba(255,255,255,.35)}
+  #I76 .l{text-align:center;animation-name:wr;animation-timing-function:linear}
+  #I76 .l1{font-size:92px;color:var(--maroon);line-height:1.25;animation-duration:.7s}
+  #I76 .l2{font-size:66px;color:var(--maroonSoft);line-height:1.35;margin-top:18px;animation-duration:.6s}
+  #I76 .l3{font-size:66px;color:var(--amberDeep);line-height:1.35;margin-top:6px;animation-duration:.6s}
+  #I76 .rule{width:180px;height:5px;border-radius:3px;background:var(--amber);margin:40px 0 34px;animation-name:show;animation-duration:.4s}
+  #I76 .web{font-family:'Space Grotesk',sans-serif;font-size:50px;font-weight:700;color:var(--ink);letter-spacing:.5px;animation-name:show;animation-duration:.5s}
+</style>
+</head>
+<body>
+<!-- ══ I76 · end card — MDG Services · Dealer Kavach Programme · your pump's shadow · K909 (held 5.74 s) ══ -->
+<div class="panel" id="I76" data-plate="desk" style="--T:7s">
+  <div class="shadow mv" style="animation-delay:0s"></div>
+  <div class="stage mv">
+    <div class="md mv" style="animation-delay:0s">
+      <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="none" stroke="rgba(199,124,27,.22)" stroke-width="4"/>
+        <circle class="r mv" cx="60" cy="60" r="56" style="animation-delay:.1s"/></svg>
+      <div class="m dis">M</div>
+    </div>
+    <div class="l l1 hi mv" style="animation-delay:.3s">एम-डी-जी सर्विसेज़</div>
+    <div class="l l2 hi mv" style="animation-delay:1.4s">डीलर कवच प्रोग्राम</div>
+    <div class="l l3 hi mv" style="animation-delay:3.35s">आपके पंप की परछाई</div>
+    <div class="rule mv" style="animation-delay:3.75s"></div>
+    <div class="web mv" style="animation-delay:3.8s">mdgservices.in</div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

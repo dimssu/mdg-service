@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  #I04 .abs{position:absolute}
+  #I04 .who{left:60px;right:60px;display:flex;justify-content:center}
+  #I04 .who .pill{display:flex;align-items:center;gap:20px;padding:14px 34px 14px 16px;border-radius:999px;
+    background:rgba(255,255,255,.9);border:2px solid #EFE4D2;box-shadow:0 10px 24px rgba(74,15,15,.12)}
+  #I04 .who .av{width:74px;height:74px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex:none}
+  #I04 .who .av svg{width:44px;height:44px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  #I04 .who .nm{font-size:50px;color:var(--maroon);line-height:1}
+  #I04 .card{left:160px;width:760px;height:118px;display:flex;align-items:center;gap:26px;padding:0 30px 0 22px;
+    background:#fff;border:2px solid #EFE4D2;border-radius:22px;
+    box-shadow:0 18px 36px rgba(74,15,15,.16),0 4px 10px rgba(74,15,15,.08)}
+  #I04 .card .ic{width:70px;height:70px;border-radius:18px;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;
+    background:linear-gradient(150deg,var(--amber),var(--amberDeep));box-shadow:inset 0 -4px 10px rgba(0,0,0,.18)}
+  #I04 .card .ic svg{width:40px;height:40px}
+  #I04 .card .t{font-size:48px;color:var(--ink);line-height:1}
+  #I04 .slot{left:160px;width:760px;height:118px;border:3px dashed #D9C3A0;border-radius:22px;background:rgba(255,253,248,.45)}
+  /* a card lifts off the pile, swings, and lands in its place on the team's side */
+  @keyframes glide{0%{transform:translate(0,var(--fy)) rotate(var(--fr))}
+    22%{transform:translate(26px,calc(var(--fy) - 34px)) rotate(-2.5deg) scale(1.05)}
+    100%{transform:none}}
+  #I04 .g{animation-name:glide;animation-duration:1.15s;animation-timing-function:cubic-bezier(.55,.05,.25,1)}
+  #I04 .badge{left:0;right:0;top:690px;display:flex;justify-content:center}
+  #I04 .badge .stamp{color:var(--maroon);background:rgba(255,253,248,.92);font-size:44px;border-width:5px;padding:12px 30px;
+    display:flex;align-items:center;gap:14px;mix-blend-mode:normal;box-shadow:0 12px 28px rgba(74,15,15,.18)}
+  #I04 .badge .stamp svg{width:40px;height:40px;stroke-width:3}
+  #I04 .res{left:60px;right:60px;top:1540px;text-align:center}
+  #I04 .res .tx{font-size:60px;color:var(--maroon);display:inline-block;line-height:1.3}
+  #I04 .res .ul{height:8px;border-radius:8px;margin:10px auto 0;width:720px;
+    background:linear-gradient(90deg,var(--amberDeep),var(--amber),#F6C877);transform-origin:left center}
+  @keyframes under{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+  #I04 .res .ul{animation-name:under;animation-duration:.9s}
+</style>
+</head>
+<body>
+<svg style="display:none">
+  <symbol id="p-one" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c0-4.2 3.4-7.4 7.5-7.4s7.5 3.2 7.5 7.4"/></symbol>
+  <symbol id="p-team" viewBox="0 0 24 24"><circle cx="12" cy="7.6" r="3.4"/><path d="M5.8 20c0-3.6 2.8-6.4 6.2-6.4s6.2 2.8 6.2 6.4"/>
+    <circle cx="4.9" cy="9.4" r="2.4"/><path d="M1 18.6c0-2.6 1.7-4.5 3.9-4.5"/><circle cx="19.1" cy="9.4" r="2.4"/><path d="M23 18.6c0-2.6-1.7-4.5-3.9-4.5"/></symbol>
+</svg>
+<!-- ══ I04 · the worries move to the team · K103 "रोज़ की चिंताएँ, निगरानी, और डेटा का सारा काम — … हमारी टीम की" ═══ -->
+<div class="panel" id="I04" data-plate="desk" style="--T:8s">
+  <div class="glow anim a-glow" style="animation-delay:-2s;top:50%"></div>
+
+  <div class="abs who anim a-fade" style="top:236px;animation-delay:-.3s">
+    <div class="pill"><span class="av" style="background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep))"><svg><use href="#p-one"/></svg></span><span class="nm hi">आप</span></div></div>
+
+  <!-- the arrow the cards travel down -->
+  <svg class="abs anim a-fade" style="left:490px;top:520px;width:100px;height:400px;animation-delay:-.2s" viewBox="0 0 100 400">
+    <path d="M50 6 V372" stroke="var(--amber)" stroke-width="6" stroke-dasharray="4 18" stroke-linecap="round" fill="none"/>
+    <path d="M26 356 L50 390 L74 356" stroke="var(--amberDeep)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </svg>
+
+  <div class="abs who anim a-fade" style="top:934px;animation-delay:-.1s">
+    <div class="pill"><span class="av" style="background:linear-gradient(150deg,#F2B04E,var(--amberDeep))"><svg><use href="#p-team"/></svg></span><span class="nm hi">हमारी टीम</span></div></div>
+
+  <!-- where each card lands -->
+  <div class="abs slot anim a-fade" style="top:1076px;animation-delay:-.1s"></div>
+  <div class="abs slot anim a-fade" style="top:1216px;animation-delay:-.1s"></div>
+  <div class="abs slot anim a-fade" style="top:1356px;animation-delay:-.1s"></div>
+
+  <!-- the pile on his side; each card is placed at its landing slot and starts offset back up to the pile -->
+  <div class="abs card anim g" style="top:1356px;--fy:-964px;--fr:3deg;animation-delay:3.2s"><span class="ic"><svg class="i"><use href="#i-doc"/></svg></span><span class="t hi">डेटा का सारा काम</span></div>
+  <div class="abs card anim g" style="top:1216px;--fy:-806px;--fr:-2.4deg;animation-delay:2.0s"><span class="ic"><svg class="i"><use href="#i-gauge"/></svg></span><span class="t hi">निगरानी</span></div>
+  <div class="abs card anim g" style="top:1076px;--fy:-650px;--fr:1deg;animation-delay:.8s"><span class="ic"><svg class="i"><use href="#i-alert"/></svg></span><span class="t hi">रोज़ की चिंताएँ</span></div>
+
+  <div class="abs badge"><div class="stamp hi anim a-stampdown" style="animation-delay:4.2s"><svg class="i"><use href="#i-check"/></svg>आपकी अनुमति के बाद</div></div>
+
+  <div class="abs res">
+    <div class="tx hi anim a-rise" style="--T:5s;animation-delay:4.75s">ज़िम्मेदारी — <b>हमारी टीम की</b></div>
+    <div class="ul anim" style="animation-delay:5.15s"></div>
+  </div>
+  <div class="rail hi">आपकी चिंता, हमारी ज़िम्मेदारी</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

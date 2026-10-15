@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet" />
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     Palette taken from the REAL report a dealer receives — maroon, amber and
+     cream — saved at marketing/refs/product/real-variation.png. NOT from the
+     website, which is navy and gold. The app, the website and the reports are
+     three different colour worlds, and the one the customer actually sees is
+     this one. An earlier version of this file used the website's palette and
+     therefore looked like nothing the product has ever produced.
+
+     These cards are a deliberate SIMPLIFICATION of that sheet. The real one
+     carries every tank, both languages in full, the clause text and all the
+     working — right for a man reading it at his desk, hopeless for four
+     seconds of video. Each card here keeps only what survives a glance: one
+     verdict, ONE figure, and ONE instruction.
+
+     Half sit in the app and half in a WhatsApp-shaped thread, because the
+     reports reach a dealer both ways. The WhatsApp cards deliberately carry
+     NO WhatsApp wordmark or logo — only the familiar teal bar, wallpaper and
+     bubble shape, which reads instantly without using another company's mark.
+     ═══════════════════════════════════════════════════════════════════════ */
+  :root {
+    --maroon:  #6B1616;  --maroonDeep: #4E0F0F;  --maroonSoft: #8A2B2B;
+    --amber:   #E9A23B;  --amberSoft: #F6DCA8;
+    --cream:   #FDF7EE;  --creamSunk: #F6ECDD;
+    --ink:     #2A1A16;  --inkMuted: #8A7466;
+    --bad:     #C0392B;  --badBg: #FBEAE7;
+    --good:    #1E7A4A;  --goodBg: #E8F5EE;
+    --wa:      #075E54;  --waBg: #ECE5DD;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #222; }
+
+  /* Devanagari NEVER gets letter-spacing — it splits the conjuncts. */
+  .hi  { font-family: 'Tiro Devanagari Hindi', 'Kohinoor Devanagari', serif; letter-spacing: 0 !important; }
+  .dis { font-family: 'Space Grotesk', 'Inter', sans-serif; }
+
+  .panel { position: relative; overflow: hidden; }
+  .full  { width: 1080px; height: 1920px; }
+
+  .phone {
+    width: 700px; height: 1060px; background: #101010;
+    border-radius: 72px; padding: 14px;
+    box-shadow: 0 40px 100px rgba(0,0,0,.6), 0 0 0 3px rgba(255,255,255,.12);
+  }
+  .screen { width: 100%; height: 100%; border-radius: 60px; overflow: hidden;
+            display: flex; flex-direction: column; }
+
+  /* ── App chrome: white bar on cream, as the real app ──────────────────── */
+  .app-top { background: #fff; padding: 26px 30px; display: flex; align-items: center; gap: 14px;
+             border-bottom: 1px solid #ECE7E1; }
+  .app-top .logo { width: 46px; height: 46px; border-radius: 12px; }
+  .app-top .nm { font-size: 27px; font-weight: 700; color: #16120F; }
+  .app-top .on { margin-left: auto; font-size: 20px; color: var(--good); font-weight: 600; }
+  .app-body { flex: 1; background: var(--cream); padding: 28px 26px; display: flex;
+              flex-direction: column; gap: 22px; }
+
+  /* ── WhatsApp-shaped chrome: no wordmark, no logo ─────────────────────── */
+  .wa-top { background: var(--wa); padding: 26px 30px; display: flex; align-items: center; gap: 16px; }
+  .wa-top .av { width: 52px; height: 52px; border-radius: 50%; background: #fff; }
+  .wa-top .nm { font-size: 26px; font-weight: 600; color: #fff; }
+  .wa-top .st { font-size: 19px; color: #BFE3DD; }
+  .wa-body { flex: 1; background: var(--waBg); padding: 26px 22px; display: flex;
+             flex-direction: column; gap: 18px; }
+  .wa-line { font-size: 22px; color: #5C5248; align-self: center; background: #FCF6DC;
+             padding: 8px 20px; border-radius: 10px; }
+
+  .msg { align-self: flex-start; background: #fff; border-radius: 16px; padding: 14px 20px;
+         font-size: 24px; color: var(--ink); box-shadow: 0 2px 4px rgba(0,0,0,.10); }
+  .bubble { background: #fff; border-radius: 18px; padding: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.12); }
+  .bubble .tm { font-size: 17px; color: #9C9184; text-align: right; padding: 4px 6px 0; }
+
+  /* ── The card ─────────────────────────────────────────────────────────── */
+  .card { border-radius: 12px; overflow: hidden; border: 2px solid var(--amberSoft); }
+  .card-top { background: var(--maroon); padding: 18px 20px; display: flex; align-items: center;
+              gap: 14px; border-bottom: 4px solid var(--amber); }
+  .card-top .tile { background: #fff; color: var(--maroon); font-size: 17px; font-weight: 700;
+                    padding: 7px 11px; border-radius: 8px; }
+  .card-top .ti { color: #fff; font-size: 25px; font-weight: 700; }
+  .card-top .dt { margin-left: auto; color: var(--amberSoft); font-size: 19px; }
+  .card-mid { background: var(--cream); padding: 24px 22px; display: flex;
+              flex-direction: column; gap: 18px; }
+
+  .flag { display: flex; align-items: center; gap: 14px; border-radius: 12px; padding: 16px 18px; }
+  .flag.bad  { background: var(--badBg);  border: 2px solid #F0C4BD; }
+  .flag.good { background: var(--goodBg); border: 2px solid #B6DEC8; }
+  .flag .ic { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+              color: #fff; font-size: 26px; font-weight: 700; flex: none; }
+  .flag.bad .ic  { background: var(--bad); }
+  .flag.good .ic { background: var(--good); }
+  .flag .tx { font-size: 30px; font-weight: 700; }
+  .flag.bad .tx  { color: var(--bad); }
+  .flag.good .tx { color: var(--good); }
+
+  .hero { text-align: center; padding: 6px 0 2px; }
+  .hero .lb { font-size: 22px; color: var(--inkMuted); }
+  .hero .nb { font-size: 92px; font-weight: 700; color: var(--maroon); line-height: 1.05;
+              font-variant-numeric: tabular-nums; }
+  .hero .nb.word { font-size: 54px; }
+  .hero .un { font-size: 26px; color: var(--inkMuted); }
+
+  .todo { border: 3px dashed var(--amber); border-radius: 12px; padding: 18px 20px; background: #FFFBF3; }
+  .todo .k { font-size: 19px; font-weight: 700; color: var(--maroonSoft); letter-spacing: .06em; }
+  .todo .v { font-size: 31px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-top: 6px; }
+
+  .two { display: flex; gap: 14px; }
+  .two > div { flex: 1; background: var(--creamSunk); border-radius: 10px; padding: 14px 16px; }
+  .two .k { font-size: 19px; color: var(--inkMuted); }
+  .two .v { font-size: 34px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+  .rail { font-size: 16px; color: var(--inkMuted); text-align: center;
+          background: var(--creamSunk); padding: 10px; }
+
+  /* ═══ OUTRO ═══ */
+  #outro-brand, #outro-app {
+    background: radial-gradient(120% 80% at 50% 0%, #7A1C1C 0%, #4E0F0F 55%, #2E0808 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 200px 90px; text-align: center;
+  }
+  .rule { width: 120px; height: 5px; background: var(--amber); border-radius: 3px; }
+  #outro-brand .mark { width: 620px; margin-bottom: 70px; }
+  #outro-brand .tag { font-size: 58px; font-weight: 500; color: var(--amber);
+                      letter-spacing: .04em; margin-top: 64px; }
+  #outro-brand .sub { font-size: 46px; line-height: 1.55; color: #F3E2D2; margin-top: 54px; max-width: 800px; }
+  #outro-app .icon { width: 260px; height: 260px; border-radius: 60px;
+                     box-shadow: 0 30px 80px rgba(0,0,0,.45); margin-bottom: 56px; }
+  #outro-app .appname { font-size: 86px; font-weight: 700; color: #fff; }
+  #outro-app .appname em { font-style: normal; color: var(--amber); }
+  #outro-app .install { margin-top: 58px; font-size: 52px; line-height: 1.5; color: #F3E2D2; max-width: 860px; }
+  #outro-app .site { margin-top: 76px; font-size: 54px; font-weight: 600; color: #fff;
+                     border: 3px solid #9A4A4A; border-radius: 999px; padding: 26px 62px; }
+  #outro-app .logo-small { width: 300px; margin-top: 90px; opacity: .85; }
+</style>
+</head>
+<body>
+
+<!-- ═══════ STOCK — in the app ═══════ -->
+<div class="panel phone" id="p-stock"><div class="screen">
+  <div class="app-top"><img class="logo" src="icon-512.png" /><div class="nm dis">Dealer कवच</div><div class="on hi">● ऑनलाइन</div></div>
+  <div class="app-body">
+    <div class="msg hi">आज की रिपोर्ट</div>
+    <div class="bubble"><div class="card">
+      <div class="card-top"><div class="tile dis">MDG</div><div class="ti hi">स्टॉक जाँच</div><div class="dt hi">14 सित</div></div>
+      <div class="card-mid">
+        <div class="flag bad"><div class="ic">!</div><div class="tx hi">स्टॉक कम है</div></div>
+        <div class="hero"><div class="lb hi">सीमा से बाहर</div><div class="nb">7,042</div><div class="un hi">लीटर</div></div>
+        <div class="todo"><div class="k hi">क्या करें</div><div class="v hi">7,042 लीटर टंकी में डालकर स्टॉक ठीक करें।</div></div>
+      </div>
+      <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+    </div><div class="tm dis">6:02</div></div>
+  </div>
+</div></div>
+
+<!-- ═══════ CREDIT — on WhatsApp ═══════ -->
+<div class="panel phone" id="p-credit"><div class="screen">
+  <div class="wa-top"><img class="av" src="icon-512.png" /><div><div class="nm dis">MDG Services</div><div class="st hi">ऑनलाइन</div></div></div>
+  <div class="wa-body">
+    <div class="wa-line hi">आज</div>
+    <div class="msg hi">आज की रिपोर्ट</div>
+    <div class="bubble"><div class="card">
+      <div class="card-top"><div class="tile dis">MDG</div><div class="ti hi">क्रेडिट</div><div class="dt hi">14 सित</div></div>
+      <div class="card-mid">
+        <div class="hero"><div class="lb hi">जमा करनी है</div><div class="nb">₹4,86,120</div></div>
+        <div class="todo"><div class="k hi">आख़िरी तारीख़</div><div class="v hi">26 अगस्त — आज से तीन दिन</div></div>
+        <div class="two">
+          <div><div class="k hi">बची राशि</div><div class="v">₹6,57,350</div></div>
+          <div><div class="k hi">खपत</div><div class="v">73.7%</div></div>
+        </div>
+      </div>
+      <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+    </div><div class="tm dis">9:14</div></div>
+  </div>
+</div></div>
+
+<!-- ═══════ SUPPLY — in the app ═══════ -->
+<div class="panel phone" id="p-supply"><div class="screen">
+  <div class="app-top"><img class="logo" src="icon-512.png" /><div class="nm dis">Dealer कवच</div><div class="on hi">● ऑनलाइन</div></div>
+  <div class="app-body">
+    <div class="msg hi">आज की रिपोर्ट</div>
+    <div class="bubble"><div class="card">
+      <div class="card-top"><div class="tile dis">MDG</div><div class="ti hi">सप्लाई</div><div class="dt hi">14 सित</div></div>
+      <div class="card-mid">
+        <div class="flag bad"><div class="ic">!</div><div class="tx hi">लोड रुका हुआ है</div></div>
+        <div class="hero"><div class="lb hi">वजह</div><div class="nb word hi">मॉक ड्रिल</div><div class="un hi">तिमाही मॉक ड्रिल दर्ज नहीं है</div></div>
+        <div class="todo"><div class="k hi">एक क़दम</div><div class="v hi">मॉक ड्रिल कराइए, फ़ोटो भेजिए। बाक़ी हम कर देंगे।</div></div>
+      </div>
+      <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+    </div><div class="tm dis">11:40</div></div>
+  </div>
+</div></div>
+
+<!-- ═══════ PAPERS — on WhatsApp ═══════ -->
+<div class="panel phone" id="p-dates"><div class="screen">
+  <div class="wa-top"><img class="av" src="icon-512.png" /><div><div class="nm dis">MDG Services</div><div class="st hi">ऑनलाइन</div></div></div>
+  <div class="wa-body">
+    <div class="wa-line hi">आज</div>
+    <div class="msg hi">आज की रिपोर्ट</div>
+    <div class="bubble"><div class="card">
+      <div class="card-top"><div class="tile dis">MDG</div><div class="ti hi">काग़ज़</div><div class="dt hi">14 सित</div></div>
+      <div class="card-mid">
+        <div class="hero"><div class="lb hi">नापतौल कैलिब्रेशन</div><div class="nb">9</div><div class="un hi">दिन बाक़ी</div></div>
+        <div class="todo"><div class="k hi">क्या करें</div><div class="v hi">कुछ नहीं। तारीख़ हमने पकड़ ली है।</div></div>
+        <div class="flag good"><div class="ic">✓</div><div class="tx hi">बाक़ी सब चालू है</div></div>
+      </div>
+      <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+    </div><div class="tm dis">8:05</div></div>
+  </div>
+</div></div>
+
+<!-- ═══════ DSR — in the app ═══════ -->
+<div class="panel phone" id="p-dsr"><div class="screen">
+  <div class="app-top"><img class="logo" src="icon-512.png" /><div class="nm dis">Dealer कवच</div><div class="on hi">● ऑनलाइन</div></div>
+  <div class="app-body">
+    <div class="msg hi">आज की रिपोर्ट</div>
+    <div class="bubble"><div class="card">
+      <div class="card-top"><div class="tile dis">MDG</div><div class="ti hi">रोज़ की बिक्री</div><div class="dt hi">14 सित</div></div>
+      <div class="card-mid">
+        <div class="hero"><div class="lb hi">कल की बिक्री</div><div class="nb">4,222</div><div class="un hi">लीटर</div></div>
+        <div class="two">
+          <div><div class="k hi">टंकी में</div><div class="v">14,246</div></div>
+          <div><div class="k hi">आया</div><div class="v">6,000</div></div>
+        </div>
+        <div class="todo"><div class="k hi">क्या करें</div><div class="v hi">बस रजिस्टर में उतार दीजिए। कोई भी कर सकता है।</div></div>
+      </div>
+      <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+    </div><div class="tm dis">6:02</div></div>
+  </div>
+</div></div>
+
+<!-- ═══════════ OUTRO 1 ═══════════ -->
+<div class="panel full" id="outro-brand">
+  <img class="mark" src="logo-full-white.png" alt="" />
+  <div class="rule"></div>
+  <div class="tag dis">Fueling Success</div>
+  <div class="sub hi">काग़ज़ी काम, हमारे ज़िम्मे।<br />पंप आप चलाइए।</div>
+</div>
+
+<!-- ═══════════ OUTRO 2 ═══════════ -->
+<div class="panel full" id="outro-app">
+  <img class="icon" src="icon-512.png" alt="" />
+  <div class="appname dis">Dealer <em>कवच</em></div>
+  <div class="install hi">ऐप आपके फ़ोन पर<br />हम ही लगा देंगे।</div>
+  <div class="site dis">mdgservices.in</div>
+  <img class="logo-small" src="logo-full-white.png" alt="" />
+</div>
+
+</body>
+</html>

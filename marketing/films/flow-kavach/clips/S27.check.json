@@ -1,0 +1,31 @@
+{
+  "id": "S27",
+  "same_man": "not_in_shot",
+  "face_notes": "The hero dealer is not in this shot. The two people present are a young male attendant and a female manager, as per the brief.",
+  "outfit_matches": false,
+  "text_visible": [
+    "Veo watermark in bottom right corner"
+  ],
+  "marks_or_livery": [
+    "Veo watermark in bottom right corner"
+  ],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 1,
+      "what": "The woman's phone screen is unnaturally bright purple and its content appears to morph, not showing a realistic phone interface."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 4,
+      "what": "The woman and man both open their mouths, appearing to speak to each other."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 3,
+  "verdict": "retake",
+  "retake_hint": "The characters open their mouths to speak from 4s onwards, which violates the brief's instruction for mouths to stay closed. The woman's phone screen is also brightly visible and purple, whereas the brief required a soft, out-of-focus glow. The shot needs to be regenerated to ensure mouths remain closed and the phone screen is not clearly visible."
+}

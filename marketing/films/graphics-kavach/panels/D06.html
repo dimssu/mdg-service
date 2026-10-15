@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* the running plus/minus sheet he keeps: a ruled page, a day per line in pen,
+   the running total in maroon while it is plus and in amber once it goes minus,
+   and a red-pen arrow in the margin down the last four days. */
+.sheet{width:896px;--rot:-1.1deg;padding-bottom:30px}
+.sheet .head{padding:34px 40px 22px;flex-direction:column;align-items:flex-start;gap:8px}
+.sheet .head .t{font-size:50px;font-weight:400;color:var(--maroon);line-height:1.3}
+.sheet .head .m{margin-left:0;font-size:36px;color:#5E554C;line-height:1.3}
+.sheet .head .m b{font-family:'Space Grotesk',sans-serif;color:var(--print)}
+.body{display:flex;padding:0 0 0 30px}
+.grid{width:610px;display:flex;flex-direction:column}
+.gr{display:grid;grid-template-columns:180px 215px 215px;align-items:center;height:92px;border-bottom:2px solid var(--rule)}
+.gr > div{text-align:center}
+.gr > div:first-child{border-right:2px solid var(--margin);height:100%;display:flex;align-items:center;justify-content:center}
+.gr.th{height:74px;border-bottom:2px solid #6E655B}
+.gr.th > div{font-size:30px;color:#3A332C;line-height:1.3}
+.c0{font-size:40px}.c1{font-size:46px}.c2{font-size:50px;font-weight:700}
+.plus{color:var(--maroon)} .minus{color:var(--amberDeep)}
+@keyframes writeL{0%{clip-path:inset(-30% 100% -30% -4%)}100%{clip-path:inset(-30% -4% -30% -4%)}}
+.wl{animation-name:writeL;animation-timing-function:linear}
+.margin{position:relative;flex:1}
+svg.arrow{position:absolute;left:14px;top:0;width:110px;height:100%;overflow:visible}
+svg.arrow path{fill:none;stroke:var(--penRed);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1;stroke-dashoffset:1}
+@keyframes drawOn2{0%{stroke-dashoffset:1;opacity:0}1%{opacity:1}100%{stroke-dashoffset:0;opacity:1}}
+.note{position:absolute;left:96px;right:16px;font-size:42px;line-height:1.3;color:var(--penRed);transform:rotate(-4deg)}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.035)}}
+.a-push{animation-name:push;animation-timing-function:linear}
+</style>
+</head>
+<body>
+<!-- ══ D06 · the running plus/minus sheet · K219 "रोज़ की सेल और स्टॉक पर लगातार नज़र रखकर, हम आपको बताते हैं कि आपका स्टॉक लगातार प्लस में जा रहा है, या माइनस में।" (6.5 s) ══ -->
+<div class="panel" id="D06" data-plate="desk" style="--T:7s">
+  <div class="glow anim a-glow" style="animation-delay:-.5s"></div>
+  <div class="anim a-push" style="transform-origin:50% 60%">
+  <div class="paper ruled-none sheet anim a-settle" style="--r0:3deg;--r1:-1.1deg;animation-duration:3s">
+    <div class="head">
+      <div class="t hi">स्टॉक प्लस में या माइनस में</div>
+      <div class="m hi"><b>MS</b> · 14 से 20 अगस्त</div>
+    </div>
+    <div class="body">
+      <div class="grid">
+        <div class="gr th"><div class="hi">तारीख़</div><div class="hi">आज का अंतर</div><div class="hi">कुल</div></div>
+        <div class="gr"><div class="c0 hand anim wl" style="animation-delay:0.5s;animation-duration:.2s">14-08</div><div class="c1 hand anim wl" style="animation-delay:0.65s;animation-duration:.2s">+48 L</div><div class="c2 hand plus anim wl" style="animation-delay:0.80s;animation-duration:.22s">+48 L</div></div>
+        <div class="gr"><div class="c0 hand anim wl" style="animation-delay:1.05s;animation-duration:.2s">15-08</div><div class="c1 hand anim wl" style="animation-delay:1.20s;animation-duration:.2s">−22 L</div><div class="c2 hand plus anim wl" style="animation-delay:1.35s;animation-duration:.22s">+26 L</div></div>
+        <div class="gr"><div class="c0 hand anim wl" style="animation-delay:1.6s;animation-duration:.2s">16-08</div><div class="c1 hand anim wl" style="animation-delay:1.75s;animation-duration:.2s">+36 L</div><div class="c2 hand plus anim wl" style="animation-delay:1.90s;animation-duration:.22s">+62 L</div></div>
+        <div class="gr"><div class="c0 hand anim wl" style="animation-delay:2.15s;animation-duration:.2s">17-08</div><div class="c1 hand anim wl" style="animation-delay:2.30s;animation-duration:.2s">−41 L</div><div class="c2 hand plus anim wl" style="animation-delay:2.45s;animation-duration:.22s">+21 L</div></div>
+        <div class="gr"><div class="c0 hand anim wl" style="animation-delay:2.7s;animation-duration:.2s">18-08</div><div class="c1 hand anim wl" style="animation-delay:2.85s;animation-duration:.2s">−58 L</div><div class="c2 hand minus anim wl" style="animation-delay:3.00s;animation-duration:.22s">−37 L</div></div>
+        <div class="gr"><div class="c0 hand anim wl" style="animation-delay:3.25s;animation-duration:.2s">19-08</div><div class="c1 hand anim wl" style="animation-delay:3.40s;animation-duration:.2s">−77 L</div><div class="c2 hand minus anim wl" style="animation-delay:3.55s;animation-duration:.22s">−114 L</div></div>
+        <div class="gr"><div class="c0 hand anim wl" style="animation-delay:3.8s;animation-duration:.2s">20-08</div><div class="c1 hand anim wl" style="animation-delay:3.95s;animation-duration:.2s">−96 L</div><div class="c2 hand minus anim wl" style="animation-delay:4.10s;animation-duration:.22s">−210 L</div></div>
+      </div>
+      <div class="margin">
+        <!-- rows 17-08 … 20-08 sit from 92×3 to 92×7 below the header -->
+        <svg class="arrow" viewBox="0 0 110 720" style="top:0;height:720px">
+          <path class="anim" pathLength="1" style="animation-name:drawOn2;animation-delay:4.0s;animation-duration:.55s"
+            d="M44 370 C 56 460, 38 560, 52 700"/>
+          <path class="anim" pathLength="1" style="animation-name:drawOn2;animation-delay:4.5s;animation-duration:.2s"
+            d="M24 662 L52 704 L80 660"/>
+        </svg>
+        <div class="note hand hi anim wl" style="top:452px;animation-delay:4.3s;animation-duration:.7s">लगातार माइनस की ओर</div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="rail hi">प्लस में या माइनस में, रोज़ की नज़र</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

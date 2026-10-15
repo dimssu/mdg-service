@@ -1,0 +1,17 @@
+{
+  "id": "S11",
+  "same_man": "not_in_shot",
+  "face_notes": "The woman in the shot is not the reference man. She looks towards the camera with a neutral expression.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": true,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "keep",
+  "retake_hint": ""
+}

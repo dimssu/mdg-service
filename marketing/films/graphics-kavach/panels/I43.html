@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+#I43{gap:0}
+/* outline task cards drifting behind the words — cards only, no portal screen */
+#I43 .bg{position:absolute;inset:0;z-index:2}
+#I43 .oc{position:absolute;width:250px;height:156px;border:3px solid rgba(199,124,27,.42);border-radius:22px;
+  background:rgba(255,253,248,.35);padding:26px 24px;display:flex;flex-direction:column;gap:16px}
+#I43 .oc i{display:block;height:10px;border-radius:5px;background:rgba(199,124,27,.30)}
+#I43 .oc b{position:absolute;right:20px;top:20px;width:36px;height:36px;border-radius:50%;border:3px solid rgba(30,122,74,.35)}
+@keyframes float{0%{transform:translate(0,0) rotate(var(--r))}100%{transform:translate(var(--fx),var(--fy)) rotate(var(--r))}}
+.fl{animation-name:float;animation-duration:6s!important;animation-timing-function:linear!important}
+#I43 .lab{font-size:52px;color:var(--amberDeep);margin-bottom:40px}
+#I43 .ttl{font-size:94px;line-height:1.3;color:var(--maroon);text-align:center;z-index:3}
+#I43 .ul{width:300px;height:6px;border-radius:6px;background:var(--amber);margin-top:56px;transform-origin:50% 50%}
+@keyframes drawX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.dx{animation-name:drawX;animation-duration:.7s!important}
+.nw{white-space:nowrap}
+</style>
+</head>
+<body>
+<!-- ══ I43 · sub-heading: SDMS and IRAS digital work · K513 "अब एस-डी-एम-एस और आई-आर-ए-एस का डिजिटल काम।" ══ -->
+<div class="panel" id="I43" data-plate="office" style="--T:6s">
+  <div class="bg anim a-fade" style="animation-duration:.8s">
+    <div class="oc anim fl" style="left:70px;top:230px;--r:-7deg;--fx:26px;--fy:-40px"><b></b><i style="width:70%"></i><i style="width:88%"></i><i style="width:52%"></i></div>
+    <div class="oc anim fl" style="left:720px;top:300px;--r:6deg;--fx:-30px;--fy:-34px"><b></b><i style="width:80%"></i><i style="width:60%"></i><i style="width:74%"></i></div>
+    <div class="oc anim fl" style="left:40px;top:1330px;--r:5deg;--fx:34px;--fy:-46px"><b></b><i style="width:66%"></i><i style="width:84%"></i><i style="width:48%"></i></div>
+    <div class="oc anim fl" style="left:760px;top:1260px;--r:-5deg;--fx:-22px;--fy:-52px"><b></b><i style="width:78%"></i><i style="width:56%"></i><i style="width:70%"></i></div>
+    <div class="oc anim fl" style="left:420px;top:1500px;--r:-2deg;--fx:10px;--fy:-38px"><b></b><i style="width:62%"></i><i style="width:80%"></i><i style="width:58%"></i></div>
+    <div class="oc anim fl" style="left:400px;top:120px;--r:3deg;--fx:-18px;--fy:-30px;opacity:.7"><b></b><i style="width:74%"></i><i style="width:58%"></i><i style="width:82%"></i></div>
+  </div>
+  <div class="lab hi anim a-write" style="animation-duration:.6s;animation-delay:.05s">अब</div>
+  <div class="ttl hi anim a-write" style="animation-duration:1.2s;animation-delay:.2s"><span class="nw">एस-डी-एम-एस</span> और<br/><span class="nw">आई-आर-ए-एस</span> का<br/>डिजिटल काम</div>
+  <div class="ul anim dx" style="animation-delay:.9s"></div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

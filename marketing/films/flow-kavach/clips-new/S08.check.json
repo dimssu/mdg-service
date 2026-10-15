@@ -1,0 +1,26 @@
+{
+  "id": "S08",
+  "same_man": "not_in_shot",
+  "face_notes": "The dealer is not in this shot. The man shown is a different person, as per the brief.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 1,
+      "what": "Man is mouthing words."
+    },
+    {
+      "t": 6,
+      "what": "Man is mouthing words."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The man must not type or speak. He should follow the specified motion: 0–3s listen and nod twice; 3–6s look down, nod once, and settle back calmly. His mouth must remain closed throughout."
+}

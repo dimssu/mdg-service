@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* K023 runs 4.2 s of S63 first, so this card opens on "…कंप्यूटर" (4.2 s into
+   the line) and "चौबीसों घंटे" has already been said: the question, the
+   monitor and the ring are all on at frame 0. The gold arc races once round
+   while "के सामने बैठे रहना?" is spoken (0.05–1.55 s here), the "?" lands on
+   "बैठे रहना?" (≈0.95 s), and from 2.7 s nothing moves — I84b opens on that
+   frame. Shared with I84b: same markup, same positions. Change one, change both. */
+#I84a .q{position:absolute;left:60px;right:60px;top:250px;text-align:center;font-size:100px;line-height:1.25;color:#FFF3E2}
+#I84a .dial{position:absolute;left:130px;top:590px;width:820px;height:820px}
+#I84a .dial svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#I84a .arc{filter:drop-shadow(0 0 14px rgba(233,162,59,.55))}
+@keyframes close{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+#I84a .tk line{stroke:var(--amberSoft);stroke-linecap:round;opacity:.22}
+#I84a .tl line{stroke:var(--amber);stroke-linecap:round;animation:tkOn .25s linear both paused}
+@keyframes tkOn{from{opacity:0}to{opacity:.95}}
+#I84a .pill{position:absolute;left:50%;top:820px;transform:translate(-50%,-50%);padding:10px 36px 12px;border-radius:999px;
+  background:linear-gradient(150deg,#5A1414,#3A0B0B);border:3px solid var(--amber);color:var(--amber);font-size:46px;white-space:nowrap;
+  box-shadow:0 14px 30px rgba(0,0,0,.45)}
+#I84a .mon{position:absolute;left:300px;top:820px;width:420px;height:350px}
+#I84a .mon svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 26px 40px rgba(0,0,0,.45))}
+#I84a .mon .scr{fill:url(#glass);stroke:#FFF3E2;stroke-width:9;stroke-linejoin:round}
+#I84a .mon .ln{fill:none;stroke:#FFF3E2;stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+#I84a .qm{position:absolute;left:736px;top:850px;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#F7CD78,var(--amber) 55%,var(--amberDeep));color:var(--maroonDeep);
+  display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:86px;line-height:1;
+  box-shadow:0 16px 34px rgba(0,0,0,.45),inset 0 0 0 5px rgba(255,255,255,.3)}
+#I84a .qm .rp{position:absolute;inset:-6px;border-radius:50%;border:5px solid var(--amber)}
+@keyframes qmIn{0%{opacity:0;transform:scale(.4) rotate(-20deg)}60%{opacity:1;transform:scale(1.1) rotate(4deg)}100%{opacity:1;transform:none}}
+@keyframes qmBeat{0%,100%{transform:scale(1)}40%{transform:scale(1.12)}}
+@keyframes ripple{0%{opacity:.8;transform:scale(.95)}100%{opacity:0;transform:scale(1.7)}}
+</style>
+</head>
+<body>
+<!-- ══ I84a · twenty-four hours at the computer? · K023 "…चौबीसों घंटे कंप्यूटर के सामने बैठे रहना?" (card from 4.2 s, 3.49 s) ══ -->
+<div class="panel ink" id="I84a" data-plate="night" style="--T:4.5s">
+  <div class="glow" style="top:52%;width:1100px;height:1100px;opacity:.55;background:radial-gradient(circle,rgba(233,120,59,.30),rgba(233,120,59,0) 66%)"></div>
+
+  <div class="q hi">चौबीसों घंटे?</div>
+
+  <div class="dial">
+    <svg viewBox="0 0 820 820">
+      <circle cx="410" cy="410" r="400" fill="none" stroke="rgba(233,162,59,.16)" stroke-width="4"/>
+      <circle class="arc" cx="410" cy="410" r="400" fill="none" stroke="var(--amber)" stroke-width="6" stroke-linecap="round" pathLength="1"
+        transform="rotate(-90 410 410)" style="stroke-dasharray:1;animation:close 1.5s linear .05s both paused"/>
+      <g class="tk" id="tk"></g>
+      <g class="tl" id="tl"></g>
+    </svg>
+    <div class="pill hi">24 घंटे</div>
+  </div>
+
+  <div class="mon">
+    <svg viewBox="0 0 420 350">
+      <defs><linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="rgba(255,243,226,.13)"/><stop offset=".45" stop-color="rgba(255,243,226,.03)"/><stop offset="1" stop-color="rgba(255,243,226,.06)"/></linearGradient></defs>
+      <rect class="scr" x="10" y="10" width="400" height="262" rx="24"/>
+      <path class="ln" d="M190 272 L182 322 M230 272 L238 322"/>
+      <rect class="ln" x="112" y="322" width="196" height="16" rx="8"/>
+    </svg>
+  </div>
+
+  <div class="qm anim" style="animation:qmIn .4s cubic-bezier(.3,1.2,.5,1) .9s both paused">
+    <span style="display:block;animation:qmBeat .6s ease-in-out 1.45s 2 both paused">?</span>
+    <i class="rp" style="animation:ripple .6s ease-out 1.45s 2 both paused"></i>
+  </div>
+
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* 24 hour ticks: a faint set, and a lit copy of each that comes on as the
+   racing arc passes it (arc: 1.5 s, linear, from 0.05 s). */
+const ns = 'http://www.w3.org/2000/svg';
+for (let k = 0; k < 24; k++) {
+  const a = (k * 15 - 90) * Math.PI / 180, big = k % 6 === 0;
+  const r0 = big ? 358 : 372, r1 = 390;
+  for (const [g, lit] of [['tk', false], ['tl', true]]) {
+    const l = document.createElementNS(ns, 'line');
+    l.setAttribute('x1', (410 + r0 * Math.cos(a)).toFixed(1)); l.setAttribute('y1', (410 + r0 * Math.sin(a)).toFixed(1));
+    l.setAttribute('x2', (410 + r1 * Math.cos(a)).toFixed(1)); l.setAttribute('y2', (410 + r1 * Math.sin(a)).toFixed(1));
+    l.setAttribute('stroke-width', big ? 7 : 4);
+    if (lit) l.style.animationDelay = (0.05 + 1.5 * k / 24).toFixed(3) + 's';
+    document.getElementById(g).appendChild(l);
+  }
+}
+</script>
+</body>
+</html>

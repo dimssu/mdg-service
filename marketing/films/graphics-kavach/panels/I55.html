@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* the numbered heading card shared by I52 / I55 / I56 / I58:
+   a gold numeral, a rule that runs out to the service's own line icon, then
+   the label and the title written in beneath. The whole block pushes in 3%. */
+.hd{width:920px;display:flex;flex-direction:column;transform-origin:50% 50%;margin-top:-60px}
+.hd-top{display:flex;align-items:center;gap:30px}
+.num{font-size:340px;font-weight:700;line-height:.8;letter-spacing:-12px;
+  padding:34px 40px 44px 24px;margin:-34px -40px -44px -24px;
+  background:linear-gradient(172deg,#F4C979 12%,#E9A23B 48%,#B5700F 92%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.grule{flex:1;height:8px;border-radius:8px;transform-origin:0 50%;margin-top:40px;
+  background:linear-gradient(90deg,#E9A23B,#F4C979 70%,rgba(244,201,121,.25))}
+.medal{flex:none;width:230px;height:230px;border-radius:50%;margin-top:40px;
+  background:radial-gradient(circle at 36% 30%,#fff,#FBF1E1 70%);border:2px solid rgba(201,160,100,.55);
+  box-shadow:0 26px 50px rgba(58,16,10,.22),inset 0 -6px 14px rgba(160,110,50,.12);
+  display:flex;align-items:center;justify-content:center;color:var(--maroon)}
+.medal svg{width:140px;height:140px;fill:none;stroke:currentColor;stroke-width:1.3;
+  stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.medal svg .anim{stroke-dasharray:1;stroke-dashoffset:1}
+.lbl{font-size:54px;color:var(--amberDeep);margin-top:70px}
+.ttl{font-size:108px;color:var(--maroon);line-height:1.22;margin-top:6px}
+.sb{font-size:58px;color:var(--inkMuted);margin-top:22px}
+@keyframes growX{0%{transform:scaleX(0)}22%,100%{transform:scaleX(1)}}
+.a-growx{animation-name:growX}
+@keyframes push{0%{transform:scale(1)}100%{transform:scale(1.03)}}
+.a-push{animation-name:push;animation-timing-function:linear}
+</style>
+</head>
+<body>
+<!-- ══ I55 · heading 02, accounting and financial monitoring · K706 "दूसरी — अकाउंटिंग और फ़ाइनेंशियल मॉनिटरिंग। …" (4.5 s) ══ -->
+<div class="panel" id="I55" data-plate="desk" style="--T:5s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s"></div>
+  <div class="hd anim a-push">
+    <div class="hd-top">
+      <div class="num dis anim a-write" style="animation-delay:0s;animation-duration:3s">02</div>
+      <div class="grule anim a-growx" style="animation-delay:.3s;animation-duration:3s"></div>
+      <div class="medal anim a-pop" style="animation-delay:.85s;animation-duration:3s">
+        <!-- a ledger book: cover, binding, ruled entries, a ribbon -->
+        <svg viewBox="0 0 24 24">
+          <path class="anim a-draw" pathLength="1" style="animation-delay:1.0s;animation-duration:4s" d="M5 3.2h12.2a2 2 0 0 1 2 2v13.6a2 2 0 0 1-2 2H5Z"/>
+          <path class="anim a-draw" pathLength="1" style="animation-delay:1.25s;animation-duration:3s" d="M8.6 3.2v17.6"/>
+          <path class="anim a-draw" pathLength="1" style="animation-delay:1.4s;animation-duration:3s" d="M11.4 8h5M11.4 11.4h5M11.4 14.8h3.2"/>
+          <path class="anim a-draw" pathLength="1" style="animation-delay:1.6s;animation-duration:3s" d="M15.6 3.2v4.4l1.3-1 1.3 1V3.2"/>
+        </svg>
+      </div>
+    </div>
+    <div class="lbl hi anim a-fade" style="animation-delay:.8s;animation-duration:3s">दूसरी</div>
+    <div class="ttl hi"><div class="anim a-write" style="animation-delay:.85s;animation-duration:4s">अकाउंटिंग और</div><div class="anim a-write" style="animation-delay:1.3s;animation-duration:5s">फ़ाइनेंशियल मॉनिटरिंग</div></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

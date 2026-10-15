@@ -1,0 +1,32 @@
+{
+  "id": "S47",
+  "same_man": "same",
+  "face_notes": "The man is a very good match for the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [
+    "'Veo' watermark in bottom right corner from 00:01"
+  ],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 1,
+      "what": "Pats his right thigh with his right hand."
+    },
+    {
+      "t": 5,
+      "what": "Begins to mouth words and lifts his left hand slightly from the folder."
+    },
+    {
+      "t": 7,
+      "what": "Pats his right thigh again."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 2,
+  "clean_to": 4,
+  "verdict": "retake",
+  "retake_hint": "The action does not match the brief. The man does not tap the folder or nod. Instead, he fidgets, pats his leg, and mouths words (explicitly forbidden). The prompt must be more prescriptive about the specific action: 'From 0-3s, his left hand taps the folder twice. From 3-6s, he gives one slow, calm nod. He does not move his mouth or his other hand.'"
+}

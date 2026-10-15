@@ -1,0 +1,23 @@
+{
+  "id": "S10",
+  "same_man": "same",
+  "face_notes": "The man is a very close match to the reference photo in terms of age, facial features, and hair.",
+  "outfit_matches": true,
+  "text_visible": [
+    "Small blue and green sign/sticker on the right-hand fuel dispenser."
+  ],
+  "marks_or_livery": [
+    "Small blue and green sign/sticker on the right-hand fuel dispenser."
+  ],
+  "liquid_or_danger": [
+    "Man is holding a glass of tea."
+  ],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "Excellent shot, but there is a small sign/sticker on the right-hand fuel dispenser. The brief requires no signs or logos at all. Please regenerate with completely plain white dispensers, with no stickers, signs or logos."
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+#I40{gap:0}
+#I40 .lab{font-size:54px;color:var(--amberDeep);margin-bottom:70px}
+#I40 .cal{width:340px;height:340px;position:relative;perspective:900px;margin-bottom:76px}
+#I40 .cal .bd{position:absolute;inset:0;border-radius:44px;background:#fff;overflow:hidden;
+  box-shadow:0 36px 70px rgba(58,16,10,.30),0 6px 14px rgba(58,16,10,.18),inset 0 0 0 1px rgba(201,160,100,.5)}
+#I40 .cal .band{position:absolute;left:0;right:0;top:0;height:92px;background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep))}
+#I40 .cal .ring{position:absolute;top:-18px;width:26px;height:56px;border-radius:13px;background:linear-gradient(#E9C27A,#B7832E);z-index:5;
+  box-shadow:0 4px 8px rgba(0,0,0,.25)}
+#I40 .pg{position:absolute;left:0;right:0;top:92px;bottom:0;display:flex;align-items:center;justify-content:center;
+  font-size:170px;font-weight:700;color:var(--maroon);background:linear-gradient(#FFFDF8,#F6ECDD);
+  border-radius:0 0 44px 44px}
+#I40 .flip{transform-origin:50% 0;backface-visibility:hidden;z-index:3;box-shadow:0 8px 16px rgba(58,16,10,.12)}
+@keyframes flipPage{0%{transform:rotateX(0)}100%{transform:rotateX(-178deg)}}
+.fl{animation-name:flipPage;animation-duration:.9s!important;animation-timing-function:cubic-bezier(.5,0,.3,1)!important}
+#I40 .ttl{font-size:104px;line-height:1.3;color:var(--maroon);text-align:center}
+#I40 .ul{width:260px;height:6px;border-radius:6px;background:var(--amber);margin-top:40px;transform-origin:50% 50%}
+@keyframes drawX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+.dx{animation-name:drawX;animation-duration:.7s!important}
+.nw{white-space:nowrap}
+</style>
+</head>
+<body>
+<!-- ══ I40 · sub-heading: credit and DOD watch · K508 "एक और सुविधा — क्रेडिट और डी-ओ-डी की निगरानी।" ══ -->
+<div class="panel" id="I40" data-plate="office" style="--T:6s">
+  <div class="glow anim a-glow" style="top:44%"></div>
+  <div class="lab hi anim a-write" style="animation-duration:.9s;animation-delay:.1s">एक और सुविधा</div>
+  <div class="cal anim a-pop" style="animation-duration:.9s;animation-delay:1.1s">
+    <div class="bd">
+      <div class="band"></div>
+      <div class="pg dis">₹</div>
+      <div class="pg dis flip anim fl" style="animation-delay:2.0s">₹</div>
+    </div>
+    <div class="ring" style="left:70px"></div><div class="ring" style="right:70px"></div>
+  </div>
+  <div class="ttl hi anim a-settle" style="animation-duration:1.1s;animation-delay:1.25s;--r0:0deg;--r1:0deg"><span class="nw">क्रेडिट</span> और <span class="nw">डी-ओ-डी</span><br/>की निगरानी</div>
+  <div class="ul anim dx" style="animation-delay:1.9s"></div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

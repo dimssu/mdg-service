@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  #I09 .abs{position:absolute}
+  #I09 .week{top:330px;left:60px;right:60px;display:flex;gap:12px}
+  #I09 .dy{flex:1;height:124px;position:relative;border-radius:20px;background:rgba(255,255,255,.88);border:2px solid #EFE4D2;
+    box-shadow:0 10px 22px rgba(74,15,15,.10);display:flex;align-items:center;justify-content:center;overflow:hidden}
+  #I09 .dy .n{font-size:38px;color:var(--inkMuted);position:relative;z-index:2}
+  #I09 .dy .on{position:absolute;inset:0;background:linear-gradient(160deg,#F5BE5E,var(--amberDeep));z-index:1}
+  #I09 .dy .on + .n{color:var(--maroonDeep)}
+  #I09 .dy .tk{position:absolute;right:6px;top:6px;width:30px;height:30px;border-radius:50%;background:var(--maroon);color:#fff;
+    display:flex;align-items:center;justify-content:center;z-index:3}
+  #I09 .dy .tk svg{width:20px;height:20px;stroke-width:3.4}
+  #I09 .node{left:455px;width:170px;height:170px;border-radius:48px;display:flex;align-items:center;justify-content:center;color:#fff;
+    box-shadow:inset 0 -6px 14px rgba(0,0,0,.2),0 22px 44px rgba(58,16,10,.28)}
+  #I09 .node svg{width:104px;height:104px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  #I09 .track{left:534px;top:770px;width:12px;height:440px;border-radius:12px;
+    background:repeating-linear-gradient(180deg,rgba(199,124,27,.55) 0 16px,transparent 16px 30px)}
+  #I09 .pair{left:0;right:0;top:760px;display:flex;justify-content:center;gap:16px}
+  #I09 .chip{font-size:34px;padding:10px 26px;border-radius:999px;line-height:1.2;box-shadow:0 10px 22px rgba(74,15,15,.2)}
+  #I09 .chip.s{background:var(--maroon);color:#FFF3E2}
+  #I09 .chip.j{background:#fff;color:var(--maroon);border:2px solid var(--amber)}
+  @keyframes flow{0%{opacity:0;transform:translateY(0) scale(.8)}14%{opacity:1;transform:translateY(40px) scale(1)}
+    84%{opacity:1;transform:translateY(360px) scale(1)}100%{opacity:0;transform:translateY(410px) scale(.85)}}
+  #I09 .pair.anim{animation-name:flow;animation-duration:.95s;animation-timing-function:linear}
+  #I09 .cap{top:1500px;left:60px;right:60px;margin:0 auto;font-size:66px}
+  #I09 .q{--T:3s}
+</style>
+</head>
+<body>
+<svg style="display:none">
+  <symbol id="p-pump" viewBox="0 0 24 24"><rect x="3.2" y="3" width="10.6" height="17.4" rx="1.8"/><rect x="5.6" y="5.6" width="5.8" height="4.4" rx=".8"/>
+    <path d="M13.8 8.4h2.4a1.9 1.9 0 0 1 1.9 1.9v6.4a1.5 1.5 0 0 0 3 0V9l-2.4-2.6"/><path d="M1.8 20.6h13.4"/></symbol>
+  <symbol id="p-team" viewBox="0 0 24 24"><circle cx="12" cy="7.6" r="3.4"/><path d="M5.8 20c0-3.6 2.8-6.4 6.2-6.4s6.2 2.8 6.2 6.4"/>
+    <circle cx="4.9" cy="9.4" r="2.4"/><path d="M1 18.6c0-2.6 1.7-4.5 3.9-4.5"/><circle cx="19.1" cy="9.4" r="2.4"/><path d="M23 18.6c0-2.6-1.7-4.5-3.9-4.5"/></symbol>
+</svg>
+<!-- ══ I09 · every day the data arrives · K202 "इससे आपके पंप की सेल और बाक़ी ज़रूरी जानकारी हमें रोज़ मिलती रहती है" ═══ -->
+<div class="panel" id="I09" data-plate="desk" style="--T:5s">
+  <div class="glow anim a-glow" style="animation-delay:-1s;top:48%"></div>
+
+  <div class="abs week anim a-fade" style="animation-delay:-.1s">
+    <div class="dy"><i class="on q anim a-fade" style="animation-delay:0.15s"></i><span class="n hi">सोम</span><span class="tk q anim a-pop" style="animation-delay:0.60s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="dy"><i class="on q anim a-fade" style="animation-delay:0.53s"></i><span class="n hi">मंगल</span><span class="tk q anim a-pop" style="animation-delay:0.98s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="dy"><i class="on q anim a-fade" style="animation-delay:0.91s"></i><span class="n hi">बुध</span><span class="tk q anim a-pop" style="animation-delay:1.36s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="dy"><i class="on q anim a-fade" style="animation-delay:1.29s"></i><span class="n hi">गुरु</span><span class="tk q anim a-pop" style="animation-delay:1.74s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="dy"><i class="on q anim a-fade" style="animation-delay:1.67s"></i><span class="n hi">शुक्र</span><span class="tk q anim a-pop" style="animation-delay:2.12s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="dy"><i class="on q anim a-fade" style="animation-delay:2.05s"></i><span class="n hi">शनि</span><span class="tk q anim a-pop" style="animation-delay:2.50s"><svg class="i"><use href="#i-check"/></svg></span></div>
+    <div class="dy"><i class="on q anim a-fade" style="animation-delay:2.43s"></i><span class="n hi">रवि</span><span class="tk q anim a-pop" style="animation-delay:2.88s"><svg class="i"><use href="#i-check"/></svg></span></div>
+  </div>
+
+  <div class="abs track anim a-fade" style="animation-delay:-.1s"></div>
+  <div class="abs node anim a-fade" style="top:600px;animation-delay:-.1s;background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep))"><svg><use href="#p-pump"/></svg></div>
+  <div class="abs node anim a-fade" style="top:1220px;animation-delay:-.1s;background:linear-gradient(150deg,#F2B04E,var(--amberDeep))"><svg><use href="#p-team"/></svg></div>
+
+  <!-- one pair of chips per day, travelling from the pump to the team -->
+  <div class="abs pair anim" style="animation-delay:0.15s"><span class="chip s hi">सेल</span><span class="chip j hi">ज़रूरी जानकारी</span></div>
+  <div class="abs pair anim" style="animation-delay:0.53s"><span class="chip s hi">सेल</span><span class="chip j hi">ज़रूरी जानकारी</span></div>
+  <div class="abs pair anim" style="animation-delay:0.91s"><span class="chip s hi">सेल</span><span class="chip j hi">ज़रूरी जानकारी</span></div>
+  <div class="abs pair anim" style="animation-delay:1.29s"><span class="chip s hi">सेल</span><span class="chip j hi">ज़रूरी जानकारी</span></div>
+  <div class="abs pair anim" style="animation-delay:1.67s"><span class="chip s hi">सेल</span><span class="chip j hi">ज़रूरी जानकारी</span></div>
+  <div class="abs pair anim" style="animation-delay:2.05s"><span class="chip s hi">सेल</span><span class="chip j hi">ज़रूरी जानकारी</span></div>
+  <div class="abs pair anim" style="animation-delay:2.43s"><span class="chip s hi">सेल</span><span class="chip j hi">ज़रूरी जानकारी</span></div>
+
+  <div class="abs cap hi q anim a-rise" style="animation-delay:2.7s">हमें <b>रोज़</b> मिलती रहती है</div>
+  <div class="rail hi">हर दिन, बिना रुके</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

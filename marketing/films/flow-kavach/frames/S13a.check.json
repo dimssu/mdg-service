@@ -1,0 +1,19 @@
+{
+  "id": "S13",
+  "same_man": "not_in_shot",
+  "face_notes": "The shot features an Indian woman in her thirties, the pump manager, as described in the brief. The hero is not in this shot.",
+  "outfit_matches": false,
+  "text_visible": [
+    "Faint but distinct handwriting is visible on the left page of the open register in the foreground."
+  ],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The brief strictly requires 'no characters'. The handwriting in the foreground register is visible. Please regenerate with the register page showing only blank ruled lines, or make the register much more out of focus so the writing becomes an illegible texture."
+}

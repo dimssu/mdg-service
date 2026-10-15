@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* Timed to K039's voice (the card now starts 1.5 s into the beat, after a short
+   S69, and runs 5.82 s): "पंप चलाने की सबसे बड़ी चुनौती" runs −0.98…1.24 s, so the
+   small line is in by 0.2 s; "सिर्फ़" 1.86–2.25 s, "पेट्रोल-डीज़ल बेचना नहीं है"
+   2.62–4.26 s ("नहीं है" ≈ 3.7–4.26 s). The struck words arrive whole, one by one,
+   on their words ("सिर्फ़" from 1.68 s, "पेट्रोल-डीज़ल" from 2.35 s, "बेचना" complete
+   by 3.37 s); the maroon line strikes them at 3.55–3.75 s and they dim. Still from
+   3.9 s. I92 (K039b) follows on the same cream plate. */
+.mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+@keyframes wIn{0%{opacity:0;transform:translateX(-20px)}100%{opacity:1;transform:none}}
+@keyframes fadeUp{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:none}}
+@keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+@keyframes strike{0%{transform:rotate(-2.5deg) scaleX(0)}100%{transform:rotate(-2.5deg) scaleX(1)}}
+@keyframes dim{0%{color:var(--maroon)}100%{color:#8A7466}}
+
+#I92a{gap:0}
+#I92a .blk{width:1000px;display:flex;flex-direction:column;align-items:center;margin-top:-40px}
+#I92a .srule{width:150px;height:7px;border-radius:7px;background:linear-gradient(90deg,#E9A23B,#F4C979);animation-name:growX}
+#I92a .lbl{font-size:64px;color:var(--amberDeep);margin-top:30px;line-height:1.35;animation-name:fadeUp}
+#I92a .st{position:relative;margin-top:56px;padding:0 14px}
+#I92a .st .w{font-size:92px;line-height:1.3;color:var(--maroon);white-space:nowrap;animation-name:dim;animation-timing-function:ease-out;
+  text-shadow:0 18px 40px rgba(107,22,22,.12)}
+#I92a .st .w span{display:inline-block;animation-name:wIn;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+#I92a .st i{position:absolute;left:-8px;right:-8px;top:52%;height:11px;border-radius:11px;background:var(--maroon);transform-origin:0 50%;
+  box-shadow:0 4px 10px rgba(107,22,22,.25);animation-name:strike;animation-timing-function:cubic-bezier(.6,0,.3,1)}
+</style>
+</head>
+<body>
+<!-- ══ I92a · not just selling petrol and diesel · K039 "क्योंकि पंप चलाने की सबसे बड़ी चुनौती, सिर्फ़ पेट्रोल-डीज़ल बेचना नहीं है।" (5.82 s, after S69) ══ -->
+<div class="panel" id="I92a" data-plate="desk" style="--T:6.5s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s;animation-duration:4s;top:48%"></div>
+  <div class="blk">
+    <div class="srule mv" style="animation-delay:0s;animation-duration:.2s"></div>
+    <div class="lbl hi mv" style="animation-delay:0s;animation-duration:.2s">पंप चलाने की सबसे बड़ी चुनौती</div>
+    <div class="st"><div class="w hi mv" style="animation-delay:3.6s;animation-duration:.3s"><span class="mv" style="animation-delay:1.68s;animation-duration:.2s">सिर्फ़</span> <span class="mv" style="animation-delay:2.35s;animation-duration:.22s">पेट्रोल-डीज़ल</span> <span class="mv" style="animation-delay:3.15s;animation-duration:.22s">बेचना</span></div><i class="mv" style="animation-delay:3.55s;animation-duration:.2s"></i></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

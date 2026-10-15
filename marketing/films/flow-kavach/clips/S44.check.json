@@ -1,0 +1,26 @@
+{
+  "id": "S44",
+  "same_man": "not_in_shot",
+  "face_notes": "The person in the shot is a woman, not the man from the reference photo.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 3,
+      "what": "Instead of looking towards the laptop, she looks up towards the window/ceiling."
+    },
+    {
+      "t": 7,
+      "what": "She begins to speak or mouth words."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 6,
+  "verdict": "retake",
+  "retake_hint": "The action does not match the brief. The actress looks up at the ceiling instead of between the ledger and laptop, does not give a decisive nod, and starts speaking at the end. The performance needs to follow the specified actions: turn page, look between ledger and laptop, give a small decisive nod, and remain silent."
+}

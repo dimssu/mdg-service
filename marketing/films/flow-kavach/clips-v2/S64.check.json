@@ -1,0 +1,31 @@
+{
+  "id": "S64",
+  "same_man": "not_in_shot",
+  "face_notes": "The man in the video is a young pump attendant, not the middle-aged dealer from the reference photo.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 3.5,
+      "what": "Hand blurs and morphs as it moves across his face."
+    }
+  ],
+  "random_motion": [
+    {
+      "t": 2.5,
+      "what": "Rubs his face, but this action was specified for 3-6s in the brief."
+    },
+    {
+      "t": 5,
+      "what": "After rubbing his face, he continues to look up at the ceiling, instead of looking towards the dispensers as specified in the brief."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 2.5,
+  "verdict": "retake",
+  "retake_hint": "The attendant's actions do not match the choreography in the brief. He looks up for the entire shot instead of glancing at the lights and then the dispensers. The eye-rubbing action is also at the wrong time. The prompt should specify the sequence: 0-3s sit up, glance at lights, then dispensers; 3-6s rub eyes, look back at dispensers."
+}

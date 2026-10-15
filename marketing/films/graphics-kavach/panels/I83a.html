@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+/* The result, as the line lays it out: money lost on one side, a default or a
+   penalty from the company on the other. No company name, no mark.
+   Plays from 2.65 s into K021 (1.55 s earlier than before): "नतीजा? एक तरफ़
+   पैसों का नुक़सान" runs −0.6…0.86 s, so the heading and the left side are in at
+   once: the heading, the line to the left side and the left side itself all
+   arrive from frame 0 and have fully landed by 0.35 s. Every right-side reveal is
+   1.55 s later than it was, on its words:
+   "और दूसरी तरफ़" 1.55–2.33 s, "कंपनी की ओर से" 2.92–3.85 s, "डिफ़ॉल्ट" 3.95–4.43 s,
+   then a pause, "या पेनल्टी" 4.84–5.82 s, "का सामना भी करना पड़ सकता है" to 7.23 s,
+   then a hold. The empty right side opens on
+   "दूसरी तरफ़", its words land just before they are said, the stamp thumps
+   down once on "डिफ़ॉल्ट".
+   I83b opens on this panel's last frame (same markup, same positions). */
+#I83a .hd{position:absolute;left:0;right:0;top:330px;text-align:center;font-size:120px;line-height:1.25;color:var(--maroon)}
+#I83a svg.br{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible;pointer-events:none}
+#I83a svg.br path{fill:none;stroke:var(--maroon);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+#I83a .side{position:absolute;top:720px;width:450px;height:700px;border-radius:34px;padding:58px 26px 40px;text-align:center;
+  background:linear-gradient(170deg,#fff,#FBF3E7);border:1px solid rgba(201,160,100,.55);
+  box-shadow:0 34px 70px rgba(58,16,10,.28),0 4px 10px rgba(58,16,10,.14);display:flex;flex-direction:column;align-items:center}
+#I83a .side.l{left:70px} #I83a .side.r{left:560px}
+#I83a .g{position:relative;width:196px;height:196px;border-radius:54px;display:flex;align-items:center;justify-content:center;color:#fff;
+  box-shadow:inset 0 -6px 14px rgba(0,0,0,.20),0 12px 24px rgba(58,16,10,.26)}
+#I83a .g.m{background:linear-gradient(150deg,var(--maroonSoft),var(--maroonDeep))}
+#I83a .g.b{background:#FBEAE7;border:4px dashed rgba(192,57,43,.45);box-shadow:none}
+#I83a .g.b .ink{position:absolute;inset:-4px;border-radius:54px;background:linear-gradient(150deg,#D9543F,#9E2A1F);
+  box-shadow:inset 0 -6px 14px rgba(0,0,0,.20),0 12px 24px rgba(58,16,10,.26)}
+#I83a .g svg{position:relative;width:128px;height:128px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+#I83a .coin{width:124px;height:124px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:76px;font-weight:700;color:var(--maroonDeep);padding-bottom:4px;
+  background:radial-gradient(circle at 34% 28%,#F8D899,#E9A23B 58%,#B5700F);box-shadow:inset 0 -4px 10px rgba(120,60,6,.35),0 6px 12px rgba(0,0,0,.25)}
+#I83a .dn{position:absolute;right:-14px;bottom:-14px;width:70px;height:70px;border-radius:50%;background:#fff;color:var(--bad);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 8px 16px rgba(58,16,10,.25)}
+#I83a .dn svg{width:48px!important;height:48px!important;stroke-width:3!important}
+#I83a .k{font-size:48px;line-height:1.3;color:var(--inkMuted);margin-top:40px;white-space:nowrap}
+#I83a .t{font-size:70px;line-height:1.3;color:var(--maroon);margin-top:14px}
+#I83a .side.l .t{margin-top:58px}
+#I83a .h{font-size:46px;line-height:1.3;color:var(--inkMuted);margin-top:22px;padding:6px 26px 2px;border-radius:999px;border:2px dashed rgba(138,116,102,.6)}
+@keyframes drawOn2{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+.dr{animation-name:drawOn2;animation-timing-function:cubic-bezier(.5,.1,.3,1)}
+@keyframes fadeUp{0%{opacity:0;transform:translateY(24px)}100%{opacity:1;transform:none}}
+.fu{animation-name:fadeUp}
+@keyframes sideIn{0%{opacity:0;transform:translateY(90px) scale(.95)}100%{opacity:1;transform:none}}
+.si{animation-name:sideIn;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+@keyframes popG{0%{opacity:0;transform:scale(.6)}70%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:none}}
+.pg{animation-name:popG;animation-timing-function:cubic-bezier(.2,.9,.3,1)}
+/* the stamp comes down once and leaves its mark */
+@keyframes thump{0%{opacity:0;transform:translateY(-120px) rotate(-10deg) scale(1.1)}55%{opacity:1;transform:translateY(8px) rotate(0) scale(1)}
+  70%{transform:translateY(-6px) scale(1.03,.95)}100%{opacity:1;transform:none}}
+.th{animation-name:thump;animation-timing-function:cubic-bezier(.4,0,.3,1)}
+@keyframes shock{0%{opacity:0;transform:scale(.8)}6%{opacity:.9;transform:scale(.84)}100%{opacity:0;transform:scale(1.6)}}
+.sk{animation-name:shock;animation-timing-function:ease-out}
+#I83a .ring{position:absolute;inset:-14px;border-radius:62px;border:6px solid rgba(192,57,43,.6);opacity:0}
+</style>
+</head>
+<body>
+<!-- ══ I83a · money lost on one side, default or penalty on the other · K021 from 2.65 s ("…और दूसरी तरफ़, कंपनी की ओर से डिफ़ॉल्ट या पेनल्टी का सामना भी करना पड़ सकता है।") ══ -->
+<div class="panel" id="I83a" data-plate="office" style="--T:9s">
+  <div class="glow anim a-glow" style="animation-delay:-.4s;animation-duration:2.2s;top:52%"></div>
+
+  <div class="hd hi anim fu" style="animation-delay:0s;animation-duration:.3s">नतीजा</div>
+
+  <!-- a thin maroon line from the heading to both sides -->
+  <svg class="br" viewBox="0 0 1080 1920">
+    <path class="anim dr" pathLength="1" style="animation-delay:.05s;animation-duration:.28s" d="M540 510 V 610 H 295 V 700"/>
+    <path class="anim dr" pathLength="1" style="animation-delay:1.93s;animation-duration:.4s" d="M540 610 H 785 V 700"/>
+  </svg>
+
+  <!-- one side: the money -->
+  <div class="side l anim si" style="animation-delay:.03s;animation-duration:.32s">
+    <div class="g m"><span class="coin dis">₹</span><span class="dn"><svg viewBox="0 0 24 24"><path d="M12 5v13M6.5 12.5 12 18l5.5-5.5"/></svg></span></div>
+    <div class="t hi">पैसों का<br/>नुक़सान</div>
+  </div>
+
+  <!-- the other side: the company -->
+  <div class="side r anim si" style="animation-delay:1.85s;animation-duration:.45s">
+    <div class="g b"><span class="ink anim a-fade" style="animation-delay:3.63s;animation-duration:.6s"></span><span class="ring anim sk" style="animation-delay:3.75s;animation-duration:.5s"></span>
+      <svg class="anim th" viewBox="0 0 24 24" style="animation-delay:3.51s;animation-duration:.4s">
+        <path d="M9.4 3.6h5.2v3.6c0 1.3 1 2.1 2.2 2.6 1 .4 1.6 1.2 1.6 2.3v1.3H5.6v-1.3c0-1.1.6-1.9 1.6-2.3 1.2-.5 2.2-1.3 2.2-2.6Z"/>
+        <path d="M4.6 13.4h14.8v2.8H4.6Z"/><path d="M5.8 19.8h12.4" stroke="#F6DCA8"/></svg></div>
+    <div class="k hi anim fu" style="animation-delay:2.5s;animation-duration:.3s">कंपनी की ओर से —</div>
+    <div class="t hi anim fu" style="animation-delay:3.45s;animation-duration:.3s">डिफ़ॉल्ट या<br/>पेनल्टी</div>
+    <div class="h hi anim fu" style="animation-delay:6.19s;animation-duration:.3s">हो सकती है</div>
+  </div>
+
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

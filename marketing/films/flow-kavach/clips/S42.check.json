@@ -1,0 +1,26 @@
+{
+  "id": "S42",
+  "same_man": "not_in_shot",
+  "face_notes": "Three actors appear as Indian lawyers. None are the hero character.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [
+    {
+      "t": 3,
+      "what": "Lawyer on the left starts talking and gesturing."
+    },
+    {
+      "t": 4,
+      "what": "Lawyer on the right turns and starts talking."
+    }
+  ],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 3,
+  "verdict": "keep_window",
+  "retake_hint": "The action deviates from the brief after 3s. The lawyers start talking instead of just leaning in and nodding silently. The prompt should reinforce: 'Mouths must stay closed. Nobody speaks. The two other advocates only lean in slightly and nod.'"
+}

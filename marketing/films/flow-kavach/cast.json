@@ -1,0 +1,65 @@
+{
+ "note": "One face per person for the whole film. Every shot with a person in it attaches that person's portrait, in the order listed per shot, and names them as the first/second reference image.",
+ "cast": {
+  "dealer": {
+   "asset": "dealer-photo.webp",
+   "lock": "exactly the same face, greying black hair, thick moustache and build; cream full-sleeve shirt with sleeves rolled, navy trousers, black belt, steel wristwatch"
+  },
+  "attendant": {
+   "asset": "attendant portrait (the one S12/S27 were made from)",
+   "lock": "same face and plain grey work clothes"
+  },
+  "manager": {
+   "asset": "manager portrait (the one S13/S27 were made from)",
+   "lock": "same face, plait and maroon kurta"
+  },
+  "accountant": {
+   "asset": "accountant portrait (the one S44 was made from)",
+   "lock": "same face and lavender kurta"
+  },
+  "mdgRep": {
+   "asset": "mdgRep portrait",
+   "lock": "same face and plain light-blue shirt",
+   "desc": "the MDG representative, an Indian man in his late twenties, neat short hair, plain light-blue shirt, no badge, no lanyard"
+  },
+  "teamLead": {
+   "asset": "teamLead portrait (made from the S14 still)",
+   "lock": "same face, spectacles, greying temples and plain white shirt",
+   "desc": "the MDG team lead, an experienced Indian man about 45 with greying temples and spectacles, plain white shirt, no badge"
+  },
+  "teamMember": {
+   "asset": "teamMember portrait (made from the S53 still)",
+   "lock": "same face, hair and plain mustard-yellow kurta",
+   "desc": "the MDG team member, a young Indian woman about 25 in a plain mustard-yellow kurta, no badge"
+  }
+ },
+ "shots": {
+  "S07": [
+   "teamMember"
+  ],
+  "S08": [
+   "mdgRep"
+  ],
+  "S11": [
+   "teamMember"
+  ],
+  "S21": [
+   "mdgRep"
+  ],
+  "S40": [
+   "teamLead",
+   "teamMember"
+  ],
+  "S46": [
+   "teamMember"
+  ],
+  "S41": [
+   "dealer",
+   "accountant"
+  ],
+  "S45": [
+   "dealer",
+   "mdgRep"
+  ]
+ }
+}

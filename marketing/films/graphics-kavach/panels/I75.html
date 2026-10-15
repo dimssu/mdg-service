@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  @keyframes up{0%{opacity:0;transform:translateY(70px)}100%{opacity:1;transform:none}}
+  @keyframes show{0%{opacity:0}100%{opacity:1}}
+  @keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+  @keyframes dot{0%{opacity:0;transform:scale(0)}70%{transform:scale(1.25)}100%{opacity:1;transform:none}}
+  @keyframes stampG{0%{opacity:0;transform:scale(2.2) rotate(-20deg)}60%{opacity:1;transform:scale(.92) rotate(3deg)}100%{opacity:1;transform:none}}
+  @keyframes ring{0%{opacity:.8;transform:scale(.9)}100%{opacity:0;transform:scale(1.6)}}
+  @keyframes halo{0%,100%{opacity:.5}50%{opacity:.85}}
+
+  #I75{gap:70px}
+  #I75 .halo{position:absolute;left:50%;top:48%;width:1200px;height:1200px;margin:-600px 0 0 -600px;border-radius:50%;
+    background:radial-gradient(circle,rgba(233,162,59,.32),rgba(233,162,59,0) 64%);z-index:1;animation-name:halo;animation-duration:5s}
+  #I75 .cap{font-size:66px;animation-name:up;animation-duration:.5s}
+  #I75 .pumps{display:flex;gap:60px;align-items:flex-end}
+  #I75 .pump{width:230px;height:380px;animation-name:up;animation-duration:.55s}
+  #I75 .pump svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 22px 26px rgba(58,16,10,.22))}
+  #I75 .pump svg .w{fill:#fff;stroke:#5C4A40;stroke-width:5;stroke-linejoin:round;stroke-linecap:round}
+  #I75 .pump svg .n{fill:none;stroke:#5C4A40;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+  #I75 .tl{position:relative;width:960px;height:330px}
+  #I75 .track{position:absolute;left:60px;right:60px;top:60px;height:10px;border-radius:5px;background:rgba(92,74,64,.18)}
+  #I75 .track i{position:absolute;inset:0;border-radius:5px;display:block;background:linear-gradient(90deg,var(--maroonSoft),var(--amber));transform-origin:0 50%;
+    animation-name:growX;animation-duration:1.4s;animation-timing-function:linear}
+  #I75 .d{position:absolute;top:65px;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:#fff;border:7px solid var(--maroon);
+    animation-name:dot;animation-duration:.3s}
+  #I75 .end{position:absolute;top:65px;left:900px;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#F7CD78,var(--amber) 55%,var(--amberDeep));color:var(--maroonDeep);display:flex;align-items:center;justify-content:center;
+    box-shadow:0 14px 30px rgba(120,60,10,.45),inset 0 0 0 5px rgba(255,255,255,.4);animation-name:stampG;animation-duration:.45s}
+  #I75 .end svg.i{width:66px;height:66px;stroke-width:3}
+  #I75 .end .rg{position:absolute;inset:0;border-radius:50%;border:5px solid var(--amber);animation-name:ring;animation-duration:.8s;animation-timing-function:ease-out}
+  #I75 .lab{position:absolute;top:150px;display:flex;flex-direction:column;gap:6px;animation-name:up;animation-duration:.4s}
+  #I75 .lab .a{font-size:38px;color:var(--inkMuted)}
+  #I75 .lab .b{font-size:60px;color:var(--maroon);line-height:1.2}
+  #I75 .lab.r{text-align:right}
+  #I75 .lab.r .b{color:var(--amberDeep)}
+</style>
+</head>
+<body>
+<!-- ══ I75 · any oil company's pump: service within 7 days of the price · K908 (held 3.97 s) ══ -->
+<div class="panel" id="I75" data-plate="desk" style="--T:5s">
+  <div class="halo mv"></div>
+  <div class="cap hi mv" style="animation-delay:-.1s">किसी भी तेल कंपनी का पंप</div>
+  <div class="pumps">
+    <!-- three identical plain white pump outlines — no colours, no marks -->
+    <div class="pump mv" style="animation-delay:.05s"><svg viewBox="0 0 230 380"><rect class="w" x="30" y="20" width="140" height="330" rx="18"/><rect class="w" x="52" y="50" width="96" height="70" rx="8"/><rect class="w" x="52" y="140" width="96" height="30" rx="6"/><path class="n" d="M170 150 H192 a14 14 0 0 1 14 14 V300 a16 16 0 0 1-32 0 V250"/><rect class="w" x="10" y="350" width="180" height="22" rx="6"/></svg></div>
+    <div class="pump mv" style="animation-delay:.2s"><svg viewBox="0 0 230 380"><rect class="w" x="30" y="20" width="140" height="330" rx="18"/><rect class="w" x="52" y="50" width="96" height="70" rx="8"/><rect class="w" x="52" y="140" width="96" height="30" rx="6"/><path class="n" d="M170 150 H192 a14 14 0 0 1 14 14 V300 a16 16 0 0 1-32 0 V250"/><rect class="w" x="10" y="350" width="180" height="22" rx="6"/></svg></div>
+    <div class="pump mv" style="animation-delay:.35s"><svg viewBox="0 0 230 380"><rect class="w" x="30" y="20" width="140" height="330" rx="18"/><rect class="w" x="52" y="50" width="96" height="70" rx="8"/><rect class="w" x="52" y="140" width="96" height="30" rx="6"/><path class="n" d="M170 150 H192 a14 14 0 0 1 14 14 V300 a16 16 0 0 1-32 0 V250"/><rect class="w" x="10" y="350" width="180" height="22" rx="6"/></svg></div>
+  </div>
+  <div class="tl">
+    <div class="track"><i class="mv" style="animation-delay:.6s"></i></div>
+    <span class="d mv" style="left:60px;animation-delay:.55s"></span>
+    <span class="d mv" style="left:200px;animation-delay:.78s"></span>
+    <span class="d mv" style="left:340px;animation-delay:1.01s"></span>
+    <span class="d mv" style="left:480px;animation-delay:1.24s"></span>
+    <span class="d mv" style="left:620px;animation-delay:1.47s"></span>
+    <span class="d mv" style="left:760px;animation-delay:1.7s"></span>
+    <span class="d mv" style="left:900px;animation-delay:1.9s"></span>
+    <span class="end mv" style="animation-delay:2.0s"><svg class="i"><use href="#i-check"/></svg><span class="rg mv" style="animation-delay:2.2s"></span></span>
+    <div class="lab mv" style="left:20px;animation-delay:.55s"><span class="a hi">दिन 0</span><span class="b hi">कीमत तय</span></div>
+    <div class="lab r mv" style="right:0;animation-delay:2.0s"><span class="a hi">7 दिन के अंदर</span><span class="b hi">सेवा शुरू</span></div>
+  </div>
+  <div class="rail hi">Dealer's कवच Programme · MDG Services</div>
+</div>
+<script src="../kit.js"></script>
+</body>
+</html>

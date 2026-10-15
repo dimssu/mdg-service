@@ -1,0 +1,17 @@
+{
+  "id": "S54",
+  "same_man": "same",
+  "face_notes": "Excellent likeness to the reference photo. The man appears to be the same person.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The brief specifies a 'Close-up of the dealer's face and shoulders'. This is a full-length shot. Please change the framing to a close-up."
+}

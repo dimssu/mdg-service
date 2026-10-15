@@ -1,0 +1,17 @@
+{
+  "id": "S04",
+  "same_man": "same",
+  "face_notes": "Excellent match to the reference photo. Indian man, about 50, with greying black hair and a thick moustache.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "no",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "The character, outfit and location are excellent, but the lighting and composition do not match the brief. The sun should be low and behind the man's shoulder to create a long shadow pointing towards the camera, to illustrate the line 'just like your shadow'. The current shadow is short and indistinct. The brief also requires a 'low cream-painted office cabin' in the background, which is missing."
+}

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../kit-base.css" />
+<link rel="stylesheet" href="../kit-doc.css" />
+<style>
+  /* The short's end card. I76's cream paper and gold M, with a flat maroon
+     label (I74's maroon, no shadow, no ▶ — an instruction, not a button).
+     The address is the biggest, clearest line. Everything has arrived by 2.0 s
+     and nothing moves after that, so the last frame of a forwarded mp4 carries
+     the whole call to action. */
+  .mv{animation-fill-mode:both;animation-play-state:paused;animation-timing-function:cubic-bezier(.16,.9,.24,1)}
+  @keyframes wordIn{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+  @keyframes popIn2{0%{opacity:0;transform:scale(.86)}40%{opacity:1}100%{opacity:1;transform:none}}
+  @keyframes riseIn2{0%{opacity:0;transform:translateY(34px)}100%{opacity:1;transform:none}}
+  @keyframes growX{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+
+  #QE1 .glow{top:40%;opacity:.55}
+  #QE1 .cta{position:absolute;left:0;right:0;top:470px;display:flex;flex-direction:column;align-items:center}
+  #QE1 .ask{font-size:90px;line-height:1.3;color:var(--amberDeep);display:flex;gap:.26em;white-space:nowrap}
+  #QE1 .ask span{display:inline-block;animation-name:wordIn;animation-duration:.12s;animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+  #QE1 .rule{width:180px;height:6px;border-radius:6px;background:var(--amber);margin:44px 0 64px}
+
+  #QE1 .act{display:flex;align-items:center;gap:22px}
+  #QE1 .lbl{font-size:68px;line-height:1.2;color:var(--cream);background:var(--maroon);padding:14px 46px 22px;border-radius:999px;
+    animation-name:popIn2;animation-duration:.25s;animation-delay:1.1s;animation-timing-function:cubic-bezier(.2,.9,.3,1.2)}
+  #QE1 .chip{display:flex;align-items:center;gap:12px;padding:16px 30px 18px 24px;border-radius:999px;color:var(--maroonDeep);
+    background:linear-gradient(160deg,#F8D899,#E9A23B 60%,#D88A22);box-shadow:inset 0 -4px 10px rgba(120,60,6,.18);
+    animation-name:popIn2;animation-duration:.25s;animation-delay:1.4s;animation-timing-function:cubic-bezier(.2,.9,.3,1.2)}
+  #QE1 .chip svg.i{width:46px;height:46px;stroke-width:2.4}
+  #QE1 .chip .n{font-size:54px;font-weight:700;line-height:1;letter-spacing:-.5px}
+  #QE1 .chip .u{font-size:50px;line-height:1}
+
+  #QE1 .url{margin-top:110px;text-align:center;animation-name:riseIn2;animation-duration:.3s;animation-delay:1.7s}
+  #QE1 .url .t{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;color:var(--maroonDeep);line-height:1.1;
+    letter-spacing:-.5px;white-space:nowrap}
+  #QE1 .url .u{height:8px;border-radius:8px;margin:22px auto 0;transform-origin:50% 50%;
+    background:linear-gradient(90deg,rgba(244,201,121,.25),#E9A23B 22%,#E9A23B 78%,rgba(244,201,121,.25));
+    animation-name:growX;animation-duration:.25s;animation-delay:1.75s}
+
+  /* the footer — the brand, there from the first frame */
+  #QE1 .foot2{position:absolute;left:0;right:0;bottom:200px;display:flex;flex-direction:column;align-items:center;gap:30px}
+  #QE1 .fr{width:520px;height:2px;background:linear-gradient(90deg,rgba(199,124,27,0),rgba(199,124,27,.6),rgba(199,124,27,0))}
+  #QE1 .brand{display:flex;align-items:center;gap:26px}
+  #QE1 .md{width:116px;height:116px;border-radius:50%;flex:none;position:relative;
+    background:radial-gradient(circle at 35% 30%,#F7CD78,var(--amber) 50%,var(--amberDeep));
+    display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700;color:var(--maroonDeep);
+    box-shadow:0 14px 28px rgba(58,16,10,.30),inset 0 -5px 10px rgba(0,0,0,.18),inset 0 0 0 4px rgba(255,255,255,.35),0 0 0 7px rgba(233,162,59,.25)}
+  #QE1 .brand .nm{font-size:50px;color:var(--maroon);line-height:1.3;white-space:nowrap}
+</style>
+</head>
+<body>
+<!-- ══ QE1 · the short's end card, Q10 "जवाब — पूरी फ़िल्म में।" · 4.63 s
+     Voice: 'जवाब' 0.00–0.56, 'पूरी फ़िल्म में।' 1.23–1.94.
+     0.0 footer (gold M · एम-डी-जी सर्विसेज़ · डीलर कवच) · 0.0–0.5 'छठी सेवा का जवाब —'
+     word by word · 1.1 'पूरी फ़िल्म देखें' · 1.4 '26 मिनट' · 1.7 mdgservices.in/film ·
+     still from 2.0 to the end. ══ -->
+<div class="panel" id="QE1" data-plate="desk" style="--T:5s">
+  <div class="glow"></div>
+  <div class="cta">
+    <div class="ask hi"><span class="mv" style="animation-delay:0s">छठी</span><span class="mv" style="animation-delay:.1s">सेवा</span><span class="mv" style="animation-delay:.2s">का</span><span class="mv" style="animation-delay:.3s">जवाब</span><span class="mv" style="animation-delay:.38s">—</span></div>
+    <div class="rule"></div>
+    <div class="act">
+      <div class="lbl hi mv">पूरी फ़िल्म देखें</div>
+      <div class="chip mv"><svg class="i"><use href="#i-clock"/></svg><span class="n dis">26</span><span class="u hi">मिनट</span></div>
+    </div>
+    <div class="url mv" id="url"><div class="t" id="urlt">mdgservices.in/film</div><div class="u mv" id="urlu"></div></div>
+  </div>
+  <div class="foot2">
+    <div class="fr"></div>
+    <div class="brand"><div class="md dis">M</div><div class="nm hi">एम-डी-जी सर्विसेज़ · डीलर कवच</div></div>
+  </div>
+</div>
+<script src="../kit.js"></script>
+<script>
+/* the address is set as large as fits 940 px, and the rule under it matches it */
+(function () {
+  const t = document.getElementById('urlt'), u = document.getElementById('urlu');
+  function fit() {
+    let fs = 130; t.style.fontSize = fs + 'px';
+    while (t.scrollWidth > 940 && fs > 40) { fs -= 1; t.style.fontSize = fs + 'px'; }
+    u.style.width = Math.round(t.scrollWidth * .62) + 'px';
+  }
+  fit(); document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>

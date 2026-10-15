@@ -1,0 +1,17 @@
+{
+  "id": "S36",
+  "same_man": "not_in_shot",
+  "face_notes": "The man in the video is a younger pump attendant, not the dealer from the reference photo. This is correct for the brief.",
+  "outfit_matches": false,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "partly",
+  "clean_from": 0,
+  "clean_to": 8,
+  "verdict": "retake",
+  "retake_hint": "The performance needs to match the brief. The attendant should look and tilt his head (0-3s), then scratch his head and glance towards the cabin (3-6s). He currently starts scratching his head at 1s and never glances away from the dispenser."
+}

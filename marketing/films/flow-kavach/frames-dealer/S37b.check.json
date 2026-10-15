@@ -1,0 +1,22 @@
+{
+  "id": "S37",
+  "same_man": "same",
+  "face_notes": "Good match. Face shape, hair, and moustache are consistent with the reference photo.",
+  "outfit_matches": true,
+  "text_visible": [],
+  "marks_or_livery": [],
+  "liquid_or_danger": [],
+  "glitches": [
+    {
+      "t": 0,
+      "what": "Man's left thumb appears to bend backwards unnaturally to hold the phone. Right thumb is also slightly long and oddly positioned."
+    }
+  ],
+  "random_motion": [],
+  "matches_brief": false,
+  "fits_line": "yes",
+  "clean_from": 0,
+  "clean_to": 0,
+  "verdict": "retake",
+  "retake_hint": "Good character and action, but the camera angle is wrong. The brief specifies a 'side-on' shot with the camera 'level with the table top'. This is frontal and looking down. Re-prompt to get the correct camera angle and phone orientation (edge-on)."
+}
