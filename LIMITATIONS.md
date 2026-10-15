@@ -1,18 +1,30 @@
 # Known Limitations
 
-These are deliberate deferrals out of the MVP. Each is small enough to schedule
-as a follow-up; none block the happy path.
+Known limits of the system as it runs today, each with what would change it.
 
 ## Production hardening
 
-- **JWT secret length floor.** `backend/src/config/env.ts` accepts ≥16-char secrets. Production should require ≥32 chars (256 bits for HS256). Trivial follow-up: bump the Zod `.min(16)` to `.min(32)` and condition on `NODE_ENV === 'production'` if dev ergonomics matter.
-- **Per-cluster login rate limiting.** `express-rate-limit` defaults to an in-memory store. Behind multiple replicas, swap to `rate-limit-redis` so the cap is enforced across the cluster. See `docs/REVIEW.md` SEC-004.
-- **CORS allowlist visibility.** Log the resolved `CORS_ORIGINS_LIST` at boot at `info` level so operators can spot typos quickly. See SEC-003.
+- **JWT secret length floor.** `mdg-backend/src/config/env.ts` accepts ≥16-char secrets. Production should require ≥32 chars (256 bits for HS256). Trivial follow-up: bump the Zod `.min(16)` to `.min(32)` and condition on `NODE_ENV === 'production'` if dev ergonomics matter.
+- **Per-cluster login rate limiting.** `express-rate-limit` (`mdg-backend/src/middleware/rateLimit.ts`) uses its default in-memory store, so each backend process counts on its own (the credential-reveal limiter in the same file is in-memory too). Behind multiple replicas the cap would scale with the replica count, and an attacker's attempts with it. Swap to `rate-limit-redis` (or similar) if the backend is ever run as more than one process. The single-process setup is unaffected.
+- **CORS allowlist visibility.** The resolved `CORS_ORIGINS_LIST` is never logged; `mdg-backend/src/app.ts` reads it only inside the origin check. A typo in `CORS_ORIGINS` therefore shows up as a browser CORS error, not as a line at boot. Log the list at `info` level on start-up so operators can spot it.
+- **The backend sends no Content-Security-Policy.** `helmet` is configured with `contentSecurityPolicy: false` in `mdg-backend/src/app.ts`. That is fine for a pure JSON API. If the backend ever serves an HTML page, add a policy first.
+- **The log redaction list is hand-kept.** `mdg-backend/src/config/logger.ts` lists the pino paths that are censored: the authorization header, password fields, the encrypted portal passwords, the ElevenLabs and Vertex keys and the mobile numbers the landing assistant collects. The database password is cut from the URI on connect. A new field that holds a secret or a person's number (a bank account number on a dealer, say) is logged in clear until its path is added to that list. Add it in the same change that adds the field.
 
 ## Scheduler
 
-- **Single-instance scheduler.** `backend/src/scheduler/index.ts` uses node-cron and claims jobs with a Mongo `findOneAndUpdate`. ADR 0003 already calls this out: BullMQ + Redis is the path when running >1 backend replica.
-- **`startScheduler()` runs unconditionally in every process, with no leader election.** A second backend instance is therefore a second scheduler: duplicate cadence runs, and two simultaneous logins into the same dealer portal accounts. `ecosystem.config.cjs` pins `instances: 1` for this reason — do not raise it, and do not start a second pm2 app by hand.
+- **Single-instance scheduler.** `mdg-backend/src/scheduler/index.ts` uses node-cron and claims jobs with a Mongo `findOneAndUpdate`. ADR 0003 already calls this out: BullMQ + Redis is the path when running >1 backend replica.
+- **A run only leaves `RUNNING` from inside the process that started it.** An
+  OOM kill, a deploy or a pm2 restart mid-capture therefore stranded the row for
+  ever: production was carrying four, the oldest ten days old and still drawing a
+  live spinner in the admin. `lib/runs/reapStaleRuns.ts` now closes them out on
+  every scheduler tick, at the scheduler's own lease horizon — past which the tick
+  had already decided nobody was running the row. It cannot reap a healthy run
+  into a wrong outcome permanently: `executeRun` writes the real status
+  unconditionally when the run ends, so the worst case is a label that is briefly
+  wrong instead of one that is wrong for ever. It reaps only the row, never the
+  attachment's `nextRunAt` — the lease expiry already owns that.
+
+- **`startScheduler()` starts in every process unless `SCHEDULER_ENABLED=false`, and there is no leader election.** A second backend instance is therefore a second scheduler: duplicate cadence runs, and two simultaneous logins into the same dealer portal accounts. `ecosystem.config.cjs` pins `instances: 1` for this reason — do not raise it, and do not start a second pm2 app by hand. `SCHEDULER_ENABLED` defaults to true; a laptop whose `.env` points at the production database must set it to false, or `npm run dev` runs real jobs against live dealers.
 
 ## Portal scraping (SDMS / IRAS)
 
@@ -20,8 +32,8 @@ These services drive a real, credentialed browser session against IndianOil's
 portals on a dealer's own account. That makes their failure modes unusual, and
 worth stating plainly.
 
-- **The upstream portal is the dominant source of failure.** Over a recent 51-run
-  sample the Credit & DOD service was 74% successful. The single largest cause
+- **The upstream portal is the dominant source of failure.** Over a 51-run
+  sample in August 2026 the Credit & DOD service was 74% successful. The single largest cause
   (8 of 13 failures) was the SDMS → `ioconline` eledger SSO handoff answering
   with the eledger app's own error page — an HTTP 404 whose body is the 84-byte
   string `/ioconline/com/error1.jsp`. The eledger app is load-balanced across at
@@ -38,17 +50,54 @@ worth stating plainly.
   expires on its own. Do not add a "log out" navigation; it releases nothing.
 - **The portal's front end intermittently resets TCP connections** (observed
   directly: `ERR_CONNECTION_RESET` from Chromium while `curl` succeeded seconds
-  later). It is HTTP/1.1 and TLS 1.2 only, and advertises no ALPN.
+  later). It is HTTP/1.1 and TLS 1.2 only, and advertises no ALPN. Until
+  2026-09-03 the very first `page.goto` of a capture had no retry at all, so ONE
+  such refusal ended a whole run: 19 runs across all nine dealers and every hour
+  of the day, 14 of them `ERR_CONNECTION_REFUSED` and 5 `ERR_CONNECTION_RESET`,
+  each dying 7-9 seconds in having submitted nothing. `automation/openLoginPage.ts`
+  now retries that navigation up to three times. It is deliberately the ONLY
+  place in the login that retries on its own: everything past it has already
+  spent a credential attempt, which is the thing a dealer's account cannot
+  afford to repeat.
+
+- **A SweetAlert modal blocks every click behind it, and Playwright reports that
+  as a timeout on the button.** Both portals refuse through `swal2`, whose
+  backdrop covers the page; a click aimed at the control underneath fails with
+  `<div class="swal2-container …"> intercepts pointer events` buried inside an
+  ordinary `locator.click: Timeout … exceeded`. This produced the single largest
+  failure cluster of 2026-08: 25 tt-density runs, all ≈22 seconds, all reported
+  as `FETCH_FAILED` — _"the portal did not answer when Fetch was pressed"_ —
+  when the portal had in fact answered `Error / No data found`, because the
+  dealer had taken no tanker that week. Typing the window into the date filter
+  fires the screen's own query, and its answer is the modal. **Dismiss the modal
+  immediately before any click that matters, not only after one**, and read it
+  first: on this portal the popup is frequently the answer, not an obstacle.
 - **Concurrency must be keyed on the portal USERNAME, not the dealer.** Several
   dealer records legitimately share one IndianOil login, and two live sessions on
   one login fight each other. `automation/sdms/accountGate.ts` serialises by
   username and enforces a quiet gap plus a circuit breaker. That state is
   **in-process** — authoritative only while the backend is a single pm2 app. The
   backfill/capture CLIs are separate processes and bypass it entirely.
+- **Browser runs are one at a time, so a queue at busy hours is normal.**
+  `BROWSER_MAX_CONCURRENCY` defaults to 1 and is one counter for every Chromium
+  in the process: SDMS captures, IRAS collections and report-card renders share
+  it (`automation/browserBudget.ts`). A run that finds the slot taken waits; an
+  admin pressing Share gives up after `BROWSER_SLOT_WAIT_MS` (45 s) with "busy,
+  try again". Raising the number is a memory decision for the box, not a speed
+  switch. A CLI run by hand over SSH launches its own browser and the counter
+  cannot see it.
 - **Every login attempt is a real credential submission** against a dealer's
   account. `SDMS_CAPTCHA_MAX_ATTEMPTS` is a lockout budget as much as a retry
   budget, and the account breaker exists to stop a bad password being walked into
-  a lockout unattended.
+  a lockout unattended. Since 2026-10-11 a refused or missing SDMS password also
+  puts the outlet on **hold** (`automation/sdms/credentialHold.ts`): the
+  scheduler starts no SDMS run for it and looks again every 15 minutes
+  (`CREDENTIAL_HOLD_RECHECK_MS`). The hold lifts when a new password is saved,
+  or when a login with the saved pair works. A refusal holds the outlet only when
+  the portal's words blame the account (the password, the username or a lock); a
+  vague "Authentication failed" does not. A manual run on a refused outlet fails
+  at once as `SDMS_PASSWORD_REFUSED` and sends nothing. It covers the five SDMS
+  services; IRAS has its own login and its own saved pair.
 - **SDMS replaced its image captcha with an arithmetic question**, labelled
   "Security Verification \*" and answered in a box placeholdered "Enter answer to
   math question". The runner reads the question from the DOM and solves it
@@ -95,6 +144,20 @@ worth stating plainly.
   - **The suite was green throughout.** `__testing__/mockPortal.ts` served — and
     only served — the old shape, so nothing in CI could have caught this. It now
     serves both generations and defaults to the current one.
+- **SDMS moved to a new address on 2026-10-10, and the old one only redirects.**
+  IndianOil moved the portal from `sdms.indianoil.in` to `utkarsh.indianoil.co.in`,
+  with a maintenance page standing in for the login from 20:21 IST on 10 Oct to
+  about 02:17 on 11 Oct (74 runs reported it as "the portal may be down"). The
+  old host now answers every path with a 302. A browser follows that without
+  comment, but a 302 turns a POST into a body-less GET, and that is what broke
+  Credit & DOD: its PAD statement request went to the old host as an empty GET
+  and failed `RETRIVEDATA_EMPTY` on 8 runs over 10-11 Oct. Production sets no
+  `SDMS_LOGIN_URL`, so the code default in `config/env.ts` is the truth, and it
+  now names the new host. Every later SDMS URL is built from the origin the
+  session actually landed on (`automation/sdms/portalOrigin.ts`); there is no
+  baked-in fallback host. From 03:00 to 03:04 IST on 11 Oct the old host did not
+  even redirect. It served a 200 "Page Moved" stub, and six RO Supply rides took
+  it for the dashboard.
 - **The login session is paced, not disguised.** It types at a human speed, moves
   the pointer before clicking, waits ~2.5-5s between attempts
   (`SDMS_ATTEMPT_PAUSE_*_MS`), and presents a desktop Chrome user agent derived
@@ -132,9 +195,13 @@ worth stating plainly.
   page's Current Total Receivable. Reports captured before this shipped are blank
   for a related reason: nothing was stored to re-derive a verdict from, and blank
   is more honest than an invented all-clear.
-- **Nothing alerts a human when a run fails.** Failures land in a pm2 log and the
-  admin run history. The 13 failures above went unnoticed until a user reported
-  one.
+- **A transient failure is silent until its retries run out.** Admin alerts
+  (ADR 0016) raise one alert per problem for a failed, late or stopped service
+  and for a refused or missing portal password, and push it to every admin's
+  phone and the Alerts page. A failure that is still inside its retries raises
+  nothing, by design: it may fix itself, and an alert for each would drown the
+  ones that matter. The 13 failures above predate the alerts; they went unnoticed
+  until a user reported one.
 - **Deploy provisions neither Playwright's Chromium nor the OCR venv.**
   `deploy.sh` is `git pull` → `npm ci` → `build` → `pm2 restart`; the browser and
   `ocr/.venv` must be installed on the box by hand (`npx playwright install
@@ -143,18 +210,17 @@ chromium`, `bash ocr/setup.sh`). `BROWSER_LAUNCH_FAILED` and
 
 ## Frontend
 
-- **No frontend test suite.** Out of MVP scope per the QA brief. Recommended starter set: Playwright happy-path covering login → attach service → run-now → run visible in history. The REST collection at `docs/rest.http` and the smoke checklist at `docs/TEST_PLAN.md` already cover this manually.
-- **Topbar search is a disabled placeholder.** Backend has no multi-entity search endpoint yet. Wire it up when the API gains a `/search` route.
-- **No dark-mode toggle UI.** Tokens are wired and `darkMode: 'class'` works — only the toggle is missing. Add a switch to the topbar that toggles `document.documentElement.classList`.
-- **Frontend bundle is single chunk (~681 KB / ~212 KB gzip).** Vite warns at the 500 KB threshold. Code-split per route via `React.lazy` when the bundle grows further.
+- **The admin has no test runner and nothing tests it end to end.** `mdg-client` runs Vitest (`npm test`). `mdg-admin` has no `test` script; the few decisions kept as pure logic are checked with `npx tsx --test scripts/*.check.ts`. Nothing drives a browser through login → attach service → run now → run visible in history; a Playwright happy path would be the starter set. The REST collection at `docs/rest.http` and the smoke checklist at `docs/TEST_PLAN.md` cover it by hand.
+- **The admin topbar search is a disabled placeholder.** The box in `mdg-admin` reads "Search (coming soon)". The backend has no multi-entity search endpoint yet. Wire it up when the API gains a `/search` route.
+- **No dark-mode toggle UI in either app.** The tokens and `darkMode: 'class'` are wired, but nothing sets the `dark` class. The dealer chat is light-only by design (ADR 0018). For the admin, add a switch to the topbar that toggles `document.documentElement.classList`.
 
 ## Dealer lifecycle
 
-- **`DELETE /dealers/:id` is a hard delete with DealerService cascade.** Brief mentioned an optional `SUSPENDED` soft-delete path; the API contract was followed instead (hard delete, retain ServiceRun history). If product wants soft delete, add a `SUSPENDED` status branch in `dealerService.ts` and switch the route.
+- **`DELETE /dealers/:id` archives; nothing in `dealers.ts` deletes a dealer for good.** It is super-admin only. The dealer goes to `SUSPENDED` with `archivedAt` set, every attached service that was `ACTIVE` is `PAUSED` with its next run cleared (so no portal login fires on the dealer's credentials), and the dealer's runs, chat threads and audit trail stay. `POST /dealers/:id/restore` brings the dealer back to the roster, but status stays `SUSPENDED` and the services stay `PAUSED`: a restore never restarts portal automation by itself, a super-admin switches each service back on. There is no purge route; removing a dealer's data for good would take a script written for the day it is asked for.
 
 ## Admin management
 
-- **Super-admin tier gates Activity + Team; the rest of the admin tier is still flat.** A `User.isSuperAdmin` flag now gates the Activity (audit) log and team management (`/admins`): only super-admins can view the audit trail or create/suspend/reset admins. Super-admins are provisioned on boot from `SUPER_ADMIN_EMAILS` (default `aryan@mdgservices.in`), re-derived from the DB on every request. Team management is bootstrap-safe (any admin may act until the first super-admin exists, to avoid a lock-out). Outside those two surfaces the admin tier remains flat — every admin can still manage dealers, services, Kavach, chat, etc. There is no UI to grant/revoke super-admin yet (env-driven only), and legacy `Admin`-store admins can't be super-admins (the flag lives on the `User` store). Self-suspension and suspending the last active admin are still blocked, and every admin create/update writes an audit entry.
+- **There are two admin tiers, and everything outside the super-admin list is flat.** A `User.isSuperAdmin` flag gates, in `mdg-backend/src/routes/v1`: the Activity (audit) log, team management (`/admins`), the All Users page, the AI Answers review, the landing assistant's admin, bank and depot holidays, document kinds, the Kavach catalog, the festival band, films, website intake, WhatsApp replies, the system-health card on Today, staff work items, and archiving and restoring dealers. Every other admin screen (dealers, services, Kavach, chat, and so on) is open to every admin. Super-admins are provisioned on boot from `SUPER_ADMIN_EMAILS` (default `aryan@mdgservices.in`), re-derived from the DB on every request, and can now be granted or revoked from the All Users page (`superAdminUsers.ts`). You cannot remove your own super-admin access or the last super-admin's. Team management is bootstrap-safe (any admin may act until the first super-admin exists, to avoid a lock-out). Legacy `Admin`-store admins (`models/Admin.ts` still exists) can't be super-admins, because the flag lives on the `User` store. Self-suspension and suspending the last active admin are blocked, and every admin create/update writes an audit entry.
 - **Admin suspension revokes on next request, not instantly across sockets.** `requireAuth` now re-checks admin status on every REST request, so a suspended admin is blocked immediately from all actions. Their existing Socket.IO connection (realtime inbox updates only — no mutations) is not torn down until it reconnects; add an admin `sessionId`/disconnect sweep if instant socket revocation is required.
 
 ## Chat / ticket lifecycle & reply SLA
@@ -165,12 +231,13 @@ chromium`, `bash ocr/setup.sh`). `BROWSER_LAUNCH_FAILED` and
 - **Flag colour is derived, not stored.** `awaitingReplySince` is persisted; the yellow/red level is computed live client-side via `ticketFlagLevel(now)` and re-evaluated on a 60s tick, so colours advance without a server round-trip. Only the auto-return `flagged` boolean is persisted (accountability marker; cleared on next pickup/reply/resolve).
 - **Any dealer message reopens a resolved thread — even "ok, thanks".** Per `docs/PRD.md` open question: a trivial acknowledgement reopens a full ticket. A grace/auto-close window or a "no reply needed" close is the eventual answer; not yet built.
 - **Conversation lists still cap at 100 with no load-more.** The badge counts are now exact via `GET /conversations/counts` (`countDocuments`), but the list bodies request `limit:100` and have no cursor pagination, so a tab with >100 items hides the oldest. The backend `before` cursor exists; wire an infinite-scroll trigger (esp. for Resolved) when volume grows.
-- **Reassign has no admin picker.** "Reassign" re-assigns to self (documented UX gap); assignment changes are now write-audited (`CONVERSATION_ASSIGNED` / `CONVERSATION_REASSIGNED`), but a picker + takeover notification is still pending.
+- **"Take over" has no admin picker.** The Inbox's Pick up and Take over buttons both give the thread to the admin who presses them. `POST /conversations/:id/assign` accepts an `adminId`, but the admin screen never sends one. Assignment changes are write-audited (`CONVERSATION_ASSIGNED` / `CONVERSATION_REASSIGNED`); a picker and a takeover notification to the previous owner are still pending.
+- **An AI-raised Ticket is a separate record from the conversation's status (ADR 0017).** The AI opens one when it cannot settle a dealer's question. There is at most one open per thread; a second escalation is appended to it. Only an admin closes it, with a written note: no reply, later AI answer, dealer message or sweep does. The reply clock above does not track them: an admin reply stops the clock but leaves the Ticket open.
 - **Legacy `userId`-less "reunite" branch retained.** `GET /conversations/mine` still adopts a pre-per-member thread for an owner on first load. Dead-ish now that the schema requires `userId`; delete after confirming production has no such rows.
 
 ## Audit logging
 
-See ADR 0009 and `docs/specs/audit-logging.md`. The trail records who did what, when, and
+See ADR 0020 and `docs/specs/audit-logging.md`. The trail records who did what, when, and
 from where, with a global admin **Activity** page. Deliberate deferrals:
 
 - **No retention / rotation policy.** Audit rows (which now include `ip` and `userAgent` —
@@ -190,15 +257,19 @@ from where, with a global admin **Activity** page. Deliberate deferrals:
   needed.
 - **`req.ip` depends on `TRUST_PROXY`.** It defaults to `loopback`; behind a load balancer
   set `TRUST_PROXY` to the proxy hop-count (e.g. `1`) or the real client IP will be the LB's.
-- **Sensitive-read logging is selective.** Only `RECORD_VIEWED` and `ARTIFACT_DOWNLOAD` log
+- **Sensitive-read logging is selective.** Only file downloads (`ARTIFACT_DOWNLOAD` for run
+  files; `ATTACHMENT_DOWNLOAD` for staff hardcopy photos and chat attachments saved on
+  purpose) and credential reveals (`IRAS_CREDENTIALS_REVEAL`, `SDMS_CREDENTIALS_REVEAL`) log
   data access; ordinary list/detail reads are not logged (by design, to keep the trail
-  signal-rich). Push-token register/unregister churn is intentionally not audited.
+  signal-rich). `RECORD_VIEWED` is no longer written: the Records shelf it audited is gone
+  (ADR 0018), and the value stays only so old rows still read. Push-token register/unregister
+  churn is intentionally not audited.
 - **No audit for the audit reads.** Viewing the Activity page / `GET /audit` is itself not
   audited; add a meta-audit if "who looked at the logs" must be tracked.
 
 ## Plugin SDK
 
-- **Plugins live in-repo only.** No mechanism for uploading or hot-reloading plugins from outside `backend/src/services/`. ADR 0002 calls this an explicit MVP constraint.
+- **Plugins live in-repo only.** No mechanism for uploading or hot-reloading plugins from outside `mdg-backend/src/services/`. The registry reads that folder once at boot, so a new plugin needs a deploy. ADR 0002 calls this an explicit MVP constraint. See `docs/ADDING_A_SERVICE.md`.
 
 ## Tooling
 

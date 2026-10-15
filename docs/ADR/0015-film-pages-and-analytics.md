@@ -1,12 +1,12 @@
 # ADR 0015 — The film pages, and how a view is counted
 
-Status: accepted, 2026-10-04. Build contract: `docs/films/FILM_PAGES_SPEC.md`.
+Status: accepted, 2026-10-04. Build contract: `docs/films/FILM_PAGES_SPEC.md`. Updated 2026-10-15 for the short's length and status (§1, §5.2, §10), the page source (§2) and the 9 October player rebuild (§4).
 
 ## 1. What it is, in one paragraph
 
 Two Dealer Kavach films go on `mdgservices.in` as links that start playing the
-moment they open: the full film (`/film`, 26 min 29 s) and a 35-second short
-(`/film/short`). Every view is measured — views, unique viewers, watch time,
+moment they open: the full film (`/film`, 26 min 29 s) and a 38.6-second short
+(`/film/short`, titled "40 सेकंड में"). Every view is measured — views, unique viewers, watch time,
 second-by-second retention, where people leave (named by the line being spoken),
 how many turn the sound on, start-up time, buffering, and which share link,
 state, city, device, network and app the view came from. A super-admin reads it
@@ -14,15 +14,15 @@ all on the admin's **Films** page and makes the share links there.
 
 ## 2. Where each piece lives
 
-| Piece                  | Home                                                     | Why there                                                              |
-| ---------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------- |
-| Video files            | S3 bucket `mdg-films` (ap-south-1), public read          | Immutable version folders, served straight to the phone (§3)           |
-| Packaging              | `marketing/films/web/package.mjs`                        | Run on a laptop per cut; HLS ladder, captions, timeline, poster        |
-| Watch pages            | `mdg-landing/public/film/**`                             | Static HTML, no framework; ships with the site                         |
-| City / state           | `mdg-landing` routing middleware → cookie `mdg_geo`      | The CDN already knows it; the backend never sees the visitor's address |
-| Beacon + stats + links | `mdg-backend/src/films/**`, `routes/v1/films.ts`         | Mongo, the super-admin gate and the audit log already exist there      |
-| Shapes                 | `shared/src/types/film.ts`, `shared/src/schemas/film.ts` | Page, server and admin agree on one definition                         |
-| Films page             | `mdg-admin` → `/films`                                   | Same auth, same nav, phone-usable                                      |
+| Piece                  | Home                                                              | Why there                                                                |
+| ---------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Video files            | S3 bucket `mdg-films` (ap-south-1), public read                   | Immutable version folders, served straight to the phone (§3)             |
+| Packaging              | `marketing/films/web/package.mjs`                                 | Run on a laptop per cut; HLS ladder, captions, timeline, poster          |
+| Watch pages            | generated from `mdg-landing/src/film/` into `dist/film/` at build | Static HTML, no framework; ships with the site. Hindi and English copies |
+| City / state           | `mdg-landing` routing middleware → cookie `mdg_geo`               | The CDN already knows it; the backend never sees the visitor's address   |
+| Beacon + stats + links | `mdg-backend/src/films/**`, `routes/v1/films.ts`                  | Mongo, the super-admin gate and the audit log already exist there        |
+| Shapes                 | `shared/src/types/film.ts`, `shared/src/schemas/film.ts`          | Page, server and admin agree on one definition                           |
+| Films page             | `mdg-admin` → `/films`                                            | Same auth, same nav, phone-usable                                        |
 
 ## 3. Hosting: a public S3 bucket, not the website host
 
@@ -55,8 +55,21 @@ over the video. The first tap turns the sound on and, if the film is less than
 is refused (some in-app browsers, data-saver modes), the poster shows with a big
 play button and the beacon records `autoplay: 'blocked'`.
 
-The data-saving rules: start at 240p on 2G or data-saver, 360p on 3G, 540p
-otherwise, then adapt; phones are capped at 720p.
+The picture-quality rule (rebuilt 2026-10-09, after the first one made the film
+play blurry): data-saver or 2G starts at 360p. Otherwise the measured speed
+decides: 2 Mb/s or more starts at 720p, 1 Mb/s or more at 540p, slower at 360p,
+and with no measurement a "3g" label starts at 540p and anything else at 720p.
+Every browser with MediaSource plays through hls.js
+(about 120 kB, fetched once), except Safari, which keeps its own player, and
+data-saver or 2G, where that download would delay the first frame. The reason:
+Chrome says it plays HLS itself, but opens on the smallest rung (240p measured)
+and on Android climbs to 1080p, about twice the data of 720p. The page has its
+own controls, remembers where you stopped (the full film only), and keeps a quality
+choice in the browser (`mdg_q`).
+
+The page ends on a "What next?" section: a call-back form that posts to
+`/api/callback` (the team's inbox gets the film's share code with it), the
+toll-free number, the Play Store link, the registration page and the assistant.
 
 ## 5. The beacon
 
@@ -83,8 +96,10 @@ and viewer ids that must be uuids. Identity fields are strict; descriptive ones
 are forgiving — a hand-edited `?r=` or a strange user agent loses the view its
 label, never the view.
 
-A film with no duration yet (the short, until it is packaged) is answered
-`409 FILM_NOT_READY` and nothing is stored.
+A film with no duration yet is answered `409 FILM_NOT_READY` and nothing is
+stored. Both films are packaged and counted since 4 October 2026 (the short is
+version `v-1fce4101e9`), so today the 409 applies only to a future film that has
+not been packaged.
 
 ### 5.3 What a beacon carries
 
@@ -166,6 +181,7 @@ inside it. Days are Indian calendar days. The definitions live, with tests on a
   by Mongoose on boot like every other model's.
 - Updating a film: package the new cut, copy its `timeline.json` over
   `mdg-backend/src/films/data/<film>.timeline.json`, set its `version` in
-  `src/films/catalog.ts`, deploy. The short starts counting once its timeline is
+  `src/films/catalog.ts`, deploy. A new film starts counting once its timeline is
   vendored and imported there (or just a `duration` is set); until then its
-  beacons are answered `409` and nothing is stored.
+  beacons are answered `409` and nothing is stored. The short is already
+  counted.

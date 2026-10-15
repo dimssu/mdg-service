@@ -1,8 +1,21 @@
 # ADR 0005 — App-first onboarding, per-member chat, push delivery, and service logs
 
-- Status: Accepted
+> **Later changes (the text below is kept as it was written).**
+>
+> - **2026-07-07:** the manager's thread became a group chat shared with every owner of the outlet
+>   (kind `manager`). Owners keep private threads.
+> - **2026-10-12, [ADR 0018](0018-the-chat-is-the-app.md):** Records and the `record:new` event are
+>   gone. A report is now a picture message in the chat, and its push opens `/chat/<id>`. So "new
+>   records" below is no longer a push trigger, and nothing is "shared at the organisation level"
+>   as a record any more.
+> - **Dealer codes** look like `15E`, and the code is the dealer's identity (the name was removed).
+>   The example in §1 was corrected from `E01`.
+> - **WhatsApp** is still absent from dealer conversations. It is used for one other job: film
+>   campaigns to prospects, with an opt-out list and a super-admin alert when someone writes back.
+
+- Status: Accepted; parts changed later, see the banner
 - Date: 2026-06-20
-- Supersedes/extends: ADR 0004; context in ARCHITECTURE_V2.md
+- Supersedes/extends: ADR 0004; context in ARCHITECTURE.md
 
 ## Context
 
@@ -17,7 +30,7 @@ The V2 MVP shipped a chat-first dealer portal with one conversation per dealer, 
 
 ### 1. Drop WhatsApp; issue an app login at onboarding
 
-WhatsApp is **fully removed**. Dealer communication is app-native via `mdg-client` (wrapped by `mdg-app`). Onboarding is now a **7-step, app-first flow**: `collect-phone`, `send-welcome`, `send-terms-link`, `send-pdf`, `receive-payment-and-gst`, `assign-code`, `issue-app-login`. The two former WhatsApp group-creation steps are replaced by a single **issue-app-login** step where the admin creates the dealer owner's app login and shares the credentials. The dealer `code` (e.g. `E01`) remains the friendly organisation identifier. **Logins are email + password.**
+WhatsApp is **fully removed**. Dealer communication is app-native via `mdg-client` (wrapped by `mdg-app`). Onboarding is now a **7-step, app-first flow**: `collect-phone`, `send-welcome`, `send-terms-link`, `send-pdf`, `receive-payment-and-gst`, `assign-code`, `issue-app-login`. The two former WhatsApp group-creation steps are replaced by a single **issue-app-login** step where the admin creates the dealer owner's app login and shares the credentials. The dealer `code` (e.g. `15E`) remains the friendly organisation identifier. **Logins are email + password.**
 
 ### 2. Per-member private conversations; org-shared records and service history
 

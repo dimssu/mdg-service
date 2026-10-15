@@ -1,9 +1,39 @@
 # ADR 0006 — Kavach Programme: a first-class stateful assessment subsystem
 
-- Status: Accepted
+> **Superseded in part by [ADR 0011](0011-kavach-admin-and-automation-verified-compliance.md)
+> (2026-08-26), [ADR 0018](0018-the-chat-is-the-app.md) (2026-10-12) and
+> [ADR 0019](0019-asks-live-in-the-chat.md) (2026-10-13).** Dealers no longer mark their own tasks:
+> only an MDG admin or an automation certifies one. The text below is kept as it was written.
+>
+> **What still stands:**
+>
+> - §1: Kavach is its own subsystem, not a plugin (ADR 0011 says so in terms).
+> - §3: `cadenceDays` is the source of truth; the bucket is derived.
+> - §4: the scoring basics (points, SOS outside the denominator, a total computed live), extended
+>   by ADR 0011 §4 with `NOT_YET_VERIFIED` and `HELD`.
+> - §5: the reconciled 45-task seed.
+> - §9: the seven-day settling window (`settlingUntil`); ADR 0011 §4 says what it now covers.
+> - §10: the "MDG System" sender.
+>
+> **What was replaced:**
+>
+> - Dealer self-marking, the per-item reminder ladders, escalation into a conversation, and "Resolve
+>   marks the item done" (§6 and the 2026-06-30 update): ADR 0011 deleted them. Resolving a chat
+>   certifies nothing.
+> - Template snapshots at initiation (§11): task definitions are now worked out when read (ADR 0011 §1).
+> - `requiresProof` (the 2026-06-30 amendment): ADR 0011 §2 replaced it with `verification` and `evidence`.
+> - The hourly sweep (the 2026-06-30 update): now a daily refresh at 00:20 IST and an hourly digest
+>   pass (ADR 0011 §7).
+> - The dealer's Kavach tab (§8), the Pump health page and the `deeplink: 'kavach'` push (§7): the
+>   tab became Settings > Pump health on 2026-10-12 and was removed on 2026-10-13. Kavach pushes open
+>   `/chat/<id>`, and photo requests are asked and answered in the chat (ADRs 0018, 0019).
+> - §2, the pinned `kavach-programme` catalog entry: only the id constant remains in `@dk/shared`.
+>   Nothing in the admin or the backend reads it today.
+
+- Status: Superseded in part by ADR 0011, 0018 and 0019
 - Date: 2026-06-30
 - Extends: ADR 0002 (plugin contract), ADR 0003 (scheduler), ADR 0005 (per-member chat / push / service logs)
-- Spec: `docs/specs/kavach-programme.md` (product) and `docs/specs/kavach-engine.md` (engine)
+- Spec: `docs/specs/kavach-engine.md`
 - Contracts: `shared/src/types/kavach.ts`, `shared/src/schemas/kavach.ts`, seed `shared/src/data/kavachTemplate.ts`
 
 ## Context

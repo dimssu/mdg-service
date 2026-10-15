@@ -1,565 +1,372 @@
 # Kavach Engine — Backend Design
 
-> **SUPERSEDED IN PART BY ADR 0011 (2026-08-26).** Dealer Kavach is now
-> **admin- and automation-verified**: a task is certified by an MDG admin or by an
-> automation signal, never by the dealer. The per-item reminder ladder and the
-> escalation-into-a-ticket path described below have been DELETED, task
-> definitions resolve at read time from an editable global catalog plus a
-> per-dealer overlay (they are no longer snapshotted), and nothing reaches a
-> dealer until an admin switches that dealer on. Read
-> `docs/ADR/0011-kavach-admin-and-automation-verified-compliance.md` first; treat
-> the sections below on cadence, scoring buckets and the task catalogue as still
-> current, and anything about the dealer marking work done as history.
-
-**Status:** Design only (no implementation). Every primitive below is grounded in a real path in `mdg-backend/` or `shared/`.
-**Companion ADR:** `docs/ADR/0006-kavach-programme-stateful-assessment-subsystem.md` — documents the deliberate break from the stateless plugin contract (ADR 0002).
-**Contract of record:** `shared/src/types/kavach.ts` + `shared/src/schemas/kavach.ts`. This design conforms to those field names **exactly**; where this doc and the contract ever disagree, the contract wins.
-**Timezone:** all date math runs in **IST (Asia/Kolkata, UTC+05:30)**. Items are day-grained; "now" for a status decision is the IST wall-clock day.
+**Status:** Live. Reshaped on 26 Aug 2026 by ADR 0011: an MDG admin or an automation certifies every task, never the dealer. The dealer's Kavach page was removed on 13 Oct 2026 (ADRs 0018 and 0019). The dealer now gets one daily chat line, an admin-approved card, and chat requests for photos. Where this doc and ADR 0011 disagree, ADR 0011 wins.
+**Companion ADRs:** 0006 (Kavach is its own subsystem, not a plugin), 0011 (who certifies), 0019 (proof is asked for in the chat).
+**Contract of record:** `shared/src/types/kavach.ts` + `shared/src/schemas/kavach.ts`. Where this doc and the contract disagree, the contract wins.
+**Timezone:** all date maths runs in **IST (Asia/Kolkata, UTC+05:30)**. Tasks are day-grained; "now" for a status decision is the IST wall-clock day.
 
 ---
 
 ## 0. Overview & models
 
-The Kavach Programme is an always-on, stateful, per-item compliance tracker. It is a **first-class subsystem, deliberately NOT a `ServicePlugin`** (see `shared/src/types/kavach.ts` header and ADR 0006): it carries per-item clocks, reminder ladders, escalation history, and a live score — none of which the stateless single-run plugin contract (`shared/src/types/plugin.ts`, ADR 0002) can model. It reuses the per-member chat / escalation / ServiceLog spine of ADR 0005 verbatim.
+Dealer Kavach is an always-on, stateful, per-task compliance tracker. It is a **first-class subsystem, deliberately NOT a `ServicePlugin`** (ADR 0006): it carries per-task clocks, an evidence exchange and a live score, none of which the stateless single-run plugin contract (ADR 0002) can model. The score is MDG's written statement about an outlet, so the whole design is built to keep one rule checkable: **a dealer's photo, note or claim is an input to a decision; only an admin or an automation makes the decision.**
 
-Three new collections, layered exactly like the rest of `mdg-backend` (`models/` → `services/` → `routes/v1/`, with the cross-cutting `scheduler/` sweep). Each Mongoose model imitates the house pattern in `mdg-backend/src/models/DealerService.ts` and `Conversation.ts`: const arrays from `@dk/shared` fed into `enum:`, `{ timestamps: true }`, `InferSchemaType`, and a typed `model<...>()` export.
+Five collections, layered like the rest of `mdg-backend` (`models/` → `services/kavach/` → `routes/v1/`, plus `scheduler/`).
 
-### `KavachTemplate` — global master list
+### `KavachTemplate` — the editable global catalog
 
-The reconciled master list (~45 items), seeded at boot from `shared/src/data/kavachTemplate.ts`, **versioned**. Source of truth for `code / titleEn / titleHi / labelEn / labelHi / points / cadenceDays / trigger / cadenceBucket / domain / category / requiresProof`. Mirrors `KavachTemplateItem` in the contract. Programmes **snapshot** these at initiation, so later template edits never silently rewrite live dealer state.
+The 45 reconciled tasks (`shared/src/data/kavachTemplate.ts`), one row per task, **version 1**. A task's `code`, `srNo`, `titleEn/Hi` (the raw sheet strings, admin-only), `labelEn/Hi` (clean, dealer-facing), `points`, `cadenceDays`, `trigger` (`TIME` or `SOS`), `cadenceBucket`, `domain`, `category`, `verification`, `evidence`, optional `signalId`, `notesEn/Hi`, `active`.
 
-```
-templateSchema fields  (← KavachTemplateItem):
-  code (String, required, unique-per-version), srNo, titleEn, titleHi,
-  labelEn, labelHi, points (Number), cadenceDays (Number|null), trigger (enum KAVACH_TRIGGERS),
-  cadenceBucket (enum KAVACH_CADENCE_BUCKETS), domain (enum KAVACH_DOMAINS),
-  category (enum TICKET_CATEGORIES), requiresProof (Boolean), notesEn?, notesHi?,
-  active (Boolean), version (Number)
-indexes: { version: 1, code: 1 } unique · { active: 1 }
-```
+- No dealer holds a copy of it. A super-admin edits it at `/super-admin/kavach-items`, and an edit reaches every dealer that has not overridden that field, from the next recompute.
+- **Retire, never delete.** `DELETE /super-admin/kavach-items/:code` sets `active: false`. Live dealers hold state rows and history keyed on the code. `code` cannot change on an existing row.
+- The seed writes every editable column under `$setOnInsert`, so a deploy never reverts an owner's edit (see §2.1).
+
+### `DealerKavachList` — one overlay per dealer
+
+`hiddenCodes` (global tasks this outlet does not have), `customItems` (tasks only this outlet has; codes are server-generated and always start `custom-`, which the global create schema rejects, so a custom task can never shadow a catalog code), and `overrides` (per-field amendments to a catalog row: `points`, `cadenceDays`, `verification`, `evidence`, notes). Edited from the dealer's work-list tab (`PUT /dealers/:dealerId/kavach/work-list`, a full replace). It is the twin of the staff `DealerWorkList`: one overlay pattern in the codebase, not two.
+
+**Effective list** (`services/kavach/effectiveList.ts`): `(active catalog − hiddenCodes) + active customItems`, with overrides applied, plus the derived `tier`, `cadenceBucket`, `warnWindowDays` and `verifyGraceDays`. Every read path, the scorer and the queue take a definition from here and nowhere else. The catalog is cached in process for 60 s and dropped on every write. `getEffectiveKavachListBatch(dealerIds)` resolves a whole book in two queries.
+
+A state row whose code no longer resolves (retired, or hidden) is left alone as history. It is not scored and not shown.
 
 ### `KavachProgramme` — one per dealer
 
-Mirrors `KavachProgramme` in the contract. Holds the cached `score` snapshot (`KavachScoreSnapshot`), `status` (enum `KAVACH_PROGRAMME_STATUSES` = `ACTIVE | PAUSED`), `outlet` (`KavachOutletMeta` sub-schema), `settlingUntil`, `initiatedAt / initiatedByAdminId`, `lastEvaluatedAt`, `nextEvaluateAt`, and `totalPoints`.
+`dealerId` (unique), `status` (`ACTIVE | PAUSED`), `outlet.monthYear`, the cached `score` snapshot, `totalPoints`, `settlingUntil`, `initiatedAt/initiatedByAdminId`, `lastEvaluatedAt`, `reminderHour` (0–23 IST, optional), `lastDigestAt`, and the switch **`dealerFacingEnabled`** (off by default, with `dealerFacingEnabledAt/ByAdminId` stamped on the move to on). The outlet's name and RO code are not stored here: the dealer's own code identifies the programme.
+
+### `KavachItem` — state only
+
+One document per (programme × task). It holds **no definition**.
 
 ```
-programmeSchema fields  (← KavachProgramme):
-  dealerId (ObjectId ref Dealer, required), status (enum, default 'ACTIVE'),
-  outlet { retailOutletName, roSapCode, monthYear } (_id:false sub-schema),
-  score { overallPct, byBucket (Mixed), validPoints, totalPoints, computedAt } (_id:false),
-  totalPoints (Number), settlingUntil (Date),
-  initiatedByAdminId (ObjectId ref User), initiatedAt (Date),
-  lastEvaluatedAt (Date), nextEvaluateAt (Date)
-indexes: { dealerId: 1 } unique · { status: 1 } · { nextEvaluateAt: 1 }   (sweep scan)
+programmeId, dealerId, templateCode, custom
+status            (KAVACH_ITEM_STATUSES), everVerified
+lastDoneAt, doneOn (IST date certified), expiresAt
+holdUntil, holdReason            (HELD, §1.3)
+lastVerifiedAt, lastVerifiedByKind, lastVerifiedNote
+request { state NONE|ASKED|SUBMITTED|REJECTED, openedBy, askedAt, askedCount,
+          submission { at, byUserId, proof?, note?, via?, conversationId?, messageId? },
+          reviewedAt, reviewedByAdminId, rejectReason }
+lastProofAttachment, paused
+history[]  { at, doneOn, by{kind,userId,name}, source, proof?, note?, evidence?,
+             defSnapshot{labelEn,labelHi,points}, evidenceOverrideReason?, ... }   // capped at 50
+indexes: { programmeId, templateCode } unique · { dealerId, status } ·
+         { status, paused, expiresAt, _id } (work queue) · { templateCode, status, expiresAt } ·
+         { 'request.state', 'request.submission.at' } · { templateCode, dealerId }
 ```
 
-### `KavachItem` — stateful per-item tracker (the documented break)
+- **Statuses:** `VALID | EXPIRING_SOON | EXPIRED | PAUSED | NOT_YET_VERIFIED | HELD | SOS_OK | SOS_FLAGGED`. There is no `ESCALATED`: escalation no longer exists.
+- **Who closes a task (`verification`):** `ADMIN`, `AUTOMATION`, or `DEALER_EVIDENCE_THEN_ADMIN`. **What the closer attaches (`evidence`):** `NONE`, `PHOTO`, `NOTE`, `PHOTO_OR_NOTE`. The seed has 21 `DEALER_EVIDENCE_THEN_ADMIN`+`PHOTO`, 21 `ADMIN`+`NONE`, 1 `ADMIN`+`NOTE` and 2 `AUTOMATION`.
+- `history[].source`: `INITIATION_BASELINE`, `ADMIN_VERIFIED`, `AUTOMATION`, `ADMIN_OVERRIDE` (an SOS flip). `MARK_DONE` and `ADMIN_RESOLVE` are legacy: no longer written, kept so older rows still read.
+- `defSnapshot` freezes the label and points a completion was scored with, so a later catalog edit does not rewrite last month.
+- The `request` block lives on the item because it is strictly 1:1 with the task and only one can be live. It is not a collection and not a chat thread.
 
-One doc per (programme × item), template-derived OR custom. Mirrors `KavachItem` in the contract **field-for-field** — this is where the state machine lives.
+### `KavachDailyDigest` — the frozen day
 
-```
-itemSchema fields  (← KavachItem):
-  programmeId (ObjectId ref KavachProgramme, required), dealerId (ObjectId ref Dealer, required),
-  templateCode (String|null), custom (Boolean),
-  // snapshotted definition:
-  titleEn, titleHi, labelEn, labelHi, points, cadenceDays (Number|null),
-  trigger (enum), cadenceBucket (enum), domain (enum), category (enum), requiresProof, notesEn?, notesHi?,
-  // derived / state:
-  tier (enum KAVACH_TIERS), status (enum KAVACH_ITEM_STATUSES),
-  lastDoneAt (Date), expiresAt (Date), warnWindowDays (Number),
-  reminder { level, maxLevel, lastSentAt, nextRemindAt, cycleStartedAt } (_id:false),
-  escalation { escalated (Boolean default false), escalatedAt, conversationId (ObjectId), resolvedAt } (_id:false),
-  lastProofAttachment (attachment sub-schema, reuse the one in Message.ts), paused (Boolean default false),
-  history [ { at, by{kind,userId}, source (enum KAVACH_COMPLETION_SOURCES), proof?, note?, previousExpiresAt?, newExpiresAt? } ]
-indexes:
-  { programmeId: 1, templateCode: 1 }                       // join / dedupe
-  { dealerId: 1, status: 1 }                                 // dealer "Today" view + dashboard counts
-  { 'reminder.nextRemindAt': 1 }                             // sweep scan for due reminders
-  { 'escalation.escalated': 1, 'escalation.conversationId': 1 }  // resolve-hook lookup
-  { paused: 1 }
-```
-
-Note the **status enum has no separate ESCALATED value** (per the contract: `VALID | EXPIRING_SOON | EXPIRED | PAUSED | SOS_OK | SOS_FLAGGED`). Escalation is orthogonal: it is `status === 'EXPIRED'` **plus** `escalation.escalated === true` plus a live `escalation.conversationId`. This keeps scoring simple (only `EXPIRED` zeroes points; see §6).
+One per (`dealerId`, `businessDate`), unique. It freezes that day's score and up to five named pending tasks (`pending`, `pendingOverflow`, `awaitingDealerCount`), and records the chat line sent (`messageBody`, `messageSentAt`) and the card (`cardKey`, `cardSize`, `sharedAt`, `sharedByAdminId`, `sharedAudience`, `sharedDeliveries`). Frozen because the dealer keeps what MDG sent: a card that said 84% this morning must still say 84% after an admin verifies three tasks at lunch.
 
 ---
 
-## 1. Per-item state machine
+## 1. Per-task state machine
 
-### 1.1 IST date math
+### 1.1 IST date maths
 
-All comparisons are done against **IST midnight boundaries** for TIME items (day-grained validity). Store UTC `Date`s but day-align to IST midnight to avoid "due at 05:30 IST" drift. A small `stateMachine.ts` helper module owns this:
-
-```
-startOfDayIST(d)         // floor to 00:00 Asia/Kolkata, returned as a UTC Date
-expiresAtFor(item)       // = startOfDayIST(lastDoneAt) + cadenceDays days ; null for SOS
-warnWindowDaysFor(bucket)// table below
-tierFromPoints(points)   // CRITICAL >= 200, STANDARD 50–199, LIGHT < 50  (KAVACH_TIER_THRESHOLDS)
-computeStatus(item, now) // pure status fn below
-```
-
-`tierFromPoints` uses `KAVACH_TIER_THRESHOLDS` from the contract (`{ critical: 200, standard: 50 }`) — never hardcode the numbers in two places.
-
-### 1.2 warnWindow table (the `EXPIRING_SOON` lead, persisted as `item.warnWindowDays`)
-
-| cadenceBucket | cadenceDays | warnWindowDays | Rationale                                                 |
-| ------------- | ----------- | -------------- | --------------------------------------------------------- |
-| DAILY         | 1           | 0              | intra-day; "due soon" only from the digest hour to expiry |
-| WEEKLY        | 7           | 2              | T−2d heads-up                                             |
-| FORTNIGHTLY   | 15          | 3              |                                                           |
-| MONTHLY       | 30          | 7              |                                                           |
-| QUARTERLY     | 90          | 10             |                                                           |
-| HALF_YEARLY   | 180         | 14             |                                                           |
-| YEARLY        | 365         | 15             | long-lead license reminders                               |
-| BIENNIAL      | 730         | 21             | DAR etc. (NOT "TWO_YEARLY")                               |
-| SOS           | null        | n/a            | not on the clock (§1.4)                                   |
-
-### 1.3 Status function (TIME items)
+`services/kavach/stateMachine.ts` owns it. Dates are stored as UTC but day-aligned to IST midnight, so nothing drifts to "due at 05:30".
 
 ```
-warnStartAt = expiresAt − warnWindowDays days
-computeStatus(item, now):
-  if item.paused                       -> 'PAUSED'
-  if lastDoneAt == null OR now >= expiresAt   -> 'EXPIRED'
-  if now >= warnStartAt                -> 'EXPIRING_SOON'
-  else                                 -> 'VALID'
+startOfDayIST(d)           // floor to 00:00 Asia/Kolkata, as a UTC Date
+expiresAtFor(doneOn, days) // = startOfDayIST(doneOn) + cadenceDays ; null for SOS or no baseline
+warnWindowDaysFor(bucket)  // table below
+verifyGraceDaysFor(bucket) // 1 for DAILY, 0 otherwise
+tierFromPoints(points)     // CRITICAL >= 200, STANDARD 50-199, LIGHT < 50 (KAVACH_TIER_THRESHOLDS)
+computeStatus(task, now)   // the pure status function, §1.3
+istDayKey / istDayKeyToDate / isSameIstDay / istHour
 ```
 
-The persisted `item.status` is a **cache** of this pure function; the sweep recomputes it (§3). Dealer-facing labels never expose the enum: `VALID → "Ready / तैयार"`, `EXPIRING_SOON → "Due soon / जल्द"`, `EXPIRED → "Overdue / बाकी है"`.
+`tier` no longer paces anything. It only colours rows in the admin screens.
 
-### 1.4 SOS items — separate, no clock
+### 1.2 Warning window (the `EXPIRING_SOON` lead)
 
-SOS items (`trigger === 'SOS'`, `cadenceDays === null`) have **no `expiresAt`, no decay, no reminder ladder** in MVP. Their status is one of `SOS_OK | SOS_FLAGGED`:
+| cadenceBucket | cadenceDays | warnWindowDays | Note                                   |
+| ------------- | ----------- | -------------- | -------------------------------------- |
+| DAILY         | 1           | 0              | no lead; the grace day in §1.3 applies |
+| WEEKLY        | 7           | 2              |                                        |
+| FORTNIGHTLY   | 15          | 3              |                                        |
+| MONTHLY       | 30          | 7              |                                        |
+| QUARTERLY     | 90          | 10             |                                        |
+| HALF_YEARLY   | 180         | 14             |                                        |
+| YEARLY        | 365         | 15             | long-lead licences                     |
+| BIENNIAL      | 730         | 21             | (not "TWO_YEARLY")                     |
+| SOS           | null        | n/a            | not on the clock (§1.4)                |
+
+`cadenceDays` is the source of truth. The bucket is derived from it (`bucketFromCadenceDays`).
+
+### 1.3 Status function (TIME tasks)
+
+The order of the guards is the design.
 
 ```
-computeStatus(sosItem) = item.paused ? 'PAUSED'
-                       : item.status === 'SOS_FLAGGED' ? 'SOS_FLAGGED'
-                       : 'SOS_OK'                       // default
+computeStatus(task, now):
+  if paused                                   -> PAUSED
+  if trigger == SOS                           -> SOS_FLAGGED if flagged, else SOS_OK
+  if holdUntil && now < holdUntil             -> HELD              (our automation could not run)
+  if everVerified == false                    -> NOT_YET_VERIFIED  (nobody has ever checked)
+  if lastDoneAt == null                       -> EXPIRED
+  hardExpiry = expiresAt + (verifyGraceDays + (request SUBMITTED ? 2 : 0)) days
+  if now >= hardExpiry                        -> EXPIRED
+  if now >= expiresAt - warnWindowDays        -> EXPIRING_SOON
+  else                                        -> VALID
 ```
 
-- `SOS_OK` is the default (an availability gauge — the dealer is assumed ready).
-- Only an **admin/field agent** flips it to `SOS_FLAGGED` via `PATCH /kavach/items/:itemId/sos` (`setKavachSosComplianceSchema`).
-- The sweep **skips SOS items entirely** in the decay/reminder/escalation phases (`if (item.trigger === 'SOS') continue`).
-- **SOS items are EXCLUDED from the operational scoring denominator** (§6) — they cannot silently tank or inflate the dealer's score.
+- **`NOT_YET_VERIFIED`** means nobody has checked this task since the programme began. It is not `EXPIRED`: expired means we checked once and the clock ran out. The score treats it separately (§6).
+- **`HELD`** means the automation that proves this task could not look (no record collected for that day, a report that failed its correctness check, a portal that was down). It counts as compliant, stays off the admin queue, and lapses after **7 days** (`holdUntil`), after which it is MDG's to answer for. A failed collection leaves no artifact, which looks the same as a dealer who did nothing; charging that to the dealer would make their score a report on MDG's uptime.
+- **`verifyGraceDays`** (1 for DAILY) fixes the 08:00 trap. A daily task has no warning window and expires at the next IST midnight, so without grace all ten daily tasks read `EXPIRED` from 00:00 and every dealer would be told each morning they were 585 points (15.6%) short, with 100% unreachable. One day of grace means yesterday's daily tasks stay verifiable until tonight.
+- A dealer's answer waiting for review adds **2 more days** (`SUBMITTED_GRACE_DAYS`). A task must not go red because MDG has a review backlog.
+- The stored `status` is a cache of this function. The nightly refresh (§3.1) and every write recompute it.
 
-### 1.5 Transition diagram (TIME items)
+### 1.4 SOS tasks — separate, no clock
+
+SOS tasks (`trigger: SOS`, `cadenceDays: null`) have no `expiresAt` and never decay. They are `SOS_OK` by default. Only an admin flips one to `SOS_FLAGGED` (`PATCH /kavach/items/:itemId/sos`), and that is a live non-compliance, so `SOS_FLAGGED` is in the pending list (§5). `recordVerification` refuses an SOS task. SOS tasks are **outside the operational percentage** (§6.1, rationale in Appendix A).
+
+### 1.5 Transitions (TIME tasks)
 
 ```
-  [initiate / baseline]  lastDoneAt set, now < warnStart
-        │ ─────────────────────────────────────────────────────► VALID
-        │                                                           │  now crosses warnStartAt
-        │                                                           ▼
-        │                                                     EXPIRING_SOON
-        │                                                           │  now crosses expiresAt
-        │                                                           ▼
-        │                                                       EXPIRED
-        │                          ladder exhausted + grace elapsed │  (tier != LIGHT, not settling-in)
-        │                                                           ▼
-        │                                       EXPIRED + escalation.escalated = true
-        │                                          (= an OPEN, unassigned Conversation)
-        │
-  ◄──── MARK DONE  (dealer "हो गया"  OR  admin ADMIN_RESOLVE)  from ANY state above
-        resets: lastDoneAt = now, expiresAt recomputed, reminder.{level=0, cycleStartedAt=now,
-                nextRemindAt=R1-of-new-cycle}, escalation.escalated=false, status=VALID
+ NOT_YET_VERIFIED ──┐
+                    │  admin verify / automation mark / initiation baseline
+ any state ─────────┴──►  VALID  (lastDoneAt = doneOn, expiresAt = doneOn + cadenceDays)
+                           │ now >= expiresAt - warnWindowDays
+                           ▼
+                      EXPIRING_SOON
+                           │ now >= expiresAt + grace
+                           ▼
+                        EXPIRED  ──── an admin verify or automation mark returns it to VALID
+
+ signal could not look ──►  HELD (7 days)  ──► lapses ──► back to the clock above
 ```
 
-Invariants:
-
-- **`escalation.escalated` is sticky within a cycle** — an item never re-escalates until it is marked done (new cycle) and lapses again. This is the §5 dedup rule.
-- There is no "ESCALATED" status node; completion routes the item back to `VALID` of a **new cycle** (`reminder.cycleStartedAt` rolls).
+A task closes only by `recordVerification` (§5). Nothing the dealer sends moves it.
 
 ---
 
-## 2. Bootstrap (boot-time setup the sweep depends on)
+## 2. Bootstrap
 
-Both of these run once at boot, added to `bootstrap()` in `mdg-backend/src/index.ts` (next to `initRegistry()` / before `startScheduler()`), so the sweep and `kavachNotify` always have valid data.
+### 2.1 Catalog seed — `seedKavachTemplate()`
 
-### 2.1 Template seed — `seedKavachTemplate()`
+Runs at boot (`mdg-backend/src/seed/kavachTemplate.ts`), idempotent. It upserts the 45 rows with **editable columns under `$setOnInsert`** (labels, points, cadence, `verification`, `evidence`, `signalId`, `active`) and structural columns under `$set` (`srNo`, raw titles, `domain`, `category`). With `$set`, every deploy silently put a super-admin's edit back. `seed --reset` is refused in production for the same reason.
 
-New file `mdg-backend/src/seed/kavachTemplate.ts` (or folded into `seed.ts`). On boot, upsert `KavachTemplate` from `shared/src/data/kavachTemplate.ts`, **versioned**: if the shipped template `version` is greater than the stored max version, write a new version's worth of rows. Existing programmes keep their snapshotted item fields and are not touched (template edits are not live-bound). Idempotent: re-running boot on an unchanged version is a no-op upsert.
+After seeding, `assertKavachSignalsResolve` **fails the boot** if any `signalId` names a signal that is not registered. Otherwise the task could never be satisfied, would expire every cycle, and log nothing to say why.
 
-### 2.2 System sender user — `resolveSystemUser()` (fixes the missing-sender bug)
+Definitions are not copied into dealers' state. They resolve at read time (§0).
 
-`MessageModel.senderId` is `required: true, ref: 'User'` (`mdg-backend/src/models/Message.ts:35`) and there is **no system user** in the codebase — the scheduler runs without a request context and therefore has no admin identity. The sweep must construct valid `Message` docs.
+### 2.2 System sender — `resolveSystemUser()`
 
-**Decision:** seed (upsert) a dedicated `MDG System` admin `User` once at boot:
-
-```
-resolveSystemUser():
-  find-or-create UserModel { email: 'system@mdg.local', role: 'admin', name: 'MDG System', status: 'ACTIVE' }
-  cache the _id in a module-level singleton (the system-sender id)
-```
-
-`kavachNotify` uses this id as `senderId` (and `senderRole: 'admin'`) for **all** Kavach system messages, mirroring the resolve handler's `messageToPublic(message, { senderName: 'MDG' })` so the dealer sees "MDG", not the email. Documented fallback if the team prefers not to add a user: reuse the seeded admin id from `seed.ts` (`admin@dealerkavach.local`) — but the dedicated `MDG System` user is preferred so audit/sender attribution is unambiguous.
+`MessageModel.senderId` is required, and the scheduler has no admin identity. The seeder find-or-creates one `MDG System` admin user (`system@dealerkavach.local`) and caches its id. It is the default sender of system-written chat messages across the product, not only Kavach's (the daily line and the card are two). The dealer sees the sender as "MDG", never the email.
 
 ---
 
-## 3. The daily sweep — `evaluateKavachProgrammes()`
+## 3. The two jobs
 
-### 3.1 Where it hooks in
+Both are registered in `scheduler/index.ts` with `{ timezone: env.KAVACH_TZ }` and carry an overlap guard, so a slow pass never has a second copy started on top of it. Both cover only `ACTIVE` programmes of `ACTIVE`, non-archived dealers.
 
-The existing scheduler is `mdg-backend/src/scheduler/index.ts`: `startScheduler()` registers `cron.schedule('* * * * *', tick)` (the per-minute generic `DealerService` plugin loop). Kavach is stateful and per-item — it must **NOT** go through that `nextRunAt`-claim `tick()` loop or the plugin `run(ctx)` contract.
+### 3.1 Nightly refresh — `evaluateKavachProgrammes()`
 
-Instead, register a **separate** IST-anchored cron task in `startScheduler()`, alongside (not through) the existing one. The sweep runs **hourly** so each dealer's digest can be delivered at their own configured hour:
+`KAVACH_REFRESH_CRON`, default `20 0 * * *` (00:20 IST). In order:
 
-```
-cron.schedule(env.KAVACH_SWEEP_CRON, () => { evaluateKavachProgrammes(io).catch(log) }, { timezone: env.KAVACH_TZ })
-// default KAVACH_SWEEP_CRON = '0 * * * *' (top of every hour), KAVACH_TZ = 'Asia/Kolkata'.
-```
+1. **Reconcile automation signals** for **yesterday** (§3.2).
+2. **Recompute every task's status** from its resolved definition, clear lapsed holds, write one `bulkWrite` per programme.
+3. **Recompute the programme score** (§6) and stamp `lastEvaluatedAt`.
 
-New file `mdg-backend/src/scheduler/kavach.ts` exporting `evaluateKavachProgrammes(io)`. Because the sweep emits socket events (§5) it needs the `AppIoServer`; `app.locals.io` is wired after `startScheduler()` in `index.ts`, so either (a) pass a lazy getter `() => app.locals.io`, or (b) move the Kavach cron registration to just after `app.locals.io = io` in `bootstrap()`. The design uses **(a) a lazy io accessor** so the sweep degrades gracefully (push + chat persistence still happen even if `io` is momentarily absent — emit is best-effort, same as the resolve handler's `if (io) ...` guard).
+Statuses are IST-day-grained, so more than one pass a day would only re-derive values that cannot have changed. The same nightly pass then expires old document asks and sends the paper-validity reminders; those share the clock, not the code.
 
-**Per-dealer digest hour.** Each programme carries an optional `reminderHour` (0–23 IST); absent → `env.KAVACH_DEFAULT_REMINDER_HOUR` (8). On each hourly tick the sweep refreshes item state, advances reminder rungs, and evaluates escalation for ALL active programmes (these are idempotent — CAS / `isSameIstDay` / grace-anchored — so hourly evaluation only makes them timelier). It then delivers the consolidated **daily digest only when `istHour(now) === reminderHour`**, still capped to once per IST day by the `lastDigestAt` gate. So escalation is responsive (hourly) while the dealer's single nudge lands at their chosen local hour.
+### 3.2 Reconciling signals — `services/kavach/reconcile.ts`
 
-The sweep is **day-grained** for state and digest idempotency and **must be safe to run twice the same hour/day** (§3.4): all sends are gated on persisted item state + `lastDigestAt`/CAS, not on tick timing.
+A signal exposes `probeBatch(dealerIds, businessDate) → SATISFIED | NOT_SATISFIED | UNKNOWN` per dealer. Kavach imports the domain stores; nothing imports Kavach. The reconciler judges **yesterday**, because today is still in progress and judging it at 00:20 would fail work not yet done.
 
-### 3.2 Guards (dealer + programme + settling-in)
+- A signal only speaks for dealers whose producing `DealerService` is `ACTIVE` (`requiresServiceId`). "Not attached" must never read as "not done".
+- `SATISFIED` → `recordVerification` with `source: AUTOMATION` and the proving artifact in `evidence`. Skipped if that date is already certified, so a re-run adds no history.
+- `UNKNOWN` → `HELD` for 7 days (`HOLD_DAYS`). `NOT_SATISFIED` → leave the clock alone and let it expire.
+- A paused task is skipped.
 
-```
-evaluateKavachProgrammes(io):
-  now = new Date()
-  // Only ACTIVE dealers. SUSPENDED/ONBOARDING dealers get NO reminders/escalations.
-  activeDealerIds = Dealer.find({ status: 'ACTIVE' }).distinct(_id)
-  programmes = KavachProgramme.find({ status: 'ACTIVE', dealerId: { $in: activeDealerIds } })
-  for P in programmes:
-      settlingIn = P.settlingUntil && now < P.settlingUntil
-      digestItems = []           // TIME items that should fire today, folded into ONE digest
-      dirty = false
-      for I in KavachItem.find({ programmeId: P._id, paused: false }):
-          if I.trigger === 'SOS': continue                 // SOS skips decay+reminders entirely
-          newStatus = computeStatus(I, now)
-          if newStatus !== I.status: I.status = newStatus; dirty = true
-          rollCycleIfNeeded(I, now)                         // §3.3
-          if settlingIn: continue                           // NO reminders, NO escalation during settling-in
-          if reminderDueToday(I, now):  digestItems.push(I) // §4 — fold weekly+ ladder rungs into the digest
-          maybeEscalate(I, now, io)                         // §5 — gated by escalation.escalated == false
-          persist(I) if changed
-      if digestItems.length > 0:   kavachNotify.sendDailyDigest(P, digestItems, io)   // §4 — ONE push + ONE chat line
-      if dirty || marked:  recomputeScores(P)               // §6 — at most once per programme per sweep
-      P.lastEvaluatedAt = now; P.nextEvaluateAt = earliest(reminder.nextRemindAt | expiresAt across items)
-      P.save()
-```
+Registered signals (`signals/registry.ts`): `tt-register-photo` (closes `daily-density-book`, 75 pts: a day marked means `SATISFIED`, a day recorded as missing means `NOT_SATISFIED`, no record yet means `UNKNOWN`), `dsr-variation-within-limit` (closes `stock-variation-within-limit`, 40 pts), and `dsr-generated`. The last one only **corroborates** `daily-dsr-before-10am`, which stays `ADMIN`: the task asks about the dealer's own DSR book, and closing it on our generated report would turn 75 points of their score into a report on our uptime. The two closing signals cover 115 of 3,740 operational points (3.1%).
 
-### 3.3 `rollCycleIfNeeded(I, now)`
+The stock-variation signal returns `UNKNOWN` (so `HELD`, not a fail) when the day has no DSR, the DSR is marked stale, it has not passed the pre-send correctness check (ADR 0014; the live server runs `ASSURANCE_MODE=ENFORCE`, the code default is `SHADOW`), or it carries no product figures. A product actually over its limit is `NOT_SATISFIED`: holding a real failure would mark it compliant, the opposite of the task.
 
-When an item's `expiresAt` has moved (because it was marked done and the clock reset), start a clean reminder ladder for the next due date:
+### 3.3 Hourly delivery pass — `runKavachDigestPass()`
 
-```
-cycleAnchor = I.expiresAt?.toISOString() ?? null
-if I.reminder.cycleStartedAt-derived-anchor != cycleAnchor:   // i.e. expiresAt changed since the cycle started
-    I.reminder.level = 0
-    I.reminder.cycleStartedAt = now
-    I.reminder.nextRemindAt = firstReminderOffset(I)          // §4.2 ; null for daily items (digest handles them)
-    // escalation.escalated is reset by markDone / resolve, NOT here.
-```
+`KAVACH_SWEEP_CRON`, default `0 * * * *`. Each dealer chooses the hour they hear from MDG, so this runs hourly. It is cheap: one upsert per programme.
 
-### 3.4 Idempotency — the dedupe contract (safe to run twice the same day)
+1. **Build** today's `KavachDailyDigest` for every active programme (idempotent per dealer per date), so the admin's day list is always current.
+2. **Deliver** the chat line (§4) only to a dealer for whom all three gates hold: an admin switched them on (`dealerFacingEnabled`), it is their `reminderHour` (default `KAVACH_DEFAULT_REMINDER_HOUR` = 8), and nothing has gone today (`lastDigestAt`, `messageSentAt`).
 
-Enforced by **state fields on `KavachItem`, never by sweep timing**:
+### 3.4 Idempotency
 
-1. **Reminder dedupe (per-item ladder, weekly+):** a rung fires only when `now >= reminder.nextRemindAt` **and** the `reminder.lastSentAt` date (IST) is not today. Sending advances `reminder.nextRemindAt` to the next ladder offset and increments `reminder.level` in the **same atomic update**. A second sweep the same day sees either `now < nextRemindAt` or `lastSentAt` already dated today, and sends nothing.
-2. **Atomic claim** (mirrors the existing scheduler's `findOneAndUpdate` claim in `scheduler/index.ts:17`):
-   ```
-   KavachItem.findOneAndUpdate(
-     { _id: I._id, 'reminder.level': I.reminder.level, 'reminder.nextRemindAt': { $lte: now } },
-     { $inc: { 'reminder.level': 1 },
-       $set: { 'reminder.lastSentAt': now, 'reminder.nextRemindAt': <next offset | null> } },
-     { new: true })
-   ```
-   Only the CAS winner (matched on `reminder.level`) proceeds to enqueue this item into the digest; a concurrent sweep loses the match and does nothing.
-3. **Digest dedupe (per-dealer/day):** `kavachNotify.sendDailyDigest` is itself capped to **one dealer-facing push + one chat system line per dealer per IST day** (§4.3). Even if multiple item CAS-wins happen, they fold into one digest. The digest send records `programme`-level "digest sent today" state (a `lastDigestAt` date check inside `kavachNotify`) so a re-run the same day is a no-op.
-4. **Escalation dedupe:** `maybeEscalate` only acts when `escalation.escalated === false`; setting it is part of the same conditional update (`{ 'escalation.escalated': false } → { $set: { 'escalation.escalated': true, 'escalation.escalatedAt': now } }`). Idempotent across sweeps and restarts.
-5. **Catch-up after downtime:** because everything is state-derived, a sweep after the server was down sees `now >= nextRemindAt` and fires the **current** rung once (CAS-guarded), then advances. It does **not** replay every missed rung — `reminder.level` only ever increments by 1 per CAS win.
+State, not timing, is what makes a pass safe to run twice. Statuses are recomputed from dates. A signal mark is skipped when `doneOn` already equals the business date. The digest upsert is keyed on (dealer, date), the line is gated by `lastDigestAt`, and the card is claimed atomically by `sharedAt` (§4). A pass that runs late catches up on the next tick; nothing is replayed.
 
 ---
 
-## 4. Digest + ladder reminders — `kavachNotify`
+## 4. What reaches the dealer
 
-### 4.1 The key fix — daily items are NEVER reminded per-item
+There is no Kavach page in the dealer app. Old links to `/kavach` open the member's own chat. Three things reach the dealer, all in the chat.
 
-A per-item daily reminder firehose (R1+R2 per daily item per day → dozens of pushes for a dealer who skips a day) was adoption-fatal. The rule:
+1. **A daily line.** Sent automatically at the dealer's hour, once per IST day, to the owners and the manager, only when the dealer is switched on. It is written in the reader's language and led by what MDG needs from them: up to two photo requests by name, else "no score yet" (nothing verified), else "we are checking your pump" (inside the settling window, no figure), else "{n}% today, our team is checking the rest", else "everything checked". It never accuses: an overdue task is at least as likely to be MDG's backlog. The push opens that chat.
+2. **A card, approved by an admin.** `POST /dealers/:dealerId/kavach/digests/:businessDate/share` renders the frozen day as a PNG and posts it to owners, the manager, or both (the admin picks). Not automatic, because an image with a percentage on it can be forwarded and can end up in front of an oil-company inspector, and nothing reaches that state without a person looking. A day is shared once (claimed before rendering; the claim is released if rendering or posting fails). Needs `dealerFacingEnabled`. Audited `KAVACH_DIGEST_SHARE`. The route works, but no admin screen calls it today (checked 15 Oct 2026 in `mdg-admin`, `mdg-admin-app` and `mdg-client`).
+3. **Photo requests** (`kv:<itemId>`, §5.2). An admin asks, the dealer answers with a photo in the same thread, an admin marks it received.
 
-- **TIME items with `cadenceDays <= 1` are NEVER reminded individually.** They are surfaced only through **one consolidated daily digest** per dealer.
-- The sweep produces, per dealer per IST day, at most:
-  - **ONE digest Expo push** ("You have N things to do today / आज आपके N काम हैं"), and
-  - **ONE chat system message** (a plain text line) deep-linking to the Kavach "Today" list.
-- **Weekly+ items use the per-item tier ladder** (R1/R2/R3, cadence-relative; §4.2). But when a ladder rung fires on a given day, the item is **folded into that same daily digest** — never one push per item. The ladder governs _when an item starts appearing_ in the digest, not how many pushes go out.
+**Switching a dealer on.** `PATCH /dealers/:dealerId/kavach/programme` with `dealerFacingEnabled: true`. It is **off by default, including for a freshly initiated programme**: on day one the honest figure is "nobody has checked anything yet", and sending that unasked is the worst first impression. An admin turns it on once they are actually verifying that outlet. The move to on stamps `dealerFacingEnabledAt/ByAdminId` and is audited `KAVACH_PROGRAMME_UPDATE`. The same call sets `reminderHour` and pauses or resumes the programme.
 
-### 4.2 Per-item ladder offsets (weekly+ items only), relative to `expiresAt` (IST)
-
-`reminder.maxLevel` is set from tier at item creation (recomputed if admin edits points):
-
-| tier     | points | maxLevel (rungs) | escalates?                                         |
-| -------- | ------ | ---------------- | -------------------------------------------------- |
-| CRITICAL | ≥ 200  | 3                | yes, grace 0–4h                                    |
-| STANDARD | 50–199 | 2                | yes, grace ~24h                                    |
-| LIGHT    | < 50   | 1                | **never** (surfaces in admin "slipping" view only) |
-
-```
-firstReminderOffset(I):
-  if cadenceDays <= 1:  return null                 // daily → digest only, no per-item ladder
-  // weekly+ :
-  R1 = warnStartAt                                  // start of warnWindow (T−warnWindowDays)
-  R2 = expiresAt
-  R3 = expiresAt + 1 day                            // CRITICAL only
-  nextRemindAt advances R1 → R2 → R3 (capped at maxLevel) → null
-```
-
-Each rung that fires marks the item for inclusion in today's digest (§4.1). A yearly license thus first appears in the digest at T−15d, well before expiry.
-
-### 4.3 `kavachNotify` — per-dealer cap & batching logic
-
-New file `mdg-backend/src/services/kavach/kavachNotify.ts`. It wraps the existing comms primitives and enforces the cap.
-
-```
-kavachNotify.sendDailyDigest(programme, items, io):
-  if alreadySentDigestToday(programme): return            // per-dealer/day idempotency (lastDigestAt IST date check)
-  ownerUserId = resolve dealer-owner (and dealer-staff if present) for programme.dealerId
-  systemSenderId = resolveSystemUser()                    // §2.2
-
-  // 1. ensure each member's private conversation (mirrors conversations.ts /mine: ConversationModel.findOne({ userId }))
-  convo = ConversationModel.findOne({ userId: ownerUserId }) ?? create({ dealerId, userId: ownerUserId, status: 'OPEN' })
-
-  // 2. ONE plain system TEXT line (NOT a card — see §4.4)
-  body = `आज आपके ${items.length} काम हैं — खोलकर देखें / You have ${items.length} things to do today`
-  msg = MessageModel.create({ conversationId: convo._id, senderId: systemSenderId, senderRole: 'admin',
-                              body, system: true, readBy: [systemSenderId] })
-  convo.lastMessageAt = now; convo.lastMessagePreview = body.slice(0,280); convo.unreadByDealer = true; convo.save()
-
-  // 3. realtime (best-effort) — reuse emitMessageNew exactly as conversations.ts does
-  if (io) emitMessageNew(io, messageToPublic(msg, { senderName: 'MDG' }), conversationToPublic(convo, { dealerName }))
-
-  // 4. ONE push, fire-and-forget (gated by PUSH_ENABLED inside pushToUsersAsync)
-  pushToUsersAsync([String(ownerUserId)], {
-    title: 'Action needed', body,
-    data: { deeplink: 'kavach', itemCount: items.length },     // app routes to the Kavach "Today" tab
-  })
-
-  markDigestSentToday(programme)                          // set programme.lastDigestAt = now
-```
-
-**Hard per-dealer caps:**
-
-- **At most 1 dealer-facing digest push + 1 chat system line per dealer per IST day** (the digest is the unit, never the item).
-- **At most 1 escalation pre-warning** to the dealer per day (R3-critical copy can carry the "our team will step in" line inside the _same_ digest body when a critical item is in today's set — not a separate push).
-- Escalation-to-admin events (§5) are **admin-facing**, not subject to the dealer cap; they emit to `inbox:admins`.
-
-### 4.4 In-chat card — what is and isn't reused (fixes the broken deep-link)
-
-The existing `card` sub-schema in `Message.ts` is a **`recordCardSubSchema`** with `kind: 'record'`; the client's `CardMessage`/`RecordCard` fetches a `DealerRecord` via `useRecord(card.recordId)` and renders **disabled** for a non-record id. Reusing it for a Kavach deep-link is broken.
-
-**MVP decision:** the reminder is delivered as a **plain chat system text line** (no `card`) **plus** an Expo push carrying `data: { deeplink: 'kavach', itemId? }`, which the app routes to the Kavach tab / Today list. No `card` field is set on Kavach messages.
-
-**Phase-2 / parallel client work (explicitly NEW, not "RecordCard reuse"):** a tappable in-chat Kavach card requires a new `card.kind: 'kavach'` in the `Message` card sub-schema + shared `Message` type, and a new in-app route `/kavach/items/:id`. Noted here so the engine does not assume it exists.
-
-### 4.5 Mark-done cancels remaining (no jobs to cancel)
-
-When the dealer taps "हो गया" or an admin resolves on behalf, `programmeService.markDone` resets the item (§3.2 transition): `reminder.level = 0`, `reminder.cycleStartedAt = now`, `reminder.nextRemindAt = R1 of next cycle`, `escalation.escalated = false`. Remaining rungs for the old cycle simply never fire because `expiresAt` (the cycle anchor) changed — there were never queued jobs, only state-derived computations.
+The older dealer endpoints `GET /kavach/me` and `POST /kavach/items/:itemId/evidence` still answer, for an installed app that predates ADR 0019. Nothing new calls them.
 
 ---
 
-## 5. Escalation → Conversation & resolution hook
+## 5. Verifying, proof and the work queue
 
-### 5.1 Trigger — `maybeEscalate(I, now, io)`
+### 5.1 `recordVerification()` — the only path that certifies
 
-```
-eligible =
-   I.status === 'EXPIRED'
-   AND I.tier !== 'LIGHT'                              // LIGHT never auto-escalates (spec §5)
-   AND I.reminder.level >= I.reminder.maxLevel         // ladder exhausted
-   AND now >= I.reminder.lastSentAt + graceFor(I.tier) // CRITICAL 0–4h, STANDARD ~24h
-   AND I.escalation.escalated === false                // dedupe (sticky)
-```
+Admin verify (`POST /kavach/items/:itemId/verify`) and automation mark both go through it, so one function decides what "done" means.
 
-For daily items (no per-item ladder, `maxLevel` still set from tier), escalation eligibility uses `expiresAt + graceFor(tier)` as the grace anchor instead of `reminder.lastSentAt`, since `reminder.level` stays 0 for digest-only items. (Implementation note for the engineer: treat a null `lastSentAt` as "anchor on `expiresAt`".)
+- **Two dates:** `doneOn` (the IST business date certified; default today; not in the future; not older than one cadence period) is separate from `verifiedAt` (when the click happened). A photo taken Monday evening and reviewed Tuesday morning can still be credited to Monday.
+- **Evidence is the closer's duty.** If the task's `evidence` is `PHOTO`, `NOTE` or `PHOTO_OR_NOTE`, the admin must attach it. `overrideEvidenceReason` closes it without, on the record (printed in history, audited), so an admin is never stuck. An automation is exempt but must name the artifact that proved it (`evidence.summary`), or the call is refused.
+- Refused for a paused task and for an SOS task.
+- Effect: `lastDoneAt = doneOn`, `expiresAt = doneOn + cadenceDays`, `everVerified = true`, any hold lifted, the `request` block reset, a history row with `defSnapshot`, the score recomputed. Audited `KAVACH_ADMIN_VERIFY` or `KAVACH_AUTOMATION_MARK`.
 
-### 5.2 An escalation IS a Conversation (ADR 0005, reused verbatim)
+### 5.2 The evidence exchange — proof is asked for in the chat
 
-The escalation acts on the dealer member's `Conversation` exactly as the support inbox does — no new admin surface:
+Three functions touch the `request` block. **None of them moves the score or the clock.** "The dealer sent it" and "MDG accepted it" are different facts.
 
-```
-maybeEscalate body (CAS-guarded on escalation.escalated):
-  convo = ConversationModel.findOne({ userId: ownerUserId }) ?? create({ dealerId, userId, status: 'OPEN' })
-  systemSenderId = resolveSystemUser()
+| Step                             | Function / route                              | State after                |
+| -------------------------------- | --------------------------------------------- | -------------------------- |
+| Admin asks for a photo           | `requestEvidence` · `POST …/request-evidence` | `ASKED` (`askedCount` + 1) |
+| Dealer sends it                  | `submitEvidence`                              | `SUBMITTED`                |
+| Admin accepts                    | `recordVerification` (verify)                 | `NONE`, task `VALID`       |
+| Admin sends it back, with reason | `rejectEvidence` · `POST …/reject-evidence`   | `REJECTED`                 |
 
-  escalationMsg = MessageModel.create({ conversationId: convo._id, senderId: systemSenderId, senderRole: 'admin',
-    body: `Overdue: ${I.labelEn} — escalated for follow-up.`, system: true, readBy: [systemSenderId] })
+The ask is a chat message from MDG with a "Send photo" button, ref `kv:<itemId>` (ADR 0019). The dealer's photo, sent as a reply to it (or picked up from a plain reply that quotes it), is copied into the Kavach proof folder and submitted as evidence by `services/chatAsks/link.ts`. An admin then marks it received in the inbox ("Mark received" verifies the task with that photo as proof) or verifies it from the Kavach drawer; both post a "✓ Received" reply under the photo, and a send-back posts the reason with the button. A task closed with a note, or an SOS task, cannot be received this way. An empty submission is the unprompted claim ("I've done this"): it queues the task for review and moves nothing. Proof waiting for review raises one admin alert per outlet, `kavach_to_verify`, linked to the chat thread the photo came through.
 
-  // make it an OPEN, unassigned, prioritised, categorised ticket:
-  convo.status = 'OPEN'
-  convo.assignedAdminId = null                          // any admin can Pick up (existing POST /conversations/:id/assign)
-  convo.priority = priorityFromTier(I.tier, I.cadenceDays)  // §5.3
-  convo.category = I.category                            // the item's own TicketCategory field (already derived from domain)
-  convo.unreadByAdmin = true
-  convo.lastMessageAt = now; convo.lastMessagePreview = escalationMsg.body.slice(0,280); convo.save()
+### 5.3 The admin work queue
 
-  if (io) { emitMessageNew(io, messageToPublic(escalationMsg, { senderName: 'MDG' }), conversationToPublic(convo, { dealerName }))
-            emitConversationUpdated(io, conversationToPublic(convo, { dealerName })) }   // surfaces live in inbox:admins
+`GET /kavach/work-queue`, shown at `/kavach` in the admin. One flat list across the whole book of every non-paused task in a pending status (`EXPIRED`, `EXPIRING_SOON`, `NOT_YET_VERIFIED`, `SOS_FLAGGED`), oldest expiry first, with `daysPending`. Filters: `dealerId`, `code` ("stock board, every dealer" in one pass), `status`, `verification`, `awaitingReview`. Archived dealers are excluded.
 
-  I.escalation.escalated = true
-  I.escalation.escalatedAt = now
-  I.escalation.conversationId = convo._id
-  writeAudit({ entity: 'Dealer', entityId: dealerId, actorId: systemSenderId, action: 'KAVACH_ESCALATE',
-               after: { conversationId, templateCode: I.templateCode, priority: convo.priority } })
-```
+It is flat because verification is repetitive data entry: the seed asks for roughly 10.6 verifications per dealer per day, ten of them the DAILY tasks. It pages by keyset on (`expiresAt`, `_id`), never by offset, because rows close while an admin pages; tasks with no clock yet (`NOT_YET_VERIFIED`) come first and have their own cursor form.
 
-`category` is read straight off `I.category` — the contract already stores the derived `TicketCategory` on the item (and `domain` separately), so the engine does **not** re-map domain→category at escalation time.
-
-### 5.3 Priority mapping (from tier)
-
-| item tier                            | `priority` (a real `TicketPriority`) |
-| ------------------------------------ | ------------------------------------ |
-| CRITICAL, daily (`cadenceDays <= 1`) | `urgent`                             |
-| CRITICAL, weekly+                    | `high`                               |
-| STANDARD                             | `normal`                             |
-| LIGHT                                | n/a (never escalates)                |
-
-### 5.4 Resolution hook — fixes the 400 bug (`serviceId: 'other'`)
-
-`kavach-programme` is deliberately NOT a registered `ServicePlugin`, so `resolveServiceName` (`mdg-backend/src/services/serviceLogService.ts:34-38`) would `registry.get('kavach-programme')` → `undefined` → throw `AppError.badRequest('Unknown serviceId')`. Therefore Kavach escalation resolution **must** be logged with:
-
-```
-serviceId:   'other'
-serviceName: `Kavach Programme — ${item.labelEn}`
-```
-
-via the existing `POST /conversations/:id/resolve` flow (`mdg-backend/src/routes/v1/conversations.ts:181`), which already handles `serviceId: 'other'` + free-text `serviceName` (`serviceLogService.ts:28-32`). No change to `serviceLogService` is needed.
-
-**The precise hook** in the `conversations.ts` resolve handler — added **after** `createServiceLog(...)` succeeds (line 202) and **after** `convo.status = 'RESOLVED'`, but it may run before or after the existing system message / push (order-independent):
-
-```
-// --- Kavach resolve hook (after the ServiceLog is created) ---
-const item = await KavachItemModel.findOne({ 'escalation.conversationId': convo._id, 'escalation.escalated': true })
-if (item) {
-  // Idempotent: if a late dealer mark-done already reset this item, escalation.escalated is false
-  // and the findOne above returns nothing → hook is a no-op. (See §7 late-completion.)
-  await programmeService.markDone(item._id, {
-    by: { kind: 'admin', userId: req.user.id },
-    source: 'ADMIN_RESOLVE',
-    note: `Resolved via conversation ${convo._id}`,
-  })
-  // markDone resets the clock (lastDoneAt=now, expiresAt recomputed, reminder reset, status=VALID),
-  // clears escalation (escalated=false, resolvedAt=now, conversationId=null),
-  // recomputes the programme score synchronously, and emits audit KAVACH_RESOLVE.
-}
-```
-
-`markDone` with `source: 'ADMIN_RESOLVE'` is the single code path for both dealer "हो गया" and admin-on-behalf, so behaviour cannot drift. It is **idempotent**: gated on `escalation.escalated === true`, so if the dealer already marked the item done (clearing the flag), the hook finds nothing and does nothing. `KAVACH_RESOLVE` is emitted by `markDone` (not duplicated here), distinct from the handler's existing `CONVERSATION_RESOLVED` audit.
+`GET /kavach/dashboard` (`/kavach/dashboard` in the admin) is the per-dealer standing view. Its row carries `daysSinceLastVerified`, the only alarm for MDG's own backlog ("nobody has looked at this outlet in 11 days").
 
 ---
 
-## 6. Scoring computation
+## 6. Scoring
 
-### 6.1 Formula (mirrors `KavachScoreSnapshot` in the contract)
-
-- Per item contribution: full `points` if `status ∈ {VALID, EXPIRING_SOON}` (a due-soon item is still currently compliant); `0` if `EXPIRED`.
-- **SOS items are EXCLUDED from the operational denominator** — an admin-controlled availability gauge, not part of `overallPct`. `SOS_OK` is the default; `SOS_FLAGGED` = non-compliant. Their `byBucket['SOS']` reads as an availability count, not folded into `overallPct`.
-- **Paused items are excluded** from numerator and denominator.
+### 6.1 Formula (`services/kavach/scoring.ts`)
 
 ```
-operationalItems = items where trigger === 'TIME' AND paused === false
-validPoints = Σ points of operationalItems with status ∈ {VALID, EXPIRING_SOON}
-totalPoints = Σ points of operationalItems                 // the live denominator, NEVER hardcoded
-overallPct  = totalPoints > 0 ? round(100 * validPoints / totalPoints) : 100
-byBucket[b] = 100 * (Σ valid points in bucket b) / (Σ points in bucket b)
+operational = tasks where trigger == TIME and not paused
+validPoints = Σ points of operational tasks with status in {VALID, EXPIRING_SOON, HELD}
+totalPoints = Σ points of operational tasks              // live, NEVER hardcoded
+scored      = totalPoints > 0
+overallPct  = scored ? round(100 × validPoints / totalPoints) : 0
+byBucket[b] = 100 × (valid points in bucket b) / (points in bucket b)
 ```
 
-`totalPoints` is computed live from the snapshotted item points. Expected magnitude ≈ **3740 TIME points** (full catalog ≈ 4060 including the inferred earthing-pits 45). **Never reference 3580** (a stale per-cadence footer). The single product confirmation still outstanding is the earthing-pits item points (srNo 33, inferred 45).
+- `EXPIRED` contributes 0. `HELD` counts as compliant (our failure, not theirs). A due-soon task is still currently compliant.
+- **`NOT_YET_VERIFIED`** is left out of **both** sides while the programme is settling in (`now < settlingUntil`), so a new dealer is not marked down for work nobody has reached. Afterwards it counts in the denominator, so an untouched programme cannot read 100%. Either way its count and points (`notYetVerifiedCount/Points`) and `heldCount` are carried separately: a percentage that hides how much was never examined is a claim, not a measurement.
+- **`scored: false`** means nothing is scoreable yet. There is then no percentage at all (not 0, not 100). Read `scored` before `overallPct` on every surface.
+- SOS tasks are excluded from `overallPct`. `byBucket.SOS` reports the share of SOS tasks currently `SOS_OK`.
+- `totalPoints` is the live sum for that dealer. In the shipped seed it is 3,740 for TIME tasks (4,060 with the five SOS tasks, 320). Never use the stale 3,580 footer from the source sheet. A catalog edit or a dealer override changes the denominator.
 
-### 6.2 When recomputed (cached on `KavachProgramme.score`)
+### 6.2 When it is recomputed
 
-`recomputeScores(programme)` is a pure aggregation over the programme's `KavachItem`s (~45 docs, cheap; no incremental delta in MVP). The cached `score` makes the dealer's "Pump health" ring and the admin dashboard O(1) reads. Recompute:
+The result is cached on `KavachProgramme.score`. `recomputeScores(programme)` is a plain pass over the programme's ~45 state rows. It runs on every verification, pause or unpause, custom task add or remove, work-list save, SOS flip, and in the nightly refresh.
 
-- **On every sweep** where any item's status changed (`dirty`) or an item was marked/escalated — once per programme (§3.2).
-- **On any mark-done** (dealer or admin-on-behalf) — synchronously inside the request so the ring jumps immediately after "हो गया".
-- **On admin pause/unpause/add-custom/remove/edit-points** — denominator changes.
-- **On SOS flag flip** — recompute (only affects `byBucket['SOS']`, not `overallPct`).
+### 6.3 What a dealer may see
 
-### 6.3 Settling-in never shows red (first-run)
-
-During settling-in (`now < programme.settlingUntil`), un-baselined items are already `VALID` (fresh clock from initiation — see §7.4) so the score is naturally high; the sweep additionally fires no reminders/escalations. The dealer's first impression is never a failing grade.
-
----
-
-## 7. Initiation, custom items & first-run settling-in
-
-`programmeService.initiate(dealerId, input)` (new file `mdg-backend/src/services/kavach/programmeService.ts`), validated by `initiateKavachProgrammeSchema`:
-
-1. Create the `KavachProgramme` (status `ACTIVE`, `outlet` from input, `initiatedAt = now`, `initiatedByAdminId`).
-2. **`programme.settlingUntil = initiatedAt + 7 days`.**
-3. Snapshot each active `KavachTemplate` row into a `KavachItem` (skip `input.excludeCodes`, which start `paused: true`):
-   - If `input.baselines[code]` is present → `lastDoneAt = baselines[code]`.
-   - **Else (un-baselined) → `lastDoneAt = initiatedAt` (fresh clock).** This is the key first-run rule: an un-baselined item is **VALID, never EXPIRED-on-day-one**. Push a `history` entry `source: 'INITIATION_BASELINE'`.
-   - Compute `tier = tierFromPoints(points)`, `reminder.maxLevel` from tier, `warnWindowDays`, `expiresAt`, initial `status` (`VALID` for TIME, `SOS_OK` for SOS).
-4. `recomputeScores(programme)` (will be high — see §6.3).
-5. `writeAudit({ action: 'KAVACH_INITIATE', ... })`.
-
-During settling-in the sweep `continue`s past the reminder/escalation phase for that programme (§3.2). **Field-agent baselines entered later only LOWER specific items after settling-in** (an explicit `lastDoneAt` in the past can move an item toward `EXPIRING_SOON`/`EXPIRED`) — never the reverse, and never during the grace week.
-
-**Custom items** (`addCustomKavachItemInput`, `POST /dealers/:dealerId/kavach/items`): create a `KavachItem` with `custom: true, templateCode: null`, derive `tier`/`maxLevel`/`warnWindowDays`, `lastDoneAt = now` (fresh clock), recompute score. **Pause/unpause** (`setKavachItemPausedSchema`) and SOS flag (`setKavachSosComplianceSchema`) recompute score and audit (`KAVACH_ITEM_PAUSE` / `KAVACH_SOS_FLAG`). Adding a custom item audits `KAVACH_ITEM_ADD`.
+The figure is MDG's statement, so the dealer's copy is gated by `kavachScoreIsPublishable` (`shared/src/kavach/dealerFacing.ts`), which the serializer, the daily line and the AI first line all call. All three must hold: an admin has switched the dealer on; something has been verified (`scored`); the settling window has ended. If any fails, `overallPct` and `totalPoints` are **left out of the payload, not zeroed** (0% is also a statement). `byBucket` and `validPoints` are always left out of the dealer's API payload. The shared card is an image an admin approved and does print `valid / total` points (A.3). The "not yet checked" count is shown to the dealer even when the figure is withheld: it is a statement about MDG's backlog, not a verdict on the outlet.
 
 ---
 
-## 8. New backend files / dirs (paths, layering)
+## 7. Start-up, custom tasks and the settling window
 
-All under `mdg-backend/`, imitating `models/` → `services/` → `routes/v1/` (+ `scheduler/`, `seed/`), registered in `routes/v1/index.ts`.
+`POST /dealers/:dealerId/kavach/programme` → `programmeService.initiate`, validated by `initiateKavachProgrammeSchema`:
 
-**Shared (already canonical):** `shared/src/types/kavach.ts`, `shared/src/schemas/kavach.ts`. **New shared data:** `shared/src/data/kavachTemplate.ts` (reconciled ~45-item master list, single source for seed + clients).
+1. Create the `KavachProgramme`: `ACTIVE`, `outlet.monthYear` from the input, `settlingUntil = initiatedAt + 7 days`, **`dealerFacingEnabled: false`**, optional `reminderHour`.
+2. Resolve the dealer's effective list, so tasks already hidden or added in the overlay are respected.
+3. Insert one state row per task, in one write:
+   - **Untested task** (no baseline): `NOT_YET_VERIFIED`, `everVerified: false`, `lastDoneAt` null. A new dealer is not marked compliant for work nobody checked.
+   - **Baselined task** (`baselines[code]`, a date a field agent recorded on the first visit): `lastDoneAt` set, a history row `INITIATION_BASELINE`, status from the clock.
+   - **SOS task:** `SOS_OK`. **`excludeCodes`:** `PAUSED`.
+4. Recompute the score (unscored until something is verified), audit `KAVACH_INITIATE`.
 
-**Models:**
+**Settling window (7 days).** During it, unverified tasks are out of both sides of the percentage, and the dealer is shown no figure. A figure never opens on a failing grade.
 
-- `mdg-backend/src/models/KavachTemplate.ts`
-- `mdg-backend/src/models/KavachProgramme.ts`
-- `mdg-backend/src/models/KavachItem.ts`
-- register exports in `mdg-backend/src/models/index.ts`
-
-**Services (business logic, imitating `services/serviceLogService.ts`):**
-
-- `mdg-backend/src/services/kavach/programmeService.ts` — `initiate`, `markDone(itemId, { by, source, proof?, note? })`, `addCustomItem`, `setPaused`, `removeItem`, `setSosCompliance`.
-- `mdg-backend/src/services/kavach/scoring.ts` — `recomputeScores(programme)`.
-- `mdg-backend/src/services/kavach/stateMachine.ts` — pure: `startOfDayIST`, `computeStatus`, `warnWindowDaysFor`, `expiresAtFor`, `tierFromPoints`, `firstReminderOffset`, `graceFor`, `priorityFromTier`. Reused by sweep + unit tests.
-- `mdg-backend/src/services/kavach/kavachNotify.ts` — `sendDailyDigest`, escalation send helpers, per-dealer daily cap; `resolveSystemUser()` singleton.
-
-**Scheduler:**
-
-- `mdg-backend/src/scheduler/kavach.ts` — `evaluateKavachProgrammes(io)`; registered from `startScheduler()` in `mdg-backend/src/scheduler/index.ts` as a **separate** hourly `cron.schedule(env.KAVACH_SWEEP_CRON /* '0 * * * *' */, ..., { timezone: env.KAVACH_TZ })` (alongside, not through, the per-minute plugin `tick()`).
-
-**Seed / bootstrap:**
-
-- `mdg-backend/src/seed/kavachTemplate.ts` — `seedKavachTemplate()` (versioned upsert) + `resolveSystemUser()`; called from `bootstrap()` in `mdg-backend/src/index.ts` next to `initRegistry()`.
-
-**Routes** (`mdg-backend/src/routes/v1/kavach.ts`, registered in `routes/v1/index.ts`):
-
-- `POST  /api/v1/dealers/:dealerId/kavach` — initiate programme (admin) — `initiateKavachProgrammeSchema`.
-- `GET   /api/v1/dealers/:dealerId/kavach` — admin programme view (items + byBucket + overall).
-- `GET   /api/v1/dealers/:dealerId/kavach/items` — `kavachItemsQuerySchema` (`dueOnly`, `bucket`, `status`).
-- `GET   /api/v1/kavach/me` — dealer Kavach tab payload `{ overallPct, today: [...], whenItHappens: [...SOS] }`.
-- `POST  /api/v1/kavach/items/:itemId/mark-done` — dealer/admin mark done — `markKavachItemDoneSchema`.
-- `POST  /api/v1/dealers/:dealerId/kavach/items` — admin add custom — `addCustomKavachItemSchema`.
-- `PATCH /api/v1/kavach/items/:itemId/paused` — `setKavachItemPausedSchema`.
-- `PATCH /api/v1/kavach/items/:itemId/sos` — `setKavachSosComplianceSchema`.
-
-**Resolve hook:** small addition in `mdg-backend/src/routes/v1/conversations.ts` resolve handler (§5.4).
-
-**ADR:** `docs/ADR/0006-kavach-programme-stateful-assessment-subsystem.md` (uppercase `ADR/`).
+**Custom task** (`POST /dealers/:dealerId/kavach/items`, admin): the definition goes into the overlay's `customItems`; a state row is created `NOT_YET_VERIFIED` (SOS: `SOS_OK`). Only custom tasks can be removed (`DELETE /kavach/items/:itemId`); catalog tasks are paused or hidden. Pause and unpause recompute from the current definition, since a task paused for months may have been edited since.
 
 ---
 
-## 9. Edge cases & failure modes
+## 8. Files and routes
 
-1. **Timezone (IST):** all `expiresAt` / warnWindow / digest-hour / escalation-grace math uses `env.KAVACH_TZ` (default `Asia/Kolkata`); the hourly sweep cron is registered with `{ timezone: env.KAVACH_TZ }`. Store UTC `Date`s, day-align to IST midnight (`startOfDayIST`), and select the delivery hour via `istHour(now) === reminderHour`. The digest hour is a per-programme config (`reminderHour`, admin-editable) defaulting to `env.KAVACH_DEFAULT_REMINDER_HOUR` (8) — implemented, see spec §10.2.
+**Shared:** `shared/src/types/kavach.ts`, `shared/src/schemas/kavach.ts`, `shared/src/data/kavachTemplate.ts` (seed), `shared/src/kavach/dealerFacing.ts` (publish gate).
 
-2. **Paused item / paused programme / suspended dealer:** `item.paused === true` → excluded from score, reminders, escalation (audit `KAVACH_ITEM_PAUSE`). The sweep iterates only `KavachProgramme.status === 'ACTIVE'` **and** `Dealer.status === 'ACTIVE'` (skips `SUSPENDED` / `ONBOARDING`, per `DEALER_STATUSES`). A suspended dealer's items keep their clocks running for accuracy but get **no** nudges/escalations; on reactivation the sweep resumes from current `expiresAt` (the dealer just sees current reality, not a backlog of stale reminders).
+**Models:** `KavachTemplate`, `DealerKavachList`, `KavachProgramme`, `KavachItem`, `KavachDailyDigest`.
 
-3. **No device token / push disabled:** `pushToUsersAsync` no-ops cleanly for missing tokens / `PUSH_ENABLED === false` (`expoPush.ts:53,64`). The **chat system message is still persisted**, so the reminder is never lost — the dealer sees it next time they open the app. Reminder state still advances (idempotency unaffected; the in-app message is the source of truth — spec §10.8 fallback).
+**Services (`mdg-backend/src/services/kavach/`):** `stateMachine.ts` (pure date maths and status), `effectiveList.ts` (overlay resolver), `programmeService.ts` (`initiate`, `recordVerification`, evidence exchange, custom tasks, pause, SOS), `scoring.ts`, `reconcile.ts` + `signals/`, `digest.ts` (build and deliver the line), `share.ts` + `card.ts` (the card), `workQueue.ts`. Chat asks and verdicts: `services/chatAsks/kavachAsk.ts`, `link.ts`, `verdict.ts`. Scheduler: `scheduler/kavach.ts` (nightly refresh), registered with the hourly digest pass in `scheduler/index.ts`.
 
-4. **Programme initiated mid-cycle:** un-baselined items default to `lastDoneAt = initiatedAt` (VALID) plus a 7-day settling-in window with zero reminders/escalations (§7) — never a day-one wall of "Overdue" or a red ring.
+**Routes** (`routes/v1/kavach.ts`, `kavachCatalog.ts`):
 
-5. **Clock drift / catch-up after downtime:** sends are state-derived, not job-queued; a delayed sweep fires the current rung once (CAS-guarded) and advances `reminder.level` by 1, skipping stale intermediate rungs rather than blasting them. Escalation fires once if grace already elapsed (§3.4.5).
+| Caller             | Routes                                                                                                                                                                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Admin, one dealer  | `/dealers/:dealerId/kavach/` `programme` (POST, GET, PATCH), `items` (GET, POST), `digests` (GET), `digests/:businessDate/share` (POST); `/dealers/:dealerId/kavach/work-list` (GET, PUT, GET `effective`)               |
+| Admin, all dealers | `/kavach/` `work-queue`, `dashboard`, `catalog` (read-only lookup), `items/:itemId` (GET), `items/:itemId/verify`, `…/request-evidence`, `…/reject-evidence`, `…/paused`, `…/sos`, `items/:itemId` (DELETE, custom only) |
+| Super-admin        | `/super-admin/kavach-items` GET, POST, PATCH `/:code`, DELETE `/:code` (retire)                                                                                                                                          |
+| Older app          | `GET /kavach/me`, `POST /kavach/items/:itemId/evidence` (dealer tokens; kept for installed apps)                                                                                                                         |
 
-6. **Late completion after escalation:** if the dealer marks done while `escalation.escalated === true` and the ticket is still OPEN/ASSIGNED, `markDone` resets the item (status→VALID, score restored), sets `escalation.resolvedAt = now`, clears `escalated`/`conversationId`, and posts a system note to the escalation conversation ("Dealer marked this done"). We do **not** auto-resolve the ticket — an admin must still resolve it with a ServiceLog (ADR 0005). Conversely, if the admin resolves first (§5.4), the dealer's later mark-done is a no-op on an already-VALID item. The resolve hook is idempotent because it gates on `escalation.escalated === true` (cleared by whichever path ran first).
+**Admin screens:** `/kavach` (work queue), `/kavach/dashboard`, `/kavach/defaults` (super-admin catalog editor), and on each dealer a Kavach tab (programme, switch-on, digest hour, pause) and a work-list tab.
 
-7. **Concurrent mark-done + sweep:** the CAS on `reminder.level` / `escalation.escalated` (§3.4) plus a single-update `markDone` prevent a sweep from escalating an item the same instant the dealer completes it. Worst case the sweep's escalation CAS loses (precondition `escalation.escalated === false` already changed) — correct outcome, no double action.
+**Audit actions:** `KAVACH_INITIATE`, `KAVACH_PROGRAMME_UPDATE`, `KAVACH_ADMIN_VERIFY`, `KAVACH_AUTOMATION_MARK`, `KAVACH_EVIDENCE_REQUEST/SUBMIT/REJECT`, `KAVACH_ITEM_ADD`, `KAVACH_ITEM_PAUSE`, `KAVACH_SOS_FLAG`, `KAVACH_CATALOG_CREATE/UPDATE/DELETE`, `KAVACH_WORK_LIST_UPDATE`, `KAVACH_DIGEST_SHARE`. `KAVACH_MARK_DONE`, `KAVACH_ESCALATE` and `KAVACH_RESOLVE` are no longer written.
 
-8. **Template version skew:** programmes pin their snapshotted item fields; a re-seed with new items/points never mutates live programmes. A "re-assess / apply new template" admin action is Phase 2 (spec §10.7) and would diff + migrate explicitly.
+**Env:** `KAVACH_TZ` (`Asia/Kolkata`), `KAVACH_DEFAULT_REMINDER_HOUR` (8), `KAVACH_SWEEP_CRON` (`0 * * * *`, the hourly digest pass), `KAVACH_REFRESH_CRON` (`20 0 * * *`).
 
-9. **SOS never decays:** guarded by `if (item.trigger === 'SOS') continue` in the sweep decay/reminder/escalation phases, and excluded from the scoring denominator (§6.1) — an SOS item can never silently tank or inflate the score on a timer; only an admin flip changes it.
+---
+
+## 9. Edge cases
+
+1. **Timezone.** All expiry, warning and delivery-hour maths use `KAVACH_TZ`; both jobs are registered with that timezone. Without it a cron fires in UTC and answers for a different day than everything else.
+2. **Paused, suspended or archived.** A paused task is out of the score, the queue and the dealer's list. A programme or dealer that is not `ACTIVE`, and any archived dealer, is skipped by every job: no refresh, no line. On reactivation the next nightly pass recomputes from the dates, so there is no backlog to replay.
+3. **No device token, push off.** The chat line is persisted regardless, so it is never lost; the push is best-effort.
+4. **Initiated mid-cycle.** Nothing starts compliant and nothing starts failed: untested tasks are `NOT_YET_VERIFIED`, and the dealer sees no figure for 7 days.
+5. **Late pass or downtime.** Statuses come from dates, so a late nightly pass simply lands on today's truth. The signals reconciler judges only yesterday; an earlier missed night is not back-filled and the task expires on its own clock.
+6. **Catalog edited under live dealers.** The next recompute moves every dealer without an override. Past completions keep their `defSnapshot`.
+7. **A signal that names nothing.** Fails the boot (§2.1).
+8. **SOS never decays.** No clock, outside the percentage, changed only by an admin flip.
+
+---
+
+## Appendix A — Product rationale carried from the original Kavach programme spec
+
+### A.1 Why the catalog differs from the source sheet
+
+The "PUMP ASSESSMENT SHEET" MAIN tab is canonical for validity and points, with these reviewed exceptions. They are in the seed; the reasons are recorded here because the seed comment gives only the numbers.
+
+| Task                                     | Conflict in the sheet                        | Decision and why                                                                                                                                                                                                                                                                                                                                    |
+| ---------------------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Solar-panel cleaning                     | MAIN 15 days vs WEEKLY tab 7 days            | **15 days.** Field-realistic; weekly is too aggressive.                                                                                                                                                                                                                                                                                             |
+| Crocodile-clip wires (bucket and tanker) | MAIN 1 day vs YEARLY tab 365 days            | **365 days.** These are availability checks, not daily chores; 1 day was a sheet artefact.                                                                                                                                                                                                                                                          |
+| Safety-signage display                   | MAIN 1 day vs MONTHLY tab 90 days            | **90 days.** A displayed poster is not a daily task.                                                                                                                                                                                                                                                                                                |
+| Servo island display                     | 15 points (image) vs 10 (DAILY tab)          | **10 points.** Lower-stakes cosmetic display.                                                                                                                                                                                                                                                                                                       |
+| Staff ID cards (CAs with ID)             | MAIN 180 days vs MONTHLY tab 90 days         | **90 days.** A tighter cadence is safer for an ID-availability check.                                                                                                                                                                                                                                                                               |
+| Total points                             | MAIN 4,060 vs the sheets' stale 3,580 footer | The total is **computed live** from the reconciled per-task points. The full seed reconciles to **4,060**: 4,015 explicit per-tab points plus an **inferred 45 for the earthing pits**, the one task missing from every per-cadence tab. The operational denominator drops the five SOS tasks (320) and any paused ones, so it runs over **3,740**. |
+
+The earthing-pits 45 is a reconstruction to close the 4,060 − 4,015 gap and is still flagged in the seed for owner confirmation. The editable catalog may differ from the seed values.
+
+### A.2 Why SOS tasks are an availability gauge
+
+The five SOS tasks (tanker decantation paperwork, work permit, subsidy and claim, product sampling, equipment complaint) are done when an event happens, not on a clock. A daily countdown on them is meaningless and would unfairly tank the score. And counting them as compliant by default would let the score rise on tasks a dealer never touches. So they sit outside the percentage as a gauge: `SOS_OK` by default, flipped to `SOS_FLAGGED` only by an admin who saw a real problem on a visit. They send no reminder. Hooking them to real events (a tanker delivery logged, for example) is not built.
+
+### A.3 Dealer versus admin view of the score
+
+The daily chat line carries one percentage and nothing else of the score, and only when §6.3
+allows it. The admin-approved card shows more: the percentage, the points behind it
+(`valid / total`) and each pending task with its points. It is gated by the admin pressing
+share and by `dealerFacingEnabled`, not by the settling window, because a person looks at it
+first. Neither carries the per-bucket split. The admin sees the overall percentage, the
+per-bucket sub-scores, the point weights and each task's history.
+
+### A.4 Open owner questions
+
+1. **Does the score ever go upward to the oil company?** Not decided. It changes how the dealer should see it: if it can be externally visible, a precise red percentage in a casual daily line is the wrong form, and action language with a coarse band would be safer. The card is already an image that can be forwarded.
+2. **Is the "reviewed every two months" cycle a manual re-assessment?** Not decided. If it is, an admin "re-assess" action that re-baselines tasks would be needed. None exists.

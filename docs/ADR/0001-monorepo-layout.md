@@ -1,6 +1,16 @@
 # ADR 0001 - Monorepo layout
 
-Status: Accepted
+> **Superseded by [ADR 0021](0021-multi-repo-layout-and-vendored-shared.md) (2026-05-26).** The
+> one-repo layout below lasted 13 days. The workspace became a meta repo (it tracks `shared/`,
+> `docs/`, `scripts/` and `mdg-demo/`) that sits beside seven independent git repos.
+> `backend/` became `mdg-backend`, `frontend/` became `mdg-admin`, and the dealer app lives in
+> `mdg-client`. `@dk/shared` is no longer read from one source: it exists as four byte-identical
+> copies (the canonical `shared/` plus one inside each of `mdg-backend`, `mdg-admin` and
+> `mdg-client`) that are mirrored and md5-checked on every change. The root `package.json` still
+> lists `shared`, `mdg-backend`, `mdg-admin` and `mdg-client` as workspaces, for local dev and lint
+> only. The text below is kept as it was written.
+
+Status: Superseded by ADR 0021 (2026-05-26)
 Date: 2026-05-13
 
 ## Context

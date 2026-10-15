@@ -1,6 +1,6 @@
 # 0014 — Nothing reaches a dealer unchecked
 
-**Status:** accepted, shipped in SHADOW
+**Status:** accepted 2026-09-04; shipped in SHADOW. The box now runs `ASSURANCE_MODE=ENFORCE` (confirmed 2026-10-15), so a holding verdict really withholds a report. The code default is still SHADOW.
 **Date:** 2026-09-04
 
 ## What happened
@@ -71,7 +71,11 @@ detectors already decided and what the admin's remarks already explained, so it
 neither repeats nor re-litigates.
 
 - `BLOCK` is **absent from its response schema**. It has no route to withholding
-  anything on its own.
+  anything on its own, unless `ASSURANCE_LLM_CAN_HOLD` is set (see the update
+  below; it is off by default).
+- It may also **explain** a finding a detector already raised (added 2026-09-05):
+  one entry per finding, from a closed list of causes, fenced the same way, with no
+  severity of its own. Delete every explanation and no decision changes.
 - It never emits a corrected figure. It says "this looks wrong and here is why",
   never "it should be 263" — a model-supplied replacement is one copy-paste from
   becoming the report.
@@ -152,3 +156,20 @@ it was — and the honest response to that is better inputs and better
 reconciliation, not a tighter threshold, because a threshold tight enough to catch
 300 litres would fire on ordinary trading several times a week and be switched off
 within a fortnight.
+
+## Update — 2026-09-05
+
+"It has no route to withholding anything on its own" was not true on the first
+nights. The model could raise `REVIEW`, and under ENFORCE `REVIEW` withholds a
+report. In its first two nights it held four dealers' reports (it read the
+monthly reset of month-to-date sales as a broken running total), and then three
+of six on reasoning that does not survive reading: a blank figure on today's
+row, which is open by design, taken as an incomplete report; one idle nozzle
+taken as contradicting a whole product's sales; and 134 unexplained litres
+called "unusually high" against no stated basis.
+
+So since 2026-09-05 a model concern is capped at `NOTE`, and a `NOTE` withholds
+nothing by construction. The cap lives in the fence (`fenceConcerns`), not in
+the fold. `ASSURANCE_LLM_CAN_HOLD` (default false) lifts the cap to `REVIEW`. The
+bar for turning it on is the bar the rules had to clear: a stretch of real days
+where its concerns were worth acting on.

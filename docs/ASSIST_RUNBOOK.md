@@ -2,6 +2,9 @@
 
 Plain steps, in order. Design lives in `docs/ADR/0009-landing-assistant.md`.
 
+**Status: live on mdgservices.in since 22 Aug 2026.** Steps 1 to 5 are for a rebuild or
+a re-enable. For day-to-day use, start at **Watching it**.
+
 Nothing in this feature does anything until `ASSIST_ENABLED=true` **and** a
 knowledge base has been published. Both are one line each, so the safe order is:
 ship the code switched off, publish the knowledge base, look at it yourself,
@@ -15,7 +18,9 @@ then switch it on.
 
 The ₹28,693 credit lives on **aryanmarxx@gmail.com**, and the credit only pays
 for Gemini through **Vertex AI** — an AI Studio key is billed separately and
-would not touch it (see the note in memory).
+would not touch it (see the note in memory). It is a 90-day trial credit. On 21 Aug
+the console showed 90 days left, so it ends around 19 Nov 2026. Check Billing before
+you rely on it.
 
 ```bash
 gcloud auth login                    # sign in as aryanmarxx@gmail.com
@@ -75,8 +80,8 @@ rupees, once.
 
 ## Step 3 — Server configuration
 
-Over SSH (`ssh -i "~/Downloads/mdg aws.pem" ubuntu@35.154.6.55`), copy the key up
-and add to `/home/ubuntu/mdg-backend/.env`:
+Over SSH (`ssh -i ~/Documents/PP/mdg-service/.secrets/mdg-aws.pem ubuntu@35.154.6.55`),
+copy the key up and add to `/home/ubuntu/mdg-backend/.env`:
 
 ```
 ASSIST_ENABLED=false                 # leave OFF until step 5
@@ -100,18 +105,17 @@ sudo sed -i '/^http {/a \    client_max_body_size 4m;' /etc/nginx/nginx.conf
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
-Then deploy and check:
-
-```bash
-ssh -i "~/Downloads/mdg aws.pem" ubuntu@35.154.6.55 \
-  'export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"; cd /home/ubuntu/mdg-backend && bash deploy.sh'
-```
+Then deploy and check. Follow the Deploy section of `mdg-backend/README.md`, not
+a bare `bash deploy.sh`: check swap first (`swapon --show`), check for a stray `tsc`
+(`ps -eo pid,rss,args | grep [t]sc`), and run the deploy detached, or build off-box and
+ship `dist/`. Then check the compiled output has the change, the app restarted, and
+the API answers 200.
 
 `npm ci` breaks whenever a dependency changes — this feature added none, so it
 should be clean. If it complains about the lock file, run `npm install
 --no-audit --no-fund` once on the box and deploy again.
 
-## Step 3b — Ask Google to raise the quota. Do this before launch.
+## Step 3b — Ask Google to raise the quota. Do this before launch, and check it was done.
 
 **This is the real capacity limit, and it is not the one you would guess.**
 A new Google Cloud project runs on default per-minute Vertex quotas. Measured on
@@ -125,8 +129,10 @@ Console → IAM & Admin → Quotas → filter on `aiplatform.googleapis.com` →
 increase for `gemini-2.5-flash` and `text-multilingual-embedding-002`. It is
 free and usually granted within a day or two.
 
-Until then `VERTEX_MAX_CONCURRENCY=4` keeps the assistant from forming the
-bursts that cause a cluster of them. Raise it after the increase lands.
+Until then `VERTEX_MAX_CONCURRENCY` keeps the assistant from forming the bursts that
+cause a cluster of them. The box sets it to 4 (checked 15 Oct 2026; the code default
+is 6). Whether Google granted the increase is not recorded here: look at the quota
+page, and write the answer into this paragraph.
 
 ## Step 4 — Prove it works before anyone sees it
 
@@ -144,9 +150,13 @@ Set `ASSIST_ENABLED=true` and `pm2 restart mdg-backend --update-env`. No deploy
 needed. Then deploy the two front ends:
 
 ```bash
-cd mdg-landing && npm run build && vercel deploy --prebuilt --prod
+cd mdg-landing && vercel --prod --yes --force
 cd ../mdg-admin && vercel --prod --yes --force
 ```
+
+Not `vercel deploy --prebuilt` for the landing site. It uploads whatever sits in
+`.vercel/output`, and `npm run build` does not refresh that folder, so on 22 Aug it
+shipped the previous day's build.
 
 Confirm the served `/assets/index-*.js` filename actually changed — Vercel has
 reused a cached build before and reported success.
@@ -161,6 +171,11 @@ restart takes it off the site immediately, without a deploy.
 Everything is in the admin portal under **Assistant** (super-admins only):
 conversations with full transcripts and recordings, leads, flagged visitors,
 blocks, and daily spend against the budget.
+
+**Grievances.** The assistant also registers a grievance for a visitor, in the chat and
+on a call, up to two per conversation. Each one lands on **Grievances** in the admin
+portal, with a source of "Assistant chat" or "Call with the assistant". It is also
+listed in that conversation's detail on the Assistant page.
 
 **Watch the spend meter in the first week.** Speech is the whole bill: about
 **2 paise a character**, so one 450-character spoken reply is roughly **₹8**,
@@ -178,7 +193,7 @@ month** and correct it.
 | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "We could not answer" on everything | Assistant → knowledge base card. If it says an error, S3 or `ASSIST_KB_VERSION` is wrong. Reload from that card.                                                                             |
 | Answers are vague or wrong          | Open the conversation, read the Trace section: it shows which guideline passages were retrieved and their scores. Low scores mean the knowledge base needs re-chunking, not a prompt change. |
-| Calls all say "lines are busy"      | Three at once is the cap. Check whether slots are stuck: restart clears them.                                                                                                                |
+| Calls all say "lines are busy"      | Five at once is the cap (`ASSIST_MAX_CONCURRENT_CALLS`). Check whether slots are stuck: restart clears them.                                                                                 |
 | Nothing works from the website      | Browser console will say CORS. Check `ASSIST_ALLOWED_ORIGINS`.                                                                                                                               |
 | Spend looks wrong                   | Assistant → Usage. Compare against the real invoice before believing the estimate.                                                                                                           |
 

@@ -1,7 +1,7 @@
 # Audit logging — user activity trail
 
 How the platform records **who did what, when, and from where**, and how admins read it.
-See ADR 0009 for the rationale.
+See ADR 0020 for the rationale.
 
 ## The record
 
@@ -26,28 +26,61 @@ so a later rename is reflected retroactively and there is no extra write per act
 - **Route handlers** call `auditFromReq(req, { entity, entityId, action, before?, after?,
 actorId? })` (`mdg-backend/src/utils/audit.ts`). It auto-fills actor + IP/UA/method/path.
   `req.ip` is trustworthy because `app.set('trust proxy', env.TRUST_PROXY)` is set.
-- **Background jobs** (the reply-SLA sweep, `executeRun`) call the lower-level
-  `writeAudit({ ... actorId })` — no request, so no IP/UA.
+- **Background jobs** call the lower-level `writeAudit({ ... actorId })` — no request,
+  so no IP/UA. The writers today: the reply-SLA sweep, `executeRun`, the AI first line,
+  ticket raise and merge, the Kavach automation mark, and the nightly document reminders.
+  The actor is `system` or `scheduler` where no person acted.
 - **Best-effort:** `writeAudit` never throws. A failed audit insert is logged, not
   propagated, so it can't break the user action it records. It is still awaited.
 
 ## What is covered
 
-Login (success **and** `LOGIN_FAILED`: invalid password / suspended / unknown email);
-admin create/update/password-reset; dealer create/update/delete; dealer-user
-create/update/suspend; IRAS credential set/clear; service attach/update/detach/run-now and
-`SERVICE_LOGGED`; onboarding step complete/reopen; record create; conversation
-started/assigned/reassigned/ticket-updated/resolved/reopened (incl. the client-message
-reopen) and the auto-unassign sweep; staff employee add/update and points award/undo; the
-self-serve preference update.
+The named list is `AUDIT_ACTIONS` in `shared/src/types/enums.ts` — 135 actions on 15 Oct 2026.
+`action` is a plain string in the model, and the code writes 15 more names the list does not
+carry (see "Other" below). To see what has really been written, read the `AuditLog`
+collection, not the list. By area:
 
-Two **sensitive reads** are logged as data-access events (not mutations): `RECORD_VIEWED`
-(a dealer document's signed URL is minted) and `ARTIFACT_DOWNLOAD` (run-artifact egress).
+- **Sign-in:** login and `LOGIN_FAILED` (invalid password / suspended / unknown email).
+  `LOGOUT` is in the list but nothing writes it.
+- **Admins and dealers:** admin create/update/password-reset; dealer create/update/delete,
+  archive/restore; the outlet profile (`DEALER_PROFILE_UPDATE`); dealer users
+  create/update/suspend.
+- **Portal passwords:** IRAS and SDMS set, clear and reveal.
+- **Services and runs:** attach/update/detach/run-now and `SERVICE_LOGGED`.
+- **Onboarding:** step complete/reopen.
+- **Chat:** started, assigned, reassigned, ticket-updated, resolved, reopened (incl. the
+  client-message reopen), the auto-unassign sweep, a file sent to the whole outlet
+  (`CHAT_MESSAGE_SHARED`), and chat asks marked received or sent back.
+- **Tickets:** raise, merge, seen, resolve, reopen, urgency.
+- **AI first line:** answer, hand-off, re-share, review, kill switch, per-dealer mode.
+- **Kavach:** admin verify, automation mark, evidence request/submit/reject, catalog
+  edits, a dealer's work list, digest share.
+- **Staff points:** worker add/update, award/undo, draft finalize and clear, work lists
+  and catalog edits, leave set/clear.
+- **Shares and collections:** DSR, Credit & DOD and load-plan shares; inspection-report
+  and RO supply status collection; Ledger Watch findings, rules and cards.
+- **IRAS shift data:** corrections, reverts, day verify/unverify.
+- **Papers (document asks):** every state change, reminders and catalog edits.
+- **Other:** preferences, festival band, bank and depot holidays, admin alerts,
+  grievances and registrations, the landing assistant's block list. Written but not in the
+  named list: correctness-gate overrides and remarks (`ASSURANCE_*`), film links
+  (`FILM_LINK_*`), `IRAS_DAY_CREATED`, `DSR_REBASELINE`, `WHATSAPP_REPLY_SEEN`, and five more
+  AI first line actions (writer switch, photo filed, guard block and clear, document send).
+
+**Sensitive reads** are logged as data-access events, not mutations:
+`ARTIFACT_DOWNLOAD` (run artifacts), `ATTACHMENT_DOWNLOAD` (staff hardcopy photos, and chat
+files on an explicit download), `TT_INVOICE_PDF_VIEW`, `TT_REGISTER_PHOTO_VIEW`,
+`DOCUMENT_ASK_FILE_VIEW`, `RO_SUPPLY_STATUS_CARD_VIEW`, `LEDGER_WATCH_CARD_VIEW`,
+`WATER_INGRESS_CARD_VIEW`, `IRAS_SLIP_PHOTO_VIEW`, and the two password reveals
+(`IRAS_CREDENTIALS_REVEAL`, `SDMS_CREDENTIALS_REVEAL`).
+
+`RECORD_VIEWED` is no longer written: the Reports shelf was retired on 13 Oct 2026. The
+`RECORD_MIGRATED` rows hold each report that was moved into the dealer's chat.
 
 ## Secrets & PII hygiene
 
 `before`/`after` never contain: passwords or hashes (recorded as `{ passwordChanged: true }`),
-IRAS credentials (only `{ username, setAt }` — never plaintext or ciphertext), bank account
+portal credentials, IRAS and SDMS (only `{ username, setAt }` — never plaintext or ciphertext), bank account
 details (stripped; `bankDetailsChanged` boolean instead), or push tokens. IP + user-agent
 are retained deliberately as forensic context.
 

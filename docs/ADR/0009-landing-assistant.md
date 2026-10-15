@@ -1,6 +1,6 @@
 # ADR 0009 — The landing-page assistant (voice + chat + live call)
 
-Status: accepted, 2026-08-21
+Status: accepted, 2026-08-21. Updated 2026-10-15: the question-checking model (§4), concurrent calls (§5, §7), the site's functions (§2), the audio sweep (§8), live captions (new §4.3) and the toll-free line (§10). Section numbers are unchanged; code comments point into them.
 
 ## 1. What it is, in one paragraph
 
@@ -26,9 +26,12 @@ human. It never quotes a price and never describes how any of our work is done.
 | Admin surface            | `mdg-admin` → `/assist` (super-admin only)               | Same auth, same nav, same primitives.                                                                                   |
 | Widget                   | `mdg-landing/src/components/assist/**`                   | Lazy-loaded so the 2G visitor pays nothing until they tap it.                                                           |
 
-The landing site's serverless functions (`api/enroll`, `api/callback`) stay as
-they are. They mail; they do not talk to the backend. The assistant is the first
-thing on that site that calls `api.mdgservices.in`, so `CORS_ORIGINS` must list
+The landing site has three serverless functions: `api/enroll`, `api/callback`
+and `api/grievance`. All three send email. Enrol and grievance also hand the
+submitted form to the backend's website intake (`/website`, a server-to-server
+call proved by a shared secret), which feeds the admin's Registrations and
+Grievances screens. The assistant is different in kind: the visitor's browser
+calls `api.mdgservices.in` directly, so `CORS_ORIGINS` must list
 `https://mdgservices.in`.
 
 ## 3. The knowledge base
@@ -45,6 +48,8 @@ thing on that site that calls `api.mdgservices.in`, so `CORS_ORIGINS` must list
 
 Scanned pages are rasterised with `pdftoppm` and transcribed by a Gemini
 multimodal call. That is a one-time laptop step; the server never sees a PDF.
+(ADR 0012 supersedes this sentence for images: the server now reads slip
+photographs that an admin uploads. This knowledge base is still built on a laptop.)
 
 ### 3.2 Chunking
 
@@ -96,7 +101,7 @@ local disk at `var/assist/kb/<version>/`, and hot-reloadable from the admin UI.
 ```
 question
   └─► rules pre-guard  ── blocked ──►  templated refusal
-  └─► intent classifier (gemini-2.5-flash-lite, JSON)
+  └─► intent classifier (gemini-2.5-flash, JSON)
         └─ pricing / internal / off-topic / abusive / injection ──► templated refusal
   └─► embed query ─► dot-product top-8 ─► MMR to 5
         └─ best score < 0.62 ──► "I don't have that written down" + offer a callback
@@ -104,6 +109,10 @@ question
   └─► output guard  ── leak / price / prompt-echo / no citation ──► safe fallback
   └─► answer (+ TTS if the turn was spoken)
 ```
+
+The classifier first shipped on `gemini-2.5-flash-lite`. That model returns 404
+in `asia-south1` (checked live on 2026-08-22), and the failure would have been
+silent, so it runs on `gemini-2.5-flash` (`VERTEX_GUARD_MODEL`).
 
 The classifier and the answerer are deliberately **two different calls**. The
 model that reads hostile text is not the model that also holds the retrieved
@@ -132,25 +141,37 @@ sentence how MDG carries that load, offer the next step. Warm, plain, short
 sentences, the visitor's language. Never pushy; a visitor who only wants to know
 what MDG is gets a straight answer and an invitation, not a pitch.
 
+### 4.3 Live captions on a voice note
+
+Added 2026-08-23. The mic button is tap to start, tap again to send (holding a
+button is the browser's text-selection gesture). While the visitor speaks, the
+panel shows their words as grey text, streamed from ElevenLabs Scribe v2
+Realtime (`ELEVENLABS_REALTIME_MODEL`) with a single-use token the backend mints
+(`POST /assist/voice/live-token`). **The caption is never the question.** The
+recording is still uploaded and the server's own transcript is what gets
+answered; a caption that fails costs the visitor a line of grey text and
+nothing else. `ASSIST_LIVE_TRANSCRIPT` turns it off without touching voice
+notes. The call (§5) does not use captions.
+
 ## 5. The call
 
 Browser microphone over a Socket.IO namespace `/assist-call`. No telephony
 provider, no phone number, no per-minute cost.
 
-| Guard             | Value                                | Why                                                                                                                   |
-| ----------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
-| Concurrent calls  | 3 globally                           | The box has ~450 MB free and ElevenLabs concurrency is finite. A 4th caller is offered a callback, not a dead button. |
-| Inactivity        | 60 s                                 | As specified. A single nudge at 40 s first.                                                                           |
-| Total duration    | 15 min                               | As specified. Warning at 13 min.                                                                                      |
-| Turns             | 40                                   | Stops a feedback loop burning credit.                                                                                 |
-| One utterance     | 30 s                                 | Also the STT request cap.                                                                                             |
-| Speech per call   | 8 min                                | The cost ceiling that actually binds.                                                                                 |
-| Silent start      | prompt at 20 s, drop at 60 s         | Dead tabs release the slot.                                                                                           |
-| Reconnect grace   | 20 s                                 | A network blip should not lose the conversation.                                                                      |
-| Recording consent | spoken first line + a visible notice | Recording someone without telling them is not acceptable.                                                             |
-| Abuse             | one warning, then end                |                                                                                                                       |
-| Daily spend       | env cap in paise                     | When hit, calls are off and chat offers a callback.                                                                   |
-| Kill switch       | `ASSIST_ENABLED=false`               |                                                                                                                       |
+| Guard             | Value                                | Why                                                                                                                                                                                                      |
+| ----------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Concurrent calls  | 5 globally                           | Raised from 3 on 2026-08-23, when the site began offering the call. Money binds, not the box: ~0.5 MB of buffered audio per call and no decoding. A 6th caller is offered a callback, not a dead button. |
+| Inactivity        | 60 s                                 | As specified. A single nudge at 40 s first.                                                                                                                                                              |
+| Total duration    | 15 min                               | As specified. Warning at 13 min.                                                                                                                                                                         |
+| Turns             | 40                                   | Stops a feedback loop burning credit.                                                                                                                                                                    |
+| One utterance     | 30 s                                 | Also the STT request cap.                                                                                                                                                                                |
+| Speech per call   | 8 min                                | The cost ceiling that actually binds.                                                                                                                                                                    |
+| Silent start      | prompt at 20 s, drop at 60 s         | Dead tabs release the slot.                                                                                                                                                                              |
+| Reconnect grace   | 20 s                                 | A network blip should not lose the conversation.                                                                                                                                                         |
+| Recording consent | spoken first line + a visible notice | Recording someone without telling them is not acceptable.                                                                                                                                                |
+| Abuse             | one warning, then end                |                                                                                                                                                                                                          |
+| Daily spend       | env cap in paise                     | When hit, calls are off and chat offers a callback.                                                                                                                                                      |
+| Kill switch       | `ASSIST_ENABLED=false`               |                                                                                                                                                                                                          |
 
 Barge-in is supported: speech from the visitor cancels playback of the answer.
 
@@ -203,7 +224,7 @@ changes, this and the scheduler both break.
 | `turn:text`       | session | 20 total, 6 / min |
 | `turn:voice`      | session | 12 total, 3 / min |
 | `call:start`      | IP      | 3 / h             |
-| `call:concurrent` | global  | 3                 |
+| `call:concurrent` | global  | 5                 |
 | `llm:global`      | global  | 120 / min         |
 | `spend:day`       | global  | env cap           |
 
@@ -214,8 +235,9 @@ manifest, the cost and (while tracing is on) a per-turn trace. `AssistBlock`
 holds blocked fingerprints. `AssistUsageDay` holds the daily counters the budget
 cap reads.
 
-Audio is deleted after `ASSIST_AUDIO_RETENTION_DAYS` (default 90) by a nightly
-sweep; the transcript stays. Mobile numbers are stored (a callback needs one)
+Audio is deleted after `ASSIST_AUDIO_RETENTION_DAYS` (default 90) by the
+assistant sweep, which runs every five minutes and caps its work per tick; the
+transcript stays. Mobile numbers are stored (a callback needs one)
 and redacted in every log line.
 
 ## 9. Tracing — REMOVE WHEN STABLE
@@ -228,7 +250,10 @@ weeks and is expected to be turned off; see the memory note
 
 ## 10. What is deliberately not built
 
-- No telephony. Decided with the founder: browser mic only.
+- No telephony. Decided with the founder: browser mic only. Since October 2026 the
+  site's call sheet also offers a toll-free number answered by a person (kept in
+  `mdg-landing/src/lib/tollFree.ts`), beside "talk here" with the assistant. The
+  assistant itself still has no telephony provider.
 - No vector database. See §3.4.
 - No ffmpeg / no merged recording file. See §5.1.
 - No answer cache in v1. Questions are long-tail and a wrong cache hit on a

@@ -5,11 +5,13 @@
 > `record:new` event, the record card in the chat and the Records shelf — no longer exists. A
 > report now reaches a dealer only as a picture or file message in the chat, and old records are
 > moved into the chat by a script. What still stands: §2's second bullet, **the `Conversation` is
-> the ticket** (extended by ADR 0017). The text below is kept as it was written.
+> the ticket** (extended by ADR 0017). Its consequence "one conversation per dealer" was replaced
+> too: each member has a private thread (ADR 0005, June 2026), and the manager has a group thread
+> shared with every owner (kind `manager`, since 7 July 2026). The text below is kept as it was written.
 
 - Status: Accepted; the Records parts superseded by ADR 0018
 - Date: 2026-06-19
-- Supersedes/extends: context in ARCHITECTURE_V2.md
+- Supersedes/extends: context in ARCHITECTURE.md
 
 ## Context
 

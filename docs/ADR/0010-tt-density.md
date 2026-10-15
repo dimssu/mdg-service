@@ -1,10 +1,10 @@
 # ADR 0010 — Tanker invoices and the density they were loaded at
 
-Status: accepted, 2026-08-24
+Status: accepted, 2026-08-24; live for every outlet since 24 August 2026. The daily photo now arrives through the chat (ADR 0019). Updated 2026-10-15 in §1, §9, §10, §11, §13 and §14.
 
 - Extends: ADR 0002 (service plugin contract)
 - Related: `docs/ADDING_A_SERVICE.md`, `LIMITATIONS.md` § "Portal scraping (SDMS / IRAS)"
-- Spec: `docs/specs/tt-density-contract.md`
+- Spec: `mdg-backend/src/services/tt-density/README.md` (how it runs) and `docs/specs/tt-density-ux.md` (the admin screens)
 - Contracts: `shared/src/types/ttDensity.ts`, `shared/src/tt/materials.ts`, `shared/src/schemas/ttDensity.ts`
 
 ## 1. What it is, in one paragraph
@@ -15,10 +15,14 @@ screen for the last seven days of tanker invoices, store each invoice's PDF, and
 read the `Density@15` figure the PDF prints for every product on it. An admin
 sees those figures large, at the top of the dealer's screen, with the invoice
 they came from one tap away and rendered in place. Separately, one photo a day —
-of the outlet's **density test register page** — is uploaded by the dealer from
-the app or by an admin from the portal, and that photo is what marks the day
-done. Nothing is compared against anything, and nothing is written back to
+of the outlet's **density test register page** — is sent by the dealer in the
+chat (since 13 October 2026, §9) or uploaded by an admin from the portal, and
+that photo is what marks the day done. Nothing is compared against anything, and nothing is written back to
 IndianOil.
+
+(Correction from the first live run: the TT Acknowledgement screen is an ordinary route inside the
+SDMS portal, `/sdmspro/indent/receipt-ack`, not a separate e-Mitra screen behind its own hand-off.
+The service README, "What the first live runs settled", has the detail.)
 
 ## 2. Why a plugin, and not an extension of something that already exists
 
@@ -276,6 +280,13 @@ Uploading it marks that day done.
   outlet — the route takes the dealer from the token and has no `:dealerId` at
   all, so there is nothing to tamper with. Or an admin, from the portal, on a
   named dealer's behalf; the record says which.
+- **Since 2026-10-13 (ADR 0019) the normal way is the chat.** A morning job
+  (09:00 IST, `REGISTER_ASK_CRON`) asks in the chat for yesterday's page. The
+  dealer answers with a photo and it is received automatically, filed as the
+  dealer; MDG posts "Received". The Density screen is gone and `/density` opens
+  the chat. The dealer's seven-day window and the admin's upload on the dealer's
+  behalf are unchanged. The old `/tt-density/me/*` routes stay only for apps
+  already installed.
 - **Which day:** the business date is in the path, validated as a real IST
   calendar date and refused if it is in the future. A dealer may back-date up to
   **7 days**; an admin up to **60**. Seven, because someone away for a week
@@ -297,19 +308,27 @@ Two levels, and keeping them apart is the point.
 `RunFailure` by the plugin, and either deferred (20–40 minutes, at most twice) or
 left for a human:
 
-| Code                                                                                                    | Transient? | Who fixes it                                                                                                               |
-| ------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `LOGIN_PAGE_UNREACHABLE`                                                                                | yes        | Nobody — the next run normally succeeds                                                                                    |
-| `LOGIN_CAPTCHA_EXHAUSTED`, `LOGIN_CHALLENGE_EXHAUSTED`, `LOGIN_CHALLENGE_UNAVAILABLE`                   | yes        | Nobody                                                                                                                     |
-| `NAV_HOME_FAILED`, `SESSION_EXPIRED`                                                                    | yes        | Nobody — the SSO handoff is the portal's known flaky edge (`LIMITATIONS.md`)                                               |
-| `MENU_OPEN_FAILED`                                                                                      | yes        | Nobody first, Engineering if it repeats — a collapsed sidebar and a renamed menu look the same for one run                 |
-| `FETCH_FAILED`, `TABLE_NOT_FOUND`                                                                       | yes        | Nobody first, Engineering if it repeats                                                                                    |
-| `ACCOUNT_COOLDOWN`                                                                                      | yes        | Nobody — the account breaker is doing its job                                                                              |
-| `CAPTURE_TIMEOUT`                                                                                       | yes        | Nobody                                                                                                                     |
-| `LOGIN_REJECTED`                                                                                        | **no**     | **Admin** — re-enter the dealer's SDMS credentials. Retrying a wrong password walks a real dealer's account into a lockout |
-| `SDMS_CREDENTIALS_MISSING`                                                                              | **no**     | **Admin** — the dealer has no SDMS credentials stored                                                                      |
-| `OCR_SIDECAR_UNAVAILABLE`, `BROWSER_LAUNCH_FAILED`                                                      | **no**     | **Ops** — a server install, not a portal condition                                                                         |
-| `DOWNLOAD_INVOICE_MISSING`, `DATE_FIELDS_NOT_FOUND`, `FETCH_BUTTON_NOT_FOUND`, `COLUMNS_NOT_RECOGNISED` | **no**     | **Engineering** — the portal changed shape, and a selector does not un-break itself in twenty minutes                      |
+| Code                                                                                                    | Transient? | Who fixes it                                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `LOGIN_PAGE_UNREACHABLE`, `LOGIN_NO_RESPONSE`                                                           | yes        | Nobody — the next run normally succeeds. `LOGIN_NO_RESPONSE` (added October 2026) is the portal taking the sign-in click and never answering |
+| `LOGIN_CAPTCHA_EXHAUSTED`, `LOGIN_CHALLENGE_EXHAUSTED`, `LOGIN_CHALLENGE_UNAVAILABLE`                   | yes        | Nobody                                                                                                                                       |
+| `NAV_HOME_FAILED`, `SESSION_EXPIRED`                                                                    | yes        | Nobody — the SSO handoff is the portal's known flaky edge (`LIMITATIONS.md`)                                                                 |
+| `MENU_OPEN_FAILED`                                                                                      | yes        | Nobody first, Engineering if it repeats — a collapsed sidebar and a renamed menu look the same for one run                                   |
+| `FETCH_FAILED`, `TABLE_NOT_FOUND`                                                                       | yes        | Nobody first, Engineering if it repeats                                                                                                      |
+| `ACCOUNT_COOLDOWN`                                                                                      | yes        | Nobody — the account breaker is doing its job                                                                                                |
+| `CAPTURE_TIMEOUT`                                                                                       | yes        | Nobody                                                                                                                                       |
+| `LOGIN_REJECTED`                                                                                        | **no**     | **Admin** — re-enter the dealer's SDMS credentials. Retrying a wrong password walks a real dealer's account into a lockout                   |
+| `SDMS_CREDENTIALS_MISSING`                                                                              | **no**     | **Admin** — the dealer has no SDMS credentials stored                                                                                        |
+| `SDMS_PASSWORD_REFUSED`                                                                                 | **no**     | **Admin** — IndianOil already refused this outlet's saved password; a manual run stops with this code before it contacts the portal          |
+| `OCR_SIDECAR_UNAVAILABLE`, `BROWSER_LAUNCH_FAILED`                                                      | **no**     | **Ops** — a server install, not a portal condition                                                                                           |
+| `DOWNLOAD_INVOICE_MISSING`, `DATE_FIELDS_NOT_FOUND`, `FETCH_BUTTON_NOT_FOUND`, `COLUMNS_NOT_RECOGNISED` | **no**     | **Engineering** — the portal changed shape, and a selector does not un-break itself in twenty minutes                                        |
+
+**A refused or missing portal password holds the outlet** (since 2026-10-11).
+The scheduler does not launch the run at all and looks again every 15 minutes,
+instead of failing each cycle and walking the account towards a lockout. Saving
+the password again lifts the hold. This service is one of the five that sign in
+to SDMS and share that hold. The portal itself moved to `utkarsh.indianoil.co.in`
+on 2026-10-10.
 
 **Row-level failures are not run failures.** One invoice whose link did not fire
 (`INVOICE_LINK_NOT_FOUND`, `PDF_NOT_A_DOWNLOAD`, `PDF_EMPTY`) or whose text could
@@ -330,9 +349,11 @@ recoverable at all.
 `DAILY`, `defaultCustomCron: '35 7 * * *'` (IST). After the portal's overnight
 batch has settled and before the office opens. Thirty-five minutes past, not on
 the hour, because `water-ingress-testing` fires at `0 1-23/2 * * *` — including
-07:00 — for every dealer that has it, and `SDMS_MAX_CONCURRENCY` bounds live
-Chromiums to two across **all** SDMS pipelines. Landing on top of the water
-window would queue this service behind the estate.
+07:00 — for every dealer that has it, and `BROWSER_MAX_CONCURRENCY` (default 1)
+bounds live Chromiums to one across the whole process: portal runs, IRAS
+collection and card renders alike. Landing on top of the water window would
+queue this service behind the estate. (This ADR first named
+`SDMS_MAX_CONCURRENCY` and a limit of two. That setting is retired.)
 
 `nextRunAt` is returned in exactly one case: when the run stopped because it hit
 `maxDownloadsPerRun` and there is more of the window still to fetch. Then it asks
@@ -381,16 +402,21 @@ that the invoice exists.
 - **No PDF renderer in the bundle.** No `react-pdf`, no `pdf.js` in the admin.
   The browser has a PDF viewer; adding one to a bundle for a screen an admin
   opens at a desk is a cost with no buyer.
-- **No dealer access to the invoice PDFs.** The dealer sees their own latest
-  densities and their own register photos; the tax invoices stay admin-only. The
+- **No dealer access to the invoice PDFs.** The tax invoices stay admin-only. The
   dealer already holds these documents from IndianOil, and serving financial
   documents to a dealer token widens the surface for no new fact. If the owner
-  wants it, it is one route and one guard.
+  wants it, it is one route and one guard. (This ADR first said the dealer sees
+  their own latest densities and register photos on a screen. There is no such
+  screen now: new tanker densities arrive as one MDG chat message per run, and
+  each figure names the invoice day it came from. ADR 0019 §5.)
 - **No roster column state for the daily photo.** The `tt-density` roster column
   reports what the _run_ did (`DONE` / `FAILED` / `PENDING`), like every other
   non-delivering service. "Which dealers have not uploaded today's register page"
   is a genuinely useful estate view and belongs in the cross-dealer Data Vault
   later, not as a per-dealer query inside a roster render.
+- **No 20:00 "today's photo is missing" reminder push.** It needed a per-dealer
+  hour and a scheduler job of its own, and was deferred at build time. Since
+  2026-10-13 the 09:00 chat ask for yesterday's page does that job (ADR 0019).
 - **No back-fill beyond the configured window.** Raising `lookbackDays` once is
   the back-fill; a separate back-fill path would be a second way to do the same
   thing with its own bugs.
@@ -399,7 +425,10 @@ that the invoice exists.
   Vehicle Condition or press Acknowledge, for the same reason Water Ingress has
   no toggle that can file a false water alarm.
 
-## 14. Known hazards for the first live run
+## 14. Known hazards for the first live run (historical)
+
+The service has been live since 24 August 2026, so this list is history. It is
+kept as written; how the first live runs settled each one is in the service README ("What the first live runs settled").
 
 Everything after `LOGIN` and `NAV_HOME` was written from screenshots, not a DOM
 dump. Specifically unresolved, and each one has a diagnostic that settles it:

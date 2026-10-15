@@ -2,7 +2,8 @@
 
 Status: accepted, 2026-10-12. Extends ADR 0013 (the writer) and ADR 0004 (the
 conversation as the ticket). The router engine from ADR 0013 is untouched and
-stays selectable.
+stays selectable. Amended 2026-10-15: the last section carries the boundaries
+of the September v3 plan.
 
 ## What forced this
 
@@ -46,7 +47,8 @@ sweep or alert dismissal closes one.
 
 - **One open ticket per thread**, enforced by a unique partial index. A second
   escalation on a thread with an open ticket is added to it as a follow-up.
-- Every handoff reason maps to a trigger (`TICKET_TRIGGER_FOR_REASON`) — so the
+- Every handoff reason maps to a trigger (`TICKET_TRIGGER_FOR_REASON`, in
+  `shared/src/lib/ticketView.ts`) — so the
   Tickets page can tell _only a person can do this_ from _we never built it_
   from _we broke_.
 - **Voice notes, PDFs and several files now raise a ticket and say so.** They
@@ -191,6 +193,9 @@ Left as found, and why:
 
 ## Deploy
 
+Done: the box runs `AI_FIRSTLINE_ENGINE=brief` with the first line switched on (confirmed on the
+box 2026-10-15). It went live on 2026-10-12.
+
 `AI_FIRSTLINE_ENGINE` ships `router`, so a box that never sets it behaves as
 before except for tickets and the attachment line. To switch on the briefing
 engine, set in the server's `.env`:
@@ -204,3 +209,44 @@ and restart. The admin's "Templates only" switch also drops it back to the
 router. The kill switch is `AI_FIRSTLINE_ENGINE=router`. The three figure gates
 (`AI_FIRSTLINE_QUOTE_DENSITY`, `…_SHARED_DSR`, `…_CREDIT`) stay off until the
 owner chooses to open them.
+
+## Boundaries carried over from the v3 plan (5 September 2026)
+
+A planning document for the AI first line ("v3", written 5 September, before this ADR) was never
+built as written. Its buttons-in-replies design became asks in the chat (ADR 0019) and its router
+became the briefing engine above. Its list of what to refuse to build is still the boundary of
+the AI first line. Each row reads: what we do not do, what that costs the owner, and why.
+
+| Not doing                                                                           | What the owner loses                                                                         | Why                                                                                                                                                                                                                                                                                                  |
+| ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **A model looking at dealer photos**                                                | No automatic "this is a register page" or "this is unreadable".                              | On a blurred slip the model returned a confident wrong number, marked it legible, and returned the same wrong number four times (ADR 0012). And "is this a register page?" is certification, which ADR 0011 reserves. The blur warning in the app covers the useful half.                            |
+| **Free-text or numeric inputs in a chat bubble**                                    | No "enter today's dip reading" in the chat.                                                  | A number typed into a bubble becomes a figure our own reports could quote, with none of the shift-data editor's closed-ledger protections.                                                                                                                                                           |
+| **Yes/no compliance ticks** ("mark it done")                                        | The dealer still cannot self-certify a task.                                                 | A tick is cheaper to fake than a photograph and weighs the same on screen. ADR 0011 exists to stop exactly this.                                                                                                                                                                                     |
+| **A menu as a general control**                                                     | No "pick from these three" bubbles.                                                          | A chat that answers "what's pending?" with a menu has stopped answering and started delegating. The honest case, several papers open, is prose naming all of them, one control and a link to the list.                                                                                               |
+| **Rupee figures in the chat**: credit due, DOD date, tanker invoices, our own bills | Money questions still go to a person.                                                        | The credit figure moves daily; quoting yesterday's approved amount today is the authoritative-figure fault. If it is ever done it must be gated and off by default. This ADR's `AI_FIRSTLINE_QUOTE_CREDIT` is that gate: off by default, owner only, and limited to the last credit report MDG sent. |
+| **Inspection findings, IRAS per-nozzle rows, run error detail**                     | Dealers cannot self-serve these.                                                             | Findings are an officer's verdict about their licence. The meter rows have no screen anywhere, so the chat would be inventing a fact. Run errors carry portal text, selectors and occasionally a credential.                                                                                         |
+| **Anything a dealer taps that triggers a browser run**                              | No "run my water check now" button.                                                          | Browser automation is one Chromium at a time on the box. Ten dealers tapping it is an outage.                                                                                                                                                                                                        |
+| **Voice notes routed to obligations**                                               | A voice note still goes straight to a person (now with a ticket, §1).                        | A voice note cannot satisfy a paper obligation, and the document schema already says so. Transcription is a later option, and a transcript is only words: they may choose between targets the code already offers, never select one.                                                                 |
+| **Multi-page documents**                                                            | A multi-page fire NOC submits page one; every page is on the ledger and on the admin's card. | Both destinations take one file. The fix is a pages array, a new field with no index change. Later work, not a blocker.                                                                                                                                                                              |
+| **Actions in WhatsApp**                                                             | Buttons live in the app only.                                                                | WhatsApp interactive messages have their own limits and their own approval flow.                                                                                                                                                                                                                     |
+
+### Considered, not built
+
+Dated 5 September 2026. None of these exists in the code on 15 October 2026.
+
+- **Gap Register.** Handoffs grouped by how many dealers hit the same one, so the next thing to
+  build is the thing most dealers ran into.
+- **Unfiled-photos tray.** An admin pane, per dealer and across dealers, listing every photo a
+  dealer sent that nothing filed, so an admin can file it by hand with their name on it.
+- **Honest-number dashboard.** The share of questions _handled_ (answered, acted on, guided, or
+  escalated with a subject line and a named next step) shown beside the share _answered by the
+  machine_, always on the same screen. About one question in five is money, a dispute or a
+  judgement that ADR 0011 reserves for a person, so the answered rate has a ceiling near 80%
+  whatever the prompts say. Chasing a higher answered rate would mean widening what the model may
+  say, which is the one direction that breaks the guarantees.
+- **A general claim layer.** The writer declares what its sentence means and which fact each
+  number came from, and code compares. It would catch what the digit-and-unit fence cannot: an
+  instruction or a yes/no with no digit in it.
+- **A sampled shadow judge.** A third model call after the reply is posted, from a queue, answering
+  closed questions, never a gate, with its own flag, its own daily cost lid and concurrency of 1.
+  A gate that can itself hallucinate is not a gate.

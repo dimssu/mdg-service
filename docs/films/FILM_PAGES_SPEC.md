@@ -1,14 +1,14 @@
-# Film pages + film analytics — build spec (4 Oct 2026)
+# Film pages + film analytics — contract (live since 4 Oct 2026)
 
-Two Dealer Kavach films go on **mdgservices.in** as shareable links that start playing the
+Two Dealer Kavach films are on **mdgservices.in** as shareable links that start playing the
 moment they open, and every view is measured: views, unique viewers, watch time, retention
 second by second, where people drop off (mapped to the spoken line), sound-on rate, start-up
 time, buffering, and which share link / city / device / network the view came from.
 
-| film id        | what                               | duration         | public URL                          |
-| -------------- | ---------------------------------- | ---------------- | ----------------------------------- |
-| `kavach`       | the full film (v2)                 | 1589.7 s (26:29) | `https://mdgservices.in/film`       |
-| `kavach-short` | the 30–40 s short (being made now) | ~35 s            | `https://mdgservices.in/film/short` |
+| film id        | what                              | duration         | public URL                          |
+| -------------- | --------------------------------- | ---------------- | ----------------------------------- |
+| `kavach`       | the full film (v2)                | 1589.7 s (26:29) | `https://mdgservices.in/film`       |
+| `kavach-short` | the short (live since 4 Oct 2026) | 38.6 s           | `https://mdgservices.in/film/short` |
 
 Query params on both URLs: `?r=<code>` share-link code (attribution), `?from=short` (set by
 the short's end button), `#t=<seconds>` deep-link into the film.
@@ -19,41 +19,60 @@ Public bucket `mdg-films` (ap-south-1), base `https://mdg-films.s3.ap-south-1.am
 Each film version is an immutable folder `/<film>/<version>/` produced by
 `marketing/films/web/package.mjs`:
 
-| file                             | what                                                                                                 |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `master.m3u8`                    | HLS master; 5 renditions 1920/1280/960/640/426 tall (9:16), 4 s TS segments, muxed mono AAC          |
-| `hd/sd/lite.m3u8`                | the same ladder for Safari's own player, 720p / 540p / 360p listed first (it starts on the first)    |
-| `r0..r4/index.m3u8`, `s0000.ts…` | renditions, `r0` = 1080x1920 … `r4` = 240x426                                                        |
-| `film-540.mp4`                   | fast-start 540p mp4: fallback for browsers with neither native HLS nor MSE                           |
-| `poster.jpg`                     | 720x1280 first-frame poster (`poster-720.jpg` added to the two v1 versions, which shipped 540x960)   |
-| `captions.hi.vtt`                | Hindi WebVTT, one cue per phrase, timed to the narration                                             |
-| `chapters.json`                  | `[{ t, title }]` (full film only; `[]` for the short)                                                |
-| `timeline.json`                  | `{ film, duration, lines: [{ id, t, end, hi }], chapters }` — every narrated line with its start/end |
-| `film.json`                      | `{ film, title, version, duration, base, hls, mp4, poster, captions, chapters, ladder }`             |
+| file                             | what                                                                                                                  |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `master.m3u8`                    | HLS master; 5 renditions 1920/1280/960/640/426 tall (9:16), 4 s TS segments, muxed mono AAC                           |
+| `hd/sd/lite.m3u8`                | the same ladder for Safari's own player, 720p / 540p / 360p listed first (it starts on the first)                     |
+| `r0..r4/index.m3u8`, `s0000.ts…` | renditions, `r0` = 1080x1920 … `r4` = 240x426                                                                         |
+| `film-540.mp4`                   | fast-start 540p mp4: fallback for browsers with neither native HLS nor MSE                                            |
+| `poster.jpg`                     | 720x1280 first-frame poster (`poster-720.jpg` added to the two v1 versions, which shipped 540x960)                    |
+| `captions.hi.vtt`                | Hindi WebVTT, one cue per phrase, timed to the narration                                                              |
+| `chapters.json`                  | `[{ t, title }]` (full film only; `[]` for the short)                                                                 |
+| `timeline.json`                  | `{ film, duration, lines: [{ id, t, end, hi }], chapters }` — every narrated line with its start/end                  |
+| `film.json`                      | `{ film, title, version, duration, base, hls, playlists: { hd, sd, lite }, mp4, poster, captions, chapters, ladder }` |
 
 CORS on the bucket allows `https://mdgservices.in`, `https://www.mdgservices.in`,
 `https://mdg-landing.vercel.app`, `http://localhost:5173`, `http://localhost:4173`.
-The current `film.json` for each film is copied into the landing repo at build time (see §2).
+The current `film.json` for each film is pasted into the landing repo's `src/film/films.json` (see §2).
 
 ## 2. Watch pages — `mdg-landing` (Vercel project `mdg-landing`, deployed by CLI, not git)
 
-**Not part of the React SPA.** Two standalone static pages, as light as the guide site
+**Not part of the React SPA.** Standalone static pages, as light as the guide site
 (`mdg-demo/site`, zero framework, inline CSS/JS, device fonts — read its README for the
-2G reasoning): `public/film/index.html` → `/film`, `public/film/short/index.html` →
-`/film/short` (or generated into `dist/` by a small build step — your call, but the output
-must be plain static HTML). Add explicit `vercel.json` rewrites for `/film` and `/film/short`
-BEFORE the SPA catch-all. Target: HTML + inline CSS/JS ≤ 15 kB gzipped; nothing else
-blocks first paint; the poster is the LCP image.
+2G reasoning). `scripts/film-pages.ts` builds them at deploy time from `src/film/films.json`,
+`src/film/page.css` and `src/film/player.ts` into `dist/film/{,en/}index.html` and
+`dist/film/short/{,en/}index.html`, plus a self-hosted hls.js. `public/film/` holds only the
+logo mark (`mark.png`) and the two og images. `vercel.json` rewrites `/film` and `/film/short`
+BEFORE the SPA catch-all. Target: HTML + inline CSS/JS ≤ 15 kB gzipped per page, logged by the
+build. **The budget is nearly used up:** on the build of 15 Oct 2026 the largest page (the Hindi
+full film) was 15,268 of 15,360 bytes gzipped by the build's own count (Node zlib, level 9;
+the `gzip -9` command gives 14,997), under 100 bytes of headroom, and any addition needs a
+cut elsewhere. Nothing else blocks first paint; the poster is the LCP image.
 
-Config: `src/film/films.json` (or similar) holds the two `film.json` objects (base URL,
-version, duration, chapters). Updating a film = new version folder + paste its film.json +
-redeploy. A film whose version is not yet known (the short, today) must render a tasteful
-"जल्द आ रहा है" state instead of a broken player.
+**Hindi and English.** Each page is built in both and has a language switch in its header.
+Only `/film` and `/film/short` are served: `middleware.ts` picks the file from `?lang=` (it also sets the `mdg_lang` cookie, one year) or
+the `mdg_lang` cookie, and answers in Hindi by default, even on English phones, because the
+films are Hindi. `vercel.json` redirects `/film/en` and `/film/short/en` to `?lang=en`, so a
+shared link stays one link. The React site writes the same cookie. A language switch keeps the
+viewing's `sid` and `seq` (sessionStorage `mdg_view`) and the outside referrer (`mdg_ref`), so
+it counts as one view, not two.
+
+Public pages follow the standing rule: outcomes only, no internal method, no internal
+screens, no mention of AI.
+
+Config: `src/film/films.json` holds the two `film.json` objects (base URL, version, duration,
+chapters). A film whose `version` is null builds a coming-soon page instead of a player.
+
+**Updating a film.** Run `marketing/films/web/package.mjs <film>` (a new immutable version
+folder) → paste its `film.json` into `mdg-landing/src/film/films.json` and redeploy the landing
+site with `vercel --prod --yes --force` → copy its `timeline.json` to
+`mdg-backend/src/films/data/<film>.timeline.json`, set `version` in
+`mdg-backend/src/films/catalog.ts`, and deploy the backend.
 
 **Playback — "starts immediately":** browsers forbid sound before a tap, so:
 
 - `<video playsinline preload="auto" poster=…>`; **hls.js** (`hls.js/dist/hls.light.min.js`,
-  self-hosted under `/film/`) in every browser with MediaSource except Safari, whose own
+  self-hosted as `/film/hls-<version>.js`) in every browser with MediaSource except Safari, whose own
   player is kept and given `hd`/`sd`/`lite.m3u8`; else `film-540.mp4`. Chrome's own HLS player
   is not used: it opens on the 240p rung whatever the list says (measured, 9 Oct 2026).
   Data saver and 2G keep the browser's player to skip the 120 kB hls.js download.
@@ -79,26 +98,29 @@ redeploy. A film whose version is not yet known (the short, today) must render a
   (hls.js only, remembered).
 - Full film: resumes where the viewer left off (offered, not forced, for 12 s).
 - Full film: chapter list under the player (title + time), tap seeks; highlight current.
-- **End screen.** Short: a large "पूरी फ़िल्म देखें (26 मिनट) →" button to
-  `/film?from=short&r=<same code>` + replay. Full film: "डीलर कवच से जुड़ें" to `/register`
-  (the site's existing enrolment page) + replay. Both: a WhatsApp share button
-  (`https://wa.me/?text=<encoded title + URL with the same ?r>`).
-- Page chrome: MDG logo mark (existing `/logo-mark.png`), title, one line of description,
+- **End screen.** Short: what the full film holds, a large "पूरी फ़िल्म देखें · 26 मिनट"
+  button to `/film?from=short&r=<same code>` + replay. Full film: a thank-you and a join button
+  to `/register?lang=<the page's language>` (the site's enrolment page) + replay. Both: a
+  WhatsApp share button (`https://wa.me/?text=<encoded title + URL with the same ?r>`).
+- **Next step ("आगे क्या करें?").** A section under the player on both pages: a call-back form
+  (name, mobile, optional pump name; `POST /api/callback` with `source: "film"` and `ref` = the
+  `?r=` code, plus the hidden `website` box and `elapsed` field the server requires), then the
+  toll-free number, the Play Store app, website registration (`/register`) and "talk on the
+  website" (`/?call=1`). **All of these taps, and a sent call-back, report as cta `register`:**
+  `FILM_CTAS` has six values, and an unknown one makes the backend reject the whole beacon.
+- Page chrome: MDG logo mark (`/film/mark.png`), title, one line of description,
   nothing else above the fold — the video fills a phone screen width in 9:16.
 - Meta: `<title>`, description, Open Graph + Twitter card (`og:type=video.other`,
-  `og:image` = a 1200x630 JPEG served from mdgservices.in itself — build it like
-  `scripts/og.mjs` builds `og.png`; frames to use are in
-  `marketing/.work/web/<film>/<version>/poster.jpg` or pull a frame from the film).
+  `og:image` = a 1200x630 JPEG served from mdgservices.in itself, built by
+  `scripts/og-film.mjs` (`npm run og:film`) into `public/film/og-<film>.jpg`).
   WhatsApp shows the og:image as the link preview, so it must be ≤ 300 kB and absolute https.
 - `<link rel=preconnect>` to the media host; `<link rel=preload as=image>` the poster.
 
 **Geo for analytics:** Vercel Routing Middleware (`middleware.ts` at the project root,
-matcher `/film` and `/film/:path*`) reads `x-vercel-ip-country`, `x-vercel-ip-country-region`,
+matcher `/film` and `/film/short` only: a wider pattern would also stamp a cookie on hls.js
+and the images) reads `x-vercel-ip-country`, `x-vercel-ip-country-region`,
 `x-vercel-ip-city` and sets cookie `mdg_geo=<country>|<region>|<city>` (URL-encoded,
-`Path=/film; Max-Age=86400; SameSite=Lax; Secure`). Verify with `vercel build` that the
-middleware is emitted for this Vite project; if Routing Middleware is not available,
-fall back to a tiny `api/geo.ts` function the page calls once. The page must work with no
-geo at all.
+`Path=/film; Max-Age=86400; SameSite=Lax; Secure`). The page works with no geo at all.
 
 **Analytics client** (inline, small): sends beacons to the backend (§3) with
 `navigator.sendBeacon(url, new Blob([json], { type: 'text/plain' }))`; fallback
@@ -114,8 +136,8 @@ geo at all.
   `waiting` events after first frame (+ duration); current rendition height.
 - Never sends personal data. No cookies of our own besides `mdg_vid` (localStorage) and the
   middleware's `mdg_geo`.
-- Add one short neutral line to `public/privacy.html` saying the site measures how its films
-  are watched, anonymously (no name, number or account). Keep the page's existing tone.
+- `public/privacy.html` says the site measures how its films are watched, anonymously (no
+  name, number or account).
 
 ## 3. Backend — `mdg-backend` (Express + Mongo, pm2 on EC2, api.mdgservices.in)
 
@@ -129,8 +151,11 @@ geo at all.
 - CORS: the landing origin is already allowed (`ASSIST_ALLOWED_ORIGINS`); confirm
   `https://mdgservices.in` and `https://www.mdgservices.in` pass. sendBeacon is no-cors
   anyway — the request must succeed server-side even if CORS headers were missing.
-- Rate limit per IP (e.g. 300 / 5 min); body ≤ 16 kB; reject unknown films; clamp ranges to
-  `[0, duration]`; drop beacons whose `sid` is not a uuid.
+- Rate limit per IP (`FILM_BEACON_RATE_LIMIT`, default 300 / 5 min) and a cap on new session
+  ids per address (`FILM_NEW_SESSIONS_PER_HOUR`, default 60); body ≤ 16 kB; reject unknown
+  films; clamp ranges to `[0, duration]`; drop beacons whose `sid` is not a uuid.
+  **Production runs 3000 and 600**, because Indian carrier NAT puts many viewers behind one
+  address and the defaults dropped real views.
 - Beacon payload (validate with zod):
 
 ```ts
@@ -191,9 +216,9 @@ sent, free text ≤ 80), createdBy (admin id), createdAt, archived.
 
 Film metadata (duration, timeline lines, chapters) comes from each film's `timeline.json`
 (§1) — vendor the current ones into the backend (e.g. `src/films/data/<film>.timeline.json`),
-plus a small `films` config (id, title, public URL, duration). A film with no timeline yet
-(the short, today) must still accept beacons once it has a duration configured; until then
-reject its beacons gracefully.
+plus a small `films` config (`catalog.ts`: id, title, public URL, version, duration). A film with
+no timeline and no duration stays not ready: its beacons get a 409 `FILM_NOT_READY` until it has
+one.
 
 ### 3.3 Admin API (super-admin only — same gate as the assist console)
 
@@ -282,7 +307,7 @@ has no test runner, so keep decidable logic pure and small.
 
 Contents:
 
-1. Film switcher (Full film / 35-s short) + date range (7 days / 30 days / all) + share-link filter.
+1. Film switcher (Full film / 38-s short) + date range (7 days / 30 days / all) + share-link filter.
 2. KPI tiles: Page opens · Views · Unique viewers · Avg watch time · Avg % watched ·
    Completed · Turned sound on · Start time (median).
 3. **Retention curve** (the centrepiece): % of views still watching at each second, chapter
@@ -297,11 +322,3 @@ Contents:
    group") → shows the URL with copy + "WhatsApp पर भेजें" buttons; list with per-link stats.
 10. Recent views table (drill-down).
     Empty states that explain what will appear once the film is shared.
-
-## 5. Rules for every builder
-
-- Do **not** commit, push or deploy. The orchestrator ships.
-- Public pages follow the standing rule: outcomes only, no internal method, no internal
-  screens, no mention of AI. Never mention Claude or Anthropic anywhere.
-- Hindi strings: natural spoken Hindi, the site's existing spellings (एम-डी-जी, डीलर कवच).
-- Run each repo's typecheck/lint/tests and report the results honestly.

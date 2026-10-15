@@ -1,6 +1,6 @@
 # ADR 0011 — Dealer Kavach: admin- and automation-verified compliance
 
-- Status: Accepted
+- Status: Accepted. Extended by ADR 0019 (2026-10-13): evidence is now asked and answered in the chat.
 - Date: 2026-08-26
 - **Supersedes ADR 0006 §1 (actor), §6 (reminders and escalation), §11 (versionless template edits)
   and its 2026-06-30 `requiresProof` amendment.** The subsystem decision in ADR 0006 §1 — that
@@ -120,6 +120,11 @@ body is the unprompted claim — "I've done this" — which queues the task for 
 The dealer keeps a way to act and a way to disagree, without self-certification returning by the back
 door.
 
+_Since then (ADR 0019, 2026-10-13):_ the request block is filled from a photo sent in the chat (ref
+`kv:<itemId>`). There is no unprompted "I've done this" button: only a photo answers a Kavach
+request, and a typed message or a voice note is an ordinary message for a person. The old
+`/kavach/items/:id/evidence` endpoint stays only for apps already installed.
+
 ### 6. Reminders and escalation are deleted outright
 
 Not deprecated — removed, along with `escalateItem`, `escalateItemManual`, the ladder helpers,
@@ -166,7 +171,9 @@ report on our uptime.
 still say 84% after an admin verifies three tasks at lunchtime.
 
 - The **bilingual chat line** is delivered automatically at the dealer's hour, once per IST day. It
-  restates what they can already see in their own tab.
+  first restated what the dealer could already see in their own Kavach tab. That tab was removed in
+  October 2026 (ADRs 0018, 0019), so the chat line and the card below are now the only place the
+  dealer sees Kavach.
 - The **rendered PNG card** is admin-approved and idempotent per day. An image with a percentage on it
   is forwardable and can end up in front of an inspector; nothing reaches that state without a person
   having looked at it. Same rule as DSR and Credit & DOD.

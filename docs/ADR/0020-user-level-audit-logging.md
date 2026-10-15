@@ -1,4 +1,6 @@
-# ADR 0009 — User-level audit logging (who did what, when, from where)
+# ADR 0020 — User-level audit logging (who did what, when, from where)
+
+Filed as ADR 0009 on 2026-07-06; renumbered in October 2026 because the landing assistant also took 0009 and is cited by that number in dozens of code files. "ADR 0009" now means only the landing assistant.
 
 - Status: Accepted
 - Date: 2026-07-06

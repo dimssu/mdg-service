@@ -1,34 +1,32 @@
 # UAT — Credit & DOD Monitoring (SDMS capture → review → share)
 
-**Status:** v1 · **Owner:** UAT · **Last updated:** 2026-08-06
+**Status:** current · **Owner:** UAT · **Last updated:** 2026-10-15
 **Surface:** `mdg-admin` (ops portal, web) + `mdg-client` / `mdg-app` (dealer chat) ·
 **Service:** `credit-dod-monitoring` (backend plugin)
 
-This plan verifies the new **Credit & DOD Monitoring** service end to end: an admin
+This plan verifies the **Credit & DOD Monitoring** service end to end: an admin
 sets a dealer's IndianOil **SDMS** credentials, attaches the service, runs it, the
-backend logs into SDMS (captcha solved by an OCR sidecar), reads the Credit
-Monitoring page + PAD statement, computes the **DOD due amount / due date** by FIFO
-ledger aging, stores a per-dealer **snapshot**, renders the bilingual **"CREDIT &
-DOD MONITORING"** card, and the admin reviews it and presses **Share with dealer**
-to post it into the dealer's chat. **Nothing is sent to the dealer automatically.**
+backend logs into SDMS (the login asks an arithmetic "Security Verification"
+question, which the runner reads from the page; the OCR sidecar is only the
+fallback when the question is a picture), reads the Credit Monitoring page + PAD
+statement, computes the **DOD due amount / due date** by FIFO ledger aging, stores
+a per-dealer **snapshot**, renders the bilingual **"CREDIT & DOD MONITORING"**
+card, and the admin reviews it and presses **Share with dealer** to post it into
+the dealer's chat. **Nothing is sent to the dealer automatically.**
 
-Two later sections cover the ways this can hand a dealer a wrong or harmful
+Three later sections cover the ways this can hand a dealer a wrong or harmful
 figure: **[Section E](#section-e--transactions-the-portal-publishes-late)** for
-transactions IndianOil publishes days after they happen, and
+transactions IndianOil publishes days after they happen,
 **[Section F](#section-f--missed-deposit-deadlines-overdue)** for a dealer who
-misses the deposit deadline — including how to produce a missed deadline on
-demand instead of waiting for one.
+misses the deposit deadline (including how to produce a missed deadline on demand
+instead of waiting for one), and **[Section G](#section-g--a-locked-credit-line-review-date-lapsed)**
+for a locked credit line.
 
-It mirrors the structure of the other docs in `docs/uat/*`: every scenario names the
+Every scenario names the
 **persona**, **preconditions**, **numbered plain-language steps**, an **expected
-result**, and a **PASS / FAIL** box. Where behaviour is grounded in code, the source
-is cited as `file:line` for whoever wants to read along — the operator does not need
-to touch it.
-
-The second half of this document — **[Findings & gaps](#findings--gaps)** — is the
-core deliverable: a code-grounded audit of whether a **non-technical operator can
-tell, from the admin UI alone, WHERE and WHY a run failed and what to do next.** The
-short answer is **not yet** — see the P0/P1 items.
+result**, and a **PASS / FAIL** box. The operator does not need to read any code.
+What is still not done is listed at the end, under
+**[Still open](#still-open)**.
 
 ---
 
@@ -45,7 +43,8 @@ cp mdg-backend/.env.example mdg-backend/.env    # then edit
 
 # Server prerequisites for THIS service (see the plugin README):
 #   - Playwright Chromium:  npx playwright install chromium  (+ --with-deps on Linux)
-#   - OCR sidecar venv:     mdg-backend/ocr/README.md
+#   - OCR sidecar venv:     mdg-backend/ocr/README.md  (needed only when the login's
+#                           question is a picture; a text question is read from the page)
 #   - A Devanagari font (e.g. fonts-noto) or the Hindi column renders as boxes.
 
 npm run seed --workspace mdg-backend            # idempotent admin + sample dealers
@@ -64,7 +63,9 @@ Open:
 > IndianOil SDMS portal with the dealer's real credentials. For a non-production UAT
 > without a valid SDMS account, you can only fully exercise the **failure** journeys
 > (Section C) and the credential/UI surfaces. The **happy path (Section B)** requires
-> a dealer whose SDMS creds are real and whose portal has a DOD ledger. There is a dev
+> a dealer whose SDMS creds are real and whose portal has a DOD ledger. The portal is at
+> `utkarsh.indianoil.co.in` (it moved from `sdms.indianoil.in` on 10 Oct 2026; the old
+> address only forwards). There is a dev
 > CLI to rehearse the capture off-band: `npm run automation:sdms -- --code 297282 [--headed]`
 > writes the card + raw dumps under `./var/sdms/<timestamp>/` (README "Dev CLI").
 
@@ -72,14 +73,18 @@ Open:
 
 ## Where each surface lives (navigation map)
 
-| Task                                         | Where in the admin                                                                                                                          |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Set / update / clear SDMS creds              | **Dealers → open a dealer → ⋯ menu → Password vault → "IndianOil SDMS (Credit & DOD)" card** (`DealerPasswordVaultTab.tsx` renders `SdmsCredentialsSection`)    |
-| Attach the service, set cadence              | **Services tab** (`DealerServicesTab.tsx`)                                                                                                  |
-| **Generate a report** (today or a past date) | **Credit & DOD tab → Generate card** (`DealerCreditDodTab.tsx`). Capped at 3 per dealer per hour; super-admins exempt.                      |
-| Review the card, **Share with dealer**       | **Credit & DOD tab → Report history → expand a row** (`CreditDodReportCard`). Also reachable from Run history, which renders the same card. |
-| The per-dealer "sheet" (snapshot history)    | **Credit & DOD tab → Report history**, directly above the maintained PAD ledger. API: `GET /credit-dod/dealers/:dealerId/snapshots`.        |
-| Learn the feature                            | **"How this works"** button on the Credit & DOD tab → two Hindi admin videos on guide.mdgservices.in.                                       |
+| Task                                         | Where in the admin                                                                                                                                           |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Set / update / clear SDMS creds              | **Dealers → open a dealer → ⋯ menu → Password vault → "IndianOil SDMS (Credit & DOD)" card** (`DealerPasswordVaultTab.tsx` renders `SdmsCredentialsSection`) |
+| Attach the service, set cadence              | **Services tab** (`DealerServicesTab.tsx`)                                                                                                                   |
+| **Generate a report** (today or a past date) | **Credit & DOD tab → Generate card** (`DealerCreditDodTab.tsx`). Capped at 3 per dealer per hour; super-admins exempt.                                       |
+| Review the card, **Share with dealer**       | **Credit & DOD tab → Report history → expand a row** (`CreditDodReportCard`). Also reachable from Run history, which renders the same card.                  |
+| The per-dealer "sheet" (snapshot history)    | **Credit & DOD tab → Report history**, directly above the maintained PAD ledger. API: `GET /credit-dod/dealers/:dealerId/snapshots`.                         |
+| Learn the feature                            | **"How this works"** button on the Credit & DOD tab → two Hindi admin videos on guide.mdgservices.in.                                                        |
+
+**Sharing.** Wherever a step below says "Share with dealer → confirm", it means: open
+the **Share with dealer ▾** menu, pick who gets it (**Owners**, the usual choice,
+**Manager**, or **Both**), then press **Share** in the dialog.
 
 ---
 
@@ -98,28 +103,24 @@ plan audits **is Arjun** — an ops person, not an engineer.
 
 ## Failure-code reference (what each SDMS error _means_)
 
-The runner raises a categorised `SdmsError` with one of these codes at a named phase
-(`runner.ts:27-37`). This table is the **translation an operator needs but the UI
-does not currently give them** (gap **G1/G2**). Keep it beside you while running
-Section C.
+Every failed run carries a category code, the phase it failed at, and a diagnostics
+bundle (`fail_<phase>.png` and `fail_<phase>.html`, saved as run artifacts). The
+whole code set, and which codes are retried automatically, is in the service
+README, "Failure diagnostics". The admin turns the code into a plain sentence on
+the failure panel (Section C). The codes an operator meets most often:
 
-| Code                        | Phase            | Plain meaning                                                                                                      | Operator action                                                                                                                                        |
-| --------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `BROWSER_LAUNCH_FAILED`     | launch           | Chromium didn't start on the server                                                                                | Server issue — call engineering (Playwright not installed)                                                                                             |
-| `LOGIN_PAGE_UNREACHABLE`    | login            | SDMS login page didn't load                                                                                        | Retry later; if persistent, SDMS may be down                                                                                                           |
-| `LOGIN_CAPTCHA_EXHAUSTED`   | login            | Couldn't sign in within N captcha attempts                                                                         | **Ambiguous today** — could be a wrong password, a hard captcha, _or_ the OCR sidecar missing (gap **G4**). Verify the password; then call engineering |
-| `LOGIN_CHALLENGE_EXHAUSTED` | login            | SDMS asked its arithmetic "Security Verification" question, we answered it correctly N times, and it kept refusing | Retry — usually portal-side. The question we read and the answer we sent are in the run's attempt diagnostics                                          |
-| `LOGIN_CHALLENGE_NOT_FOUND` | login            | The login page showed no security verification we could answer (no question, no captcha image, or nowhere to type) | **SDMS changed its login form** — do not retry, call engineering. The diagnostics carry what the page was showing                                      |
-| `DASHBOARD_UNREACHABLE`     | dashboard        | Logged in but dashboard didn't load                                                                                | Retry                                                                                                                                                  |
-| `ELEDGER_LINK_MISSING`      | dashboard        | Credit-monitoring / PAD menu links absent for this login                                                           | This SDMS account may not have DOD/eledger access — confirm dealer type / entitlements                                                                 |
-| `CREDIT_MONITORING_FAILED`  | creditMonitoring | Credit page loaded but couldn't be parsed                                                                          | Open the failure screenshot; likely an SDMS layout change — call engineering                                                                           |
-| `PAD_NAV_FAILED`            | padStatement     | PAD statement page didn't open                                                                                     | Retry                                                                                                                                                  |
-| `RETRIVEDATA_HTTP`          | padStatement     | Ledger fetch returned a non-200                                                                                    | Retry; if persistent, SDMS-side                                                                                                                        |
-| `RETRIVEDATA_EMPTY`         | padStatement     | Ledger returned zero rows for the window                                                                           | Widen `padLookbackDays`; or the dealer truly has no ledger activity                                                                                    |
+| Code                                       | Plain meaning                                                                                 | Operator action                                                                                   |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `LOGIN_REJECTED` / `SDMS_PASSWORD_REFUSED` | SDMS refused the saved ID and password, or the outlet is already on hold because it did       | Get the current password from the dealer and save it in the Password vault. Saving lifts the hold |
+| `LOGIN_CHALLENGE_EXHAUSTED`                | SDMS asked its arithmetic "Security Verification" question, we answered, and it kept refusing | Retry; usually portal-side. Scheduled runs retry on their own                                     |
+| `LOGIN_CHALLENGE_NOT_FOUND`                | The login page showed no question we could answer. **SDMS changed its login form**            | Do not retry. Call engineering                                                                    |
+| `LOGIN_CHALLENGE_UNAVAILABLE`              | The login page loaded but never showed its question                                           | Nothing: retried automatically (scheduled runs)                                                   |
+| `LOGIN_NO_RESPONSE`                        | SDMS took our sign-in click and never answered it                                             | Nothing: retried automatically                                                                    |
+| `OCR_SIDECAR_UNAVAILABLE`                  | The question was a picture and the reader on the server is missing or broken                  | Call engineering                                                                                  |
+| `ELEDGER_HANDOFF_FAILED`                   | SDMS would not open the eledger page for this login (a known IndianOil-side flake)            | Retry in a few minutes                                                                            |
+| `RETRIVEDATA_EMPTY`                        | The ledger returned zero rows for the window                                                  | Widen `padLookbackDays`, or the dealer truly has no ledger activity                               |
 
-On any of these, the runner also saves a **diagnostics bundle** — `fail_<phase>.png`
-(full-page screenshot) + `fail_<phase>.html` (DOM) — as run artifacts
-(`runner.ts:110-127`).
+`LOGIN_CAPTCHA_EXHAUSTED` now means only the old image captcha.
 
 ---
 
@@ -128,22 +129,21 @@ On any of these, the runner also saves a **diagnostics bundle** — `fail_<phase
 ### CD-A1 — Set SDMS credentials (Retail / LPG / 1906)
 
 - **Persona:** Arjun · **Precondition:** an ACTIVE dealer exists; you are on its
-  **Info** tab.
+  **Password vault** tab (dealer → ⋯ menu → Password vault).
 - **Steps:**
-  1. Scroll to the **"IndianOil SDMS (Credit & DOD)"** card.
+  1. Find the **"IndianOil SDMS (Credit & DOD)"** card.
   2. If no creds are set, the form is shown directly; enter **Username** (the SDMS
      login, e.g. `0000297282_01`), **Password**, and pick a **Dealer type**
      (Retail / LPG / 1906).
   3. Press **Save credentials**.
 - **Expected:** Toast **"SDMS credentials saved"**; the card collapses to a summary
   showing a green **"SDMS credentials set"**, the **username** (echoed), the **dealer
-  type**, and a **Set** timestamp (`SdmsCredentialsSection.tsx:191-222`). The password
-  is never echoed back — it is stored encrypted (`README.md` "Credentials";
-  subtitle at `:109-113`).
-- **Note the caveat:** the login flow currently always clicks the **Retail** tab and
-  uses a single `SDMS_LOGIN_URL` regardless of the dealer type you pick
-  (`credentials.ts:65`, `runner.ts:146`). Picking **LPG / 1906** is stored but not
-  yet honoured — see gap **G7**.
+  type**, and a **Set** timestamp. The password is stored encrypted and is not shown
+  in the summary. **Show ID & password** reveals it on demand (any admin); every
+  reveal is logged (`SDMS_CREDENTIALS_REVEAL`).
+- **Note:** the dealer type is stored, but the portal's login page has had no
+  dealer-type control since SDMS rebuilt it on 11 Aug 2026, so today the choice
+  changes nothing at login. The runner picks one only if the page offers it.
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-A2 — Update and Clear credentials
@@ -151,10 +151,12 @@ On any of these, the runner also saves a **diagnostics bundle** — `fail_<phase
 - **Persona:** Arjun · **Precondition:** creds are set (CD-A1).
 - **Steps:**
   1. Press **Update** → the form reopens with **empty** username/password and the
-     saved dealer type preselected (`SdmsCredentialsSection.tsx:226-238`). Change the
-     password; **Save**.
-  2. Press **Clear** → a browser `confirm()` warns _"Clear SDMS credentials? The
-     service will stop running until new credentials are set."_ (`:86-88`). Confirm.
+     saved dealer type preselected. Change the password; **Save**.
+  2. Press **Clear** → an in-app dialog asks _"Clear the SDMS credentials?"_ and
+     explains that every service that signs in with them stops running until a new
+     pair is saved, and that a cleared password cannot be recovered. Press
+     **Clear credentials**. (It is an in-app dialog, not a browser `confirm()`,
+     because `confirm()` does not work inside the app's WebView.)
 - **Expected:** Update → **"SDMS credentials saved"**. Clear → **"SDMS credentials
   cleared"**, the form returns to the empty state.
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
@@ -226,17 +228,22 @@ creditMonitoring → padStatement → computeDod → renderCard`, each turning g
   - The rendered card image's numbers **match** the value grid.
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
-### CD-B3 — Confirm and Share with dealer
+### CD-B3 — Choose who gets it, and Share with dealer
 
 - **Persona:** Arjun · **Precondition:** CD-B2; the card shows and is **not yet shared**.
 - **Steps:**
-  1. Press **Share with dealer** (`CreditDodReportCard.tsx:113-120`).
-  2. A confirm dialog appears: _"Share this Credit & DOD card with the dealer's chat?
-     This will message the dealer."_ (`:123-148`). Press **Share**.
-- **Expected:** Button shows a loading state, then toast **"Card shared with dealer"**;
-  the dialog closes; the button becomes a **disabled "Shared"** with a check
-  (`:109-112`). An audit entry `CREDIT_DOD_SHARE` is written (`share.ts:158-164`) —
-  visible in the dealer's **Info tab → Audit log** accordion.
+  1. Press **Share with dealer ▾**. A short list asks **Send to**: **Owners** (every
+     owner, in their own chat), **Manager** (the group chat; owners get no ping) or
+     **Both**. Pick **Owners**.
+  2. The **Share with dealer** dialog opens: _"Post this card and one short line to the
+     dealer's chat."_, with a line saying who will receive it, a notice when the report
+     is back-dated, and a red notice (Share disabled for a plain admin) when the
+     figures do not reconcile or part of the ledger could not be read. Press **Share**.
+- **Expected:** Button shows a loading state, then a toast saying who it went to; the
+  dialog closes; the button becomes a **disabled "Shared"** with a check and the time.
+  An audit entry `CREDIT_DOD_SHARE` is written, visible in the dealer's audit log.
+- **Repeat with Manager, then Both**, on a UAT dealer that has a manager. Each lands
+  only where the list said it would.
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-B4 — Dealer receives the card in chat + a push
@@ -244,18 +251,18 @@ creditMonitoring → padStatement → computeDod → renderCard`, each turning g
 - **Persona:** Ramesh (dealer-owner) · **Precondition:** CD-B3 shared; Ramesh is an
   **ACTIVE** app member of that dealer.
 - **Steps:**
-  1. On `mdg-client` (or the `mdg-app`) signed in as Ramesh, open the **Chat** tab.
+  1. On `mdg-client` (or the `mdg-app`) signed in as Ramesh, the app opens on the
+     **chat list**. There is no tab bar. Open his chat.
   2. Observe the new message from **MDG**.
   3. On the `mdg-app` build (Expo), confirm a **push notification** arrived.
 - **Expected:**
   - A system message headed **"📋 CREDIT & DOD MONITORING (code)"** with a bilingual
     line — if there's a due, _"देय राशि / Due: ₹… — जमा करने की आख़िरी तारीख़ / by
     DD-MM-YYYY"_, else _"कोई बकाया नहीं / No dues."_ — plus a Current/Availed/Available
-    limits line (`share.ts:37-59`).
-  - The **card PNG is attached** as an image (`share.ts:98-111`), openable full-size.
+    limits line.
+  - The **card PNG is attached** as an image, openable full-size.
   - The conversation shows as **unread** for the dealer; a push titled **"Credit & DOD
-    update"** with body _"Due ₹… by DATE"_ or _"No dues"_ deep-links to the chat
-    (`share.ts:152-156`).
+    update"** with body _"Due ₹… by DATE"_ or _"No dues"_ opens the chat.
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-B5 — Re-share is idempotent ("Shared")
@@ -276,50 +283,48 @@ creditMonitoring → padStatement → computeDod → renderCard`, each turning g
 
 ## Section C — Failure journeys (WHAT THE OPERATOR SHOULD SEE)
 
-For each, note **what the UI shows today** vs **what an operator needs to conclude**.
-These feed the [Findings & gaps](#findings--gaps). Trigger the failures per the "How
-to trigger" line; then open the failed run in **Run history → click the row**.
+For each, check that **a non-technical operator can tell what went wrong and what
+to do from the admin alone.** Trigger the failure per the "How to trigger" line,
+then open the failed run in **Run history → click the row**.
+
+A FAILED run shows a **failure panel** at the top of the run dialog: one sentence
+saying what went wrong, and one saying what to do. Super-admins also see the step
+it failed at, a **Technical details** disclosure with the raw message, and the
+`fail_*.png` capture as **"Screenshot at failure"** (opens full size). A plain admin
+sees the two plain sentences only, and their wording never says "engineering" or
+"the server logs". There is no Output section on a failed run. The sentences come
+from the code (see the failure-code reference above).
 
 ### CD-C1 — Wrong SDMS password
 
 - **Persona:** Arjun · **How to trigger:** set a deliberately wrong password (CD-A1),
   then **Run now**.
-- **Steps:** Open the failed run. Inspect **Steps**, **Error**, **Output**, **Artifacts**.
-- **Expected (product intent):** After N attempts the run **FAILS** with
-  `LOGIN_CAPTCHA_EXHAUSTED` at phase `login` (`runner.ts:188-195`); a
-  `fail_login.png` + `fail_login.html` diagnostics bundle is attached
-  (`runner.ts:110-127`).
-- **What the operator actually sees today (audit):**
-  - **Status chip:** red **FAILED** (good).
-  - **Steps timeline:** the `login` step shows a **red ✗ with no explanation** — the
-    error step carries `meta:{ code, diagnostics }` but the timeline only renders an
-    "Error details" block when `step.error` is set, which this step never has
-    (`index.ts:123-126` sets `meta`, not `error`; `RunStepTimeline.tsx:72`). **The
-    category code is invisible in the timeline.** → gap **G1**.
-  - **Error section:** a raw monospace dump
-    `credit-dod-monitoring: [LOGIN_CAPTCHA_EXHAUSTED] failed at login — captcha not
-solved in N attempts` **plus a stack trace** (`executeRun.ts:158-171`,
-    `RunsListInline.tsx:167-177`). The code is _in the string_ but buried and
-    intimidating. → gap **G2**.
-  - **Output section:** literally renders **`null`** (`RunsListInline.tsx:191-194`,
-    since a failed run has no `output`). → gap **G5**.
-  - **Artifacts:** `fail_login.png` / `fail_login.html` appear as filename rows with a
-    **Download** link that opens in a new tab — **no inline thumbnail, no "screenshot
-    at failure" label** (`RunsListInline.tsx:197-231`). → gap **G3**.
-  - **Note:** a wrong password and a genuinely-hard captcha are indistinguishable here.
+- **Steps:** Open the failed run and read the failure panel.
+- **Expected:** The run **FAILS** with `LOGIN_REJECTED` at phase `login`. SDMS's own
+  refusal is read from the login page and the run stops at once instead of spending
+  login attempts. The panel says **"SDMS says the ID or password is wrong."**, then
+  tells the operator to get the current password from the dealer and save it, and that
+  checks restart by themselves within 15 minutes. It does **not** read like a captcha
+  or a server fault. A super-admin also sees "Failed at step: login" and the
+  screenshot.
+- **Next:** the outlet is now on hold (CD-C6).
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
-### CD-C2 — Captcha never solved
+### CD-C2 — The login's security question fails
 
-- **Persona:** Arjun · **How to trigger:** valid password but the OCR keeps failing to
-  read the captcha (e.g. lower `SDMS_CAPTCHA_MAX_ATTEMPTS`, or an unusually hard
-  captcha run).
-- **Expected:** identical surface to CD-C1 — `LOGIN_CAPTCHA_EXHAUSTED` at `login`, same
-  diagnostics bundle. **This is the problem:** the operator cannot distinguish "wrong
-  password" from "hard captcha" from "OCR sidecar down" (CD-C5) — all three are the
-  same code + same copy. → gaps **G2, G4**.
-- **Steps:** Open the failed run; confirm you cannot tell _why_ login failed without
-  opening `fail_login.png` and/or reading server logs.
+- **Persona:** Arjun · **How to trigger:** not producible on demand with a good
+  password, because the portal has to refuse a correct answer, or change its form.
+  Check it when it happens in Run history, or by reading a past failed run.
+- **Expected:** the two login-question failures read differently from each other and
+  from a wrong password:
+  - `LOGIN_CHALLENGE_EXHAUSTED` — **"SDMS kept refusing the login's security
+    verification."** A plain admin is told to retry and, if it keeps happening, to
+    contact the MDG team.
+  - `LOGIN_CHALLENGE_NOT_FOUND` — **"SDMS changed its login page — the security
+    verification is gone."** A plain admin is told it needs a fix at our end. A
+    super-admin is told it needs a scraper update and that retrying will not help.
+  - `LOGIN_CAPTCHA_EXHAUSTED` ("Couldn't read the login captcha.") now applies only to
+    the old image captcha.
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-C3 — Dealer has no active app member (share blocked)
@@ -328,15 +333,13 @@ solved in N attempts` **plus a stack trace** (`executeRun.ts:158-171`,
   but **no ACTIVE `dealer-owner`/`dealer-staff`** user (e.g. members not yet issued
   logins, or all archived).
 - **Steps:**
-  1. Open the successful run; press **Share with dealer**; confirm **Share**.
-- **Expected (product intent):** the share is **rejected** —
-  `AppError.badRequest('Dealer has no active app member to share with')`
-  (`share.ts:85-88`).
-- **What the operator sees today (audit):** the confirm dialog closes… actually the
-  mutation throws, so a **red toast "Dealer has no active app member to share with"**
-  appears (`CreditDodReportCard.tsx:47-50`). **There is no pre-check** — the Share
-  button is fully enabled and only fails _after_ you confirm — and **no guidance** on
-  the fix (issue/activate an app login on the **Team** tab). → gap **G6**.
+  1. Open the successful run; press **Share with dealer ▾**, pick **Owners**, press
+     **Share**.
+- **Expected:** the share is **rejected** and nothing reaches the dealer. A red toast
+  reads **"Dealer has no active app member to share with"**.
+- **Known limitation:** there is no pre-check. The Share button is fully enabled and
+  fails only after you confirm, and the toast does not say the fix (issue or activate
+  an app login on the **Team** tab). See **Still open**.
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-C4 — Reconcile mismatch (card shows "does not reconcile")
@@ -345,29 +348,52 @@ solved in N attempts` **plus a stack trace** (`executeRun.ts:158-171`,
   equal SDMS's Current Total Receivable (e.g. `padLookbackDays` too short to reach the
   last zero-crossing — see README "PAD window").
 - **Steps:** Open the (SUCCESS) run; read the reconcile indicator and the DUE AMOUNT.
-- **Expected:** The run still **SUCCEEDS** — reconcile is a _warning_, not a failure
-  (`runner.ts:302-307`). The card shows a **red "Does not reconcile (SDMS receivable
-  ₹…)"** (`CreditDodReportCard.tsx:164-190`).
-- **Also expected (CLOSED, was gap G9):** the **Share** action is now **refused** for a
-  plain admin on a non-reconciling card — the API returns 400 with a plain-language
-  reason and nothing reaches the dealer. A **super-admin** may still override, and
-  still sees the warning. Verify both roles.
+- **Expected:** The run still **SUCCEEDS** — reconcile is a _warning_, not a failure.
+  The card shows a **red "Does not reconcile (SDMS receivable ₹…)"**.
+- **Also expected:** the **Share** action is **refused** for a plain admin on a
+  non-reconciling card (and on one whose ledger was partly unreadable). The dialog says
+  so before the click, and the API returns 400 with a plain-language reason, so nothing
+  reaches the dealer. A **super-admin** may still send it, and still sees the warning.
+  Verify both roles.
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ### CD-C5 — OCR sidecar not installed on the server
 
-- **Persona:** Arjun · **How to trigger:** run on a server where the Python OCR sidecar
-  venv is missing / `SDMS_OCR_PYTHON` is wrong.
-- **Expected (mechanism):** `solveCaptcha` **never throws** — a missing/broken sidecar
-  returns `{ ok:false, error:"OCR process error: spawn … ENOENT" }` (`captcha.ts:4-6,
-80-83`). The runner treats every attempt as unsolved and, after N attempts, fails
-  with **`LOGIN_CAPTCHA_EXHAUSTED`** — **the very same code as CD-C1/CD-C2.**
-- **What the operator sees today (audit):** an identical failed-login run. The real
-  cause (`spawn ENOENT`) is **only in server logs** — it is not put into the
-  `ocrAttempts` records (which carry `text/confidence/submitted` only, `runner.ts:80,
-164,169`) nor surfaced anywhere in the UI. A non-technical operator has **no way to
-  tell "the server is missing the OCR sidecar (call engineering)" from "unlucky
-  captcha (just retry)."** → gaps **G4 (P1)**.
+- **Persona:** Arjun · **How to trigger:** only matters when the login question is a
+  **picture**. The current portal shows a text question, which the runner reads from
+  the page without the sidecar, so a server with no sidecar logs in fine today. Check
+  this one by reading a past failed run, or on a server where the portal is serving
+  the image captcha.
+- **Expected:** a missing or broken sidecar fails fast with its own code,
+  **`OCR_SIDECAR_UNAVAILABLE`**, instead of looking like a wrong password. The panel
+  says **"The captcha reader isn't available on the server."** A plain admin is told it
+  needs a fix at our end and to contact the MDG team.
+- **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
+
+### CD-C6 — The outlet is put on hold after SDMS refuses its password
+
+- **Persona:** Arjun · **Precondition:** CD-C1 has just failed with `LOGIN_REJECTED` on a
+  dealer whose SDMS service is attached.
+- **Why:** each wrong attempt walks the dealer's own IndianOil login toward a lockout.
+  Since 11 Oct 2026 one refusal (or a missing password) puts the **outlet's SDMS
+  services** on hold, not just this run.
+- **Steps:**
+  1. Press **Run now** again on the same service.
+  2. Open the failed run, then look at the admin's alerts.
+  3. Save the password again in **Password vault** (it can be the same wrong one).
+  4. Press **Run now** once more.
+- **Expected:**
+  - Step 1: the run **fails at once** with `SDMS_PASSWORD_REFUSED` and **nothing is sent
+    to the portal**. The panel says **"Not run: SDMS already refused this outlet's saved
+    password."**
+  - Scheduled runs for this outlet's SDMS services stop; the system looks again every
+    15 minutes.
+  - Step 2: one admin alert per outlet, kind `login_refused`, says IndianOil refused the
+    saved ID and password and to get the current password from the dealer and save it
+    in the Password vault. Further refused runs fold into the same alert.
+  - Step 3: saving a password again **lifts the hold, even if it is the same one**.
+  - Step 4: this run goes to the portal. A login that works also lifts the hold on its
+    own.
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
 ---
@@ -541,6 +567,14 @@ Three sentences carry the whole section:
 3. **Nothing is sent automatically.** A missed deadline is still just a prepared
    report; it reaches the dealer when an admin presses **Share** (CD-F9).
 
+What these journeys lean on, each a way this could have gone wrong and did not: the
+deadline day itself is a strict `<`, so nobody is accused a day early; the grace band
+is judged from the **earliest** missed deadline, not the newest; `overdue.amount ≥
+dueAmount` always, so replacing the hero figure can never understate; the verdict
+re-derived for an older report goes through the **same** summariser as a live run, so
+the two cannot drift; and a fresh report with nothing overdue re-derives to nothing
+overdue, so the compatibility path cannot invent a breach (CD-F10).
+
 ### Producing an overdue position on purpose (read this first)
 
 You cannot ask a dealer to default on cue, and waiting for one is not a test
@@ -593,15 +627,16 @@ Every scenario below is now just an as-of date:
 **Quota.** Manual generations are capped at **3 per dealer per hour** (CD-D3) and
 this section is six or more runs. Either run them as a **super-admin** (exempt),
 spread them over two hours, or — much faster — ask whoever has server access to
-produce them all at once, off the quota:
+produce them all at once, off the quota, with
+`mdg-backend/scripts/run-credit-dod-backfill.ts <dealerServiceId> <dd-mm-yyyy>
+[<dd-mm-yyyy> …]`. The `<dealerServiceId>` is the id of this dealer's
+`credit-dod-monitoring` row on the Services tab; whoever runs it can read it off the
+API response.
 
-```bash
-# On the backend server, from /home/ubuntu/mdg-backend.
-# The <dealerServiceId> is the id of this dealer's credit-dod-monitoring row on
-# the Services tab; the person running this can read it off the API response.
-npx tsx scripts/run-credit-dod-backfill.ts <dealerServiceId> \
-  04-07-2026 05-07-2026 06-07-2026 07-07-2026 13-07-2026 16-07-2026
-```
+> **Do not run that script under `npx tsx`.** Under `tsx` the SDMS login cannot read
+> its security question, and the run fails with `LOGIN_CHALLENGE_UNAVAILABLE`, which
+> looks exactly like a portal outage. A browser script has to run from the compiled
+> build; the script's own header says how.
 
 Each date is a separate stateless run (one failing does not abort the rest), and
 every one lands in the same **Report history** list. The rest of the section is
@@ -1011,268 +1046,55 @@ hurt if it were wrong.
   report — nothing was stored to recompute from. Blank is the honest answer.
 - **PASS ☐ FAIL ☐** — notes: \***\*\*\*\*\***\*\*\***\*\*\*\*\***\_\_\***\*\*\*\*\***\*\*\***\*\*\*\*\***
 
-
 ---
 
-## Findings & gaps
+## Still open
 
-Ranked by how badly they block a **non-technical operator** from diagnosing and
-recovering from a failure on their own. The headline: the failure **data** is all
-captured server-side (categorised code, phase, screenshot, DOM) — the **failure UX**
-does not surface it in a way an ops person can act on.
+Everything on the earlier findings list is fixed except these.
 
-### P0 — a failed run does not tell the operator where or why
-
-**G1 · The failing step in the timeline shows a bare red ✗ with no reason.**
-On a `SdmsError`, `index.ts:123-126` records the failing phase as a step with
-`meta:{ code, diagnostics }` — but `RunStepTimeline.tsx:72` only renders an "Error
-details" block when `step.error` is set, and this step has **no `error` field**. So
-the `login` (or `padStatement`, etc.) step turns red with **no code, no message, no
-link to the screenshot**. The single most useful signal — the category code and the
-phase — is computed and stored but **not shown**.
-
-> **Fix:** in `RunStepTimeline`, render `step.meta.code` as a coloured pill on the
-> failing step, plus a one-line human label from the failure-code table above, plus a
-> thumbnail/link built from `step.meta.diagnostics.screenshotKey`.
-
-**G2 · The only failure explanation is a raw error string + stack trace.**
-The "Error" section dumps `run.error.message` (`credit-dod-monitoring:
-[CODE] failed at PHASE — message`) plus up to 10 stack frames in monospace
-(`executeRun.ts:158-171`, `RunsListInline.tsx:167-177`). The code is present but
-buried in a developer string, and the stack trace is noise to an operator.
-
-> **Fix:** add a **failure banner** at the top of `RunDetail` for FAILED runs: a red
-> card with (a) the **plain-language category** ("Couldn't sign in to SDMS"), (b)
-> **which step** failed, (c) a **"What to do next"** line from the reference table,
-> and (d) a **thumbnail of `fail_<phase>.png`** that opens full-size. Keep the raw
-> string collapsed under a "Technical details" `<details>` for engineering.
-
-**G3 · The diagnostic screenshot is hidden in an unlabelled artifacts list.**
-`fail_login.png` / `fail_login.html` are saved (`runner.ts:110-127`) and _are_
-downloadable, but they appear only as generic filename rows with a "Download" link
-that opens a new tab (`RunsListInline.tsx:197-231`) — **no inline thumbnail, no
-"Screenshot at the moment of failure" label.** A non-technical operator will not
-realise the PNG is the single most useful thing to open.
-
-> **Fix:** detect `fail_*.png` artifacts and render them inline as thumbnails inside
-> the failure banner (reuse the `<img>` pattern already in
-> `CreditDodReportCard.tsx:56-62`), labelled "Screenshot at failure".
-
-### P1 — recoverable but confusing
-
-**G4 · "OCR sidecar down" is indistinguishable from "wrong password" / "hard
-captcha."** All three surface as `LOGIN_CAPTCHA_EXHAUSTED` with identical copy
-(CD-C1/C2/C5). `solveCaptcha` never throws (`captcha.ts:4-6`); its `spawn ENOENT`
-error is dropped — it is not written into `ocrAttempts` (`runner.ts:164,169` record
-`text/confidence/submitted` only) and never shown. An operator cannot tell a config
-outage (call engineering) from bad luck (retry).
-
-> **Fix:** capture `sol.error` into the ocr-attempt records and into the
-> `LOGIN_CAPTCHA_EXHAUSTED` diagnostics `context`; if _every_ attempt errored with a
-> spawn/exec failure, raise a distinct code (e.g. `OCR_SIDECAR_UNAVAILABLE`) so the
-> banner can say "The OCR service is not running on the server — contact support."
-
-**G5 · The Output section shows literally `null` on a failed run.**
-`isCreditDod && run.output` is false when there's no output, so it falls to
-`<pre>{JSON.stringify(run.output ?? null)}</pre>` → the word **`null`**
-(`RunsListInline.tsx:183-194`). Reads like something is broken beyond the failure.
-
-> **Fix:** hide the Output section entirely when `run.status === 'FAILED'` (the
-> failure banner replaces it).
-
-**G6 · "Share" is a dead-end when the dealer has no app member.**
-The button is always enabled; the "no active app member" rejection only arrives as a
-red toast _after_ the operator confirms (`share.ts:85-88`,
-`CreditDodReportCard.tsx:47-50`), with **no guidance** to go issue/activate a login on
-the **Team** tab.
-
-> **Fix:** pre-check membership (or read it off the dealer) and either disable Share
-> with an inline hint ("No app login yet — add one on the Team tab") or make the toast
-> actionable with that instruction.
-
-**G7 · The "Dealer type" field (Retail / LPG / 1906) is misleading.**
-The creds form offers three types (`SdmsCredentialsSection.tsx:34-38`) and stores the
-choice, but the runner **always clicks the Retail tab** (`runner.ts:146`) and uses a
-single `SDMS_LOGIN_URL` regardless (`credentials.ts:65-66`). Selecting LPG/1906 will
-still attempt a Retail login and likely fail confusingly.
-
-> **Fix:** either wire `dealerType` through to the login (tab + URL) end to end, or
-> until then constrain the field to Retail (or add "LPG/1906 not yet supported" help
-> text) so the operator isn't misled.
-
-### P2 — polish / observability debt
-
-**G8 · There is no "sheet" UI.** ✅ **CLOSED.** Report history now sits on the dealer's
-Credit & DOD tab (`DealerCreditDodTab.tsx`, backed by `useCreditDodSnapshots`), above
-the maintained PAD ledger, and expanding a row shows the whole report — card, figures,
-reconcile line, open lots, source files and **Share with dealer** — so history is no
-longer reachable only by opening SUCCESS runs one at a time. See CD-D1/CD-D2.
-
-**G9 · A non-reconciling card is shareable with no warning.** ✅ **CLOSED.** The Share
-confirm dialog shows a caution when `reconciles === false`, and a second one when
-the snapshot is back-dated. The report body additionally warns on
-`openingCarriedForward` (the due date is an estimate) and on `droppedRows > 0`
-(parser drift). The warning is now **enforced**, not advisory: the share API refuses a
-non-reconciling or partly-unreadable card for a plain admin (super-admins may override),
-because the DUE AMOUNT on such a card disagrees with IndianOil's own receivable and a
-dealer acting on it deposits the wrong money.
-
-**G11 · A transaction the portal published late could never be picked up.** ✅ **CLOSED.**
-The fetch window used to start at the last stored transaction date, so a payment dated
-the 1st that posted on the 3rd fell outside every future window — permanently, since the
-window's left edge only moved forward. Runs now re-read the last `padReconfirmDays`
-(default 10) and treat that window as authoritative, so late rows, amendments and
-withdrawals all land; a window that fails to reconcile re-reads further back mid-capture,
-before anything is written. See Section E.
-
-**G12 · An already-shared report was never marked as superseded.** ✅ **CLOSED.** When a
-late transaction lands on a day whose report had already gone to the dealer, the new
-report says so (`supersededSharedAt`), and Report history marks the affected entry. The
-sent chat message still cannot be edited — the correction is a newer share, which is what
-CD-E3 checks.
-
-**G10 · Share success copy doesn't reflect idempotency.** ✅ **CLOSED.** The toast now
-reads "This report had already been shared with the dealer." when the backend returns
-`alreadyShared: true`. _(Original finding:)_ The toast always said "Card
-shared with dealer" even when the backend returned `alreadyShared: true`
-(`CreditDodReportCard.tsx:45`, `share.ts:76-82`). Also `alreadyShared` is derived only
-from the snapshot query, so a share performed by _another_ admin won't flip the button
-to "Shared" until that query refetches. Minor, but worth distinct "Already shared"
-messaging and an invalidate-on-focus.
-
-**G13 · No retry from the failure view.** After a failure the operator must close the
-dialog, switch to the **Services** tab, and press **Run now**. A "Run again" button in
-the failed `RunDetail` would close the loop.
-_(Renumbered from a second "G11" — an earlier draft reused two numbers.)_
-
-**G14 · Creds form has no "test login" / validity feedback.** You cannot tell if a
-username/password pair is valid until a full run fails hours later. A lightweight
-"Test credentials" action (login-only, no capture) would catch typos at entry time and
-remove the biggest source of `LOGIN_CAPTCHA_EXHAUSTED` false alarms.
-_(Renumbered from a second "G12".)_
-
-### Missed deadlines (Section F)
-
-The engine and the copy are in good shape — the amount is right, the grace band
-is right, and the approval model is untouched. What follows is where the four
-surfaces (card, chat, push, admin) stop agreeing with each other.
-
-**G15 (P1) · The card treated the two-day grace band as a full breach.**
-**RESOLVED.** `overdueVerdict` softened the words, but the hero was driven by
-`overdue != null`, so the red background and an **OVERDUE AMOUNT** eyebrow
-appeared on day 1 while the chat, the push and the admin badge all hedged — on
-the one artefact a dealer actually forwards. The hero now follows
-`withinPortalLag`: an amber `.hero.lagging` with a **PAST DEADLINE** eyebrow
-inside the band, the red `.hero.late` treatment only past it. Covered by CD-F2.
-
-**G16 (P1) · A back-dated overdue report sent a present-tense push.**
-**RESOLVED.** The chat body carried _"This is the position on that past date"_
-but the push did not, and a push is read on a lock screen with none of that
-framing. The push body now appends _"(position on dd-mm-yyyy)"_ whenever
-`snap.backdated`. Covered by CD-F6.
-
-**G17 (P2) · The "at least N days" caveat never reached the dealer.**
-**RESOLVED.** `estimatedFrom` was computed and stored but dropped by
-`assemble.ts` and by `share.ts`'s local type, so only the admin's notice hedged.
-The asymmetry was the tell: the _non_-overdue path already discloses the same
-uncertainty as _"अनुमानित / by approx."_, and the hedge vanished exactly when the
-message got harsher. It is now carried into `CreditCardInput.overdue` and into
-the chat body, which read _"at least N days"_ / _"कम से कम N दिन"_. Covered by
-CD-F8.
-
-**G18 (P2) · Once a deadline lapses, the next one stops being shown.**
-**ACCEPTED, not fixed.** A dealer one day past ₹1,00,000 who also has ₹80,000
-falling due tomorrow hears only about the ₹1,00,000. Real, but not a regression:
-`dueDate` has always been the _oldest_ open lot's deadline, so the upcoming one
-was never shown either. Fixing it means putting a second amount in front of
-someone being asked to pay a first, and someone paying the wrong one is worse
-than the omission. The admin sees the full ladder under "Why this amount?".
-Recorded in the service README under "What this deliberately does NOT do".
-
-**G19 (P2) · Report history's list still showed the smaller number.**
-**RESOLVED.** The desktop table showed **Due amount** beside a red overdue badge
-and the mobile stack rendered `₹1,00,000.00 · by 04-07-2026` — a deadline that
-had gone, phrased as an instruction — with the explanation hidden inside the
-expanded row. Both now show the overdue total in red, dated _"was D1"_ /
-_"was due D1"_. Covered by CD-F4.
-
-**G20 (P2, dev tooling) · The dev CLI's `--as-of` card could contradict itself.**
-**RESOLVED.** The CLI passed the as-of date to `computeDod` but not to
-`assembleCreditCardInput`, so `preparedOn` stayed today and a reconstruction of a
-compliant past date rendered a red "Overdue by N days" panel under an ordinary
-**DUE AMOUNT** hero. It now passes `asOf`, matching the plugin. CLI-only, but the
-CLI is this document's own rehearsal route.
-
-**G21 (P1) · DUE AMOUNT named less than was owed by the date it named.**
-**RESOLVED.** `computeDod` grouped open lots by availment DATE, on the
-assumption that one date means one deadline. That holds one way only: a Thursday
-purchase rolls +3 to Sunday and on to Monday, and a Friday purchase lands on
-that same Monday. So the card said "Due ₹1,00,000 by 06-07", the dealer
-deposited exactly that on the 6th, and was reported OVERDUE ₹60,000 three days
-later — the precise failure this whole section exists to prevent, caused by the
-figure it was measuring against. DUE AMOUNT now sums every lot sharing the
-NEAREST DEADLINE. **This changes a paisa-validated figure**: neither of the two
-validated dealer cards had a shared-deadline collision, so both still match, but
-it has not been confirmed against a real card that does. Worth doing — noting
-that the old behaviour walks a compliant dealer into default and the new one
-cannot.
-
-**G22 (P2) · `overdue.lots` counted lots and was published as deadlines.**
-**RESOLVED.** Every string built from it — chat, card, both admin surfaces —
-said "missed deadlines", but the value counted past-deadline _lots_. Two
-invoices lifted on one day, any Thursday+Friday pair, and any confirmed holiday
-all collapse several lots onto one deadline. The worst case was the card
-contradicting itself: for two same-day invoices `overdue.amount === dueAmount`,
-yet the note claiming "the due amount covers only the oldest" still fired. The
-field is now `deadlines` and counts distinct deadlines, and the note that
-explains the gap fires on the MONEY (`overdue.amount > dueAmount`) rather than
-on any count — the two come apart in both directions.
-
-**G23 (P2) · The grace band excused a breach of unknown age.**
-**RESOLVED.** `withinPortalLag` was `days <= 2`, and `days` is only a LOWER
-bound when `estimatedFrom` is true. Together they said "at least 1 day late,
-possibly months" and concluded "this may just be the portal lagging an on-time
-deposit" — reachable with ₹5,01,000 of carry-forward debt on a short window.
-Stating a breach on a lower bound is sound; excusing one needs an upper bound we
-do not have, so the band is now withheld whenever the count is an estimate.
-
-**Verified correct while writing these** (worth keeping, because each is a way
-this could have gone wrong and did not): the deadline day itself is a strict `<`
-so nobody is accused a day early; the grace band is judged from the **earliest**
-missed deadline, not the newest; `overdue.amount ≥ dueAmount` always, so replacing
-the hero figure can never understate; the verdict re-derived for an older report
-goes through the **same** summariser as a live run, so the two cannot drift; and a
-fresh report with nothing overdue re-derives to nothing overdue, so the
-compatibility path cannot invent a breach (CD-F10).
+- **Share has no pre-check for a dealer with no app member** (CD-C3). The button is
+  enabled, the refusal arrives as a red toast after you confirm, and the toast does not
+  say to add or activate a login on the **Team** tab.
+- **No "Run again" on a failed run.** The operator closes the dialog, goes to the
+  **Services** tab and presses **Run now**.
+- **No "test credentials" action.** A wrong pair is found only when a run fails (and now
+  puts the outlet on hold, CD-C6).
+- **Once a deadline has lapsed, the next one stops being shown.** Accepted, not fixed. A
+  dealer one day past ₹1,00,000 who also has ₹80,000 falling due tomorrow hears only
+  about the ₹1,00,000; `dueDate` has always been the oldest open lot's deadline.
+  Showing a second amount to someone being asked to pay a first risks them paying the
+  wrong one. The admin sees the full ladder under "Why this amount?". Recorded in the
+  service README under "What this deliberately does NOT do".
 
 ---
 
 ## Coverage summary
 
-| Requirement                                                                                    | Cases                  |
-| ---------------------------------------------------------------------------------------------- | ---------------------- |
-| Setup: creds (Retail/LPG/1906), attach, cadence                                                | CD-A1 – CD-A4          |
-| Happy path: run → SUCCESS → review card → Share → dealer receives + push → re-share idempotent | CD-B1 – CD-B5          |
-| Failure: wrong password                                                                        | CD-C1                  |
-| Failure: captcha never solved                                                                  | CD-C2                  |
-| Failure: share blocked (no app member)                                                         | CD-C3                  |
-| Reconcile mismatch ("does not reconcile")                                                      | CD-C4                  |
-| Failure: OCR sidecar not installed                                                             | CD-C5                  |
-| The sheet (snapshot history), quota, downloads, concurrency, help videos                       | CD-D1 – CD-D6          |
-| Transactions the portal publishes late (and a report already sent that they invalidate)        | CD-E1 – CD-E5          |
-| Missed deadline: deadline day itself is not a miss                                             | CD-F1, CD-F10          |
-| Missed deadline: 1–2 days past → softened "may not be posted yet" on card, chat, push, badge   | CD-F2, CD-F3           |
-| Missed deadline: 3+ days past → firm breach wording, and where the two flip                    | CD-F3                  |
-| **Several missed deadlines → the summed amount is what the dealer is told to pay**             | **CD-F4**              |
-| A late payment clears an overdue position                                                      | CD-F5                  |
-| Back-dated (`asOf`) run judged against that date, not today                                    | CD-F6                  |
-| An older stored report still shows the overdue verdict                                         | CD-F7                  |
-| Opening carry-forward → "at least N days"                                                      | CD-F8 (see caveat)     |
-| Nothing auto-sends on a breach; existing share guards still apply                              | CD-F9                  |
-| **A lapsed credit review locks the account (cash and carry, sales officer)**                    | **CD-G1 – CD-G2** (not producible on demand) |
-| **No false locks for dealers whose review is still ahead**                                      | **CD-G3**              |
-| A back-dated report, and a report from before the release, reach no lock verdict               | CD-G4, CD-G5           |
-| Operator observability audit                                                                   | Findings & gaps G1–G20 |
+| Requirement                                                                                    | Cases                                        |
+| ---------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| Setup: creds (Retail/LPG/1906), attach, cadence                                                | CD-A1 – CD-A4                                |
+| Happy path: run → SUCCESS → review card → Share → dealer receives + push → re-share idempotent | CD-B1 – CD-B5                                |
+| Failure: wrong password                                                                        | CD-C1                                        |
+| Failure: the login's security question is refused, or the form changed                         | CD-C2                                        |
+| Failure: share blocked (no app member)                                                         | CD-C3                                        |
+| Reconcile mismatch ("does not reconcile")                                                      | CD-C4                                        |
+| Failure: OCR sidecar not installed                                                             | CD-C5                                        |
+| Failure: SDMS refuses the saved password, and the outlet is put on hold                        | CD-C6                                        |
+| The sheet (snapshot history), quota, downloads, concurrency, help videos                       | CD-D1 – CD-D6                                |
+| Transactions the portal publishes late (and a report already sent that they invalidate)        | CD-E1 – CD-E5                                |
+| Missed deadline: deadline day itself is not a miss                                             | CD-F1, CD-F10                                |
+| Missed deadline: 1–2 days past → softened "may not be posted yet" on card, chat, push, badge   | CD-F2, CD-F3                                 |
+| Missed deadline: 3+ days past → firm breach wording, and where the two flip                    | CD-F3                                        |
+| **Several missed deadlines → the summed amount is what the dealer is told to pay**             | **CD-F4**                                    |
+| A late payment clears an overdue position                                                      | CD-F5                                        |
+| Back-dated (`asOf`) run judged against that date, not today                                    | CD-F6                                        |
+| An older stored report still shows the overdue verdict                                         | CD-F7                                        |
+| Opening carry-forward → "at least N days"                                                      | CD-F8 (see caveat)                           |
+| Nothing auto-sends on a breach; existing share guards still apply                              | CD-F9                                        |
+| **A lapsed credit review locks the account (cash and carry, sales officer)**                   | **CD-G1 – CD-G2** (not producible on demand) |
+| **No false locks for dealers whose review is still ahead**                                     | **CD-G3**                                    |
+| A back-dated report, and a report from before the release, reach no lock verdict               | CD-G4, CD-G5                                 |
+| A non-technical operator can tell what went wrong, and what to do, from the admin alone        | CD-C1 – CD-C6                                |
 
 </content>
 </invoke>

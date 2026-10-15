@@ -3,7 +3,7 @@
 - Status: Accepted
 - Date: 2026-07-03
 - Extends: ADR 0005 (per-member chat / dealer members), ADR 0006 (Kavach — seeded bilingual catalog + per-dealer state pattern)
-- Related: ADR 0008 (bilingual app i18n), `docs/ARCHITECTURE_V2.md`
+- Related: ADR 0008 (bilingual app i18n), `ARCHITECTURE.md`
 - Spec: `docs/specs/staff-points.md`
 - Contracts: `shared/src/types/staff.ts`, `shared/src/schemas/staff.ts`, seed `shared/src/data/staffWorkCatalog.ts`
 
@@ -87,8 +87,8 @@ whole point of the feature — wrong.
    > into shared services (`services/staff/{employees,award,draft,workList}.ts`) so the
    > dealer and admin routers call one implementation.
 
-6. **Reachable from Profile, not a 5th bottom tab.** The dealer bottom bar is capped at 4
-   (STYLE_GUIDE_V2 / ADOPTION_AUDIT; Kavach already demoted Services into Profile). Staff
+6. **Reachable from Profile, not a 5th bottom tab.** (Profile is now Settings; see Phase 4 below.) The dealer bottom bar is capped at 4
+   (`docs/STYLE_GUIDE_V2.md`, `docs/PRD.md`; Kavach already demoted Services into Profile). Staff
    Points is an owner/manager management tool, not a daily dealer-compliance surface, so it
    lives as a Profile entry (like Services) routing to `/staff`, gated on the two dealer
    roles. The bar stays at 4.
@@ -197,6 +197,23 @@ work is rewarded fairly, and every number is auditable and reproducible.
    the four factor inputs; for a labour work the points field is a read-only live-derived preview, for
    an incentive work it stays typed. Factors are required when adding a labour work, editable on
    existing ones. Full model in `docs/specs/staff-points.md §4` and `docs/staff-points-scoring-model.pdf`.
+
+## Phase-4 additions (July to October 2026)
+
+1. **The catalog has 85 works, not 66.** Rows 1–66 are the sheet; 67–74 are the kitchen works,
+   75–78 the tanker-staff refinery-run works, 79–85 the mobile-dispenser works
+   (`shared/src/data/staffWorkCatalog.ts`).
+2. **Leave (2026-07-16).** An owner or manager can mark a worker on leave for a day
+   (`EmployeeLeave`, one per worker per day). The leaderboard then reads a 0-point day as "on
+   leave", not "did no work". Leave never adds or removes points.
+3. **Each entry has its own note**, not one note per award. Four works require a written
+   description of what was done (`DESCRIPTION_REQUIRED_WORK_CODES` in `shared/src/types/staff.ts`:
+   the catch-all cleaning, DU and office works, and tanker preventive work). The rest are optional.
+4. **Decision 6 now reads: a Settings row, "Warriors & points" (योद्धा और पॉइंट).** ADR 0018 turned
+   Profile into Settings. The `/staff` route is unchanged.
+5. **Admin per-warrior view (2026-08-14).** The admin's Warriors & points tab opens a drawer per
+   worker, with a "Last month" range preset. It reads the endpoints that already existed; it added
+   no API.
 
 ## Naming awareness (not a blocker)
 

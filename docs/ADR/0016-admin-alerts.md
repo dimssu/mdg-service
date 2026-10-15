@@ -2,7 +2,9 @@
 
 Status: accepted, 2026-10-05. The owner approved the list of alerts and chose
 "everything instantly" for delivery, and asked that the same alerts be listed in
-the admin app so it is clear what still needs acting on.
+the admin app so it is clear what still needs acting on. Extended by the
+WhatsApp reply alert (2026-10-10), ADR 0017 (tickets, 2026-10-12) and website
+intake (2026-10-14): 18 kinds now, see §2.
 
 ## 1. What it is
 
@@ -27,8 +29,22 @@ fixed. A bell in the header shows how many are waiting, on every screen.
 | Supply blocked      | The RO supply status reads blocked. The all-clear is pushed too                                                                                                                                                                            | It is no longer blocked                       | Admins |
 | Ledger charge       | A charge to the dealer, first seen in the last 14 days, that Ledger Watch can name and grades unusual or worse (NOTICE/ALERT) — interest, licence-fee recoveries. Not monthly rentals (INFO), commission (money in) or lines no rule names | It is marked as read in Ledger watch          | Admins |
 | Outdated copy       | A dealer holds a report or credit card we have since corrected                                                                                                                                                                             | The corrected copy is sent                    | Admins |
+| Ticket              | The AI handed a dealer's question to a person and the ticket is still open (ADR 0017). One per ticket; urgent ones say so                                                                                                                  | Someone resolves the ticket with a note       | Admins |
+| WhatsApp reply      | Somebody wrote back to our WhatsApp number and nobody has read it. One per person, not per message                                                                                                                                         | The reply is marked as read                   | Super  |
+| Grievance           | A grievance from the website (the form, or the site's assistant in chat or on a call) that nobody has resolved                                                                                                                             | Someone resolves it with a note               | Super  |
+| New registration    | "Register your pump" was filled in and nobody has been in touch yet                                                                                                                                                                        | It is marked as contacted                     | Super  |
 | Server              | The last process died without shutting down, or the server was off >10 min                                                                                                                                                                 | Marked as seen, or after a day                | Super  |
 | Server start-up     | A boot step failed                                                                                                                                                                                                                         | The step succeeds on a later start            | Super  |
+
+The two website kinds, and the WhatsApp one, are super-admin only because the
+people writing in are members of the public, not outlets on an account manager's
+book. Their alerts never carry a phone number, an email address or a word of
+what the person wrote. A name or pump name they typed appears only if it does not read
+as contact details or a link, and is cut short. Above 50 open rows of one website kind, one summary alert
+replaces the per-row ones.
+
+Since ADR 0019 (2026-10-13), "Paper to review" and "Kavach proof" link to the
+inbox thread that holds the answer when the dealer answered in the chat.
 
 ## 3. How it stays quiet
 
@@ -53,8 +69,9 @@ each alert is worth reading, so these rules apply:
 
 ## 4. How it works
 
-- `mdg-backend/src/services/adminAlerts/` has three checks (`services`,
-  `people`, `reports`) that each return the problems true right now. `sweep.ts`
+- `mdg-backend/src/services/adminAlerts/` has six checks (`services`,
+  `people`, `reports`, `tickets`, `whatsapp`, `websiteIntake`) that each return
+  the problems true right now. `sweep.ts`
   compares them with the live alerts:
   - a new key is created and pushed;
   - a known key has its wording refreshed, silently;

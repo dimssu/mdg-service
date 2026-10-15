@@ -1,24 +1,28 @@
 # Feature Spec — TT Density (UX/UI)
 
-**Status:** Draft for build (design-decisive)
+**Status:** Built 24 Aug 2026. The admin pane is live. The dealer's own screen was removed on
+13 Oct 2026 (ADR 0019); what it did now happens in the chat (Part B).
 **Owner:** Design
-**Audience:** Admin UX, client UX, backend (for the shapes the screens need)
+**Audience:** Admin UX, backend (for the shapes the screens need)
 **Service slug:** `tt-density`
 **Related:** `docs/UX_FLOWS.md`, `docs/STYLE_GUIDE_V2.md`, `docs/ADDING_A_SERVICE.md`,
-`docs/specs/staff-points.md` (spec shape), `mdg-admin/docs/design/admin-mobile-responsive-spec.md`,
-ADR 0008 (bilingual client)
+`docs/specs/staff-points.md` (spec shape), `mdg-admin/docs/MOBILE.md`, ADR 0008 (bilingual
+client), ADR 0010 (the decision), ADR 0019 (asks live in the chat),
+`mdg-backend/src/services/tt-density/README.md` (how it runs)
 
 ---
 
-> **Amended 2026-08-24 by `docs/specs/tt-density-contract.md`.** That document is the
-> build contract and it wins any conflict with this one. Six things changed here:
-> the upload scope is `tt-density` (not `density`), the signed-URL fields are
-> `viewUrl`/`downloadUrl` (not `pdfViewUrl`/`pdfDownloadUrl`), the hero's
-> "no invoice yet" tile is gone (the data cannot produce it), the staleness ladder
-> moved into `shared` as `ttDensityFreshness()`, the file names and folders are
-> fixed by contract §9, and — the big one — **the dealer's screen does show the
-> density figures**. Every visual decision below is otherwise binding as written.
-> Full list: contract §13.
+Decisions taken during the build, kept here so the sections below read as shipped:
+
+- The upload scope is `tt-density` (not `density`), matching the service id, the storage prefix
+  and the `?vault=` deep link.
+- Signed URLs for an invoice are `viewUrl` / `downloadUrl` (a `TtSignedFileUrls`, fetched by
+  their own endpoint), not fields on the invoice.
+- The hero has no "no invoice yet" tile. The data cannot produce it (§3.3).
+- The 7 / 21-day staleness ladder lives in `shared` as `ttDensityFreshness()`, so no two screens
+  can disagree about what "old" means.
+- The invoice PDF opens in a `Drawer`, not a `Dialog`.
+- The dealer does see the density figures. They arrive as a chat message (Part B).
 
 ## 0. What this service is, in one paragraph
 
@@ -28,15 +32,15 @@ line, `727.300` for the petrol line. We read those invoices off the e-Mitra port
 PDFs, and pull the density figures out. Separately, the dealer keeps a paper **density test
 register** at the pump; once a day they photograph the day's page and that marks the day done.
 The admin surface exists to show the density figures big and to let an operator read any
-invoice without downloading it. The dealer surface exists to do exactly one thing: send today's
-photo.
+invoice without downloading it. The dealer has no screen for this service. The figures reach
+them as a chat message, and the register page is asked for, and received, in the chat (Part B).
 
 ### The two names
 
-| Where                      | Name shown                             | Why                                                                                                                                     |
-| -------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `mdg-admin` (English only) | **TT Density**                         | Matches the portal screen ("TT Acknowledgement") the operator knows. Register it in `mdg-admin/src/lib/serviceLabel.ts`.                |
-| `mdg-client` (bilingual)   | **Density register / डेंसिटी रजिस्टर** | The dealer's word for the thing in their hand. "TT", "acknowledgement", "invoice" and "density@15" never appear on the dealer's screen. |
+| Where                      | Name shown                             | Why                                                                                                                                                                |
+| -------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `mdg-admin` (English only) | **TT Density**                         | Matches the portal screen ("TT Acknowledgement") the operator knows. The name lives in `shared/src/lib/serviceLabel.ts`, which the admin's `serviceLabel()` reads. |
+| Dealer chat (bilingual)    | **Density register / डेंसिटी रजिस्टर** | The dealer's word for the thing in their hand. "TT", "acknowledgement", "invoice" and "density@15" never appear in anything the dealer reads.                      |
 
 ---
 
@@ -49,7 +53,7 @@ dealer. This service never touches them.
 That guarantee must be **visible in the admin UI**, not just in the code:
 
 - A permanent, non-dismissible `Callout intent="info"`
-  (`mdg-admin/src/components/ui/Callout.tsx:36`) sits directly under the pane header:
+  (`mdg-admin/src/components/ui/Callout.tsx`) sits directly under the pane header:
 
   > We only read this page. Vehicle Condition, Check Ack Status and Acknowledge are never
   > touched — acknowledging a receipt is the dealer's own legal act.
@@ -62,23 +66,25 @@ That guarantee must be **visible in the admin UI**, not just in the code:
 
 ## 2. Design rules that bind this build
 
-1. **Reuse the vault-pane pattern.** No new page shape, no new route, no new nav item on either
-   side. The admin surface is a per-dealer Data Vault dataset; the client surface is a page
-   reached from places that already exist.
+1. **Reuse the vault-pane pattern.** No new page shape, no new route, no new nav item. The admin
+   surface is a per-dealer Data Vault dataset. The dealer has no page for this service.
 2. **One breakpoint in admin (`md`, 768px).** `sm` and `lg` only where the existing code already
-   uses them (filter bars, vault rail). No new breakpoints.
-   (`mdg-admin/docs/design/admin-mobile-responsive-spec.md`)
-3. **One job per client screen.** The dealer's screen asks for a photo. _Amended: it also
-   **shows the density figures**, at the top, in big type — that is the owner's stated
-   requirement and §4.2.1 is the shape. What it still shows nothing of: an invoice list, a
-   history table, a PDF, a rupee figure, or any second number to compare against._
-4. **Every tappable target ≥44px below `md`** on both apps.
+   uses them (filter bars, vault rail). No new breakpoints. (`mdg-admin/docs/MOBILE.md`)
+3. **One job per dealer message.** A message from MDG about this service either gives the new
+   tanker figures or asks for a register page. It never carries an invoice list, a history
+   table, a PDF, a rupee figure, or any second number to compare against (Part B).
+4. **Every tappable target ≥44px below `md`** in the admin.
 5. **Unknown products degrade, never error** — the same philosophy as
-   `shared/src/dsr/products.ts:17-24`. We have evidence for two IOCL material codes (`16730`
+   `shared/src/dsr/products.ts`. We have evidence for two IOCL material codes (`16730`
    EBMS → petrol, `50700` HSD-BSVI → diesel). Anything else still gets a tile, labelled by what
    the invoice itself said, marked provisional.
 6. **No new dependency in the admin bundle for the PDF.** There is no PDF library in
    `mdg-admin` today and this feature does not add one (see §3.6).
+7. **The dealer's word is "the book on the desk".** Anywhere a dealer reads about this service
+   (a chat line, a request, an AI answer), it is the **Density register / डेंसिटी रजिस्टर**,
+   or the thing they owe: yesterday's page. Never "TT", "acknowledgement", "invoice" or
+   "Density@15". The table is in §0, "The two names". `shared/src/lib/serviceLabel.ts` and the
+   AI first line both follow it.
 
 ---
 
@@ -86,8 +92,7 @@ That guarantee must be **visible in the admin UI**, not just in the code:
 
 ## 3.1 Where it lives
 
-**One appended descriptor** in `mdg-admin/src/pages/dealers/vault/datasets.ts` (the registry at
-L30-73). Nothing else in the routing or nav changes. **Do not add a `TabDef` to
+**One appended descriptor** in `mdg-admin/src/pages/dealers/vault/datasets.ts` (the dealer vault's registry). Nothing else in the routing or nav changes. **Do not add a `TabDef` to
 `DealerDetailPage.tsx`** — per-service surfaces stopped getting their own dealer tab when Credit
 & DOD and DSR moved into the vault rail.
 
@@ -103,20 +108,17 @@ L30-73). Nothing else in the routing or nav changes. **Do not add a `TabDef` to
 ```
 
 Rail order: append after `inspection-reports`. The three-state gating in
-`DealerVaultView.tsx:32-48` (attached / still asking / ask failed) is inherited unchanged — do
+`DealerVaultView.tsx` (attached / still asking / ask failed) is inherited unchanged — do
 not simplify it.
 
-`DealerVaultPaneProps` is `{ dealer: Dealer }` (`vault/types.ts:13`) — **no URL params reach this
+`DealerVaultPaneProps` is `{ dealer: Dealer }` (`vault/types.ts`) — **no URL params reach this
 pane**, so the open invoice, the selected calendar day and the shown month are all local
 `React.useState`. That is a deliberate consequence of the existing contract, not an oversight:
 a per-dealer pane is already addressable by `?tab=data-vault&vault=tt-density`.
 
-Also register the label:
-
-```ts
-// mdg-admin/src/lib/serviceLabel.ts:6
-'tt-density': 'TT Density',
-```
+The label is `'tt-density': { en: 'TT Density', hi: 'डेंसिटी रजिस्टर' }` in
+`shared/src/lib/serviceLabel.ts`. The admin shows the English column; the Hindi column is the
+dealer's word for it.
 
 ## 3.2 Pane anatomy
 
@@ -283,8 +285,8 @@ everything else** (diesel is the higher-volume product at almost every outlet), 
 
 ### Component
 
-`mdg-admin/src/pages/dealers/vault/DensityHero.tsx` — **genuinely new** (justification in §3.9).
-It is a bigger sibling of `mdg-admin/src/pages/dataVault/StatTile.tsx:15`, not a replacement:
+`mdg-admin/src/pages/dealers/vault/ttDensity/DensityHero.tsx` — **genuinely new** (justification in §3.9).
+It is a bigger sibling of `mdg-admin/src/pages/dataVault/StatTile.tsx`, not a replacement:
 `StatTile` is a 24px counter with a fixed `number` value; this is a 40–48px decimal with a
 staleness state and a provenance line. `StatTile` stays untouched.
 
@@ -316,10 +318,9 @@ DensityProductLatest {
 | **The number**              | `text-[40px] md:text-5xl font-semibold leading-none tracking-tight tabular-nums`                            |
 | Number colour, fresh/ageing | `text-text`                                                                                                 |
 | Number colour, stale        | `text-text-muted`                                                                                           |
-| Number colour, none         | `text-text-subtle` (renders `—`)                                                                            |
 | Unit line                   | `mt-1 text-xs text-text-subtle` → `kg/m³ at 15 °C`                                                          |
 | Provenance line             | `mt-3 text-xs text-text-subtle` → `22 Aug 2026 · BR09GC8009 · 2 days ago`                                   |
-| Staleness badge             | `Badge intent="warning" \| "danger"` (`Badge.tsx:10`), absolute top-right of the eyebrow row                |
+| Staleness badge             | `Badge intent="warning" \| "danger"` (`Badge.tsx`), absolute top-right of the eyebrow row                   |
 
 **Always print three decimals** (`820.500`, not `820.5`) — the invoice prints three and an
 operator comparing screen to paper must not have to think. Format with
@@ -338,16 +339,16 @@ colour alone:
 | `ageing` | 8–20 days            | `text-text`       | `warning` · "12 days old" | `border-border`    |
 | `stale`  | ≥ 21 days            | `text-text-muted` | `danger` · "24 days old"  | `border-danger/40` |
 
-_Amended: a fourth `none` state — "no invoice for this product, ever" — was specified here and has
-been removed. This service knows which grades have **arrived**; it has no idea which grades an
-outlet **stocks**. `getLatestDensities` returns one entry per product actually seen, so there is
-no data behind an "expected but missing" tile and inventing one would put a dash on screen for a
-grade the outlet may not even sell. A grade that stops arriving ages out through `stale` and then
-drops off the headline, which is the honest ending._
+There is no fourth "no invoice for this product, ever" state. This service knows which grades
+have **arrived**; it has no idea which grades an outlet **stocks**. `getLatestDensities`
+returns one entry per product actually seen, so there is no data behind an "expected but
+missing" tile, and inventing one would put a dash on screen for a grade the outlet may not even
+sell. A grade that stops arriving ages out through `stale` and then drops off the headline,
+which is the honest ending.
 
-_Also amended: the 7 / 21 thresholds now live in `shared` as `TT_DENSITY_AGEING_AFTER_DAYS`,
-`TT_DENSITY_STALE_AFTER_DAYS` and `ttDensityFreshness(ageDays)`, so the admin pane and the
-dealer's app cannot disagree about what "old" means about the same figure._
+The 7 / 21 thresholds live in `shared` as `TT_DENSITY_AGEING_AFTER_DAYS` (8),
+`TT_DENSITY_STALE_AFTER_DAYS` (21) and `ttDensityFreshness(ageDays)`, so every screen reads the
+same ladder.
 
 Why 7 / 21: 7 days is the portal's own default filter and our fetch window, so anything inside it
 is "current by construction". 21 days without a tanker of a product the outlet stocks is
@@ -372,13 +373,13 @@ When the invoice's material code is not in our mapping, the tile still renders:
 ```
 
 Label = exactly what the invoice said (`materialCode · description`). No guessed friendly name.
-This mirrors `dsrProductProfile()`'s contract (`shared/src/dsr/products.ts:123`).
+This mirrors `dsrProductProfile()`'s contract (`shared/src/dsr/products.ts`).
 
 ### Hero states
 
 | State                                 | What the hero shows                                                                                                                                                                              |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Loading                               | 2 skeleton tiles: `Card > CardContent p-4` containing `Skeleton h-3 w-24`, `Skeleton h-10 w-40 mt-3`, `Skeleton h-3 w-32 mt-3`. Copy `StatTileSkeletons` shape (`StatTile.tsx:74`), sized up.    |
+| Loading                               | 2 skeleton tiles: `Card > CardContent p-4` containing `Skeleton h-3 w-24`, `Skeleton h-10 w-40 mt-3`, `Skeleton h-3 w-32 mt-3`. Copy the `StatTileSkeletons` shape (`StatTile.tsx`), sized up.   |
 | Never run                             | No hero at all. The whole pane collapses to one `EmptyState` (§3.8) — **and the register-photo calendar still renders below it**, because the dealer's photos do not depend on the portal fetch. |
 | Run succeeded, zero invoices in range | No hero. Pane shows the "no deliveries" empty state and the photo calendar still renders.                                                                                                        |
 | Fetch failed but old data exists      | Hero renders the last known figures **unchanged**, and the failure Callout above it says the newest fetch did not land. Never blank a good figure because a refresh failed.                      |
@@ -416,7 +417,7 @@ between fetches. State it in a comment at the comparator.
   four grades is possible and must not blow the row height out.
 - Desktop: `<TRow clickable onClick={() => setOpenInvoice(row)}>`, and the "View invoice" button
   inside it calls `e.stopPropagation()` first (the mandatory idiom —
-  `IrasShiftDataPane.tsx:700`).
+  `IrasShiftDataPane.tsx`).
 - Mobile: `MobileCardList` card with `onClick` and a `primaryRight` of
   `<span className="text-xs font-medium text-brand">View invoice ›</span>`. Cards carrying a
   whole-card `onClick` must not also contain buttons.
@@ -437,7 +438,7 @@ between fetches. State it in a comment at the comparator.
 - Fetched and fine: `8 invoices · last fetched 24 Aug 2026, 6:05 AM`
 - Never fetched: `Never fetched`
 - Last fetch failed: `8 invoices · last fetch failed 24 Aug 2026, 6:05 AM` (and the failure
-  Callout appears — copy the block at `DealerInspectionPane.tsx:179-199`, `Card` with
+  Callout appears — copy the block in `DealerInspectionPane.tsx`, `Card` with
   `border-danger/40 bg-danger-soft/40`).
 
 The fetch button is `Button variant="secondary" size="sm" leftIcon={<DownloadCloud/>}`
@@ -454,7 +455,7 @@ labelled **"Fetch invoices now"**, `loading` while the mutation is pending, and 
 
 ### Container: a `Drawer`, not a modal
 
-Use the existing `Drawer` (`mdg-admin/src/components/ui/Drawer.tsx:27`) at `width="lg"` (720px).
+Use the existing `Drawer` (`mdg-admin/src/components/ui/Drawer.tsx`) at `width="lg"` (720px).
 Reasons:
 
 - It is already the vault's drill-in container (`SnapshotDrawer`, `DealerInspectionPane`'s
@@ -501,7 +502,7 @@ The operator sees the numbers we read even if the PDF itself never renders.
 
 ```tsx
 <iframe
-  src={invoice.pdfViewUrl}
+  src={urls.viewUrl}
   title={`Tax invoice ${invoice.sapInvoiceNo}`}
   className="h-[calc(100dvh-22rem)] min-h-[460px] w-full rounded-md border border-border bg-white"
   referrerPolicy="no-referrer"
@@ -510,21 +511,20 @@ The operator sees the numbers we read even if the PDF itself never renders.
 ```
 
 This is the **same technique as the only existing iframe in the app**
-(`mdg-admin/src/pages/dsr/DsrReportPanel.tsx:125`). No PDF library is added.
+(`mdg-admin/src/pages/dsr/DsrReportPanel.tsx`). No PDF library is added.
 
 **Backend contract this requires:** two signed URLs per invoice, from
-`GET /tt-density/dealers/:dealerId/invoices/:invoiceId/pdf-url` (contract §4.2 A4), returned as
-a `TtSignedFileUrls`:
+`GET /tt-density/dealers/:dealerId/invoices/:invoiceId/pdf-url`, returned as a
+`TtSignedFileUrls`:
 
 - **`viewUrl`** — `Content-Disposition: inline`, `Content-Type: application/pdf`. **Only this one
   ever goes in the iframe.** An `attachment` URL in an iframe navigates the tab away and tears
-  down the open drawer (the bug already documented at `CreditDodReportCard.tsx:100-135`).
+  down the open drawer (the bug already documented at `CreditDodReportCard.tsx`).
 - **`downloadUrl`** — `Content-Disposition: attachment`, used only by the footer Download button.
 
-_Amended: the fields are `viewUrl` and `downloadUrl` on a `TtSignedFileUrls`, fetched by their
-own endpoint, not `pdfViewUrl`/`pdfDownloadUrl` hanging off the invoice. The invoice's facts come
-from A3 and render immediately; the URLs are a second request, which is what lets the drawer show
-every extracted figure while the file is still being signed — or when there is no file at all._
+The URLs are a second request, separate from the invoice itself. The invoice's facts render
+immediately; the drawer can show every extracted figure while the file is still being signed, or
+when there is no file at all.
 
 ### Toolbar
 
@@ -535,13 +535,13 @@ future requirement needs page thumbnails, that is when the dependency gets argue
 
 ### States
 
-| State                                                 | Render                                                                                                                                                                                                                                                                                                                                         |
-| ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Loading (frame not yet loaded)                        | `Skeleton className="absolute inset-0 rounded-md"` over the frame, **removed on `onLoad` or after 6 000 ms, whichever comes first**. An iframe that never fires `onLoad` must not leave a skeleton up forever.                                                                                                                                 |
-| `pdfViewUrl` present, renders                         | The frame. Nothing else.                                                                                                                                                                                                                                                                                                                       |
-| `pdfViewUrl` is `null` (file never downloaded / lost) | In place of the frame: the `FileWarning` block copied from `DsrReportPanel.tsx:143` — **"The invoice PDF is not in the vault"** / "The portal listed this invoice but the file did not download. The figures above were read from an earlier copy. Fetch again to try." + a `Fetch invoices now` button. The density chips above stay visible. |
-| We have the PDF but never parsed it                   | Density chips replaced by `Callout intent="warning"`: "We could not read the density figures out of this invoice. The PDF is below — please read them off it."                                                                                                                                                                                 |
-| Signed URL expired (403 on reload)                    | Treated as the missing case; the pane's query refetch re-signs. Never show a status code.                                                                                                                                                                                                                                                      |
+| State                                              | Render                                                                                                                                                                                                                                                                                                                                     |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Loading (frame not yet loaded)                     | `Skeleton className="absolute inset-0 rounded-md"` over the frame, **removed on `onLoad` or after 6 000 ms, whichever comes first**. An iframe that never fires `onLoad` must not leave a skeleton up forever.                                                                                                                             |
+| `viewUrl` present, renders                         | The frame. Nothing else.                                                                                                                                                                                                                                                                                                                   |
+| `viewUrl` is `null` (file never downloaded / lost) | In place of the frame: the `FileWarning` block copied from `DsrReportPanel.tsx` — **"The invoice PDF is not in the vault"** / "The portal listed this invoice but the file did not download. The figures above were read from an earlier copy. Fetch again to try." + a `Fetch invoices now` button. The density chips above stay visible. |
+| We have the PDF but never parsed it                | Density chips replaced by `Callout intent="warning"`: "We could not read the density figures out of this invoice. The PDF is below — please read them off it."                                                                                                                                                                             |
+| Signed URL expired (403 on reload)                 | Treated as the missing case; the pane's query refetch re-signs. Never show a status code.                                                                                                                                                                                                                                                  |
 
 ### Mobile — where an embedded PDF will not render, and what happens instead
 
@@ -580,17 +580,17 @@ still fetches the PDF over the operator's mobile data.
 │ Sales order      0913183557           │
 │ Header Density@15  820.50             │
 ├───────────────────────────────────────┤
-│ [    Open the invoice PDF          ]  │  Button primary, full width, min-h-11
+│ [    Open PDF                      ]  │  Button primary, full width, min-h-11
 │ [ Close ]                             │
 └───────────────────────────────────────┘
 ```
 
-"Open the invoice PDF" hands the file to whatever the phone uses for PDFs:
+"Open PDF" hands the file to whatever the phone uses for PDFs:
 
 - inside the admin Expo shell (`isNativeShell()`): `postToNative({ type: 'media:download', … })`
-  with `pdfDownloadUrl` — the shell's existing handler saves and opens it. `window.open` is
+  with `downloadUrl` — the shell's existing handler saves and opens it. `window.open` is
   unreliable there because the WebView runs with `setSupportMultipleWindows={false}`.
-- in a plain mobile browser: `window.open(pdfViewUrl, '_blank', 'noopener')`.
+- in a plain mobile browser: `window.open(viewUrl, '_blank', 'noopener')`.
 
 So on a phone the operator gets **every figure we hold** without any PDF rendering at all, plus
 one tap to the real file. They never see a blank frame.
@@ -604,9 +604,9 @@ items either scrolls (hiding the gaps, which are the whole point) or shrinks bel
 floor. A 7 × 5 grid shows the whole month at once and makes a run of missing days visually
 obvious as a hole in the block.
 
-`mdg-admin/src/pages/dealers/vault/DayMarkCalendar.tsx` — **genuinely new**; there is no month
+`mdg-admin/src/pages/dealers/vault/ttDensity/DayMarkCalendar.tsx` — **genuinely new**; there is no month
 grid anywhere in `mdg-admin` (only `BankHolidaysPage.tsx`, which is a month-scoped _list_). The
-month switcher header is copied verbatim from `BankHolidaysPage.tsx:186-208` (two secondary
+month switcher header is copied verbatim from `BankHolidaysPage.tsx` (two secondary
 `Button`s with `ChevronLeft`/`ChevronRight`, a `min-w-[9rem] text-center text-base font-semibold`
 label between them) and bounded the same way `BusinessDateControl` bounds its arrows: never past
 the current month, never before the month the service was attached.
@@ -637,15 +637,15 @@ Weekday header row above: `text-[11px] font-semibold uppercase tracking-wide tex
 
 ### Cell states — colour semantics
 
-| Meaning                    | Classes                                                                    | Extra                                                                                      |
-| -------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Sent by the dealer         | `bg-success-soft text-success border border-success/30`                    | —                                                                                          |
-| Added by an MDG admin      | `bg-success-soft text-success ring-2 ring-inset ring-brand`                | 5px `bg-brand rounded-full` dot, top-right, `aria-hidden`                                  |
-| Past day, not marked       | `border border-dashed border-border text-text-subtle`                      | the "expected but absent" convention from `DealerStatusCell` (`IrasShiftDataPane.tsx:689`) |
-| Today, not marked          | `border border-border-strong bg-surface text-text font-semibold`           | —                                                                                          |
-| Future day                 | `text-text-subtle/60 cursor-default`                                       | `disabled`                                                                                 |
-| Before the service started | `text-text-subtle/40 cursor-default`                                       | `disabled`, no border                                                                      |
-| Selected                   | any of the above + `outline outline-2 outline-offset-1 outline-focus-ring` | —                                                                                          |
+| Meaning                    | Classes                                                                    | Extra                                                                                  |
+| -------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Sent by the dealer         | `bg-success-soft text-success border border-success/30`                    | —                                                                                      |
+| Added by an MDG admin      | `bg-success-soft text-success ring-2 ring-inset ring-brand`                | 5px `bg-brand rounded-full` dot, top-right, `aria-hidden`                              |
+| Past day, not marked       | `border border-dashed border-border text-text-subtle`                      | the "expected but absent" convention from `DealerStatusCell` (`IrasShiftDataPane.tsx`) |
+| Today, not marked          | `border border-border-strong bg-surface text-text font-semibold`           | —                                                                                      |
+| Future day                 | `text-text-subtle/60 cursor-default`                                       | `disabled`                                                                             |
+| Before the service started | `text-text-subtle/40 cursor-default`                                       | `disabled`, no border                                                                  |
+| Selected                   | any of the above + `outline outline-2 outline-offset-1 outline-focus-ring` | —                                                                                      |
 
 **Green means the day is covered. A blue ring means we covered it, not them.** Both facts also
 appear in words in the selected-day panel and in the legend, so neither is carried by colour
@@ -676,13 +676,13 @@ show every current month as failing.
 
 ### Full-size viewing
 
-`See full size` opens **`mdg-admin/src/components/ui/ImageLightbox.tsx`** — `Dialog size="lg"` +
-`<img className="mx-auto max-h-[70vh] w-auto" draggable={false}>` + a ghost Download in the
-footer. This is a **genuinely new shared component**, and it is a consolidation, not an
-invention: the identical markup exists three times today
-(`features/chat/AttachmentPreview.tsx:82-140`, `features/chat/MediaGalleryCard.tsx:37-110`,
-`pages/dealers/DealerStaffTab.tsx:940-1000`). Extract it once here and migrate the three call
-sites in the same change.
+`See full size` opens the shared **`mdg-admin/src/components/ui/ImageLightbox.tsx`**: a
+`Dialog size="lg"` around the photo, pinch, pan and double-tap zoom below `md`, and an optional
+Download in the footer. It was written as an extraction. The same markup had been copied into the
+chat attachment preview, the chat media gallery and the staff tab. The chat preview and gallery
+use the shared one now.
+
+The props this pane uses:
 
 ```ts
 ImageLightboxProps {
@@ -697,12 +697,11 @@ ImageLightboxProps {
 
 ### Admin upload on the dealer's behalf
 
-`Dialog size="sm"` modelled line-for-line on
-`mdg-admin/src/features/records/UploadRecordDialog.tsx` — hidden `<input type="file">`, a dashed
-"Choose a photo (max 25 MB)" button, a chip with the filename + an `X` to clear, presign → PUT →
-create.
+`UploadDayPhotoDialog.tsx`, a `Dialog size="sm"` of the usual file-dialog shape: a hidden
+`<input type="file">`, a dashed "Choose a photo (max 25 MB)" button, a chip with the filename + an
+`X` to clear, presign → PUT → create.
 
-Differences from the records dialog, all deliberate:
+Choices made in it, all deliberate:
 
 - `accept="image/*"` only. A register page is a photo. A PDF here would be someone uploading the
   wrong thing.
@@ -721,18 +720,18 @@ photo is kept server-side for audit; the UI does not offer to browse replaced ph
 
 ### Calendar states
 
-| State                                  | Render                                                                                                                                                                |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Loading                                | The grid renders with all cells as `Skeleton`-filled squares (`Skeleton className="h-full w-full rounded-md"`), header and legend live                                |
-| Error                                  | `EmptyState` `AlertCircle` · "Could not load the register photos" · message + a Retry via `refetch`                                                                   |
-| Never any photo, service just attached | The grid renders normally (all dashed), plus one line under the legend: "No register photos yet. The dealer sends one a day from their app, or you can add one here." |
-| Service not attached                   | The whole pane is gated out by `DealerVaultView`; if the gating check itself failed, see §3.8                                                                         |
+| State                                  | Render                                                                                                                                                                                                                                                          |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Loading                                | The grid renders with all cells as `Skeleton`-filled squares (`Skeleton className="h-full w-full rounded-md"`), header and legend live                                                                                                                          |
+| Error                                  | `EmptyState` `AlertCircle` · "Could not load the register photos" · message + a Retry via `refetch`                                                                                                                                                             |
+| Never any photo, service just attached | The grid renders normally (all dashed), plus one line under the legend: "No register photos yet. The dealer sends one a day from their app, or you can add one here." (The words predate the chat flow: the dealer now replies to the morning ask in the chat.) |
+| Service not attached                   | The whole pane is gated out by `DealerVaultView`; if the gating check itself failed, see §3.8                                                                                                                                                                   |
 
 ## 3.8 Pane-level states
 
 | State                                 | Render                                                                                                                                                                                                                                                                                                                                   |
 | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Loading                               | `DensityHero loading` (2 skeleton tiles) + a `Card` with 3 × `Skeleton h-11 w-full`, mirroring `DealerInspectionPane.tsx:109-122`                                                                                                                                                                                                        |
+| Loading                               | `DensityHero loading` (2 skeleton tiles) + a `Card` with 3 × `Skeleton h-11 w-full`, mirroring `DealerInspectionPane.tsx`                                                                                                                                                                                                                |
 | Error                                 | `EmptyState` `AlertCircle` · **"Could not load TT Density"** · `ApiError.message` or "Please try again." · `cta={fetchButton}`                                                                                                                                                                                                           |
 | Never run                             | `EmptyState` `Gauge` · **"No tanker invoices captured yet"** · "Once TT Density runs for 15E, the Density@15 for each product appears here, with the invoice PDF behind every figure." · `cta={fetchButton}` — **and the register-photo calendar still renders below it**, because the dealer's photos do not depend on the portal fetch |
 | Service detached (gating failed open) | `EmptyState` `Plug` · "TT Density is not attached to 15E" · "Attach it from the Services tab and this pane fills in."                                                                                                                                                                                                                    |
@@ -742,18 +741,20 @@ photo is kept server-side for audit; the UI does not offer to browse replaced ph
 
 Everything else in this spec is an existing primitive used as-is. Three components are new:
 
-| New component                                          | Why nothing existing does it                                                                                                                                                                                                                             |
-| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `DensityHero` + `DensityTile` (`pages/dealers/vault/`) | `StatTile` is a 24px integer counter with `value: number` and Indian digit grouping. This needs a 40–48px three-decimal figure, a unit, a provenance line, and a four-way staleness state. Forking `StatTile` would break every existing dataset digest. |
-| `DayMarkCalendar` (`pages/dealers/vault/`)             | There is no month grid in `mdg-admin`. `BankHolidaysPage` is a month-scoped list; `DateRangeFilter` is a preset/range picker. The month-switcher header is copied from `BankHolidaysPage.tsx:186-208`.                                                   |
-| `ImageLightbox` (`components/ui/`)                     | Not new behaviour — the same `Dialog size="lg"` + `max-h-[70vh]` image exists three times already. This is the overdue extraction; migrate all three call sites.                                                                                         |
+| New component                                                    | Why nothing existing does it                                                                                                                                                                                                                                 |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `DensityHero` + `DensityTile` (`pages/dealers/vault/ttDensity/`) | `StatTile` is a 24px integer counter with `value: number` and Indian digit grouping. This needs a 40–48px three-decimal figure, a unit, a provenance line, and a three-state staleness ladder. Forking `StatTile` would break every existing dataset digest. |
+| `DayMarkCalendar` (`pages/dealers/vault/ttDensity/`)             | There is no month grid in `mdg-admin`. `BankHolidaysPage` is a month-scoped list; `DateRangeFilter` is a preset/range picker. The month-switcher header is copied from `BankHolidaysPage.tsx`.                                                               |
+| `ImageLightbox` (`components/ui/`)                               | Not new behaviour. The same `Dialog size="lg"` photo viewer had been copied into the chat preview, the chat gallery and the staff tab. This is the shared extraction.                                                                                        |
 
 The PDF drawer is **not** a new primitive: it is `Drawer` + one `<iframe>`, both already in use.
 
 ## 3.10 The cross-dealer view (secondary, ship after the per-dealer pane)
 
-One appended descriptor in `mdg-admin/src/pages/dataVault/datasets.ts:27-44` — a data-only
-change, no routing:
+**Not built.** Only the per-dealer pane shipped. This is the design if it is ever wanted.
+
+One appended descriptor in `mdg-admin/src/pages/dataVault/datasets.ts` (the all-dealers vault
+registry) — a data-only change, no routing:
 
 ```ts
 { id: 'tt-density', label: 'TT Density',
@@ -769,389 +770,80 @@ per-dealer content. All state in the URL via `patchParams`.
 
 ---
 
-# B. Client — the dealer's daily register photo
+# B. The dealer — what they see now
 
-## 4.1 Where it lives, and what it is not
+The dealer's `/density` page, its camera sheet, the week strip, the pinned card on the chat list,
+the Profile row and the push that opened the page were removed on 13 Oct 2026 (ADR 0019). An old
+link to `/density` opens the member's own chat. The dealer meets this service in two places, both
+in the chat.
 
-**Route:** `/density` (lazy, via `lazyWithRetry`, inside `ProtectedLayout` in
-`mdg-client/src/App.tsx:29-45`).
+## 4.1 The new tanker figures arrive as a chat message
 
-**Three ways in, in the order the dealer will actually use them:**
-
-1. **The push notification** — add one token to the allowlist in `mdg-app/lib/bridge.ts:168-172`.
-   _Amended: in v1 the push that fires is the **new-density** one — a single notification after a
-   run stores new invoices, at most one per run whatever the invoice count (contract §8.2 step
-   8a). The **daily 20:00 "you have not sent today's photo" reminder is deferred**: it needs a
-   per-dealer reminder hour and a nightly scheduler job, and neither is worth building before we
-   know whether dealers send photos unprompted. Until it exists, the pinned chat-list card (entry 2) is what a dealer sees when something is due, and it is the one they will actually meet._
-   ```ts
-   const DEEP_LINK_TOKENS: Record<string, string> = {
-     kavach: '/kavach',
-     chat: '/chat',
-     records: '/records',
-     density: '/density',
-   };
-   ```
-2. **A pinned card at the top of the chat list** (`ChatListPage`, the app's default route),
-   rendered **only while there is something to do** — today unmarked, or a day inside the
-   7-day window missed. Once today is sent, it disappears until tomorrow. Chat is home; the
-   dealer opens the app and the one thing they owe today is the first thing they see.
-3. **A Profile row** (`ProfilePage.tsx`), always present when the service is attached — the
-   established route for a non-tab feature, identical markup to the Services and Staff Points
-   rows at `ProfilePage.tsx:422-472`.
-
-**Rejected, with reasons:**
-
-| Rejected                             | Why                                                                                                                                                                                                                         |
-| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| A 5th bottom tab                     | The bar is locked at 4 (`AppShell.tsx:117-126`) and two features have already been demoted to Profile rather than break it. A once-a-day 10-second task does not outrank Chat, Reports, Kavach or Profile.                  |
-| A card in the Kavach "Do today" list | Kavach's promise is a score ring. A task card sitting in that list that does not move the ring is a quiet lie, and wiring density into the Kavach engine would couple two services that have nothing to do with each other. |
-| A card on the Reports tab            | Reports is a receiving shelf — things MDG sends the dealer. This is a chore the dealer does. Wrong category, and a tab they may not open for days.                                                                          |
-
-## 4.2 The `/density` page
+After a run that stores invoices the dealer did not have before, MDG posts **one** message
+(`mdg-backend/src/services/ttDensity/notify.ts`). One per run, not one per invoice: three
+tankers in a night is one sentence, not three notifications at two in the morning.
 
 ```
-┌────────────── 390px ──────────────┐
-│ Density register                  │  h1 text-lg/600 tracking-tight
-│                                   │  page root: flex flex-1 flex-col gap-5 p-4
-│ ┌───────────────────────────────┐ │
-│ │ ┌──┐                          │ │  Card rounded-2xl border shadow-sm, p-4
-│ │ │📷│ Today's register photo   │ │  h-11 w-11 rounded-xl tile · text-[15px]/600
-│ │ └──┘ Sun, 24 Aug              │ │  text-xs text-text-muted
-│ │                               │ │
-│ │ Open your register at today's │ │  text-sm text-text-muted
-│ │ page and take one clear photo.│ │
-│ │                               │ │
-│ │ [ 📷  Take photo            ] │ │  Button primary fullWidth size="lg" (h-12)
-│ │ [ 🖼  Choose from phone      ] │ │  Button secondary fullWidth size="lg"
-│ └───────────────────────────────┘ │
-│                                   │
-│ THIS WEEK                         │  h2 text-xs/600 uppercase tracking-wide text-text-subtle
-│ ┌───────────────────────────────┐ │
-│ │  M    T    W    T    F    S  S│ │  7 cells, gap-1, ≈44px each within 334px
-│ │ ┌──┐ ┌──┐ ┌──┐ ┌──┐ ┌──┐ ┌──┐ │ │
-│ │ │✓ │ │✓ │ │· │ │✓ │ │✓ │ │✓ │ │ │
-│ │ │18│ │19│ │20│ │21│ │22│ │23│ │ │
-│ │ └──┘ └──┘ └──┘ └──┘ └──┘ └──┘ │ │
-│ │                          ┌──┐ │ │
-│ │                          │24│ │ │  today, unmarked: border-border-strong
-│ │                          └──┘ │ │
-│ │ ✓ Sent   · Still to do        │ │  legend, text-xs text-text-subtle
-│ └───────────────────────────────┘ │
-│                                   │
-│ ┌───────────────────────────────┐ │
-│ │ 💬 Something not right?       │ │  HelpFooter — copy KavachPage.tsx:35-49
-│ │    Message us.                │ │
-│ └───────────────────────────────┘ │
-└───────────────────────────────────┘
-                            [ tabs ]   pb-20 reserves the bar
+New tanker density is ready.
+HIGH SPEED DIESEL (11 Oct): 820.500 · MOTOR SPIRIT (11 Oct): 727.300
 ```
 
-Page shell rules, inherited from `KavachPage`:
-`<div className="flex flex-1 flex-col gap-5 p-4">`, `h1` = `text-lg font-semibold tracking-tight
-text-text`, section `h2` = `text-xs font-semibold uppercase tracking-wide text-text-subtle`,
-four states (loading `Spinner size={20}` in `py-12` / error `EmptyState` + `t('common.helpDesc')`
-/ not-provisioned calm welcome / normal), and **all hooks before any early return**.
+Products are ordered diesel first, then petrol, then the rest.
 
-The week strip cells are `<button>`s. Tapping a **sent** day opens the photo in a full-screen
-lightbox; tapping a **missed** day inside the window starts the capture flow for that day;
-future days are `disabled`.
+- **Who gets it:** the person on site. The manager's group chat when the outlet has a manager,
+  each owner's own chat when it has not. Each copy is in its reader's language. The push opens
+  that chat.
+- **Where the figures come from:** the invoices that run stored, and nowhere else. An invoice
+  whose reading could not be read adds nothing. If none of the new ones has a reading, the
+  message is the headline alone. "The newest reading there is" could be a week-old tanker's,
+  printed as the new one, and the dealer copies that number into a statutory register.
+- **Each figure names its invoice day**, so a dealer with two tankers can match it to a delivery
+  note.
+- **The fence, in words** (the rules the old screen kept, unchanged):
+  - the figure is what the invoice printed, digit for digit: `820.500`, never `820.5`;
+  - the product named in the platform's own words (`HIGH SPEED DIESEL` / हाई स्पीड डीजल,
+    `MOTOR SPIRIT` / मोटर स्पिरीट), never `HSD-BSVI` or a material code;
+  - no unit, no "Density@15", no invoice number, no rupee figure;
+  - no second number, no field to type into, nothing that implies MDG knows or cares what the
+    dealer's own dip test said. The release deliberately ships no comparison.
 
-## 4.2.1 The figures, on the dealer's own screen — **added by the build contract**
+## 4.2 The register page is asked for in the chat
 
-_The wireframe above predates this section and omits the card; it sits directly under the `h1`
-and above the Today card, so the figures are the first thing on the screen and the day's job is
-the second._
+- **The ask.** Every morning at 09:00 IST (`REGISTER_ASK_CRON`) MDG posts a chat ask with a
+  "Send photo" button for **yesterday's** register page (ref `reg:<YYYY-MM-DD>`, title "Density
+  register page" / डेंसिटी रजिस्टर का पन्ना). It goes only to outlets whose TT Density service
+  is active, only while that day is not yet received, and never twice into the same chat. It goes
+  to the same chat as 4.1.
+- **The answer.** The dealer's photo, sent as a reply to the ask, is filed for that day on its
+  own and MDG replies "✓ Received". No admin step, and no admin's phone is pushed. A page that
+  comes with typed words is still filed, but handled as an ordinary message, so a person reads
+  it.
+- **How far back.** A dealer can file today and the six days before it (7 days,
+  `TT_REGISTER_DEALER_BACKDATE_DAYS`). A page older than that reads closed in their chat. An
+  admin can mark any of the last 60 days, counting today (`TT_REGISTER_ADMIN_BACKDATE_DAYS`), from the calendar's
+  "Upload on the dealer's behalf" (§3.7). That is also the fallback for a dealer who never opens
+  the chat. The dealer is never told off for a day MDG filled in.
+- **Storage.** The photo is stored under `tt-density/<dealerId>/register/`, the same folder the
+  admin upload uses (upload scope `tt-density`). The business date is not in the key.
 
-`mdg-client/src/features/density/DensityLatestStrip.tsx`, fed by
-`TtDensityMeView.latest` — **rendered in the order it arrives** (the store sorts it diesel
-first; do not re-sort in the component, or the dealer's phone and the admin's screen can put a
-different number at the top).
+The rules for the ask and its answer are in ADR 0019. Why 7 days: it is the window of the
+portal's own TT Acknowledgement filter and of our daily fetch, so one number explains the whole
+service. It is also what a dealer can honestly reconstruct from a paper register they are
+holding. Past a week, a photograph of an old page proves only that the page exists.
 
-```
-┌────────────── 390px ──────────────┐
-│ Density register                  │  h1
-│                                   │
-│ पिछले टैंकर की रीडिंग              │  h2 text-xs/600 uppercase text-text-subtle
-│ ┌───────────────────────────────┐ │
-│ │ डीज़ल                          │ │  text-[15px]/600
-│ │  820.500                      │ │  text-[32px]/600 leading-none tabular-nums
-│ │  यह अपने रजिस्टर में लिखें       │ │  text-sm text-text-muted
-│ │  22 अग · BR09GC8009           │ │  text-xs text-text-subtle
-│ ├───────────────────────────────┤ │
-│ │ पेट्रोल                        │ │
-│ │  727.300                      │ │
-│ │  यह अपने रजिस्टर में लिखें       │ │
-│ │  22 अग · BR09GC8009           │ │
-│ └───────────────────────────────┘ │
-│ …Today card, week strip, help…    │
-└───────────────────────────────────┘
-```
+## 4.3 Words the dealer reads
 
-**The rules, and every one of them is the fence:**
+The chat copy is written in Hindi and English by the backend (`services/ttDensity/notify.ts`
+for the figures, `services/chatAsks/text.ts` for the ask). Three notes survive from the old
+screen's copy sheet and still bind anyone who writes dealer-facing text for this service:
 
-| Rule                                                                                               | Why                                                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Three decimals, always, via `toFixed(3)` on `density15Raw`'s own digits — `820.500`, never `820.5` | it is copied into a book by hand; the trailing zeros are part of the figure                                                                                          |
-| `text-[32px]` minimum, `tabular-nums`, `text-text`                                                 | the owner asked for big fonts, and a 52-year-old is reading it under a canopy light                                                                                  |
-| The product word only — **डीज़ल / Diesel**, from `labelHi` / `labelEn`                             | never `HSD-BSVI`, never `50700`, never `HSD`                                                                                                                         |
-| **No unit.** No `kg/m³`, no `@15`, no `Density@15`                                                 | the invoice states no unit; kg/m³ at 15 °C is our reading of the magnitude, not IndianOil's statement, and it is four characters of jargon on a screen that has none |
-| **No invoice number, no rupee figure, no document number**                                         | a tax invoice is a financial document and stays admin-only                                                                                                           |
-| **No second number anywhere.** No "your reading", no field, no placeholder, no "compare"           | this is the release that deliberately does not ship a comparison, and a screen that hints at one is a promise we did not make                                        |
-| Tanker and date underneath, in one line                                                            | a dealer with two tankers this week has to know which one this is                                                                                                    |
-| A `provisional` product is labelled by the invoice's own words                                     | `dsrProductProfile()`'s rule, on a dealer's screen                                                                                                                   |
-| Older than `TT_DENSITY_STALE_AFTER_DAYS` (21): keep the number, add its age in words               | `density.figureAge`. A stale figure is still the last true reading. Blanking it would be a worse lie than an old number that says how old it is                      |
-| No figures at all: one calm line, `density.noReadingYet`                                           | never a spinner that never resolves, and never a zero                                                                                                                |
-
-Three keys are added to the §4.6 table for this: `density.latestTitle`,
-`density.registerLine`, `density.noReadingYet`, plus `density.figureAge` for the stale case.
-
-## 4.3 The capture flow, step by step
-
-```
-Today card
-   │  tap [ Take photo ]                    tap [ Choose from phone ]
-   ▼                                                     ▼
-cameraRef.current.click()                    galleryRef.current.click()
-<input type="file" accept="image/*"          <input type="file" accept="image/*"
-       capture="environment" hidden>                 hidden>
-   │                                                     │
-   └──────────────────► onPick(e) ◄──────────────────────┘
-                          │  const f = e.target.files?.[0]; e.target.value = '';   ← MANDATORY
-                          │  resolveFileType(f, { assumeImage: true })
-                          │  if kind !== 'image' → toast.error(density.notAPhoto) ; stop
-                          ▼
-                   DensityCaptureSheet opens (bottom sheet)
-                   ┌───────────────────────────────┐
-                   │ ═══                           │  grabber
-                   │ Sun, 24 Aug                   │  text-[15px]/600
-                   │ ┌───────────────────────────┐ │
-                   │ │                           │ │  <img draggable={false}
-                   │ │   (the photo, contained)  │ │   className="max-h-[52vh] w-full
-                   │ │                           │ │              rounded-xl object-contain">
-                   │ └───────────────────────────┘ │
-                   │ Is the page readable?         │  text-sm text-text-muted
-                   │ [   Yes, send this         ]  │  Button primary fullWidth size="lg"
-                   │ [   Take again             ]  │  Button ghost fullWidth size="lg"
-                   └───────────────────────────────┘
-                          │  Yes
-                          ▼
-                   compressImage()  →  presign (scope 'density')  →  PUT to S3
-                   button: loading, label "Sending your photo…"
-                          │
-              ┌───────────┴───────────┐
-              ▼                       ▼
-           success                  failure
-   sheet closes                sheet STAYS OPEN
-   optimistic day → sent       inline line: "The photo did not reach us"
-   toast "Photo saved"         button becomes [ Send again ]
-   strip cell turns green      storageKey held in state → retry never re-uploads
-```
-
-### Rules the implementation must honour
-
-1. **Two hidden inputs, not one.** `capture="environment"` locks the picker to the camera, so a
-   second plain input is the only way to reach the gallery — the pattern at
-   `FinalizeSubmitSheet.tsx:198-212`. Both are `hidden`; two visible `Button`s drive them.
-2. **Reset `e.target.value = ''` after every pick.** Without it, re-picking the same file never
-   fires `onChange` and the dealer's second attempt silently does nothing.
-3. **Never trust `file.type`.** Android WebView hands back `type === ''` for camera captures.
-   Use `resolveFileType(file, { assumeImage: true })` (`lib/uploadAttachment.ts:57-86`).
-4. **Compress before presign** via `compressImage` (1600px longest edge, JPEG q0.70, skipped
-   below 300 KB). A raw camera JPEG is 3–6 MB; on 2G that is a minute of upload the dealer will
-   abandon.
-5. **Revoke the object URL** on sheet close and on unmount (`FinalizeSubmitSheet.tsx:76-85`).
-6. **`draggable={false}` on the preview `<img>`.** The press-hold drag ghost hangs the shell.
-7. **`useScrollLock()`** while the sheet is open — it is a full-screen sheet and this route is not
-   `/chat`.
-8. **Hold the uploaded `storageKey` in state.** This is the bug not to copy: in
-   `ComplianceTaskCard.tsx:715` a failed mark-done retries with no proof, silently dropping the
-   photo. Here the photo _is_ the deliverable — if the S3 PUT succeeded and only the mark-day
-   POST failed, `Send again` must reuse the existing `storageKey` and skip the upload entirely.
-9. **No progress bar.** `fetch(… PUT)` has no upload-progress event and there is no XHR
-   precedent in the repo. The honest UI is a spinner plus the words "Sending your photo…". Do
-   not fake a bar.
-10. **Offline blocks the send with a sentence, not a disabled mystery.** Mirror
-    `FinalizeSubmitSheet.tsx:281-305`: the button is disabled and a plain line sits directly
-    above it saying why.
-11. **The mutation is optimistic with rollback** — `onMutate` marks the day sent and flips the
-    card, `onError` restores the snapshot so the dealer sees true state, `onSettled`
-    invalidates (`useKavach.ts:104-127`).
-
-### Native shell
-
-**Nothing new is needed.** `ensureCameraPermissionsAsync()` already grants Android `CAMERA` on
-mount (`mdg-app/app/index.tsx:237-239`), which is the permission the `<input capture>` intent
-path requires. iOS needs nothing.
-
-### Backend contract this requires
-
-A new upload scope, added to `shared/src/schemas/chat.ts:63-77` and handled in
-`mdg-backend/src/routes/v1/uploads.ts:110-131` alongside the `staff` branch:
-
-```ts
-scope: z.enum(['chat', 'avatar', 'staff', 'tt-density']);
-```
-
-image-only, `dealerId` required, `assertTtDensityDealerAccess(req.user, dealerId)`, storage key
-`ttRegisterPhotoKey(dealerId, filename)` → `tt-density/<dealerId>/register/<uuid>.<ext>`.
-Without this the presign 400s.
-
-_Amended: the scope is `tt-density`, matching the service id, the storage prefix, the plugin
-folder and the `?vault=` deep link — one word to grep for when an object turns up in the bucket
-and nobody knows what wrote it. The key is partitioned by dealer only; the business date is not
-in it, because the upload route's whole access check is "does this key start with
-`tt-density/<dealerId>/register/`". Contract §2.5, §4.4, and the key helpers in §9 P4._
-
-## 4.4 Done, missed, and how far back
-
-### Today is done
-
-```
-┌───────────────────────────────┐
-│ ┌──┐                          │  tile: bg-success-soft text-success
-│ │✓ │ Today is done            │  CheckCircle2 width={20} strokeWidth={2}
-│ └──┘ Sun, 24 Aug              │
-│                               │
-│ We have today's register      │  text-sm text-text-muted
-│ photo. Nothing else to do.    │
-│                               │
-│ [ See the photo ]             │  Button ghost size="lg" fullWidth
-└───────────────────────────────┘
-```
-
-On the chat list this card is **not rendered at all** once today is done and no day is missed —
-the dealer's home screen goes back to being just their conversations.
-
-### A day was missed
-
-```
-┌───────────────────────────────┐
-│ ┌──┐                          │  tile: bg-warning-soft text-warning
-│ │!!│ 2 days still to do       │  text-[15px]/600
-│ └──┘                          │
-│ Open the register at that     │  text-sm text-text-muted
-│ day's page and take a photo.  │
-│                               │
-│ ┌────────┐ ┌────────┐         │  day chips, min-h-[44px], rounded-full
-│ │ Fri 22 │ │ Sat 23 │         │  bg-warning-soft text-warning text-sm/500
-│ └────────┘ └────────┘         │
-│                               │
-│ [ 📷  Take photo for Fri 22 ] │  primary; label names the day
-└───────────────────────────────┘
-```
-
-Today always comes first. If today is unmarked, the card is the Today card and the missed days
-appear as a single quiet line below it ("2 earlier days still to do") that opens `/density`.
-Two competing primary buttons on one card is not allowed.
-
-### How far back a dealer may fill in — **7 days** (today + the 6 before it)
-
-Recommended, and it is the same 7 everywhere in this service:
-
-1. It is the window the portal's own TT Acknowledgement filter defaults to, and the window our
-   daily fetch uses. One number in the whole service means one number to explain, one to test,
-   and no place for the two to drift.
-2. A week is what a dealer can honestly reconstruct from a paper register they physically hold.
-   They know whether they were at the pump last Tuesday.
-3. Past a week, a photograph of an old page stops being evidence that the test happened that
-   day and becomes evidence only that the page exists. Allowing 30 days would quietly turn a
-   daily record into a monthly one.
-
-Days older than 7 are **not shown** in the week strip and are not offerable. If a dealer reaches
-one anyway (an old notification, a stale screen), the copy is
-`density.tooOld` — "Only the last 7 days can be filled in." — with a `Message us` action, never
-a dead end.
-
-### A day MDG filled in
-
-The strip cell renders green with a `ring-1 ring-inset ring-border-strong` and tapping it shows
-the photo with the line **"यह फोटो MDG टीम ने डाली है" / "MDG team added this photo"**. The
-dealer is never told off for it and is never offered a Replace button — an admin correction is
-not the dealer's problem to fix.
-
-## 4.5 Client states
-
-| State                                                                                                | Render                                                                                                                                                                                                            |
-| ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Loading                                                                                              | `Spinner size={20}` centred in `py-12`                                                                                                                                                                            |
-| Error                                                                                                | `EmptyState` `Camera` · `t('density.errorTitle')` · `t('common.helpDesc')` + `HelpFooter`                                                                                                                         |
-| Service not attached (`attached: false` on the `/me` payload — the route answers **200**, never 404) | Calm welcome: `EmptyState` `Camera` · `t('density.notOnTitle')` · `t('density.notOnDesc')` + `HelpFooter`. **Never a 404 and never an empty list.** The Profile row and the chat-list card are also not rendered. |
-| Attached, nothing due                                                                                | The Today-done card + the week strip                                                                                                                                                                              |
-| Sending                                                                                              | Sheet open, primary button `loading`, label `t('density.sending')`                                                                                                                                                |
-| Send failed                                                                                          | Sheet open, card border `border-danger/40`, inline retry pill `bg-danger-soft text-danger` with `RotateCw`, exactly `ComplianceTaskCard.tsx:173-182`                                                              |
-| Offline                                                                                              | Send button disabled + `t('density.offline')` directly above it                                                                                                                                                   |
-
-## 4.6 Bilingual copy — every string
-
-New section in `mdg-client/src/lib/i18n.ts`, `{ en, hi }` on every key, dot-namespaced
-`density.*`. A missing key is a compile error, so add them all in one block.
-
-```ts
-/* ── density register (tt-density) ──────────────────────────────────── */
-```
-
-| Key                       | English                                                               | हिन्दी                                                              |
-| ------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `density.title`           | Density register                                                      | डेंसिटी रजिस्टर                                                     |
-| `density.latestTitle`     | Last tanker's reading                                                 | पिछले टैंकर की रीडिंग                                               |
-| `density.registerLine`    | Write this in your register                                           | यह अपने रजिस्टर में लिखें                                           |
-| `density.noReadingYet`    | No tanker reading yet. It will appear here the day after one arrives. | अभी कोई टैंकर रीडिंग नहीं है। टैंकर आने के अगले दिन यह यहाँ दिखेगी। |
-| `density.figureAge`       | This reading is {n} days old                                          | यह रीडिंग {n} दिन पुरानी है                                         |
-| `profile.density`         | Density register                                                      | डेंसिटी रजिस्टर                                                     |
-| `profile.densityDesc`     | Send today's register page                                            | आज के रजिस्टर का पन्ना भेजें                                        |
-| `density.todayTitle`      | Today's register photo                                                | आज के रजिस्टर की फोटो                                               |
-| `density.todayHint`       | Open your register at today's page and take one clear photo.          | अपना रजिस्टर आज वाले पन्ने पर खोलें और एक साफ़ फोटो लें।            |
-| `density.takePhoto`       | Take photo                                                            | फोटो लें                                                            |
-| `density.takePhotoFor`    | Take photo for {day}                                                  | {day} की फोटो लें                                                   |
-| `density.chooseFromPhone` | Choose from phone                                                     | फ़ोन से चुनें                                                       |
-| `density.readable`        | Is the page readable?                                                 | क्या पन्ना साफ़ पढ़ा जा रहा है?                                     |
-| `density.sendThis`        | Yes, send this                                                        | हाँ, यही भेजें                                                      |
-| `density.takeAgain`       | Take again                                                            | दोबारा लें                                                          |
-| `density.sending`         | Sending your photo…                                                   | फोटो भेजी जा रही है…                                                |
-| `density.doneTitle`       | Today is done                                                         | आज का काम हो गया                                                    |
-| `density.doneDesc`        | We have today's register photo. Nothing else to do.                   | आज के रजिस्टर की फोटो हमें मिल गई। और कुछ नहीं करना है।             |
-| `density.doneToast`       | Photo saved                                                           | फोटो सेव हो गई                                                      |
-| `density.doneToastDesc`   | Today's register page is saved.                                       | आज के रजिस्टर का पन्ना सेव हो गया।                                  |
-| `density.seePhoto`        | See the photo                                                         | फोटो देखें                                                          |
-| `density.weekTitle`       | This week                                                             | इस हफ़्ते                                                           |
-| `density.legendSent`      | Sent                                                                  | भेज दी                                                              |
-| `density.legendTodo`      | Still to do                                                           | अभी बाकी                                                            |
-| `density.missedOne`       | 1 day still to do                                                     | 1 दिन बाकी है                                                       |
-| `density.missedMany`      | {n} days still to do                                                  | {n} दिन बाकी हैं                                                    |
-| `density.missedDesc`      | Open the register at that day's page and take a photo of it.          | उस दिन वाले पन्ने पर रजिस्टर खोलें और उसकी फोटो लें।                |
-| `density.earlierDays`     | {n} earlier days still to do                                          | {n} पुराने दिन अभी बाकी हैं                                         |
-| `density.today`           | Today                                                                 | आज                                                                  |
-| `density.yesterday`       | Yesterday                                                             | बीता कल                                                             |
-| `density.failedTitle`     | The photo did not reach us                                            | फोटो हम तक नहीं पहुँची                                              |
-| `density.failedDesc`      | Your phone lost the network. Tap to send it again.                    | आपके फ़ोन का नेटवर्क चला गया था। दोबारा भेजने के लिए दबाएँ।         |
-| `density.sendAgain`       | Send again                                                            | दोबारा भेजें                                                        |
-| `density.notAPhoto`       | That is not a photo. Please take a photo of the register page.        | यह फोटो नहीं है। कृपया रजिस्टर के पन्ने की फोटो लें।                |
-| `density.offline`         | Your phone is not on the internet right now. The photo will not go.   | आपका फ़ोन अभी इंटरनेट पर नहीं है। फोटो अभी नहीं जाएगी।              |
-| `density.tooOld`          | Only the last 7 days can be filled in.                                | सिर्फ़ पिछले 7 दिन ही भरे जा सकते हैं।                              |
-| `density.adminAdded`      | MDG team added this photo                                             | यह फोटो MDG टीम ने डाली है                                          |
-| `density.notOnTitle`      | Nothing to do yet                                                     | अभी कुछ नहीं करना है                                                |
-| `density.notOnDesc`       | This service is not on for your pump yet. Message us if you want it.  | यह सेवा अभी आपके पंप के लिए चालू नहीं है। चाहिए तो हमें मैसेज करें। |
-| `density.errorTitle`      | We could not open this                                                | यह खुल नहीं पाया                                                    |
-| `density.helpLine`        | Something not right? Message us.                                      | कुछ ठीक नहीं लग रहा? हमें मैसेज करें।                               |
-| `density.pushTitle`       | Today's density register                                              | आज का डेंसिटी रजिस्टर                                               |
-| `density.pushBody`        | Take a photo of today's page. It takes 10 seconds.                    | आज वाले पन्ने की फोटो लें। 10 सेकंड लगेंगे।                         |
-
-### Copy notes the translator and the reviewer must both keep
-
-- **Hindi "कल" means both yesterday and tomorrow.** Never use it bare. `density.yesterday` is
-  **"बीता कल"**, and every day chip also prints the date ("शनि 23") so the word is never doing
-  the work alone.
-- **No jargon, either language.** These words are banned from the dealer's screen: sync, upload,
-  server, retry, failed, error, invoice, acknowledgement, TT, Density@15, kg/m³, storage,
-  attachment, API. _The ban survives §4.2.1 unchanged — the dealer sees the **number**, never our
-  name for it. "डीज़ल · 820.500" carries the whole fact with none of the vocabulary._
-- **Failure copy names the cause and the fix in one sentence.** "The photo did not reach us. Your
-  phone lost the network. Tap to send it again." — not "Upload failed — retry?".
-- **Plurals are two keys**, the manual idiom already used at `KavachPage.tsx:133-136`.
-- **Reading level**: every string above is short sentences, everyday words, no subordinate
-  clauses. A person who has never used software can act on each one.
-- `mdg-admin` stays English (ADR 0008). Nothing in section A is translated.
+- **Hindi "कल" means both yesterday and tomorrow.** Never use it bare. Say "बीता कल", and print
+  the date beside it.
+- **No jargon, either language.** These words are banned from anything the dealer reads about
+  this service: sync, upload, server, retry, failed, error, invoice, acknowledgement, TT,
+  Density@15, kg/m³, storage, attachment, API. The dealer sees the **number**, never our name
+  for it: "हाई स्पीड डीजल · 820.500" carries the whole fact with none of the vocabulary.
+- Failure copy names the cause and the fix in one sentence.
 
 ---
 
@@ -1166,34 +858,21 @@ New section in `mdg-client/src/lib/i18n.ts`, `{ en, hi }` on every key, dot-name
 | Density fresh (≤7d)    | none — `text-text`                                    | hero number                                                             |
 | Density ageing (8–20d) | `warning` (`#d97706` / `-soft #fef3c7`)               | `Badge intent="warning"` "12 days old"                                  |
 | Density stale (≥21d)   | `danger` (`#dc2626` / `-soft #fee2e2`)                | `Badge intent="danger"` + `border-danger/40` + number `text-text-muted` |
-| No invoice ever        | `neutral`                                             | `Badge intent="neutral"` "No invoice yet", value `—`                    |
 | Provisional product    | `neutral`                                             | `Badge intent="neutral"` "New product"                                  |
 | Day covered            | `success` (`#16a34a` / `-soft #dcfce7`)               | calendar cell fill                                                      |
 | Covered _by MDG_       | `success` fill + `brand` (`#2563eb`) ring/dot         | calendar cell                                                           |
 | Day missing            | none — `border-dashed border-border text-text-subtle` | calendar cell                                                           |
 | Fetch failed           | `danger`                                              | `Card border-danger/40 bg-danger-soft/40`                               |
 
-**Client (`mdg-client/tailwind.config.ts`; note `brand` is near-black `#18181b`, so green is the
-only colour that can mean "done"):**
-
-| Meaning            | Classes                                                                             |
-| ------------------ | ----------------------------------------------------------------------------------- |
-| Sent / done        | `bg-success-soft text-success` (tile, strip cell, done line)                        |
-| Still to do, today | `bg-surface-2 text-text-muted` tile + `Button variant="primary"`                    |
-| Missed day         | `bg-warning-soft text-warning` (tile, day chip, strip cell)                         |
-| Send failed        | card `border-danger/40`; retry pill `bg-danger-soft text-danger`                    |
-| Added by MDG       | `bg-success-soft text-success` + `ring-1 ring-inset ring-border-strong` + the words |
-
-**The rule that binds both apps: no state is carried by colour alone.** Every coloured element in
-this feature also carries either a number, a word, or an icon that says the same thing.
+**No state is carried by colour alone.** Every coloured element in this feature also carries
+either a number, a word, or an icon that says the same thing.
 
 ## 5.2 Accessibility
 
-**Tap targets.** Admin: 44px floor below `md` (`Button` `min-h-11 md:min-h-0`, `Input`/`Select`
-`h-11 md:h-9`, `TD h-11`, calendar cells ≈44px below `md` / 40px at `md`+). Client: everything
-≥44px; the two capture buttons are `size="lg"` (48px); week-strip cells ≈44px.
+**Tap targets.** 44px floor below `md` (`Button` `min-h-11 md:min-h-0`, `Input`/`Select`
+`h-11 md:h-9`, `TD h-11`, calendar cells ≈44px below `md` / 40px at `md`+).
 
-**Focus.** Every calendar cell and every strip cell is a real `<button>` and inherits
+**Focus.** Every calendar cell is a real `<button>` and inherits
 `focus-visible:ring-2 focus-visible:ring-focus-ring`. The month grid supports arrow-key
 navigation with a roving `tabIndex` (one cell in the tab order; arrows move focus within the
 month, `PageUp`/`PageDown` change month).
@@ -1223,8 +902,7 @@ spelled out:
 ```
 
 Stale tile: append "This figure is 24 days old — there has been no diesel delivery since 31 July
-2026." Empty tile: "Diesel, H S D. No density figure yet — no invoice has been captured for this
-product."
+2026."
 
 **Screen readers — the calendar.** `aria-label` per cell, never just the day number:
 
@@ -1236,13 +914,9 @@ product."
 The grid is `role="grid"` with `role="row"` / `role="gridcell"` wrappers and an
 `aria-live="polite"` region carrying the counter line, so a change after an upload is announced.
 
-**Screen readers — the client.** The week strip is a `<ul>` of buttons, each
-`aria-label={t('density.a11yDay', { day, state })}`. The done card's tick is `aria-hidden`; the
-heading text carries the meaning. Toasts already announce (`role="status"` in `Toast.tsx`).
-
-**Motion.** `prefers-reduced-motion` already kills the sheet animations in both apps
-(`index.css`). Nothing in this feature adds animation beyond the existing sheet/drawer entrances
-and `animate-pulse` skeletons.
+**Motion.** `prefers-reduced-motion` already kills the sheet animations (`index.css`). Nothing
+in this feature adds animation beyond the existing sheet/drawer entrances and `animate-pulse`
+skeletons.
 
 ## 5.3 What this must NOT look like — the traps
 
@@ -1253,10 +927,10 @@ and `animate-pulse` skeletons.
 2. **A PDF that downloads.** The list action is "View invoice", the frame is fed the _inline_
    signed URL, and Download is a ghost button in a footer. An `attachment` URL in an iframe
    navigates the tab away and destroys the open drawer — a bug this codebase has already been
-   bitten by once (`CreditDodReportCard.tsx:100-135`).
+   bitten by once (`CreditDodReportCard.tsx`).
 3. **A blank grey rectangle on a phone.** Do not embed the PDF below `md` and do not rely on
    `hidden md:block` (a hidden iframe still downloads the file). Gate on `useMediaQuery` and
-   render the facts + a single "Open the invoice PDF" button instead.
+   render the facts + a single "Open PDF" button instead.
 4. **A calendar that needs pinch-zoom.** Pinch-zoom is disabled app-wide
    (`maximum-scale=1.0` + the `gesturestart` guard). A month grid that overflows 358px on a
    390px phone is unusable, permanently. The `p-3` card padding and `gap-1` on the grid exist
@@ -1266,21 +940,16 @@ and `animate-pulse` skeletons.
 6. **A staleness state shown only as a colour.** "The tile turned amber" is not a message. The
    day count is always in words.
 7. **A fake upload progress bar.** `fetch` PUT gives no progress. A bar that jumps 0→100 teaches
-   the dealer not to trust the screen.
-8. ~~**A dealer screen that shows density numbers.**~~ **AMENDED — the dealer DOES see the
-   figures.** This was written as a trap and it is not one: the owner's requirement is
-   _"these extracted values are the important values … needs to be shown at the top in big
-   fonts"_, and a dealer who cannot see the number on their own phone is still logging into the
-   portal for it, which is the entire problem this service exists to remove. The real trap is
-   narrower, and it is this: **a dealer screen that invites a comparison.** So the figures ship,
-   and the fence is the wording — no unit, no "Density@15", no invoice, no rupees, no second
-   number beside the first, no field to type into and nothing anywhere that implies MDG knows or
-   cares what the dealer's own dip test said. §4.2.1 has the shape. Contract §2.2
-   `TtDensityMeView`, §13 row 10.
-9. **A "Retry?" toast.** Failures retry **in place**, on the card or in the sheet, holding the
-   already-uploaded photo. Dead toasts that vanish before the dealer reads them are banned.
-10. **Two primary buttons on one client card.** Today first; missed days are a quiet secondary
-    line.
+   the operator not to trust the screen. The admin upload dialog shows a spinner and words.
+8. **A dealer message that invites a comparison.** The dealer does see the density figures: the
+   owner's requirement is _"these extracted values are the important values … needs to be shown
+   at the top in big fonts"_, and a dealer who cannot see the number on their own phone is still
+   logging into the portal for it, which is the problem this service exists to remove. The trap
+   is narrower: no unit, no "Density@15", no invoice, no rupees, no second number beside the
+   first, no field to type into, and nothing that implies MDG knows or cares what the dealer's
+   own dip test said (§4.1).
+9. **A "Retry?" toast.** A failed upload retries **in place**: the admin dialog stays open with
+   the file still staged. Toasts that vanish before the reader sees them are banned.
 
 ---
 
@@ -1289,59 +958,33 @@ and `animate-pulse` skeletons.
 | Not shipping                             | Why, and what keeps the door open                                                                                                                                                                                                                 |
 | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | A typed measured density from the dealer | The owner's decision: the photo alone marks the day. The day record should carry an optional `measured?: Record<productKey, number>` field from day one so adding it later is additive, but **no UI, no label, no placeholder** ships for it now. |
-| Any comparison of register vs invoice    | Same reason. Nothing on either screen should imply a comparison exists.                                                                                                                                                                           |
-| The dealer seeing density figures        | One job per client screen. Revisit only with evidence a dealer asked.                                                                                                                                                                             |
+| Any comparison of register vs invoice    | Same reason. Nothing the dealer reads, and nothing on the admin pane, should imply a comparison exists.                                                                                                                                           |
 | Per-product or per-tanker photos         | One photo per day for the whole outlet.                                                                                                                                                                                                           |
 | Browsing replaced photos                 | Server keeps them for audit; no UI in v1.                                                                                                                                                                                                         |
 | A custom PDF toolbar / page thumbnails   | Would cost a `pdfjs-dist` + worker in the admin bundle. Argue for it when a real need appears.                                                                                                                                                    |
 
-## 7. Implementation checklist by file
+## 7. Where it lives in the code
 
-_Amended: the authoritative file list is `docs/specs/tt-density-contract.md` §9 and §12.3,
-which assigns every path to exactly one of five work packages. The list below is the same set
-with the paths corrected — the pane-specific admin components live in a `ttDensity/` subfolder,
-and the shared `ImageLightbox` does not._
+**mdg-admin**
 
-**mdg-admin** _(package P5b)_
+- `src/pages/dealers/vault/datasets.ts` — the `tt-density` descriptor (`Icon: Gauge`)
+- `src/pages/dealers/vault/DealerTtDensityPane.tsx` — the pane (model: `DealerInspectionPane.tsx`)
+- `src/pages/dealers/vault/ttDensity/` — `DensityHero.tsx`, `InvoiceTable.tsx`,
+  `DayMarkCalendar.tsx`, `InvoicePdfDrawer.tsx` (`Drawer` + iframe + `useMediaQuery`),
+  `UploadDayPhotoDialog.tsx`, `useTtDensityRunWatcher.ts` (a copy of the DSR run watcher),
+  `format.ts` (the pure bits; **`mdg-admin` has no test runner**, so anything decidable belongs
+  here)
+- `src/components/ui/ImageLightbox.tsx` — the shared lightbox
+- `src/hooks/api/useTtDensity.ts` — the queries, with a `ttDensityKeys` prefix object
+- Not built: the cross-dealer view (§3.10).
 
-- `src/pages/dealers/vault/datasets.ts` — append the `tt-density` descriptor (`Icon: Gauge`)
-- `src/pages/dealers/vault/DealerTtDensityPane.tsx` — new pane (model: `DealerInspectionPane.tsx`)
-- `src/pages/dealers/vault/ttDensity/DensityHero.tsx` — new
-- `src/pages/dealers/vault/ttDensity/InvoiceTable.tsx` — new
-- `src/pages/dealers/vault/ttDensity/DayMarkCalendar.tsx` — new
-- `src/pages/dealers/vault/ttDensity/InvoicePdfDrawer.tsx` — new (`Drawer` + iframe + `useMediaQuery`)
-- `src/pages/dealers/vault/ttDensity/UploadDayPhotoDialog.tsx` — new (model: `UploadRecordDialog.tsx`)
-- `src/pages/dealers/vault/ttDensity/useTtDensityRunWatcher.ts` — copy of `pages/dsr/useDsrRunWatcher.ts`
-- `src/pages/dealers/vault/ttDensity/format.ts` — the pure bits. **`mdg-admin` has no test
-  runner**, so anything decidable belongs here
-- `src/components/ui/ImageLightbox.tsx` + `index.ts` — new shared primitive, migrate all 3 call sites
-- `src/hooks/api/useTtDensity.ts` — new, with a `ttDensityKeys` prefix object
-- `src/lib/serviceLabel.ts` — `'tt-density': 'TT Density'`
-- (later, and **not in v1**) `src/pages/dataVault/datasets.ts` + `TtDensityPane.tsx` for the
-  cross-dealer view — no package owns it, contract §12.5
+**shared / backend**
 
-**mdg-client** _(package P5c)_
-
-- `src/App.tsx` — `lazyWithRetry` import + `<Route path="density">`
-- `src/pages/DensityPage.tsx` — new (model: `KavachPage.tsx`)
-- `src/features/density/DensityLatestStrip.tsx` — new, §4.2.1
-- `src/features/density/DensityTodayCard.tsx` — new (model: `ComplianceTaskCard.tsx`)
-- `src/features/density/DensityCaptureSheet.tsx` — new (model: `FinalizeSubmitSheet.tsx`)
-- `src/features/density/DensityWeekStrip.tsx` — new
-- `src/lib/uploadDensityPhoto.ts` — new (clone of `uploadStaffHardcopy.ts`)
-- `src/hooks/api/useDensity.ts` — new (model: `useKavach.ts`, optimistic + rollback)
-- `src/pages/ChatListPage.tsx` — render `DensityTodayCard` above the list when due
-- `src/pages/ProfilePage.tsx` — one `Card` row, identical to the Staff Points row
-- `src/lib/i18n.ts` — the `density.*` block, both languages
-
-**mdg-app** _(package P5c — a separate git repo, one line, one commit)_
-
-- `lib/bridge.ts` — `density: '/density'` in `DEEP_LINK_TOKENS`. Nothing else; camera is
-  already granted on mount. It must ship before the first push is sent, or the tap opens the
-  app's home screen.
-
-**shared / backend** _(packages P1 and P5a — not this spec's to write)_
-
-- `shared/src/schemas/chat.ts` — **`'tt-density'`** in the presign `scope` enum (mirror all four copies)
+- `shared/src/lib/serviceLabel.ts` — the two names
+- `shared/src/types/ttDensity.ts` — `TT_DENSITY_AGEING_AFTER_DAYS`, `TT_DENSITY_STALE_AFTER_DAYS`,
+  `ttDensityFreshness()`, `TT_REGISTER_DEALER_BACKDATE_DAYS`, `TT_REGISTER_ADMIN_BACKDATE_DAYS`
+- `shared/src/schemas/chat.ts` — `'tt-density'` in the presign `scope` enum (four mirrored copies)
 - `mdg-backend/src/routes/v1/uploads.ts` — the `tt-density` scope branch and
   `assertTtDensityDealerAccess`
+- `mdg-backend/src/services/ttDensity/notify.ts` — the chat message with the new figures (§4.1)
+- `mdg-backend/src/services/chatAsks/morning.ts` — the 09:00 ask for yesterday's page (§4.2)

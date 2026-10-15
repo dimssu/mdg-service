@@ -1,0 +1,144 @@
+# graphify ignore rules for the mdg-service meta-workspace.
+#
+# IMPORTANT: build the graph with `--no-gitignore`.
+#
+# The root .gitignore deliberately excludes every sub-app directory
+# (mdg-backend/, mdg-admin/, mdg-client/, mdg-app/, mdg-admin-app/,
+# mdg-landing/, mdg-demo/) because those are cloned alongside this
+# workspace as independent git repos. graphify honours .gitignore by
+# default, so a plain `graphify extract .` would index nothing but
+# shared/, docs/ and scripts/ — i.e. almost none of the actual code.
+#
+# Passing --no-gitignore turns .gitignore off entirely and makes this
+# file the sole authority, so everything .gitignore used to exclude
+# (node_modules, dist, .env, ...) has to be restated here.
+
+# ---------------------------------------------------------------
+# Dependencies and build output
+# ---------------------------------------------------------------
+node_modules/
+dist/
+build/
+out/
+coverage/
+.nyc_output/
+.turbo/
+.cache/
+.parcel-cache/
+.expo/
+*.tsbuildinfo
+
+# ---------------------------------------------------------------
+# Lockfiles — hundreds of thousands of lines of JSON, zero
+# architectural signal, and they would dominate the graph.
+# ---------------------------------------------------------------
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ---------------------------------------------------------------
+# Secrets. --no-gitignore means these are no longer excluded for us.
+# ---------------------------------------------------------------
+.env
+.env.*
+*.pem
+*.jks
+*.keystore
+credentials/
+credentials.json
+
+# ---------------------------------------------------------------
+# Vendored duplicates of shared/.
+# @dk/shared is byte-identical in four places; indexing all four
+# would quadruple every shared symbol into ghost duplicate nodes.
+# The canonical copy at ./shared is the one that stays.
+# ---------------------------------------------------------------
+mdg-backend/shared/
+mdg-admin/shared/
+mdg-client/shared/
+
+# ---------------------------------------------------------------
+# PaddleOCR sidecar virtualenv (~1500 vendored .py files)
+# ---------------------------------------------------------------
+mdg-backend/ocr/.venv/
+__pycache__/
+*.pyc
+
+# ---------------------------------------------------------------
+# Runtime artifacts: automation run dirs, scraped spreadsheets,
+# screenshots, temp files, logs.
+# ---------------------------------------------------------------
+.runtime/
+mdg-backend/var/
+*.log
+
+# ---------------------------------------------------------------
+# Generated Expo native shells (~2.9 GB of Gradle/AGP output)
+# ---------------------------------------------------------------
+mdg-app/android/
+mdg-app/ios/
+mdg-admin-app/android/
+mdg-admin-app/ios/
+
+# ---------------------------------------------------------------
+# Remotion render output and its bundled media
+# ---------------------------------------------------------------
+mdg-demo/out/
+mdg-demo/public/
+mdg-demo/site/
+
+# ---------------------------------------------------------------
+# Media and raster assets.
+# Every image in this repo is a store asset, a captcha training
+# sample, a splash screen or a run screenshot — none are
+# architecture diagrams, so vision extraction would spend real
+# tokens for no structural gain.
+# ---------------------------------------------------------------
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.ico
+*.icns
+*.svg
+*.mp4
+*.mov
+*.mp3
+*.wav
+*.ttf
+*.otf
+*.woff
+*.woff2
+
+# ---------------------------------------------------------------
+# Misc
+# ---------------------------------------------------------------
+.DS_Store
+*.tgz
+.git/
+graphify-out/
+
+# rendered film media (HLS .ts segments read as TypeScript), never source
+marketing/.work/
+**/*.m3u8
+
+# Film production working files: per-shot prompts (and their _before-* backups),
+# rendered graphic panels, and the frame/clip download lists. Hundreds of
+# near-identical fragments with no structural signal; marketing/ keeps its own
+# graph (marketing/graphify-out) for them. The film scripts and build code stay.
+marketing/films/flow-kavach/*/
+marketing/films/graphics-kavach/panels/
+
+# Vercel build output copied into the repos (prebuilt static pages)
+.vercel/
+
+# Local secrets folder (tokens, keys). graphify already skips these as
+# sensitive; listing it makes that explicit.
+.secrets/
+
+# mdg-landing local scratch (gitignored there): rendered email previews,
+# guide build previews, and the source circulars the guide is written from.
+mdg-landing/.email-preview/
+mdg-landing/.guide-preview/
+mdg-landing/.guide-source/

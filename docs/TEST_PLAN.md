@@ -1,40 +1,92 @@
 # Dealer Kavach - 10-minute manual smoke test
 
-Goal: in ten minutes, prove that a fresh checkout boots and the happy-path flows work end-to-end. This is the test a human runs before cutting a release; the automated suites under `backend/test` and `backend/src/**/*.test.ts` cover the corners.
+> ## STOP: your laptop's `mdg-backend/.env` may point at the PRODUCTION database
+>
+> **Never run `seed`, `seed --reset`, or any script with `--commit` against it.**
+>
+> - Since 15 Oct 2026 `seed` and `seed --reset` refuse any `MONGODB_URI` that is not on this machine, whatever `NODE_ENV` says (`mdg-backend/src/seed/resetGuard.ts`). Before that the only guard checked `NODE_ENV === 'production'`, and the laptop's `.env` says `development` while pointing at the live database, so `--reset` there would have emptied the live Admins, Dealers, Users, Conversations and Messages and more. The guard reads the address, not the destination: an SSH tunnel that brings production to `localhost` passes it. Never set `SEED_ALLOW_REMOTE_RESET=1` to get past a refusal you did not expect.
+> - A plain `npm run dev` with that `.env` is wired to the live database, and its `PUSH_ENABLED` is `true`, so a reply in a live chat would send a real push. On 15 Oct 2026 the `.env` already had `SCHEDULER_ENABLED=false`, but the default is `true` and fires real jobs at live dealers, so set both `SCHEDULER_ENABLED=false` and `PUSH_ENABLED=false` yourself.
+> - A script that reaches its `--commit` has done it. "I expect it to be refused" is not a safeguard.
+>
+> **Run everything below on the throwaway stack.** A variable set in your shell beats the `.env` file, so the stack works by setting `MONGODB_URI` in the shell first. Step 0 proves it before you seed.
+>
+> The TT Density pass further down is different on purpose: it uses the admin portal and the live API with a real dealer, and it never runs a seed, a reset or a `--commit` script.
+
+Goal: in ten minutes, prove that a fresh checkout boots and the happy-path flows work end-to-end. This is the test a human runs before cutting a release; the automated suites under `mdg-backend/src/**/*.test.ts` and `mdg-backend/test` cover the corners.
 
 A second pass, **TT Density**, follows the sign-off checklist below. It is deliberately not part of the ten minutes: it needs a real dealer, the real IndianOil portal and a phone in someone's hand.
 
+## Known break (15 Oct 2026)
+
+`seed` stops at the first sample dealer with `Dealer validation failed: code: Path code is required`. The sample dealers still in onboarding have no code and the Dealer model now requires one. The admin account is written first (the log shows `Seeded admin`), so login works. The sample dealers, services and runs are never created, so `scripts/verify-seed.ts` fails on the dealer count. The steps below create their own dealer and do not depend on the sample data. Delete this section when the seed is fixed.
+
 ## Pre-requisites
 
-- Node 20+ and Docker installed
-- Repo checked out and `npm install` has run from the repo root
-- `backend/.env` exists (copy from `backend/.env.example`)
-- Default admin credentials: `admin@dealerkavach.local` / `Admin@12345`
+- Node 20+, and `npm install` has run from the repo root. No Docker is needed.
+- Three terminals, all at the repo root. **A** runs the throwaway database. **B** seeds and runs the backend; the variables you export there are what keep production safe. **C** runs the `curl` checks.
+- Default admin credentials, written by the seed: `admin@dealerkavach.local` / `Admin@12345`
 
-## 0. Start dependencies (≤1 min)
+## 0. Start a throwaway database and point the backend at it (≤2 min)
 
-1. From repo root: `docker compose up -d mongo`
-2. Confirm container is healthy: `docker ps | grep mongo`
-
-Expected: a running `mongo` container with the host port mapped.
-
-## 1. Seed the database (≤1 min)
+Terminal A: start an in-memory Mongo. It keeps nothing; stop it and it is gone.
 
 ```
-npm --workspace @dk/backend run seed -- --reset
+node --input-type=module -e "
+import { MongoMemoryServer } from 'mongodb-memory-server';
+const m = await MongoMemoryServer.create({ instance: { port: 27099, ip: '127.0.0.1', dbName: 'dk_smoke' } });
+console.log('mongo up', m.getUri());
+setInterval(() => {}, 1000);
+"
 ```
 
-Expected: log lines `Seeded admin`, plugin registrations for the five plugins, and `Seed complete` with exit code 0.
+Expected: `mongo up mongodb://127.0.0.1:27099/`. The first run may download a Mongo binary.
+
+Terminal B:
+
+```
+export MONGODB_URI='mongodb://127.0.0.1:27099/dk_smoke'
+export PORT=4000 SCHEDULER_ENABLED=false PUSH_ENABLED=false ASSIST_ENABLED=false
+```
+
+**Prove it before you seed.** This prints the host the backend will connect to and nothing else:
+
+```
+cat > "$TMPDIR/whichdb.mts" <<EOF
+import { env } from "$PWD/mdg-backend/src/config/env.ts";
+console.log("database host:", new URL(env.MONGODB_URI).host);
+EOF
+npx tsx "$TMPDIR/whichdb.mts"; rm "$TMPDIR/whichdb.mts"
+```
+
+Expected: `database host: 127.0.0.1:27099`. Anything else: stop. Do not seed.
+
+## 1. Seed the throwaway database (≤1 min)
+
+Terminal B:
+
+```
+npm --workspace mdg-backend run seed -- --reset
+```
+
+Expected: `Plugin registered` for nine plugins (`Service registry initialised`, `count: 9`), `Dropping seeded collections`, `Seeded admin`. Then the run stops with the known break above. Carry on.
 
 ## 2. Start the backend (≤1 min)
 
+Terminal B:
+
 ```
-npm --workspace @dk/backend run dev
+npm --workspace mdg-backend run dev
 ```
 
-Expected: `API listening` on port 4000, `scheduler started (every minute)`.
+Expected: `API listening` on port 4000, and a warning that `SCHEDULER_ENABLED=false` so no scheduled service runs will start. Check what the running process was given:
 
-In a separate terminal, sanity-check health:
+```
+ps eww -p $(lsof -iTCP:4000 -sTCP:LISTEN -t) | tr ' ' '\n' | grep '^MONGODB_URI='
+```
+
+Expected: the `127.0.0.1:27099` address. Anything else: stop the backend.
+
+Terminal C, sanity-check health:
 
 ```
 curl -s http://localhost:4000/health
@@ -52,9 +104,9 @@ curl -s -X POST http://localhost:4000/api/v1/auth/login \
   -d '{"email":"admin@dealerkavach.local","password":"Admin@12345"}'
 ```
 
-Expected: `ok:true` with a `data.token` string and `data.admin` profile (no `passwordHash`).
+Expected: `ok:true` with a `data.token` string and a `data.user` profile (no `passwordHash`).
 
-## 4. Inspect the overview dashboard (≤1 min)
+## 4. Inspect the overview counters (≤1 min)
 
 Using the token from step 3:
 
@@ -63,29 +115,21 @@ curl -s http://localhost:4000/api/v1/overview \
   -H "authorization: Bearer $TOKEN"
 ```
 
-Expected: `dealers.total ≥ 5`, `services.pluginCount ≥ 5`, `services.attached ≥ 1`, `runs.last24h ≥ 1`, `recentRuns` non-empty.
+Expected: `ok:true`, with `dealers`, `services`, `runs` and `recentRuns`. `services.pluginCount` is `9`. `dealers.total` is already `1`: the backend adds one dealer of its own on first start (`DEMO`, the app-store reviewer's login). (The admin's "Today" screen reads a different route, `/overview/day`.)
 
-## 5. Create a dealer (stage 1) (≤1 min)
+## 5. Create a dealer (≤1 min)
+
+A dealer is its code. The code is one to four digits and one to three letters, like `15E`.
 
 ```
 curl -s -X POST http://localhost:4000/api/v1/dealers \
   -H "authorization: Bearer $TOKEN" -H 'content-type: application/json' \
-  -d '{"name":"Smoke Test Petrol","ownerContact":{"name":"Smoke Owner","phone":"+91-9000000123","email":"smoke@example.com"},"pumpLocation":{"address":"Test Road","lat":12.97,"lng":77.59},"gst":"29ZZTEST0099Z1Z9","pan":"ZTEST0099Z"}'
+  -d '{"code":"99S"}'
 ```
 
-Expected: 201, `data.status='PENDING_DETAILS'`. Capture `data.id` as `DEALER_ID`.
+Expected: 201, `data.code='99S'`, `data.status='ONBOARDING'`, and the onboarding's current step is `collect-phone`. Capture `data.id` as `DEALER_ID`.
 
-## 6. Complete stage 2 (≤1 min)
-
-```
-curl -s -X PATCH http://localhost:4000/api/v1/dealers/$DEALER_ID \
-  -H "authorization: Bearer $TOKEN" -H 'content-type: application/json' \
-  -d '{"bankDetails":{"accountHolder":"Smoke Test Petrol","accountNumber":"123456789012","ifsc":"HDFC0000123","bankName":"HDFC Bank"},"complianceDocs":[{"label":"GST","url":"https://example.com/gst.pdf"}],"slaTier":"SILVER"}'
-```
-
-Expected: 200, `data.status='ACTIVE'` (auto-promotion).
-
-## 7. Attach a service (≤1 min)
+## 6. Attach a service (≤1 min)
 
 ```
 curl -s -X POST http://localhost:4000/api/v1/dealers/$DEALER_ID/services \
@@ -93,9 +137,9 @@ curl -s -X POST http://localhost:4000/api/v1/dealers/$DEALER_ID/services \
   -d '{"serviceId":"custom-request","config":{"requestType":"manual-audit","payload":{"ticketId":"T-SMOKE"}}}'
 ```
 
-Expected: 201 with `cadence='ON_DEMAND'`, `schedule='@on-demand'`, `nextRunAt` null. Capture `data.id` as `DS_ID`.
+Expected: 201 with `cadence='ON_DEMAND'`, `schedule='@on-demand'` and no `nextRunAt`. Capture `data.id` as `DS_ID`.
 
-## 8. Run now (≤1 min)
+## 7. Run now (≤1 min)
 
 ```
 curl -s -X POST http://localhost:4000/api/v1/dealer-services/$DS_ID/run-now \
@@ -105,48 +149,53 @@ curl -s -X POST http://localhost:4000/api/v1/dealer-services/$DS_ID/run-now \
 
 Expected: 202 with `data.runId`. Then `GET /api/v1/runs/$RUN_ID` should show `status='SUCCESS'` and a non-null `output`.
 
-## 9. Verify in the run history (≤1 min)
+## 8. Verify in the run history (≤1 min)
 
 ```
 curl -s "http://localhost:4000/api/v1/runs?dealerId=$DEALER_ID" \
   -H "authorization: Bearer $TOKEN"
 ```
 
-Expected: `data.total ≥ 1`, with the run from step 8 at the top of `items`.
+Expected: `data.total ≥ 1`, with the run from step 7 at the top of `items`.
 
-## 10. Cleanup (≤1 min)
+## 9. Archive is for super-admins only (≤1 min)
+
+`DELETE` on a dealer archives it. It does not delete it, and only a super-admin may do it. The seeded admin is an ordinary admin.
 
 ```
 curl -s -X DELETE http://localhost:4000/api/v1/dealers/$DEALER_ID \
   -H "authorization: Bearer $TOKEN"
 ```
 
-Expected: 200. Then re-running `GET /dealers/$DEALER_ID` should return 404 and `GET /dealer-services` for the dealer should return zero rows (cascade deletion).
+Expected: 403, `Super-admin access required`. Then `GET /dealers/$DEALER_ID` still returns 200. (When a super-admin does archive a dealer, its status becomes `SUSPENDED`, `archivedAt` is set and its attached services turn `PAUSED`.)
+
+## 10. Clean up
+
+Press Ctrl+C in the backend terminal and in the Mongo terminal. Nothing was written anywhere else.
 
 ## Optional automated check
 
-After completing the manual path above (or skipping straight to it on a freshly seeded server):
+`scripts/verify-seed.ts` expects a fully seeded server: at least 5 dealers, 5 plugins, one dealer with services and one run. From the repo root:
 
 ```
-npx tsx scripts/verify-seed.ts
+API_BASE=http://localhost:4000/api/v1 npx tsx scripts/verify-seed.ts
 ```
 
-Expected: `[verify-seed] OK` and exit code 0.
+Expected once the seed is fixed: `[verify-seed] OK` and exit code 0. Today it prints `plugins: 9` and then `FAIL: expected ≥5 dealers` (see the known break).
 
 ## Sign-off checklist
 
-- [ ] Mongo container is healthy
-- [ ] Seed completes without errors and registers all five plugins
+- [ ] `ps` shows the backend is on `127.0.0.1:27099`, not on any other database
+- [ ] Seed registers all nine plugins (and, once the break is fixed, finishes with `Seed complete`)
 - [ ] Backend listens on port 4000 with a passing `/health`
-- [ ] Login returns a JWT and admin profile (no password hash)
-- [ ] Overview snapshot has the documented shape with non-negative counters
-- [ ] Stage-1 dealer creation returns `PENDING_DETAILS`
-- [ ] Stage-2 patch auto-promotes status to `ACTIVE`
+- [ ] Login returns a JWT and a user profile (no password hash)
+- [ ] Overview counters have the documented shape and `pluginCount` is 9
+- [ ] Dealer creation with a code returns `ONBOARDING`
 - [ ] Service attachment computes `schedule` and `nextRunAt`
 - [ ] `run-now` produces a `SUCCESS` `ServiceRun`
 - [ ] Run history shows the new run at the top
-- [ ] Dealer delete cascades to its `DealerService` rows
-- [ ] `verify-seed.ts` exits 0
+- [ ] Archive is refused (403) for an ordinary admin and the dealer is still there
+- [ ] `verify-seed.ts` exits 0 (blocked until the seed is fixed)
 
 ---
 
@@ -154,7 +203,7 @@ Expected: `[verify-seed] OK` and exit code 0.
 
 Goal: prove by looking the five things no automated test can prove. That the service
 never touched IndianOil's write controls. That a dealer can mark a day from their own
-phone. That an admin marking a day on the dealer's behalf says so, on both screens.
+phone, in the chat. That an admin marking a day on the dealer's behalf says so, on both screens.
 That an invoice can be read without a file landing in Downloads. And that one tanker
 seen seven times is still one row.
 
@@ -162,6 +211,9 @@ This pass runs against a **real dealer with real SDMS credentials** - normally
 production, `https://api.mdgservices.in` - because step T1 is a look at IndianOil's
 own screen and there is no other portal to look at. Budget an hour, in this order:
 T1 has to see the portal before the run, and T2 has to run the service a second time.
+
+This pass uses the admin portal, the live API and a phone. It never runs a seed, a reset or a
+`--commit` script, and it needs nothing from the laptop's `.env`.
 
 Nothing in this pass writes to the portal. If any step tempts you to press Check,
 Acknowledge or a Vehicle Condition dropdown, stop: acknowledging a receipt is a legal
@@ -173,8 +225,12 @@ statement by the dealer that they inspected and accepted the tanker.
   diagnostic screenshots, and T1 needs them.
 - The dealer's own IndianOil e-Mitra login, and the dealer's permission to sign in
   with it.
-- A phone signed in to the dealer app as that dealer's owner or manager, and the
-  outlet's paper density register within reach of a camera.
+- A phone signed in to the dealer app as that dealer's manager (the register ask goes to
+  the manager's group chat when the outlet has a manager, and to the owners' own chats
+  when it has not), and the outlet's paper density register within reach of a camera.
+- TT Density is active on the outlet and it is after 09:00 IST. At 09:00 IST MDG posts an
+  ask in the chat for **yesterday's** register page, and only while that day is not yet
+  received. An ask still open from the last seven days also works.
 - A photo on your laptop to stand in for a register page in T5.
 - Four shell variables for the curl checks. `DEALER_ID` is the 24-character id in the
   address bar on the dealer's page (T0); `INVOICE_ID` comes out of the invoice list in
@@ -208,7 +264,8 @@ DEALER_TOKEN=$(curl -s -X POST https://api.mdgservices.in/api/v1/auth/login \
 
 ### Before the run
 
-1. In your own browser, sign in to e-Mitra with the dealer's SDMS login and open
+1. In your own browser, sign in to IndianOil's SDMS portal (it has lived at
+   `utkarsh.indianoil.co.in` since 10 Oct 2026) with the dealer's SDMS login and open
    **TT Acknowledgement ▸ Download Invoice**. Leave the pre-filled seven-day window
    alone and press **Fetch**.
 2. Screenshot the whole table. For every row write down: the SAP invoice number, what
@@ -221,7 +278,7 @@ DEALER_TOKEN=$(curl -s -X POST https://api.mdgservices.in/api/v1/auth/login \
 4. Admin portal -> the dealer -> **Data Vault** -> **TT Density**
    (`/dealers/<DEALER_ID>?tab=data-vault&vault=tt-density`). Press **Fetch invoices now**.
 
-Expected: `Fetch queued - the portal takes about a minute. This pane refreshes when it
+Expected: `Fetch queued — the portal takes about a minute. This pane refreshes when it
 lands.` Wait for the pane to refresh; its header line becomes `N invoices · last fetched
 <today's date and time>`.
 
@@ -315,20 +372,21 @@ curl -s "https://api.mdgservices.in/api/v1/tt-density/dealers/$DEALER_ID/invoice
 Expected: `viewUrl` and `downloadUrl` point at the same object and differ only in the
 disposition they ask for.
 
-## T4. The dealer marks a day, from a phone (10 min)
+## T4. The dealer marks a day, from the chat (10 min)
 
 Run this on the phone, in the dealer's hands if possible, and say nothing while they do it.
+There is no density screen and no pinned card any more (ADR 0019): MDG asks in the chat and
+the dealer answers there.
 
-1. Open the app. On the chat list - the app's home - a card is pinned at the top:
-   **Today's register photo**, with today's date under it. (If today is already marked
-   the card is gone; use a day inside the last seven that is still open, from the week
-   strip on the density screen.)
-2. Tap **Take photo**. The rear camera opens straight away. Photograph the register page.
-3. The preview sheet appears with **Yes, send this** and **Take again**. Tap _Take again_
-   once and re-shoot - nothing may be uploaded until Send.
-4. Tap **Yes, send this**. Expected: the button reads "Sending your photo…", the sheet
-   closes, the day turns to done, that day's cell in the week strip turns green, and the
-   pinned card disappears from the chat list.
+1. Open the app and the manager's chat. A message from MDG asks for the density register
+   page (`डेंसिटी रजिस्टर का पन्ना` in Hindi) and names the day. It carries a
+   **फ़ोटो भेजें** button (**Send photo** if the app is set to English).
+2. Tap the button. The camera opens inside the tap. Photograph the register page.
+3. The picture goes through the ordinary send preview. Go back and re-shoot once - nothing
+   may be uploaded until Send.
+4. Send. Expected: the picture appears with a sending clock, then sent; the ask flips to
+   **Received** on its own; and MDG posts "✓ Received" under the photo. Nobody at MDG had to
+   press anything: the register page is the one request that is received automatically.
 5. Check what did **not** happen: no keyboard appeared, and nobody was asked to type a
    density, a volume, a date or a note.
 6. Back in the admin pane's calendar, that day's cell is green with **no** blue ring, and
@@ -340,20 +398,19 @@ Run this on the phone, in the dealer's hands if possible, and say nothing while 
    the last 60 days. The panel says "No photo for this day".
 2. Press **Upload on the dealer's behalf**.
 3. Read the dialog title before you do anything else: it names the day in words -
-   `Upload register photo - Sat, 23 Aug 2026`. That is the guard against filling in the
+   `Upload register photo — Sat, 23 Aug 2026`. That is the guard against filling in the
    wrong day.
 4. Confirm the line above the submit button is present and cannot be dismissed:
-   **"This will be recorded as uploaded by you, not by the dealer."**
+   **"This will be recorded as uploaded by you, not by the dealer."** The Note box is
+   optional ("Why this day was filed by MDG").
 5. Choose the photo and submit. Expected: `Register photo saved for 23 Aug`; the cell
    turns green **with a blue ring and a dot**; the day panel reads _Added by <your name>
    (MDG)_ and carries an **Added by MDG** badge.
-6. On the phone, refresh the density screen. That day shows as done, and tapping it says
-   **"MDG team added this photo" / "यह फोटो MDG टीम ने डाली है"**. There is no Replace
-   button on it - an MDG correction is not the dealer's to fix.
+6. On the phone, if the chat still holds an ask for that day, it now reads **Received**:
+   a day counts as received however it was filed.
 7. The audit row: **Activity** (super-admin) -> set Actor to yourself and the date to
-   today. Expected: a `TT_REGISTER_PHOTO_UPLOAD` row naming the dealer and the day.
-   Filter by Actor and date, not by Action: the Action dropdown is built from the
-   audit-action list in `shared`, which does not carry the TT Density actions yet.
+   today. Expected: a `TT_REGISTER_PHOTO_UPLOAD` row naming the dealer and the day. It is
+   also in the Action dropdown now.
 
 ## T6. The four refusals, one request each (5 min)
 
@@ -368,9 +425,12 @@ curl -s -X POST "https://api.mdgservices.in/api/v1/tt-density/me/days/2026-08-14
   -d '{"storageKey":"tt-density/'$DEALER_ID'/register/x.jpg","filename":"x.jpg","contentType":"image/jpeg","size":1000}'
 ```
 
-Expected: 400, _"That day is more than 7 days ago. Ask MDG to add it for you."_ And on
-the phone, that day is not in the week strip at all - the screen never offers a day the
-server refuses.
+Expected: 400, _"That day is more than 7 days ago. Ask MDG to add it for you."_ In the
+chat, an ask for a day that old reads closed, with no Send photo button: the app never
+offers a day the server refuses.
+
+These `/tt-density/me/...` routes are kept for an older installed app. The current app does
+not call them; it files through the chat, which runs the same checks.
 
 2. A dealer cannot read invoices:
 
@@ -408,9 +468,10 @@ Expected: `403`.
 - [ ] Downloads folder unchanged after reading an invoice inline
 - [ ] Downloads folder gained exactly one file after pressing Download
 - [ ] Every density chip matched the PDF beside it, trailing zeros included
-- [ ] A dealer marked a day from a phone with no keyboard and no typing
+- [ ] A dealer answered the morning ask from the chat with no keyboard and no typing
+- [ ] The ask flipped to Received on its own, with MDG's "✓ Received" under the photo
 - [ ] That day shows as "Sent by the dealer" in the admin calendar
-- [ ] An admin-uploaded day is ringed, badged "Added by MDG", and says so on the dealer's phone too
+- [ ] An admin-uploaded day is ringed and badged "Added by MDG", and the chat ask for that day reads Received
 - [ ] The audit trail has the admin's upload
 - [ ] All four refusals in T6 were refused, with the wording above
 - [ ] "Keep a screenshot of every step" is switched off again

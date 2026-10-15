@@ -2,7 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-07-03
-- Related: ADR 0007 (Staff Points ships the first fully-bilingual surface), `docs/STYLE_GUIDE_V2.md`, `docs/ADOPTION_AUDIT.md`
+- Related: ADR 0007 (Staff Points ships the first fully-bilingual surface), `docs/STYLE_GUIDE_V2.md`, `docs/PRD.md`
 - Scope: `mdg-client` (the dealer app, wrapped by the `mdg-app` WebView shell). `mdg-admin` (internal MDG tool) stays English.
 
 ## Context
@@ -49,6 +49,8 @@ Two kinds of translatable text exist and must be handled differently:
 4. **The switcher lives in Profile, with an optional header affordance.** A clear
    **हिंदी / English** control on the Profile screen (Profile is already the settings-ish
    home). Tapping flips `lang` instantly across every screen (reactive store read).
+   _Since ADR 0018 the switcher is the Language row in Settings, which opens a language sheet.
+   Profile was renamed Settings, and the Reports and Kavach screens named in decision 3 are gone._
 
 5. **Persist locally first, sync to the account best-effort.** The persisted zustand slice
    is the source of truth (survives Expo WebView cold starts — localStorage persists). We
