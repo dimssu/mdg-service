@@ -1,0 +1,92 @@
+{
+  "positive_global_styles": [
+    "instrumental Indian acoustic underscore for a short motion-graphics film",
+    "no vocals",
+    "no singing",
+    "120 bpm exactly, steady 4/4, every beat clearly audible",
+    "key of D",
+    "santoor, tanpura, tabla, dholak, shaker, warm string pad",
+    "clean, airy, bright mid-range and high-range instruments, no sub-bass",
+    "warm, premium, restrained",
+    "sits under a spoken voice-over"
+  ],
+  "negative_global_styles": [
+    "vocals",
+    "choir",
+    "lyrics",
+    "EDM drop",
+    "dubstep",
+    "808",
+    "sub bass",
+    "heavy kick drum",
+    "electric guitar solo",
+    "loud cymbal crashes",
+    "corporate uplifting"
+  ],
+  "sections": [
+    {
+      "section_name": "Worry, four bars",
+      "duration_ms": 8000,
+      "lines": [],
+      "positive_local_styles": [
+        "D minor, dark and worried, with the flat third F natural",
+        "a soft tanpura drone on D playing the whole time",
+        "extremely sparse: one slow sad santoor note every two bars",
+        "no percussion at all",
+        "quiet and steady, no crescendo, plays right up to the last beat with no fade-out"
+      ],
+      "negative_local_styles": ["percussion", "drums", "wood-block", "major key", "pad", "silence", "gap", "crescendo", "riser", "fade out", "bass"]
+    },
+    {
+      "section_name": "The turn, six bars",
+      "duration_ms": 12000,
+      "lines": [],
+      "positive_local_styles": [
+        "starts immediately on the first beat of the section with no pause and no silence before it",
+        "turns to D major with F sharp, bright and hopeful",
+        "plucked santoor playing a light, confident repeating pattern in eighth notes",
+        "tabla and shaker with a soft steady pulse",
+        "warm sustained string pad",
+        "relief, light, airy, steady and continuous"
+      ],
+      "negative_local_styles": ["minor key", "dark", "silence", "riser", "drop", "breakdown", "sub bass", "kick drum", "cymbal crash", "wood-block"]
+    },
+    {
+      "section_name": "Build, two bars",
+      "duration_ms": 4000,
+      "lines": [],
+      "positive_local_styles": [
+        "gradually building and rising in D major",
+        "the plucked santoor pattern climbs higher in pitch and gets busier",
+        "tabla and hand percussion get busier with small fills",
+        "the string pad swells louder",
+        "anticipation"
+      ],
+      "negative_local_styles": ["drop", "silence", "minor key", "cymbal crash", "sub bass"]
+    },
+    {
+      "section_name": "Payoff, two bars",
+      "duration_ms": 4000,
+      "lines": [],
+      "positive_local_styles": [
+        "the fullest and loudest part of the whole track, full and warm in D major",
+        "santoor melody at its highest, strings and pad together, tabla steady",
+        "a satisfying resolved arrival, confident but restrained",
+        "a soft drum accent on the first beat"
+      ],
+      "negative_local_styles": ["cymbal crash", "EDM", "dubstep", "minor key", "sub bass", "808", "quieter"]
+    },
+    {
+      "section_name": "Sting and settle, two bars",
+      "duration_ms": 4000,
+      "lines": [],
+      "positive_local_styles": [
+        "one clean soft drum hit with a delicate bell shimmer exactly on the first beat",
+        "then a gentle settle, a held warm D major chord on santoor and strings fading to near silence",
+        "no percussion after the hit",
+        "decaying slowly"
+      ],
+      "negative_local_styles": ["melody", "busy drums", "riser", "cymbal crash", "sub bass"]
+    }
+  ]
+}

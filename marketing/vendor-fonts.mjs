@@ -32,10 +32,12 @@ const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ' +
   '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
+// 800 is for the feature reels' display headlines (marketing/reels); the
+// pamphlet itself never asks for it.
 const GOOGLE_CSS =
   'https://fonts.googleapis.com/css2' +
-  '?family=Inter:wght@400;500;600;700' +
-  '&family=Noto+Sans+Devanagari:wght@400;500;600;700' +
+  '?family=Inter:wght@400;500;600;700;800' +
+  '&family=Noto+Sans+Devanagari:wght@400;500;600;700;800' +
   '&family=Space+Grotesk:wght@400;500;600;700' +
   '&family=Tiro+Devanagari+Hindi' +
   '&display=swap';

@@ -30,3 +30,10 @@ __pycache__/
 
 # Signed, expiring download links from Google Flow
 films/flow-kavach/vids.txt
+
+# Feature reels (marketing/reels/): the root .gitignore ignores every build/
+# folder, so re-include each reel's source and keep its media and scratch out.
+!reels/*/build/
+reels/*/build/audio/
+reels/*/build/.cards-src/
+reels/*/build/.frames*/

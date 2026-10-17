@@ -1,0 +1,525 @@
+// GENERATED from script.json by kit/audio — do not edit.
+window.SCRIPT = {
+  "reel": "01-dsr",
+  "bpm": 120,
+  "duration": 30,
+  "lines": [
+    {
+      "id": "L1",
+      "start": 0.1,
+      "screen": "रात 11:30 / DSR का हिसाब फिर नहीं मिल रहा?",
+      "tts": "डी-एस-आर का हिसाब नहीं मिल रहा?",
+      "hash": "bf0e7a347d6bd08d8b7cf277",
+      "seconds": 2.972,
+      "chars": 31,
+      "onset": 0,
+      "end": 1.59,
+      "heard": "DSR का हिसाब नहीं मिल रहा",
+      "words": [
+        {
+          "w": "DSR",
+          "t0": 0.1,
+          "t1": 0.56
+        },
+        {
+          "w": "का",
+          "t0": 0.64,
+          "t1": 0.72
+        },
+        {
+          "w": "हिसाब",
+          "t0": 0.74,
+          "t1": 1.06
+        },
+        {
+          "w": "नहीं",
+          "t0": 1.1,
+          "t1": 1.26
+        },
+        {
+          "w": "मिल",
+          "t0": 1.28,
+          "t1": 1.42
+        },
+        {
+          "w": "रहा",
+          "t0": 1.46,
+          "t1": 1.6
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "start": 2.7,
+      "screen": "एक जगह गलती — / पूरा पन्ना दोबारा।",
+      "tts": "एक जगह गलती, पूरा पन्ना दोबारा।",
+      "hash": "8a65070312ea23d2e1a6261f",
+      "seconds": 3.065,
+      "chars": 31,
+      "onset": 0,
+      "end": 2.18,
+      "heard": "एक जगह गलती, पूरा पन्ना दोबारा",
+      "words": [
+        {
+          "w": "एक",
+          "t0": 0.1,
+          "t1": 0.24
+        },
+        {
+          "w": "जगह",
+          "t0": 0.28,
+          "t1": 0.52
+        },
+        {
+          "w": "गलती",
+          "t0": 0.56,
+          "t1": 0.84
+        },
+        {
+          "w": "पूरा",
+          "t0": 1.32,
+          "t1": 1.56
+        },
+        {
+          "w": "पन्ना",
+          "t0": 1.6,
+          "t1": 1.82
+        },
+        {
+          "w": "दोबारा",
+          "t0": 1.84,
+          "t1": 2.16
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "start": 6,
+      "screen": "अब DSR — आपके फ़ोन पर",
+      "tts": "अब डी-एस-आर आपके फ़ोन पर।",
+      "hash": "5154f4fca55f67cfbaf8b08c",
+      "seconds": 2.833,
+      "chars": 25,
+      "onset": 0.085,
+      "end": 1.58,
+      "heard": "अब DSR आपके phone पर।",
+      "words": [
+        {
+          "w": "अब",
+          "t0": 0.12,
+          "t1": 0.26
+        },
+        {
+          "w": "DSR",
+          "t0": 0.36,
+          "t1": 0.9
+        },
+        {
+          "w": "आपके",
+          "t0": 0.96,
+          "t1": 1.22
+        },
+        {
+          "w": "phone",
+          "t0": 1.24,
+          "t1": 1.4
+        },
+        {
+          "w": "पर",
+          "t0": 1.46,
+          "t1": 1.68
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "start": 8.5,
+      "screen": "कल की बिक्री · आज का स्टॉक / आपके रजिस्टर के खानों में",
+      "tts": "कल की बिक्री, आज का स्टॉक, रजिस्टर के खानों में।",
+      "hash": "4723c86aa0f5015683d842fe",
+      "seconds": 4.969,
+      "chars": 48,
+      "onset": 0.077,
+      "end": 3.767,
+      "heard": "कल की बिक्री आज का stock register के खानों में",
+      "words": [
+        {
+          "w": "कल",
+          "t0": 0.1,
+          "t1": 0.24
+        },
+        {
+          "w": "की",
+          "t0": 0.34,
+          "t1": 0.44
+        },
+        {
+          "w": "बिक्री",
+          "t0": 0.48,
+          "t1": 0.8
+        },
+        {
+          "w": "आज",
+          "t0": 1.34,
+          "t1": 1.58
+        },
+        {
+          "w": "का",
+          "t0": 1.62,
+          "t1": 1.74
+        },
+        {
+          "w": "stock",
+          "t0": 1.82,
+          "t1": 2.18
+        },
+        {
+          "w": "register",
+          "t0": 2.7,
+          "t1": 3.12
+        },
+        {
+          "w": "के",
+          "t0": 3.2,
+          "t1": 3.32
+        },
+        {
+          "w": "खानों",
+          "t0": 3.38,
+          "t1": 3.66
+        },
+        {
+          "w": "में",
+          "t0": 3.7,
+          "t1": 3.82
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "start": 14.3,
+      "screen": "स्टॉक सीमा में है? / साफ़ लिखा",
+      "tts": "स्टॉक सीमा में है या नहीं, साफ़ लिखा।",
+      "hash": "23429b8659cfe9cd0ce43ca8",
+      "seconds": 3.622,
+      "chars": 37,
+      "onset": 0,
+      "end": 2.712,
+      "heard": "स्टॉक सीमा में है या नहीं? साफ लिखा।",
+      "words": [
+        {
+          "w": "स्टॉक",
+          "t0": 0.12,
+          "t1": 0.38
+        },
+        {
+          "w": "सीमा",
+          "t0": 0.46,
+          "t1": 0.72
+        },
+        {
+          "w": "में",
+          "t0": 0.76,
+          "t1": 0.88
+        },
+        {
+          "w": "है",
+          "t0": 0.94,
+          "t1": 1.12
+        },
+        {
+          "w": "या",
+          "t0": 1.16,
+          "t1": 1.26
+        },
+        {
+          "w": "नहीं",
+          "t0": 1.32,
+          "t1": 1.56
+        },
+        {
+          "w": "साफ",
+          "t0": 2.06,
+          "t1": 2.34
+        },
+        {
+          "w": "लिखा",
+          "t0": 2.38,
+          "t1": 2.76
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "start": 18,
+      "screen": "रजिस्टर में कोई भी उतार ले / MDG टीम देखकर भेजती है",
+      "tts": "कोई भी उतार ले। हमारी टीम देखकर भेजती है।",
+      "hash": "e2693f58ceb37c39a734f15b",
+      "seconds": 4.783,
+      "chars": 41,
+      "onset": 0.067,
+      "end": 3.74,
+      "heard": "कोई भी उतार ले। हमारी team देखकर भेजती है।",
+      "words": [
+        {
+          "w": "कोई",
+          "t0": 0.1,
+          "t1": 0.26
+        },
+        {
+          "w": "भी",
+          "t0": 0.3,
+          "t1": 0.36
+        },
+        {
+          "w": "उतार",
+          "t0": 0.4,
+          "t1": 0.68
+        },
+        {
+          "w": "ले",
+          "t0": 0.72,
+          "t1": 0.84
+        },
+        {
+          "w": "हमारी",
+          "t0": 2.1,
+          "t1": 2.5
+        },
+        {
+          "w": "team",
+          "t0": 2.54,
+          "t1": 2.76
+        },
+        {
+          "w": "देखकर",
+          "t0": 2.84,
+          "t1": 3.14
+        },
+        {
+          "w": "भेजती",
+          "t0": 3.24,
+          "t1": 3.62
+        },
+        {
+          "w": "है",
+          "t0": 3.64,
+          "t1": 3.86
+        }
+      ]
+    },
+    {
+      "id": "L7",
+      "start": 26,
+      "screen": "डीलर कवच / बात कीजिए / 1800-891-3496",
+      "tts": "डीलर कवच। हमसे बात कीजिए।",
+      "hash": "f32d9640363f838e750e2aa4",
+      "seconds": 2.74,
+      "chars": 25,
+      "onset": 0,
+      "end": 2.321,
+      "heard": "Dealer Kavach हमसे बात कीजिए।",
+      "words": [
+        {
+          "w": "Dealer",
+          "t0": 0.1,
+          "t1": 0.44
+        },
+        {
+          "w": "Kavach",
+          "t0": 0.52,
+          "t1": 0.86
+        },
+        {
+          "w": "हमसे",
+          "t0": 1.48,
+          "t1": 1.76
+        },
+        {
+          "w": "बात",
+          "t0": 1.8,
+          "t1": 2
+        },
+        {
+          "w": "कीजिए",
+          "t0": 2.06,
+          "t1": 2.42
+        }
+      ]
+    }
+  ],
+  "voiceChars": 238,
+  "music": {
+    "take": 2,
+    "bed": "audio/bed-final.wav",
+    "note": "take 2 delayed 0.186 s + groove pre-roll at 6.0-8.97; see AUDIO.md",
+    "turn": 6,
+    "arrival": 9,
+    "build": 18,
+    "payoff": 22,
+    "sting": 26,
+    "silence": [
+      12.47,
+      12.97
+    ],
+    "beat": 0.5
+  },
+  "cues": [
+    {
+      "at": 0,
+      "file": "woodblock",
+      "gainDb": -14,
+      "what": "wood-block: bar 1 downbeat"
+    },
+    {
+      "at": 0.5,
+      "file": "woodblock",
+      "gainDb": -18,
+      "what": "wood-block: digits wipe in"
+    },
+    {
+      "at": 1,
+      "file": "woodblock",
+      "gainDb": -18,
+      "what": "wood-block: wrong 4,322 wipes in"
+    },
+    {
+      "at": 1.5,
+      "file": "woodblock",
+      "gainDb": -12,
+      "what": "wood-block: the strike"
+    },
+    {
+      "at": 2,
+      "file": "woodblock",
+      "gainDb": -14,
+      "what": "wood-block: bar 2 downbeat, page copies"
+    },
+    {
+      "at": 2.5,
+      "file": "woodblock",
+      "gainDb": -18,
+      "what": "wood-block: beat"
+    },
+    {
+      "at": 3,
+      "file": "woodblock",
+      "gainDb": -18,
+      "what": "wood-block: beat"
+    },
+    {
+      "at": 3.5,
+      "file": "woodblock",
+      "gainDb": -18,
+      "what": "wood-block: beat"
+    },
+    {
+      "at": 4,
+      "file": "woodblock",
+      "gainDb": -15,
+      "what": "wood-block: bar 3 downbeat, thins"
+    },
+    {
+      "at": 5,
+      "file": "woodblock",
+      "gainDb": -18,
+      "what": "wood-block: beat 3, last one"
+    },
+    {
+      "at": 6.05,
+      "file": "sfx-paper",
+      "gainDb": -9,
+      "what": "paper slide: the row lifts off the page (peak 6.25)"
+    },
+    {
+      "at": 7,
+      "file": "subhit-phone",
+      "gainDb": -10,
+      "what": "HIT 1 of 3: sub-hit on the hard cut"
+    },
+    {
+      "at": 9,
+      "file": "tick",
+      "gainDb": -12,
+      "what": "counter tick (4,222 settles at 9.76)"
+    },
+    {
+      "at": 9.15,
+      "file": "tick",
+      "gainDb": -12,
+      "what": "counter tick (4,222 settles at 9.76)"
+    },
+    {
+      "at": 9.32,
+      "file": "tick",
+      "gainDb": -12,
+      "what": "counter tick (4,222 settles at 9.76)"
+    },
+    {
+      "at": 9.52,
+      "file": "tick",
+      "gainDb": -12,
+      "what": "counter tick (4,222 settles at 9.76)"
+    },
+    {
+      "at": 9.76,
+      "file": "tick",
+      "gainDb": -12,
+      "what": "counter tick (4,222 settles at 9.76)"
+    },
+    {
+      "at": 11.04,
+      "file": "whoosh",
+      "gainDb": -10,
+      "what": "whoosh: the fast blurred pan 11.0-11.5 (peak 11.25)"
+    },
+    {
+      "at": 13,
+      "file": "tickhi",
+      "gainDb": -9,
+      "what": "4,222 lands in SALES"
+    },
+    {
+      "at": 18.5,
+      "file": "tick",
+      "gainDb": -12,
+      "what": "cell lands in the paper register"
+    },
+    {
+      "at": 19,
+      "file": "tick",
+      "gainDb": -12,
+      "what": "cell lands in the paper register"
+    },
+    {
+      "at": 19.5,
+      "file": "tick",
+      "gainDb": -12,
+      "what": "cell lands in the paper register"
+    },
+    {
+      "at": 20,
+      "file": "tickhi",
+      "gainDb": -9,
+      "what": "cell lands in the paper register"
+    },
+    {
+      "at": 18,
+      "file": "riser",
+      "gainDb": -19,
+      "what": "riser 18.0-22.0 (ends on the hit)"
+    },
+    {
+      "at": 22,
+      "file": "subhit-phone",
+      "gainDb": -4,
+      "what": "HIT 2 of 3: strongest moment, row locks"
+    },
+    {
+      "at": 26,
+      "file": "brandhit-phone",
+      "gainDb": -10,
+      "what": "HIT 3 of 3: end card, the number lands"
+    }
+  ]
+};

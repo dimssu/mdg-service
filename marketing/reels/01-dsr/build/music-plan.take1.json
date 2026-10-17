@@ -1,0 +1,89 @@
+{
+  "positive_global_styles": [
+    "instrumental Indian-influenced underscore for a short motion-graphics film",
+    "no vocals",
+    "no singing",
+    "120 bpm",
+    "steady 4/4 pulse, every beat clearly audible",
+    "key of D: D minor turning to D major",
+    "warm, premium, restrained",
+    "sits under a spoken voice-over"
+  ],
+  "negative_global_styles": [
+    "vocals",
+    "choir",
+    "lyrics",
+    "EDM drop",
+    "dubstep",
+    "electric guitar solo",
+    "loud cymbal crashes",
+    "corporate uplifting"
+  ],
+  "sections": [
+    {
+      "section_name": "Worry",
+      "duration_ms": 6000,
+      "lines": [],
+      "positive_local_styles": [
+        "D minor",
+        "sparse and worried, a lot of empty space",
+        "low sustained drone on D",
+        "a single dry wood-block tapping on every beat at 120 bpm",
+        "quiet and tense"
+      ],
+      "negative_local_styles": ["melody", "bright", "major key", "full drum kit", "lush strings"]
+    },
+    {
+      "section_name": "The turn",
+      "duration_ms": 12000,
+      "lines": [],
+      "positive_local_styles": [
+        "turns to D major on the very first beat of this section",
+        "plucked santoor-like strings playing a light, confident repeating pattern",
+        "soft Indian hand percussion, dholak and shaker, steady 120 bpm pulse",
+        "warm sustained pad",
+        "confident and light, a feeling of relief",
+        "the wood-block is gone"
+      ],
+      "negative_local_styles": ["minor key", "dark", "heavy drums", "cymbal crash", "wood-block"]
+    },
+    {
+      "section_name": "Build",
+      "duration_ms": 4000,
+      "lines": [],
+      "positive_local_styles": [
+        "building and rising in D major",
+        "the plucked santoor pattern climbs higher in pitch",
+        "hand percussion gets busier with small fills",
+        "the pad swells louder",
+        "anticipation, a rising filtered texture towards the end"
+      ],
+      "negative_local_styles": ["drop", "silence", "minor key", "cymbal crash"]
+    },
+    {
+      "section_name": "Payoff",
+      "duration_ms": 4000,
+      "lines": [],
+      "positive_local_styles": [
+        "full and warm in D major",
+        "santoor melody at its fullest and highest",
+        "pad, soft hand percussion and a gentle low bass note",
+        "satisfying, resolved, confident but restrained",
+        "a soft low drum accent on the first beat"
+      ],
+      "negative_local_styles": ["cymbal crash", "EDM", "dubstep", "minor key"]
+    },
+    {
+      "section_name": "Sting and settle",
+      "duration_ms": 4000,
+      "lines": [],
+      "positive_local_styles": [
+        "one clean low drum hit with a delicate bell shimmer exactly on the first beat",
+        "then a gentle settle, a held warm D major chord fading to near silence",
+        "no percussion after the hit",
+        "decaying slowly"
+      ],
+      "negative_local_styles": ["melody", "drums", "riser", "cymbal crash"]
+    }
+  ]
+}

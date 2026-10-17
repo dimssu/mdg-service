@@ -1,0 +1,45 @@
+/* Reel kit — brand tokens (DIRECTION §5). Black and white, app-style; warm grey;
+   one gold accent per beat; card maroon arrives only inside real cards. */
+:root {
+  /* palette */
+  --black: #18181b;
+  --white: #ffffff;
+  --page: #fafaf9;
+  --wall: #f3f2f0;          /* warm grey: chat wallpaper */
+  --grey: #e7e5e4;          /* warm grey: bubble, rules */
+  --grey-2: #d6d3d1;
+  --muted: #78716c;
+  --muted-2: #57534e;
+  --gold: #f5a524;          /* one gold thing per beat, at most */
+  /* app imitation helpers (DIRECTION §5.4) */
+  --wa-bar-text: #111b21; --wa-bar-icon: #54656f; --wa-meta: #667781;
+  --wa-divider: #e9edef; --wa-row: #f0f2f5; --wa-tick: #53bdeb;
+  /* type */
+  --f-latin: 'Inter', 'Noto Sans Devanagari', system-ui, sans-serif;
+  --f-deva: 'Noto Sans Devanagari', 'Inter', system-ui, sans-serif;
+  /* safe zones */
+  --safe-l: 72px; --safe-r: 888px; --safe-t: 288px; --safe-b: 1248px;
+}
+
+html, body { margin: 0; padding: 0; background: #000; }
+body { width: 1080px; height: 1920px; overflow: hidden; }
+* { box-sizing: border-box; }
+
+#stage {
+  position: relative; width: 1080px; height: 1920px; overflow: hidden;
+  background: var(--page); color: var(--black);
+  font-family: var(--f-latin);
+  -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision;
+}
+.layer { position: absolute; inset: 0; }
+.abs { position: absolute; }
+
+/* Hindi runs: never tracked, roomy line-height (DIRECTION §5.2). */
+.hi, [lang=hi] { font-family: var(--f-deva); letter-spacing: 0 !important; line-height: 1.32; }
+.num { font-family: var(--f-latin); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+/* Kinetic line masks: padding keeps matras inside the mask. */
+.kline { display: block; overflow: hidden; padding: 0.3em 0.05em; margin: -0.3em 0; }
+.kline > .kin { display: inline-block; will-change: transform; }
+.kword { display: inline-block; overflow: hidden; padding: 0.3em 0.04em; margin: -0.3em 0; vertical-align: top; }
+.kword > .kin { display: inline-block; }

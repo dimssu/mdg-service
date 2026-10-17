@@ -1,0 +1,173 @@
+{
+  "duration": 30,
+  "bed": {
+    "file": "audio/bed-final.wav",
+    "offset": 0,
+    "gainDb": -10,
+    "silences": [
+      [
+        12.47,
+        12.97
+      ]
+    ],
+    "fadeOut": 0.6
+  },
+  "sfx": [
+    {
+      "file": "audio/woodblock.wav",
+      "at": 0.0,
+      "gainDb": -14,
+      "note": "wood-block: bar 1 downbeat"
+    },
+    {
+      "file": "audio/woodblock.wav",
+      "at": 0.5,
+      "gainDb": -18,
+      "note": "wood-block: digits wipe in"
+    },
+    {
+      "file": "audio/woodblock.wav",
+      "at": 1.0,
+      "gainDb": -18,
+      "note": "wood-block: wrong 4,322 wipes in"
+    },
+    {
+      "file": "audio/woodblock.wav",
+      "at": 1.5,
+      "gainDb": -12,
+      "note": "wood-block: the strike"
+    },
+    {
+      "file": "audio/woodblock.wav",
+      "at": 2.0,
+      "gainDb": -14,
+      "note": "wood-block: bar 2 downbeat, page copies"
+    },
+    {
+      "file": "audio/woodblock.wav",
+      "at": 2.5,
+      "gainDb": -18,
+      "note": "wood-block: beat"
+    },
+    {
+      "file": "audio/woodblock.wav",
+      "at": 3.0,
+      "gainDb": -18,
+      "note": "wood-block: beat"
+    },
+    {
+      "file": "audio/woodblock.wav",
+      "at": 3.5,
+      "gainDb": -18,
+      "note": "wood-block: beat"
+    },
+    {
+      "file": "audio/woodblock.wav",
+      "at": 4.0,
+      "gainDb": -15,
+      "note": "wood-block: bar 3 downbeat, thins"
+    },
+    {
+      "file": "audio/woodblock.wav",
+      "at": 5.0,
+      "gainDb": -18,
+      "note": "wood-block: beat 3, last one"
+    },
+    {
+      "file": "audio/sfx-paper.mp3",
+      "at": 6.05,
+      "gainDb": -9,
+      "note": "paper slide: the row lifts off the page (peak 6.25)"
+    },
+    {
+      "file": "audio/subhit-phone.wav",
+      "at": 7.0,
+      "gainDb": -10,
+      "note": "HIT 1 of 3: sub-hit on the hard cut"
+    },
+    {
+      "file": "audio/tick.wav",
+      "at": 9.0,
+      "gainDb": -12,
+      "note": "counter tick (4,222 settles at 9.76)"
+    },
+    {
+      "file": "audio/tick.wav",
+      "at": 9.15,
+      "gainDb": -12,
+      "note": "counter tick (4,222 settles at 9.76)"
+    },
+    {
+      "file": "audio/tick.wav",
+      "at": 9.32,
+      "gainDb": -12,
+      "note": "counter tick (4,222 settles at 9.76)"
+    },
+    {
+      "file": "audio/tick.wav",
+      "at": 9.52,
+      "gainDb": -12,
+      "note": "counter tick (4,222 settles at 9.76)"
+    },
+    {
+      "file": "audio/tick.wav",
+      "at": 9.76,
+      "gainDb": -12,
+      "note": "counter tick (4,222 settles at 9.76)"
+    },
+    {
+      "file": "audio/whoosh.wav",
+      "at": 11.04,
+      "gainDb": -10,
+      "note": "whoosh: the fast blurred pan 11.0-11.5 (peak 11.25)"
+    },
+    {
+      "file": "audio/tickhi.wav",
+      "at": 13.0,
+      "gainDb": -9,
+      "note": "4,222 lands in SALES"
+    },
+    {
+      "file": "audio/tick.wav",
+      "at": 18.5,
+      "gainDb": -12,
+      "note": "cell lands in the paper register"
+    },
+    {
+      "file": "audio/tick.wav",
+      "at": 19.0,
+      "gainDb": -12,
+      "note": "cell lands in the paper register"
+    },
+    {
+      "file": "audio/tick.wav",
+      "at": 19.5,
+      "gainDb": -12,
+      "note": "cell lands in the paper register"
+    },
+    {
+      "file": "audio/tickhi.wav",
+      "at": 20.0,
+      "gainDb": -9,
+      "note": "cell lands in the paper register"
+    },
+    {
+      "file": "audio/riser.wav",
+      "at": 18.0,
+      "gainDb": -19,
+      "note": "riser 18.0-22.0 (ends on the hit)"
+    },
+    {
+      "file": "audio/subhit-phone.wav",
+      "at": 22.0,
+      "gainDb": -4,
+      "note": "HIT 2 of 3: strongest moment, row locks"
+    },
+    {
+      "file": "audio/brandhit-phone.wav",
+      "at": 26.0,
+      "gainDb": -10,
+      "note": "HIT 3 of 3: end card, the number lands"
+    }
+  ]
+}
