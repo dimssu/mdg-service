@@ -136,9 +136,9 @@ green, no teal.
 | Inside recreated cards | the card's own stack, verbatim | as built |
 
 Fonts load from the vendored files in `marketing/pamphlet/fonts/` through
-`kit/brand/fonts.css`. Inter 800 and Noto Sans Devanagari 800 are not vendored
-yet: extend `marketing/vendor-fonts.mjs` to fetch them (same Google Fonts
-source) rather than falling back. A render with a missing face is a failed
+`kit/brand/fonts.css`. Inter and Noto Sans Devanagari are vendored at 400–800
+(reel 01 added 800 through `marketing/vendor-fonts.mjs`); fetch any other weight
+the same way rather than falling back. A render with a missing face is a failed
 render — check by measuring a known string's width, not with
 `document.fonts.check()` (it returns true for missing fonts).
 
@@ -205,7 +205,9 @@ for one, and then on its own stated axis.
   **stock check on the left, sales sheet on the right**; the viewer swipes in
   that order. The black mark in the chat header is app artwork, allowed
   whenever the phone is on screen. Draw the phone as a simple black-bezel
-  object at about 2.0–2.1× (390×811 CSS px logical); it is a stage, not a hero.
+  object at **≤ 1.68×** (390×811 CSS px logical), so the 414 px bezel stays inside
+  the 696 px centred width (§5.3). The earlier 2.0–2.1× predates that rule, and
+  reel 01 v2 shipped 1.72×. It is a stage, not a hero.
 - **Report cards** come from the real builders with invented data (recipe in
   `kit/README.md`), embedded as live DOM so the camera can macro-zoom without
   pixels and sections can be pulled apart. Hide the outlet code in both places it prints. Strip
@@ -265,7 +267,8 @@ photographs and stock footage · emoji as decoration (real UI emoji inside a
 real caption are fine) · stock icon packs · bouncy or overshooting easing ·
 letter-by-letter bouncing type · a whoosh on every cut · Ken Burns as the only
 move · slide-deck bullet lists · countdown/"limited offer" energy · a counter
-that always lands on a round number · everything centred with equal gaps ·
+that always lands on a round number · equal gaps everywhere (one centre axis
+is the rule, §5.3; the gaps between title, object and lockup must vary) ·
 the same fade-and-scale entrance on everything · tracked Devanagari ·
 anything that looks like a template · corporate-uplifting stock music.
 
@@ -355,7 +358,8 @@ dBTP**; check the peak of every low-bitrate copy separately.
    Look at every still: clutter, overlap, off-beat, unreadable, outside the safe
    box, broken Devanagari, numbers that disagree with each other, any figure on
    §4's never-state list. Then run `kit/render/safe.mjs` — eyes miss a line
-   that runs 40 px past x 888. Fix, re-shoot.
+   that runs 40 px past x 888 — and `kit/render/motion.mjs` (the longest still
+   run and the most Hindi words at once). Fix, re-shoot.
 6. **QA gate 2 — fresh-eyes critic.** A subagent that has not seen the build
    reviews the four sheets, the six hero beats at full size (frame 0, the
    turn, the data moment, the strongest moment, the end card and one more),
@@ -408,3 +412,16 @@ From these reels:
   gave each object its own band with air on both sides. The first centred pass
   then pushed seven lines and the phone number past x 888 — invisible by eye
   on a contact sheet, caught by measurement.
+- **A flat thing on a turning plane vanishes edge-on** (reel 02: the pin rode
+  a 180° turn and disappeared at the apex). Counter-rotate it so it always
+  faces the lens while it travels the arc.
+- **Something that leaves and comes back can tell a forbidden story.** When
+  reel 02's 50 L evaporation part travelled to the excess side, the −430 pin
+  stood outside the band and then "came back inside" — the banned
+  correction. Send a dashed copy; the real part never moves.
+- **An opacity dissolve is a crossfade.** A phone fading out over the next
+  shot is the banned crossfade (and its old title overprinted the new one).
+  Objects slide or scale in and out; nothing fades over something else.
+- **Eyes don't see a still frame or a ninth word.** The critic measured 1.5 s
+  of zero change and nine Hindi words with the labels counted; both looked
+  fine on the sheets. `motion.mjs` measures them.

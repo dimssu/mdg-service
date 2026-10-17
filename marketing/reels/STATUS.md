@@ -1,11 +1,11 @@
 # Reels — status
 
-**Active reel: 01 · DSR — v2 built (real logo, one centred axis), waiting for the owner's watch.** Next action: owner watches `01-dsr/out/v2.mp4` and gives notes; on approval, write reel 02's prompt — it inherits the v2 layout rules (DIRECTION §5.3).
+**Active reel: 02 · Stock check — v1 built, waiting for the owner's watch.** Next action: owner watches `02-stock-check/out/v1.mp4` with sound; notes become a revision, or approval moves on to reel 03's prompt. Reel 01 v2 is delivered; the owner said "Proceed" (17 Oct), which is not yet recorded as a verdict on it.
 
 | # | Reel | Prompt | Built | Version | Owner verdict | Next |
 |---|---|---|---|---|---|---|
 | 01 | DSR — रजिस्टर वाली रिपोर्ट | v1 | 17 Oct | v2 | v1: logo wrong, layout messy (fixed in v2) | v2 review: owner watches |
-| 02 | Stock check — एक अंतर, दो फ़ैसले | — | — | — | — | write prompt after 01's first review |
+| 02 | Stock check — एक अंतर, दो फ़ैसले | v1 | 17 Oct | v1 | — | v1 review: owner watches with sound |
 | 03 | Credit & DOD — कितना, कब तक | — | — | — | — | |
 | 04 | Supply — लोड क्यों रुका है | — | — | — | — | |
 | 05 | Papers — तारीख़ चुपचाप नहीं निकलेगी | — | — | — | — | |

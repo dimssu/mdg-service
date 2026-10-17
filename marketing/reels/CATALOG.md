@@ -126,12 +126,17 @@ line on what to do; beyond the band, the clause and its consequence.
 
 **Concept — "Same gap, opposite verdict."** An asymmetric band on a number
 line: the pin at −430 sits inside the long shortage side; a mirror flip moves
-it to +430 and it lands 30 L outside the shorter excess side; green turns to
-deep red. **Style:** precision instrument / Swiss data-viz — hairline scales,
-tick labels, one moving pin.
+it to +430 and it lands 30 L outside the shorter excess side. The instrument
+is the reel's own drawing, so it stays black, white and warm grey, with the
+30 L overshoot as the beat's one gold. Green and deep red arrive only inside
+the real card, whose verdict box makes the turn from green to red.
+**Style:** precision instrument / Swiss data-viz: hairline scales, tick labels,
+one moving pin.
 
-**Hooks.** `−430 L: ठीक। +430 L: सीमा से बाहर।` · `तेल उड़ सकता है — टंकी में आ नहीं सकता।` ·
-`4% की छूट — पर दोनों तरफ़ बराबर नहीं।`
+**Hooks.** `−430 L: सीमा में। +430 L: सीमा से बाहर।` (parallel, the card's own words;
+`ठीक` read as "a 430 L loss is fine") · `तेल उड़ सकता है — हवा से आ नहीं सकता।`
+("टंकी में आ नहीं सकता" contradicts every tanker) · `4% की सीमा — पर दोनों तरफ़ बराबर नहीं।`
+(`छूट` reads as a discount; keep it for the evaporation part only). Revised in reel 02's prompt review.
 
 **Figures** (fact file §4, checked). 10,000 L in the tank, 20,000 L of diesel
 sold since the inspection. Shortage band = 400 L (4% of 10,000) + 50 L (0.25% of
@@ -144,6 +149,38 @@ BEYOND PERMISSIBLE LIMIT` + tag `बिक्री व सप्लाई त�
 Consequences only in the card's words: excess beyond band → samples to lab,
 sales and supply can stop immediately; shortage beyond band → samples tested,
 written explanation called for, supply stops only if unsatisfactory.
+
+**Digest — verified with the live builder (17 Oct; HEAD `a56f323`).** The
+fixture `kit/cards/fixtures/02-stock-check.mjs` draws three cards. One diesel
+tank, `TANK -1`, report for **Tuesday 8 September 2026**, inspection on
+2 Sep, receipts since 24,000 L, testing since 72 L. Meters since the inspection
+total 20,072, so 20,000 L sold after testing. Dip stock 10,000 L. `shiftTime: ''`.
+- `var-short`: `-430` (the card prints a hyphen; reel type uses `−`), band
+  `4% of tank stock (400 L)  +  0.25% evaporation & handling on sales (50 L)`,
+  note `नियम 5.1.11 — टैंक स्टॉक का 4% और बिक्री पर वाष्पन/हैंडलिंग छूट`,
+  PERMISSIBLE `450`, NOT WITHIN `0`, verdict `स्टॉक सही है` /
+  `WITHIN PERMISSIBLE LIMIT`, action `कुछ नहीं करना — स्टॉक सीमा में है`.
+  Frame 1,112 × 1,160 px.
+- `var-excess`: `+430`, band `4% of tank stock (400 L)` with the note
+  `वाष्पन छूट सिर्फ़ कमी पर मिलती है · the evaporation allowance applies to a
+  shortage only`, PERMISSIBLE `400`, NOT WITHIN `+30`, deep-red verdict
+  `स्टॉक मान्य सीमा से भी ज़्यादा है` / `EXCESS BEYOND PERMISSIBLE LIMIT`,
+  tag `बिक्री व सप्लाई तुरंत रुक सकती है · SALES CAN BE STOPPED IMMEDIATELY`,
+  consequence `सीमा से ज़्यादा (+) वेरिएशन पर सैंपल लैब भेजा जाता है और सभी
+  उत्पादों की बिक्री व सप्लाई तुरंत रोक दी जाती है।` Frame 1,112 × 1,335 px.
+  Hide the whole `.action` box (`≈ 30 लीटर की टेस्टिंग/निकासी दिखाकर स्टॉक ठीक
+  करें` / `… before the next decant`) and the whole `.cq` consequence box: its
+  label prints `MDG दिशा-निर्देश 5.1.11`, and its sentence says sales "are
+  stopped" where the fact file says "can be". The verdict's tag keeps the
+  card's own "can" (`रुक सकती है`). Decided in reel 02's prompt review, 17 Oct.
+- `sales` (frame 1,432 × 842): only for the bubble's right picture. Yesterday's row closes on
+  today's opening: 7,720 + 6,000 = 13,720 − 10,000 = 3,720 − 12 = **3,708**.
+- Chat captions (the backend's own lines): within `📊 DSR · 8 सितंबर — स्टॉक
+  वेरिएशन सीमा में है।` · out of band `📊 DSR · 8 सितंबर — स्टॉक वेरिएशन सीमा
+  से बाहर है, कृपया देखें।`
+- Both variation cards carry the outlet code twice (header pill, footer) and
+  the date strip's left label `CURRENT DATE AND TIME · दिनांक व समय`: the kit's
+  `DSR_HIDE` hides all three.
 
 **Outcome line.** `नोटिस बनने से पहले पता चले — स्टॉक सीमा में है या नहीं।`
 

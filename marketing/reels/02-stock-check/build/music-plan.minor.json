@@ -1,0 +1,26 @@
+{
+  "positive_global_styles": [
+    "instrumental Indian acoustic underscore for a short motion-graphics film",
+    "no vocals",
+    "no singing",
+    "128 bpm",
+    "airy, spacious, clean, restrained",
+    "sits under a spoken voice-over"
+  ],
+  "negative_global_styles": ["vocals", "choir", "lyrics", "EDM drop", "dubstep", "808", "sub bass", "heavy kick drum", "cymbal crash", "corporate uplifting", "major key"],
+  "sections": [
+    {
+      "section_name": "Worry",
+      "duration_ms": 7500,
+      "lines": [],
+      "positive_local_styles": [
+        "D minor, with the flat third F natural, a dark worried uneasy mood",
+        "a soft tanpura drone on D playing from the very first beat to the last beat, no pause, no fade",
+        "a single dry high plucked santoor note now and then, widely spaced, sad and tense",
+        "no percussion at all",
+        "quiet and steady, no crescendo"
+      ],
+      "negative_local_styles": ["percussion", "drums", "tabla", "wood-block", "bright", "major key", "silence", "gap", "crescendo", "riser", "fade out", "busy"]
+    }
+  ]
+}

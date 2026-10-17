@@ -1,0 +1,92 @@
+{
+  "positive_global_styles": [
+    "instrumental Indian acoustic underscore for a short motion-graphics film",
+    "no vocals",
+    "no singing",
+    "128 bpm exactly",
+    "steady 4/4 pulse, every beat clearly audible",
+    "tanpura, santoor, tabla, dholak, shaker, plucked strings",
+    "clean, airy, spacious, bright mid-range and high-range instruments",
+    "warm, premium, restrained, measured and exact, never busy",
+    "sits under a spoken voice-over"
+  ],
+  "negative_global_styles": [
+    "vocals",
+    "choir",
+    "lyrics",
+    "EDM drop",
+    "dubstep",
+    "808",
+    "sub bass",
+    "heavy kick drum",
+    "electric guitar solo",
+    "loud cymbal crashes",
+    "corporate uplifting"
+  ],
+  "sections": [
+    {
+      "section_name": "Worry",
+      "duration_ms": 5625,
+      "lines": [],
+      "positive_local_styles": [
+        "D minor, with the flat third F natural, a dark worried uneasy mood",
+        "very sparse, almost nothing playing, a lot of silence between sounds",
+        "a soft sustained tanpura drone on D",
+        "a single dry high plucked santoor note tapping softly on the beat at 128 bpm",
+        "one muted dholak stroke on the first beat of each bar",
+        "quiet and tense"
+      ],
+      "negative_local_styles": ["bright", "major key", "full drum kit", "lush strings", "pad", "sub bass", "kick drum", "busy"]
+    },
+    {
+      "section_name": "The turn",
+      "duration_ms": 11250,
+      "lines": [],
+      "positive_local_styles": [
+        "the key changes to D major with F sharp on the very first beat of this section, a sudden brightening and a feeling of relief",
+        "bright plucked santoor playing a light, confident repeating pattern in eighth notes",
+        "soft tabla and dholak with a shaker keeping a steady 128 bpm pulse, the groove starts on the very first beat",
+        "warm sustained string pad",
+        "confident, light and airy, clear and measured",
+        "the same steady groove for the whole section, no build, no fills",
+        "the wood-block is gone"
+      ],
+      "negative_local_styles": ["minor key", "dark", "heavy drums", "cymbal crash", "wood-block", "sub bass", "kick drum", "build", "riser"]
+    },
+    {
+      "section_name": "Hold",
+      "duration_ms": 3750,
+      "lines": [],
+      "positive_local_styles": [
+        "D major, the same groove becomes sparser and more watchful",
+        "the santoor plays fewer notes, the tabla keeps a soft pulse, the string pad holds one suspended chord",
+        "attentive and calm, a pause of attention, not sadness"
+      ],
+      "negative_local_styles": ["minor key", "heavy drums", "cymbal crash", "sub bass", "build", "riser"]
+    },
+    {
+      "section_name": "Payoff",
+      "duration_ms": 5625,
+      "lines": [],
+      "positive_local_styles": [
+        "building and rising in D major for the first four seconds",
+        "the plucked santoor pattern climbs higher in pitch, tabla and hand percussion get busier with small fills, the string pad swells louder, a rising filtered texture",
+        "then for the final two seconds the fullest, warmest and strongest moment of the piece, santoor melody at its highest with strings and pad together, a satisfying resolved arrival",
+        "confident but restrained"
+      ],
+      "negative_local_styles": ["drop", "silence", "minor key", "cymbal crash", "EDM", "dubstep", "sub bass", "808"]
+    },
+    {
+      "section_name": "Sting and settle",
+      "duration_ms": 3750,
+      "lines": [],
+      "positive_local_styles": [
+        "one clean soft drum hit with a delicate bell shimmer exactly on the first beat",
+        "then a gentle settle, a held warm D major chord on santoor and strings fading to near silence",
+        "no percussion after the hit",
+        "decaying slowly"
+      ],
+      "negative_local_styles": ["melody", "busy drums", "riser", "cymbal crash", "sub bass"]
+    }
+  ]
+}

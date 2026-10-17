@@ -11,6 +11,8 @@
  *     "sfx":  [ { "file": "audio/tick.wav", "at": 9.2, "gainDb": -12 }, … ] }
  * Paths are relative to build/, or repo-relative when they start with "marketing/".
  *
+ * Optional "master": { "limit": 0.34 } adds a look-ahead peak limiter before loudnorm (reel 02).
+ *
  * Bed: gain, a 2.5 kHz pocket for the voice (−4 dB), silences (30 ms ramps),
  * sidechain-ducked under the voice, faded out at the end. Effects: 5 ms in /
  * 80 ms out, placed with adelay. Everything summed with amix normalize=0, then
@@ -52,7 +54,8 @@ parts.push(`[${bi}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=start=
   `volume=${b.gainDb ?? -14}dB,equalizer=f=2500:t=q:w=1:g=-4` +
   (sil ? `,volume='1${sil}':eval=frame` : '') +
   `,afade=t=out:st=${(D - fadeOut).toFixed(3)}:d=${fadeOut}[bedpre]`);
-parts.push(`[bedpre][key]sidechaincompress=threshold=0.03:ratio=8:attack=15:release=350[bed]`);
+const dk = b.duck ?? {};   // optional per-reel override of the duck, e.g. "duck": { "threshold": 0.012 } (defaults are the films' 0.03 / 8 / 15 / 350)
+parts.push(`[bedpre][key]sidechaincompress=threshold=${dk.threshold ?? 0.03}:ratio=${dk.ratio ?? 8}:attack=${dk.attack ?? 15}:release=${dk.release ?? 350}[bed]`);
 
 // Effects
 const sLabels = [];
@@ -62,7 +65,10 @@ for (const s of mix.sfx ?? []) {
   sLabels.push(`[s${i}]`);
 }
 const all = ['[bed]', '[voice]', ...sLabels];
-parts.push(`${all.join('')}amix=inputs=${all.length}:normalize=0,atrim=0:${D}[mix]`);
+// Optional master peak limiter (mix.json "master": { "limit": 0.34 }, a linear ceiling). Speech has a high crest factor: without it
+// the pre-normalisation true peak is too hot for a linear +6 dB gain, loudnorm falls back to its dynamic mode and rides the gain.
+const lim = mix.master?.limit;
+parts.push(`${all.join('')}amix=inputs=${all.length}:normalize=0,atrim=0:${D}${lim ? `,alimiter=limit=${lim}:attack=${mix.master.attack ?? 5}:release=${mix.master.release ?? 60}:level=disabled:latency=1` : ''}[mix]`);
 
 const pre = path.join(build, 'audio', 'mix-pre.wav');
 const args = ['-hide_banner', '-loglevel', 'error', '-y'];

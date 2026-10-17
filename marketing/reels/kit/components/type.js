@@ -57,11 +57,12 @@
      * Drive a line at time t: words rise in from below their masks starting at
      * tIn (stagger s between words, each over dur), then leave upward at tOut.
      */
-    play(line, t, tIn, tOut = Infinity, { dur = 0.42, stagger = 0.06, outDur = 0.2, outStagger = 0.012, drift = 0.02 } = {}) {
-      // a held line never freezes (DIRECTION §6): it grows by `drift` over its first 3.5 s
+    play(line, t, tIn, tOut = Infinity, { dur = 0.42, stagger = 0.06, outDur = 0.2, outStagger = 0.012, drift = 0.02, origin = '0 100%' } = {}) {
+      // a held line never freezes (DIRECTION §6): it grows by `drift` over its first 3.5 s.
+      // origin: a centred line should grow from its centre ('50% 100%'), or the drift walks it toward x 888.
       const span = Math.min(3.5, (tOut === Infinity ? 3.5 : tOut - tIn));
       const d = 1 + drift * E.sineInOut(M.p(t, tIn, Math.max(0.5, span)));
-      line.el.style.transformOrigin = '0 100%';
+      line.el.style.transformOrigin = origin;
       line.el.style.transform = `scale(${d.toFixed(4)})`;
       const n = line.parts.length;
       let any = false;

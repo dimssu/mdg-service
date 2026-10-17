@@ -52,6 +52,26 @@
           const k = frame.offsetWidth / f.width;
           return { x: (r.left - f.left) * k, y: (r.top - f.top) * k, w: r.width * k, h: r.height * k };
         },
+        /**
+         * Rect, in card pixels, of the first occurrence of `sub` inside an element's
+         * text (a Range over its text nodes) — for lifting part of one run, e.g.
+         * `(400 L)` out of the band line. Call at init, untransformed.
+         */
+        textRect(elOrSel, sub) {
+          const el = typeof elOrSel === 'string' ? root.querySelector(elOrSel) : elOrSel;
+          if (!el) throw new Error(`card.textRect: no ${elOrSel}`);
+          const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+          for (let n; (n = walker.nextNode());) {
+            const i = n.nodeValue.indexOf(sub);
+            if (i < 0) continue;
+            const rg = document.createRange();
+            rg.setStart(n, i); rg.setEnd(n, i + sub.length);
+            const f = frame.getBoundingClientRect(), r = rg.getBoundingClientRect();
+            const k = frame.offsetWidth / f.width;
+            return { x: (r.left - f.left) * k, y: (r.top - f.top) * k, w: r.width * k, h: r.height * k };
+          }
+          throw new Error(`card.textRect: "${sub}" not in ${elOrSel}`);
+        },
         text() {
           return frame.innerText;
         },
@@ -61,7 +81,8 @@
     /** Selectors every public reel hides on the DSR cards (DIRECTION §4, §5.4). */
     DSR_HIDE: ['.htitle .code', '.foot-r', '.ds-l'],
     /** Strings that must never be readable on a public card. */
-    FORBIDDEN: [/portal/i, /पोर्टल/, /IRAS/, /हाथ से भरी/, /डिप बढ़ने/, /MDG दिशा-निर्देश/, /\b\d{1,2}:\d{2}\b/],
+    // reel 02 added: the excess card's advice ("adjust the stock to fit"), the fixtures' code, the date strip's label
+    FORBIDDEN: [/portal/i, /पोर्टल/, /IRAS/, /हाथ से भरी/, /डिप बढ़ने/, /MDG दिशा-निर्देश/, /\b\d{1,2}:\d{2}\b/, /ठीक करें/, /decant/i, /X0X/, /CURRENT DATE AND TIME/],
     assertClean(handle, expect = []) {
       const txt = handle.text();
       const bad = K.card.FORBIDDEN.filter((re) => re.test(txt)).map(String);

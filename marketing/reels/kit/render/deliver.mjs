@@ -56,6 +56,7 @@ for (const f of [master, wa]) {
 console.table(report);
 const errs = [];
 for (const r of report) {
+  if (Number.isNaN(r.I)) errs.push(`${r.file}: no audio stream — render with --audio build/audio/mix.wav`);   // a silent render used to pass
   if (Math.abs(r.dur - 30) > 0.06) errs.push(`${r.file}: duration ${r.dur}`);
   if (!Number.isNaN(r.I) && Math.abs(r.I + 16) > 1.2) errs.push(`${r.file}: loudness ${r.I} LUFS`);
   if (!Number.isNaN(r.TP) && r.TP > -1.0) errs.push(`${r.file}: true peak ${r.TP} dBTP`);

@@ -10,7 +10,9 @@ import path from 'node:path';
 import { reelDir, launch, openReel, flag, opt } from './common.mjs';
 
 const dir = reelDir(process.argv[2]);
-const times = process.argv.slice(3).filter((a) => /^\d/.test(a)).map(Number);
+// times are the bare numbers — not the value that follows an --option
+const argv = process.argv.slice(3);
+const times = argv.filter((a, i) => /^\d/.test(a) && !(i > 0 && argv[i - 1].startsWith('--'))).map(Number);
 const scale = opt('scale', 0.5);
 const out = path.join(dir, 'out', 'look');
 mkdirSync(out, { recursive: true });

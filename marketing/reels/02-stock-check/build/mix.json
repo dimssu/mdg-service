@@ -1,0 +1,247 @@
+{
+  "duration": 30,
+  "bed": {
+    "file": "audio/bed-final.wav",
+    "offset": 0,
+    "gainDb": -8.0,
+    "silences": [],
+    "fadeOut": 0.6,
+    "duck": {
+      "threshold": 0.01,
+      "ratio": 8,
+      "attack": 15,
+      "release": 350
+    },
+    "note": "the silent beat 17.8125-18.28125 is cut into bed-final.wav itself (make-bed.py), so the 30 ms gate ramps of mix.mjs do not soften the +30 hit"
+  },
+  "master": {
+    "limit": 0.3,
+    "attack": 5,
+    "release": 60,
+    "note": "look-ahead peak limiter before loudnorm (kit mix.mjs change, see AUDIO.md): keeps loudnorm in linear mode"
+  },
+  "sfx": [
+    {
+      "at": 0.0,
+      "file": "audio/synth-intro.wav",
+      "gainDb": 0,
+      "what": "BED INSTRUMENTS (music, not events, not ducked): D drone, low pulse, F-natural plucks on the beat (0.47 0.94 2.34 3.28 4.69), D-major strum on 5.625"
+    },
+    {
+      "at": 0.02,
+      "file": "audio/hairline1.wav",
+      "gainDb": -15.3,
+      "what": "hairline ticks: the poster scale settles (bar 1) (1/5)"
+    },
+    {
+      "at": 0.04653,
+      "file": "audio/hairline3.wav",
+      "gainDb": -12.9,
+      "what": "hairline ticks: the poster scale settles (bar 1) (2/5)"
+    },
+    {
+      "at": 0.10618,
+      "file": "audio/hairline2.wav",
+      "gainDb": -12.0,
+      "what": "hairline ticks: the poster scale settles (bar 1) (3/5)"
+    },
+    {
+      "at": 0.1917,
+      "file": "audio/hairline3.wav",
+      "gainDb": -12.9,
+      "what": "hairline ticks: the poster scale settles (bar 1) (4/5)"
+    },
+    {
+      "at": 0.3,
+      "file": "audio/hairline1.wav",
+      "gainDb": -15.3,
+      "what": "hairline ticks: the poster scale settles (bar 1) (5/5)"
+    },
+    {
+      "at": 1.40625,
+      "file": "audio/hit1-short.wav",
+      "gainDb": -14,
+      "what": "HIT 1 of 3: the pin lands at +430, outside (short tail so \"फैसला\" is not masked)"
+    },
+    {
+      "at": 1.40625,
+      "file": "audio/tock.wav",
+      "gainDb": -16,
+      "what": "soft wooden tock: the pin lands (1.406)"
+    },
+    {
+      "at": 2.46,
+      "file": "audio/hairline2.wav",
+      "gainDb": -15.3,
+      "what": "hairline ticks: the scale's ticks become the rod's graduations (bar 2, beats 2-4) (1/9)"
+    },
+    {
+      "at": 2.48099,
+      "file": "audio/hairline3.wav",
+      "gainDb": -13.9,
+      "what": "hairline ticks: the scale's ticks become the rod's graduations (bar 2, beats 2-4) (2/9)"
+    },
+    {
+      "at": 2.52821,
+      "file": "audio/hairline1.wav",
+      "gainDb": -12.9,
+      "what": "hairline ticks: the scale's ticks become the rod's graduations (bar 2, beats 2-4) (3/9)"
+    },
+    {
+      "at": 2.59589,
+      "file": "audio/hairline2.wav",
+      "gainDb": -12.2,
+      "what": "hairline ticks: the scale's ticks become the rod's graduations (bar 2, beats 2-4) (4/9)"
+    },
+    {
+      "at": 2.68161,
+      "file": "audio/hairline3.wav",
+      "gainDb": -12.0,
+      "what": "hairline ticks: the scale's ticks become the rod's graduations (bar 2, beats 2-4) (5/9)"
+    },
+    {
+      "at": 2.78384,
+      "file": "audio/hairline1.wav",
+      "gainDb": -12.2,
+      "what": "hairline ticks: the scale's ticks become the rod's graduations (bar 2, beats 2-4) (6/9)"
+    },
+    {
+      "at": 2.90151,
+      "file": "audio/hairline2.wav",
+      "gainDb": -12.9,
+      "what": "hairline ticks: the scale's ticks become the rod's graduations (bar 2, beats 2-4) (7/9)"
+    },
+    {
+      "at": 3.03378,
+      "file": "audio/hairline1.wav",
+      "gainDb": -13.9,
+      "what": "hairline ticks: the scale's ticks become the rod's graduations (bar 2, beats 2-4) (8/9)"
+    },
+    {
+      "at": 3.18,
+      "file": "audio/hairline3.wav",
+      "gainDb": -15.3,
+      "what": "hairline ticks: the scale's ticks become the rod's graduations (bar 2, beats 2-4) (9/9)"
+    },
+    {
+      "at": 3.22,
+      "file": "audio/slide.wav",
+      "gainDb": -18,
+      "what": "metal slide: the dip rod rises (audible 3.22-3.80, peak 3.58)"
+    },
+    {
+      "at": 7.54,
+      "file": "audio/whoosh-flip.wav",
+      "gainDb": -15,
+      "what": "whoosh: FLIP of the tile into the card window (move starts 7.5; whoosh 7.54, peak 7.78, clear of the last syllable of line 3)"
+    },
+    {
+      "at": 11.3,
+      "file": "audio/hairline3.wav",
+      "gainDb": -15.3,
+      "what": "hairline ticks: the instrument re-forms out of the parts (bar 7) (1/7)"
+    },
+    {
+      "at": 11.32615,
+      "file": "audio/hairline2.wav",
+      "gainDb": -13.5,
+      "what": "hairline ticks: the instrument re-forms out of the parts (bar 7) (2/7)"
+    },
+    {
+      "at": 11.38497,
+      "file": "audio/hairline3.wav",
+      "gainDb": -12.4,
+      "what": "hairline ticks: the instrument re-forms out of the parts (bar 7) (3/7)"
+    },
+    {
+      "at": 11.46928,
+      "file": "audio/hairline1.wav",
+      "gainDb": -12.0,
+      "what": "hairline ticks: the instrument re-forms out of the parts (bar 7) (4/7)"
+    },
+    {
+      "at": 11.57606,
+      "file": "audio/hairline2.wav",
+      "gainDb": -12.4,
+      "what": "hairline ticks: the instrument re-forms out of the parts (bar 7) (5/7)"
+    },
+    {
+      "at": 11.70342,
+      "file": "audio/hairline3.wav",
+      "gainDb": -13.5,
+      "what": "hairline ticks: the instrument re-forms out of the parts (bar 7) (6/7)"
+    },
+    {
+      "at": 11.85,
+      "file": "audio/hairline1.wav",
+      "gainDb": -15.3,
+      "what": "hairline ticks: the instrument re-forms out of the parts (bar 7) (7/7)"
+    },
+    {
+      "at": 15.0,
+      "file": "audio/whoosh-mirror.wav",
+      "gainDb": -16,
+      "what": "whoosh: the mirror turn, 15.00-15.94 (edge-on at ~15.47)"
+    },
+    {
+      "at": 15.9375,
+      "file": "audio/tock.wav",
+      "gainDb": -16,
+      "what": "soft wooden tock: the pin lands at +430 again (15.938)"
+    },
+    {
+      "at": 18.28125,
+      "file": "audio/subhit-phone.wav",
+      "gainDb": -5,
+      "what": "HIT 2 of 3: NOT WITHIN +30 lands, after the silent beat"
+    },
+    {
+      "at": 19.69,
+      "file": "audio/whoosh-shrink.wav",
+      "gainDb": -15,
+      "what": "whoosh: the card shrinks into the phone (19.69, peak 19.88)"
+    },
+    {
+      "at": 20.625,
+      "file": "audio/riser.wav",
+      "gainDb": -19.0,
+      "what": "riser 20.625 -> 24.375, ends on bar 14's downbeat"
+    },
+    {
+      "at": 21.1,
+      "file": "audio/hairline3.wav",
+      "gainDb": -15.3,
+      "what": "hairline ticks: the bare band returns (bar 12) (1/5)"
+    },
+    {
+      "at": 21.14263,
+      "file": "audio/hairline1.wav",
+      "gainDb": -12.9,
+      "what": "hairline ticks: the bare band returns (bar 12) (2/5)"
+    },
+    {
+      "at": 21.2385,
+      "file": "audio/hairline2.wav",
+      "gainDb": -12.0,
+      "what": "hairline ticks: the bare band returns (bar 12) (3/5)"
+    },
+    {
+      "at": 21.37594,
+      "file": "audio/hairline3.wav",
+      "gainDb": -12.9,
+      "what": "hairline ticks: the bare band returns (bar 12) (4/5)"
+    },
+    {
+      "at": 21.55,
+      "file": "audio/hairline1.wav",
+      "gainDb": -15.3,
+      "what": "hairline ticks: the bare band returns (bar 12) (5/5)"
+    },
+    {
+      "at": 26.25,
+      "file": "audio/hit3-short.wav",
+      "gainDb": -12,
+      "what": "HIT 3 of 3: end card (the bed's own sting lands here too; short tail so \"डीलर कवच\" is not masked)"
+    }
+  ]
+}
