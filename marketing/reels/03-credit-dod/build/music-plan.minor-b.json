@@ -1,0 +1,55 @@
+{
+  "positive_global_styles": [
+    "instrumental Indian acoustic underscore for a short motion-graphics film",
+    "no vocals",
+    "no singing",
+    "120 bpm",
+    "airy, spacious, clean, restrained",
+    "sits under a spoken voice-over"
+  ],
+  "negative_global_styles": [
+    "vocals",
+    "choir",
+    "lyrics",
+    "EDM drop",
+    "dubstep",
+    "808",
+    "sub bass",
+    "heavy kick drum",
+    "cymbal crash",
+    "corporate uplifting",
+    "major key"
+  ],
+  "sections": [
+    {
+      "section_name": "Tense",
+      "duration_ms": 6000,
+      "lines": [],
+      "positive_local_styles": [
+        "D minor, a dark worried uneasy mood",
+        "one continuous low sustained drone on D from a bowed cello and a quiet string pad, held at a constant volume from the very first beat to the very last beat, no decay, no fade, no pause",
+        "tension, nothing else, perfectly static",
+        "no percussion at all",
+        "no melody"
+      ],
+      "negative_local_styles": [
+        "percussion",
+        "drums",
+        "tabla",
+        "plucked",
+        "pluck",
+        "santoor",
+        "bright",
+        "major key",
+        "silence",
+        "gap",
+        "crescendo",
+        "riser",
+        "fade out",
+        "busy",
+        "melody",
+        "decay"
+      ]
+    }
+  ]
+}

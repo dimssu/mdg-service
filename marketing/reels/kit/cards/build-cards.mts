@@ -26,6 +26,12 @@ const SRC = path.resolve(srcRoot);
 const BUILDERS: Record<string, () => Promise<(input: any) => string>> = {
   'dsr-sales': async () => (await import(path.join(SRC, 'services/dsr-report/cards.ts'))).buildSalesCardHtml,
   'dsr-variation': async () => (await import(path.join(SRC, 'services/dsr-report/cards.ts'))).buildVariationCardHtml,
+  // reel 03: the CREDIT & DOD card — the run's figures → display rows → HTML (no festival band)
+  'credit-dod': async () => {
+    const { buildCreditCard } = await import(path.join(SRC, 'automation/sdms/report/creditCard.ts'));
+    const { cardHtml } = await import(path.join(SRC, 'automation/sdms/report/renderCard.ts'));
+    return (input: any) => cardHtml(buildCreditCard(input), null);
+  },
 };
 
 const { cards } = await import(path.resolve(fixturePath));

@@ -221,6 +221,34 @@ past zero is repaid within 3 days, rolling past Sundays and the 2nd/4th
 Saturday. Do not narrate a purchase day (26-08 would need a Sunday purchase);
 if one is needed: bought Mon 24-08 → due Thu 27-08.
 
+**Card — verified with the live builder (18 Oct; HEAD `7c4d878`, card code last changed `3797213`).**
+The kit's `credit-dod` builder (`buildCreditCard` → `cardHtml`, no festival band) draws the card;
+frame **1,080 × 1,085 px** (1,000 px card + 40 px frame). The fixture
+`kit/cards/fixtures/03-credit-dod.mjs` now holds **one card, `due-3`, as of 23-08**:
+- It prints `DUE AMOUNT ₹4,86,120.00` (`इंडियन ऑयल के खाते में जमा करनी है`), `DUE DATE
+  26-08-2026`, `3 दिन बाक़ी हैं` / `3 days left`, the tiles `CURRENT LIMIT ₹25,00,000.00` ·
+  `AVAILED LIMIT ₹18,42,650.00` · `AVAILABLE LIMIT ₹6,57,350.00` with their Hindi lines,
+  `74% इस्तेमाल हो चुकी है` / `26% बची है`, and FORM OF LIMIT `DOD` highlighted over `CREDIT`
+  and `CASH & CARRY`.
+- Hide by element: `.code` (the header pill), `.t2` (the subtitle `रोज़ का उधार-हिसाब` —
+  "daily", a delivery promise the product does not make) and `.foot-l` (`DATA PREPARED AT` +
+  the as-of date). Keep `.foot-r`, the honest caveat `इस समय तक का हिसाब · इसके बाद की
+  खरीद-भुगतान इसमें नहीं है`. Never use `K.card.DSR_HIDE` here: on these cards `.foot-r` is
+  the caveat, not the code.
+- Chat line (backend `services/creditDod/share.ts`): `💳 ₹4,86,120.00 26 अगस्त तक जमा करें
+  (पोर्टल के अनुसार)।` — the reel's recreated bubble drops the bracketed clause (the one
+  sanctioned edit of a real string in the series: the chat line is our recreation, and
+  "portal" is a method leak): `💳 ₹4,86,120.00 26 अगस्त तक जमा करें।`, caption under the
+  picture as the app draws it.
+- **Not drawn, on purpose** (all five were drawn and checked on 18 Oct): `5 दिन बाक़ी` as of
+  21-08 (a 26-08 deadline can only follow a 23-08 trigger, so on 21-08 that debt does not
+  exist), any sequence of dated cards (it implies a delivery rhythm), and the 90%-used card
+  (its limits disagree with this one's). The countdown `3 → 2 → कल → आज` lives on the
+  reel's own board, undated.
+- **The 3-day rule, exactly:** credit taken past zero is repaid within three days; if the
+  third day is a Sunday, the 2nd or 4th Saturday or a bank holiday, the date moves to the
+  next working day (fact file §6; `automation/sdms/dodDueDate.ts`).
+
 **Outcome line.** `इंडियन ऑयल को कितना जमा करना है, और कब तक — साफ़ लिखा।`
 
 **Never / strip.** Footer `DATA PREPARED AT` + its time (strip the whole left

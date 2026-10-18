@@ -1,0 +1,243 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #f4ede0; font-family: 'Noto Sans Devanagari','Kohinoor Devanagari','Devanagari Sangam MN',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; }
+  #frame { display: inline-block; padding: 40px; }
+  #card {
+    width: 1000px; background: #fffdf5; border: 6px solid #7f1d1d;
+    border-radius: 22px; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(24,24,27,0.18);
+  }
+
+  /* --- brand bands --- */
+  /* Security-strip look: one long line of marks, over-wide and centred, so it
+     bleeds off BOTH edges instead of starting flush-left and being chopped. */
+  .band {
+    height: 40px; display: flex; align-items: center; justify-content: center;
+    overflow: hidden; background: linear-gradient(90deg, #f59e0b, #fbbf24 50%, #f59e0b);
+  }
+  .band-inner { display: flex; gap: 18px; flex: none; white-space: nowrap; }
+  #card > .band:last-child { border-top: 2px solid #7f1d1d; }
+  #card > .band:first-child { border-bottom: 2px solid #7f1d1d; }
+  .bmark { font-size: 16px; font-weight: 800; color: #7f1d1d; white-space: nowrap; }
+
+  /* --- header --- */
+  .header {
+    height: 124px; display: flex; align-items: center; gap: 10px; padding: 0 22px;
+    background: linear-gradient(180deg, #7f1d1d, #5c1010);
+  }
+  .hslot { width: 150px; display: flex; }
+  .hslot.right { justify-content: flex-end; }
+  .logo {
+    width: 70px; height: 70px; border-radius: 16px; background: #fff; color: #7f1d1d;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 21px; font-weight: 800; letter-spacing: -0.02em;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  }
+  .htitle { flex: 1; text-align: center; min-width: 0; }
+  .htitle .t1 { font-size: 38px; font-weight: 800; color: #fff; line-height: 1.05; white-space: nowrap; }
+  .htitle .t2 { font-size: 21px; font-weight: 600; color: #f59e0b; margin-top: 4px; }
+  .code {
+    background: #f59e0b; color: #7f1d1d; border-radius: 10px; padding: 8px 16px;
+    font-size: 25px; font-weight: 800; letter-spacing: 0.02em; white-space: nowrap;
+  }
+
+  /* --- hero --- */
+  .hero { display: flex; align-items: stretch; background: #fef2f2;
+          border-bottom: 3px solid #e7d9bf; }
+  .hero.adv { background: #f0fdf4; }
+  .hero-main { flex: 1; padding: 26px 28px 24px; min-width: 0; }
+  .eyebrow { font-size: 22px; font-weight: 800; letter-spacing: 0.06em; color: #7f1d1d; }
+  .hero.adv .eyebrow { color: #15803d; }
+  .amount {
+    margin-top: 6px; font-size: 88px; line-height: 1.02; font-weight: 800;
+    font-variant-numeric: tabular-nums; letter-spacing: -0.02em; color: #b91c1c;
+  }
+  .hero.adv .amount { color: #15803d; }
+  .eyebrow-hi { margin-top: 8px; font-size: 26px; font-weight: 600; color: #57534e; }
+  /* A lapsed deadline earns the loudest treatment the card has — but only once
+     it is past the window in which the portal may simply not have posted an
+     on-time deposit. Until then it is amber, matching the hedged wording. */
+  .hero.late { background: #fee2e2; }
+  .hero.late .eyebrow, .hero.late .hero-note { color: #b91c1c; }
+  .hero.lagging { background: #fff7ed; }
+  .hero.lagging .eyebrow, .hero.lagging .hero-note { color: #c2410c; }
+  .hero.lagging .amount { color: #c2410c; }
+  .hero-note { margin-top: 10px; font-size: 21px; font-weight: 700; }
+
+  .dpanel {
+    width: 320px; flex: none; padding: 26px 24px; border-left: 3px solid #e7d9bf;
+    background: #fffdf5; display: flex; flex-direction: column; justify-content: center;
+  }
+  .dp-l { font-size: 20px; font-weight: 800; letter-spacing: 0.06em; color: #7f1d1d; }
+  .dp-v { margin-top: 4px; font-size: 46px; font-weight: 800; font-variant-numeric: tabular-nums;
+          color: #1c1917; white-space: nowrap; }
+  .dp-h { margin-top: 8px; font-size: 23px; font-weight: 700; color: #57534e; line-height: 1.25; }
+  .dp-en { margin-top: 3px; font-size: 18px; font-weight: 600; color: #a8a29e; letter-spacing: 0.02em; }
+  .dpanel.t-overdue { background: #fee2e2; }
+  .dpanel.t-overdue .dp-v, .dpanel.t-overdue .dp-h { color: #b91c1c; }
+  .dpanel.t-overdue .dp-en { color: #b91c1c; }
+  .dpanel.t-lag     { background: #fff7ed; }
+  .dpanel.t-lag .dp-v, .dpanel.t-lag .dp-h { color: #c2410c; }
+  .dpanel.t-lag .dp-en { color: #c2410c; }
+  .dpanel.t-today   { background: #fff7ed; }
+  .dpanel.t-today .dp-h { color: #c2410c; }
+  .dpanel.t-soon    { background: #fffaf0; }
+  .dpanel.clear { background: #f0fdf4; }
+  .dpanel.clear .dp-l, .dpanel.clear .dp-h { color: #15803d; }
+  .dp-v.none { font-size: 38px; color: #15803d; }
+
+  /* --- credit-review lock --- */
+  /* Red like an overdue hero, but a flat panel with a heavy left rule rather
+     than a big number, so a card carrying BOTH reads as two separate messages
+     instead of one alarm printed twice. */
+  .lock {
+    padding: 20px 26px 20px 24px; background: #fee2e2;
+    border-left: 10px solid #b91c1c; border-bottom: 3px solid #e7d9bf;
+  }
+  .lock-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .lock-en { font-size: 26px; font-weight: 800; letter-spacing: 0.04em; color: #b91c1c; }
+  .lock-when {
+    font-size: 20px; font-weight: 700; color: #5c1010;
+    font-variant-numeric: tabular-nums;
+  }
+  .lock-hi { margin-top: 10px; font-size: 24px; font-weight: 700; color: #1c1917; line-height: 1.3; }
+  .lock-act { margin-top: 6px; font-size: 24px; font-weight: 800; color: #5c1010; line-height: 1.3; }
+  .lock-en2 { margin-top: 8px; font-size: 19px; font-weight: 600; color: #57534e; line-height: 1.3; }
+
+  /* --- blocks --- */
+  .block { padding: 22px 28px; border-bottom: 1.5px solid #e7d9bf; }
+  .block-h { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+  .bh-en { font-size: 20px; font-weight: 800; letter-spacing: 0.06em; color: #7f1d1d; }
+  .bh-hi { font-size: 20px; font-weight: 600; color: #57534e; }
+
+  .tiles { display: flex; gap: 14px; }
+  .tile { flex: 1; min-width: 0; background: #fff; border: 1.5px solid #e7d9bf;
+          border-radius: 14px; padding: 16px 16px 14px; }
+  .t-l { font-size: 16px; font-weight: 800; letter-spacing: 0.05em; color: #7f1d1d; }
+  .t-v { margin-top: 4px; font-size: 36px; font-weight: 800; font-variant-numeric: tabular-nums;
+         color: #1c1917; white-space: nowrap; }
+  /* A negative limit figure means the dealer is in CREDIT with Indian Oil —
+     money in their favour. Green, not red: the old card's red minus read as an
+     alarm on the one line that is good news. */
+  .t-v.credit { color: #15803d; }
+  .t-h { margin-top: 6px; font-size: 19px; font-weight: 600; color: #57534e; line-height: 1.25; }
+
+  .bar-wrap { margin-top: 16px; }
+  .bar { height: 20px; border-radius: 10px; background: #fff; border: 1.5px solid #e7d9bf;
+         overflow: hidden; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, #f59e0b, #ea580c); }
+  .bar-fill.hot { background: linear-gradient(90deg, #ef4444, #b91c1c); }
+  .bar-cap { margin-top: 7px; display: flex; justify-content: space-between;
+             font-size: 19px; font-weight: 600; color: #57534e; }
+  .bar-cap-r { color: #15803d; }
+  /* Stands in for the utilisation bar when the limit is locked. */
+  .lim-note { margin-top: 14px; font-size: 19px; font-weight: 700; color: #b91c1c;
+              line-height: 1.3; }
+
+  .chips { display: flex; gap: 12px; }
+  .chip { flex: 1; text-align: center; padding: 13px 8px; border-radius: 12px;
+          border: 1.5px solid #e7d9bf; background: #fff; color: #a8a29e;
+          font-size: 24px; font-weight: 800; letter-spacing: 0.04em; }
+  .chip.on { background: #7f1d1d; border-color: #7f1d1d; color: #fff; }
+  .chips-note { margin-top: 12px; font-size: 19px; font-weight: 700; color: #b91c1c;
+                line-height: 1.3; }
+
+  /* --- footer --- */
+  .foot { display: flex; align-items: center; gap: 18px; padding: 18px 28px; background: #fffaf0; }
+  .foot-l { flex: none; }
+  .foot-t { font-size: 16px; font-weight: 800; letter-spacing: 0.05em; color: #7f1d1d; }
+  .foot-v { margin-top: 2px; font-size: 25px; font-weight: 800; font-variant-numeric: tabular-nums;
+            color: #1c1917; white-space: nowrap; }
+  .foot-r { flex: 1; text-align: right; font-size: 19px; font-weight: 600; color: #57534e;
+            line-height: 1.3; }
+
+  /* --- festival greeting band (only present when one is live) --- */
+  
+  .fband {
+    height: 86px; display: flex; align-items: center; justify-content: center;
+    overflow: hidden; border-bottom: 2px solid #7f1d1d;
+  }
+  .frow { display: flex; align-items: center; gap: 14px; white-space: nowrap; }
+  .fpill {
+    padding: 9px 26px; border-radius: 999px;
+    background: rgba(255,255,255,0.94);
+    box-shadow: 0 2px 10px rgba(24,24,27,0.16);
+  }
+  .femblem { display: flex; align-items: center; }
+  .fhi { font-size: 27px; font-weight: 800; letter-spacing: -0.01em; }
+  .fsep { font-size: 22px; font-weight: 700; opacity: 0.45; }
+  .fen { font-size: 20px; font-weight: 700; letter-spacing: 0.02em; opacity: 0.82; }
+</style></head>
+<body><div id="frame"><div id="card">
+  <div class="band"><div class="band-inner"><span class="bmark">Dealer's कवच · @MDG Services</span><span class="bmark">Dealer's कवच · @MDG Services</span><span class="bmark">Dealer's कवच · @MDG Services</span><span class="bmark">Dealer's कवच · @MDG Services</span><span class="bmark">Dealer's कवच · @MDG Services</span><span class="bmark">Dealer's कवच · @MDG Services</span><span class="bmark">Dealer's कवच · @MDG Services</span></div></div>
+  <div class="header">
+    <div class="hslot"><div class="logo">MDG</div></div>
+    <div class="htitle">
+      <div class="t1">CREDIT &amp; DOD MONITORING</div>
+      <div class="t2">रोज़ का उधार-हिसाब</div>
+    </div>
+    <div class="hslot right"><div class="code">X0X</div></div>
+  </div>
+  <div class="hero">
+    <div class="hero-main">
+      <div class="eyebrow">DUE AMOUNT</div>
+      <div class="amount">₹4,86,120.00</div>
+      <div class="eyebrow-hi">इंडियन ऑयल के खाते में जमा करनी है</div>
+      
+    </div>
+    <div class="dpanel t-soon">
+         <div class="dp-l">DUE DATE</div>
+         <div class="dp-v">26-08-2026</div>
+         <div class="dp-h">3 दिन बाक़ी हैं</div>
+         <div class="dp-en">3 days left</div>
+       </div>
+  </div>
+  
+  <section class="block">
+    <div class="block-h">
+      <span class="bh-en">YOUR LIMIT</span>
+      <span class="bh-hi">आपकी उधार सीमा</span>
+    </div>
+    <div class="tiles">
+      <div class="tile">
+    <div class="t-l">CURRENT LIMIT</div>
+    <div class="t-v">₹25,00,000.00</div>
+    <div class="t-h">आज तक के लिए निर्धारित राशि</div>
+  </div>
+      <div class="tile">
+    <div class="t-l">AVAILED LIMIT</div>
+    <div class="t-v">₹18,42,650.00</div>
+    <div class="t-h">अभी तक की गई खपत की राशि</div>
+  </div>
+      <div class="tile">
+    <div class="t-l">AVAILABLE LIMIT</div>
+    <div class="t-v">₹6,57,350.00</div>
+    <div class="t-h">खपत के लिए बची हुई राशि</div>
+  </div>
+    </div>
+    <div class="bar-wrap">
+             <div class="bar"><div class="bar-fill" style="width:74%"></div></div>
+             <div class="bar-cap">
+               <span>74% इस्तेमाल हो चुकी है</span>
+               <span class="bar-cap-r">26% बची है</span>
+             </div>
+           </div>
+  </section>
+  <section class="block">
+    <div class="block-h">
+      <span class="bh-en">FORM OF LIMIT</span>
+      <span class="bh-hi">इन तीन में से एक — आपका नीचे हाइलाइट है</span>
+    </div>
+    <div class="chips"><span class="chip on">DOD</span><span class="chip">CREDIT</span><span class="chip">CASH &amp; CARRY</span></div>
+    
+  </section>
+  <div class="foot">
+    <div class="foot-l">
+      <div class="foot-t">DATA PREPARED AT</div>
+      <div class="foot-v"> · 23-08-2026</div>
+    </div>
+    <div class="foot-r">इस समय तक का हिसाब · इसके बाद की खरीद-भुगतान इसमें नहीं है</div>
+  </div>
+  <div class="band"><div class="band-inner"><span class="bmark">Dealer's कवच · @MDG Services</span><span class="bmark">Dealer's कवच · @MDG Services</span><span class="bmark">Dealer's कवच · @MDG Services</span><span class="bmark">Dealer's कवच · @MDG Services</span><span class="bmark">Dealer's कवच · @MDG Services</span><span class="bmark">Dealer's कवच · @MDG Services</span><span class="bmark">Dealer's कवच · @MDG Services</span></div></div>
+</div></div></body></html>

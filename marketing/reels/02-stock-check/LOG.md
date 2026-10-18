@@ -158,3 +158,8 @@ a hiss.
   from the MP4 itself confirm the fixes are in the file. `safe.mjs` and the new
   `motion.mjs` both pass (longest still run 0.4 s; at most 7 Hindi words on
   screen).
+
+## Owner verdict on v1 — 18 Oct 2026
+
+"Reel 02 v1 looks good." Approved. Committed and pushed as `0d05b10`. Media is
+git-ignored: run `node marketing/backup.mjs` to keep `out/` and `build/audio/`.

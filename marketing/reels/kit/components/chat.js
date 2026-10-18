@@ -109,6 +109,24 @@
      * A two-picture album bubble, as a DSR arrives: stock check left, sales right.
      * tiles: [{ w, h }] logical px. Returns { root, tiles: [div, div], caption }.
      */
+    /**
+     * One picture in a bubble (reel 03: the Credit & DOD card), the caption under it as the app draws it.
+     * tile: [w, h] logical px. Returns { root, tile, caption }.
+     */
+    photoBubble(wall, { left = 8, top = 60, tile = [306, 300], caption = '' } = {}) {
+      const b = el('div', 'bub tail');
+      b.style.left = `${left}px`;
+      b.style.top = `${top}px`;
+      const t = el('div', 'bub-tile');
+      t.style.width = `${tile[0]}px`;
+      t.style.height = `${tile[1]}px`;
+      b.appendChild(t);
+      const cap = el('div', 'bub-cap', caption);
+      cap.style.width = `${tile[0]}px`;
+      b.appendChild(cap);
+      wall.appendChild(b);
+      return { root: b, tile: t, caption: cap };
+    },
     albumBubble(wall, { left = 8, top = 60, tile = [146, 150], caption = '' } = {}) {
       const b = el('div', 'bub tail');
       b.style.left = `${left}px`;

@@ -82,7 +82,9 @@
     DSR_HIDE: ['.htitle .code', '.foot-r', '.ds-l'],
     /** Strings that must never be readable on a public card. */
     // reel 02 added: the excess card's advice ("adjust the stock to fit"), the fixtures' code, the date strip's label
-    FORBIDDEN: [/portal/i, /पोर्टल/, /IRAS/, /हाथ से भरी/, /डिप बढ़ने/, /MDG दिशा-निर्देश/, /\b\d{1,2}:\d{2}\b/, /ठीक करें/, /decant/i, /X0X/, /CURRENT DATE AND TIME/],
+    FORBIDDEN: [/portal/i, /पोर्टल/, /IRAS/, /हाथ से भरी/, /डिप बढ़ने/, /MDG दिशा-निर्देश/, /\b\d{1,2}:\d{2}\b/, /ठीक करें/, /decant/i, /X0X/, /CURRENT DATE AND TIME/,
+      // reel 03: the credit card's subtitle reads "daily" (a delivery promise) and its left footer a preparation stamp
+      /रोज़ का/, /DATA PREPARED AT/],
     assertClean(handle, expect = []) {
       const txt = handle.text();
       const bad = K.card.FORBIDDEN.filter((re) => re.test(txt)).map(String);

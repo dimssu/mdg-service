@@ -115,6 +115,7 @@
       ['600 40px "Noto Sans Devanagari"', 'रजिस्टर में कोई भी'],
       ['800 72px "Inter"', '1800-891-3496 Dealer Kavach'],
       ['500 30px "Inter"', 'OPENING STOCK RECEIPT'],
+      ['800 84px "Inter"', '₹4,86,120 ₹25,00,000'],   // ₹ lives in Inter's latin-ext file: load and prove it too (reel 03)
     ];
     await Promise.all(faces.map(([f, s]) => document.fonts.load(f, s)));
     await document.fonts.ready;

@@ -1,0 +1,186 @@
+{
+  "duration": 30,
+  "bed": {
+    "file": "audio/bed-final.wav",
+    "offset": 0,
+    "gainDb": -8.0,
+    "silences": [],
+    "fadeOut": 0.6,
+    "duck": {
+      "threshold": 0.01,
+      "ratio": 8.0,
+      "attack": 15,
+      "release": 350.0
+    },
+    "note": "the silent beat 8.5-9.0 is cut into bed-final.wav itself (make-bed.py), so the 30 ms gate ramps of mix.mjs do not soften the 9.0 re-entry"
+  },
+  "master": {
+    "limit": 0.3,
+    "attack": 5,
+    "release": 60,
+    "note": "look-ahead peak limiter before loudnorm (kit mix.mjs option, see reel 02 AUDIO.md): keeps loudnorm in linear mode"
+  },
+  "sfx": [
+    {
+      "at": 0.0,
+      "file": "audio/synth-intro.wav",
+      "gainDb": 0,
+      "what": "BED INSTRUMENTS (music, not events, not ducked): D drone, low pulse (0 2 4 5), dry high plucks (1.0 F5, 2.0 A4, 4.0 D5, 5.0 A5), D-major strum + hand-drum on 6.000",
+      "kind": "music"
+    },
+    {
+      "at": 0.5,
+      "file": "audio/clack-riffle.wav",
+      "gainDb": -14,
+      "what": "CLACK [amount + date -> riffle]: every flap flips once to another blank (11 flaps)",
+      "kind": "clack"
+    },
+    {
+      "at": 1.5,
+      "file": "audio/clack-settle.wav",
+      "gainDb": -17,
+      "what": "CLACK [amount + date -> dashes]: the flaps settle on dashes (under hit 1)",
+      "kind": "clack"
+    },
+    {
+      "at": 1.5,
+      "file": "audio/hit1.wav",
+      "gainDb": -13,
+      "what": "HIT 1 of 3: the flaps settle on dashes (in the comma gap, before \"कब\")",
+      "kind": "hit"
+    },
+    {
+      "at": 2.0,
+      "file": "audio/tanker.wav",
+      "gainDb": -16,
+      "what": "tanker passing: tyre rumble 2.0-2.9, swelling as it crosses the frame, gone before 2.95 (it never stops)",
+      "kind": "tanker"
+    },
+    {
+      "at": 3.0,
+      "file": "audio/clack-zero.wav",
+      "gainDb": -15,
+      "what": "CLACK [amount -> 0]: the last digit clacks to 0 (on \"शून्य\")",
+      "kind": "clack"
+    },
+    {
+      "at": 3.6,
+      "file": "audio/clack-minus.wav",
+      "gainDb": -17,
+      "what": "CLACK [amount -> −]: the 0 flap turns to − (on \"नीचे\")",
+      "kind": "clack"
+    },
+    {
+      "at": 4.65,
+      "file": "audio/clack-3din.wav",
+      "gainDb": -12,
+      "what": "CLACK [date -> 3 + दिन]: the date row: 3 + दिन (on \"गिनती\")",
+      "kind": "clack"
+    },
+    {
+      "at": 8.0,
+      "file": "audio/whoosh-flip.wav",
+      "gainDb": -17,
+      "what": "whoosh: the FLIP (8.0-8.42), gone before the silent beat",
+      "kind": "whoosh"
+    },
+    {
+      "at": 9.0,
+      "file": "audio/clack-amount.wav",
+      "gainDb": -14,
+      "what": "CLACK [amount -> ₹4,86,120]: the amount, digit by digit (under hit 2 and \"इतना\")",
+      "kind": "clack"
+    },
+    {
+      "at": 9.0,
+      "file": "audio/hit2.wav",
+      "gainDb": -9,
+      "what": "HIT 2 of 3: the amount lands; \"इतना\" starts on it",
+      "kind": "hit"
+    },
+    {
+      "at": 10.32,
+      "file": "audio/clack-date.wav",
+      "gainDb": -12,
+      "what": "CLACK [date -> 26 + अगस्त]: the date row: 26 + अगस्त (on \"तारीख\")",
+      "kind": "clack"
+    },
+    {
+      "at": 12.5,
+      "file": "audio/clack-days1.wav",
+      "gainDb": -12,
+      "what": "CLACK [days -> 3 दिन बाक़ी]: days row flap 1 (on \"दिन\")",
+      "kind": "clack"
+    },
+    {
+      "at": 13.25,
+      "file": "audio/clack-days2.wav",
+      "gainDb": -12,
+      "what": "CLACK [days -> 2 दिन बाक़ी]: days row flap 2 (on \"यह\")",
+      "kind": "clack"
+    },
+    {
+      "at": 14.1,
+      "file": "audio/clack-days3.wav",
+      "gainDb": -12,
+      "what": "CLACK [days -> कल आख़िरी दिन]: days row flap 3 (voice-free)",
+      "kind": "clack"
+    },
+    {
+      "at": 15.0,
+      "file": "audio/clack-days4.wav",
+      "gainDb": -12,
+      "what": "CLACK [days -> आज ही जमा करना है]: days row flap 4 (voice-free)",
+      "kind": "clack"
+    },
+    {
+      "at": 20.0,
+      "file": "audio/whoosh-shrink.wav",
+      "gainDb": -21,
+      "what": "whoosh: the card shrinks into the bubble (20.0-20.5), under \"इंडियन ऑयल\"",
+      "kind": "whoosh"
+    },
+    {
+      "at": 22.0,
+      "file": "audio/whoosh-rise.wav",
+      "gainDb": -21,
+      "what": "whoosh: the board rises out of the bubble (22.0-22.56), under \"नजर\"",
+      "kind": "whoosh"
+    },
+    {
+      "at": 22.4,
+      "file": "audio/clack-rowset.wav",
+      "gainDb": -15,
+      "what": "CLACK [amount + date -> ₹4,86,120 · 26 अगस्त]: the board's rows set (just after \"में\")",
+      "kind": "clack"
+    },
+    {
+      "at": 23.0,
+      "file": "audio/riser.wav",
+      "gainDb": -15.0,
+      "what": "riser 23.0 -> 26.0, ends on bar 14's downbeat",
+      "kind": "riser"
+    },
+    {
+      "at": 26.0,
+      "file": "audio/clack-fold1.wav",
+      "gainDb": -18,
+      "what": "CLACK [amount -> fold]: the amount row folds flat into the rule (the picture folds on bar 14's downbeat)",
+      "kind": "clack"
+    },
+    {
+      "at": 26.12,
+      "file": "audio/clack-fold2.wav",
+      "gainDb": -18,
+      "what": "CLACK [date -> fold]: the date row folds flat into the rule, 0.12 s after the amount row",
+      "kind": "clack"
+    },
+    {
+      "at": 28.0,
+      "file": "audio/hit3.wav",
+      "gainDb": -13,
+      "what": "HIT 3 of 3: the end card settles (the bed's own sting lands here too); between \"बात\" and \"कीजिए\"",
+      "kind": "hit"
+    }
+  ]
+}

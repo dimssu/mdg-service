@@ -7,7 +7,8 @@
  *
  * "Still" = fewer than --px pixels change (at --fuzz % tolerance) between frames
  * --step apart. Words count every visible run in `.rt` plus SCENE.wordSel (e.g.
- * the instrument's labels). Fails on a still run ≥ 0.5 s before --end, or > 7 words.
+ * the instrument's labels); text under an element marked [data-dup] (a split
+ * flap's second half) is not counted twice. Fails on a still run ≥ 0.5 s before --end, or > 7 words.
  */
 import { execFileSync } from 'node:child_process';
 import { writeFileSync, mkdirSync, rmSync } from 'node:fs';
@@ -34,7 +35,8 @@ for (let i = 0; i * STEP < D - 1e-3; i++) {
     let k = 0;
     for (const host of document.querySelectorAll(sel)) {
       const w = document.createTreeWalker(host, NodeFilter.SHOW_TEXT);
-      for (let x; (x = w.nextNode());) if (vis(x.parentElement)) k += x.textContent.split(/\s+/).filter((s) => /[ऀ-ॿ]/.test(s)).length;
+      // a split flap holds its glyph twice (top and bottom halves): text under [data-dup] is the second copy
+      for (let x; (x = w.nextNode());) if (vis(x.parentElement) && !x.parentElement.closest('[data-dup]')) k += x.textContent.split(/\s+/).filter((s) => /[ऀ-ॿ]/.test(s)).length;
     }
     return k;
   });
