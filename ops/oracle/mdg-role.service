@@ -1,0 +1,18 @@
+[Unit]
+Description=mdg-role: only the box api.mdgservices.in points at runs the scheduled jobs; app watchdog
+Wants=network-online.target
+After=network-online.target
+# Decide the role BEFORE pm2 brings the apps back after a reboot, so a box that
+# lost its primary role while it was down never boots straight into running jobs.
+Before=pm2-ubuntu.service
+
+[Service]
+Type=simple
+User=ubuntu
+ExecStartPre=/usr/local/sbin/mdg-role boot
+ExecStart=/usr/local/sbin/mdg-role loop
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

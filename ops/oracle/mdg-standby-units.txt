@@ -1,0 +1,46 @@
+# systemd units for the standby package. Installed by the commands in ops/README.md.
+
+### /etc/systemd/system/mdg-standby-push.service   (both boxes; only acts when PRIMARY)
+[Unit]
+Description=Pack code, settings and certificate for the backup box (mdg-standby-push)
+After=network-online.target
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/mdg-standby-push
+TimeoutStartSec=900
+
+### /etc/systemd/system/mdg-standby-push.path   (fires when code, settings, KK release or certificate change)
+[Unit]
+Description=Re-pack the backup when code, settings or the certificate change
+[Path]
+PathChanged=/home/ubuntu/mdg-backend/dist/index.js
+PathChanged=/home/ubuntu/mdg-backend/.env
+PathModified=/home/ubuntu/khata-kavach
+PathChanged=/home/ubuntu/khata-kavach/.env
+PathModified=/etc/letsencrypt/live/api.mdgservices.in
+Unit=mdg-standby-push.service
+[Install]
+WantedBy=multi-user.target
+
+### /etc/systemd/system/mdg-standby-push.timer   (daily backstop)
+[Unit]
+Description=Daily backup-package refresh
+[Timer]
+OnCalendar=*-*-* 22:30:00 UTC
+RandomizedDelaySec=600
+Persistent=true
+[Install]
+WantedBy=timers.target
+
+### /etc/systemd/system/mdg-standby-pull.service   (both boxes; runs at boot, before the role decision and pm2)
+[Unit]
+Description=Bring this box level with the live box before the apps start (mdg-standby-pull)
+Wants=network-online.target
+After=network-online.target
+Before=mdg-role.service pm2-ubuntu.service
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/mdg-standby-pull
+TimeoutStartSec=900
+[Install]
+WantedBy=multi-user.target

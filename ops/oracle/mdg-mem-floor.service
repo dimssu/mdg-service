@@ -1,0 +1,18 @@
+[Unit]
+Description=Hold memory so Oracle never sees this Always Free VM as idle (see mem-floor.py)
+After=network.target
+
+[Service]
+Type=simple
+DynamicUser=yes
+ExecStart=/usr/bin/python3 /usr/local/lib/mdg/mem-floor.py
+Environment=TARGET_PCT=35 MIN_FREE_MIB=4096 CHUNK_MIB=128 INTERVAL_S=30
+LimitMEMLOCK=infinity
+# If the kernel ever has to kill something for memory, kill this first.
+OOMScoreAdjust=1000
+Nice=19
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target

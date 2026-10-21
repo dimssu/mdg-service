@@ -11,6 +11,15 @@ Rules:
 
 ## Deploying the backend
 
+**Since 21 Oct 2026 the live backend is the Oracle server** —
+`ubuntu@92.4.88.49`, key `.secrets/oracle-free.key`, 2 cores / 12 GB. Deploy
+there; it builds in about a minute with memory to spare. Run `deploy.sh`
+detached, and between service runs. The AWS box this section describes
+is now the **backup**: kept stopped, and it copies the live box's built code by
+itself when it boots, so never deploy to it directly. Failover, the planned
+switch, and the rules that stop a restart from losing a run are in
+`ops/README.md`. Everything below about memory and swap is about the AWS box.
+
 **The box can compile again, but only just.** It was a 908 MB instance and a
 build there only ever succeeded by swapping — half an hour, and dead the moment
 anything else wanted memory. On 5 Sep 2026 it was OOM-killed mid-deploy, and the
